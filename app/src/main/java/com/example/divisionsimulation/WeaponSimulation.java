@@ -82,4 +82,9 @@ class WeaponSimulation {
         return Integer.toString(result);
     }
 
+    public String getheadshot_critical_sheld() {
+        int result = (int)(weapondemage*((shelddemage/100)+1)*((criticaldemage/100)+1)*((headshotdemage/100)+1));
+        return Integer.toString(result);
+    }
+
 }
