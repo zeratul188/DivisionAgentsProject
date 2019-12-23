@@ -10,10 +10,10 @@ import com.example.divisionsimulation.R;
 
 public class DemageSimulationActivity extends AppCompatActivity {
 
-    TextView txtBodyHealth, txtBodyCriticalHealth, txtHeadshotHealth, txtHeadshotCriticalHealth, txtDPSHealth, txtDPMHealth;
-    TextView txtBodySheld, txtBodyCriticalSheld, txtHeadshotSheld, txtHeadshotCriticalSheld, txtDPSSheld, txtDPMSheld;
-    TextView txtBodyHealthElite, txtBodyCriticalHealthElite, txtHeadshotHealthElite, txtHeadshotCriticalHealthElite, txtDPSHealthElite, txtDPMHealthElite;
-    TextView txtBodySheldElite, txtBodyCriticalSheldElite, txtHeadshotSheldElite, txtHeadshotCriticalSheldElite, txtDPSSheldElite, txtDPMSheldElite;
+    private TextView txtBodyHealth, txtBodyCriticalHealth, txtHeadshotHealth, txtHeadshotCriticalHealth, txtDPSHealth, txtDPMHealth;
+    private TextView txtBodySheld, txtBodyCriticalSheld, txtHeadshotSheld, txtHeadshotCriticalSheld, txtDPSSheld, txtDPMSheld;
+    private TextView txtBodyHealthElite, txtBodyCriticalHealthElite, txtHeadshotHealthElite, txtHeadshotCriticalHealthElite, txtDPSHealthElite, txtDPMHealthElite;
+    private TextView txtBodySheldElite, txtBodyCriticalSheldElite, txtHeadshotSheldElite, txtHeadshotCriticalSheldElite, txtDPSSheldElite, txtDPMSheldElite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
