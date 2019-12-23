@@ -107,17 +107,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="비 엄폐 대상 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtNotHideDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="정예 대상 데미지 (%)"
                 android:textSize="20sp"/>
             <EditText

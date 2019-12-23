@@ -19,7 +19,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
-    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtNotHideDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo;
+    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,12 +33,17 @@ public class HomeFragment extends Fragment {
         edtCriticalDemage = root.findViewById(R.id.edtCriticalDemage);
         edtHeadshot = root.findViewById(R.id.edtHeadshot);
         edtHeadshotDemage = root.findViewById(R.id.edtHeadshotDemage);
-        edtNotHideDemage = root.findViewById(R.id.edtNotHideDemage);
         edtEliteDemage = root.findViewById(R.id.edtEliteDemage);
         edtSheldDemage = root.findViewById(R.id.edtSheldDemage);
         edtHealthDemage = root.findViewById(R.id.edtHealthDemage);
         edtReload = root.findViewById(R.id.edtReload);
         edtAmmo = root.findViewById(R.id.edtAmmo);
+
+        WeaponSimulation ws = new WeaponSimulation();
+        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
+        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
+        ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
+        
 
         return root;
     }
