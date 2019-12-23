@@ -172,6 +172,7 @@
         android:padding="3dp">
 
         <Button
+            android:id="@+id/btnDPS"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -180,6 +181,7 @@
             android:background="#FF9800"
             android:layout_marginRight="10dp"/>
         <Button
+            android:id="@+id/btnDemageSimul"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"

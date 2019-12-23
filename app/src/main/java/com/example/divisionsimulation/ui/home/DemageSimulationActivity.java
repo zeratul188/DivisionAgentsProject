@@ -1,0 +1,68 @@
+package com.example.divisionsimulation.ui.home;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.divisionsimulation.R;
+
+public class DemageSimulationActivity extends AppCompatActivity {
+
+    TextView txtBodyHealth, txtBodyCriticalHealth, txtHeadshotHealth, txtHeadshotCriticalHealth, txtDPSHealth, txtDPMHealth;
+    TextView txtBodySheld, txtBodyCriticalSheld, txtHeadshotSheld, txtHeadshotCriticalSheld, txtDPSSheld, txtDPMSheld;
+    TextView txtBodyHealthElite, txtBodyCriticalHealthElite, txtHeadshotHealthElite, txtHeadshotCriticalHealthElite, txtDPSHealthElite, txtDPMHealthElite;
+    TextView txtBodySheldElite, txtBodyCriticalSheldElite, txtHeadshotSheldElite, txtHeadshotCriticalSheldElite, txtDPSSheldElite, txtDPMSheldElite;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.demagesimulationlayout);
+
+        Intent intent = getIntent();
+
+        txtBodyHealth = findViewById(R.id.txtBodyHealth);
+        txtBodyCriticalHealth = findViewById(R.id.txtBodyCriticalHealth);
+        txtHeadshotHealth = findViewById(R.id.txtHeadshotHealth);
+        txtHeadshotCriticalHealth = findViewById(R.id.txtHeadshotCriticalHealth);
+        txtDPSHealth = findViewById(R.id.txtBodyDPSHealth);
+        txtDPMHealth = findViewById(R.id.txtBodyDPMHealth);
+
+        txtBodyHealth.setText(intent.getExtras().getString("bodyhealth"));
+        txtBodyCriticalHealth.setText(intent.getExtras().getString("bodycriticalhealth"));
+        txtHeadshotHealth.setText(intent.getExtras().getString("headshothealth"));
+        txtHeadshotCriticalHealth.setText(intent.getExtras().getString("headshotcriticalhealth"));
+        txtDPSHealth.setText(intent.getExtras().getString("healthDPS"));
+        txtDPMHealth.setText(intent.getExtras().getString("healthDPM"));
+
+        txtBodySheld = findViewById(R.id.txtBodySheld);
+        txtBodyCriticalSheld = findViewById(R.id.txtBodyCriticalSheld);
+        txtHeadshotSheld = findViewById(R.id.txtHeadshotSheld);
+        txtHeadshotCriticalSheld = findViewById(R.id.txtHeadshotCriticalSheld);
+        txtDPSSheld = findViewById(R.id.txtBodyDPSSheld);
+        txtDPMSheld = findViewById(R.id.txtBodyDPMSheld);
+
+        txtBodySheld.setText(intent.getExtras().getString("bodysheld"));
+        txtBodyCriticalSheld.setText(intent.getExtras().getString("bodycriticalsheld"));
+        txtHeadshotSheld.setText(intent.getExtras().getString("headshotsheld"));
+        txtHeadshotCriticalSheld.setText(intent.getExtras().getString("headshotcriticalsheld"));
+        txtDPSSheld.setText(intent.getExtras().getString("sheldDPS"));
+        txtDPMSheld.setText(intent.getExtras().getString("sheldDPM"));
+
+        txtBodyHealthElite = findViewById(R.id.txtBodyHealthElite);
+        txtBodyCriticalHealthElite = findViewById(R.id.txtBodyCriticalHealthElite);
+        txtHeadshotHealthElite = findViewById(R.id.txtHeadshotHealthElite);
+        txtHeadshotCriticalHealthElite = findViewById(R.id.txtHeadshotCriticalHealthElite);
+        txtDPSHealthElite = findViewById(R.id.txtBodyDPSHealthElite);
+        txtDPMHealthElite = findViewById(R.id.txtBodyDPMHealthElite);
+
+        txtBodySheldElite = findViewById(R.id.txtBodySheldElite);
+        txtBodyCriticalSheldElite = findViewById(R.id.txtBodyCriticalSheldElite);
+        txtHeadshotSheldElite = findViewById(R.id.txtHeadshotSheldElite);
+        txtHeadshotCriticalSheldElite = findViewById(R.id.txtHeadshotCriticalSheldElite);
+        txtDPSSheldElite = findViewById(R.id.txtBodyDPSSheldElite);
+        txtDPMSheldElite = findViewById(R.id.txtBodyDPMSheldElite);
+
+    }
+}
