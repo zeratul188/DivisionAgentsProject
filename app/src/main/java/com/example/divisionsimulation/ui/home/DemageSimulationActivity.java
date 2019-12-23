@@ -57,12 +57,26 @@ public class DemageSimulationActivity extends AppCompatActivity {
         txtDPSHealthElite = findViewById(R.id.txtBodyDPSHealthElite);
         txtDPMHealthElite = findViewById(R.id.txtBodyDPMHealthElite);
 
+        txtBodyHealthElite.setText(intent.getExtras().getString("bodyhealthelite"));
+        txtBodyCriticalHealthElite.setText(intent.getExtras().getString("bodycriticalhealthelite"));
+        txtHeadshotHealthElite.setText(intent.getExtras().getString("headshothealthelite"));
+        txtHeadshotCriticalHealthElite.setText(intent.getExtras().getString("headshotcriticalhealthelite"));
+        txtDPSHealthElite.setText(intent.getExtras().getString("elitehealthDPS"));
+        txtDPMHealthElite.setText(intent.getExtras().getString("elitehealthDPM"));
+
         txtBodySheldElite = findViewById(R.id.txtBodySheldElite);
         txtBodyCriticalSheldElite = findViewById(R.id.txtBodyCriticalSheldElite);
         txtHeadshotSheldElite = findViewById(R.id.txtHeadshotSheldElite);
         txtHeadshotCriticalSheldElite = findViewById(R.id.txtHeadshotCriticalSheldElite);
         txtDPSSheldElite = findViewById(R.id.txtBodyDPSSheldElite);
         txtDPMSheldElite = findViewById(R.id.txtBodyDPMSheldElite);
+
+        txtBodySheldElite.setText(intent.getExtras().getString("bodysheldelite"));
+        txtBodyCriticalSheldElite.setText(intent.getExtras().getString("bodycriticalsheldelite"));
+        txtHeadshotSheldElite.setText(intent.getExtras().getString("headshotsheldelite"));
+        txtHeadshotCriticalSheldElite.setText(intent.getExtras().getString("headshotcriticalsheldelite"));
+        txtDPSSheldElite.setText(intent.getExtras().getString("elitesheldDPS"));
+        txtDPMSheldElite.setText(intent.getExtras().getString("elitesheldDPM"));
 
     }
 }

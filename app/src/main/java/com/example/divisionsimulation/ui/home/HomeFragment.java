@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                 ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
                 ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
 
-                Intent intent = new Intent(getActivity(), DemageSimulationActivity.class);
+                /*Intent intent = new Intent(getActivity(), DemageSimulationActivity.class);
 
                 intent.putExtra("bodyhealth",ws.getbody_health());
                 intent.putExtra("bodycriticalhealth", ws.getbody_critical_health());
@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("elitesheldDPS", ws.getdps_elite_sheld());
                 intent.putExtra("elitesheldDPM", ws.getdpm_elite_sheld());
 
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
