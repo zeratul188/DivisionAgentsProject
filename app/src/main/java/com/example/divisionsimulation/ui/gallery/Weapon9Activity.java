@@ -13,6 +13,7 @@ public class Weapon9Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon9layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("네임드 무기 정보");
 
     }
 

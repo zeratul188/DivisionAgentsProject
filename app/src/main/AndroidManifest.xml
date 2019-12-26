@@ -23,6 +23,14 @@
         <activity android:name=".ui.home.SimulActivity"></activity>
         <activity android:name=".ui.gallery.Weapon1Activity"></activity>
         <activity android:name=".ui.gallery.Weapon2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon9Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon10Activity"></activity>
     </application>
 
 </manifest>

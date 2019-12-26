@@ -13,6 +13,7 @@ public class Weapon8Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon8layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Double Barrel Sawed Off");
 
     }
 

@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
-public class Weapon6Activity extends AppCompatActivity {
+public class Weapon10Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.weapon6layout);
+        setContentView(R.layout.weapon10layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("산탄총");
+        setTitle("특수 효과 정보");
 
     }
 

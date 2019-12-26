@@ -1530,7 +1530,61 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="레인저"
+            android:text="소총수"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="조건 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="방어 4 이하"
+                    android:textSize="20sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="해당 무기 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="소총"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="헤드샷을 하면 5초 동안 무기 데미지가 10%/12%만큼 증가하며, 최대 5번까지 중첩됩니다. 5중첩 이후의 헤드샷은 지속시간을 갱신시킵니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="구제"
             android:textSize="25sp"
             android:textColor="#000000"
             android:layout_marginBottom="10dp"/>
@@ -1568,6 +1622,60 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:text="권총"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="적을 사살하면 50%/75%의 확률로 즉시 탄약을 보충합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가시"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="조건 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="다용도 5 이상"
+                    android:textSize="20sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="해당 무기 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
                     android:text="모든 무기"
                     android:textSize="20sp"/>
             </TableRow>
@@ -1576,7 +1684,478 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="대상과 떨어진 거리 5m마다 무기 데미지가 2%/3%만큼 증가합니다."
+            android:text="헤드샷으로 적을 처치하면 20초동안 스킬 데미지가 35% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="중압감"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="조건 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="공격 5 이하"
+                    android:textSize="20sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="해당 무기 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="모든 무기"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="소진된 방어도 5%마다 치명타 데미지가 10% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="흔들림 방지"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="조건 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="없음"
+                    android:textSize="20sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="해당 무기 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="기관단총"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이 무기로 전환하면, 5초간 안전성이 200% 증가하며, 적을 처치하면 지속시간이 갱신됩니다. 무기를 다시 전환하면 5초 동안 버프가 작동하지 않습니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="양심"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="조건 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="공격 4 이하"
+                    android:textSize="20sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="해당 무기 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="모든 무기"
+                    android:textSize="20sp"/>
+            </TableRow>
+
+        </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="상태이상 효과가 적용된 적을 처치하면 15m 내에 있는 모든 그룹 맴버의 치명타 확률 및 치명타 데미지가 20초 동안 20% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="두 번째 특수효과"
+            android:textSize="30sp"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="사거리"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="적정 사거리가 15%만큼 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="평정심"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안정성이 15%만큼 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="빠르고 경쾌하게"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="발사 속도가 10%/15% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="재즈 핸드"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="재장전 속도가 10%/20% 빨라집니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="정밀사격"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="명중률이 15% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="최적화"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="무기 조작력이 15% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="여유분"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="탄창 휴대량이 20%/50% 증가합니다. (산탄총 제외)"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="세 번째 특수효과"
+            android:textSize="30sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="뿌리 박기"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 엄폐할 경우 10초/15초 동안 모든 스킬 데미지 및 치유가 25%/30%만큼 증가합니다. 엄폐물에서 벗어나면 버프 효과가 제거됩니다. 60초에 1번씩만 발동합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="영원"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태에서 엄폐할 경우 해당 무기의 탄약이 5초마다 2개 충전됩니다. (권총은 제외)"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="윤활유"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태에서 무기 교체 속도가 10% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="대포"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 투척 거리가 10% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="리듬 타기"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 적을 처치하면 5% 확률로 활성화된 스킬 재사용 대기시간이 갱신됩니다. 60초에 1번씩만 발동합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="멈추고 누워서 구르기"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 구르기를 사용하면 화상, 출혈, 독 상태이상이 제거됩니다. 60초에 1번씩만 발동합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="스킬 방호"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 스킬을 사용하는 동안 방어도가 10% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="재장전 방호"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 재장전을 하는 동안 방어도가 10% 증가합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="참선"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태일 때 3초 동안 엄폐를 유지하면 시야 상실, 방향 감각 상실 상태이상 효과가 제고됩니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="재충전"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장착한 상태에서 방어도가 최대일 때 스킬을 사용하면 지속 시간과 사용 횟수, 탄약이 25%만큼 증가합니다.(권총은 제외)"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="와스컬리"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태에서 속박 상태이상에 걸릴 경우 저항합니다. 그후 5초간 면역이 됩니다. 60초에 1번씩만 발동합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전파"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태에서 요원에게 충격 상태이상 효과가 적용되면 10m 내에 있는 적에게 이전시킵니다. 60초에 1번만 발동합니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오버랩"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태일 때, 이 무기의 유형에 따라 현재 장착한 무기에 조작력 보너스가 부여됩니다."
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이중 기능"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태일 때, 빈탄창을 재장전하면 해당 탄창의 20%만큼 무료 탄약으로 돌려받습니다. 30초에 1번씩만 발동합니다."
             android:textSize="20sp"
             android:textColor="#000000"
             android:layout_marginBottom="20dp"/>

@@ -14,6 +14,7 @@ public class Weapon1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon1layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("돌격소총");
 
         Intent intent = getIntent();
     }

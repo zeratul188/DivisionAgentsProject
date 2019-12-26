@@ -57,6 +57,62 @@ public class GalleryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        btnWeapon[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon3Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon4Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon5Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon6Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[6].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon7Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[7].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon8Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[8].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon9Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[9].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon10Activity.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }

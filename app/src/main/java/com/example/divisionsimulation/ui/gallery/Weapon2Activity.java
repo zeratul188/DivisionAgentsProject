@@ -11,8 +11,9 @@ public class Weapon2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.weapon1layout);
+        setContentView(R.layout.weapon2layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("소총");
 
     }
 

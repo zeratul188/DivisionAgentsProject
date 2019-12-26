@@ -13,6 +13,7 @@ public class Weapon7Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon7layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("권총");
 
     }
 

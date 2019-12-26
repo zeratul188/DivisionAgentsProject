@@ -13,6 +13,7 @@ public class Weapon3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon3layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("지정 사수 소총");
 
     }
 

@@ -13,6 +13,7 @@ public class Weapon5Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weapon5layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("경기관총");
 
     }
 
