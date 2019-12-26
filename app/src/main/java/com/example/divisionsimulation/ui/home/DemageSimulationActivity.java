@@ -2,6 +2,7 @@ package com.example.divisionsimulation.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,9 @@ public class DemageSimulationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demagesimulationlayout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle("DPS 정보");
 
         Intent intent = getIntent();
 
@@ -78,5 +82,16 @@ public class DemageSimulationActivity extends AppCompatActivity {
         txtDPSSheldElite.setText(intent.getExtras().getString("elitesheldDPS"));
         txtDPMSheldElite.setText(intent.getExtras().getString("elitesheldDPM"));
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -18,7 +18,7 @@
             android:title="스킬 정보" />
     </group>
 
-    <item android:title="Communicate">
+    <!--<item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -27,6 +27,6 @@
                 android:id="@+id/nav_send"
                 android:title="@string/menu_send" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

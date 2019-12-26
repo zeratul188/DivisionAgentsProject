@@ -49,7 +49,7 @@ class DemageSimulThread extends Thread implements Serializable {
         double per;
         SimulActivity.txtSheld.setText(Integer.toString(sheld));
         SimulActivity.txtHealth.setText(Integer.toString(health));
-        while (sheld > 0) {
+        while (sheld > 0 && !Thread.interrupted()) {
             statue_log = "";
             ammo_log = "";
             now_demage = demage();
@@ -93,7 +93,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
             }
         }
-        while (health > 0) {
+        while (health > 0 && !Thread.interrupted()) {
             statue_log = "";
             ammo_log = "";
             now_demage = demage();

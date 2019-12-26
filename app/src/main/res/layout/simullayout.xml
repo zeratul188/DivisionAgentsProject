@@ -82,5 +82,14 @@
         android:textSize="15sp"
         android:textAlignment="center"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="진행 중 종료할 경우 꼭 상단 뒤로가기 버튼을 눌러주시기 바랍니다.\n\n그렇지 않으면 화면이 닫혀도 계속 진행됩니다."
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:layout_marginTop="150dp"/>
+
 
 </LinearLayout>
