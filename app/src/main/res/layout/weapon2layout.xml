@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnWP1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="경량형 M4"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="도심 MDR"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="ACR SS"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="M1A"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP5"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="MK17"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP6"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="USC .45 ACP"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP7"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="M16A2"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP8"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="1886"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP9"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="SIG 716"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP10"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="무자비"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustomspecial"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP11"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="냉혈한"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustomspecial"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP12"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="다이아몬드백"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustomspecial"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

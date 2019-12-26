@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/text_gallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,5 +16,111 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnWeapon1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="돌격소총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="소총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="지정사수소총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="기관단총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon5"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="경기관총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon6"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="산탄총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon7"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="권총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon8"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="보조무기 산탄총"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon9"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="네임드 무기"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnWeapon10"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="특수효과"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
