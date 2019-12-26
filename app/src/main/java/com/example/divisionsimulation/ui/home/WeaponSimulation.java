@@ -4,7 +4,6 @@ import android.text.Editable;
 
 class WeaponSimulation {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
-    private int health;
 
     public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; }
     public void setRPM(double rpm) { this.rpm = rpm; }
@@ -40,7 +39,7 @@ class WeaponSimulation {
 
     public String getdps_health() {
         int rps = (int)(rpm / 60);
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rps; i++) {
             temp = weapondemage*((healthdemage/100)+1);
@@ -48,22 +47,26 @@ class WeaponSimulation {
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
     public String getdpm_health() {
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rpm; i++) {
+            if (0 == (i%(int)ammo)) {
+                i += (int) reloadtime-1;
+                continue;
+            }
             temp = weapondemage*((healthdemage/100)+1);
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
@@ -89,7 +92,7 @@ class WeaponSimulation {
 
     public String getdps_sheld() {
         int rps = (int)(rpm / 60);
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rps; i++) {
             temp = weapondemage*((shelddemage/100)+1);
@@ -97,22 +100,26 @@ class WeaponSimulation {
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
     public String getdpm_sheld() {
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rpm; i++) {
+            if (0 == (i%(int)ammo)) {
+                i += (int) reloadtime-1;
+                continue;
+            }
             temp = weapondemage*((shelddemage/100)+1);
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
@@ -138,7 +145,7 @@ class WeaponSimulation {
 
     public String getdps_elite_health() {
         int rps = (int)(rpm / 60);
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rps; i++) {
             temp = weapondemage*((elitedemage/100)+1)*((healthdemage/100)+1);
@@ -146,22 +153,26 @@ class WeaponSimulation {
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
     public String getdpm_elite_health() {
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rpm; i++) {
+            if (0 == (i%(int)ammo)) {
+                i += (int) reloadtime-1;
+                continue;
+            }
             temp = weapondemage*((elitedemage/100)+1)*((healthdemage/100)+1);
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
@@ -187,7 +198,7 @@ class WeaponSimulation {
 
     public String getdps_elite_sheld() {
         int rps = (int)(rpm / 60);
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rps; i++) {
             temp = weapondemage*((elitedemage/100)+1)*((shelddemage/100)+1);
@@ -195,22 +206,26 @@ class WeaponSimulation {
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 
     public String getdpm_elite_sheld() {
-        int result, ransu;
+        int result = 0, ransu;
         double temp = 0;
         for (int i = 0; i < rpm; i++) {
+            if (0 == (i%(int)ammo)) {
+                i += (int) reloadtime-1;
+                continue;
+            }
             temp = weapondemage*((elitedemage/100)+1)*((shelddemage/100)+1);
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= critical) temp *= (criticaldemage/100)+1;
             ransu = (int)(Math.random()*123456)%101;
             if (ransu <= headshot) temp *= (headshotdemage/100)+1;
+            result += (int) temp;
         }
-        result = (int) temp;
         return Integer.toString(result);
     }
 }

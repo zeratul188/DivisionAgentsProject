@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="30dp" android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="방어구 : "
+            android:textSize="25sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtSheld"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="100dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="체력 : "
+            android:textSize="25sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtHealth"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="현재 데미지 : "
+            android:textSize="25sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtNowDemage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtAmmo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/txtStatue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="now statue"
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+
+</LinearLayout>
