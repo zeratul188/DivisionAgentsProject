@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ui.home.DemageSimulationActivity"></activity>
         <activity android:name=".ui.home.SimulActivity"></activity>
+        <activity android:name=".ui.gallery.Weapon1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2Activity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,13 @@
 package com.example.divisionsimulation.ui.gallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -13,10 +16,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
+import com.example.divisionsimulation.ui.home.DemageSimulationActivity;
 
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
+
+    private Button[] btnWeapon = new Button[10];
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +37,26 @@ public class GalleryFragment extends Fragment {
             }
         });*/
 
+        int temp;
+        for (int i = 0; i < btnWeapon.length; i++) {
+            temp = root.getResources().getIdentifier("btnWeapon"+(i+1), "id", getActivity().getPackageName());
+            btnWeapon[i] = (Button)root.findViewById(temp);
+        }
 
+        btnWeapon[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon1Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWeapon[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Weapon2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }

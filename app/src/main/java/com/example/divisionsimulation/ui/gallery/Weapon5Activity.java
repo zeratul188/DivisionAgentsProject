@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
-public class Weapon2Activity extends AppCompatActivity {
+public class Weapon5Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.weapon1layout);
+        setContentView(R.layout.weapon5layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
