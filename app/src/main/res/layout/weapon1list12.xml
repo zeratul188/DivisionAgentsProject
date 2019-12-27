@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Double Barrel Sawed Off"
+            android:text="Carbine 7"
             android:textSize="30sp"
             android:textColor="#000000"
             android:layout_marginBottom="15dp"/>
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:text="9960 ~ 12173"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="200 RPM"
+                    android:text="790 RPM"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="30"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2.2초"
+                    android:text="\?"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="반자동"
+                    android:text="자동"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -125,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="스킨"
+                    android:text="긴 광학레일, 5.56mm 탄창 슬롯, 긴 총열 하단부 레일, 5.56mm 총구 슬롯"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Double Barrel Sawed Off"
+                    android:text="-"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -159,7 +159,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장탄이 2발이라 빠르게 탄을 소진하고 완전충전 탤런트를 발동시키기 위해 사용하기도 한다. 더블배럴 샷건이니 만큼 전탄 명중시 데미지도 상당한 편."
+            android:text="TU5에서 추가된 돌격소총. 외형으로나 성능으로나, 전작의 경량형 M4를 계승하는 총기다. 대미지가 조금 낮지만, 꽤 빠른 연사속도와 낮은 반동, 안정적인 집탄을 갖췄다.\n\n다른 돌격소총들과의 차이점은 첫 번째 특성으로 항상 공급과잉(Overflowing)이 붙어서 나오는데, 완전히 텅 빈 탄창을 재장전 했을 때 3 번째 탄창의 스펙은 기존 탄창 스펙의 2배가 된다. 예를 들어 기존 30발이었다면 60발이 되는 식. 이 때문에 재장전 관련한 탤런트와 시너지가 좋고 여유분 탤런트가 붙어나온다면 금상첨화.[7] 물론 이 1탤런트는 다른 특성으로 바꿀 수 있다.\n\n안정성을 잡아주지 않으면 초탄 기준 시계 방향으로 반동이 튄다. 집탄율은 높아서 ACR급 레이저총이므로 명중률은 걱정하지 않아도 된다.\n\n대미지도 적당한데 RPM도 높고 집탄율이 상당해서 유저 세팅에 따라 가능성이 많지만 장탄수 관련 탤런트 때문에 유일하게 돌격소총 내 촉새와 시너지가 나쁘다.\n\n매닝 국립 동물원 임무를 처음으로 클리어하면 1개를 확정으로 준다."
             android:textSize="20sp"
             android:textColor="#000000"/>
 

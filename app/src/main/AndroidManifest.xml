@@ -31,6 +31,33 @@
         <activity android:name=".ui.gallery.Weapon8Activity"></activity>
         <activity android:name=".ui.gallery.Weapon9Activity"></activity>
         <activity android:name=".ui.gallery.Weapon10Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon1List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List9Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List10Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List11Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List12Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon1List13Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon2List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List9Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List10Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List11Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon2List12Activity"></activity>
     </application>
 
 </manifest>

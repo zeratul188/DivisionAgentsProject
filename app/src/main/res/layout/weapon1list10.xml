@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Double Barrel Sawed Off"
+            android:text="FAMAS 2010"
             android:textSize="30sp"
             android:textColor="#000000"
             android:layout_marginBottom="15dp"/>
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:text="9960 ~ 12173"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="200 RPM"
+                    android:text="900 RPM"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="30"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2.2초"
+                    android:text="1.9초"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="반자동"
+                    android:text="자동"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -125,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="스킨"
+                    android:text="스킨, 긴 광학레일, 짧은 총열 하단부 레일, 5.56mm 총구 슬롯"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Double Barrel Sawed Off"
+                    android:text="FAMAS 2010, FAMAS 2010 복제품"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -159,7 +159,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장탄이 2발이라 빠르게 탄을 소진하고 완전충전 탤런트를 발동시키기 위해 사용하기도 한다. 더블배럴 샷건이니 만큼 전탄 명중시 데미지도 상당한 편."
+            android:text="전작에서 엑조틱 무기였던 불프로그다. 일반 무기가 되면서 명중과 안정성을 높이면 대미지가 줄어들던 탤런트가 사라진지라 훨씬 편하게 사용할 수 있다. CTAR-21과 동일한 연사 속도 덕분에 치명타 세팅과의 궁합도 높다.\n\nRPM 대비 반동도 낮은 편이고 명중률도 나쁘지 않지만 장착 가능한 부속이 적은 편이라 커스텀이 비교적 자유롭지 못하다는 것이 단점이다. 그런 단점 때문인지 RPM 대비 대미지가 높아 DPS는 돌격소총 중 최고 수준이다.\n\nTU6 업데이트로 탄창 개조가 가능해졌다.\n그 덕분에 돌격소총을 사용하는 빌드에서, 특히 치명타와 클러치를 채용하는 빌드에서는 사용률이 상당히 높아졌다. 같은 광분-클러치 세팅에서 중압감, 펄스 부품(기술병)-감시병, 여유분+20발 대용량 탄창까지 맞추는 데 성공했다면 딜 측면에선 엑조틱 무기인 독수리보다 더 강력한 모습을 보이기도 한다."
             android:textSize="20sp"
             android:textColor="#000000"/>
 

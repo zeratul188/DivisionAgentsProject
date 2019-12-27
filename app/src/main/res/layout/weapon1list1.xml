@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Double Barrel Sawed Off"
+            android:text="경찰용 M4"
             android:textSize="30sp"
             android:textColor="#000000"
             android:layout_marginBottom="15dp"/>
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:text="9374~11457"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="200 RPM"
+                    android:text="850 RPM"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="30"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2.2초"
+                    android:text="2.1초"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="반자동"
+                    android:text="자동"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -125,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="스킨"
+                    android:text="스킨, 긴 광학 레일, 5.56mm 탄창, 긴 총열 하단부 레일, 5.56mm 총구 슬롯"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Double Barrel Sawed Off"
+                    android:text="경찰용 M4, 경찰용 M4 복제품"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -159,7 +159,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장탄이 2발이라 빠르게 탄을 소진하고 완전충전 탤런트를 발동시키기 위해 사용하기도 한다. 더블배럴 샷건이니 만큼 전탄 명중시 데미지도 상당한 편."
+            android:text="전작과 같이 RPM850이다. 높은 발사속도와 적당한 명중률, 비교적 낮은 반동에 어떤 탤런트가 붙어도 무난한 총기. 심지어 마찬가지의 이유로 호평을 받고 있는 CTAR-21와는 달리 설계도가 있는 데다 일찍 확보할 수가 있어서 원하는 탤런트도 얻기 편해 2019-04-05 패치 이후로도 돌격소총 한해서는 나쁘지 않은 평가를 받는다. 물론 장점이 사용하기 편하다는 것이라 화력 덕후 플레이어 한해서는 세팅이 맞춰질수록 타 돌격소총 군에서는 밀린다. 특히 딜이 타 돌격소총에 비해 낮은 편이라 고렙으로 가면 갈수록 한계점이 드러난다.\n\n저렙 한정 팁으로 극장 정착지 프로젝트를 진행하다 보면 경찰용 M4 설계도를 주므로 해당 구간에서 적당한 돌격소총을 파밍 하지 못한 경우 해당 프로젝트를 빠르게 해금하고 완료하자. 전작과는 다르게 캐릭터 레벨이 오르면 제작 결과물의 레벨도 같이 상승하므로 중반까지 계속 주력으로 사용할 수 있다."
             android:textSize="20sp"
             android:textColor="#000000"/>
 

@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Double Barrel Sawed Off"
+            android:text="CTAR-21"
             android:textSize="30sp"
             android:textColor="#000000"
             android:layout_marginBottom="15dp"/>
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:text="8788 ~ 10741"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="200 RPM"
+                    android:text="900 RPM"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="30"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2.2초"
+                    android:text="2.1초"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="반자동"
+                    android:text="자동"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -125,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="스킨"
+                    android:text="스킨, 짧은 광학레일, 5.56mm 탄창슬롯, 사이드 슬롯, 5.56mm 총구 슬롯"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Double Barrel Sawed Off"
+                    android:text="CTAR-21"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -159,7 +159,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장탄이 2발이라 빠르게 탄을 소진하고 완전충전 탤런트를 발동시키기 위해 사용하기도 한다. 더블배럴 샷건이니 만큼 전탄 명중시 데미지도 상당한 편."
+            android:text="돌격소총 중 RPM이 가장 높은 무기 중 하나. 디비전 2는 RPM이 높으면 발당 대미지가 낮고, RPM이 낮으면 발당 대미지가 높은 식으로 무기 간의 밸런스가 맞춰져 있지만, 적중 시 효과를 발휘하는 탤런트(ex : 클러치 - 치명타 시 생명력, 방어도 회복)와의 시너지를 고려한다면 RPM은 높을수록 좋다. 때문에 포텐셜이 매우 뛰어난 돌격소총. 대신 ACR 같은 저 RPM 무기는 돌격소총에 주어지는 800발의 탄환을 다 사용했을 때의 대미지 총량이 높아 장기전을 고려할 때 좋은 면이 있다.\n\nCTAR-21은 F2000에 비하면 무반동에 가까운 성능은 아니지만, 초탄에 한해 좌우로 튀지 않고 정직하게 위로 뜨는 반동을 갖고 있어서 반동 제어가 용이하며, 자동에임 보정이 몸 한가운데 잡히는 콘솔판에서는 자동으로 에임이 헤드로 가는 효과를(적정 거리 시) 얻을 수도 있어 사용하기에 따라 편리할 수도 있다.\n\n클러치 치명타 세팅 시 돌격소총을 사용하고자 한다면 좋은 선택이다. 부품으로 F2000보다 치명타 확률을 더 챙길 수 있으며, 높은 RPM으로 치명타를 많이 띄울 수 있다. 60발 900 RPM을 기준으로 치명타율을 50% 확보한다면 60발을 다 쏘는 4초 동안 총 생명력의 450%, 방어도의 60%의 회복을 기대할 수 있다."
             android:textSize="20sp"
             android:textColor="#000000"/>
 

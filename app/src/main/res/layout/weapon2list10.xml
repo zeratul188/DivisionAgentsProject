@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:src="@drawable/weapon2list10"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="무자비"
+            android:textSize="30sp"
+            android:textColor="#FFFE6E0E"
+            android:layout_marginBottom="15dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="어떤 사람들은 나더러 공감 능력이 없다고 하더군. 틀린 말이야, 내게 없는건 자비거든.\n\n-조디악. 하이에나 위원회 멤버-"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="이중 방아쇠"
+            android:textSize="25sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="해당 무기에는 방아쇠를 당기고 놓을 때 격발되는 이중 방아쇠가 부착되어있습니다."
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="게릴라전"
+            android:textSize="25sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="방아쇠를 당기면 뇌관 탄환이 발사되어 적의 신체에 박히고, 방아쇠를 놓으면 기폭 탄환이 발사되어 박혀 있는 뇌관 탄환을 모두 폭파합니다. 기폭 되는 뇌관 탄환 한 발당 뇌관 탄환의 대미지가 +75%만큼 증가합니다. 뇌관 탄환은 1명의 적에게만 유효하며 최대 5개의 탄환을 사용할 수 있습니다."
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="야수성"
+            android:textSize="25sp"
+            android:textColor="#000000"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="슬롯에 수납한 상태에서 사격을 적중시킬 경우 5% 확률로 +100%만큼 증가한 피해를 폭발 대미지로 줍니다."
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설명"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그랜드 워싱턴 호텔, 제퍼슨 트레이드 센터, 은행 본부, 디스트릭트 유니언 아레나의 하이에나 미션을 어려움 이상으로 플레이 할때 등장하는 보스 유닛을 처치할 시 매우 낮은 확률로 출현하는 특수 소총.\n\n2점사 고정에 초탄과 차탄의 반동이 상당히 심하고 공격력도 그리 높은 편이 아니라 외관까지 후져보이고 얼핏봐서는 이게 왜 특수등급 무기인지 이해할 수 없다. 그러나 무자비에는 '이중 방아쇠', '게릴라전', '야수성' 탤런트가 고정되어 게임에 등장하는 다른 무기와는 전혀 다른 작동방식을 가지고 있어 무기 사용에 앞서 작동방식을 이해해야 한다.\n\n'이중 방아쇠', '게릴라전' 탤런트에 의해 2점사의 첫 번째 탄환은 뇌관 탄환으로 맞춘 적에게 폭탄을 심어놓고, 두 번째 탄환은 기폭 탄환으로 뇌관 탄환이 박힌 적에게 맞히면 박혀있던 뇌관이 폭발하는 방식이다. 뇌관은 최대 5회까지 중첩되는데 단순히 1-2-3-4-5식으로 공격력이 늘어나는게 아니라 몇 배씩 증가하기 때문에[19] 무자비의 효율적인 사용은 뇌관을 중첩시키는 것이 관건이다. 그래서 2점사 중 초탄은 적에게 맞히고 차탄은 허공으로 쏴서 박힌 뇌관을 기폭시키지 않게 한 뒤 이 것을 몇 번 반복하다 차탄을 맞춰 중첩시킨 뇌관을 한번에 터뜨리는 식으로 사용해야한다.\n\n헤드샷 공격력까지 감안하면 특급 지정사수소총인 네메시스보다는 공격력이 떨어지지만 머리를 노려야하고 충전 시간까지 필요한 네메시스와는 달리 무자비는 대상의 어디를 맞히든지 뇌관이 심어지기 때문에 더 쉽게 사용할 수 있다. 특히 뇌관 중첩 테크닉도 몇 번만 연습하면 4~5초 안에 5스택을 쌓아 터뜨릴 수 있을 정도로 사용법이 그리 어렵지도 않다.\n\n'야수성' 탤런트는 무자비가 주무기 슬롯에 장착중일때 다른 주무기를 꺼내 사용하고 있을 때 발동한다. 적에게 사격을 적중할 시 5%의 확률로 무기 공격력의 100%를 더한 수치만큼의 폭발 대미지를 가한다. 막대한 추가 공격력에 폭발로 인한 경직효과까지 더해져 일반무기의 성능을 월등하게 끌어올려준다. 게다가 폭발탄으로 적을 사살하면 일정확률로 폭파 전문가 전문화의 M32A1 다연발 유탄 발사기 시그니처 무기의 탄환을 드랍하기 때문에 탄환 걱정을 다소 격감시켜주기까지 한다.\n\n과거에는 버그로 인해 무자비의 폭발 대미지가 장갑을 완전히 무시하는 탓에 중장갑병들이 순삭당해서 레이드 4넴 등 일부 구간에서 필수품 취급을 받았지만, 19년 6윌 14일 긴급점검으로 장갑관통이 삭제되었다. 그 대신 레이드의 장갑병 맷집을 너프한 것이 뒤늦게 확인됐으나 장갑관통 기능이 사라진 시점에서 이제 타 무기와 차별화 되는게 없다는 평가가 중론. 스택을 쌓을 시간에 다른 총으로 쏘는게 더 낫다는 의견으로 모아짐에 따라 다시 수납무기행이 되었다. 다만 투견의 장갑만은 패치 이후에도 여전히 무시하기 때문에[20] 투견이 많이 나오는 임무[21]에선 채용할 여지가 있다. TU6 업데이트 이후 백팩의 불꽃 탤런트가 재조명 받으면서, 이 무기도 많이 채용되는 추세이다. 야수성 탤런트의 폭발 데미지를 더욱 끌어올려서 딜 증가에 큰 도움이 되기 때문에, 자동화기를 하나만 들고 써도 괜찮은 빌드에서는 두 번째 주무기로 많이 채용한다."
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+</ScrollView>

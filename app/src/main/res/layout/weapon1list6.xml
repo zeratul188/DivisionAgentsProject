@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Double Barrel Sawed Off"
+            android:text="F2000"
             android:textSize="30sp"
             android:textColor="#000000"
             android:layout_marginBottom="15dp"/>
@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:text="9374 ~ 11457"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="200 RPM"
+                    android:text="850 RPM"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2"
+                    android:text="30"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -89,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="2.2초"
+                    android:text="1.8초"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="반자동"
+                    android:text="자동"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -125,7 +125,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="스킨"
+                    android:text="스킨, 광학레일, 5.56mm 탄창 슬롯, 5.56mm 총구 슬롯"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -143,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Double Barrel Sawed Off"
+                    android:text="F2000"
                     android:textSize="20sp"/>
 
             </TableRow>
@@ -159,7 +159,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="장탄이 2발이라 빠르게 탄을 소진하고 완전충전 탤런트를 발동시키기 위해 사용하기도 한다. 더블배럴 샷건이니 만큼 전탄 명중시 데미지도 상당한 편."
+            android:text="CTAR-21과 마찬가지로 RPM이 아주 높은 돌격소총이며, CTAR-21보다도 반동이 적은 편이라 장거리에서도 무반동에 가깝다. 대신 하단 레일에 부품을 달 수 없다는 단점이 있다. (CTAR-21은 해당 레일에 치명타율을 올려주는 레이저 포인터를 달 수 있어 비교된다.)\n\n스톡 기준 1시 방향으로 반동이 있으며 초탄과 두 번째 탄 사이에 반동이 제일 크다."
             android:textSize="20sp"
             android:textColor="#000000"/>
 

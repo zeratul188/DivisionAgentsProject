@@ -96,7 +96,7 @@
             android:layout_height="60dp"
             android:text="자유"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:background="@drawable/buttoncustomspecial"
             android:layout_marginBottom="20dp"/>
         <Button
