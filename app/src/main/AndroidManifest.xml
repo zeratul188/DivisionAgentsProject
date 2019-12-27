@@ -58,6 +58,57 @@
         <activity android:name=".ui.gallery.Weapon2List10Activity"></activity>
         <activity android:name=".ui.gallery.Weapon2List11Activity"></activity>
         <activity android:name=".ui.gallery.Weapon2List12Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon3List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon3List7Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon4List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List9Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List10Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List11Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon4List12Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon5List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon5List7Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon6List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon6List9Activity"></activity>
+
+        <activity android:name=".ui.gallery.Weapon7List1Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List2Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List3Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List4Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List5Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List6Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List7Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List8Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List9Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List10Activity"></activity>
+        <activity android:name=".ui.gallery.Weapon7List11Activity"></activity>
     </application>
 
 </manifest>

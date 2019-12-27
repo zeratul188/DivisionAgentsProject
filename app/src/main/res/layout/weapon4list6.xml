@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MPX"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="15dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="데미지 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="4989"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="발사 속도 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="850 RPM"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="장탄수 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="재장전 속도 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="2.2초"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="발사방식 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="자동"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="장착 가능 모드 : "
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="스킨, 긴 광학 레일, 9mm 탄창 슬롯, 짧은 총열 하단부 레일, 9mm 총구 슬롯"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="바리에이션 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="MPX"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설명"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MP5 총기 계열과 비슷하지만 RPM과 적정 사거리 및 치명타 사거리, 재장전 속도가 약간 높은 특징이 있다. 윗 레일과 아래 레일의 길이가 서로 상반된 점도 차이점. 초탄 반동은 강한편이지만 이후 반동제어는 어렵지 않다.\n\n중급 MPX 기관단총이라는 레벨 3짜리 유니크한 총기를 클럽 보상으로 획득할 수 있다."
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SOCOM Mk20 SSR"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="15dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="데미지 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="17463"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="발사 속도 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="275 RPM"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="장탄수 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="20"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="재장전 속도 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="2.2초"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="발사방식 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="반자동"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="장착 가능 모드 : "
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="스킨, 광학 레일, 7.62mm 탄창 슬롯, 긴 총열 하단부 레일, 7.52mm 총구 슬롯"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+            <TableRow>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="바리에이션 : "
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="SOCOM Mk20 SSR"
+                    android:textSize="20sp"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설명"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mk.17 SCAR-H의 지정사수소총 모델. SVD와 더불어 둘뿐인 반자동 지정사수소총이자 연사속도가 가장 빠른 지정사수소총. 명중률과 반동의 속성이 지정사수소총이라는 점[31]을 제외하면 거의 소총이나 다름없다. 지정사수소총이므로 당연히 대미지도 강력하기때문에 이론상 DPS는 어마어마하지만, 아무리 부속을 껴줘도 명중률과 반동을 소총수준으로 끌어올릴 수는 없기때문에 소총처럼 쓰기는 어렵다.\n\nMk.17과 같이 탄창 슬롯에 일반 7.62mm 탄창을 쓰기 때문에 경량형 대용량 7.62mm탄창이 달린다."
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+</ScrollView>
