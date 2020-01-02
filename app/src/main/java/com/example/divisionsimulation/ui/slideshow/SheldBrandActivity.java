@@ -41,6 +41,27 @@ public class SheldBrandActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnWP[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand3Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand4Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand5Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

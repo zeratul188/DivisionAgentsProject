@@ -36,19 +36,19 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
+                    android:src="@drawable/backpack"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
+                    android:src="@drawable/vests"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/glovesblack"
+                    android:src="@drawable/gloves"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="전체 방어도 +5%"
+                    android:text="명중률 +5%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="상태이상 저항 +20%"
+                    android:text="치명타 대미지 +10%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -128,7 +128,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="펄스 스킬 파워 +15%"
+                    android:text="치명타 확률 +7%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -156,48 +156,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="자벨리나 마스크"
+                android:text="'로몬드' 중형 호흡기"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/vestsblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="조끼"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="아르마딜로 조끼"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이구아나 허버크"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,86 +186,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="잭래빗 권총집"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/backpackblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="백팩"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Salvaged Big Horn Pack"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="길라 인벤토리 시스템"
+                android:text="'경외심' 허벅지 부착형 탄창/권총집"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="빅혼 팩"
+                android:text="'모라르' 권총집 시스템"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/glovesblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="장갑"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="다이아몬드백 장갑"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,7 +222,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="사이드와인더 무릎 보호대"
+                android:text="'테이' 호신용 무릎보호대"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -335,7 +231,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="방어적인 세팅이 눈에 띄는 브랜드로, 개조 슬롯이 많은게 특징인 브랜드다. 인내심 세팅을 할 때 무릎 보호대를 길라 가드로 골라주면 매우 편리하다.\n브랜드 특성으로 방어 옵션이나 슬롯이 잘 붙기 때문인데, 무려 방어 7 이상을 요구하는 인내심 탤런트를 발동시킬 때 동일 부위에서 방어 옵션을 최대한 끌어모아주면 다른 나머지 부위의 세팅이 훨씬 자유로워진다. 1세트 옵션인 전체 방어도+5%도 보통 인내심과 같이 가져가는 일이 많은 무적의 부대(동일하게 방어 7이상 발동이다. 적 처치시 방어도에 따라 공격력 상승) 탤런트와 궁합이 좋다."
+                android:text="작중 사격장 NPC로 창립자중 한명인 더글라스를 볼수있다.\n\n풀크확 기관단총 빌드에서 명중률 5%를 챙기기 위해 자주 기용된다.\n\n여담으로 워싱턴 호텔에 TV화면에 출력되는 문구를 보면 재앙발생 직전에 전작의 적성세력인LMB의 본사와 앤드류 대통령 [4] 그리고 이 기업이 함께 포럼을 개최할 예정이었던것으로 보인다."
                 android:textSize="20sp"
                 android:textColor="#000000"/>
         </LinearLayout>

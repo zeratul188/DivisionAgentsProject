@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="전체 방어도 +5%"
+                    android:text="생명력 +8%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="상태이상 저항 +20%"
+                    android:text="상태 이상 저항 +10%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -128,7 +128,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="펄스 스킬 파워 +15%"
+                    android:text="파이어플라이 스킬 파워 +15%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -156,7 +156,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="자벨리나 마스크"
+                android:text="'만그' 얼굴 보호대"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -186,18 +186,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="아르마딜로 조끼"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이구아나 허버크"
+                android:text="'다다미' 가슴 보호대"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="10dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,7 +215,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="잭래빗 권총집"
+                android:text="'하이다테' 허벅지 부착형 시스템"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -248,26 +241,17 @@
                     android:textColor="#000000"/>
 
             </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salvaged Big Horn Pack"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="길라 인벤토리 시스템"
+                android:text="'사시모노' 백팩"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="빅혼 팩"
+                android:text="'호로' 운송 백팩"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -296,12 +280,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="다이아몬드백 장갑"
+                android:text="'코테' 손 보호대"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="'활깍지' 화기 장갑"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -322,11 +312,24 @@
                     android:textColor="#000000"/>
 
             </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="사이드와인더 무릎 보호대"
+                android:text="'Suneate' Knee Braces 복제품"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="'스네아테' 무릎 아대"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvaged 'Suneate' Knee Braces"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -335,7 +338,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="방어적인 세팅이 눈에 띄는 브랜드로, 개조 슬롯이 많은게 특징인 브랜드다. 인내심 세팅을 할 때 무릎 보호대를 길라 가드로 골라주면 매우 편리하다.\n브랜드 특성으로 방어 옵션이나 슬롯이 잘 붙기 때문인데, 무려 방어 7 이상을 요구하는 인내심 탤런트를 발동시킬 때 동일 부위에서 방어 옵션을 최대한 끌어모아주면 다른 나머지 부위의 세팅이 훨씬 자유로워진다. 1세트 옵션인 전체 방어도+5%도 보통 인내심과 같이 가져가는 일이 많은 무적의 부대(동일하게 방어 7이상 발동이다. 적 처치시 방어도에 따라 공격력 상승) 탤런트와 궁합이 좋다."
+                android:text="SF 컨셉의 일본제 보호장구 브랜드로 방어적인 성능을 가진다. 보통 1세트 효과인 생명력 + 8%를 보고 장착하는 경우가 많다. 독 상태이상은 방어력을 뚫고 들어오므로 최소한의 생명력을 챙기는 것도 나쁘지 않다.\n\n클러치 세팅에서도 생명력에 비중을 많이 둘 때 장갑에서 1세트 효과 + 생명력 + 특정 무기 대미지 +O 탤런트 식으로 가져가기도 한다. 2세트 이상은 다른 브랜드 세트 효과가 더 좋으므로 비추천."
                 android:textSize="20sp"
                 android:textColor="#000000"/>
         </LinearLayout>
