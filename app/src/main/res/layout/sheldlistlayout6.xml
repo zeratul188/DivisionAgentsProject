@@ -23,58 +23,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="정예 대상 대미지"
-                android:textSize="30sp"
-                android:textColor="#ff0000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="57%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="55%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="치명타 확률"
                 android:textSize="30sp"
                 android:textColor="#ff0000"
@@ -96,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="11%"
+                    android:text="8%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -119,7 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="11%"
+                    android:text="9%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -127,7 +75,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="상태이상 저항"
+                android:text="방어도"
                 android:textSize="30sp"
                 android:textColor="#0000ff"
                 android:layout_marginBottom="10dp"/>
@@ -148,7 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="57%"
+                    android:text="17483 / 12%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -171,63 +119,12 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="55%"
+                    android:text="19337 / 13.5%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="적 처치시 생명력 회복"
-                android:textSize="30sp"
-                android:textColor="#0000ff"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="15638"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="15246"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -252,7 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="31275 / 14.5%"
+                    android:text="22624"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -275,7 +172,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="30492 / 14%"
+                    android:text="25138"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -304,7 +201,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="34%"
+                    android:text="24%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -327,7 +224,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="33%"
+                    android:text="27%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -356,7 +253,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="562"
+                    android:text="407"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -379,7 +276,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="548"
+                    android:text="452"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -396,7 +293,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="감시병"
+                android:text="태연자약"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -418,45 +315,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="다용도 5 이상"
-                    android:textColor="#00ff00"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="펄스에 탐지된 적에 대한 무기 대미지가 15%/20%만큼 증가합니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="뇌진탕"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="필요조건 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="공격 7 이상"
+                    android:text="공격 11 이상"
                     android:textColor="#ff0000"
                     android:textSize="20dp"/>
 
@@ -465,14 +324,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="헤드샷을 적중시키면 2초 동안 헤드샷 대미지가 15%/20%만큼 증가합니다. 지정사수소총 사용 시 5초동안 지속됩니다."
+                android:text="엄폐한 상태에서 종합 무기 대미지가 10% 증가합니다"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="중심점"
+                android:text="참호 파기"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -494,7 +353,45 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="방어 4 이상"
+                    android:text="소총, 지정사수소총 무기 사용"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="엄폐한 상태에서 헤드샷을 적중시키면 방어도가 10%/15% 회복됩니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="인내심"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="방어 6 이상"
                     android:textColor="#0000ff"
                     android:textSize="20dp"/>
 
@@ -503,14 +400,29 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="헤드샷으로 적을 처치하면 30초 동안 상태이상 효과 면역이 됩니다."
+                android:text="5초 이상 엄폐상태를 유지하면 1초마다 방어도가 5% 회복됩니다"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="서서히 다가오는 죽음"
+                android:text="지지대"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="엄폐한 상태일 때 무기 조작력이 25%만큼 증가합니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="용의주도"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -532,8 +444,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="공격 4 이하"
-                    android:textColor="#ff0000"
+                    android:text="다용도 7 이상"
+                    android:textColor="#00ff00"
                     android:textSize="20dp"/>
 
             </LinearLayout>
@@ -541,29 +453,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="상태이상 효과가 25M 내에 있는 제일 가까운 적에게도 전파됩니다. 5초에 1번씩만 발동합니다."
+                android:text="엄폐한 상태에서 적을 처치하면 스킬 재사용 대기시간이 10% 감소합니다"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="정신집중"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="조준시 무기 안정성이 15%만큼 증가합니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="트라우마"
+                android:text="은폐"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -585,8 +482,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="소총, 지정사수소총 장착 필요"
-                    android:textColor="#000000"
+                    android:text="다용도 5 이하"
+                    android:textColor="#00ff00"
                     android:textSize="20dp"/>
 
             </LinearLayout>
@@ -594,7 +491,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="반자동 무기로 헤드샷을 적중시키면 30초에 한 번씩 5초간 시력상실 상태이상 효과를 적용합니다."
+                android:text="방어구가 파괴되면 10초/15초 동안 근처의 적 스킬이 차단됩니다. 30초에 1번씩 발동"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
@@ -727,19 +624,10 @@
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="30dp"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="마스크에 붙는 옵션은 매우 한정적이지만 PVE에서 중요한 정예 대상 대미지를 속성으로 챙길 수 있는 유일한 부위이다. 최대 57% 정도까지 붙어나올 수 있고, 강력한 타격 탤런트까지 붙으면 파츠 단독으로 60~80%대의 엘리트 대상 대미지를 챙길 수 있기 때문에 PvP 세팅이 아니라면 보통 정예 대상 대미지는 꼭 챙기게 된다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="감시병 탤런트는 이번 TU5 패치에서 스킬들의 기본 쿨타임이 줄어들고, 펄스의 쿨타임이 펄스 지속시간이 끝난 뒤가 아닌 사용한 시점부터 돌게 바뀌어서 충분히 메인으로 굴릴만한 탤런트가 되었다. 게다가 15%가 총 대미지를 15%만큼 뻥튀기 시켜주는 것이기 때문에 대미지 증가 효율이 엄청나다. 보통 7/4/7 클러치 세팅으로 쓰이고, 감시병 뿐만 아니라 백팩의 절체절명 탤런트까지 쓰는 경우가 많다.\n7/4/7 이외에도 PvP 세팅으로 3/11/7도 있는데, 마스크에서 감시병, 백팩에서 절체절명, 장갑에서 보정, 조끼에서 흡혈귀를 사용하여 공격을 3 밖에 챙기지 못해도 딜이 잘 나오고 방어를 11이나 챙겨서 PvP에서 잘 죽지 않으면서도 딜과 유틸을 모두 챙기는 세팅으로 각광받고 있다.\n\n정신집중 탤런트는 무기 개조 시 안정성 부품을 빼고 공격력을 올려주는 파츠를 껴도 충분한 안정성을 확보할 수 있게 해줘 간접적인 딜링 스킬 효과를 볼 수 있다.(기본 명중율이 높은 무기일 수록 효과가 좋다.)"
+                android:text="정석적인 엄폐 플레이를 주로 한다면 현재로선 인내심 탤런트를 채용하지 않을 이유가 없다. 안전장치 탤런트와 조합하면 회복력이 극대화되며, 적의 우회로 엄폐물의 사각이 뚫리더라도 상황에 따라 회복력을 믿고 버틸 수 있는 토대가 된다. 대신 엄폐를 5초 이상 유지해야 발동되므로 폭발물, 포말, 전기충격 등의 엄폐를 강제로 해제시키는 상태이상 공격에 무력한 모습을 보인다. 유일한 단점은 조건. 방어 스탯이 7 이상이라 수비세팅이 반강제되어, 인내심이 없어도 버티는 떡체력이 갖춰지는 경우가 적지 않다(...)\n참호파기는 아무리 봐도 인내심의 하위호환으로 보인다. 지속적으로 초당 1회 이상 헤드샷을 꽂을 수 있지 않다면. 소총이나 지정사수소총이라면 차라리 공격을 잘 받지 않는 후열에 포지션을 잡고 회복은 방어구 키트에 의지해 지지대 탤런트로 스나이핑의 효율을 올려주는 것도 고려해볼 수 있다.\n용의주도 탤런트는 재사용 시간 감소를 많이 가져가지 않는 전력맨에게 유용할 수 있지만, 4인 그룹 플레이에서 화력 빵빵한 화기맨들에게서 얼마나 막타를 잘 뺏어먹을 수 있느냐가 관건이다.19년 7월 23일 TU5 업데이트 때 용의주도 탤런트가 변경되었는데, 기존에는 화기로 적을 처치해야 발동되는 옵션에서 스킬로 적을 처치해도 발동 될 수 있도록 변경됐지만 대기시간 감소율은 20% -> 10%으로 낮춰졌다."
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>

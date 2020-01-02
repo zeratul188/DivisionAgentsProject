@@ -23,58 +23,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="정예 대상 대미지"
-                android:textSize="30sp"
-                android:textColor="#ff0000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="57%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="55%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="치명타 확률"
                 android:textSize="30sp"
                 android:textColor="#ff0000"
@@ -96,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="11%"
+                    android:text="7.5%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -119,7 +67,206 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="11%"
+                    android:text="8%"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="돌격소총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="산탄총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="경기관총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="기관단총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="지정사수 소총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="소총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="권총 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="브랜드 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="13%"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="기어 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="12%"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="생명력"
+                android:textSize="30sp"
+                android:textColor="#0000ff"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="브랜드 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="9.5% / 21441"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="기어 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="9.5% / 21640"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="방어도 재생"
+                android:textSize="30sp"
+                android:textColor="#0000ff"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="브랜드 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="3573"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="기어 장비 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="3607"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -148,7 +295,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="57%"
+                    android:text="38%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -171,167 +318,12 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="55%"
+                    android:text="39%"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="적 처치시 생명력 회복"
-                android:textSize="30sp"
-                android:textColor="#0000ff"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="15638"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="15246"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="생명력"
-                android:textSize="30sp"
-                android:textColor="#0000ff"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="31275 / 14.5%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="30492 / 14%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="스킬 가속"
-                android:textSize="30sp"
-                android:textColor="#00ff00"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="브랜드 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="34%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="기어 장비 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="33%"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -356,7 +348,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="562"
+                    android:text="385"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -379,7 +371,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="548"
+                    android:text="389"
                     android:textColor="#000000"
                     android:textSize="20dp"/>
 
@@ -396,7 +388,237 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="감시병"
+                android:text="보정"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="공격 3 이하"
+                    android:textColor="#ff0000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="치명타 확률이 20% 보다 낮으면 무기 대미지가 10% 증가합니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="말소"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="공격 4 이상"
+                    android:textColor="#ff0000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="적 방어구를 파괴할 경우 15초 동안 치명타 대미지가 30% 증가합니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="기회주의"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="지정사수소총, 산탄총 무기 사용"
+                    android:textColor="#000000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="적을 적중시키면 3초 동안 해당 적이 받는 모든 대미지를 10%/15% 증가시킵니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="사악함"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="공격 4 이상"
+                    android:textColor="#ff0000"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="적에게 상태 이상을 적용하면 20초 동안 무기 대미지가 15%/20% 증가합니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="클러치"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="방어 4 이하 (돌격소총, 기관단총, 경기관총 전용)"
+                    android:textColor="#0000ff"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="치명타 적중 시 잃은 생명력이 20%/25%, 잃은 방어도가 1%/2% 회복됩니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="슬개골"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="필요조건 : "
+                    android:textColor="#000000"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="다용도 4 이하"
+                    android:textColor="#00ff00"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="매 30초마다 적의 다리를 사격하면 10초 동안 출혈 상태이상 효과를 적용합니다"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="박멸"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -427,128 +649,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="펄스에 탐지된 적에 대한 무기 대미지가 15%/20%만큼 증가합니다."
+                android:text="적의 방어도를 소진시키면 15초 동안 스킬 대미지가 35%/40% 증가합니다"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="뇌진탕"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="필요조건 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="공격 7 이상"
-                    android:textColor="#ff0000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="헤드샷을 적중시키면 2초 동안 헤드샷 대미지가 15%/20%만큼 증가합니다. 지정사수소총 사용 시 5초동안 지속됩니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="중심점"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="필요조건 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="방어 4 이상"
-                    android:textColor="#0000ff"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="헤드샷으로 적을 처치하면 30초 동안 상태이상 효과 면역이 됩니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="서서히 다가오는 죽음"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="필요조건 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="공격 4 이하"
-                    android:textColor="#ff0000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="상태이상 효과가 25M 내에 있는 제일 가까운 적에게도 전파됩니다. 5초에 1번씩만 발동합니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="정신집중"
+                android:text="맞춤 주문"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -556,45 +664,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="조준시 무기 안정성이 15%만큼 증가합니다."
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="트라우마"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="필요조건 : "
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"
-                    android:textSize="20dp"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="소총, 지정사수소총 장착 필요"
-                    android:textColor="#000000"
-                    android:textSize="20dp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="반자동 무기로 헤드샷을 적중시키면 30초에 한 번씩 5초간 시력상실 상태이상 효과를 적용합니다."
+                android:text="발사 버튼을 길게 눌러 수류탄이 터지는 시간을 '조절'하여 수류탄이 더 일찍 터지게 할 수 있습니다. 수류탄을 조준하는 동안 보너스 방어도를 15% 얻습니다"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
@@ -700,7 +770,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="강화"
+                android:text="치명"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -708,14 +778,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="스킬 파워 +20%"
+                android:text="치명타 대미지 +15%"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="쇄도"
+                android:text="분쇄"
                 android:textSize="30sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="10dp"/>
@@ -723,15 +793,37 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="스킬 가속 +20%"
+                android:text="무기 대미지 +5%"
                 android:textSize="20sp"
                 android:textColor="#000000"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="정확성"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="마스크에 붙는 옵션은 매우 한정적이지만 PVE에서 중요한 정예 대상 대미지를 속성으로 챙길 수 있는 유일한 부위이다. 최대 57% 정도까지 붙어나올 수 있고, 강력한 타격 탤런트까지 붙으면 파츠 단독으로 60~80%대의 엘리트 대상 대미지를 챙길 수 있기 때문에 PvP 세팅이 아니라면 보통 정예 대상 대미지는 꼭 챙기게 된다."
+                android:text="헤드샷 대미지 +15%"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="정밀"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="치명타 확률 +10%"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>
@@ -739,7 +831,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="감시병 탤런트는 이번 TU5 패치에서 스킬들의 기본 쿨타임이 줄어들고, 펄스의 쿨타임이 펄스 지속시간이 끝난 뒤가 아닌 사용한 시점부터 돌게 바뀌어서 충분히 메인으로 굴릴만한 탤런트가 되었다. 게다가 15%가 총 대미지를 15%만큼 뻥튀기 시켜주는 것이기 때문에 대미지 증가 효율이 엄청나다. 보통 7/4/7 클러치 세팅으로 쓰이고, 감시병 뿐만 아니라 백팩의 절체절명 탤런트까지 쓰는 경우가 많다.\n7/4/7 이외에도 PvP 세팅으로 3/11/7도 있는데, 마스크에서 감시병, 백팩에서 절체절명, 장갑에서 보정, 조끼에서 흡혈귀를 사용하여 공격을 3 밖에 챙기지 못해도 딜이 잘 나오고 방어를 11이나 챙겨서 PvP에서 잘 죽지 않으면서도 딜과 유틸을 모두 챙기는 세팅으로 각광받고 있다.\n\n정신집중 탤런트는 무기 개조 시 안정성 부품을 빼고 공격력을 올려주는 파츠를 껴도 충분한 안정성을 확보할 수 있게 해줘 간접적인 딜링 스킬 효과를 볼 수 있다.(기본 명중율이 높은 무기일 수록 효과가 좋다.)"
+                android:text="화기 세팅이라면 주무기 대미지 옵션을 반드시 챙겨가야하는 부위이다. 옵션이 2개 이상이라면 +5 전후이지만, 동일 무기 대미지 옵션이 중첩된다면 +10%이상으로 붙어나오게 된다. 거기에 ㉦탤런트 중 클러치 등이 필요하다면 챙겨주고, 아니라면 ㉦탤런트가 붙지 않고 ㅇ탤런트 중 분쇄나 강력한 타격, 정밀 등이 붙어나온 것을 구한다면 쓸만하다."
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="클러치 탤런트를 치명타 세팅 뒤 사용하면 엄청난 회복력을 자랑한다. PVP PVE에서 모두 유용하며, 안전장치 탤런트로 회복력 극대화를 꾀하고 광분/중압감으로 공격력 증가를 꾀한다. 무기는 RPM이 높을수록 좋기 때문에 기관단총은 벡터를 사용하는 일이 많으며, 재장전 시간을 고려해 다른 기관단총도 감안된다. 치명타 확률은 떨어지지만 돌격소총과 조합해서 PVE 용으로 사용될 수도 있다.\n\n폭탄광 탤런트로 수류탄 특화 빌드를 사용한다면 맞춤 주문 탤런트가 상당히 유용하며, 분쇄나 정밀, 정확성, 강력한 타격 등 유용한 탤런트가 많이 모여있어 고르는 재미가 있는 부위이다.\n\n슬개골 탤런트를 채용하면 생존전문가 석궁 탄약을 많이 얻을 수 있지만 현재 석궁에 그럴 만한 가치가 있는 것 같지는 않다.\n\n박멸 탤런트는 적의 방어구를 없애는데 특효인 화학물질 발사기 산화제를 주로 사용하는 전력맨에게 있어 매우 유용하다."
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:layout_marginBottom="20dp"/>

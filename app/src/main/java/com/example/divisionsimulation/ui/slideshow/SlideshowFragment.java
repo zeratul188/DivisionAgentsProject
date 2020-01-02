@@ -51,6 +51,48 @@ public class SlideshowFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        btnSheldlist[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldList2Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldlist[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldList3Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldlist[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldList4Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldlist[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldList5Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldlist[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldList6Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldoption[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldBrandActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnSheldoption[5].setOnClickListener(new View.OnClickListener() {
             @Override

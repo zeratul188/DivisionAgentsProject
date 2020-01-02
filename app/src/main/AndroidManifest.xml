@@ -111,6 +111,15 @@
         <activity android:name=".ui.gallery.Weapon7List11Activity"></activity>
 
         <activity android:name=".ui.slideshow.SheldList1Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldList2Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldList3Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldList4Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldList5Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldList6Activity"></activity>
+
+        <activity android:name=".ui.slideshow.SheldBrandActivity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand1Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand2Activity"></activity>
 
         <activity android:name=".ui.slideshow.SheldOption6Activity"></activity>
     </application>
