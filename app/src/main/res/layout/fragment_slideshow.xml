@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/text_slideshow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,5 +15,155 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnSheldlist1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/mask"
+                        android:text="마스크"
+                        android:textSize="30sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="20dp"/>
+                    <Button
+                        android:id="@+id/btnSheldlist2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/backpack"
+                        android:text="백팩"
+                        android:textSize="30sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="20dp"/>
+                </TableRow>
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnSheldlist3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/vests"
+                        android:text="조끼"
+                        android:textSize="30sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="20dp"/>
+                    <Button
+                        android:id="@+id/btnSheldlist4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/gloves"
+                        android:text="장갑"
+                        android:textSize="30sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="20dp"/>
+                </TableRow>
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnSheldlist5"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/holsters"
+                        android:text="권총집"
+                        android:textSize="30sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="20dp"/>
+                    <Button
+                        android:id="@+id/btnSheldlist6"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/kneepeds"
+                        android:text="무릎 보호대"
+                        android:textSize="25sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/buttoncustomsheld"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="20dp"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btnSheldoption1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="브랜드 세트 옵션"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnSheldoption2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="네임드 보호장구"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnSheldoption3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="기어 장비"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnSheldoption5"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="특수 장비"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+            <Button
+                android:id="@+id/btnSheldoption6"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="모든 부위 속성표"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

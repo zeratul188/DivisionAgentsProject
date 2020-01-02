@@ -109,6 +109,10 @@
         <activity android:name=".ui.gallery.Weapon7List9Activity"></activity>
         <activity android:name=".ui.gallery.Weapon7List10Activity"></activity>
         <activity android:name=".ui.gallery.Weapon7List11Activity"></activity>
+
+        <activity android:name=".ui.slideshow.SheldList1Activity"></activity>
+
+        <activity android:name=".ui.slideshow.SheldOption6Activity"></activity>
     </application>
 
 </manifest>
