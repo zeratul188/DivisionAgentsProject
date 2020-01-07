@@ -144,7 +144,12 @@
 
         <activity android:name=".ui.slideshow.SheldOption2Activity"></activity>
         <activity android:name=".ui.slideshow.SheldOption3Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldOption4Activity"></activity>
         <activity android:name=".ui.slideshow.SheldOption5Activity"></activity>
+
+        <activity android:name=".ui.slideshow.SheldSpecial1Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldSpecial2Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldSpecial3Activity"></activity>
     </application>
 
 </manifest>

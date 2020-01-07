@@ -23,7 +23,7 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
 
     private void reload() {
-        int time = (int)reloadtime*1000;
+        int time = (int)(reloadtime*1000);
         SimulActivity.txtStatue.setText("재장전 중...");
         try {
             Thread.sleep(time);
@@ -53,13 +53,13 @@ class DemageSimulThread extends Thread implements Serializable {
             statue_log = "";
             ammo_log = "";
             now_demage = demage();
-            critical_ransu = (int) (Math.random() * 123456) % 100 + 1;
-            headshot_ransu = (int) (Math.random() * 123456) % 100 + 1;
-            if (critical_ransu <= critical) {
+            critical_ransu = (int) (Math.random() * 123456) % 1001;
+            headshot_ransu = (int) (Math.random() * 123456) % 1001;
+            if (critical_ransu <= critical*10) {
                 per = criticaldemage / 100;
                 now_demage *= 1 + per;
             }
-            if (headshot_ransu <= 30) {
+            if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
                 now_demage *= 1 + per;
             }
@@ -75,8 +75,8 @@ class DemageSimulThread extends Thread implements Serializable {
             now_ammo--;
             log = "-" + real_demage;
             ammo_log = "현재 탄수 : "+now_ammo;
-            if (critical_ransu <= (int) critical) statue_log += "(크리티컬!!)";
-            if (headshot_ransu <= (int) headshot) statue_log += "(헤드샷!!)";
+            if (critical_ransu <= (int) critical*10) statue_log += "(크리티컬!!)";
+            if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
             SimulActivity.txtSheld.setText(Integer.toString(sheld));
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtStatue.setText(statue_log);
@@ -97,13 +97,13 @@ class DemageSimulThread extends Thread implements Serializable {
             statue_log = "";
             ammo_log = "";
             now_demage = demage();
-            critical_ransu = (int) (Math.random() * 123456) % 100 + 1;
-            headshot_ransu = (int) (Math.random() * 123456) % 100 + 1;
-            if (critical_ransu <= critical) {
+            critical_ransu = (int) (Math.random() * 123456) % 1001;
+            headshot_ransu = (int) (Math.random() * 123456) % 1001;
+            if (critical_ransu <= critical*10) {
                 per = criticaldemage / 100;
                 now_demage *= 1 + per;
             }
-            if (headshot_ransu <= 30) {
+            if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
                 now_demage *= 1 + per;
             }
@@ -119,8 +119,8 @@ class DemageSimulThread extends Thread implements Serializable {
             now_ammo--;
             log = "-" + real_demage;
             ammo_log = "현재 탄수 : "+now_ammo;
-            if (critical_ransu <= (int) critical) statue_log += "(크리티컬!!)";
-            if (headshot_ransu <= (int) headshot) statue_log += "(헤드샷!!)";
+            if (critical_ransu <= (int) critical*10) statue_log += "(크리티컬!!)";
+            if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
             SimulActivity.txtHealth.setText(Integer.toString(health));
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtStatue.setText(statue_log);

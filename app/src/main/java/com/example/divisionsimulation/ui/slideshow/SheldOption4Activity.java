@@ -10,17 +10,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
-public class SheldOption3Activity extends AppCompatActivity {
+public class SheldOption4Activity extends AppCompatActivity {
 
-    private Button[] btnWP = new Button[6];
+    private Button[] btnWP = new Button[3];
     private int temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sheldoptionlayout3);
+        setContentView(R.layout.sheldoptionlayout4);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("기어 장비");
+        setTitle("특수 장비");
 
         for (int i = 0; i < btnWP.length; i++) {
             temp = getResources().getIdentifier("btnWP"+(i+1), "id", getPackageName());
@@ -30,42 +30,21 @@ public class SheldOption3Activity extends AppCompatActivity {
         btnWP[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear1Activity.class);
+                Intent intent = new Intent(getApplicationContext(), SheldSpecial1Activity.class);
                 startActivity(intent);
             }
         });
         btnWP[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), SheldSpecial2Activity.class);
                 startActivity(intent);
             }
         });
         btnWP[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear3Activity.class);
-                startActivity(intent);
-            }
-        });
-        btnWP[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear4Activity.class);
-                startActivity(intent);
-            }
-        });
-        btnWP[4].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear5Activity.class);
-                startActivity(intent);
-            }
-        });
-        btnWP[5].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SheldGear6Activity.class);
+                Intent intent = new Intent(getApplicationContext(), SheldSpecial3Activity.class);
                 startActivity(intent);
             }
         });

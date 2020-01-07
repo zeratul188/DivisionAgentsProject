@@ -105,7 +105,13 @@ public class SlideshowFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        btnSheldoption[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldOption4Activity.class);
+                startActivity(intent);
+            }
+        });
         btnSheldoption[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

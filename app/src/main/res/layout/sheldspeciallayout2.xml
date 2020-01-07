@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BTSU 데이터 장갑"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아버지는 말씀하셨지, '아들아, 실력도 장비가 받쳐줘야 하는 법이다.' 라고말이야. 그래서 최고의 장비를 굴리는 조직을 골랐어.\n- 엘리스 갈베스톤 -"
+                android:textSize="20sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="방어력 : "
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="24061 ~ 24061"
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="개조 슬롯"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/power"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=", "
+                        android:textColor="#000000"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/power"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=", "
+                        android:textColor="#000000"
+                        android:textSize="20sp"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/sheld"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="특수 효과"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="장비 조작의 이해, 에너지 주입물, 완충 스킬 머신"
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="장비 조작의 이해"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상태이상 효과를 적용하는 스킬의 상태이상 효과 지속 시간이 +50%만큼, 스킬 가속이 +50%만큼 증가합니다."
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="에너지 주입물"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="상태이상 효과를 적용할 때 마다 장갑에 60초 동안 해당 상태이상 효과가 주입됩니다.\n주입된 동안 보유한 다용도 특성 하나당 스킬 대미지가 +10%만큼, 스킬 회복 및 치유가 +10%만큼, 스킬 지속 시간이 +10%만큼 증가합니다.\n주입된 상태에서 같은 상태 이상 효과를 적용해도 주입물이 갱신되진 않습니다."
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="완충 스킬 머신"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="투척형 스킬 사용시, 착지 1.25초 후에 스킬이 폭발을 일으켜 6m 내의 모든 적에게 주입된 상태이상 효과를 적용합니다.\n주입된 상태이상 효과에 걸린 적은 플레이어의 스킬에 받는 대미지가 50%만큼 증가합니다."
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="침입 임무에서 모든 적 NPC가 떨굴 수 있다."
+                android:textSize="20sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
