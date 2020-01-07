@@ -123,8 +123,28 @@
         <activity android:name=".ui.slideshow.SheldBrand3Activity"></activity>
         <activity android:name=".ui.slideshow.SheldBrand4Activity"></activity>
         <activity android:name=".ui.slideshow.SheldBrand5Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand6Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand7Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand8Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand9Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand10Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand11Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand12Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand13Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand14Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand15Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldBrand16Activity"></activity>
 
-        <activity android:name=".ui.slideshow.SheldOption6Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear1Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear2Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear3Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear4Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear5Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldGear6Activity"></activity>
+
+        <activity android:name=".ui.slideshow.SheldOption2Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldOption3Activity"></activity>
+        <activity android:name=".ui.slideshow.SheldOption5Activity"></activity>
     </application>
 
 </manifest>

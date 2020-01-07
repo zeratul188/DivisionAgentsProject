@@ -12,7 +12,7 @@ import com.example.divisionsimulation.R;
 
 public class SheldBrandActivity extends AppCompatActivity {
 
-    private Button[] btnWP = new Button[17];
+    private Button[] btnWP = new Button[16];
     private int temp;
 
     @Override
@@ -59,6 +59,83 @@ public class SheldBrandActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SheldBrand5Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand6Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[6].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand7Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[7].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand8Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[8].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand9Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[9].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand10Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[10].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand11Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[11].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand12Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[12].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand13Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[13].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand14Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[14].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand15Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnWP[15].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SheldBrand16Activity.class);
                 startActivity(intent);
             }
         });

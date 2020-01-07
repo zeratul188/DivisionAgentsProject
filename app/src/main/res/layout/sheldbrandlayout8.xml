@@ -30,7 +30,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
+                    android:src="@drawable/mask"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -42,7 +42,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
+                    android:src="@drawable/vests"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -60,7 +60,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
+                    android:src="@drawable/kneepeds"/>
 
             </LinearLayout>
 
@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="생명력 +8%"
+                    android:text="명중률 +10%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="상태 이상 저항 +10%"
+                    android:text="헤드샷 대미지 +10%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
@@ -128,69 +128,11 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="파이어플라이 스킬 파워 +15%"
+                    android:text="지정사수소총 대미지 +10%"
                     android:textColor="#000000"
                     android:textSize="20sp"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/maskblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="마스크"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="'만그' 얼굴 보호대"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/vestsblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="조끼"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="'다다미' 가슴 보호대"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -211,11 +153,17 @@
                     android:textColor="#000000"/>
 
             </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="'하이다테' 허벅지 부착형 시스템"
+                android:text="아르테미스 속사 권총집"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:paddingLeft="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="헤라 파우치형 권총집"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -241,22 +189,22 @@
                     android:textColor="#000000"/>
 
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="'사시모노' 백팩"
+                android:text="데메테르 즉석 보관함"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="'호로' 운송 백팩"
+                android:text="아폴로 공작원 백팩"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -277,59 +225,18 @@
                     android:textColor="#000000"/>
 
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="'코테' 손 보호대"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="'활깍지' 화기 장갑"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="42dp"
-                    android:src="@drawable/kneepedsblack"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:text="무릎 보호대"
-                    android:textSize="30sp"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="'Suneate' Knee Braces 복제품"
+                android:text="Persephone Precision Gloves"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="'스네아테' 무릎 아대"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:paddingLeft="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Salvaged 'Suneate' Knee Braces"
+                android:text="헤라클레스 다용도 장갑"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:paddingLeft="20dp"
@@ -338,7 +245,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SF 컨셉의 일본제 보호장구 브랜드로 방어적인 성능을 가진다. 보통 1세트 효과인 생명력 + 8%를 보고 장착하는 경우가 많다. 독 상태이상은 방어력을 뚫고 들어오므로 최소한의 생명력을 챙기는 것도 나쁘지 않다.\n\n클러치 세팅에서도 생명력에 비중을 많이 둘 때 장갑에서 1세트 효과 + 생명력 + 특정 무기 대미지 +O 탤런트 식으로 가져가기도 한다. 2세트 이상은 다른 브랜드 세트 효과가 더 좋으므로 비추천."
+                android:text="지정사수소총을 위해 만들어진 브랜드. 초기에는 헤드 원샷 빌드를 위해 3셋을 차용했으며, 현재는 특급 지정사수소총인 네메시스를 위주로 하는 빌드에서 3세트가 채택된다. 명중률과 헤드샷 대미지를 상승시키기 때문에 2세트까지는 소총과도 궁합이 좋다."
                 android:textSize="20sp"
                 android:textColor="#000000"/>
         </LinearLayout>

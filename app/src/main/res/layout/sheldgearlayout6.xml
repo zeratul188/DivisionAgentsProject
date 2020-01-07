@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="세트효과"
+                android:textSize="30sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="(2/4)"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="폭발 저항 +30%"
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3, 4세트 효과 요구사항: 폭파 전문가 전문화"
+                android:textSize="20sp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="(3/4)"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="방어구가 파괴되면, 파괴한 대상에게 유탄이 발사됩니다. 3초마다 한 번씩 발동합니다."
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="(4/4)"
+                    android:textSize="20sp"
+                    android:paddingRight="10dp"
+                    android:textAlignment="textEnd"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="플레이어에 의해 발생한 폭발은 폭격수 버프를 누적시킵니다."
+                    android:textColor="#000000"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="버프는 스택당 10초 동안 모든 파티/레이드 멤버의 폭발물 대미지와 보너스 방어도를 10%씩 증가시킵니다."
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20sp"
+                android:textColor="#000000"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

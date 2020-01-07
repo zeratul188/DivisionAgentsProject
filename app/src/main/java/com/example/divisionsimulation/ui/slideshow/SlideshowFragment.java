@@ -6,22 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
-import com.example.divisionsimulation.ui.gallery.Weapon1Activity;
 
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
     private Button[] btnSheldlist = new Button[6];
-    private Button[] btnSheldoption = new Button[6];
+    private Button[] btnSheldoption = new Button[5];
     private int temp;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,6 +36,8 @@ public class SlideshowFragment extends Fragment {
         for (int i = 0; i < btnSheldlist.length; i++) {
             temp = getResources().getIdentifier("btnSheldlist"+(i+1), "id", getActivity().getPackageName());
             btnSheldlist[i] = root.findViewById(temp);
+        }
+        for (int i = 0; i < btnSheldoption.length; i++) {
             temp = getResources().getIdentifier("btnSheldoption"+(i+1), "id", getActivity().getPackageName());
             btnSheldoption[i] = root.findViewById(temp);
         }
@@ -93,11 +91,25 @@ public class SlideshowFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        btnSheldoption[5].setOnClickListener(new View.OnClickListener() {
+        btnSheldoption[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SheldOption6Activity.class);
+                Intent intent = new Intent(getActivity(), SheldOption2Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnSheldoption[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldOption3Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSheldoption[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldOption5Activity.class);
                 startActivity(intent);
             }
         });

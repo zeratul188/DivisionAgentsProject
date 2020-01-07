@@ -146,7 +146,7 @@
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="20dp"/>
             <Button
-                android:id="@+id/btnSheldoption5"
+                android:id="@+id/btnSheldoption4"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="특수 장비"
@@ -155,7 +155,7 @@
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="20dp"/>
             <Button
-                android:id="@+id/btnSheldoption6"
+                android:id="@+id/btnSheldoption5"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="모든 부위 속성표"

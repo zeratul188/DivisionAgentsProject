@@ -1,6 +1,5 @@
 package com.example.divisionsimulation.ui.slideshow;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
-public class SheldOption6Activity extends AppCompatActivity {
+public class SheldBrand15Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sheldoptionlayout6);
+        setContentView(R.layout.sheldbrandlayout15);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("모든 부위 속성 표");
+        setTitle("프로비던스 방위산업");
 
-        Intent intent = getIntent();
+
     }
 
     @Override
