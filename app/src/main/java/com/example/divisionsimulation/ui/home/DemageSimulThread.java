@@ -92,7 +92,7 @@ class DemageSimulThread extends Thread implements Serializable {
             SimulActivity.txtStatue.setText(statue_log);
             SimulActivity.txtAmmo.setText(ammo_log);
             SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-            dec_sheld = ((double)sheld / (double)first_sheld) * 100;
+            dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
             SimulActivity.progressSheld.setProgress((int)dec_sheld);
             if (now_ammo == 0) {
                 reload();
@@ -140,7 +140,7 @@ class DemageSimulThread extends Thread implements Serializable {
             SimulActivity.txtStatue.setText(statue_log);
             SimulActivity.txtAmmo.setText(ammo_log);
             SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-            dec_health = ((double)health / (double)first_health) * 100;
+            dec_health = ((double)health / (double)first_health) * 10000;
             SimulActivity.progressHealth.setProgress((int)dec_health);
             if (now_ammo == 0) {
                 reload();

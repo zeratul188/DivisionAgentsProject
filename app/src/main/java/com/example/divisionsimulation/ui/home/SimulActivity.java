@@ -1,5 +1,7 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -36,11 +38,15 @@ public class SimulActivity extends AppCompatActivity {
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
 
-        progressSheld.setMax(100);
-        progressHealth.setMax(100);
+        progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
-        progressSheld.setProgress(100);
-        progressHealth.setProgress(100);
+        progressHealth.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+
+        progressSheld.setMax(10000);
+        progressHealth.setMax(10000);
+
+        progressSheld.setProgress(10000);
+        progressHealth.setProgress(10000);
 
         TimeThread tt = new TimeThread();
         tt.start();
