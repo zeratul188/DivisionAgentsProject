@@ -3,27 +3,56 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:padding="30dp" android:gravity="center">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="방어도"
+        android:textSize="20sp"
+        android:textColor="#000000"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressSheld"
+        android:indeterminateTint="#3B3B7C"
+        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="방어구 : "
+            android:text="수치 : "
             android:textSize="25sp"
             android:textAlignment="textEnd"/>
         <TextView
             android:id="@+id/txtSheld"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="-"
             android:textSize="25sp"/>
 
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="생명력"
+        android:textSize="20sp"
+        android:textColor="#000000"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/progressHealth"
+        android:indeterminateTint="#ff0000"
+        android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,13 +63,13 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="체력 : "
+            android:text="수치 : "
             android:textSize="25sp"
             android:textAlignment="textEnd"/>
         <TextView
             android:id="@+id/txtHealth"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="-"
             android:textSize="25sp"/>
@@ -81,15 +110,48 @@
         android:text="now statue"
         android:textSize="15sp"
         android:textAlignment="center"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="진행 중 종료할 경우 꼭 상단 뒤로가기 버튼을 눌러주시기 바랍니다.\n\n그렇지 않으면 화면이 닫혀도 계속 진행됩니다."
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:layout_marginTop="150dp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="사용한 탄수 : "
+            android:textSize="20sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtAllAmmo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="시간 : "
+            android:textSize="20sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="0초"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

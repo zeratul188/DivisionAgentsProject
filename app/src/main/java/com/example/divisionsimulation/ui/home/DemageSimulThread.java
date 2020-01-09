@@ -4,8 +4,15 @@ import java.io.Serializable;
 
 class DemageSimulThread extends Thread implements Serializable {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
-    private int health, sheld;
+    private int health, sheld, all_ammo = 0;
     private boolean elite_true = false;
+    private int first_health, first_sheld;
+    private double dec_health, dec_sheld;
+    private TimeThread tt;
+
+    public void setTimeThread(TimeThread tt) {
+        this.tt = tt;
+    }
 
     public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; }
     public void setRPM(double rpm) { this.rpm = rpm; }
@@ -40,6 +47,8 @@ class DemageSimulThread extends Thread implements Serializable {
     }
 
     public void run() {
+        first_health = health;
+        first_sheld = sheld;
         int time = (60 * 1000) / (int) rpm;
         int now_ammo = (int) ammo;
         int headshot_ransu, critical_ransu, real_demage;
@@ -73,6 +82,7 @@ class DemageSimulThread extends Thread implements Serializable {
             sheld -= real_demage;
             if (sheld < 0) sheld = 0;
             now_ammo--;
+            all_ammo++;
             log = "-" + real_demage;
             ammo_log = "현재 탄수 : "+now_ammo;
             if (critical_ransu <= (int) critical*10) statue_log += "(크리티컬!!)";
@@ -81,6 +91,9 @@ class DemageSimulThread extends Thread implements Serializable {
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtStatue.setText(statue_log);
             SimulActivity.txtAmmo.setText(ammo_log);
+            SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+            dec_sheld = ((double)sheld / (double)first_sheld) * 100;
+            SimulActivity.progressSheld.setProgress((int)dec_sheld);
             if (now_ammo == 0) {
                 reload();
                 now_ammo += (int) ammo;
@@ -117,6 +130,7 @@ class DemageSimulThread extends Thread implements Serializable {
             health -= real_demage;
             if (health < 0) health = 0;
             now_ammo--;
+            all_ammo++;
             log = "-" + real_demage;
             ammo_log = "현재 탄수 : "+now_ammo;
             if (critical_ransu <= (int) critical*10) statue_log += "(크리티컬!!)";
@@ -125,6 +139,9 @@ class DemageSimulThread extends Thread implements Serializable {
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtStatue.setText(statue_log);
             SimulActivity.txtAmmo.setText(ammo_log);
+            SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+            dec_health = ((double)health / (double)first_health) * 100;
+            SimulActivity.progressHealth.setProgress((int)dec_health);
             if (now_ammo == 0) {
                 reload();
                 now_ammo += (int) ammo;
@@ -137,5 +154,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
             }
         }
+        tt.setStop(true);
+        System.out.println("(DemageSimulThread) 정상적으로 종료됨");
     }
 }
