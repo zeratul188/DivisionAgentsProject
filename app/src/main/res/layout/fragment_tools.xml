@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/text_tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,5 +15,58 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/btnSheldlist1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/buttoncustomsheld"
+                android:drawableLeft="@drawable/mask"
+                android:padding="20dp"
+                android:text="무기"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:layout_column="2"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/btnSheldlist2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="240dp"
+                android:drawableTop="@drawable/mask"
+                android:text="마스크"
+                android:textSize="30sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/buttoncustomsheld"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:padding="20dp"/>
+            <Button
+                android:id="@+id/btnSheldlist3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="240dp"
+                android:drawableTop="@drawable/mask"
+                android:text="마스크"
+                android:textSize="30sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/buttoncustomsheld"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:padding="20dp"/>
+        </TableRow>
+
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
