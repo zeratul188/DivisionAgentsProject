@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장비 이름"
+            android:textSize="35sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/txtType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장비 타입"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="20dp">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="데미지"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="RPM"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="탄약 수"
+                    android:textSize="15sp"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/txtDemage"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="무기 데미지"
+                    android:textSize="20sp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/txtRPM"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="무기 RPM"
+                    android:textSize="20sp"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/txtAmmo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="무기 탄약 수"
+                    android:textSize="20sp"
+                    android:textColor="#000000"/>
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장비 옵션"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp">
+            <ImageView
+                android:id="@+id/imgOption1"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:src="@drawable/attack"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/txtOption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1번째 옵션"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp">
+            <ImageView
+                android:id="@+id/imgOption2"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:src="@drawable/sheld"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/txtOption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2번째 옵션"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:id="@+id/imgOption3"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:src="@drawable/power"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/txtOption3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3번째 옵션"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="특수 효과"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/txtSpecialName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="첫번째 특수효과"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/txtSpecial1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="첫번째 특수효과 내용"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="15dp"/>
+        <TextView
+            android:id="@+id/txtSpecialName2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="두번째 특수효과"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/txtSpecial2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="두번째 특수효과 내용"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="15dp"/>
+        <TextView
+            android:id="@+id/txtSpecialName3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="세번째 특수효과"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:id="@+id/txtSpecial3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="세번째 특수효과 내용"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="15dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
