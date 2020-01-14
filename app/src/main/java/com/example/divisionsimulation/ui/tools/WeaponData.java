@@ -13,10 +13,27 @@ class WeaponData {
     private String[] weaponname6 = {"더블 배럴 샷건", "M870", "Super 90", "SASG-12", "ACS-12", "SPAS-12", "KSG"}; //TYPE : 7
     private String[] weaponname7 = {"Diceros", "586 매그넘", "M1911", "PF45", "M9", "Px4 Storm", "X-45", "93R", "D50", "P320 XCompat", "Double Barrel Sawed Off"}; //type : 11
 
+    //돌격소총
     private String[] weapontype1dmg = {"10235", "14876", "13012", "13012", "9472", "10632", "12643", "12643", "11621", "11211", "14058", "11759"}; //type : 12
-    private String[] weapontype1rpm = {"850", "600", "650", "650", "900", "850", "680", "750", "750", "900", "625", "790"};
+    private String[] weapontype1rpm = {"850", "600", "650", "650", "900", "850", "680", "750", "750", "900", "625", "790"}; //type : 12
     private String[] weapontype1ammo = {"30", "30", "30", "20", "30", "30", "30", "30", "30", "30", "30", "30"}; //type : 12
     private String[] weapontype1reload = {"2.1", "2.2", "2", "2", "2.1", "1.8", "1.8", "2", "2", "1.9", "2", "2"}; //type : 12
+
+    //소총
+    private String[] weapontype2dmg = {"22314", "11850", "20989", "47121", "31899", "20311", "12541", "63245", "28312"}; //type : 9
+    private String[] weapontype2rpm = {"360", "360", "420", "180", "275", "420", "400", "100", "320"}; //type : 9
+    private String[] weapontype2ammo = {"30", "20", "30", "10", "20", "20", "30", "5", "20"}; //type : 9
+    private String[] weapontype2reload = {"2.1", "1.9", "2", "2.5", "1.9", "2", "2.1", "발 당 0.65", "2.1"}; //type : 9
+
+    //지정사수소총
+    private String[] weapontype3dmg = {"46100", "38357", "44906", "37733", "21830", "17463"}; //type : 6
+    private String[] weapontype3rpm = {"54", "60", "55", "60", "260", "275"}; //type : 6
+    private String[] weapontype3ammo = {"7", "7", "5", "5", "10", "20"}; //type : 6
+    private String[] weapontype3reload = {"7", "3", "4.1", "3.2", "3.2", "2.2"}; //type : 6
+
+    //기관단총
+    private String[] weapontype4dmg = {"6237", "8108", "6860", "5613", "4366", "4989", "4490", "5613", "5925", "4366", "6860"}; //type : 11
+    private String[] weapontype4rpm = {"725", "550", "600", "800", "950", "850", "900", "825", "700", "1200", "600"}; //type : 11
 
     public String getWeapontype() {
         int ransu = (int)(Math.random()*123456)/weapontype.length;
@@ -28,24 +45,31 @@ class WeaponData {
         switch (temp) {
             case 0:
                 ransu = (int)(Math.random()*BIG)%weaponname1.length;
+                temp_number = ransu;
                 return weaponname1[ransu];
             case 1:
                 ransu = (int)(Math.random()*BIG)%weaponname2.length;
+                temp_number = ransu;
                 return weaponname2[ransu];
             case 2:
                 ransu = (int)(Math.random()*BIG)%weaponname3.length;
+                temp_number = ransu;
                 return weaponname3[ransu];
             case 3:
                 ransu = (int)(Math.random()*BIG)%weaponname4.length;
+                temp_number = ransu;
                 return weaponname4[ransu];
             case 4:
                 ransu = (int)(Math.random()*BIG)%weaponname5.length;
+                temp_number = ransu;
                 return weaponname5[ransu];
             case 5:
                 ransu = (int)(Math.random()*BIG)%weaponname6.length;
+                temp_number = ransu;
                 return  weaponname6[ransu];
             case 6:
                 ransu = (int)(Math.random()*BIG)%weaponname7.length;
+                temp_number = ransu;
                 return weaponname7[ransu];
             default:
                 return "NULL";
@@ -60,6 +84,8 @@ class WeaponData {
     private String[] namedtype = { "SIG 716 CQB", "M249B", "공수부대용 SVD", "군용 M870", "SR-1", "모델 700", "P90", "AUG-A3 CQC", "PF45", "586 매그넘", "단축형 SRS", "경찰용 M4", "ACS-12", "MPX", "F2000", "MG5", "MP7", "군용 L86 LSW", "MPX",
     "CTAR-21", "KSG", "1886", "전술용 SASG-12K"};
     //type : 23
+    private String[] namedweapontype = {"소총", "경기관총", "지정사수소총", "산탄총", "지정사수소총", "지정사수소총", "기관단총", "돌격소총", "권총", "권총", "권총", "돌격소총", "산탄총", "기관단총", "돌격소총", "경기관총", "기관단총", "경기관총",
+    "기관단총", "돌격소총", "산탄총", "소총", "산탄총"}; //type : 23
     private String[] namedspecial = {"완벽한 소총수", "완벽한 불안정", "완벽한 벌거숭이", "완벽한 재즈 핸드", "완벽한 혁신", "완벽한 레인저", "완벽한 보존", "완벽한 빠르고 경쾌하게", "완벽한 구제", "완벽한 확인사살", "완벽한 선제공격", "완벽한 점화",
     "완벽한 여유분", "완벽한 외부인", "완벽한 낙천주의자", "완벽한 광란", "완벽한 빠르고 경쾌하게", "완벽하게 떨리지 않는 손", "완벽한 신중함", "완벽한 신중함", "완벽한 뿌리 박기", "완벽한 부메랑", "완벽한 연속 타격"};
     //type : 23
@@ -91,8 +117,13 @@ class WeaponData {
 
     public String getNamedname() {
         int ransu = (int)(Math.random()*BIG)%namedname.length;
+        temp_number = ransu;
         return namedname[ransu];
-    };
+    }
+    public String getNamedtype() { return namedtype[temp_number]; }
+    public String getNamedweapontype() { return namedweapontype[temp_number]; }
+    public String getNamedspecial() { return namedspecial[temp_number]; }
+    public String getNamedspecialtalent() { return namedspecialtalent[temp_number]; }
 
     private String[] firsttalentname = {"떨리지 않는 손", "레인저", "브레드바스켓", "부메랑", "근접전의 대가", "빠른 손", "확인사살", "선제공격", "광란", "불안정", "점화", "맹인", "새디스트", "킬러", "뜻밖의 행운", "신중함", "벌거숭이", "근시안",
         "텅 빈 탄창", "낙천주의자", "공급과잉", "제압", "외부인", "영속성", "사전계획", "보존", "연속 타격", "혁신", "소총수", "구제", "가시", "중압감", "흔들림 방지", "앙심"};
