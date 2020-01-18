@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.home.DemageSimulationActivity"></activity>
         <activity android:name=".ui.home.SimulActivity"></activity>
         <activity android:name=".ui.gallery.Weapon1Activity"></activity>

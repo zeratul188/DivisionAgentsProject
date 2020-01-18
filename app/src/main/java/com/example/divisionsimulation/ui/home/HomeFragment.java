@@ -3,6 +3,7 @@ package com.example.divisionsimulation.ui.home;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
 
-public class HomeFragment extends Fragment {
+import java.io.Serializable;
+
+public class HomeFragment extends Fragment implements Serializable {
 
     private HomeViewModel homeViewModel;
 

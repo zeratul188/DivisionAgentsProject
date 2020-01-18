@@ -2,20 +2,28 @@ package com.example.divisionsimulation.ui.home;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
-public class SimulActivity extends AppCompatActivity {
+import java.io.Serializable;
 
-    public static TextView txtSheld, txtHealth, txtNowDemage, txtStatue, txtAmmo, txtAllAmmo, txtTime;
+public class SimulActivity extends AppCompatActivity implements Serializable {
 
-    public static ProgressBar progressSheld, progressHealth;
+    public static TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
+
+    public static ProgressBar progressSheld, progressHealth, progressAmmo;
 
     private DemageSimulThread dst = null;
 
@@ -34,24 +42,31 @@ public class SimulActivity extends AppCompatActivity {
         txtAmmo = findViewById(R.id.txtAmmo);
         txtAllAmmo = findViewById(R.id.txtAllAmmo);
         txtTime = findViewById(R.id.txtTime);
+        txtAdddemage = findViewById(R.id.txtAdddemage);
 
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
+        progressAmmo = findViewById(R.id.progressAmmo);
 
-        progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+        //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
-        progressHealth.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+        //progressHealth.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+
+        //progressHealth.getProgressDrawable().setColorFilter(Color.MAGENTA, PorterDuff.Mode.SRC_IN);
 
         progressSheld.setMax(10000);
         progressHealth.setMax(10000);
+        progressAmmo.setMax(10000);
 
         progressSheld.setProgress(10000);
         progressHealth.setProgress(10000);
+        progressAmmo.setProgress(10000);
 
         TimeThread tt = new TimeThread();
         tt.start();
 
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
+        //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread") ;
         dst.setTimeThread(tt);
         dst.start();
     }
