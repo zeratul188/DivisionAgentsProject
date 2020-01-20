@@ -147,9 +147,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                 if (String.valueOf(edtSheld.getText()).equals("") || String.valueOf(edtHealth.getText()).equals("")) {
                                     Toast.makeText(getActivity(), "방어구, 체력 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    int temp_sheld = Integer.parseInt(String.valueOf(edtSheld.getText()));
                                     int temp_health = Integer.parseInt(String.valueOf(edtHealth.getText()));
-                                    if (temp_sheld <= 0 || temp_health <= 0) {
+                                    if (temp_health <= 0) {
                                         Toast.makeText(getActivity(), "방어구, 체력이 최소 0 이상이어야 합니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         DemageSimulThread ws = new DemageSimulThread();

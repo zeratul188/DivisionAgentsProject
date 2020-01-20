@@ -157,6 +157,9 @@
         <activity android:name=".ui.tools.List3Activity"></activity>
         <activity android:name=".ui.tools.List4Activity"></activity>
         <activity android:name=".ui.tools.List5Activity"></activity>
+        <activity android:name=".ui.tools.List6Activity"></activity>
+        <activity android:name=".ui.tools.List7Activity"></activity>
+        <activity android:name=".ui.tools.List8Activity"></activity>
     </application>
 
 </manifest>

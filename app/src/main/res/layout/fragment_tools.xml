@@ -72,6 +72,33 @@
                 android:text="루스벨트아일랜드 비밀의방 여는방법 (일명 부엉이방)"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList6"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="뷰포인트박물관 비밀루팅방 여는 방법"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList7"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="항공우주박물관 숨겨진 우주인방"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList8"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="미항공우주국 이스터에그 보는법"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_1"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="미션 시작후 마당정리하고 (늒네 오렌지박스챙기고) 건물진입.\n아래 스샷 빨간선 따라가면"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_2"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="벽에 노란 X가 힌트임.\n바로앞에 파란색 풍선 있음. 그거 터쳐주면 1단계 완료."
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_3"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="좀 더 진행해서, 플라네타리움 들어가기 직전에 빨간선 따라 왼쪽을 보면,"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_4"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="팜플렛거치대 사이로 노란X가 있음.\n역시 그 앞에 파란풍선 터쳐주면 2단계 완료."
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_5"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="미션 쭉쭉 진행하다가 ISAC이 부품 스캔 세개 해야한다는 구간에서, 내려간 계단 뒤쪽가면 벽에 노란X 있음."
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_6"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="역시 그 앞에 파란풍선 터쳐주면 3단계 모두 완료-"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_7"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="세번째 풍선 터침과 동시에 효과음 띠띡 나면서 미션마커가 하나 더 생김.\n'밀실 들어가기'"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_8"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="미션마커 따라가보면 잠겨잇던 곳이 열려있음."
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list7_9"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내용물은 직접확인ㄱ\n별거업음."
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+</ScrollView>

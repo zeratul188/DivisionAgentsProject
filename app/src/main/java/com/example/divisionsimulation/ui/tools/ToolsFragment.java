@@ -21,7 +21,7 @@ public class ToolsFragment extends Fragment {
 
     private ToolsViewModel toolsViewModel;
 
-    private Button[] btnList = new Button[5];
+    private Button[] btnList = new Button[8];
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +74,27 @@ public class ToolsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), List5Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnList[5].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), List6Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnList[6].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), List7Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnList[7].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), List8Activity.class);
                 startActivity(intent);
             }
         });
