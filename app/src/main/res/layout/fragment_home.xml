@@ -53,6 +53,7 @@
                 android:id="@+id/edtWeaponDemage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text=""
                 android:inputType="number"
                 android:textSize="15sp"/>
             <TextView
@@ -65,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -76,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -87,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -98,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -109,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -120,6 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -131,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -142,6 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -153,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
+                android:text=""
                 android:textSize="15sp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -164,6 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:text=""
                 android:textSize="15sp"/>
 
         </LinearLayout>

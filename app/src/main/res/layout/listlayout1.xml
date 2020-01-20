@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="헌터 마스크는 총 12개가 있고 헌터를 활성화 해야 필드에서 특정 작업을 진행해서 헌터를 잡을수 있다.\n\n헌터는 디붕이가 쓰는 기술들을 쓰기 때문에 매우 좇같고 정예몹답게 딜도 더럽게 쌔다. 그니까 손이 좀 병신같다, 템이 병신이다 싶으면 친구를 불러서 다구리를 치자.\n\n헌터 활성화 방법은 다음과 같다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_1"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="월드 기준 왼쪽 아래의 웨스트 포토맥 공원의 기념탑 점령지역을 점령한다.\n그러면 보상룸이 지하에 있는데 밤에 지하로 내려간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_2"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="밤에 오면 모니터가 켜져 있고 버튼도 누를수 있을 것인데 누르면 모니터에 위치가 표시된다.\n위치는 다음과 같다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_3"
+            android:layout_marginBottom="5dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_4"
+            android:layout_marginBottom="5dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_5"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="저 3곳에 각각 아래와 같은 무덤이 있다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_6"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="저런 무덤 앞에서 올바른 위치를 잡아 띵복을 빌어주면 채팅창과 상태창이 지직거릴것인데 세곳 전부에서 띵복을 빈 후 지하로 돌아가 다시 버튼을 눌러 준다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_7"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그리고 올라오면 이 위치에 붉은 원이 생겨있을 것이다. 그 안으로 들어가면 첫 헌터가 나타난다.\n점령지역이므로 어그로 끌어줄 방어병력이 있어 상당히 쉽다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_8"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="두번째도 포토맥 공원인데 사진에 표시된 지하로 내려가 바로 왼쪽으로 틀면 에코가 있는 지하방이 나온다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_9"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="거기서 이런 컴퓨터가 있고 주황생 불이 켜져있을건데 가까이 가서 활성화 해 주면 사전준비가 완료된 것이다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_10"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="캐릭터가 서있는 곳에는 물을 구할수 있는 장소가 있는데 밤에 간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_11"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="밤에 가면 사진 속의 전구가 깜빡거릴 것인데 쏘면 그 위치에서 헌터가 나온다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_12"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="동부 다운타운 극장 옆 옆 옆의 ㅁ자처럼 생긴 건물 지하로 들어간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_13"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="땡컨을 마주보면 노란색으로 표시된 곳이 있다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_14"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="표시된 곳을 쏘면 헌터가 나온다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="밤에만 된다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_15"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오른쪽 아래의 남서부로 이동해서 저 위치로 간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_16"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가면 이런 비석이 있다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_17"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="거기서 특정 위치로 에임 맞춰서 경례 몇번 하다보면 헌터가 나온다.\n위치가 좀 애매해서 안나온다 싶음 에임 바꿔서 경례도 하고 뒤로 조금 물러나거나 하면서 위치조정하면 나올거임.\n공격기 드론 쓰더라"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_18"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="백악관 바로옆의 동부 다운타운의 저 ㅁ자 집으로 간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_19"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가끔 네임드 나오는 위치니까 네임드 정리하고 절로 들어간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_20"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그럼 이런 전화기에 활성화 버튼이 있을거다. 활성화하고 딴거 건드리지말고 바로 반대편으로 뛰어간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_21"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그럼 거기도 전화기가 있을건데 누르면 중앙에서 바로 헌터가 나온다.\n이속 더럽게 빠른 폭발드론 쓰더라"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_22"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남부 다크존 바로옆에 있는 오염지역으로 간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_23"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가면 이렇게 창문이 있음. 붙은 창문은 한 창문이고 왼쪽 위부터 차례대로 쏘면 헌터 튀어나온다. 포격터렛 쓰더라"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7,8번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_24"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="왼쪽 위의 웨스트엔드에서 캐릭터가 서 있는 위치로 간다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_25"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="거기에 이런 수영장이 있는데 저녁에 오면 벽에 붙은 둥근 전등이 주황색으로 켜져있을거다.\n거기서 팔벌려뛰기 해주면 헌터 두마리가 한번에 나온다.\n말벌하이브랑 파이어플라이 쓰더라"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9,10,11,12번째 헌터"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_26"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남부 다크존이 있는 동부쇼핑몰 위쪽에는 방주라는 오염지역이 있는데 거기 오른편에 물을 구할수 있는 곳이 있다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_27"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="거기에 왠 카페가 하나 있는데 거기 밤에 가면 저 레버가 활성화되고 활성화하면 트리에 불이 들어옴"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/list1_28"
+            android:layout_marginBottom="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남부 다크존이 있는 동부쇼핑몰 위쪽에는 방주라는 오염지역이 있는데 거기 오른편에 물을 구할수 있는 곳이 있다."
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</ScrollView>

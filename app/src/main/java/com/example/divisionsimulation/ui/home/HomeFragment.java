@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -108,57 +109,88 @@ public class HomeFragment extends Fragment implements Serializable {
         btnDemageSimul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
-                final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
-                final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
-                final CheckBox chkElite = dialogView.findViewById(R.id.chkElite);
-                final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setView(dialogView);
 
-                chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (chkPVP.isChecked()) chkElite.setEnabled(false);
-                        else chkElite.setEnabled(true);
+                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
+                    Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
+                    int temp_rpm = Integer.parseInt(String.valueOf(edtRPM.getText()));
+                    int temp_ammo = Integer.parseInt(String.valueOf(edtAmmo.getText()));
+                    if (temp_demage <= 0 || temp_rpm <= 0 || temp_ammo <= 0) {
+                        Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창을 최소 0 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
+                        final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
+                        final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
+                        final CheckBox chkElite = dialogView.findViewById(R.id.chkElite);
+                        final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(dialogView);
+
+                        chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (chkPVP.isChecked()) chkElite.setEnabled(false);
+                                else chkElite.setEnabled(true);
+                            }
+                        });
+
+                        builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean elite_true, pvp_true;
+                                if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
+                                else elite_true = false;
+                                if (chkPVP.isChecked()) pvp_true = true;
+                                else pvp_true = false;
+
+                                if (String.valueOf(edtSheld.getText()).equals("") || String.valueOf(edtHealth.getText()).equals("")) {
+                                    Toast.makeText(getActivity(), "방어구, 체력 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    int temp_sheld = Integer.parseInt(String.valueOf(edtSheld.getText()));
+                                    int temp_health = Integer.parseInt(String.valueOf(edtHealth.getText()));
+                                    if (temp_sheld <= 0 || temp_health <= 0) {
+                                        Toast.makeText(getActivity(), "방어구, 체력이 최소 0 이상이어야 합니다.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        DemageSimulThread ws = new DemageSimulThread();
+                                        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
+                                        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
+                                        if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
+                                        else ws.setCritical(0);
+                                        if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
+                                        else ws.setCriticaldemage(0);
+                                        if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
+                                        else ws.setHeadshot(0);
+                                        if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
+                                        else ws.setHeadshotdemage(0);
+                                        if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
+                                        else ws.setElitedemage(0);
+                                        if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
+                                        else ws.setShelddemage(0);
+                                        if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
+                                        else ws.setHeadshotdemage(0);
+                                        if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
+                                        else ws.setReloadtime(0);
+                                        ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
+                                        ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
+                                        ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
+                                        ws.setPVP_true(pvp_true);
+                                        ws.setElite_true(elite_true);
+
+                                        Intent intent = new Intent(getActivity(), SimulActivity.class);
+
+                                        intent.putExtra("thread", ws);
+
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("취소", null);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                     }
-                });
-
-                builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        boolean elite_true, pvp_true;
-                        if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
-                        else elite_true = false;
-                        if (chkPVP.isChecked()) pvp_true = true;
-                        else pvp_true = false;
-                        DemageSimulThread ws = new DemageSimulThread();
-                        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
-                        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
-                        ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
-                        ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
-                        ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
-                        ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
-                        ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
-                        ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
-                        ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
-                        ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
-                        ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
-                        ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
-                        ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
-                        ws.setPVP_true(pvp_true);
-                        ws.setElite_true(elite_true);
-
-                        Intent intent = new Intent(getActivity(), SimulActivity.class);
-
-                        intent.putExtra("thread", ws);
-
-                        startActivity(intent);
-                    }
-                });
-                builder.setNegativeButton("취소", null);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                }
             }
         });
 

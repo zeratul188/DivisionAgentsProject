@@ -151,6 +151,8 @@
         <activity android:name=".ui.slideshow.SheldSpecial1Activity"></activity>
         <activity android:name=".ui.slideshow.SheldSpecial2Activity"></activity>
         <activity android:name=".ui.slideshow.SheldSpecial3Activity"></activity>
+
+        <activity android:name=".ui.tools.List1Activity"></activity>
     </application>
 
 </manifest>

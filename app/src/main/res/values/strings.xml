@@ -10,7 +10,7 @@
     <string name="menu_home">데미지 시뮬레이션</string>
     <string name="menu_gallery">무기 정보</string>
     <string name="menu_slideshow">방어구 정보</string>
-    <string name="menu_tools">제작</string>
+    <string name="menu_tools">공략 및 정보</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 </resources>

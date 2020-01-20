@@ -15,7 +15,7 @@
             android:title="방어구 정보" />
         <item
             android:id="@+id/nav_tools"
-            android:title="제작" />
+            android:title="공략 및 정보" />
     </group>
 
     <!--<item android:title="Communicate">

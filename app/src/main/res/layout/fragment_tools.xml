@@ -28,15 +28,14 @@
             android:padding="15dp">
 
             <Button
-                android:id="@+id/btnSheldlist1"
+                android:id="@+id/btnList1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:padding="20dp"
-                android:text="무기"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:background="@drawable/buttoncustom"
+                android:text="디비전 2 헌터 마스크 공략"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
