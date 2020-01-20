@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="방어도"
+        android:text="표적"
         android:textSize="20sp"
         android:textColor="#000000"/>
     <ProgressBar
@@ -17,19 +17,28 @@
         android:progressDrawable="@drawable/progressbar_progressbar_sheld"
         android:id="@+id/progressSheld"
         android:indeterminateTint="#3B3B7C"
+        android:layerType="software"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:paddingTop="5dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar_progressbar_health"
+        android:id="@+id/progressHealth"
+        android:indeterminateTint="#ff0000"
         android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="수치 : "
-            android:textSize="25sp"
+            android:text="방어도 : "
+            android:textSize="20sp"
+            android:textColor="#000000"
             android:textAlignment="textEnd"/>
         <TextView
             android:id="@+id/txtSheld"
@@ -37,24 +46,11 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textSize="25sp"/>
+            android:textColor="#000000"
+            android:textSize="20sp"/>
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="생명력"
-        android:textSize="20sp"
-        android:textColor="#000000"/>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_health"
-        android:id="@+id/progressHealth"
-        android:indeterminateTint="#ff0000"
-        android:layout_marginBottom="10dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,8 +61,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="수치 : "
-            android:textSize="25sp"
+            android:text="생명력 : "
+            android:textSize="20sp"
+            android:textColor="#000000"
             android:textAlignment="textEnd"/>
         <TextView
             android:id="@+id/txtHealth"
@@ -74,13 +71,15 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="-"
-            android:textSize="25sp"/>
+            android:textColor="#000000"
+            android:textSize="20sp"/>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="0dp"
@@ -98,6 +97,16 @@
             android:textSize="25sp"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar_progressbar_ammo"
+        android:id="@+id/progressAmmo"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:indeterminateTint="#E45435"/>
     <TextView
         android:id="@+id/txtAmmo"
         android:layout_width="match_parent"
@@ -105,17 +114,6 @@
         android:text="-"
         android:textSize="15sp"
         android:textAlignment="center"/>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_ammo"
-        android:id="@+id/progressAmmo"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        android:indeterminateTint="#E45435"
-        android:layout_marginBottom="10dp"/>
     <TextView
         android:id="@+id/txtStatue"
         android:layout_width="match_parent"

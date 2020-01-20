@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
+import com.google.android.material.chip.ChipGroup;
 
 import java.io.Serializable;
 
@@ -109,15 +112,26 @@ public class HomeFragment extends Fragment implements Serializable {
                 final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
                 final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
                 final CheckBox chkElite = dialogView.findViewById(R.id.chkElite);
+                final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
+
+                chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (chkPVP.isChecked()) chkElite.setEnabled(false);
+                        else chkElite.setEnabled(true);
+                    }
+                });
 
                 builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean elite_true;
-                        if (chkElite.isChecked()) elite_true = true;
+                        boolean elite_true, pvp_true;
+                        if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
                         else elite_true = false;
+                        if (chkPVP.isChecked()) pvp_true = true;
+                        else pvp_true = false;
                         DemageSimulThread ws = new DemageSimulThread();
                         ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
                         ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
@@ -132,6 +146,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
                         ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
                         ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
+                        ws.setPVP_true(pvp_true);
                         ws.setElite_true(elite_true);
 
                         Intent intent = new Intent(getActivity(), SimulActivity.class);

@@ -11,7 +11,7 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false;
+    private boolean elite_true = false, pvp_true = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
@@ -55,6 +55,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setHealth(int health) { this.health = health; }
     public void setSheld(int sheld) { this.sheld = sheld; }
     public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
+    public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; }
 
     private void reload() {
         int time = (int)(reloadtime*1000);
@@ -76,6 +77,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     }
 
     public void run() {
+        SimulActivity.progressAmmo.setIndeterminate(false);
         first_health = health;
         first_sheld = sheld;
         int time = (60 * 1000) / (int) rpm;
@@ -108,6 +110,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 per = elitedemage/100;
                 now_demage *= 1+per;
             }
+            if (pvp_true == true) now_demage *= 0.4;
             real_demage = (int) now_demage;
             sheld -= real_demage;
             all_dmg += real_demage;
@@ -118,7 +121,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             ammo_log = "현재 탄수 : "+now_ammo;
             if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
             if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-            SimulActivity.txtSheld.setText(Integer.toString(sheld));
+            SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtAmmo.setText(ammo_log);
             SimulActivity.txtStatue.setText(statue_log);
@@ -160,6 +163,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 per = elitedemage/100;
                 now_demage *= 1+per;
             }
+            if (pvp_true == true) now_demage *= 0.4;
             real_demage = (int) now_demage;
             health -= real_demage;
             all_dmg += real_demage;
@@ -170,7 +174,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             ammo_log = "현재 탄수 : "+now_ammo;
             if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
             if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-            SimulActivity.txtHealth.setText(Integer.toString(health));
+            SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+first_health);
             SimulActivity.txtNowDemage.setText(log);
             SimulActivity.txtAmmo.setText(ammo_log);
             SimulActivity.txtStatue.setText(statue_log);

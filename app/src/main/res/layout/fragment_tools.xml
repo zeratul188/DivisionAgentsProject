@@ -30,78 +30,11 @@
             <Button
                 android:id="@+id/btnSheldlist1"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/weapon"
                 android:padding="20dp"
                 android:text="무기"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/mask"
-                android:padding="20dp"
-                android:text="마스크"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist3"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/backpack"
-                android:padding="20dp"
-                android:text="백팩"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist4"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/vests"
-                android:padding="20dp"
-                android:text="조끼"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist5"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/gloves"
-                android:padding="20dp"
-                android:text="장갑"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist6"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/holsters"
-                android:padding="20dp"
-                android:text="권총집"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
-            <Button
-                android:id="@+id/btnSheldlist7"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustomsheld"
-                android:drawableLeft="@drawable/kneepeds"
-                android:padding="20dp"
-                android:text="무릎 보호대"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />
 
