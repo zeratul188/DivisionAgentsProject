@@ -36,6 +36,42 @@
                 android:text="디비전 2 헌터 마스크 공략"
                 android:textColor="#000000"
                 android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="[매닝동물원] 히든보스 소환하는 방법"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="그랜드 워싱턴 호텔 비밀방 여는법"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="엑조틱 기관단총 촉새 만드는법"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:id="@+id/btnList5"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="루스벨트아일랜드 비밀의방 여는방법 (일명 부엉이방)"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

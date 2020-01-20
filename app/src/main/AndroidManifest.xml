@@ -153,6 +153,10 @@
         <activity android:name=".ui.slideshow.SheldSpecial3Activity"></activity>
 
         <activity android:name=".ui.tools.List1Activity"></activity>
+        <activity android:name=".ui.tools.List2Activity"></activity>
+        <activity android:name=".ui.tools.List3Activity"></activity>
+        <activity android:name=".ui.tools.List4Activity"></activity>
+        <activity android:name=".ui.tools.List5Activity"></activity>
     </application>
 
 </manifest>
