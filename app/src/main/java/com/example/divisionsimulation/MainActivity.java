@@ -5,8 +5,10 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -77,6 +79,27 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case R.id.menu1:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("버젼 확인").setMessage("Version 1.0.2\n마지막 수정 일자 : 2020년 1월 21일 14시 49분");
+
+                builder.setPositiveButton("확인", null);
+
+                AlertDialog alertDialog = builder.create();
+
+                alertDialog.show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

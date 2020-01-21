@@ -40,6 +40,8 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private CheckBox chkSeeker, chkCrazy, chkBoom;
 
+    private boolean boom = false;
+
     private int crazy_dmg, seeker_dmg;
 
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
@@ -97,9 +99,13 @@ public class HomeFragment extends Fragment implements Serializable {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!String.valueOf(edtCritical.getText()).equals("")) {
-                    int input = Integer.parseInt(String.valueOf(edtCritical.getText()));
-                    if (input < 0 || input > 100) {
+                String temp = String.valueOf(edtCritical.getText());
+                int index = temp.indexOf(".");
+                String result = "";
+                if (index != -1) result = temp.substring(0, index);
+                else result = temp;
+                if (!result.equals("")) {
+                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
                         Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtCritical.setText("0");
                     }
@@ -119,9 +125,13 @@ public class HomeFragment extends Fragment implements Serializable {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!String.valueOf(edtHeadshot.getText()).equals("")) {
-                    int input = Integer.parseInt(String.valueOf(edtHeadshot.getText()));
-                    if (input < 0 || input > 100) {
+                String temp = String.valueOf(edtHeadshot.getText());
+                int index = temp.indexOf(".");
+                String result = "";
+                if (index != -1) result = temp.substring(0, index);
+                else result = temp;
+                if (!result.equals("")) {
+                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
                         Toast.makeText(getActivity(), "'헤드샷 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtHeadshot.setText("0");
                     }
@@ -289,6 +299,9 @@ public class HomeFragment extends Fragment implements Serializable {
                         if (chkSeeker.isChecked()) seeker_dmg = 20;
                         else seeker_dmg = 0;
 
+                        if (chkBoom.isChecked()) boom = true;
+                        else boom = false;
+
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
                         final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
                         final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
@@ -347,6 +360,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         ws.setElite_true(elite_true);
                                         ws.setCrazy_dmg(crazy_dmg);
                                         ws.setSeeker_dmg(seeker_dmg);
+                                        ws.setBoom(boom);
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 

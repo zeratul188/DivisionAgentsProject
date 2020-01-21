@@ -131,7 +131,6 @@
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:text=""
-                        android:maxLength="3"
                         android:hint="0~100"
                         android:textSize="15sp"/>
                     <EditText
@@ -170,7 +169,6 @@
                         android:inputType="numberDecimal"
                         android:text=""
                         android:hint="0~100"
-                        android:maxLength="3"
                         android:textSize="15sp"/>
                     <EditText
                         android:id="@+id/edtHeadshotDemage"

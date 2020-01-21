@@ -21,6 +21,8 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
 
+    private String log, statue_log = "", ammo_log = "";
+
     /*final Handler headshot_handle = new Handler(){
 
         public void handleMessage(Message msg){
@@ -90,7 +92,6 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         int all_dmg = 0;
         double now_demage;
         System.out.println("Start HP : " + health);
-        String log, statue_log = "", ammo_log = "";
         double per;
         SimulActivity.txtSheld.setText(Integer.toString(sheld));
         SimulActivity.txtHealth.setText(Integer.toString(health));
@@ -116,7 +117,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
-                if (ransu <= 5) now_demage += (demage()*2);
+                if (ransu <= 5) {
+                    now_demage += (demage()*2);
+                    statue_log += "(무자비 폭발탄!!)";
+                }
             }
             if (crazy_dmg != 0) {
                 per = crazy_dmg/100;
@@ -181,7 +185,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
-                if (ransu <= 5) now_demage += (demage()*2);
+                if (ransu <= 5) {
+                    now_demage += (demage()*2);
+                    statue_log += "(무자비 폭발탄!!)";
+                }
             }
             if (crazy_dmg != 0) {
                 per = crazy_dmg/100;
