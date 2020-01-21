@@ -24,14 +24,16 @@
         android:layout_height="wrap_content"
         android:text="무기 시뮬레이션"
         android:textSize="25sp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textColor="#000000"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="소수점 첫째짜리까지만 입력해주세요."
-        android:textSize="10sp"
+        android:textSize="15sp"
         android:paddingLeft="30dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:textColor="#000000"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -43,140 +45,242 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="이름"
+                        android:textColor="#000000"
+                        android:textSize="20sp"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtNickname"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:hint="Nickname"
+                        android:maxLength="15"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="무기 데미지"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="RPM"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtWeaponDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:hint="0 ~ 999999999"
+                        android:inputType="number"
+                        android:maxLength="9"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/edtRPM"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text=""
+                        android:hint="0~9999"
+                        android:maxLength="4"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="치명타 확률 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="치명타 데미지 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtCritical"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:maxLength="3"
+                        android:hint="0~100"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/edtCriticalDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~999"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="헤드샷 확률 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="헤드샷 데미지 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtHeadshot"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~100"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/edtHeadshotDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~999"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="정예 대상 데미지 (%)"
+                        android:textSize="19sp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="방어도 데미지 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtEliteDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~999"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
+                    <EditText
+                        android:id="@+id/edtSheldDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~999"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="생명력 데미지 (%)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="재장전 속도 (초)"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtHealthDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~999"
+                        android:maxLength="3"
+                        android:textSize="15sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="무기 데미지"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtWeaponDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:inputType="number"
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RPM"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtRPM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="치명타 확률 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtCritical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="치명타 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtCriticalDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="헤드샷 확률 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtHeadshot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="헤드샷 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtHeadshotDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="정예 대상 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtEliteDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="방어도 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtSheldDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="생명력 데미지 (%)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtHealthDemage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="재장전 속도 (초)"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtReload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text=""
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="탄수"
-                android:textSize="20sp"/>
-            <EditText
-                android:id="@+id/edtAmmo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text=""
-                android:textSize="15sp"/>
-
+                    <EditText
+                        android:id="@+id/edtReload"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text=""
+                        android:hint="0~600"
+                        android:maxLength="4"
+                        android:textSize="15sp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="탄수"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
+                </TableRow>
+                <TableRow>
+                    <EditText
+                        android:id="@+id/edtAmmo"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text=""
+                        android:hint="0~99999"
+                        android:maxLength="5"
+                        android:textSize="15sp"/>
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
 
     </ScrollView>

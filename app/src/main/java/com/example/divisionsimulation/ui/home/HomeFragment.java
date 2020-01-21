@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +35,7 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private Button btnDemageSimul, btnDPS;
 
-    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo;
+    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,57 +54,175 @@ public class HomeFragment extends Fragment implements Serializable {
         edtHealthDemage = root.findViewById(R.id.edtHealthDemage);
         edtReload = root.findViewById(R.id.edtReload);
         edtAmmo = root.findViewById(R.id.edtAmmo);
+        edtNickname = root.findViewById(R.id.edtNickname);
 
         btnDPS = root.findViewById(R.id.btnDPS);
         btnDemageSimul = root.findViewById(R.id.btnDemageSimul);
 
+        edtCritical.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!String.valueOf(edtCritical.getText()).equals("")) {
+                    int input = Integer.parseInt(String.valueOf(edtCritical.getText()));
+                    if (input < 0 || input > 100) {
+                        Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                        edtCritical.setText("0");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edtHeadshot.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!String.valueOf(edtHeadshot.getText()).equals("")) {
+                    int input = Integer.parseInt(String.valueOf(edtHeadshot.getText()));
+                    if (input < 0 || input > 100) {
+                        Toast.makeText(getActivity(), "'헤드샷 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                        edtHeadshot.setText("0");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edtReload.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!String.valueOf(edtReload.getText()).equals("")) {
+                    double input = Double.parseDouble(String.valueOf(edtReload.getText()));
+                    if (input < 0 || input > 600) {
+                        Toast.makeText(getActivity(), "'재장전 시간'은 600초(10분)을 넘겨선 안됩니다.", Toast.LENGTH_SHORT).show();
+                        edtReload.setText("0");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         btnDPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WeaponSimulation ws = new WeaponSimulation();
-                ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
-                ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
-                ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
-                ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
-                ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
-                ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
-                ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
-                ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
-                ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
-                ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
-                ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
+                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
+                    Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
+                    int temp_rpm = Integer.parseInt(String.valueOf(edtRPM.getText()));
+                    int temp_ammo = Integer.parseInt(String.valueOf(edtAmmo.getText()));
+                    if (temp_demage <= 0 || temp_rpm <= 0 || temp_ammo <= 0) {
+                        Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창을 최소 0 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
+                        final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
+                        final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
+                        final CheckBox chkElite = dialogView.findViewById(R.id.chkElite);
+                        final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(dialogView);
 
-                Intent intent = new Intent(getActivity(), DemageSimulationActivity.class);
+                        chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (chkPVP.isChecked()) chkElite.setEnabled(false);
+                                else chkElite.setEnabled(true);
+                            }
+                        });
 
-                intent.putExtra("bodyhealth",ws.getbody_health());
-                intent.putExtra("bodycriticalhealth", ws.getbody_critical_health());
-                intent.putExtra("headshothealth", ws.getheadshot_health());
-                intent.putExtra("headshotcriticalhealth", ws.getheadshot_critical_health());
-                intent.putExtra("healthDPS", ws.getdps_health());
-                intent.putExtra("healthDPM", ws.getdpm_health());
+                        builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean elite_true, pvp_true;
+                                if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
+                                else elite_true = false;
+                                if (chkPVP.isChecked()) pvp_true = true;
+                                else pvp_true = false;
 
-                intent.putExtra("bodysheld", ws.getbody_sheld());
-                intent.putExtra("bodycriticalsheld", ws.getbody_critical_sheld());
-                intent.putExtra("headshotsheld", ws.getheadshot_sheld());
-                intent.putExtra("headshotcriticalsheld", ws.getheadshot_critical_sheld());
-                intent.putExtra("sheldDPS", ws.getdps_sheld());
-                intent.putExtra("sheldDPM", ws.getdpm_sheld());
+                                if (String.valueOf(edtSheld.getText()).equals("") || String.valueOf(edtHealth.getText()).equals("")) {
+                                    Toast.makeText(getActivity(), "방어구, 체력 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    int temp_health = Integer.parseInt(String.valueOf(edtHealth.getText()));
+                                    if (temp_health <= 0) {
+                                        Toast.makeText(getActivity(), "방어구, 체력이 최소 0 이상이어야 합니다.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        WeaponSimulation ws = new WeaponSimulation();
+                                        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
+                                        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
+                                        ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
+                                        ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
+                                        ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
+                                        ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
+                                        ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
+                                        ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
+                                        ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
+                                        ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
+                                        ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
 
-                intent.putExtra("bodyhealthelite", ws.getelite_body_health());
-                intent.putExtra("bodycriticalhealthelite", ws.getelite_body_critical_health());
-                intent.putExtra("headshothealthelite", ws.getelite_headshot_health());
-                intent.putExtra("headshotcriticalhealthelite", ws.getelite_headshot_critical_health());
-                intent.putExtra("elitehealthDPS", ws.getdps_elite_health());
-                intent.putExtra("elitehealthDPM", ws.getdpm_elite_health());
+                                        Intent intent = new Intent(getActivity(), DemageSimulationActivity.class);
 
-                intent.putExtra("bodysheldelite", ws.getelite_body_sheld());
-                intent.putExtra("bodycriticalsheldelite", ws.getelite_body_critical_sheld());
-                intent.putExtra("headshotsheldelite", ws.getelite_headshot_sheld());
-                intent.putExtra("headshotcriticalsheldelite", ws.getelite_headshot_critical_sheld());
-                intent.putExtra("elitesheldDPS", ws.getdps_elite_sheld());
-                intent.putExtra("elitesheldDPM", ws.getdpm_elite_sheld());
+                                        intent.putExtra("bodyhealth",ws.getbody_health());
+                                        intent.putExtra("bodycriticalhealth", ws.getbody_critical_health());
+                                        intent.putExtra("headshothealth", ws.getheadshot_health());
+                                        intent.putExtra("headshotcriticalhealth", ws.getheadshot_critical_health());
+                                        intent.putExtra("healthDPS", ws.getdps_health());
+                                        intent.putExtra("healthDPM", ws.getdpm_health());
 
-                startActivity(intent);
+                                        intent.putExtra("bodysheld", ws.getbody_sheld());
+                                        intent.putExtra("bodycriticalsheld", ws.getbody_critical_sheld());
+                                        intent.putExtra("headshotsheld", ws.getheadshot_sheld());
+                                        intent.putExtra("headshotcriticalsheld", ws.getheadshot_critical_sheld());
+                                        intent.putExtra("sheldDPS", ws.getdps_sheld());
+                                        intent.putExtra("sheldDPM", ws.getdpm_sheld());
+
+                                        intent.putExtra("bodyhealthelite", ws.getelite_body_health());
+                                        intent.putExtra("bodycriticalhealthelite", ws.getelite_body_critical_health());
+                                        intent.putExtra("headshothealthelite", ws.getelite_headshot_health());
+                                        intent.putExtra("headshotcriticalhealthelite", ws.getelite_headshot_critical_health());
+                                        intent.putExtra("elitehealthDPS", ws.getdps_elite_health());
+                                        intent.putExtra("elitehealthDPM", ws.getdpm_elite_health());
+
+                                        intent.putExtra("bodysheldelite", ws.getelite_body_sheld());
+                                        intent.putExtra("bodycriticalsheldelite", ws.getelite_body_critical_sheld());
+                                        intent.putExtra("headshotsheldelite", ws.getelite_headshot_sheld());
+                                        intent.putExtra("headshotcriticalsheldelite", ws.getelite_headshot_critical_sheld());
+                                        intent.putExtra("elitesheldDPS", ws.getdps_elite_sheld());
+                                        intent.putExtra("elitesheldDPM", ws.getdpm_elite_sheld());
+
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("취소", null);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                }
             }
         });
 
@@ -179,6 +299,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 
                                         intent.putExtra("thread", ws);
+                                        intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
 
                                         startActivity(intent);
                                     }

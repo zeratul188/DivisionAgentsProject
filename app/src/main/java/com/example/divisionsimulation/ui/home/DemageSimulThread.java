@@ -60,7 +60,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private void reload() {
         int time = (int)(reloadtime*1000);
         SimulActivity.progressAmmo.setIndeterminate(true);
-        SimulActivity.txtNowDemage.setText("재장전 중...");
+        SimulActivity.txtStatue.setText("재장전 중...");
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {

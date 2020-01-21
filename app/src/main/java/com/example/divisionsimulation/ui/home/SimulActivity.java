@@ -22,6 +22,7 @@ import java.io.Serializable;
 public class SimulActivity extends AppCompatActivity implements Serializable {
 
     public static TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
+    private TextView txtNickname;
 
     public static ProgressBar progressSheld, progressHealth, progressAmmo;
 
@@ -43,6 +44,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         txtAllAmmo = findViewById(R.id.txtAllAmmo);
         txtTime = findViewById(R.id.txtTime);
         txtAdddemage = findViewById(R.id.txtAdddemage);
+        txtNickname = findViewById(R.id.txtNickname);
 
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
@@ -64,6 +66,10 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
         TimeThread tt = new TimeThread();
         tt.start();
+
+        String nickname = getIntent().getStringExtra("nickname");
+        if (!nickname.equals("")) txtNickname.setText(nickname);
+        else txtNickname.setText("표적");
 
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
         //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread") ;
