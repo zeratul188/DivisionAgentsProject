@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu1:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("버젼 확인").setMessage("Version 1.0.2\n마지막 수정 일자 : 2020년 1월 21일 14시 49분");
+                builder.setTitle("버젼 확인").setMessage("Version 1.0.3\n마지막 수정 일자 : 2020년 1월 22일 1시 11분");
 
                 builder.setPositiveButton("확인", null);
 

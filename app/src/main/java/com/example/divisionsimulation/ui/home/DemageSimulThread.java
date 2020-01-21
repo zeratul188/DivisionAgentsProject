@@ -16,7 +16,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
-    private int crazy_dmg, seeker_dmg;
+    private double crazy_dmg, seeker_dmg;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -59,8 +59,8 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setSheld(int sheld) { this.sheld = sheld; }
     public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
     public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; }
-    public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = crazy_dmg; }
-    public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = seeker_dmg; }
+    public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = (double)crazy_dmg; }
+    public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = (double)seeker_dmg; }
     public void setBoom(boolean boom) { this.boom = boom; }
 
     private void reload() {
