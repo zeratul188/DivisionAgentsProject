@@ -11,11 +11,12 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false;
+    private boolean elite_true = false, pvp_true = false, boom = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
+    private int crazy_dmg, seeker_dmg;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -56,6 +57,9 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setSheld(int sheld) { this.sheld = sheld; }
     public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
     public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; }
+    public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = crazy_dmg; }
+    public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = seeker_dmg; }
+    public void setBoom(boolean boom) { this.boom = boom; }
 
     private void reload() {
         int time = (int)(reloadtime*1000);
@@ -110,6 +114,18 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 per = elitedemage/100;
                 now_demage *= 1+per;
             }
+            if (boom) {
+                int ransu = (int)(Math.random()*123456)%100+1;
+                if (ransu <= 5) now_demage += (demage()*2);
+            }
+            if (crazy_dmg != 0) {
+                per = crazy_dmg/100;
+                now_demage *= 1+per;
+            }
+            if (seeker_dmg != 0) {
+                per = seeker_dmg/100;
+                now_demage *= 1+per;
+            }
             if (pvp_true == true) now_demage *= 0.4;
             real_demage = (int) now_demage;
             sheld -= real_demage;
@@ -161,6 +177,18 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             now_demage *= 1+per;
             if (elite_true == true) {
                 per = elitedemage/100;
+                now_demage *= 1+per;
+            }
+            if (boom) {
+                int ransu = (int)(Math.random()*123456)%100+1;
+                if (ransu <= 5) now_demage += (demage()*2);
+            }
+            if (crazy_dmg != 0) {
+                per = crazy_dmg/100;
+                now_demage *= 1+per;
+            }
+            if (seeker_dmg != 0) {
+                per = seeker_dmg/100;
                 now_demage *= 1+per;
             }
             if (pvp_true == true) now_demage *= 0.4;

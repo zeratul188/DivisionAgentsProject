@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,12 @@ public class HomeFragment extends Fragment implements Serializable {
     private HomeViewModel homeViewModel;
 
     private Button btnDemageSimul, btnDPS;
+
+    private RadioGroup rgCrazy;
+    private RadioButton[] rdoCrazy = new RadioButton[6];
+    private CheckBox chkSeeker, chkCrazy, chkBoom;
+
+    private int crazy_dmg, seeker_dmg;
 
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
 
@@ -58,6 +65,29 @@ public class HomeFragment extends Fragment implements Serializable {
 
         btnDPS = root.findViewById(R.id.btnDPS);
         btnDemageSimul = root.findViewById(R.id.btnDemageSimul);
+
+        chkBoom = root.findViewById(R.id.chkBoom);
+
+        chkCrazy = root.findViewById(R.id.chkCrazy);
+        rgCrazy = root.findViewById(R.id.rgCrazy);
+        int temp;
+        for (int i = 0; i < rdoCrazy.length; i++) {
+            temp = root.getResources().getIdentifier("rdoCrazy"+(i+1), "id", getActivity().getPackageName());
+            rdoCrazy[i] = (RadioButton) root.findViewById(temp);
+        }
+
+        chkSeeker = root.findViewById(R.id.chkSeeker);
+
+        chkCrazy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) rgCrazy.setVisibility(View.VISIBLE);
+                else {
+                    rgCrazy.clearCheck();
+                    rgCrazy.setVisibility(View.GONE);
+                }
+            }
+        });
 
         edtCritical.addTextChangedListener(new TextWatcher() {
             @Override
@@ -229,7 +259,6 @@ public class HomeFragment extends Fragment implements Serializable {
         btnDemageSimul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
                     Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -239,6 +268,27 @@ public class HomeFragment extends Fragment implements Serializable {
                     if (temp_demage <= 0 || temp_rpm <= 0 || temp_ammo <= 0) {
                         Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창을 최소 0 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                     } else {
+                        switch (rgCrazy.getCheckedRadioButtonId()) {
+                            case R.id.rdoCrazy1:
+                                crazy_dmg = 0; break;
+                            case R.id.rdoCrazy2:
+                                crazy_dmg = 10; break;
+                            case R.id.rdoCrazy3:
+                                crazy_dmg = 20; break;
+                            case R.id.rdoCrazy4:
+                                crazy_dmg = 30; break;
+                            case R.id.rdoCrazy5:
+                                crazy_dmg = 40; break;
+                            case R.id.rdoCrazy6:
+                                crazy_dmg = 50; break;
+                            default:
+                                Toast.makeText(getActivity(), "광분 여부가 체크가 안 되어 있으므로 광분 없는 것으로 설정합니다.", Toast.LENGTH_SHORT).show();
+                                crazy_dmg = 0;
+                        }
+
+                        if (chkSeeker.isChecked()) seeker_dmg = 20;
+                        else seeker_dmg = 0;
+
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
                         final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
                         final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
@@ -295,6 +345,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                         ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
                                         ws.setPVP_true(pvp_true);
                                         ws.setElite_true(elite_true);
+                                        ws.setCrazy_dmg(crazy_dmg);
+                                        ws.setSeeker_dmg(seeker_dmg);
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 

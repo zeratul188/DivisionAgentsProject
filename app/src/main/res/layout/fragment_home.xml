@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="소수점 첫째짜리까지만 입력해주세요."
+        android:text="- 소수점 첫째짜리까지만 입력해주세요.\n- 상대는 펄스 적용된 상태"
         android:textSize="15sp"
         android:paddingLeft="30dp"
         android:layout_marginBottom="5dp"
@@ -47,7 +47,8 @@
             android:orientation="vertical">
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
                 <TableRow>
                     <TextView
                         android:layout_width="0dp"
@@ -281,6 +282,77 @@
                         android:textSize="15sp"/>
                 </TableRow>
             </TableLayout>
+            <CheckBox
+                android:id="@+id/chkCrazy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="광분 여부"
+                android:textSize="15sp"
+                android:textColor="#000000"/>
+            <RadioGroup
+                android:id="@+id/rgCrazy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/rdoCrazy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 0 (dmg +0%, 방어도 80% 초과)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <RadioButton
+                    android:id="@+id/rdoCrazy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 1(dmg +10%, 방어도 60% 초과 80% 이하)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <RadioButton
+                    android:id="@+id/rdoCrazy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 2(dmg +20%, 방어도 40% 초과 60% 이하)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <RadioButton
+                    android:id="@+id/rdoCrazy4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 3(dmg +30%, 방어도 20% 초과 40% 이하)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <RadioButton
+                    android:id="@+id/rdoCrazy5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 4(dmg +40%, 방어도 0% 초과 20% 이하)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <RadioButton
+                    android:id="@+id/rdoCrazy6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Revel 5(dmg +50%, 방어도 0%)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+            </RadioGroup>
+            <CheckBox
+                android:id="@+id/chkSeeker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="감시병 여부 (펄스 강조된 데미지 20% 증가)"
+                android:textColor="#000000"
+                android:textSize="15sp"/>
+            <CheckBox
+                android:id="@+id/chkBoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="무자비 수납(5% 확률로 무기데미지 +100% 증가된 폭발탄)"
+                android:textColor="#000000"
+                android:textSize="15sp"/>
         </LinearLayout>
 
     </ScrollView>
