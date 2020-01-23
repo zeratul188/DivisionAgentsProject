@@ -23,7 +23,7 @@ public class ShareFragment extends Fragment {
 
     final private int BIG = 1234567;
 
-    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox;
+    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset;
     private TextView txtSpecial, txtNamed, txtGear, txtBrand;
 
     private int special = 0, named = 0, gear = 0, brand = 0;
@@ -45,6 +45,7 @@ public class ShareFragment extends Fragment {
         btnDarkzone = root.findViewById(R.id.btnDarkzone);
         btnRaid = root.findViewById(R.id.btnRaid);
         btnRaidbox = root.findViewById(R.id.btnRaidbox);
+        btnReset = root.findViewById(R.id.btnReset);
 
         txtSpecial = root.findViewById(R.id.txtSpecial);
         txtNamed = root.findViewById(R.id.txtNamed);
@@ -65,12 +66,26 @@ public class ShareFragment extends Fragment {
         builder.setView(dialogView);
         */
 
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                special = 0;
+                named = 0;
+                gear = 0;
+                brand = 0;
+                txtSpecial.setText("0");
+                txtNamed.setText("0");
+                txtGear.setText("0");
+                txtBrand.setText("0");
+            }
+        });
+
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pick;
                 txtName.setTextColor(Color.parseColor("#000000"));
-                if (percent(1, 1000) <= 5) { //특급 장비
+                if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
@@ -83,7 +98,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSheldspecial(pick));
                         txtType.setText(il.getSheldspecial_type(pick));
                     }
-                } else if (percent(1, 1000) <= 20) { //네임드 장비
+                } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
@@ -177,13 +192,13 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick;
                 txtName.setTextColor(Color.parseColor("#000000"));
-                if (percent(1, 1000) <= 5) { //특급 장비
+                if (percent(1, 1000) <= 15) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
                     txtName.setText("역병");
                     txtType.setText("경기관총");
-                } else if (percent(1, 1000) <= 20) { //네임드 장비
+                } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
@@ -277,14 +292,14 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick;
                 txtName.setTextColor(Color.parseColor("#000000"));
-                if (percent(1, 1000) <= 10) { //특급 장비
+                if (percent(1, 1000) <= 15) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
                     pick = percent(0, il.getSpecialweapon_raid_Length());
                     txtName.setText(il.getSpecialweapon_raid(pick));
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
-                } else if (percent(1, 1000) <= 20) { //네임드 장비
+                } else if (percent(1, 1000) <= 40) { //네임드 장비
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
@@ -378,89 +393,179 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick;
                 txtName.setTextColor(Color.parseColor("#000000"));
-                if (percent(1, 1000) <= 100) { //특급 장비
+                String name = "", type = "";
+                if (percent(1, 100) <= 10) {
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
-                    txtName.setText("독수리를 거느린 자");
-                    txtType.setText("돌격소총");
-                } else if (percent(1, 1000) <= 20) { //네임드 장비
-                    named++;
-                    txtNamed.setText(Integer.toString(named));
-                    txtName.setTextColor(Color.parseColor("#c99700"));
-                    if (percent(1, 2) == 1) { //weapon
-                        pick = percent(0, il.getNamedweapon_lite_Length());
-                        txtName.setText(il.getNamedweapon_lite(pick));
-                        txtType.setText(il.getNamedweapon_lite_type(pick));
-                    } else { //sheld
-                        pick = percent(0, il.getNamedsheld_lite_Length());
-                        txtName.setText(il.getNamedsheld_lite(pick));
-                        txtType.setText(il.getNamedsheld_lite_type(pick));
-                    }
-                } else { //기타 장비
-                    if (percent(1,2) == 1) { //weapon
-                        brand++;
-                        txtBrand.setText(Integer.toString(brand));
-                        pick = percent(0, il.getWeapontype_Length());
-                        int temp;
-                        switch (pick) {
-                            case 0: //돌격소총
-                                temp = percent(0, il.getWeaponlist1_Length());
-                                txtName.setText(il.getWeaponlist1(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 1: //소총
-                                temp = percent(0, il.getWeaponlist2_Length());
-                                txtName.setText(il.getWeaponlist2(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 2: //지정사수소총
-                                temp = percent(0, il.getWeaponlist3_Length());
-                                txtName.setText(il.getWeaponlist3(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 3: //기관단총
-                                temp = percent(0, il.getWeaponlist4_Length());
-                                txtName.setText(il.getWeaponlist4(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 4: //경기관총
-                                temp = percent(0, il.getWeaponlist5_Length());
-                                txtName.setText(il.getWeaponlist5(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 5: //산탄총
-                                temp = percent(0, il.getWeaponlist6_Length());
-                                txtName.setText(il.getWeaponlist6(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            case 6: //권총
-                                temp = percent(0, il.getWeaponlist7_Length());
-                                txtName.setText(il.getWeaponlist7(temp));
-                                txtType.setText(il.getWeapontype(pick));
-                                break;
-                            default:
-                                txtName.setText("Error");
-                                txtType.setText("Error");
+                    name += "독수리를 거느린 자\n";
+                    type += "돌격소총\n";
+                }
+                for (int i = 0; i < 5; i++) {
+                    if (percent(1, 1000) <= 10) { //특급 장비
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        txtSpecial.setText(Integer.toString(special));
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        if (i != 4) {
+                            name += il.getSpecialweapon(pick)+"\n";
+                            type += il.getSpecialweapon_type(pick)+"\n";
+                        } else {
+                            name += il.getSpecialweapon(pick);
+                            type += il.getSpecialweapon_type(pick);
                         }
-
-                    } else { //sheld
-                        pick = percent(0, il.getSheldtype_Length());
-                        txtType.setText(il.getSheldtype(pick));
-                        pick = percent(1, 100);
-                        if (pick <= 10) { //gear
-                            gear++;
-                            txtGear.setText(Integer.toString(gear));
-                            pick = percent(0, il.getSheldgear_Length());
-                            txtName.setText(il.getSheldgear(pick));
-                        } else { //brand
+                        //txtName.setText(il.getSpecialweapon(pick));
+                        //txtType.setText(il.getSpecialweapon_type(pick));
+                    } else if (percent(1, 1000) <= 30) { //네임드 장비
+                        named++;
+                        txtNamed.setText(Integer.toString(named));
+                        txtName.setTextColor(Color.parseColor("#c99700"));
+                        if (percent(1, 2) == 1) { //weapon
+                            pick = percent(0, il.getNamedweapon_lite_Length());
+                            if (i != 4) {
+                                name += il.getNamedweapon_lite(pick)+"\n";
+                                type += il.getNamedweapon_lite_type(pick)+"\n";
+                            } else {
+                                name += il.getNamedweapon_lite(pick);
+                                type += il.getNamedweapon_lite_type(pick);
+                            }
+                            //txtName.setText(il.getNamedweapon_lite(pick));
+                            //txtType.setText(il.getNamedweapon_lite_type(pick));
+                        } else { //sheld
+                            pick = percent(0, il.getNamedsheld_lite_Length());
+                            if (i != 4) {
+                                name += il.getNamedsheld_lite(pick)+"\n";
+                                type += il.getNamedsheld_lite_type(pick)+"\n";
+                            } else {
+                                name += il.getNamedsheld_lite(pick);
+                                type += il.getNamedsheld_lite_type(pick);
+                            }
+                            //txtName.setText(il.getNamedsheld_lite(pick));
+                            //txtType.setText(il.getNamedsheld_lite_type(pick));
+                        }
+                    } else { //기타 장비
+                        if (percent(1,2) == 1) { //weapon
                             brand++;
                             txtBrand.setText(Integer.toString(brand));
-                            pick = percent(0, il.getSheldbrand_Length());
-                            txtName.setText(il.getSheldbrand(pick));
+                            pick = percent(0, il.getWeapontype_Length());
+                            int temp;
+                            switch (pick) {
+                                case 0: //돌격소총
+                                    temp = percent(0, il.getWeaponlist1_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist1(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist1(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist1(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 1: //소총
+                                    temp = percent(0, il.getWeaponlist2_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist2(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist2(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist2(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 2: //지정사수소총
+                                    temp = percent(0, il.getWeaponlist3_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist3(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist3(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist3(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 3: //기관단총
+                                    temp = percent(0, il.getWeaponlist4_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist4(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist4(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist4(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 4: //경기관총
+                                    temp = percent(0, il.getWeaponlist5_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist5(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist5(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist5(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 5: //산탄총
+                                    temp = percent(0, il.getWeaponlist6_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist6(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist6(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist6(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                case 6: //권총
+                                    temp = percent(0, il.getWeaponlist7_Length());
+                                    if (i != 4) {
+                                        name += il.getWeaponlist7(temp)+"\n";
+                                        type += il.getWeapontype(pick)+"\n";
+                                    } else {
+                                        name += il.getWeaponlist7(temp);
+                                        type += il.getWeapontype(pick);
+                                    }
+                                    //txtName.setText(il.getWeaponlist7(temp));
+                                    //txtType.setText(il.getWeapontype(pick));
+                                    break;
+                                default:
+                                    txtName.setText("Error");
+                                    txtType.setText("Error");
+                            }
+
+                        } else { //sheld
+                            pick = percent(0, il.getSheldtype_Length());
+                            if (i != 4) type += il.getSheldtype(pick)+"\n";
+                            else type += il.getSheldtype(pick);
+                            //txtType.setText(il.getSheldtype(pick));
+                            pick = percent(1, 100);
+                            if (pick <= 10) { //gear
+                                gear++;
+                                txtGear.setText(Integer.toString(gear));
+                                pick = percent(0, il.getSheldgear_Length());
+                                if (i != 4) name += il.getSheldgear(pick)+"\n";
+                                else name += il.getSheldgear(pick);
+                                //txtName.setText(il.getSheldgear(pick));
+                            } else { //brand
+                                brand++;
+                                txtBrand.setText(Integer.toString(brand));
+                                pick = percent(0, il.getSheldbrand_Length());
+                                if (i != 4) name += il.getSheldbrand(pick)+"\n";
+                                else name += il.getSheldbrand(pick);
+                                txtName.setText(il.getSheldbrand(pick));
+                            }
                         }
                     }
                 }
+
+                txtName.setText(name);
+                txtType.setText(type);
 
                 if (dialogView.getParent() != null)
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
