@@ -16,7 +16,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
-    private double crazy_dmg, seeker_dmg;
+    private double crazy_dmg, seeker_dmg, push_critical_dmg;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -62,6 +62,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = (double)crazy_dmg; }
     public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = (double)seeker_dmg; }
     public void setBoom(boolean boom) { this.boom = boom; }
+    public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
 
     private void reload() {
         int time = (int)(reloadtime*1000);
@@ -90,11 +91,11 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         int now_ammo = (int) ammo;
         int headshot_ransu, critical_ransu, real_demage;
         int all_dmg = 0;
+        double temp_criticaldemage;
         double now_demage;
-        System.out.println("Start HP : " + health);
         double per;
-        SimulActivity.txtSheld.setText(Integer.toString(sheld));
-        SimulActivity.txtHealth.setText(Integer.toString(health));
+        SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
+        SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
         while (sheld > 0 && !Thread.interrupted()) {
             statue_log = "";
             ammo_log = "";
@@ -102,18 +103,21 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             critical_ransu = (int) (Math.random() * 123456) % 1001;
             headshot_ransu = (int) (Math.random() * 123456) % 1001;
             if (critical_ransu <= critical*10) {
-                per = criticaldemage / 100;
-                now_demage *= 1 + per;
+                temp_criticaldemage = criticaldemage;
+                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
+                System.out.println(criticaldemage);
+                per = temp_criticaldemage / 100;
+                now_demage += weapondemage * per;
             }
             if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
-                now_demage *= 1 + per;
+                now_demage += weapondemage * per;
             }
             per = shelddemage/100;
             now_demage *= 1+per;
             if (elite_true == true) {
                 per = elitedemage/100;
-                now_demage *= 1+per;
+                now_demage += weapondemage * per;
             }
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
@@ -124,7 +128,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (crazy_dmg != 0) {
                 per = crazy_dmg/100;
-                now_demage *= 1+per;
+                now_demage += weapondemage * per;
             }
             if (seeker_dmg != 0) {
                 per = seeker_dmg/100;
@@ -151,7 +155,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             SimulActivity.progressSheld.setProgress((int)dec_sheld);
             dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
             SimulActivity.progressAmmo.setProgress((int)dec_ammo);
-            if (now_ammo == 0) {
+            if (now_ammo == 0 && sheld != 0) {
                 reload();
                 now_ammo += (int) ammo;
             } else {
@@ -170,18 +174,19 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             critical_ransu = (int) (Math.random() * 123456) % 1001;
             headshot_ransu = (int) (Math.random() * 123456) % 1001;
             if (critical_ransu <= critical*10) {
+                if (push_critical_dmg != 0) criticaldemage += push_critical_dmg;
                 per = criticaldemage / 100;
-                now_demage *= 1 + per;
+                now_demage += weapondemage * per;
             }
             if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
-                now_demage *= 1 + per;
+                now_demage += weapondemage * per;
             }
             per = healthdemage/100;
             now_demage *= 1+per;
             if (elite_true == true) {
                 per = elitedemage/100;
-                now_demage *= 1+per;
+                now_demage += weapondemage * per;
             }
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
@@ -192,7 +197,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (crazy_dmg != 0) {
                 per = crazy_dmg/100;
-                now_demage *= 1+per;
+                now_demage += weapondemage * per;
             }
             if (seeker_dmg != 0) {
                 per = seeker_dmg/100;
@@ -219,7 +224,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             SimulActivity.progressHealth.setProgress((int)dec_health);
             dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
             SimulActivity.progressAmmo.setProgress((int)dec_ammo);
-            if (now_ammo == 0) {
+            if (now_ammo == 0 && health != 0) {
                 reload();
                 now_ammo += (int) ammo;
             } else {

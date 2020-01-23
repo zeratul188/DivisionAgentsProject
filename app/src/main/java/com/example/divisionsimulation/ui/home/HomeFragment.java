@@ -36,13 +36,14 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private Button btnDemageSimul, btnDPS;
 
-    private RadioGroup rgCrazy;
+    private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
-    private CheckBox chkSeeker, chkCrazy, chkBoom;
+    private RadioButton[] rdoPush = new RadioButton[11];
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush;
 
     private boolean boom = false;
 
-    private int crazy_dmg, seeker_dmg;
+    private int crazy_dmg, seeker_dmg, push_dmg;
 
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
 
@@ -78,6 +79,13 @@ public class HomeFragment extends Fragment implements Serializable {
             rdoCrazy[i] = (RadioButton) root.findViewById(temp);
         }
 
+        chkPush = root.findViewById(R.id.chkPush);
+        rgPush = root.findViewById(R.id.rgPush);
+        for (int i = 0; i < rdoPush.length; i++) {
+            temp = root.getResources().getIdentifier("rdoPush"+(i+1), "id", getActivity().getPackageName());
+            rdoPush[i] = (RadioButton) root.findViewById(temp);
+        }
+
         chkSeeker = root.findViewById(R.id.chkSeeker);
 
         chkCrazy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -87,6 +95,16 @@ public class HomeFragment extends Fragment implements Serializable {
                 else {
                     rgCrazy.clearCheck();
                     rgCrazy.setVisibility(View.GONE);
+                }
+            }
+        });
+        chkPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) rgPush.setVisibility(View.VISIBLE);
+                else {
+                    rgPush.clearCheck();
+                    rgPush.setVisibility(View.GONE);
                 }
             }
         });
@@ -296,6 +314,34 @@ public class HomeFragment extends Fragment implements Serializable {
                                 crazy_dmg = 0;
                         }
 
+                        switch (rgPush.getCheckedRadioButtonId()) {
+                            case R.id.rdoPush1:
+                                push_dmg = 0; break;
+                            case R.id.rdoPush2:
+                                push_dmg = 5; break;
+                            case R.id.rdoPush3:
+                                push_dmg = 10; break;
+                            case R.id.rdoPush4:
+                                push_dmg = 15; break;
+                            case R.id.rdoPush5:
+                                push_dmg = 20; break;
+                            case R.id.rdoPush6:
+                                push_dmg = 25; break;
+                            case R.id.rdoPush7:
+                                push_dmg = 30; break;
+                            case R.id.rdoPush8:
+                                push_dmg = 35; break;
+                            case R.id.rdoPush9:
+                                push_dmg = 40; break;
+                            case R.id.rdoPush10:
+                                push_dmg = 45; break;
+                            case R.id.rdoPush11:
+                                push_dmg = 50; break;
+                            default:
+                                Toast.makeText(getActivity(), "중압감 여부가 체크가 안 되어 있으므로 중압감 없는 것으로 설정합니다.", Toast.LENGTH_SHORT).show();
+                                crazy_dmg = 0;
+                        }
+
                         if (chkSeeker.isChecked()) seeker_dmg = 20;
                         else seeker_dmg = 0;
 
@@ -360,6 +406,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         ws.setElite_true(elite_true);
                                         ws.setCrazy_dmg(crazy_dmg);
                                         ws.setSeeker_dmg(seeker_dmg);
+                                        ws.setPush_critical_dmg(push_dmg);
                                         ws.setBoom(boom);
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
