@@ -16,13 +16,14 @@
         <item
             android:id="@+id/nav_tools"
             android:title="공략 및 정보" />
+        <item
+            android:id="@+id/nav_share"
+            android:title="파밍 시뮬레이션" />
     </group>
 
     <!--<item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:title="@string/menu_share" />
+
             <item
                 android:id="@+id/nav_send"
                 android:title="@string/menu_send" />

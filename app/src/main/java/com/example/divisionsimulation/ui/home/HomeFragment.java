@@ -364,7 +364,7 @@ public class HomeFragment extends Fragment implements Serializable {
                             }
                         });
 
-                        builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("실행", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 boolean elite_true, pvp_true;

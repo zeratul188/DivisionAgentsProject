@@ -462,7 +462,7 @@
             android:layout_height="match_parent"
             android:text="DPS"
             android:textSize="20sp"
-            android:background="#FF9800"
+            android:background="@drawable/buttoncustom"
             android:layout_marginRight="10dp"/>
         <Button
             android:id="@+id/btnDemageSimul"
@@ -471,7 +471,7 @@
             android:layout_height="match_parent"
             android:text="데미지 시뮬"
             android:textSize="20sp"
-            android:background="#FF9800"
+            android:background="@drawable/buttoncustom"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
