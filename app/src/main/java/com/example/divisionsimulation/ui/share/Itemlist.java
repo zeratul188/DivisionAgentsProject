@@ -78,9 +78,9 @@ class Itemlist {
     public int getNamedsheld_lite_Length() { return namedsheld_lite.length; }
     public String getNamedsheld_lite_type(int index) { return namedsheld_lite_type[index]; }
     public int getNamedsheld_lite_type_Length() { return namedsheld_lite_type.length; }
-    public String getNamedsheld_dark(int index) { return namedweapon_dark[index]; }
+    public String getNamedsheld_dark(int index) { return namedsheld_dark[index]; }
     public int getNamedsheld_dark_Length() { return namedsheld_dark.length; }
-    public String getNamedsheld_dark_type(int index) { return namedweapon_dark_type[index]; }
+    public String getNamedsheld_dark_type(int index) { return namedsheld_dark_type[index]; }
     public int getNamedsheld_dark_type_Length() { return namedsheld_dark_type.length; }
 
     public String getSpecialweapon(int index) { return specialweapon[index]; }
