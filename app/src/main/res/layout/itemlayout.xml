@@ -4,8 +4,11 @@
     android:layout_height="match_parent" android:padding="15dp">
 
     <TableLayout
+        android:id="@+id/tableMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginBottom="20dp">
         <TableRow
             android:layout_marginBottom="5dp">
             <TextView
@@ -42,5 +45,14 @@
                 android:textColor="#000000"/>
         </TableRow>
     </TableLayout>
+    <Button
+        android:id="@+id/btnChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="네임드"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:background="@drawable/buttoncustomnamed"
+        android:visibility="gone"/>
 
 </LinearLayout>

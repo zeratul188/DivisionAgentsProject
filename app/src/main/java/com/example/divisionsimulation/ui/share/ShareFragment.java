@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -58,6 +60,8 @@ public class ShareFragment extends Fragment {
 
         final TextView txtName = dialogView.findViewById(R.id.txtName);
         final TextView txtType = dialogView.findViewById(R.id.txtType);
+        final Button btnChange = dialogView.findViewById(R.id.btnChange);
+        final TableLayout tableMain = dialogView.findViewById(R.id.tableMain);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -80,15 +84,29 @@ public class ShareFragment extends Fragment {
             }
         });
 
+        btnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+            }
+        });
+
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#000000"));
                 if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("특급");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     if (percent(1, 2) == 1) { //무기
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
@@ -102,6 +120,10 @@ public class ShareFragment extends Fragment {
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
@@ -165,6 +187,7 @@ public class ShareFragment extends Fragment {
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName.setText(il.getSheldgear(pick));
                         } else { //brand
@@ -202,6 +225,10 @@ public class ShareFragment extends Fragment {
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         pick = percent(0, il.getNamedweapon_dark_Length());
                         txtName.setText(il.getNamedweapon_dark(pick));
@@ -265,6 +292,7 @@ public class ShareFragment extends Fragment {
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName.setText(il.getSheldgear(pick));
                         } else { //brand
@@ -296,6 +324,10 @@ public class ShareFragment extends Fragment {
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("특급");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     pick = percent(0, il.getSpecialweapon_raid_Length());
                     txtName.setText(il.getSpecialweapon_raid(pick));
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
@@ -303,6 +335,10 @@ public class ShareFragment extends Fragment {
                     named++;
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
@@ -366,6 +402,7 @@ public class ShareFragment extends Fragment {
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName.setText(il.getSheldgear(pick));
                         } else { //brand
