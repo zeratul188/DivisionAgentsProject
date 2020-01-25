@@ -39,11 +39,11 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush;
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle;
 
     private boolean boom = false;
 
-    private int crazy_dmg, seeker_dmg, push_dmg;
+    private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
 
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
 
@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment implements Serializable {
         }
 
         chkSeeker = root.findViewById(R.id.chkSeeker);
+        chkEagle = root.findViewById(R.id.chkEagle);
 
         chkCrazy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -348,6 +349,9 @@ public class HomeFragment extends Fragment implements Serializable {
                         if (chkBoom.isChecked()) boom = true;
                         else boom = false;
 
+                        if (chkEagle.isChecked()) eagle_dmg = 25;
+                        else eagle_dmg = 0;
+
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
                         final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
                         final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
@@ -409,6 +413,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         ws.setSeeker_dmg(seeker_dmg);
                                         ws.setPush_critical_dmg(push_dmg);
                                         ws.setBoom(boom);
+                                        ws.setEagle_dmg(eagle_dmg);
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 

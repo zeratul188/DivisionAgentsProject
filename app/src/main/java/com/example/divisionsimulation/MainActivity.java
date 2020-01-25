@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu1:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("버젼 확인").setMessage("Version 1.2.3\n마지막 수정 일자 : 2020년 1월 25일 13시 21분");
+                builder.setTitle("버젼 확인").setMessage("Version 1.2.4\n마지막 수정 일자 : 2020년 1월 25일 20시 19분\n\n-무기 시뮬레이션 : 집념 효과 추가\n-무기 시뮬레이션 : 치명타 데미지, 헤드샷 데미지 등 999.9까지 입력 가능하게 수정");
 
                 builder.setPositiveButton("확인", null);
 

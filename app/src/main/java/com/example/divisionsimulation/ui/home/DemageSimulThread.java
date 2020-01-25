@@ -16,7 +16,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
-    private double crazy_dmg, seeker_dmg, push_critical_dmg;
+    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -63,6 +63,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = (double)seeker_dmg; }
     public void setBoom(boolean boom) { this.boom = boom; }
     public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
+    public void setEagle_dmg(int eagle_dmg) { this.eagle_dmg = eagle_dmg; }
 
     public int getSheld() { return this.sheld; }
 
@@ -132,6 +133,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 per = crazy_dmg/100;
                 now_demage += weapondemage * per;
             }
+            if (eagle_dmg != 0) {
+                per = eagle_dmg/100;
+                now_demage += weapondemage * per;
+            }
             if (seeker_dmg != 0) {
                 per = seeker_dmg/100;
                 now_demage *= 1+per;
@@ -199,6 +204,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (crazy_dmg != 0) {
                 per = crazy_dmg/100;
+                now_demage += weapondemage * per;
+            }
+            if (eagle_dmg != 0) {
+                per = eagle_dmg/100;
                 now_demage += weapondemage * per;
             }
             if (seeker_dmg != 0) {
