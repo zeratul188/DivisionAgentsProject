@@ -221,12 +221,12 @@ public class HomeFragment extends Fragment implements Serializable {
                                 if (chkPVP.isChecked()) pvp_true = true;
                                 else pvp_true = false;
 
-                                if (String.valueOf(edtSheld.getText()).equals("") || String.valueOf(edtHealth.getText()).equals("")) {
-                                    Toast.makeText(getActivity(), "방어구, 체력 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                if (String.valueOf(edtHealth.getText()).equals("")) {
+                                    Toast.makeText(getActivity(), "체력은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     int temp_health = Integer.parseInt(String.valueOf(edtHealth.getText()));
                                     if (temp_health <= 0) {
-                                        Toast.makeText(getActivity(), "방어구, 체력이 최소 0 이상이어야 합니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "체력이 최소 0을 초과해야만 합니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         WeaponSimulation ws = new WeaponSimulation();
                                         ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
@@ -373,12 +373,12 @@ public class HomeFragment extends Fragment implements Serializable {
                                 if (chkPVP.isChecked()) pvp_true = true;
                                 else pvp_true = false;
 
-                                if (String.valueOf(edtSheld.getText()).equals("") || String.valueOf(edtHealth.getText()).equals("")) {
-                                    Toast.makeText(getActivity(), "방어구, 체력 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                if (String.valueOf(edtHealth.getText()).equals("")) {
+                                    Toast.makeText(getActivity(), "체력은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     int temp_health = Integer.parseInt(String.valueOf(edtHealth.getText()));
                                     if (temp_health <= 0) {
-                                        Toast.makeText(getActivity(), "방어구, 체력이 최소 0 이상이어야 합니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "체력은 최소 0을 초과해야만 합니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         DemageSimulThread ws = new DemageSimulThread();
                                         ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
@@ -400,7 +400,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                         if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
                                         else ws.setReloadtime(0);
                                         ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
-                                        ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
+                                        if (!String.valueOf(edtSheld.getText()).equals("")) ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
+                                        else ws.setSheld(0);
                                         ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
                                         ws.setPVP_true(pvp_true);
                                         ws.setElite_true(elite_true);
@@ -411,8 +412,11 @@ public class HomeFragment extends Fragment implements Serializable {
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 
+                                        String elite = Boolean.toString(elite_true);
+
                                         intent.putExtra("thread", ws);
                                         intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
+                                        intent.putExtra("elite", elite);
 
                                         startActivity(intent);
                                     }

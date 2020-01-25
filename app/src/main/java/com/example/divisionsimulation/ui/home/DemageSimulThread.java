@@ -64,6 +64,8 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setBoom(boolean boom) { this.boom = boom; }
     public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
 
+    public int getSheld() { return this.sheld; }
+
     private void reload() {
         int time = (int)(reloadtime*1000);
         SimulActivity.progressAmmo.setIndeterminate(true);

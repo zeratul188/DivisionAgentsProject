@@ -1,17 +1,9 @@
 package com.example.divisionsimulation.ui.home;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,7 +52,6 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         progressHealth.setMax(10000);
         progressAmmo.setMax(10000);
 
-        progressSheld.setProgress(10000);
         progressHealth.setProgress(10000);
         progressAmmo.setProgress(10000);
 
@@ -71,9 +62,15 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         if (!nickname.equals("")) txtNickname.setText(nickname);
         else txtNickname.setText("표적");
 
+        boolean elite_true = Boolean.parseBoolean(getIntent().getStringExtra("elite"));
+        if (elite_true) progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite));
+        else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health));
+
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
-        //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread") ;
+        //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread");
         dst.setTimeThread(tt);
+        if (dst.getSheld() != 0) progressSheld.setProgress(10000);
+        else progressSheld.setProgress(0);
         dst.start();
     }
 
