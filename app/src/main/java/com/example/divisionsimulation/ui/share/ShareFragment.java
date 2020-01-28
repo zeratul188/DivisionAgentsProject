@@ -203,6 +203,14 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     } else { //보호장구
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
                         pick = percent(0, il.getSheldspecial_Length());
                         txtName.setText(il.getSheldspecial(pick));
                         txtType.setText(il.getSheldspecial_type(pick));
@@ -220,6 +228,14 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
                     } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
                         pick = percent(0, il.getNamedsheld_lite_Length());
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
@@ -336,6 +352,14 @@ public class ShareFragment extends Fragment {
                         txtName2.setText(il.getNamedweapon_dark(pick));
                         txtType2.setText(il.getNamedweapon_dark_type(pick));
                     } else { //sheld
+                        trOption2.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption2.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
+                            else imgOption2[i].setImageResource(R.drawable.power);
+                        }
                         pick = percent(0, il.getNamedsheld_dark_Length());
                         txtName2.setText(il.getNamedsheld_dark(pick));
                         txtType2.setText(il.getNamedsheld_dark_type(pick));
@@ -457,6 +481,14 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
                     } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
                         pick = percent(0, il.getNamedsheld_lite_Length());
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
