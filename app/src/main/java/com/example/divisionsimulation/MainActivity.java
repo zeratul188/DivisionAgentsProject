@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -84,17 +86,61 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item)
     {
+        AlertDialog.Builder builder = null;
+        AlertDialog alertDialog = null;
+        View dialogView = null;
         switch(item.getItemId())
         {
             case R.id.menu1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-                builder.setTitle("버젼 확인").setMessage("Version 1.2.4\n마지막 수정 일자 : 2020년 1월 25일 20시 19분\n\n-무기 시뮬레이션 : 집념 효과 추가\n-무기 시뮬레이션 : 치명타 데미지, 헤드샷 데미지 등 999.9까지 입력 가능하게 수정");
-
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("버젼 확인").setMessage("Version 1.2.5\n마지막 수정 일자 : 2020년 1월 28일 9시 56분\n\n-무기 시뮬레이션 : 무자비와 집념효과 동시에 사용 금지\n-무기 시뮬레이션 : DPS 측정할 때 체력, 방어구 입력되게 되는 버그 수정\n파밍 시뮬레이션 : 다크존 이송 시스템 추가\n-메뉴에 도움말 추가");
                 builder.setPositiveButton("확인", null);
-
-                AlertDialog alertDialog = builder.create();
-
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu2:
+                dialogView = getLayoutInflater().inflate(R.layout.helplayout1, null);
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("무기 시뮬레이션 도움말");
+                builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu3:
+                dialogView = getLayoutInflater().inflate(R.layout.helplayout2, null);
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("무기 정보 도움말");
+                builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu4:
+                dialogView = getLayoutInflater().inflate(R.layout.helplayout3, null);
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("보호장구(방어구) 정보 도움말");
+                builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu5:
+                dialogView = getLayoutInflater().inflate(R.layout.helplayout4, null);
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("공략 및 정보 도움말");
+                builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu6:
+                dialogView = getLayoutInflater().inflate(R.layout.helplayout5, null);
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("파밍 시뮬레이션 도움말");
+                builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
                 alertDialog.show();
                 break;
         }

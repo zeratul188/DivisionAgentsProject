@@ -156,6 +156,15 @@
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:background="@drawable/buttoncustom"/>
+            <Button
+                android:id="@+id/btnOutput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이송하기 (0/10)"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:background="@drawable/buttoncustomspecial"
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
