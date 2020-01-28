@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.2.5\n마지막 수정 일자 : 2020년 1월 28일 9시 56분\n\n-무기 시뮬레이션 : 무자비와 집념효과 동시에 사용 금지\n-무기 시뮬레이션 : DPS 측정할 때 체력, 방어구 입력되게 되는 버그 수정\n파밍 시뮬레이션 : 다크존 이송 시스템 추가\n-메뉴에 도움말 추가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.2.6\n마지막 수정 일자 : 2020년 1월 28일 14시 57분\n\n-파밍 시뮬레이션 : 장비 옵션 추가");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

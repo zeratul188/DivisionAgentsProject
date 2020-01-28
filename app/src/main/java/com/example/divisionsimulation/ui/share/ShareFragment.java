@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -65,6 +67,14 @@ public class ShareFragment extends Fragment {
         final TextView txtType = dialogView.findViewById(R.id.txtType);
         final Button btnChange = dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain = dialogView.findViewById(R.id.tableMain);
+        final ImageView[] imgOption = new ImageView[3];
+        final TableRow trOption = dialogView.findViewById(R.id.trOption);
+
+        int temp;
+        for (int i = 0; i < imgOption.length; i++) {
+            temp = dialogView.getResources().getIdentifier("imgOption"+(i+1), "id", getActivity().getPackageName());
+            imgOption[i] = dialogView.findViewById(temp);
+        }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -75,6 +85,13 @@ public class ShareFragment extends Fragment {
         final Button btnChange2 = dark_dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
         final Button btnInput = dark_dialogView.findViewById(R.id.btnInput);
+        final ImageView[] imgOption2 = new ImageView[3];
+        final TableRow trOption2 = dark_dialogView.findViewById(R.id.trOption);
+
+        for (int i = 0; i < imgOption2.length; i++) {
+            temp = dark_dialogView.getResources().getIdentifier("imgOption"+(i+1), "id", getActivity().getPackageName());
+            imgOption2[i] =dark_dialogView.findViewById(temp);
+        }
 
         final AlertDialog.Builder builder_dark = new AlertDialog.Builder((getActivity()));
 
@@ -94,6 +111,9 @@ public class ShareFragment extends Fragment {
                 txtNamed.setText("0");
                 txtGear.setText("0");
                 txtBrand.setText("0");
+                darkitem = 0;
+                btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+                btnOutput.setText("이송하기 ("+darkitem+"/10)");
             }
         });
 
@@ -168,6 +188,7 @@ public class ShareFragment extends Fragment {
                 int pick;
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#000000"));
                 if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -254,6 +275,14 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
                         pick = percent(1, 100);
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
@@ -284,7 +313,10 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int pick;
+                tableMain2.setVisibility(View.VISIBLE);
+                btnChange2.setVisibility(View.GONE);
                 txtName2.setTextColor(Color.parseColor("#000000"));
+                trOption2.setVisibility(View.GONE);
                 if (percent(1, 1000) <= 15) { //특급 장비
                     txtName2.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
@@ -359,6 +391,14 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getSheldtype_Length());
                         txtType2.setText(il.getSheldtype(pick));
                         pick = percent(1, 100);
+                        trOption2.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption2.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
+                            else imgOption2[i].setImageResource(R.drawable.power);
+                        }
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
@@ -390,6 +430,9 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick;
                 txtName.setTextColor(Color.parseColor("#000000"));
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
                 if (percent(1, 1000) <= 15) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
@@ -469,6 +512,14 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
                         pick = percent(1, 100);
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
                         if (pick <= 10) { //gear
                             gear++;
                             txtGear.setText(Integer.toString(gear));
