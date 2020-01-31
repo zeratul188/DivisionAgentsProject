@@ -24,8 +24,8 @@ class Itemlist {
     private String[] specialweapon = {"무자비", "달콤한 꿈"};
     private String[] specialweapon_type = {"소총", "산탄총"};
 
-    private String[] specialweapon_raid = {"무자비", "달콤한 꿈", "독수리를 거느린 자"};
-    private String[] specialweapon_raid_type = {"소총", "산탄총", "돌격소총"};
+    private String[] specialweapon_raid = {"무자비", "달콤한 꿈", "독수리를 거느린 자", "BTSU 데이터 장갑", "소여의 무릎 보호대"};
+    private String[] specialweapon_raid_type = {"소총", "산탄총", "돌격소총", "장갑", "무릎 보호대"};
 
     private String[] sheldtype = {"마스크", "백팩", "조끼", "장갑", "권총집", "무릎 보호대"};
     private String[] sheld_brand = {"5.11 Tactical", "길라 가드", "더글라스 & 하딩", "리히터 & 카이저 유한회사", "무라카미 산업", "배저 터프", "소콜로프 상사", "아이랄디 홀딩", "알프스 정상 군수산업", "얄 기어",

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.2.6\n마지막 수정 일자 : 2020년 1월 28일 14시 57분\n\n-파밍 시뮬레이션 : 장비 옵션 추가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.2.7\n마지막 수정 일자 : 2020년 1월 31일 10시 45분\n\n-파밍 시뮬레이션 : 레이드 박스에서는 기어 장비 확률 2배 증가(20%)\n-파밍 시뮬레이션 : 장비 부위별 옵션 다르게 나오도록 수정\n-파밍 시뮬레이션 : 레이드 박스 특급, 네임드, 기어 장비 들만 따로 색이 나오도록 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
