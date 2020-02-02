@@ -127,7 +127,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 SimulActivity.hitHeadshot();
             }
             if (critical_ransu <= critical*10) {
-                if (quick_hand) {
+                if (quick_hand && hit_critical < 30) {
                     hit_critical++;
                     SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
                 }
@@ -209,7 +209,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 SimulActivity.hitHeadshot();
             }
             if (critical_ransu <= critical*10) {
-                if (quick_hand) {
+                if (quick_hand && hit_critical < 30) {
                     hit_critical++;
                     SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
                 }

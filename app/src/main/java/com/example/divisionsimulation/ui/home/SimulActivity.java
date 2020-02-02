@@ -4,9 +4,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,8 +25,12 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
     private DemageSimulThread dst = null;
 
-    private static LinearLayout layoutQuickhand;
+    private LinearLayout layoutQuickhand;
     public static TextView txtQuickhand;
+
+    private boolean exit = false;
+
+    private Button btnExit;
 
     private boolean quick = false;
 
@@ -52,6 +58,8 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
         layoutQuickhand = findViewById(R.id.layoutQuickhand);
         txtQuickhand = findViewById(R.id.txtQuickhand);
+
+        btnExit = findViewById(R.id.btnExit);
 
         //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
@@ -87,6 +95,24 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         if (dst.getSheld() != 0) progressSheld.setProgress(10000);
         else progressSheld.setProgress(0);
         dst.start();
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!exit) {
+                    exit = true;
+                    dst.setSheld(0);
+                    dst.setHealth(0);
+                    progressHealth.setProgress(0);
+                    progressSheld.setProgress(0);
+                    txtSheld.setText("0");
+                    txtHealth.setText("0");
+                    Toast.makeText(getApplicationContext(), "강제 종료되었습니다.\n뒤로가기 또는 상단의 화살표 버튼을 눌러 메인으로 돌아가십시오.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "이미 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

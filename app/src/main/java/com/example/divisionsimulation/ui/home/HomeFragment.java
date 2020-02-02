@@ -47,6 +47,10 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
 
+    private AlertDialog.Builder builder_error = null;
+    private AlertDialog alertDialog_error = null;
+    private View dialogView_error = null;
+
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -242,57 +246,73 @@ public class HomeFragment extends Fragment implements Serializable {
                         Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창을 최소 0 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         WeaponSimulation ws = new WeaponSimulation();
-                        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
-                        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
-                        if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
-                        else ws.setCritical(0);
-                        if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
-                        else ws.setCriticaldemage(0);
-                        if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
-                        else ws.setHeadshot(0);
-                        if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
-                        else ws.setHealthdemage(0);
-                        if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
-                        else ws.setElitedemage(0);
-                        if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
-                        else ws.setShelddemage(0);
-                        if (!String.valueOf(edtHealthDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
-                        else ws.setHealthdemage(0);
-                        if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
-                        else ws.setReloadtime(0);
-                        ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
+                        try {
+                            ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
+                            ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
+                            if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
+                            else ws.setCritical(0);
+                            if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
+                            else ws.setCriticaldemage(0);
+                            if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
+                            else ws.setHeadshot(0);
+                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
+                            else ws.setHealthdemage(0);
+                            if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
+                            else ws.setElitedemage(0);
+                            if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
+                            else ws.setShelddemage(0);
+                            if (!String.valueOf(edtHealthDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
+                            else ws.setHealthdemage(0);
+                            if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
+                            else ws.setReloadtime(0);
+                            ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
+                        } catch (Exception e) {
+                            builder_error = new AlertDialog.Builder(getActivity());
+                            builder_error.setTitle("오류").setMessage("Error\n"+e.getStackTrace());
+                            builder_error.setPositiveButton("확인", null);
+                            alertDialog_error = builder_error.create();
+                            alertDialog_error.show();
+                        }
 
                         Intent intent = new Intent(getActivity(), DemageSimulationActivity.class);
 
-                        intent.putExtra("bodyhealth",ws.getbody_health());
-                        intent.putExtra("bodycriticalhealth", ws.getbody_critical_health());
-                        intent.putExtra("headshothealth", ws.getheadshot_health());
-                        intent.putExtra("headshotcriticalhealth", ws.getheadshot_critical_health());
-                        intent.putExtra("healthDPS", ws.getdps_health());
-                        intent.putExtra("healthDPM", ws.getdpm_health());
+                        try {
+                            intent.putExtra("bodyhealth",ws.getbody_health());
+                            intent.putExtra("bodycriticalhealth", ws.getbody_critical_health());
+                            intent.putExtra("headshothealth", ws.getheadshot_health());
+                            intent.putExtra("headshotcriticalhealth", ws.getheadshot_critical_health());
+                            intent.putExtra("healthDPS", ws.getdps_health());
+                            intent.putExtra("healthDPM", ws.getdpm_health());
 
-                        intent.putExtra("bodysheld", ws.getbody_sheld());
-                        intent.putExtra("bodycriticalsheld", ws.getbody_critical_sheld());
-                        intent.putExtra("headshotsheld", ws.getheadshot_sheld());
-                        intent.putExtra("headshotcriticalsheld", ws.getheadshot_critical_sheld());
-                        intent.putExtra("sheldDPS", ws.getdps_sheld());
-                        intent.putExtra("sheldDPM", ws.getdpm_sheld());
+                            intent.putExtra("bodysheld", ws.getbody_sheld());
+                            intent.putExtra("bodycriticalsheld", ws.getbody_critical_sheld());
+                            intent.putExtra("headshotsheld", ws.getheadshot_sheld());
+                            intent.putExtra("headshotcriticalsheld", ws.getheadshot_critical_sheld());
+                            intent.putExtra("sheldDPS", ws.getdps_sheld());
+                            intent.putExtra("sheldDPM", ws.getdpm_sheld());
 
-                        intent.putExtra("bodyhealthelite", ws.getelite_body_health());
-                        intent.putExtra("bodycriticalhealthelite", ws.getelite_body_critical_health());
-                        intent.putExtra("headshothealthelite", ws.getelite_headshot_health());
-                        intent.putExtra("headshotcriticalhealthelite", ws.getelite_headshot_critical_health());
-                        intent.putExtra("elitehealthDPS", ws.getdps_elite_health());
-                        intent.putExtra("elitehealthDPM", ws.getdpm_elite_health());
+                            intent.putExtra("bodyhealthelite", ws.getelite_body_health());
+                            intent.putExtra("bodycriticalhealthelite", ws.getelite_body_critical_health());
+                            intent.putExtra("headshothealthelite", ws.getelite_headshot_health());
+                            intent.putExtra("headshotcriticalhealthelite", ws.getelite_headshot_critical_health());
+                            intent.putExtra("elitehealthDPS", ws.getdps_elite_health());
+                            intent.putExtra("elitehealthDPM", ws.getdpm_elite_health());
 
-                        intent.putExtra("bodysheldelite", ws.getelite_body_sheld());
-                        intent.putExtra("bodycriticalsheldelite", ws.getelite_body_critical_sheld());
-                        intent.putExtra("headshotsheldelite", ws.getelite_headshot_sheld());
-                        intent.putExtra("headshotcriticalsheldelite", ws.getelite_headshot_critical_sheld());
-                        intent.putExtra("elitesheldDPS", ws.getdps_elite_sheld());
-                        intent.putExtra("elitesheldDPM", ws.getdpm_elite_sheld());
+                            intent.putExtra("bodysheldelite", ws.getelite_body_sheld());
+                            intent.putExtra("bodycriticalsheldelite", ws.getelite_body_critical_sheld());
+                            intent.putExtra("headshotsheldelite", ws.getelite_headshot_sheld());
+                            intent.putExtra("headshotcriticalsheldelite", ws.getelite_headshot_critical_sheld());
+                            intent.putExtra("elitesheldDPS", ws.getdps_elite_sheld());
+                            intent.putExtra("elitesheldDPM", ws.getdpm_elite_sheld());
 
-                        startActivity(intent);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            builder_error = new AlertDialog.Builder(getActivity());
+                            builder_error.setTitle("오류").setMessage("Error\n"+e.getStackTrace());
+                            builder_error.setPositiveButton("확인", null);
+                            alertDialog_error = builder_error.create();
+                            alertDialog_error.show();
+                        }
                     }
                 }
             }
@@ -406,47 +426,55 @@ public class HomeFragment extends Fragment implements Serializable {
                                         Toast.makeText(getActivity(), "체력은 최소 0을 초과해야만 합니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         DemageSimulThread ws = new DemageSimulThread();
-                                        ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
-                                        ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
-                                        if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
-                                        else ws.setCritical(0);
-                                        if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
-                                        else ws.setCriticaldemage(0);
-                                        if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
-                                        else ws.setHeadshot(0);
-                                        if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
-                                        else ws.setHeadshotdemage(0);
-                                        if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
-                                        else ws.setElitedemage(0);
-                                        if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
-                                        else ws.setShelddemage(0);
-                                        if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
-                                        else ws.setHeadshotdemage(0);
-                                        if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
-                                        else ws.setReloadtime(0);
-                                        ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
-                                        if (!String.valueOf(edtSheld.getText()).equals("")) ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
-                                        else ws.setSheld(0);
-                                        ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
-                                        ws.setPVP_true(pvp_true);
-                                        ws.setElite_true(elite_true);
-                                        ws.setCrazy_dmg(crazy_dmg);
-                                        ws.setSeeker_dmg(seeker_dmg);
-                                        ws.setPush_critical_dmg(push_dmg);
-                                        ws.setBoom(boom);
-                                        ws.setEagle_dmg(eagle_dmg);
-                                        ws.setQuick_hand(quick_hand);
+                                        try {
+                                            ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
+                                            ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
+                                            if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
+                                            else ws.setCritical(0);
+                                            if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
+                                            else ws.setCriticaldemage(0);
+                                            if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
+                                            else ws.setHeadshot(0);
+                                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
+                                            else ws.setHeadshotdemage(0);
+                                            if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
+                                            else ws.setElitedemage(0);
+                                            if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
+                                            else ws.setShelddemage(0);
+                                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
+                                            else ws.setHeadshotdemage(0);
+                                            if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
+                                            else ws.setReloadtime(0);
+                                            ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
+                                            if (!String.valueOf(edtSheld.getText()).equals("")) ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
+                                            else ws.setSheld(0);
+                                            ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
+                                            ws.setPVP_true(pvp_true);
+                                            ws.setElite_true(elite_true);
+                                            ws.setCrazy_dmg(crazy_dmg);
+                                            ws.setSeeker_dmg(seeker_dmg);
+                                            ws.setPush_critical_dmg(push_dmg);
+                                            ws.setBoom(boom);
+                                            ws.setEagle_dmg(eagle_dmg);
+                                            ws.setQuick_hand(quick_hand);
 
-                                        Intent intent = new Intent(getActivity(), SimulActivity.class);
+                                            Intent intent = new Intent(getActivity(), SimulActivity.class);
 
-                                        String elite = Boolean.toString(elite_true);
+                                            String elite = Boolean.toString(elite_true);
 
-                                        intent.putExtra("thread", ws);
-                                        intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
-                                        intent.putExtra("elite", elite);
-                                        intent.putExtra("quickhand", Boolean.toString(quick_hand));
+                                            intent.putExtra("thread", ws);
+                                            intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
+                                            intent.putExtra("elite", elite);
+                                            intent.putExtra("quickhand", Boolean.toString(quick_hand));
 
-                                        startActivity(intent);
+                                            startActivity(intent);
+                                        } catch (Exception e) {
+                                            builder_error = new AlertDialog.Builder(getActivity());
+                                            builder_error.setTitle("오류").setMessage("Error\n"+e.getStackTrace());
+                                            builder_error.setPositiveButton("확인", null);
+                                            alertDialog_error = builder_error.create();
+                                            alertDialog_error.show();
+                                        }
                                     }
                                 }
                             }
