@@ -191,6 +191,31 @@
             android:textSize="20sp"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutQuickhand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="빠른 손 히트 수 : "
+            android:textSize="20sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtQuickhand"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

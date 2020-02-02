@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -40,9 +41,9 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle;
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand;
 
-    private boolean boom = false;
+    private boolean boom = false, quick_hand = false;
 
     private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
 
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment implements Serializable {
         btnDemageSimul = root.findViewById(R.id.btnDemageSimul);
 
         chkBoom = root.findViewById(R.id.chkBoom);
-
+        chkQuickhand = root.findViewById(R.id.chkQuickhand);
         chkCrazy = root.findViewById(R.id.chkCrazy);
         rgCrazy = root.findViewById(R.id.rgCrazy);
         int temp;
@@ -103,10 +104,16 @@ public class HomeFragment extends Fragment implements Serializable {
         chkPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) rgPush.setVisibility(View.VISIBLE);
+                if (isChecked) {
+                    rgPush.setVisibility(View.VISIBLE);
+                    chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkQuickhand.setEnabled(false);
+                }
                 else {
                     rgPush.clearCheck();
                     rgPush.setVisibility(View.GONE);
+                    chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                    chkQuickhand.setEnabled(true);
                 }
             }
         });
@@ -131,6 +138,18 @@ public class HomeFragment extends Fragment implements Serializable {
                 } else {
                     chkEagle.setTextColor(Color.parseColor("#000000"));
                     chkEagle.setEnabled(true);
+                }
+            }
+        });
+        chkQuickhand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPush.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkPush.setEnabled(false);
+                } else {
+                    chkPush.setTextColor(Color.parseColor("#000000"));
+                    chkPush.setEnabled(true);
                 }
             }
         });
@@ -359,6 +378,7 @@ public class HomeFragment extends Fragment implements Serializable {
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (chkPVP.isChecked()) {
                                     chkElite.setTextColor(Color.parseColor("#bbbbbb"));
+                                    if (chkElite.isChecked()) chkElite.toggle();
                                     chkElite.setEnabled(false);
                                 } else {
                                     chkElite.setTextColor(Color.parseColor("#000000"));
@@ -375,6 +395,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                 else elite_true = false;
                                 if (chkPVP.isChecked()) pvp_true = true;
                                 else pvp_true = false;
+                                if (chkQuickhand.isChecked()) quick_hand = true;
+                                else quick_hand = false;
 
                                 if (String.valueOf(edtHealth.getText()).equals("")) {
                                     Toast.makeText(getActivity(), "체력은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
@@ -413,6 +435,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         ws.setPush_critical_dmg(push_dmg);
                                         ws.setBoom(boom);
                                         ws.setEagle_dmg(eagle_dmg);
+                                        ws.setQuick_hand(quick_hand);
 
                                         Intent intent = new Intent(getActivity(), SimulActivity.class);
 
@@ -421,6 +444,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         intent.putExtra("thread", ws);
                                         intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
                                         intent.putExtra("elite", elite);
+                                        intent.putExtra("quickhand", Boolean.toString(quick_hand));
 
                                         startActivity(intent);
                                     }

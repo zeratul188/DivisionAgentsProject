@@ -1,6 +1,7 @@
 package com.example.divisionsimulation.ui.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -11,12 +12,13 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false;
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
     private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg;
+    private int hit_critical = 0;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -64,6 +66,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setBoom(boolean boom) { this.boom = boom; }
     public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
     public void setEagle_dmg(int eagle_dmg) { this.eagle_dmg = eagle_dmg; }
+    public void setQuick_hand(boolean quick_hand) { this.quick_hand = quick_hand; }
 
     public int getSheld() { return this.sheld; }
 
@@ -71,6 +74,18 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         int time = (int)(reloadtime*1000);
         SimulActivity.progressAmmo.setIndeterminate(true);
         SimulActivity.txtStatue.setText("재장전 중...");
+        if (quick_hand) {
+            double handred_time = (double)time / 2;
+            if (hit_critical > 30) hit_critical = 30;
+            double down_parcent = hit_critical * 5;
+            double down_time = handred_time * (down_parcent / 100);
+            time -= (int) down_time;
+            if (time < 100) time = 100;
+            hit_critical = 0;
+            SimulActivity.txtQuickhand.setText("0");
+        }
+        System.out.println(quick_hand);
+        System.out.println(time);
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -102,19 +117,25 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         while (sheld > 0 && !Thread.interrupted()) {
             statue_log = "";
             ammo_log = "";
+            SimulActivity.defaultColor();
             now_demage = demage();
             critical_ransu = (int) (Math.random() * 123456) % 1001;
             headshot_ransu = (int) (Math.random() * 123456) % 1001;
-            if (critical_ransu <= critical*10) {
-                temp_criticaldemage = criticaldemage;
-                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
-                System.out.println(criticaldemage);
-                per = temp_criticaldemage / 100;
-                now_demage += weapondemage * per;
-            }
             if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
                 now_demage += weapondemage * per;
+                SimulActivity.hitHeadshot();
+            }
+            if (critical_ransu <= critical*10) {
+                if (quick_hand) {
+                    hit_critical++;
+                    SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                }
+                temp_criticaldemage = criticaldemage;
+                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
+                per = temp_criticaldemage / 100;
+                now_demage += weapondemage * per;
+                SimulActivity.hitCritical();
             }
             per = shelddemage/100;
             now_demage *= 1+per;
@@ -125,6 +146,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
                 if (ransu <= 5) {
+                    SimulActivity.hitBoom();
                     now_demage += (demage()*2);
                     statue_log += "(무자비 폭발탄!!)";
                 }
@@ -177,17 +199,24 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         while (health > 0 && !Thread.interrupted()) {
             statue_log = "";
             ammo_log = "";
+            SimulActivity.defaultColor();
             now_demage = demage();
             critical_ransu = (int) (Math.random() * 123456) % 1001;
             headshot_ransu = (int) (Math.random() * 123456) % 1001;
-            if (critical_ransu <= critical*10) {
-                if (push_critical_dmg != 0) criticaldemage += push_critical_dmg;
-                per = criticaldemage / 100;
-                now_demage += weapondemage * per;
-            }
             if (headshot_ransu <= headshot*10) {
                 per = headshotdemage / 100;
                 now_demage += weapondemage * per;
+                SimulActivity.hitHeadshot();
+            }
+            if (critical_ransu <= critical*10) {
+                if (quick_hand) {
+                    hit_critical++;
+                    SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                }
+                if (push_critical_dmg != 0) criticaldemage += push_critical_dmg;
+                per = criticaldemage / 100;
+                now_demage += weapondemage * per;
+                SimulActivity.hitCritical();
             }
             per = healthdemage/100;
             now_demage *= 1+per;
@@ -198,6 +227,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             if (boom) {
                 int ransu = (int)(Math.random()*123456)%100+1;
                 if (ransu <= 5) {
+                    SimulActivity.hitBoom();
                     now_demage += (demage()*2);
                     statue_log += "(무자비 폭발탄!!)";
                 }

@@ -1,7 +1,10 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,6 +22,11 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     public static ProgressBar progressSheld, progressHealth, progressAmmo;
 
     private DemageSimulThread dst = null;
+
+    private static LinearLayout layoutQuickhand;
+    public static TextView txtQuickhand;
+
+    private boolean quick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,9 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
         progressAmmo = findViewById(R.id.progressAmmo);
+
+        layoutQuickhand = findViewById(R.id.layoutQuickhand);
+        txtQuickhand = findViewById(R.id.txtQuickhand);
 
         //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
@@ -66,6 +77,10 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         if (elite_true) progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite));
         else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health));
 
+        quick = Boolean.parseBoolean(getIntent().getStringExtra("quickhand"));
+        if (quick) layoutQuickhand.setVisibility(View.VISIBLE);
+        else layoutQuickhand.setVisibility(View.GONE);
+
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
         //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread");
         dst.setTimeThread(tt);
@@ -84,5 +99,18 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void hitCritical() {
+        txtNowDemage.setTextColor(Color.parseColor("#FF6600"));
+    }
+    public static void hitBoom() {
+        txtNowDemage.setTextColor(Color.parseColor("#C7A900"));
+    }
+    public static void hitHeadshot() {
+        txtNowDemage.setTextColor(Color.parseColor("#FF0000"));
+    }
+    public static void defaultColor() {
+        txtNowDemage.setTextColor(Color.parseColor("#000000"));
     }
 }

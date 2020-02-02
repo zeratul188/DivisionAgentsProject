@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.2.7\n마지막 수정 일자 : 2020년 1월 31일 10시 45분\n\n-파밍 시뮬레이션 : 레이드 박스에서는 기어 장비 확률 2배 증가(20%)\n-파밍 시뮬레이션 : 장비 부위별 옵션 다르게 나오도록 수정\n-파밍 시뮬레이션 : 레이드 박스 특급, 네임드, 기어 장비 들만 따로 색이 나오도록 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 1.2.8\n마지막 수정 일자 : 2020년 2월 2일 20시 34분\n\n-무기 시뮬레이션 : 치명타, 헤드샷, 폭발물 데미지는 각각 다른 색상으로 나타나게 수정\n-무기 시뮬레이션 : 빠른 손 탤런트 추가 (중압감이랑 같이 사용 불가)");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
