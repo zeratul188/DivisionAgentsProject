@@ -70,7 +70,106 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PVP 여부"
+            android:textSize="15sp"
+            android:layout_marginRight="20dp"/>
+        <CheckBox
+            android:id="@+id/chkCluch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="적 클러치 여부"
+            android:enabled="false"
             android:textSize="15sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutCluch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="RPM : "
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:textAlignment="textEnd"/>
+            <EditText
+                android:id="@+id/edtCluchRPM"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:hint="0~9999"
+                android:inputType="number"
+                android:maxLength="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="치명타 확률 : "
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:textAlignment="textEnd"/>
+            <EditText
+                android:id="@+id/edtCluchCritical"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:hint="0~99.9"
+                android:inputType="numberDecimal"
+                android:maxLength="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="재장전 시간 : "
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:textAlignment="textEnd"/>
+            <EditText
+                android:id="@+id/edtCluchReload"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:hint="0~99.9"
+                android:inputType="numberDecimal"
+                android:maxLength="4"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="탄창 수 : "
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:textAlignment="textEnd"/>
+            <EditText
+                android:id="@+id/edtCluchAmmo"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:hint="0~9999"
+                android:inputType="number"
+                android:maxLength="4"/>
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

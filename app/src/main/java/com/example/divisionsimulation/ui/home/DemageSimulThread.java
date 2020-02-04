@@ -12,13 +12,15 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false;
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Context context;
     private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg;
     private int hit_critical = 0;
+
+    private CluchThread ct = null;
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
@@ -45,6 +47,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setTimeThread(TimeThread tt) {
         this.tt = tt;
     }
+    public void setCluchThread(CluchThread ct) { this.ct = ct; }
 
     public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; }
     public void setRPM(double rpm) { this.rpm = rpm; }
@@ -57,7 +60,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setHealthdemage(double healthdemage) { this.healthdemage = healthdemage; }
     public void setReloadtime(double reloadtime) { this.reloadtime = reloadtime; }
     public void setAmmo(double ammo) { this.ammo = ammo; }
-    public void setHealth(int health) { this.health = health; }
+    public synchronized void setHealth(int health) { this.health = health; }
     public void setSheld(int sheld) { this.sheld = sheld; }
     public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
     public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; }
@@ -67,8 +70,11 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
     public void setEagle_dmg(int eagle_dmg) { this.eagle_dmg = eagle_dmg; }
     public void setQuick_hand(boolean quick_hand) { this.quick_hand = quick_hand; }
+    public void setCluch_true(boolean cluch_true) { this.cluch_true = cluch_true; }
+    public void setEnd(boolean end) { this.end = end; }
 
     public int getSheld() { return this.sheld; }
+    public synchronized int getHealth() { return this.health; }
 
     private void reload() {
         int time = (int)(reloadtime*1000);
@@ -84,8 +90,6 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             hit_critical = 0;
             SimulActivity.txtQuickhand.setText("0");
         }
-        System.out.println(quick_hand);
-        System.out.println(time);
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
@@ -102,8 +106,9 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     }
 
     public void run() {
+        SimulActivity.setHealth(getHealth());
         SimulActivity.progressAmmo.setIndeterminate(false);
-        first_health = health;
+        first_health = SimulActivity.getHealth();
         first_sheld = sheld;
         int time = (60 * 1000) / (int) rpm;
         int now_ammo = (int) ammo;
@@ -114,7 +119,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         double per;
         SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
         SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
-        while (sheld > 0 && !Thread.interrupted()) {
+        while (sheld > 0 && !Thread.interrupted() && !end) {
             statue_log = "";
             ammo_log = "";
             SimulActivity.defaultColor();
@@ -189,14 +194,19 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 now_ammo += (int) ammo;
             } else {
                 try {
-                    Thread.sleep(time);
+                    this.sleep(time);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         }
-        while (health > 0 && !Thread.interrupted()) {
+        if (cluch_true) {
+            ct.setFirst_health(health);
+            ct.start();
+        }
+        int temp_health;
+        while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
             statue_log = "";
             ammo_log = "";
             SimulActivity.defaultColor();
@@ -213,8 +223,9 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     hit_critical++;
                     SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
                 }
-                if (push_critical_dmg != 0) criticaldemage += push_critical_dmg;
-                per = criticaldemage / 100;
+                temp_criticaldemage = criticaldemage;
+                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
+                per = temp_criticaldemage / 100;
                 now_demage += weapondemage * per;
                 SimulActivity.hitCritical();
             }
@@ -246,9 +257,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             }
             if (pvp_true == true) now_demage *= 0.4;
             real_demage = (int) now_demage;
-            health -= real_demage;
+            temp_health = SimulActivity.getHealth() - real_demage;
+            SimulActivity.setHealth(temp_health);
             all_dmg += real_demage;
-            if (health < 0) health = 0;
+            if (SimulActivity.getHealth() < 0) SimulActivity.setHealth(0);
             now_ammo--;
             all_ammo++;
             log = "-" + real_demage;
@@ -261,11 +273,11 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             SimulActivity.txtStatue.setText(statue_log);
             SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
             SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
-            dec_health = ((double)health / (double)first_health) * 10000;
+            dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
             SimulActivity.progressHealth.setProgress((int)dec_health);
             dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
             SimulActivity.progressAmmo.setProgress((int)dec_ammo);
-            if (now_ammo == 0 && health != 0) {
+            if (now_ammo == 0 && SimulActivity.getHealth() != 0) {
                 reload();
                 now_ammo += (int) ammo;
             } else {
@@ -277,7 +289,12 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 }
             }
         }
+        SimulActivity.progressHealth.setProgress(0);
+        SimulActivity.progressSheld.setProgress(0);
+        SimulActivity.txtSheld.setText("0");
+        SimulActivity.txtHealth.setText("0");
         tt.setStop(true);
+        if (cluch_true) ct.setStop(true);
         System.out.println("(DemageSimulThread) 정상적으로 종료됨");
     }
 }

@@ -34,6 +34,11 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
     private boolean quick = false;
 
+    private static int health;
+
+    public static synchronized void setHealth(int hp) { health = hp; }
+    public static synchronized int getHealth() { return health; }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +106,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
             public void onClick(View v) {
                 if (!exit) {
                     exit = true;
+                    dst.setEnd(true);
                     dst.setSheld(0);
                     dst.setHealth(0);
                     progressHealth.setProgress(0);

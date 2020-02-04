@@ -112,12 +112,16 @@ public class HomeFragment extends Fragment implements Serializable {
                     rgPush.setVisibility(View.VISIBLE);
                     chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
                     chkQuickhand.setEnabled(false);
+                    chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkEagle.setEnabled(false);
                 }
                 else {
                     rgPush.clearCheck();
                     rgPush.setVisibility(View.GONE);
                     chkQuickhand.setTextColor(Color.parseColor("#000000"));
                     chkQuickhand.setEnabled(true);
+                    chkEagle.setTextColor(Color.parseColor("#000000"));
+                    chkEagle.setEnabled(true);
                 }
             }
         });
@@ -127,9 +131,17 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkBoom.setTextColor(Color.parseColor("#bbbbbb"));
                     chkBoom.setEnabled(false);
+                    chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkQuickhand.setEnabled(false);
+                    chkPush.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkPush.setEnabled(false);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
                     chkBoom.setEnabled(true);
+                    chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                    chkQuickhand.setEnabled(true);
+                    chkPush.setTextColor(Color.parseColor("#000000"));
+                    chkPush.setEnabled(true);
                 }
             }
         });
@@ -151,9 +163,13 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkPush.setTextColor(Color.parseColor("#bbbbbb"));
                     chkPush.setEnabled(false);
+                    chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkEagle.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
+                    chkEagle.setTextColor(Color.parseColor("#000000"));
+                    chkEagle.setEnabled(true);
                 }
             }
         });
@@ -390,19 +406,53 @@ public class HomeFragment extends Fragment implements Serializable {
                         final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
                         final CheckBox chkElite = dialogView.findViewById(R.id.chkElite);
                         final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
+                        final CheckBox chkCluch = dialogView.findViewById(R.id.chkCluch);
+                        final LinearLayout layoutCluch = dialogView.findViewById(R.id.layoutCluch);
+
+                        final EditText edtCluchRPM = dialogView.findViewById(R.id.edtCluchRPM);
+                        final EditText edtCluchAmmo = dialogView.findViewById(R.id.edtCluchAmmo);
+                        final EditText edtCluchReload = dialogView.findViewById(R.id.edtCluchReload);
+                        final EditText edtCluchCritical = dialogView.findViewById(R.id.edtCluchCritical);
+
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setView(dialogView);
+
+                        chkCluch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) layoutCluch.setVisibility(View.VISIBLE);
+                                else layoutCluch.setVisibility(View.GONE);
+                            }
+                        });
 
                         chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (chkPVP.isChecked()) {
                                     chkElite.setTextColor(Color.parseColor("#bbbbbb"));
-                                    if (chkElite.isChecked()) chkElite.toggle();
                                     chkElite.setEnabled(false);
+                                    chkCluch.setEnabled(true);
                                 } else {
                                     chkElite.setTextColor(Color.parseColor("#000000"));
                                     chkElite.setEnabled(true);
+                                    if (chkCluch.isChecked()) {
+                                        layoutCluch.setVisibility(View.GONE);
+                                        chkCluch.toggle();
+                                    }
+                                    chkCluch.setEnabled(false);
+                                }
+                            }
+                        });
+
+                        chkElite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    chkPVP.setTextColor(Color.parseColor("#bbbbbb"));
+                                    chkPVP.setEnabled(false);
+                                } else {
+                                    chkPVP.setTextColor(Color.parseColor("#000000"));
+                                    chkPVP.setEnabled(true);
                                 }
                             }
                         });
@@ -410,13 +460,15 @@ public class HomeFragment extends Fragment implements Serializable {
                         builder.setPositiveButton("실행", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                boolean elite_true, pvp_true;
+                                boolean elite_true, pvp_true, cluch_true;
                                 if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
                                 else elite_true = false;
                                 if (chkPVP.isChecked()) pvp_true = true;
                                 else pvp_true = false;
                                 if (chkQuickhand.isChecked()) quick_hand = true;
                                 else quick_hand = false;
+                                if (chkCluch.isChecked()) cluch_true = true;
+                                else cluch_true = false;
 
                                 if (String.valueOf(edtHealth.getText()).equals("")) {
                                     Toast.makeText(getActivity(), "체력은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
@@ -426,6 +478,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                         Toast.makeText(getActivity(), "체력은 최소 0을 초과해야만 합니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         DemageSimulThread ws = new DemageSimulThread();
+
                                         try {
                                             ws.setWeapondemage(Double.parseDouble(String.valueOf(edtWeaponDemage.getText())));
                                             ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
@@ -457,23 +510,36 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setBoom(boom);
                                             ws.setEagle_dmg(eagle_dmg);
                                             ws.setQuick_hand(quick_hand);
-
-                                            Intent intent = new Intent(getActivity(), SimulActivity.class);
+                                            ws.setCluch_true(cluch_true);
 
                                             String elite = Boolean.toString(elite_true);
 
-                                            intent.putExtra("thread", ws);
-                                            intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
-                                            intent.putExtra("elite", elite);
-                                            intent.putExtra("quickhand", Boolean.toString(quick_hand));
+                                            System.out.println(cluch_true);
 
-                                            startActivity(intent);
+                                            if (cluch_true && (String.valueOf(edtCluchReload.getText()).equals("") || String.valueOf(edtCluchAmmo.getText()).equals("") || String.valueOf(edtCluchRPM.getText()).equals("") || String.valueOf(edtCluchCritical.getText()).equals(""))) {
+                                                Toast.makeText(getActivity(), "재장전 시간, 탄약수, RPM, 치명타 확률 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                if (cluch_true) {
+                                                    CluchThread ct = new CluchThread(Integer.parseInt(String.valueOf(edtCluchRPM.getText())), Integer.parseInt(String.valueOf(edtCluchAmmo.getText())), Double.parseDouble(String.valueOf(edtCluchReload.getText())), Double.parseDouble(String.valueOf(edtCluchCritical.getText())));
+                                                    ws.setCluchThread(ct);
+                                                }
+
+                                                Intent intent = new Intent(getActivity(), SimulActivity.class);
+
+                                                intent.putExtra("thread", ws);
+                                                intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
+                                                intent.putExtra("elite", elite);
+                                                intent.putExtra("quickhand", Boolean.toString(quick_hand));
+
+                                                startActivity(intent);
+                                            }
                                         } catch (Exception e) {
                                             builder_error = new AlertDialog.Builder(getActivity());
                                             builder_error.setTitle("오류").setMessage("Error\n"+e.getStackTrace());
                                             builder_error.setPositiveButton("확인", null);
                                             alertDialog_error = builder_error.create();
                                             alertDialog_error.show();
+                                            System.err.println(e);
                                         }
                                     }
                                 }
