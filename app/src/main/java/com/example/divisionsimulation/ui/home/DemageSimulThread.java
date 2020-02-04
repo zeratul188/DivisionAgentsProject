@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
-    private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
+    private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
     private int health, sheld, all_ammo = 0;
     private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false;
     private int first_health, first_sheld;
@@ -72,6 +72,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setQuick_hand(boolean quick_hand) { this.quick_hand = quick_hand; }
     public void setCluch_true(boolean cluch_true) { this.cluch_true = cluch_true; }
     public void setEnd(boolean end) { this.end = end; }
+    public void setAiming(double aiming) { this.aiming = aiming; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -119,175 +120,189 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         double per;
         SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
         SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
-        while (sheld > 0 && !Thread.interrupted() && !end) {
-            statue_log = "";
-            ammo_log = "";
-            SimulActivity.defaultColor();
-            now_demage = demage();
-            critical_ransu = (int) (Math.random() * 123456) % 1001;
-            headshot_ransu = (int) (Math.random() * 123456) % 1001;
-            if (headshot_ransu <= headshot*10) {
-                per = headshotdemage / 100;
-                now_demage += weapondemage * per;
-                SimulActivity.hitHeadshot();
-            }
-            if (critical_ransu <= critical*10) {
-                if (quick_hand && hit_critical < 30) {
-                    hit_critical++;
-                    SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+        try {
+            while (sheld > 0 && !Thread.interrupted() && !end) {
+                statue_log = "";
+                ammo_log = "";
+                SimulActivity.defaultColor();
+                now_demage = demage();
+                critical_ransu = (int) (Math.random() * 123456) % 1001;
+                headshot_ransu = (int) (Math.random() * 123456) % 1001;
+                if (headshot_ransu <= headshot*10) {
+                    per = headshotdemage / 100;
+                    now_demage += weapondemage * per;
+                    SimulActivity.hitHeadshot();
                 }
-                temp_criticaldemage = criticaldemage;
-                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
-                per = temp_criticaldemage / 100;
-                now_demage += weapondemage * per;
-                SimulActivity.hitCritical();
-            }
-            per = shelddemage/100;
-            now_demage *= 1+per;
-            if (elite_true == true) {
-                per = elitedemage/100;
-                now_demage += weapondemage * per;
-            }
-            if (boom) {
-                int ransu = (int)(Math.random()*123456)%100+1;
-                if (ransu <= 5) {
-                    SimulActivity.hitBoom();
-                    now_demage += (demage()*2);
-                    statue_log += "(무자비 폭발탄!!)";
+                if (critical_ransu <= critical*10) {
+                    if (quick_hand && hit_critical < 30) {
+                        hit_critical++;
+                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                    }
+                    temp_criticaldemage = criticaldemage;
+                    if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
+                    per = temp_criticaldemage / 100;
+                    now_demage += weapondemage * per;
+                    SimulActivity.hitCritical();
                 }
-            }
-            if (crazy_dmg != 0) {
-                per = crazy_dmg/100;
-                now_demage += weapondemage * per;
-            }
-            if (eagle_dmg != 0) {
-                per = eagle_dmg/100;
-                now_demage += weapondemage * per;
-            }
-            if (seeker_dmg != 0) {
-                per = seeker_dmg/100;
+                per = shelddemage/100;
                 now_demage *= 1+per;
-            }
-            if (pvp_true == true) now_demage *= 0.4;
-            real_demage = (int) now_demage;
-            sheld -= real_demage;
-            all_dmg += real_demage;
-            if (sheld < 0) sheld = 0;
-            now_ammo--;
-            all_ammo++;
-            log = "-" + real_demage;
-            ammo_log = "현재 탄수 : "+now_ammo;
-            if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
-            if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-            SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
-            SimulActivity.txtNowDemage.setText(log);
-            SimulActivity.txtAmmo.setText(ammo_log);
-            SimulActivity.txtStatue.setText(statue_log);
-            SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-            SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
-            dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
-            SimulActivity.progressSheld.setProgress((int)dec_sheld);
-            dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
-            SimulActivity.progressAmmo.setProgress((int)dec_ammo);
-            if (now_ammo == 0 && sheld != 0) {
-                reload();
-                now_ammo += (int) ammo;
-            } else {
-                try {
-                    this.sleep(time);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                if (elite_true == true) {
+                    per = elitedemage/100;
+                    now_demage += weapondemage * per;
+                }
+                if (boom) {
+                    int ransu = (int)(Math.random()*123456)%100+1;
+                    if (ransu <= 5) {
+                        SimulActivity.hitBoom();
+                        now_demage += (demage()*2);
+                        statue_log += "(무자비 폭발탄!!)";
+                    }
+                }
+                if (crazy_dmg != 0) {
+                    per = crazy_dmg/100;
+                    now_demage += weapondemage * per;
+                }
+                if (eagle_dmg != 0) {
+                    per = eagle_dmg/100;
+                    now_demage += weapondemage * per;
+                }
+                if (seeker_dmg != 0) {
+                    per = seeker_dmg/100;
+                    now_demage *= 1+per;
+                }
+                if (pvp_true == true) now_demage *= 0.4;
+                real_demage = (int) now_demage;
+                per = (int)(Math.random()*1234567)%1000+1;
+                if (aiming*10 >= per) {
+                    sheld -= real_demage;
+                    all_dmg += real_demage;
+                    log = "-" + real_demage;
+                    SimulActivity.txtNowDemage.setText(log);
+                } else SimulActivity.txtNowDemage.setText("빗나감!");
+                if (sheld < 0) sheld = 0;
+                now_ammo--;
+                all_ammo++;
+                ammo_log = "현재 탄수 : "+now_ammo;
+                if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
+                if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
+                SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
+                SimulActivity.txtAmmo.setText(ammo_log);
+                SimulActivity.txtStatue.setText(statue_log);
+                SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
+                SimulActivity.progressSheld.setProgress((int)dec_sheld);
+                dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
+                SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                if (now_ammo == 0 && sheld != 0) {
+                    reload();
+                    now_ammo += (int) ammo;
+                } else {
+                    try {
+                        this.sleep(time);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
-        if (cluch_true) {
-            ct.setFirst_health(health);
-            ct.start();
-        }
-        int temp_health;
-        while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
-            statue_log = "";
-            ammo_log = "";
-            SimulActivity.defaultColor();
-            now_demage = demage();
-            critical_ransu = (int) (Math.random() * 123456) % 1001;
-            headshot_ransu = (int) (Math.random() * 123456) % 1001;
-            if (headshot_ransu <= headshot*10) {
-                per = headshotdemage / 100;
-                now_demage += weapondemage * per;
-                SimulActivity.hitHeadshot();
+            if (cluch_true) {
+                ct.setFirst_health(health);
+                ct.start();
             }
-            if (critical_ransu <= critical*10) {
-                if (quick_hand && hit_critical < 30) {
-                    hit_critical++;
-                    SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+            int temp_health;
+            while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
+                statue_log = "";
+                ammo_log = "";
+                SimulActivity.defaultColor();
+                now_demage = demage();
+                critical_ransu = (int) (Math.random() * 123456) % 1001;
+                headshot_ransu = (int) (Math.random() * 123456) % 1001;
+                if (headshot_ransu <= headshot*10) {
+                    per = headshotdemage / 100;
+                    now_demage += weapondemage * per;
+                    SimulActivity.hitHeadshot();
                 }
-                temp_criticaldemage = criticaldemage;
-                if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
-                per = temp_criticaldemage / 100;
-                now_demage += weapondemage * per;
-                SimulActivity.hitCritical();
-            }
-            per = healthdemage/100;
-            now_demage *= 1+per;
-            if (elite_true == true) {
-                per = elitedemage/100;
-                now_demage += weapondemage * per;
-            }
-            if (boom) {
-                int ransu = (int)(Math.random()*123456)%100+1;
-                if (ransu <= 5) {
-                    SimulActivity.hitBoom();
-                    now_demage += (demage()*2);
-                    statue_log += "(무자비 폭발탄!!)";
+                if (critical_ransu <= critical*10) {
+                    if (quick_hand && hit_critical < 30) {
+                        hit_critical++;
+                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                    }
+                    temp_criticaldemage = criticaldemage;
+                    if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
+                    per = temp_criticaldemage / 100;
+                    now_demage += weapondemage * per;
+                    SimulActivity.hitCritical();
                 }
-            }
-            if (crazy_dmg != 0) {
-                per = crazy_dmg/100;
-                now_demage += weapondemage * per;
-            }
-            if (eagle_dmg != 0) {
-                per = eagle_dmg/100;
-                now_demage += weapondemage * per;
-            }
-            if (seeker_dmg != 0) {
-                per = seeker_dmg/100;
+                per = healthdemage/100;
                 now_demage *= 1+per;
-            }
-            if (pvp_true == true) now_demage *= 0.4;
-            real_demage = (int) now_demage;
-            temp_health = SimulActivity.getHealth() - real_demage;
-            SimulActivity.setHealth(temp_health);
-            all_dmg += real_demage;
-            if (SimulActivity.getHealth() < 0) SimulActivity.setHealth(0);
-            now_ammo--;
-            all_ammo++;
-            log = "-" + real_demage;
-            ammo_log = "현재 탄수 : "+now_ammo;
-            if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
-            if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-            SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+first_health);
-            SimulActivity.txtNowDemage.setText(log);
-            SimulActivity.txtAmmo.setText(ammo_log);
-            SimulActivity.txtStatue.setText(statue_log);
-            SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-            SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
-            dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
-            SimulActivity.progressHealth.setProgress((int)dec_health);
-            dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
-            SimulActivity.progressAmmo.setProgress((int)dec_ammo);
-            if (now_ammo == 0 && SimulActivity.getHealth() != 0) {
-                reload();
-                now_ammo += (int) ammo;
-            } else {
-                try {
-                    Thread.sleep(time);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                if (elite_true == true) {
+                    per = elitedemage/100;
+                    now_demage += weapondemage * per;
+                }
+                if (boom) {
+                    int ransu = (int)(Math.random()*123456)%100+1;
+                    if (ransu <= 5) {
+                        SimulActivity.hitBoom();
+                        now_demage += (demage()*2);
+                        statue_log += "(무자비 폭발탄!!)";
+                    }
+                }
+                if (crazy_dmg != 0) {
+                    per = crazy_dmg/100;
+                    now_demage += weapondemage * per;
+                }
+                if (eagle_dmg != 0) {
+                    per = eagle_dmg/100;
+                    now_demage += weapondemage * per;
+                }
+                if (seeker_dmg != 0) {
+                    per = seeker_dmg/100;
+                    now_demage *= 1+per;
+                }
+                if (pvp_true == true) now_demage *= 0.6;
+                real_demage = (int) now_demage;
+                per = (int)(Math.random()*1234567)%1000+1;
+                if (aiming*10 >= per) {
+                    temp_health = SimulActivity.getHealth() - real_demage;
+                    SimulActivity.setHealth(temp_health);
+                    all_dmg += real_demage;
+                    log = "-" + real_demage;
+                    SimulActivity.txtNowDemage.setText(log);
+                } else {
+                    SimulActivity.txtNowDemage.setText("빗나감!");
+                }
+                if (SimulActivity.getHealth() < 0) SimulActivity.setHealth(0);
+                now_ammo--;
+                all_ammo++;
+                ammo_log = "현재 탄수 : "+now_ammo;
+                if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
+                if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
+                SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+first_health);
+                SimulActivity.txtAmmo.setText(ammo_log);
+                SimulActivity.txtStatue.setText(statue_log);
+                SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
+                SimulActivity.progressHealth.setProgress((int)dec_health);
+                dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
+                SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                if (now_ammo == 0 && SimulActivity.getHealth() != 0) {
+                    reload();
+                    now_ammo += (int) ammo;
+                } else {
+                    try {
+                        Thread.sleep(time);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
+        } catch (Exception e) {
+            System.err.println(e);
+            SimulActivity.setHealth(0);
+            sheld = 0;
         }
         SimulActivity.progressHealth.setProgress(0);
         SimulActivity.progressSheld.setProgress(0);

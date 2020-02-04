@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment implements Serializable {
     private AlertDialog alertDialog_error = null;
     private View dialogView_error = null;
 
-    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname;
+    private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname, edtAiming;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class HomeFragment extends Fragment implements Serializable {
         edtReload = root.findViewById(R.id.edtReload);
         edtAmmo = root.findViewById(R.id.edtAmmo);
         edtNickname = root.findViewById(R.id.edtNickname);
+        edtAiming = root.findViewById(R.id.edtAiming);
 
         btnDPS = root.findViewById(R.id.btnDPS);
         btnDemageSimul = root.findViewById(R.id.btnDemageSimul);
@@ -191,6 +192,32 @@ public class HomeFragment extends Fragment implements Serializable {
                     if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
                         Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtCritical.setText("0");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edtAiming.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String temp = String.valueOf(edtAiming.getText());
+                int index = temp.indexOf(".");
+                String result = "";
+                if (index != -1) result = temp.substring(0, index);
+                else result = temp;
+                if (!result.equals("")) {
+                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
+                        Toast.makeText(getActivity(), "'헤드샷 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                        edtAiming.setText("0");
                     }
                 }
             }
@@ -337,8 +364,8 @@ public class HomeFragment extends Fragment implements Serializable {
         btnDemageSimul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
-                    Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
+                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("") || String.valueOf(edtAiming.getText()).equals("")) {
+                    Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창, 명중률이 입력해야합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
                     int temp_rpm = Integer.parseInt(String.valueOf(edtRPM.getText()));
@@ -413,6 +440,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         final EditText edtCluchAmmo = dialogView.findViewById(R.id.edtCluchAmmo);
                         final EditText edtCluchReload = dialogView.findViewById(R.id.edtCluchReload);
                         final EditText edtCluchCritical = dialogView.findViewById(R.id.edtCluchCritical);
+                        final EditText edtCluchAiming = dialogView.findViewById(R.id.edtCluchAiming);
 
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setView(dialogView);
@@ -501,6 +529,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));
                                             if (!String.valueOf(edtSheld.getText()).equals("")) ws.setSheld(Integer.parseInt(String.valueOf(edtSheld.getText())));
                                             else ws.setSheld(0);
+                                            if (!String.valueOf(edtAiming.getText()).equals("") && !String.valueOf(edtAiming.getText()).equals("0")) ws.setAiming(Double.parseDouble(String.valueOf(edtAiming.getText())));
+                                            else ws.setAiming(50);
                                             ws.setHealth(Integer.parseInt(String.valueOf(edtHealth.getText())));
                                             ws.setPVP_true(pvp_true);
                                             ws.setElite_true(elite_true);
@@ -516,11 +546,11 @@ public class HomeFragment extends Fragment implements Serializable {
 
                                             System.out.println(cluch_true);
 
-                                            if (cluch_true && (String.valueOf(edtCluchReload.getText()).equals("") || String.valueOf(edtCluchAmmo.getText()).equals("") || String.valueOf(edtCluchRPM.getText()).equals("") || String.valueOf(edtCluchCritical.getText()).equals(""))) {
-                                                Toast.makeText(getActivity(), "재장전 시간, 탄약수, RPM, 치명타 확률 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                            if (cluch_true && (String.valueOf(edtCluchReload.getText()).equals("") || String.valueOf(edtCluchAmmo.getText()).equals("") || String.valueOf(edtCluchRPM.getText()).equals("") || String.valueOf(edtCluchCritical.getText()).equals("") || String.valueOf(edtCluchAiming.getText()).equals(""))) {
+                                                Toast.makeText(getActivity(), "재장전 시간, 탄약수, RPM, 치명타 확률, 명중률 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 if (cluch_true) {
-                                                    CluchThread ct = new CluchThread(Integer.parseInt(String.valueOf(edtCluchRPM.getText())), Integer.parseInt(String.valueOf(edtCluchAmmo.getText())), Double.parseDouble(String.valueOf(edtCluchReload.getText())), Double.parseDouble(String.valueOf(edtCluchCritical.getText())));
+                                                    CluchThread ct = new CluchThread(Integer.parseInt(String.valueOf(edtCluchRPM.getText())), Integer.parseInt(String.valueOf(edtCluchAmmo.getText())), Double.parseDouble(String.valueOf(edtCluchReload.getText())), Double.parseDouble(String.valueOf(edtCluchCritical.getText())), Double.parseDouble(String.valueOf(edtCluchAiming.getText())));
                                                     ws.setCluchThread(ct);
                                                 }
 
