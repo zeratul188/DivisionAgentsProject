@@ -28,7 +28,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     private LinearLayout layoutQuickhand;
     public static TextView txtQuickhand;
 
-    private boolean exit = false;
+    private static boolean exit = false;
 
     private Button btnExit;
 
@@ -38,6 +38,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
     public static synchronized void setHealth(int hp) { health = hp; }
     public static synchronized int getHealth() { return health; }
+    public static void setExit(boolean et) { exit = et; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

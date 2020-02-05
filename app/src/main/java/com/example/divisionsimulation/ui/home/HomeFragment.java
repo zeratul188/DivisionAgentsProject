@@ -41,9 +41,9 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand;
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang;
 
-    private boolean boom = false, quick_hand = false;
+    private boolean boom = false, quick_hand = false, bumerang_true = false;
 
     private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
 
@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment implements Serializable {
         chkBoom = root.findViewById(R.id.chkBoom);
         chkQuickhand = root.findViewById(R.id.chkQuickhand);
         chkCrazy = root.findViewById(R.id.chkCrazy);
+        chkBumerang = root.findViewById(R.id.chkBumerang);
         rgCrazy = root.findViewById(R.id.rgCrazy);
         int temp;
         for (int i = 0; i < rdoCrazy.length; i++) {
@@ -115,14 +116,42 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkQuickhand.setEnabled(false);
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
+                    chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBumerang.setEnabled(false);
                 }
                 else {
                     rgPush.clearCheck();
                     rgPush.setVisibility(View.GONE);
                     chkQuickhand.setTextColor(Color.parseColor("#000000"));
                     chkQuickhand.setEnabled(true);
-                    chkEagle.setTextColor(Color.parseColor("#000000"));
-                    chkEagle.setEnabled(true);
+                    chkBumerang.setTextColor(Color.parseColor("#000000"));
+                    chkBumerang.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked()) {
+                        chkEagle.setTextColor(Color.parseColor("#000000"));
+                        chkEagle.setEnabled(true);
+                    }
+                }
+            }
+        });
+        chkBumerang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkQuickhand.setEnabled(false);
+                    chkPush.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkPush.setEnabled(false);
+                    chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkEagle.setEnabled(false);
+                } else {
+                    chkPush.setTextColor(Color.parseColor("#000000"));
+                    chkPush.setEnabled(true);
+                    chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                    chkQuickhand.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked()) {
+                        chkEagle.setTextColor(Color.parseColor("#000000"));
+                        chkEagle.setEnabled(true);
+                    }
                 }
             }
         });
@@ -136,6 +165,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkQuickhand.setEnabled(false);
                     chkPush.setTextColor(Color.parseColor("#bbbbbb"));
                     chkPush.setEnabled(false);
+                    chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBumerang.setEnabled(false);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
                     chkBoom.setEnabled(true);
@@ -143,6 +174,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkQuickhand.setEnabled(true);
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
+                    chkBumerang.setTextColor(Color.parseColor("#000000"));
+                    chkBumerang.setEnabled(true);
                 }
             }
         });
@@ -153,8 +186,10 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
                 } else {
-                    chkEagle.setTextColor(Color.parseColor("#000000"));
-                    chkEagle.setEnabled(true);
+                    if (!chkPush.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked()) {
+                        chkEagle.setTextColor(Color.parseColor("#000000"));
+                        chkEagle.setEnabled(true);
+                    }
                 }
             }
         });
@@ -166,11 +201,17 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPush.setEnabled(false);
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
+                    chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBumerang.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
-                    chkEagle.setTextColor(Color.parseColor("#000000"));
-                    chkEagle.setEnabled(true);
+                    chkBumerang.setTextColor(Color.parseColor("#000000"));
+                    chkBumerang.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkBumerang.isChecked()) {
+                        chkEagle.setTextColor(Color.parseColor("#000000"));
+                        chkEagle.setEnabled(true);
+                    }
                 }
             }
         });
@@ -279,7 +320,47 @@ public class HomeFragment extends Fragment implements Serializable {
         btnDPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
+                edtNickname.setText("");
+                edtWeaponDemage.setText("");
+                edtRPM.setText("");
+                edtCritical.setText("");
+                edtCriticalDemage.setText("");
+                edtHeadshot.setText("");
+                edtHeadshotDemage.setText("");
+                edtEliteDemage.setText("");
+                edtSheldDemage.setText("");
+                edtHealthDemage.setText("");
+                edtReload.setText("");
+                edtAmmo.setText("");
+                edtAiming.setText("");
+
+                if (chkEagle.isChecked()) chkEagle.toggle();
+                if (chkBoom.isChecked()) chkBoom.toggle();
+                if (chkSeeker.isChecked()) chkSeeker.toggle();
+                if (chkBumerang.isChecked()) chkBumerang.toggle();
+                if (chkCrazy.isChecked()) chkCrazy.toggle();
+                if (chkPush.isChecked()) chkPush.toggle();
+                if (chkQuickhand.isChecked()) chkQuickhand.toggle();
+
+                chkPush.setTextColor(Color.parseColor("#000000"));
+                chkPush.setEnabled(true);
+                chkEagle.setTextColor(Color.parseColor("#000000"));
+                chkEagle.setEnabled(true);
+                chkBumerang.setTextColor(Color.parseColor("#000000"));
+                chkBumerang.setEnabled(true);
+                chkBoom.setTextColor(Color.parseColor("#000000"));
+                chkBoom.setEnabled(true);
+                chkCrazy.setTextColor(Color.parseColor("#000000"));
+                chkCrazy.setEnabled(true);
+                chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                chkQuickhand.setEnabled(true);
+
+                rgPush.clearCheck();
+                rgCrazy.clearCheck();
+
+                Toast.makeText(getActivity(), "입력값들이 모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                /*if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
                     Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
@@ -357,7 +438,7 @@ public class HomeFragment extends Fragment implements Serializable {
                             alertDialog_error.show();
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -497,6 +578,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                 else quick_hand = false;
                                 if (chkCluch.isChecked()) cluch_true = true;
                                 else cluch_true = false;
+                                if (chkBumerang.isChecked()) bumerang_true = true;
+                                else bumerang_true = false;
 
                                 if (String.valueOf(edtHealth.getText()).equals("")) {
                                     Toast.makeText(getActivity(), "체력은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
@@ -541,6 +624,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setEagle_dmg(eagle_dmg);
                                             ws.setQuick_hand(quick_hand);
                                             ws.setCluch_true(cluch_true);
+                                            ws.setBumerang_true(bumerang_true);
 
                                             String elite = Boolean.toString(elite_true);
 

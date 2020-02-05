@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.3.1\n마지막 수정 일자 : 2020년 2월 4일 21시 15분\n\n-무기 시뮬레이션 : 명중률 추가\n-무기 시뮬레이션 : 클러치 일부 버그 수정, 방어도와 생명력마다 다른 데미지 증가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.3.2\n마지막 수정 일자 : 2020년 2월 5일 10시 39분\n\n-무기 시뮬레이션 : DPS 삭제 후 입력한 값 초기화로 대체\n-무기 시뮬레이션 : 부메랑 탤런트 추가\n-무기 시뮬레이션 : 빗나갔을 경우에도 빠른손 카운트가 증가되는 버그 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

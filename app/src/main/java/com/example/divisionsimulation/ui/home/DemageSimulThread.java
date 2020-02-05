@@ -12,7 +12,7 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false;
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
@@ -73,6 +73,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setCluch_true(boolean cluch_true) { this.cluch_true = cluch_true; }
     public void setEnd(boolean end) { this.end = end; }
     public void setAiming(double aiming) { this.aiming = aiming; }
+    public void setBumerang_true(boolean bumerang_true) { this.bumerang_true = bumerang_true; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -128,6 +129,11 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 now_demage = demage();
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
+                if (bumerang) {
+                    now_demage += weapondemage;
+                    bumerang = false;
+                    statue_log += "(부메랑 추가 데미지!)";
+                }
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
                     now_demage += weapondemage * per;
@@ -143,6 +149,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
                     SimulActivity.hitCritical();
+                    if (bumerang_true) {
+                        per = (int)(Math.random()*1234567)%2;
+                        if (per == 1) bumerang = true;
+                    }
                 }
                 per = shelddemage/100;
                 now_demage *= 1+per;
@@ -178,6 +188,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     all_dmg += real_demage;
                     log = "-" + real_demage;
                     SimulActivity.txtNowDemage.setText(log);
+                    if (hit_critical > 30) {
+                        hit_critical--;
+                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                    }
                 } else SimulActivity.txtNowDemage.setText("빗나감!");
                 if (sheld < 0) sheld = 0;
                 now_ammo--;
@@ -218,6 +232,11 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 now_demage = demage();
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
+                if (bumerang) {
+                    now_demage += weapondemage;
+                    bumerang = false;
+                    statue_log += "(부메랑 추가 데미지!)";
+                }
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
                     now_demage += weapondemage * per;
@@ -233,6 +252,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
                     SimulActivity.hitCritical();
+                    if (bumerang_true) {
+                        per = (int)(Math.random()*1234567)%2;
+                        if (per == 1) bumerang = true;
+                    }
                 }
                 per = healthdemage/100;
                 now_demage *= 1+per;
@@ -269,6 +292,10 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     all_dmg += real_demage;
                     log = "-" + real_demage;
                     SimulActivity.txtNowDemage.setText(log);
+                    if (hit_critical > 30) {
+                        hit_critical--;
+                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                    }
                 } else {
                     SimulActivity.txtNowDemage.setText("빗나감!");
                 }
@@ -278,7 +305,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 ammo_log = "현재 탄수 : "+now_ammo;
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-                SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+first_health);
+                SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
                 SimulActivity.txtAmmo.setText(ammo_log);
                 SimulActivity.txtStatue.setText(statue_log);
                 SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
@@ -308,6 +335,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         SimulActivity.progressSheld.setProgress(0);
         SimulActivity.txtSheld.setText("0");
         SimulActivity.txtHealth.setText("0");
+        SimulActivity.setExit(true);
         tt.setStop(true);
         if (cluch_true) ct.setStop(true);
         System.out.println("(DemageSimulThread) 정상적으로 종료됨");
