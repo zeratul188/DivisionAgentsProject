@@ -182,6 +182,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 }
                 if (pvp_true == true) now_demage *= 0.4;
                 real_demage = (int) now_demage;
+                if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {
                     sheld -= real_demage;
@@ -285,6 +286,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 }
                 if (pvp_true == true) now_demage *= 0.6;
                 real_demage = (int) now_demage;
+                if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {
                     temp_health = SimulActivity.getHealth() - real_demage;

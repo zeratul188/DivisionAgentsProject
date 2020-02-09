@@ -230,8 +230,8 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (index != -1) result = temp.substring(0, index);
                 else result = temp;
                 if (!result.equals("")) {
-                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
-                        Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 60) {
+                        Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 60 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtCritical.setText("0");
                     }
                 }
@@ -451,9 +451,30 @@ public class HomeFragment extends Fragment implements Serializable {
                     int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
                     int temp_rpm = Integer.parseInt(String.valueOf(edtRPM.getText()));
                     int temp_ammo = Integer.parseInt(String.valueOf(edtAmmo.getText()));
+                    /*String temp_critical, temp_criticaldemage, temp_headshot, temp_headshotdemage, temp_elitedemage, temp_shelddemage, temp_healthdemage, temp_reload, temp_aiming;
+                    temp_critical = String.valueOf(edtCritical.getText());
+                    temp_criticaldemage = String.valueOf(edtCriticalDemage.getText());
+                    temp_headshot = String.valueOf(edtHeadshot.getText());
+                    temp_headshotdemage = String.valueOf(edtHealthDemage.getText());
+                    System.out.println("headshot demage : "+temp_headshotdemage);
+                    temp_elitedemage = String.valueOf(edtEliteDemage.getText());
+                    temp_shelddemage = String.valueOf(edtSheldDemage.getText());
+                    temp_healthdemage = String.valueOf(edtHealthDemage.getText());
+                    temp_reload = String.valueOf(edtReload.getText());
+                    temp_aiming = String.valueOf(edtAiming.getText());*/
                     if (temp_demage <= 0 || temp_rpm <= 0 || temp_ammo <= 0) {
                         Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창을 최소 0 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
-                    } else {
+                    } /*else if ((temp_critical.indexOf(".") == temp_critical.length()-1 && !temp_critical.equals("")) ||
+                            (temp_criticaldemage.indexOf(".") == temp_criticaldemage.length()-1 && !temp_criticaldemage.equals("")) ||
+                            (temp_headshot.indexOf(".") == temp_headshot.length()-1 && !temp_headshot.equals("")) ||
+                            (temp_headshotdemage.indexOf(".") == temp_headshotdemage.length()-1 && !temp_headshotdemage.equals("")) ||
+                            (temp_elitedemage.indexOf(".") == temp_elitedemage.length()-1 && !temp_elitedemage.equals("")) ||
+                            (temp_shelddemage.indexOf(".") == temp_shelddemage.length()-1 && !temp_shelddemage.equals("")) ||
+                            (temp_healthdemage.indexOf(".") == temp_healthdemage.length()-1 && !temp_healthdemage.equals("")) ||
+                            (temp_reload.indexOf(".") == temp_reload.length()-1 && !temp_reload.equals("")) ||
+                            (temp_aiming.indexOf(".") == temp_aiming.length()-1 && !temp_aiming.equals(""))) {
+                        Toast.makeText(getActivity(), "입력했던 값들 중 끝에 .으로 끝나는 입력값이 있습니다. 확인 후 다시 시도해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+                    }*/ else {
                         switch (rgCrazy.getCheckedRadioButtonId()) {
                             case R.id.rdoCrazy1:
                                 crazy_dmg = 0; break;
@@ -526,6 +547,32 @@ public class HomeFragment extends Fragment implements Serializable {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setView(dialogView);
 
+                        edtCluchCritical.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                String temp = String.valueOf(edtCluchCritical.getText());
+                                int index = temp.indexOf(".");
+                                String result = "";
+                                if (index != -1) result = temp.substring(0, index);
+                                else result = temp;
+                                if (!result.equals("")) {
+                                    if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
+                                        Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                                        edtCluchCritical.setText("0");
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
                         chkCluch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -595,11 +642,16 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
                                             if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
                                             else ws.setCritical(0);
-                                            if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
-                                            else ws.setCriticaldemage(0);
+                                            if (!String.valueOf(edtCriticalDemage.getText()).equals("") && Integer.parseInt(String.valueOf(edtCriticalDemage.getText())) < 25) {
+                                                Toast.makeText(getActivity(), "치명타 데미지 최솟값이 25%이므로 25%로 자동 변경됩니다.", Toast.LENGTH_SHORT).show();
+                                                ws.setCriticaldemage(25);
+                                            } else if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));else ws.setCriticaldemage(25);
                                             if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
                                             else ws.setHeadshot(0);
-                                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
+                                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("") && Integer.parseInt(String.valueOf(edtHeadshotDemage.getText())) < 50) {
+                                                Toast.makeText(getActivity(), "헤드샷 데미지 최솟값이 50%이므로 50%로 자동 변경됩니다.", Toast.LENGTH_SHORT).show();
+                                                ws.setHeadshotdemage(50);
+                                            } else if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
                                             else ws.setHeadshotdemage(0);
                                             if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
                                             else ws.setElitedemage(0);
@@ -649,7 +701,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             }
                                         } catch (Exception e) {
                                             builder_error = new AlertDialog.Builder(getActivity());
-                                            builder_error.setTitle("오류").setMessage("Error\n"+e.getStackTrace());
+                                            builder_error.setTitle("오류").setMessage("Error\n"+e.getMessage());
                                             builder_error.setPositiveButton("확인", null);
                                             alertDialog_error = builder_error.create();
                                             alertDialog_error.show();

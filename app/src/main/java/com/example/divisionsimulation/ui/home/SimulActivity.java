@@ -48,6 +48,8 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
         setTitle("디비전2 시뮬레이션");
 
+        exit = false;
+
         txtSheld = findViewById(R.id.txtSheld);
         txtHealth = findViewById(R.id.txtHealth);
         txtNowDemage = findViewById(R.id.txtNowDemage);
