@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.3.3\n마지막 수정 일자 : 2020년 2월 9일 13시 55분\n\n-무기 시뮬레이션 : 강제 종료가 되지 않았던 버그 수정\n-무기 시뮬레이션 : 치명타 확률, 치명타 데미지, 헤드샷 데미지 최솟값 혹은 최댓값 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 1.4.0\n마지막 수정 일자 : 2020년 2월 10일 10시 16분\n\n-무기 시뮬레이션 : 치명타, 무자비 폭발탄, 헤드샷 시 이미지 추가\n-무기 시뮬레이션 : 입력할 경우 오류 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

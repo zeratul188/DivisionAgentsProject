@@ -42,6 +42,7 @@ class CluchThread extends Thread implements Serializable, Runnable {
         while (!stop) {
             //System.out.println("play Cluch + "+time);
            try {
+               if (SimulActivity.getHealth() <= 0) break;
                temp_critical = (int)(critical * 10);
                random = (int)(Math.random()*1234567)%1000+1;
                if (temp_critical >= random) {

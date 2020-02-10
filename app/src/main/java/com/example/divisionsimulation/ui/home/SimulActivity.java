@@ -1,10 +1,12 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     private boolean quick = false;
 
     private static int health;
+    private static ImageView imgBoom, imgCritical, imgHeadshot;
 
     public static synchronized void setHealth(int hp) { health = hp; }
     public static synchronized int getHealth() { return health; }
@@ -69,6 +72,10 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
         btnExit = findViewById(R.id.btnExit);
 
+        imgHeadshot = findViewById(R.id.imgHeadshot);
+        imgBoom = findViewById(R.id.imgBoom);
+        imgCritical = findViewById(R.id.imgCritical);
+
         //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
         //progressHealth.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
@@ -100,6 +107,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
         //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread");
         dst.setTimeThread(tt);
+        dst.setActivity(this);
         if (dst.getSheld() != 0) progressSheld.setProgress(10000);
         else progressSheld.setProgress(0);
         dst.start();
@@ -147,5 +155,18 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     }
     public static void defaultColor() {
         txtNowDemage.setTextColor(Color.parseColor("#000000"));
+    }
+
+    public static void changeCritical(boolean change) {
+        if (change) imgCritical.setVisibility(View.VISIBLE);
+        else imgCritical.setVisibility(View.INVISIBLE);
+    }
+    public static void changeHeadshot(boolean change) {
+        if (change) imgHeadshot.setVisibility(View.VISIBLE);
+        else imgHeadshot.setVisibility(View.INVISIBLE);
+    }
+    public static void changeBoom(boolean change) {
+        if (change) imgBoom.setVisibility(View.VISIBLE);
+        else imgBoom.setVisibility(View.INVISIBLE);
     }
 }

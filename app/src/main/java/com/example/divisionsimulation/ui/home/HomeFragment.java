@@ -226,10 +226,17 @@ public class HomeFragment extends Fragment implements Serializable {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String temp = String.valueOf(edtCritical.getText());
                 int index = temp.indexOf(".");
-                String result = "";
+                String result = "", end_result = "";
                 if (index != -1) result = temp.substring(0, index);
                 else result = temp;
                 if (!result.equals("")) {
+                    if (index != -1) end_result = temp.substring(index+1, temp.length());
+                    if (Integer.parseInt(result) == 60 && !end_result.equals("")) {
+                        if (Integer.parseInt(end_result) > 0) {
+                            Toast.makeText(getActivity(), "'치명타 확률'은 60 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                            edtCritical.setText("60");
+                        }
+                    }
                     if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 60) {
                         Toast.makeText(getActivity(), "'치명타 확률'은 0 이상, 60 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtCritical.setText("0");
@@ -252,10 +259,17 @@ public class HomeFragment extends Fragment implements Serializable {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String temp = String.valueOf(edtAiming.getText());
                 int index = temp.indexOf(".");
-                String result = "";
+                String result = "", end_result = "";
                 if (index != -1) result = temp.substring(0, index);
                 else result = temp;
                 if (!result.equals("")) {
+                    if (index != -1) end_result = temp.substring(index+1, temp.length());
+                    if (Integer.parseInt(result) == 100 && !end_result.equals("")) {
+                        if (Integer.parseInt(end_result) > 0) {
+                            Toast.makeText(getActivity(), "'명중률'은 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                            edtAiming.setText("100");
+                        }
+                    }
                     if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
                         Toast.makeText(getActivity(), "'헤드샷 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtAiming.setText("0");
@@ -278,10 +292,17 @@ public class HomeFragment extends Fragment implements Serializable {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String temp = String.valueOf(edtHeadshot.getText());
                 int index = temp.indexOf(".");
-                String result = "";
+                String result = "", end_result = "";
                 if (index != -1) result = temp.substring(0, index);
                 else result = temp;
                 if (!result.equals("")) {
+                    if (index != -1) end_result = temp.substring(index+1, temp.length());
+                    if (Integer.parseInt(result) == 100 && !end_result.equals("")) {
+                        if (Integer.parseInt(end_result) > 0) {
+                            Toast.makeText(getActivity(), "'헤드샷 확률'은 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                            edtHeadshot.setText("100");
+                        }
+                    }
                     if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 100) {
                         Toast.makeText(getActivity(), "'헤드샷 확률'은 0 이상, 100 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
                         edtHeadshot.setText("0");
