@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment implements Serializable {
     private HomeViewModel homeViewModel;
 
     private Button btnDemageSimul, btnDPS;
+
+    private CluchThread ct = null;
 
     private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
@@ -707,13 +710,17 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 Toast.makeText(getActivity(), "재장전 시간, 탄약수, RPM, 치명타 확률, 명중률 모두 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 if (cluch_true) {
-                                                    CluchThread ct = new CluchThread(Integer.parseInt(String.valueOf(edtCluchRPM.getText())), Integer.parseInt(String.valueOf(edtCluchAmmo.getText())), Double.parseDouble(String.valueOf(edtCluchReload.getText())), Double.parseDouble(String.valueOf(edtCluchCritical.getText())), Double.parseDouble(String.valueOf(edtCluchAiming.getText())));
-                                                    ws.setCluchThread(ct);
+                                                    ct = new CluchThread(Integer.parseInt(String.valueOf(edtCluchRPM.getText())), Integer.parseInt(String.valueOf(edtCluchAmmo.getText())), Double.parseDouble(String.valueOf(edtCluchReload.getText())), Double.parseDouble(String.valueOf(edtCluchCritical.getText())), Double.parseDouble(String.valueOf(edtCluchAiming.getText())));
+                                                    //ws.setCluchThread(ct);
                                                 }
+
+                                                TimeThread tt = new TimeThread();
 
                                                 Intent intent = new Intent(getActivity(), SimulActivity.class);
 
                                                 intent.putExtra("thread", ws);
+                                                intent.putExtra("cluchthread", ct);
+                                                intent.putExtra("timethread", tt);
                                                 intent.putExtra("nickname", String.valueOf(edtNickname.getText()));
                                                 intent.putExtra("elite", elite);
                                                 intent.putExtra("quickhand", Boolean.toString(quick_hand));

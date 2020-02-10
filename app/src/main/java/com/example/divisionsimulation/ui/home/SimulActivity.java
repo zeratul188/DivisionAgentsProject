@@ -3,6 +3,7 @@ package com.example.divisionsimulation.ui.home;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +27,13 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     public static ProgressBar progressSheld, progressHealth, progressAmmo;
 
     private DemageSimulThread dst = null;
+    private CluchThread ct = null;
+    private TimeThread tt = null;
 
     private LinearLayout layoutQuickhand;
     public static TextView txtQuickhand;
+
+    private Handler handler;
 
     private static boolean exit = false;
 
@@ -52,6 +57,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         setTitle("디비전2 시뮬레이션");
 
         exit = false;
+        handler = new Handler();
 
         txtSheld = findViewById(R.id.txtSheld);
         txtHealth = findViewById(R.id.txtHealth);
@@ -89,7 +95,11 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         progressHealth.setProgress(10000);
         progressAmmo.setProgress(10000);
 
-        TimeThread tt = new TimeThread();
+        //TimeThread tt = new TimeThread();
+        //tt.start();
+
+        tt = (TimeThread) getIntent().getSerializableExtra("timethread");
+        tt.setHandler(handler);
         tt.start();
 
         String nickname = getIntent().getStringExtra("nickname");
@@ -105,7 +115,12 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         else layoutQuickhand.setVisibility(View.GONE);
 
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
-        //dst = (DemageSimulThread) getIntent().getParcelableExtra("thread");
+        ct = (CluchThread) getIntent().getSerializableExtra("cluchthread");
+        dst.setHandler(handler);
+        if (ct != null) {
+            ct.setHandler(handler);
+            dst.setCluchThread(ct);
+        }
         dst.setTimeThread(tt);
         dst.setActivity(this);
         if (dst.getSheld() != 0) progressSheld.setProgress(10000);
@@ -157,15 +172,15 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
         txtNowDemage.setTextColor(Color.parseColor("#000000"));
     }
 
-    public static void changeCritical(boolean change) {
+    public static synchronized void changeCritical(boolean change) {
         if (change) imgCritical.setVisibility(View.VISIBLE);
         else imgCritical.setVisibility(View.INVISIBLE);
     }
-    public static void changeHeadshot(boolean change) {
+    public static synchronized void changeHeadshot(boolean change) {
         if (change) imgHeadshot.setVisibility(View.VISIBLE);
         else imgHeadshot.setVisibility(View.INVISIBLE);
     }
-    public static void changeBoom(boolean change) {
+    public static synchronized void changeBoom(boolean change) {
         if (change) imgBoom.setVisibility(View.VISIBLE);
         else imgBoom.setVisibility(View.INVISIBLE);
     }

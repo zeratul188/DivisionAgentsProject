@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import java.io.Serializable;
+
+public class HomeViewModel extends ViewModel implements Serializable {
 
     private MutableLiveData<String> mText;
 

@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 
-class DemageSimulThread extends Thread implements Serializable, Runnable  {
+class DemageSimulThread extends Thread implements Serializable {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
     private int health, sheld, all_ammo = 0;
     private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false;
@@ -19,7 +19,9 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     private TimeThread tt;
     private Activity activity;
     private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg;
-    private int hit_critical = 0, out_demage;
+    private int hit_critical = 0, out_demage, all_dmg = 0;
+
+    private Handler handler = null;
 
     private CluchThread ct = null;
 
@@ -76,6 +78,7 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
     public void setAiming(double aiming) { this.aiming = aiming; }
     public void setBumerang_true(boolean bumerang_true) { this.bumerang_true = bumerang_true; }
     public void setActivity(Activity activity) { this.activity = activity; }
+    public void setHandler(Handler handler) { this.handler = handler; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -117,7 +120,6 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         int time = (60 * 1000) / (int) rpm;
         int now_ammo = (int) ammo;
         int headshot_ransu, critical_ransu, real_demage;
-        int all_dmg = 0;
         double temp_criticaldemage;
         double now_demage;
         double per;
@@ -125,17 +127,25 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
         SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
         try {
             while (sheld > 0 && !Thread.interrupted() && !end) {
-                activity.runOnUiThread(new Runnable() {
+                /*activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         SimulActivity.changeHeadshot(false);
                         SimulActivity.changeCritical(false);
                         SimulActivity.changeBoom(false);
                     }
+                });*/
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimulActivity.changeHeadshot(false);
+                        SimulActivity.changeCritical(false);
+                        SimulActivity.changeBoom(false);
+                        SimulActivity.defaultColor();
+                    }
                 });
                 statue_log = "";
                 ammo_log = "";
-                SimulActivity.defaultColor();
                 now_demage = demage();
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
@@ -147,10 +157,17 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
                     now_demage += weapondemage * per;
-                    SimulActivity.hitHeadshot();
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            SimulActivity.hitHeadshot();
+                            SimulActivity.changeHeadshot(true);
+                        }
+                    });*/
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.hitHeadshot();
                             SimulActivity.changeHeadshot(true);
                         }
                     });
@@ -158,19 +175,30 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 if (critical_ransu <= critical*10) {
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
-                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                            }
+                        });
                     }
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             SimulActivity.changeCritical(true);
+                        }
+                    });*/
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.changeCritical(true);
+                            SimulActivity.hitCritical();
                         }
                     });
                     temp_criticaldemage = criticaldemage;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
-                    SimulActivity.hitCritical();
                     if (bumerang_true) {
                         per = (int)(Math.random()*1234567)%2;
                         if (per == 1) bumerang = true;
@@ -185,12 +213,19 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
-                        SimulActivity.hitBoom();
                         now_demage += (demage()*2);
                         statue_log += "(무자비 폭발탄!!)";
-                        activity.runOnUiThread(new Runnable() {
+                        /*activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                SimulActivity.hitBoom();
+                                SimulActivity.changeBoom(true);
+                            }
+                        });*/
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.hitBoom();
                                 SimulActivity.changeBoom(true);
                             }
                         });
@@ -216,19 +251,41 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     sheld -= real_demage;
                     all_dmg += real_demage;
                     log = "-" + real_demage;
-                    SimulActivity.txtNowDemage.setText(log);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.txtNowDemage.setText(log);
+                        }
+                    });
                     if (hit_critical > 30) {
                         hit_critical--;
-                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                            }
+                        });
                     }
-                } else SimulActivity.txtNowDemage.setText("빗나감!");
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.txtNowDemage.setText("빗나감!");
+                        }
+                    });
+                }
                 if (sheld < 0) {
                     out_demage = sheld * (-1);
                     int temp = SimulActivity.getHealth() - out_demage;
                     SimulActivity.setHealth(temp);
-                    SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
                     dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
-                    SimulActivity.progressHealth.setProgress((int)dec_health);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                            SimulActivity.progressHealth.setProgress((int)dec_health);
+                        }
+                    });
                     sheld = 0;
                 }
                 now_ammo--;
@@ -236,15 +293,20 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 ammo_log = "현재 탄수 : "+now_ammo;
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-                SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
-                SimulActivity.txtAmmo.setText(ammo_log);
-                SimulActivity.txtStatue.setText(statue_log);
-                SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-                SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
                 dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
-                SimulActivity.progressSheld.setProgress((int)dec_sheld);
                 dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
-                SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
+                        SimulActivity.txtAmmo.setText(ammo_log);
+                        SimulActivity.txtStatue.setText(statue_log);
+                        SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                        SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                        SimulActivity.progressSheld.setProgress((int)dec_sheld);
+                        SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                    }
+                });
                 if (now_ammo == 0 && sheld != 0) {
                     reload();
                     now_ammo += (int) ammo;
@@ -263,17 +325,25 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 ct.start();
             }
             while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
-                activity.runOnUiThread(new Runnable() {
+                /*activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         SimulActivity.changeHeadshot(false);
                         SimulActivity.changeCritical(false);
                         SimulActivity.changeBoom(false);
                     }
+                });*/
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimulActivity.changeHeadshot(false);
+                        SimulActivity.changeCritical(false);
+                        SimulActivity.changeBoom(false);
+                        SimulActivity.defaultColor();
+                    }
                 });
                 statue_log = "";
                 ammo_log = "";
-                SimulActivity.defaultColor();
                 now_demage = demage();
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
@@ -285,10 +355,17 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
                     now_demage += weapondemage * per;
-                    SimulActivity.hitHeadshot();
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            SimulActivity.hitHeadshot();
+                            SimulActivity.changeHeadshot(true);
+                        }
+                    });*/
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.hitHeadshot();
                             SimulActivity.changeHeadshot(true);
                         }
                     });
@@ -296,19 +373,30 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                 if (critical_ransu <= critical*10) {
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
-                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                            }
+                        });
                     }
-                    activity.runOnUiThread(new Runnable() {
+                    /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             SimulActivity.changeCritical(true);
+                        }
+                    });*/
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.changeCritical(true);
+                            SimulActivity.hitCritical();
                         }
                     });
                     temp_criticaldemage = criticaldemage;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
-                    SimulActivity.hitCritical();
                     if (bumerang_true) {
                         per = (int)(Math.random()*1234567)%2;
                         if (per == 1) bumerang = true;
@@ -326,7 +414,13 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                         SimulActivity.hitBoom();
                         now_demage += (demage()*2);
                         statue_log += "(무자비 폭발탄!!)";
-                        activity.runOnUiThread(new Runnable() {
+                        /*activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.changeBoom(true);
+                            }
+                        });*/
+                        handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 SimulActivity.changeBoom(true);
@@ -355,29 +449,52 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
                     SimulActivity.setHealth(temp_health);
                     all_dmg += real_demage;
                     log = "-" + real_demage;
-                    SimulActivity.txtNowDemage.setText(log);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.txtNowDemage.setText(log);
+                        }
+                    });
                     if (hit_critical > 30) {
                         hit_critical--;
-                        SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                            }
+                        });
                     }
                 } else {
-                    SimulActivity.txtNowDemage.setText("빗나감!");
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            SimulActivity.txtNowDemage.setText("빗나감!");
+                        }
+                    });
                 }
-                if (SimulActivity.getHealth() < 0) SimulActivity.setHealth(0);
+                if (SimulActivity.getHealth() <= 0) {
+                    SimulActivity.setHealth(0);
+                    break;
+                }
                 now_ammo--;
                 all_ammo++;
                 ammo_log = "현재 탄수 : "+now_ammo;
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-                SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
-                SimulActivity.txtAmmo.setText(ammo_log);
-                SimulActivity.txtStatue.setText(statue_log);
-                SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-                SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
                 dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
-                SimulActivity.progressHealth.setProgress((int)dec_health);
                 dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
-                SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                        SimulActivity.txtAmmo.setText(ammo_log);
+                        SimulActivity.txtStatue.setText(statue_log);
+                        SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                        SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                        SimulActivity.progressHealth.setProgress((int)dec_health);
+                        SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                    }
+                });
                 if (now_ammo == 0 && SimulActivity.getHealth() != 0) {
                     reload();
                     now_ammo += (int) ammo;
@@ -395,15 +512,26 @@ class DemageSimulThread extends Thread implements Serializable, Runnable  {
             SimulActivity.setHealth(0);
             sheld = 0;
         }
-        SimulActivity.progressHealth.setProgress(0);
-        SimulActivity.progressSheld.setProgress(0);
-        SimulActivity.txtSheld.setText("0");
-        SimulActivity.txtHealth.setText("0");
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SimulActivity.progressHealth.setProgress(0);
+                SimulActivity.progressSheld.setProgress(0);
+                SimulActivity.txtSheld.setText("0");
+                SimulActivity.txtHealth.setText("0");
+            }
+        });
         SimulActivity.setExit(true);
         tt.setStop(true);
         if (cluch_true) ct.setStop(true);
         if (!end) {
-            activity.runOnUiThread(new Runnable() {
+            /*activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });*/
+            handler.post(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show();

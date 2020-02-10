@@ -1,8 +1,17 @@
 package com.example.divisionsimulation.ui.home;
 
-class TimeThread extends Thread {
+
+import android.os.Handler;
+
+import java.io.Serializable;
+
+class TimeThread extends Thread implements Serializable {
     private int seconds = 0, hours = 0, minutes = 0;
     private boolean stop = false;
+
+    private Handler handler = null;
+
+    public void setHandler(Handler handler) { this.handler = handler; }
 
     public void setStop(boolean stop) {
         if (stop) this.stop = true;
@@ -26,9 +35,15 @@ class TimeThread extends Thread {
                 hours++;
                 minutes -= 60;
             }
-            if (minutes == 0 && hours == 0) SimulActivity.txtTime.setText(seconds+"초");
-            else if (hours == 0) SimulActivity.txtTime.setText(minutes+"분 "+seconds+"초");
-            else SimulActivity.txtTime.setText(hours+"시간 "+minutes+"분 "+seconds+"초");
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (minutes == 0 && hours == 0) SimulActivity.txtTime.setText(seconds+"초");
+                    else if (hours == 0) SimulActivity.txtTime.setText(minutes+"분 "+seconds+"초");
+                    else SimulActivity.txtTime.setText(hours+"시간 "+minutes+"분 "+seconds+"초");
+                }
+            });
+
         }
 
         System.out.println("(TimeThread) 정상적으로 종료됨");

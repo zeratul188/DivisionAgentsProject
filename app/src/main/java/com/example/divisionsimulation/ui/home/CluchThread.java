@@ -1,12 +1,19 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.os.Handler;
+
 import java.io.Serializable;
 
-class CluchThread extends Thread implements Serializable, Runnable {
+class CluchThread extends Thread implements Serializable {
     private int temp_health, first_health;
     private int rpm, ammo;
     private double reload, critical, aiming;
     private boolean stop = false;
+    private double dec_health;
+
+    private Handler handler;
+
+    public void setHandler(Handler handler) { this.handler = handler; }
 
     public CluchThread(int rpm, int ammo, double reload, double critical, double aiming) {
         this.rpm = rpm;
@@ -37,7 +44,6 @@ class CluchThread extends Thread implements Serializable, Runnable {
         int time = (60 * 1000) / rpm;
         int now_ammo = ammo;
         int temp_critical, random, per;
-        double dec_health;
         if (aiming == 0) aiming = 50;
         while (!stop) {
             //System.out.println("play Cluch + "+time);
@@ -56,10 +62,15 @@ class CluchThread extends Thread implements Serializable, Runnable {
                        per = (int)(Math.random()*1234567)%1000+1;
                        if (aiming*10 >= per) {
                            temp_health += (first_health - temp_health) / 4;
-                           SimulActivity.setHealth(temp_health);
-                           SimulActivity.txtHealth.setText(Integer.toString(temp_health)+"/"+first_health);
                            dec_health = ((double)temp_health / (double)first_health) * 10000;
-                           SimulActivity.progressHealth.setProgress((int)dec_health);
+                           SimulActivity.setHealth(temp_health);
+                           handler.post(new Runnable() {
+                               @Override
+                               public void run() {
+                                   SimulActivity.txtHealth.setText(Integer.toString(temp_health)+"/"+first_health);
+                                   SimulActivity.progressHealth.setProgress((int)dec_health);
+                               }
+                           });
                        }
                        try {
                            this.sleep(time);
