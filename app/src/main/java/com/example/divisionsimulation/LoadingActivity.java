@@ -20,11 +20,11 @@ public class LoadingActivity extends Activity {
 
         aviLoading = (MyVideoView)findViewById(R.id.aviLoading);
 
-        MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(aviLoading);
+        /*MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(aviLoading);*/
 
         Uri video = Uri.parse("android.resource://"+getPackageName()+"/raw/loding");
-        aviLoading.setMediaController(mediaController);
+        aviLoading.setMediaController(null);
         aviLoading.setVideoURI(video);
         aviLoading.requestFocus();
 

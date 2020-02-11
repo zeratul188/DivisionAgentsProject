@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="상하 반동이 조금 있지만 안정적이며 명중률은 돌격소총 내에서 최고 수준이다. 초탄 이후 큰 상단 반동이 튀고 그 이후엔 탄 튐 없이 들어간다. 중~장거리 교전을 중시하며 소총 같은 돌격소총을 원하는 유저들에게 호평받는다. DPS가 뛰어나진 않아서 근거리 교전은 다소 불리한 편."
             android:textSize="20sp"
             android:textColor="#000000"/>

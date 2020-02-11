@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="L86 LSW처럼 탄창방식의 경기관총이다. +30발 7.62mm탄창 부품을 달아서 탄띠식 기관총에 근접하는 장탄수를 챙길 수도 있고, 탄창교환 속도가 빠르다는 점을 이용해서 광란 탤런트(빈 탄창 재장전시 7초동안 대미지+발사속도 모두 25%상승)를 사용하기에도 용이하다. 초기반동은 경기관총 중에서도 조금 큰 편이며, 박스형 에임이 모이는 속도가 모든 경기관총 중 최하위이다."
             android:textSize="20sp"
             android:textColor="#000000"/>

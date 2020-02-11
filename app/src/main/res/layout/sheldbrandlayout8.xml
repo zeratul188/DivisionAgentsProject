@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -247,6 +248,8 @@
                 android:layout_height="wrap_content"
                 android:text="지정사수소총을 위해 만들어진 브랜드. 초기에는 헤드 원샷 빌드를 위해 3셋을 차용했으며, 현재는 특급 지정사수소총인 네메시스를 위주로 하는 빌드에서 3세트가 채택된다. 명중률과 헤드샷 대미지를 상승시키기 때문에 2세트까지는 소총과도 궁합이 좋다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
     </ScrollView>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="UMP45의 민수용 판매형이며, 분명히 권총탄을 사용하지만 민수용이라 단발 사격만 지원하기 때문에 소총 카테고리가 되었다. 연사속도가 ACR SS와 함께 소총 중 가장 빠르며 반동은 크지 않은 편이지만 명중률이 별로 좋지 못하다."
             android:textSize="20sp"
             android:textColor="#000000"/>

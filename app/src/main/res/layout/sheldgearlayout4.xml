@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -110,6 +111,8 @@
                 android:layout_height="wrap_content"
                 android:text="디비전2에 존재하는 세트 아이템 중에서 쓰는 유저를 자주 볼 수 있는 세트다.\n\n빠르게 카드를 뒤집어야 자신과 아군에게 버프를 줄 수 있기 때문에 RPM이 낮은 볼트액션 지정사수소총보다는 SVD류인 반자동 지정사수소총이 많이 쓰인다.\n\n세트 효과가 다른 세트 아이템과 달리 조금 특이한데 헤드샷 적중시 카드를 두 장, 머리 이외의 부분에 탄환 적중시 카드를 한 장 뒤집어서 총 5장을 뒤집었을 때 어떤 카드 조합이 나오냐에 따라 버프의 종류가 달라진다.\n\n포카드의 보너스 방어도는 10초 지속이기 때문에 장기적으로 효과를 볼 수는 없지만 타이밍 좋게 죽어가던 아군을 살릴 수도 있고 방어도에 많이 투자한 무적의 부대나 파괴 불가 빌드 등을 사용하는 아군에겐 30%는 적지 않은 방어도이기 때문에 충분히 좋은 효과라고 볼 수 있다.\n\n풀하우스의 탄창 용량 두 배 증가 효과도 매우 좋은 버프다. 총을 사용하는 TPS이기 때문에 재장전 시간을 딜로스라고 볼 수 있는데 순간적으로 탄창 용량을 두배로 늘려준다는건 그만큼 지속적으로 딜을 넣을 수 있게 만들어준다는 것과 똑같다.\n\n에이스, 에이트 효과인 5발 추가 대미지 보너스 버프도 한 방을 노리는 지정사수소총 빌드에게 혜자 옵션이고, 다른 연사 무기에게도 나쁘지 않은 버프다.\n\n거기에 6세트 장착 시 본인 뿐만 아니라 아군도 적용되기 때문에 아군의 생존, 딜링에 많은 도움이 돼서 버퍼와 단일 대상 극딜을 둘 다 챙길 수 있는 세트 아이템이다.\n\n단점으로는 지정사수소총의 최대 탄약은 120발 + 이미 장전되어있는 총의 탄창인데, SVD같은 반자동 지정사수소총을 쓰다보면 탄약이 매우 부족하다. 구간마다 탄약 상자가 놓여있는 임무에서는 잘 부각되지 않는 단점이지만, 한 구간이 오래 걸리는 레이드에서는 탄약 부족에 시달릴 수 밖에 없다. 다행히 팀원 중 기관포병이 있다면 1분마다 최대 탄약의 5%인 6발을 받을 수 있고, 명사수 전문화의 스킬 중 20초 동안 한 엄폐물에서 계속 엄폐하면 이후 5초마다 지정사수소총 탄약 5발을 받는 스킬을 잘 활용하면 탄약 부족을 어느정도 메꿀 수는 있다. 혹은 지정사수소총 무기의 1번 탤런트 중 '뜻밖의 행운' 탤런트를 사용하면 탄창 용량 20% 증가는 물론 빗나간 탄환을 25% 확률로 소모하지 않는 효과로 탄약 관리를 보다 수월하게 할 수 있다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
 

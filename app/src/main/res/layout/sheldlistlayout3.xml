@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -760,6 +761,8 @@
                 android:text="화기 세팅 시 화력 상승만을 생각한다면 무기 대미지+ 옵션은 반드시 붙어야한다. 클러치/부메랑을 사용한다면 치명타 확률을 추가로 챙겨주고, ㉦탤런트 중 무적의 부대나 광분 중 원하는 것과 ㅇ탤런트 중 강력한 타격이 붙어나온다면 무난하게 사용할 수 있다."
                 android:textSize="20sp"
                 android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 
             <TextView
@@ -768,6 +771,8 @@
                 android:text="무적의 부대 탤런트가 별다른 까다로운 조건없이 공격력 증가를 꾀할 수 있어 잘 채택되는 편이다. 방어력과 공격력을 동시에 잡을 수 있다는 것도 장점.\n\n클러치 탤런트를 채용하는 치명타 빌드에서는 광분 탤런트를 주로 사용한다. 클러치 탤런트는 방어도/생명력을 동시에 회복시켜주지만 생명력 회복이 훨씬 더 크기 때문에, 방어구가 깨진 채로 생명력을 계속 채워가며 전투를 벌이는 일이 많으므로 발동확률이 높기 때문. 이 경우 무기에도 중압감 탤런트(소진된 방어도 5%마다 치명타 대미지가 10%만큼 증가)를 달아 시너지를 노린다. TU5 패치로 광분 탤런트에 경기관총이 적용된다.\n\n폭탄광 탤런트는 수류탄의 무한리필을 노리고 각 부위에서 파괴 탤런트를 다중으로 달아준 뒤 사용할 수 있다. 이전에 소이탄으로 불을 붙은 상대를 사살시 수류탄이 리필된다 서술되었으나 실험결과 이는 잘못 알려진것으로 판단되었다. TU6 업데이트로 능력치 요구량이 삭제되었다.\n\n복원 탤런트는 생존을 위해서는 생명력보다 방어도가 중요하기 때문에(클러치 빌드 제외) 썩 도움은 되지 않는 것으로 보인다."
                 android:textSize="20sp"
                 android:textColor="#000000"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 
         </LinearLayout>

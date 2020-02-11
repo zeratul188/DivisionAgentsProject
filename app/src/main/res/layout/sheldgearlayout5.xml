@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -110,6 +111,8 @@
                 android:layout_height="wrap_content"
                 android:text="특이하게도 각 부위별 보호장구 이름을 제너레이션 킬에 나오는 등장인물 이름에서 따왔다. 세트 이름 원문인 'Tip of the Spear'도 HBO에서 해당 미니시리즈를 소개할 때 사용한 문구이다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
 

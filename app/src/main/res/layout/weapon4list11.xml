@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -168,7 +171,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -309,7 +314,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -450,7 +457,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -590,6 +599,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="45구경과 9mm 버전 총 두 가지가 있다. 전작에서 RPM725로 실제 총기에 비해 낮았지만 2에서는 RPM이 1천이 넘는다! 무기 탤런트만 잘 맞추면 1400RPM까지도 올릴 수 있다. 바리에이션 중 전술용 벡터는 심지어 탄창용량도 기본 19발에 불과하기 때문에 잔탄이 순식간에 사라지므로 이를 제대로 쓰려면 확장탄창은 필수이다.\n\n디비전2 최속의 RPM덕분에 인기가 많은 기관단총. 기관단총은 높은 치명타율을 토대로 치명타와 관련된 탤런트를 최대한 자주 발동시키는 것이 중요한데, 벡터가 이에 가장 적합하기 때문이다. 특히 클러치+안정장치(패치이후 안정장치를 사용하는 PVP빌드는 죽었음) 탤런트에 벡터를 조합한 세팅(일명 클러치 세팅)은 PVP에서 강세를 보이고 있다.\n\n전술용 벡터는 장탄수가 가장 적은 대신 다른 바리에이션에 비해 대미지가 높게 붙어나오기 때문에 버스트딜이 필요할 때, 혹은 완전충전 탤런트를 발동할 때 유용하다."
             android:textSize="20sp"
             android:textColor="#000000"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="MP5 총기 계열과 비슷하지만 RPM과 적정 사거리 및 치명타 사거리, 재장전 속도가 약간 높은 특징이 있다. 윗 레일과 아래 레일의 길이가 서로 상반된 점도 차이점. 초탄 반동은 강한편이지만 이후 반동제어는 어렵지 않다.\n\n중급 MPX 기관단총이라는 레벨 3짜리 유니크한 총기를 클럽 보상으로 획득할 수 있다."
             android:textSize="20sp"
             android:textColor="#000000"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -103,6 +104,8 @@
                 android:layout_height="wrap_content"
                 android:text="제작으로 만들 수 있다.\n스킬 생명력 +20% 옵션은 방패에도 적용이 되기 때문에, 방패 유저들이 간혹 2세트를 쓰기도 한다.\n나머지 세트 옵션의 효용성의 문제를 둘째치고, 하드 와이어드 세트의 가장 큰 단점은 제작으로 풀어줬음에도 제작 난이도가 극악이라는 점에 있다. 일단 프로젝트로 하드 와이어드 테크 프로토타입의 설계도를 열어야 하는데, 하드 와이어드 테크 재료 10개와 각자 다른 하드 와이어드 테크 부품 6개를 요구한다. 하드 와이어드 테크 재료는 필드에 리젠되는 블랙터스크 몹을 잡아야 일정 확률로 얻을 수 있는데[7], 월드에 진입한 상태의 필드에는 하이에나, 트루썬, 아웃캐스트가 주류 몹이고 여기에 매복대, 언더그라운드, 블랙 터스크가 끼어 있는 혼파망 상황이기 때문에 당연히 블랙 터스크를 작정하고 파밍하기는 매우 어렵다. 여기에 하드 와이어드 M-부품, 하드 와이어드 C-부품, 하드 와이어드 B-부품, 하드 와이어드 G-부품, 하드 와이어드 H-부품, 하드 와이어드 K-부품을 얻기 위해서는\n\n- 그랜드 워싱턴 호텔(M)\n- 제퍼슨 무역 센터(C)\n- 연방 비상 방공호(B)\n- 링컨 기념관(G)\n- 항공 우주 박물관(H)\n- 은행 본부(K)\n\n각각 6개 임무의 마지막 보스를 처치해야만 일정 확률로 각 임무에 맞는 하드 와이어드 부품을 드랍한다. 랜덤드랍을 끝마치고 설계도를 열었으면 끝!\n\n...이 아니다. 이제 각 부위 세트를 제작하기 위해 다시 하드 와이어드 재료와 부품을 요구하는데, 임무를 또 돌아서 일정 확률로 부품을 먹고 필드를 또 돌아서 재료를 먹어야 한다. 여기에 제작으로 나오는 옵션 또한 공격/방어/다용도 모듈 3개 중 원하는 옵션이 떠야 한다.\n\nTU5 업데이트로 제작대에서 나오는 아이템의 기어 스코어가 500대로 고정이 되고, 스킬이 상향을 받아 스킬 위주의 빌드의 경우 어느정도 채용 가능한 세트가 되었다. 다만 여전히 재료 파밍은 그대로이고 원하는 속성이 떠야 하는 부담감이 크기 때문에 쓰는 사람은 얼마 없다.\n\nTU6에서 세트 아이템 개편을 진행하면서 스킬 생명력 옵션이 사라졌다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -263,6 +264,8 @@
                 android:layout_height="wrap_content"
                 android:text="고스트리콘 와일드랜드에서도 콜라보로 나온바가 있는 실존 브랜드. 작중에 나오는 장비들도 실제 판매되는 제품들이다. 성능면에선 장갑과 조끼는 특별할 것이 없지만 백팩은 고정 옵션, 탤런트 구성, 모듈 슬롯 모두 적당하기 때문에 상당히 쓸만하다. 다만 세트 보너스가 별로 좋지 못하다는 것이 단점."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="전작의 도심 MDR과 거의 유사한 성능이지만, 일반무기로 등장한다.\n\n대미지는 소총 무기 군내에서 평범한 편이지만, 명중률과 안정성 밸런스가 좋아서 안정성에 살짝만 투자하면 3~4발까지 원하는 곳에 무반동으로 들어간다. 유효사거리가 미묘하게 짧은 편이다."
             android:textSize="20sp"
             android:textColor="#000000"/>

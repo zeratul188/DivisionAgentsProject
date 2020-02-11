@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="커스텀 M44와 M700 카본과 비슷비슷한 성능을 보인다. 다만 장탄수가 부족하므로 편의성에서는 M700 카본에게 밀린다.\n\n네임드로는 '지정 타자 - SR1'과 '아드레스티아 SR1'이 있다. 아드레스티아는 분해시 네메시스의 재료중 하나를 얻는 재료이기도 하다."
             android:textSize="20sp"
             android:textColor="#000000"/>

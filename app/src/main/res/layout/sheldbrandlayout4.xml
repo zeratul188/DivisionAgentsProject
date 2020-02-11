@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -254,6 +255,8 @@
                 android:layout_height="wrap_content"
                 android:text="헤클러 운트 코흐의 패러디다. 대놓고 방패 + 권총 빌드 쓰라고 만든 세트. 닷지 시티의 총잡이 권총집으로 권총 빌드가 어느정도 활성화 되자 권총 대미지 +20% 챙기기 위해 2셋을 차용하는 경우가 있다. TU5로 방패도 상향받아 방패 활용을 위해 3세트까지 사용하기도 한다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
     </ScrollView>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="PVP의 제왕. 2발로 정리할 수 있는 적이라면 최고의 효율을 내는 죽창. PVE에서는 그런 경우가 없겠지만 PVP에서는 애용하는 유저가 있다. 다만 반드시 1대1상황이라곤 할 수 없으므로 RPM은 다소 낮아도 탄창이 커 범용적으로 쓸 수 있는 M870 쪽을 선호하는 경우도 보인다.\n\n사전계획을 활용할 수 있는 샷건 중에 가장 효율이 좋다.\n\n2발 쏘고 장전도 금방이여서 2발 장전으로 버프받은 공격력으로 제압할 수 있다"
             android:textSize="20sp"
             android:textColor="#000000"/>

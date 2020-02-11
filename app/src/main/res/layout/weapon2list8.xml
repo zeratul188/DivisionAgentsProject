@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="레버액션 소총. 발당 대미지는 소총 중에서 가장 높고 RPM도 낮지 않으며 반자동 지정사수소총을 웃돈다. 대신 개조 범위도 좁고, 탄창에 5발밖에 안 들어가는 데다, 샷건처럼 한 번에 한 발씩 장전하다 보니 장전 시간도 길다.\n\n물론 주력 무기가 되기에 충분한 포텐셜은 갖추고 있다. 개조가 제한적이므로 고레벨에서는 탤런트에 따라 성능 차이가 심하게 발생한다. 아무래도 적은 장탄수가 문제가 되는 탓에 재장전 관련 탤런트를 붙여 쓰는 것을 추천."
             android:textSize="20sp"
             android:textColor="#000000"/>

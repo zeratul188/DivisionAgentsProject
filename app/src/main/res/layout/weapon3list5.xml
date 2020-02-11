@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="전작의 Mk.17, SVD와 큰 차이 없는 성능을 보여준다. 즉, 소총에 가장 가까운 지정사수소총. 대미지는 동 연사 속도의 소총들 보다도 강력하다. 명중률이 우수하고 반동은 세기는 하지만 제어하기 어렵지 않아 소총처럼 운용해도 좋으나, 탄창 용량이 제한적이라 진짜 소총처럼 운용하기는 어려움이 따른다."
             android:textSize="20sp"
             android:textColor="#000000"/>

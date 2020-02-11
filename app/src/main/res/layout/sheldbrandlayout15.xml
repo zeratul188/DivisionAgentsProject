@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -322,6 +323,8 @@
                 android:layout_height="wrap_content"
                 android:text="스킬 위주 세팅에서 1세트의 스킬 파워 +10%를 챙기기 위해 최소 1세트 정도는 챙기게 된다. 보호장구 6종류 모두 취급하는 몇 안되는 브랜드로 세트 맞추기가 매우 쉬운 편이다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
     </ScrollView>

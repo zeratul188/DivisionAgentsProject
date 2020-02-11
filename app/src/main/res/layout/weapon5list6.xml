@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -168,7 +171,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -309,7 +314,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -449,6 +456,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="전작과 비슷한 스펙. 800RPM으로 갈겨대는 맛은 여전하다. 밸런스 패치로 RPM 대비 대미지도 높아져서 순간 DPS는 경기관총 중 최고.\n다만 총기 부속물 시스템의 변화로 탄창용량 확보가 쉽지않다. 게다가 명사수 버프가 있어도 재장전 시간이 긴 편이라 돌격소총처럼 쓰려고 해도 재장전시간이 너무 길고 경기관총처럼 쓰려고 해도 탄약부족에 금방 재장전하는 케릭터를 보게 되서 권총집에 붙는 완전충전 탤런트와의 조합이 중요하다.[41] TU4 업데이트로 추가된 닷지시티의 권총집이 보조무기를 꺼내기만 해도 전 무기가 재장전되는 옵션을 달고 나와 다시 한번 재조명 받았다. 기관포병이 경기관총를 위한 패시브가 많고 대형파우치의 제공으로 50발 추가가 가능해지자 MG5 두개를들고 번갈아 쏜뒤 탤런트로 재장전시커는 쌍MG5 셋팅이 떠올랐다.\nPvP에서는 경기관총 특화로 가면 비엄폐 상대로는 나름 딜이 나온다. 물론 50발과 재장전 시간에서 발목이 잡힌다."
             android:textSize="20sp"
             android:textColor="#000000"/>

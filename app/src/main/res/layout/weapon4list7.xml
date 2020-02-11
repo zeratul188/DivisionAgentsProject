@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="RPM이 높고 장탄수가 많은 대신 대미지는 다소 부족하므로, 착용 장비 세팅 시 치명타 확률/치명타 대미지 상승이 강제된다. RPM이 빠른 데 비해 반동도 준수하고 명중률도 기관단총 평균 수준은 보장되므로, 에임만 좋다면 근접 상황에서 한 탄창 내에 한 명의 적을 반드시 제거할 수 있을 만큼 저지력 좋은 총이 된다.\n\n익조틱 무기로 촉새가 존재한다. 은행미션 어려움 난이도 이상에서 카드키로 들어갈수있는 장소의 하이에나 상자에서 설계도가 드랍되며[34], 부품은 하이에나 상자에서 랜덤으로 나온다는 의견이 초반에는 있었으나 정확히는 동부 다운타운에서 충전된용기, 주디시어리 광장에서 개조부품, 페더럴 트라이앵글에서 기발한탄창이 나오는데 각지역의 하이에나 상자에서 랜덤으로 드랍된다 타지역 하이에나상자에서는 부품이 나오지않으므로 주의! . 디스트릭트 유니온 경기장, 그랜드 워싱턴 호텔 (2개), 제퍼슨 무역센터 미션에 하이에나 상자가 등장하니 참고. 24시간을 기준으로 다시 열 수 있다. 하이에나 열쇠는 하수도에서 루팅할 수 있다.\n\n네임드로는 '에멜린의 수호자 - P90'이 있다."
             android:textSize="20sp"
             android:textColor="#000000"/>

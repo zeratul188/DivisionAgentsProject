@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -239,6 +240,8 @@
                 android:layout_height="wrap_content"
                 android:text="러시아의 방산기업인 바스티온 사를 모티브로 한 회사. 러시아 군용장비를 납품하는 회사답게 6B43같은 포트아머류를 볼 수 있다. Escape from Tarkov를 해봤다면 대부분의 장비들에 어딘가 생각나는 구석이 있을 것이다.\n1옵션 때문에 경기관총을 사용한다면 꼭 한 부위쯤 챙겨주고 싶지만, 2옵션 3옵션이 전력 특성인 것을 보면 알 수 있듯이 브랜드 특성으로 전력(다용도) 속성이 꼭 하나 이상 붙어나오기 때문에 극 화기 세팅을 하는데 있어 두통거리가 된다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
     </ScrollView>

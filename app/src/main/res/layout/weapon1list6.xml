@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -159,6 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="CTAR-21과 마찬가지로 RPM이 아주 높은 돌격소총이며, CTAR-21보다도 반동이 적은 편이라 장거리에서도 무반동에 가깝다. 대신 하단 레일에 부품을 달 수 없다는 단점이 있다. (CTAR-21은 해당 레일에 치명타율을 올려주는 레이저 포인터를 달 수 있어 비교된다.)\n\n스톡 기준 1시 방향으로 반동이 있으며 초탄과 두 번째 탄 사이에 반동이 제일 크다."
             android:textSize="20sp"
             android:textColor="#000000"/>

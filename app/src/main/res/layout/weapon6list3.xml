@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp">
 
             <TableRow>
 
@@ -160,6 +163,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttoncustom"
+            android:padding="10dp"
             android:text="발사속도도 준수하고 대미지도 준수하기 때문에 가장 많이 보게 될 샷건. 이 역시 박스형 탄창이 아니어서 재장전마다 DPS 로스가 발생한다는 문제점이 있지만, 넉넉한 8발 탄창과 비교적 준수한 대미지 덕분에 범용성 면에서는 따라올 샷건이 없다."
             android:textSize="20sp"
             android:textColor="#000000"/>

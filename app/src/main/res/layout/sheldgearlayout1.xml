@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -103,6 +104,8 @@
                 android:layout_height="wrap_content"
                 android:text="불안정 경기관총 유저들이 무기조작력 +10% 옵션을 쓰기 위해 얄 기어 1세트를 종종 착용한다는 것을 감안할 때 2세트 옵션인 무기 조작력 20% 옵션이 매력적으로 보일 수는 있으나, 긴급 지휘명령 세트는 대부분의 파츠가 단일 옵션에, 그 옵션조차 다용도 스킬옵션이 매우 자주 붙어 나오며 무엇보다 2셋이 강제된다는 점 때문에 심각하게 계륵이다. 가뜩이나 다용도 옵션이 매우 잘 붙어 나와 물총을 쏘는데, 심지어 6세트 옵션조차 자신이 무기로 적을 처치해야 추가된다는 조건까지 붙기 때문에 더더욱 써야 할 이유가 보이지 않는 세트.\n\n전체적인 세트 특징으로 속성에 다용도 속성이 자주 붙으며 조끼에 다용도 슬롯이 2개가 붙는다. 덕분에 조끼와 나머지 2세트 정도는 스킬파워와 스킬가속을 올리고 무기 조작력도 같이 올리기 위해 사용된다.\n\n조끼에 붙는 속성 중 방해 저항, 수류탄 대미지, 적 처치시 XP, 폭발물 대미지 등 기존 스킬 파워와 스킬 가속이 아닌 다른 옵션이 붙을 수 있고, 기존 노랑색 방어구에도 보정이 가능해서 이미 '파괴'[6] 탤런트가 붙어있는 조끼에 폭발물 대미지 속성을 보정해서 조끼에서만 폭발물 대미지를 30% 이상을 챙길 수도 있다."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
 

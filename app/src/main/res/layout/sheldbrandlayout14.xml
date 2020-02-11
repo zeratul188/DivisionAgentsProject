@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -239,6 +240,8 @@
                 android:layout_height="wrap_content"
                 android:text="돌격소총 유저라면 1파츠 정도는 챙기게 되며 2세트 옵션도 꽤 도움이 되나, 처치 시 생명력 회복은 아쉬운 부분이 있다. 클러치+안전장치로 회복력을 극대화시키는 빌드가 아니라면 방어구가 다 까진 시점에서 회복을 믿고 들이대기보다 얌전히 방어구를 회복시키는 것이 현명하기 때문."
                 android:textSize="20sp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
                 android:textColor="#000000"/>
         </LinearLayout>
     </ScrollView>
