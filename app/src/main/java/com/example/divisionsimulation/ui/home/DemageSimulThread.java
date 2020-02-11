@@ -141,7 +141,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         SimulActivity.changeHeadshot(false);
                         SimulActivity.changeCritical(false);
                         SimulActivity.changeBoom(false);
-                        SimulActivity.defaultColor();
+                        SimulActivity.shelddefaultColor();
                     }
                 });
                 statue_log = "";
