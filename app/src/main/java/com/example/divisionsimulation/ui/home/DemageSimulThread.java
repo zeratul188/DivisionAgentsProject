@@ -13,7 +13,7 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false;
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false, reloaded = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
@@ -27,6 +27,8 @@ class DemageSimulThread extends Thread implements Serializable {
 
     private boolean headshot_enable = false;
     private boolean critical_enable = false;
+
+    private ReloadThread rt = null;
 
     private String log, statue_log = "", ammo_log = "";
 
@@ -51,6 +53,7 @@ class DemageSimulThread extends Thread implements Serializable {
         this.tt = tt;
     }
     public void setCluchThread(CluchThread ct) { this.ct = ct; }
+    public void setReloadThread(ReloadThread rt) { this.rt = rt; }
 
     public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; }
     public void setRPM(double rpm) { this.rpm = rpm; }
@@ -85,8 +88,18 @@ class DemageSimulThread extends Thread implements Serializable {
 
     private void reload() {
         int time = (int)(reloadtime*1000);
-        SimulActivity.progressAmmo.setIndeterminate(true);
-        SimulActivity.txtStatue.setText("재장전 중...");
+        /*handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SimulActivity.progressAmmo.setIndeterminate(true);
+            }
+        });*/
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SimulActivity.txtStatue.setText("재장전 중...");
+            }
+        });
         if (quick_hand) {
             double handred_time = (double)time / 2;
             if (hit_critical > 30) hit_critical = 30;
@@ -95,14 +108,29 @@ class DemageSimulThread extends Thread implements Serializable {
             time -= (int) down_time;
             if (time < 100) time = 100;
             hit_critical = 0;
-            SimulActivity.txtQuickhand.setText("0");
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    SimulActivity.txtQuickhand.setText("0");
+                }
+            });
+        }
+        if (reloadtime != 0) {
+            rt.setTime(time);
+            rt.pause(false);
         }
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        SimulActivity.progressAmmo.setIndeterminate(false);
+        reloaded = true;
+        /*handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SimulActivity.progressAmmo.setIndeterminate(false);
+            }
+        });*/
     }
 
     private int demage() {
@@ -113,8 +141,14 @@ class DemageSimulThread extends Thread implements Serializable {
     }
 
     public void run() {
+        if (rt != null) rt.start();
         SimulActivity.setHealth(getHealth());
-        SimulActivity.progressAmmo.setIndeterminate(false);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SimulActivity.progressAmmo.setIndeterminate(false);
+            }
+        });
         first_health = SimulActivity.getHealth();
         first_sheld = sheld;
         int time = (60 * 1000) / (int) rpm;
@@ -135,6 +169,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         SimulActivity.changeBoom(false);
                     }
                 });*/
+                if (reloaded) {
+                    reloaded = false;
+                    rt.pause(true);
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -334,6 +372,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         SimulActivity.changeBoom(false);
                     }
                 });*/
+                if (reloaded) {
+                    reloaded = false;
+                    rt.pause(true);
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -523,7 +565,6 @@ class DemageSimulThread extends Thread implements Serializable {
                 SimulActivity.btnExit.setText("뒤로 가기");
             }
         });
-        SimulActivity.setExit(true);
         tt.setStop(true);
         if (cluch_true) ct.setStop(true);
         if (!end) {
@@ -533,6 +574,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             });*/
+            rt.stopThread();
+            SimulActivity.setExit(true);
             handler.post(new Runnable() {
                 @Override
                 public void run() {

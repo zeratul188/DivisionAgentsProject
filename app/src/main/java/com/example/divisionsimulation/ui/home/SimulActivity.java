@@ -31,6 +31,7 @@ public class SimulActivity extends Activity implements Serializable {
     private DemageSimulThread dst = null;
     private CluchThread ct = null;
     private TimeThread tt = null;
+    private ReloadThread rt = null;
 
     private LinearLayout layoutQuickhand;
     public static TextView txtQuickhand;
@@ -117,6 +118,8 @@ public class SimulActivity extends Activity implements Serializable {
         tt.setHandler(handler);
         tt.start();
 
+        rt = new ReloadThread(handler);
+
         String nickname = getIntent().getStringExtra("nickname");
         if (!nickname.equals("")) txtNickname.setText(nickname);
         else txtNickname.setText("표적");
@@ -131,6 +134,9 @@ public class SimulActivity extends Activity implements Serializable {
 
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
         ct = (CluchThread) getIntent().getSerializableExtra("cluchthread");
+        if (rt != null) {
+            dst.setReloadThread(rt);
+        }
         dst.setHandler(handler);
         if (ct != null) {
             ct.setHandler(handler);
@@ -154,6 +160,7 @@ public class SimulActivity extends Activity implements Serializable {
                     progressSheld.setProgress(0);
                     txtSheld.setText("0");
                     txtHealth.setText("0");
+                    rt.stopThread();
                     Toast.makeText(getApplicationContext(), "강제 종료되었습니다.\n뒤로가기 키 또는 뒤로 가기 버튼을 눌러 메인으로 돌아가십시오.", Toast.LENGTH_LONG).show();
                     btnExit.setText("뒤로 가기");
                 } else {
