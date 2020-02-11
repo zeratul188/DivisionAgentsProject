@@ -1,5 +1,6 @@
 package com.example.divisionsimulation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         .setAction("Action", null).show();
             }
         });*/
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -60,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
     }
     public void showGuide() {
         toast = Toast.makeText(getApplicationContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.4.1\n마지막 수정 일자 : 2020년 2월 11일 0시 29분\n\n-무기 시뮬레이션 : 무기 시뮬레이션 UI 버그 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 1.4.2\n마지막 수정 일자 : 2020년 2월 11일 10시 36분\n\n- 로딩 화면 생성");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

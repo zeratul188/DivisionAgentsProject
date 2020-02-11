@@ -160,6 +160,9 @@
         <activity android:name=".ui.tools.List6Activity"></activity>
         <activity android:name=".ui.tools.List7Activity"></activity>
         <activity android:name=".ui.tools.List8Activity"></activity>
+
+        <activity android:name=".LoadingActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
     </application>
 
 </manifest>
