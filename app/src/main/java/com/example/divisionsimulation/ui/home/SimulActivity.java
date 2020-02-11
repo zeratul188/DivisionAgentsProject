@@ -1,9 +1,11 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,7 @@ import com.example.divisionsimulation.R;
 
 import java.io.Serializable;
 
-public class SimulActivity extends AppCompatActivity implements Serializable {
+public class SimulActivity extends Activity implements Serializable {
 
     public static TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
     private TextView txtNickname;
@@ -37,7 +39,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
 
     private static boolean exit = false;
 
-    private Button btnExit;
+    public static Button btnExit;
 
     private boolean quick = false;
 
@@ -52,7 +54,20 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simullayout);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        boolean isImmersiveModeEnabled = ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
+        if (isImmersiveModeEnabled) {
+            Log.i("Is on?", "Turning immersive mode mode off. ");
+        } else {
+            Log.i("Is on?", "Turning immersive mode mode on.");
+        }
+        newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
 
         setTitle("디비전2 시뮬레이션");
 
@@ -139,15 +154,16 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
                     progressSheld.setProgress(0);
                     txtSheld.setText("0");
                     txtHealth.setText("0");
-                    Toast.makeText(getApplicationContext(), "강제 종료되었습니다.\n뒤로가기 또는 상단의 화살표 버튼을 눌러 메인으로 돌아가십시오.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "강제 종료되었습니다.\n뒤로가기 키 또는 뒤로 가기 버튼을 눌러 메인으로 돌아가십시오.", Toast.LENGTH_LONG).show();
+                    btnExit.setText("뒤로 가기");
                 } else {
-                    Toast.makeText(getApplicationContext(), "이미 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
@@ -157,7 +173,7 @@ public class SimulActivity extends AppCompatActivity implements Serializable {
             }
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public static void hitCritical() {
         txtNowDemage.setTextColor(Color.parseColor("#FF6600"));

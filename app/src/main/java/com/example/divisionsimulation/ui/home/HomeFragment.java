@@ -666,17 +666,18 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setRPM(Double.parseDouble(String.valueOf(edtRPM.getText())));
                                             if (!String.valueOf(edtCritical.getText()).equals("")) ws.setCritical(Double.parseDouble(String.valueOf(edtCritical.getText())));
                                             else ws.setCritical(0);
-                                            if (!String.valueOf(edtCriticalDemage.getText()).equals("") && Integer.parseInt(String.valueOf(edtCriticalDemage.getText())) < 25) {
+                                            if (String.valueOf(edtCriticalDemage.getText()).equals("") || Integer.parseInt(String.valueOf(edtCriticalDemage.getText())) < 25) {
                                                 Toast.makeText(getActivity(), "치명타 데미지 최솟값이 25%이므로 25%로 자동 변경됩니다.", Toast.LENGTH_SHORT).show();
                                                 ws.setCriticaldemage(25);
-                                            } else if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));else ws.setCriticaldemage(25);
+                                            } else if (!String.valueOf(edtCriticalDemage.getText()).equals("")) ws.setCriticaldemage(Double.parseDouble(String.valueOf(edtCriticalDemage.getText())));
+                                            else ws.setCriticaldemage(25);
                                             if (!String.valueOf(edtHeadshot.getText()).equals("")) ws.setHeadshot(Double.parseDouble(String.valueOf(edtHeadshot.getText())));
                                             else ws.setHeadshot(0);
-                                            if (!String.valueOf(edtHeadshotDemage.getText()).equals("") && Integer.parseInt(String.valueOf(edtHeadshotDemage.getText())) < 50) {
+                                            if (String.valueOf(edtHeadshotDemage.getText()).equals("") || Integer.parseInt(String.valueOf(edtHeadshotDemage.getText())) < 50) {
                                                 Toast.makeText(getActivity(), "헤드샷 데미지 최솟값이 50%이므로 50%로 자동 변경됩니다.", Toast.LENGTH_SHORT).show();
                                                 ws.setHeadshotdemage(50);
                                             } else if (!String.valueOf(edtHeadshotDemage.getText()).equals("")) ws.setHeadshotdemage(Double.parseDouble(String.valueOf(edtHeadshotDemage.getText())));
-                                            else ws.setHeadshotdemage(0);
+                                            else ws.setHeadshotdemage(50);
                                             if (!String.valueOf(edtEliteDemage.getText()).equals("")) ws.setElitedemage(Double.parseDouble(String.valueOf(edtEliteDemage.getText())));
                                             else ws.setElitedemage(0);
                                             if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));

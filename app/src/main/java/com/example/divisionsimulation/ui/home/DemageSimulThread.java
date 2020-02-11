@@ -519,6 +519,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 SimulActivity.progressSheld.setProgress(0);
                 SimulActivity.txtSheld.setText("0");
                 SimulActivity.txtHealth.setText("0");
+                SimulActivity.btnExit.setText("뒤로 가기");
             }
         });
         SimulActivity.setExit(true);
