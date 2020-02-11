@@ -683,7 +683,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             if (!String.valueOf(edtSheldDemage.getText()).equals("")) ws.setShelddemage(Double.parseDouble(String.valueOf(edtSheldDemage.getText())));
                                             else ws.setShelddemage(0);
                                             if (!String.valueOf(edtHealthDemage.getText()).equals("")) ws.setHealthdemage(Double.parseDouble(String.valueOf(edtHealthDemage.getText())));
-                                            else ws.setHeadshotdemage(0);
+                                            else ws.setHealthdemage(0);
                                             if (!String.valueOf(edtReload.getText()).equals("")) ws.setReloadtime(Double.parseDouble(String.valueOf(edtReload.getText())));
                                             else ws.setReloadtime(0);
                                             ws.setAmmo(Double.parseDouble(String.valueOf(edtAmmo.getText())));

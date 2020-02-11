@@ -156,6 +156,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
+                    System.out.println("Headshot Demage : "+headshotdemage);
                     now_demage += weapondemage * per;
                     /*activity.runOnUiThread(new Runnable() {
                         @Override
