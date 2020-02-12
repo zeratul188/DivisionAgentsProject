@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class SimulActivity extends Activity implements Serializable {
 
     public static TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
-    private TextView txtNickname;
+    private TextView txtNickname, txtHealthInfo;
 
     public static ProgressBar progressSheld, progressHealth, progressAmmo;
 
@@ -57,7 +57,7 @@ public class SimulActivity extends Activity implements Serializable {
         setContentView(R.layout.simullayout);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
+        /*int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
         int newUiOptions = uiOptions;
         boolean isImmersiveModeEnabled = ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
         if (isImmersiveModeEnabled) {
@@ -68,7 +68,17 @@ public class SimulActivity extends Activity implements Serializable {
         newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
         newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
+        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);*/
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
+
 
         setTitle("디비전2 시뮬레이션");
 
@@ -84,6 +94,7 @@ public class SimulActivity extends Activity implements Serializable {
         txtTime = findViewById(R.id.txtTime);
         txtAdddemage = findViewById(R.id.txtAdddemage);
         txtNickname = findViewById(R.id.txtNickname);
+        txtHealthInfo = findViewById(R.id.txtHealthInfo);
 
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
@@ -125,7 +136,11 @@ public class SimulActivity extends Activity implements Serializable {
         else txtNickname.setText("표적");
 
         boolean elite_true = Boolean.parseBoolean(getIntent().getStringExtra("elite"));
-        if (elite_true) progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite));
+        if (elite_true) {
+            progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite));
+            txtHealth.setTextColor(Color.parseColor("#A29900"));
+            txtHealthInfo.setTextColor(Color.parseColor("#A29900"));
+        }
         else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health));
 
         quick = Boolean.parseBoolean(getIntent().getStringExtra("quickhand"));

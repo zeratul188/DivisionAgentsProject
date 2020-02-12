@@ -568,6 +568,16 @@ public class HomeFragment extends Fragment implements Serializable {
                         final EditText edtCluchCritical = dialogView.findViewById(R.id.edtCluchCritical);
                         final EditText edtCluchAiming = dialogView.findViewById(R.id.edtCluchAiming);
 
+                        final LinearLayout layoutPVP = dialogView.findViewById(R.id.layoutPVP);
+                        final RadioGroup rgPVP = dialogView.findViewById(R.id.rgPVP);
+                        final RadioButton[] rdoPVP = new RadioButton[7];
+
+                        int temp_index;
+                        for (int i = 0; i < rdoPVP.length; i++) {
+                            temp_index = dialogView.getResources().getIdentifier("rdoPVP"+(i+1), "id", getActivity().getPackageName());
+                            rdoPVP[i] = dialogView.findViewById(temp_index);
+                        }
+
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setView(dialogView);
 
@@ -612,9 +622,12 @@ public class HomeFragment extends Fragment implements Serializable {
                                     chkElite.setTextColor(Color.parseColor("#bbbbbb"));
                                     chkElite.setEnabled(false);
                                     chkCluch.setEnabled(true);
+                                    layoutPVP.setVisibility(View.VISIBLE);
                                 } else {
                                     chkElite.setTextColor(Color.parseColor("#000000"));
                                     chkElite.setEnabled(true);
+                                    layoutPVP.setVisibility(View.GONE);
+                                    rdoPVP[0].setChecked(true);
                                     if (chkCluch.isChecked()) {
                                         layoutCluch.setVisibility(View.GONE);
                                         chkCluch.toggle();
@@ -641,6 +654,13 @@ public class HomeFragment extends Fragment implements Serializable {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 boolean elite_true, pvp_true, cluch_true;
+                                double coefficient = 1;
+                                if (chkPVP.isChecked()) {
+                                    if (rdoPVP[0].isChecked()) coefficient = 0.68;
+                                    else if (rdoPVP[1].isChecked()) coefficient = 0.66;
+                                    else if (rdoPVP[2].isChecked() || rdoPVP[3].isChecked() || rdoPVP[5].isChecked() || rdoPVP[6].isChecked()) coefficient = 0.55;
+                                    else coefficient = 0.6;
+                                }
                                 if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true;
                                 else elite_true = false;
                                 if (chkPVP.isChecked()) pvp_true = true;
@@ -702,6 +722,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setQuick_hand(quick_hand);
                                             ws.setCluch_true(cluch_true);
                                             ws.setBumerang_true(bumerang_true);
+                                            if (chkPVP.isChecked()) ws.setCoefficient(coefficient);
 
                                             String elite = Boolean.toString(elite_true);
 

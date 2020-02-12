@@ -32,50 +32,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="방어도 : "
-            android:textSize="20sp"
-            android:textColor="#aaaaaa"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtSheld"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/simulcustom"
         android:layout_marginBottom="30dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="생명력 : "
-            android:textSize="20sp"
-            android:textColor="#aaaaaa"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtHealth"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="방어도 : "
+                android:textSize="20sp"
+                android:textColor="#0000FF"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtSheld"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="#0000FF"
+                android:fontFamily="@font/brickshapersfont"
+                android:textSize="35sp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtHealthInfo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="생명력 : "
+                android:textSize="20sp"
+                android:textColor="#FF0000"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtHealth"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:fontFamily="@font/brickshapersfont"
+                android:textColor="#FF0000"
+                android:textSize="35sp"/>
+
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +106,8 @@
             android:layout_height="wrap_content"
             android:text="-"
             android:textColor="#f0f0f0"
-            android:textSize="25sp"/>
+            android:fontFamily="@font/brickshapersfont"
+            android:textSize="45sp"/>
 
     </LinearLayout>
 
@@ -111,14 +120,28 @@
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:indeterminateTint="#E45435"/>
-    <TextView
-        android:id="@+id/txtAmmo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="-"
-        android:textSize="20sp"
-        android:textColor="#f0f0f0"
-        android:textAlignment="center"/>
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="현재 탄수 : "
+            android:textColor="#f0f0f0"
+            android:textSize="20sp"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtAmmo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:fontFamily="@font/brickshapers"
+            android:textSize="35sp"
+            android:textColor="#f0f0f0"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -154,106 +177,112 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/simulcustom">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="사용한 탄수 : "
-            android:textSize="20sp"
-            android:textColor="#AAAAAA"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtAllAmmo"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
+            android:orientation="horizontal">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="사용한 탄수 : "
+                android:textSize="20sp"
+                android:textColor="#AAAAAA"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtAllAmmo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#f0f0f0"
+                android:textSize="20sp"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="시간 : "
-            android:textSize="20sp"
-            android:textColor="#AAAAAA"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtTime"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="0초"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
+            android:orientation="horizontal">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="시간 : "
+                android:textSize="20sp"
+                android:textColor="#AAAAAA"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="0초"
+                android:textColor="#f0f0f0"
+                android:textSize="20sp"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="누적 데미지 : "
-            android:textSize="20sp"
-            android:textColor="#aaaaaa"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtAdddemage"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
+            android:orientation="horizontal">
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/layoutQuickhand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="누적 데미지 : "
+                android:textSize="20sp"
+                android:textColor="#aaaaaa"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtAdddemage"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#f0f0f0"
+                android:textSize="20sp"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutQuickhand"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="빠른 손 히트 수 : "
-            android:textSize="20sp"
-            android:textColor="#aaaaaa"
-            android:textAlignment="textEnd"/>
-        <TextView
-            android:id="@+id/txtQuickhand"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"/>
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="빠른 손 히트 수 : "
+                android:textSize="20sp"
+                android:textColor="#aaaaaa"
+                android:textAlignment="textEnd"/>
+            <TextView
+                android:id="@+id/txtQuickhand"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#f0f0f0"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btnExit"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@drawable/buttonsimulcustom"
         android:text="강제 종료"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="#f0f0f0"/>
     <LinearLayout
         android:layout_width="match_parent"

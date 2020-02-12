@@ -18,7 +18,7 @@ class DemageSimulThread extends Thread implements Serializable {
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Activity activity;
-    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg;
+    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient;
     private int hit_critical = 0, out_demage, all_dmg = 0;
 
     private Handler handler = null;
@@ -82,6 +82,7 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setBumerang_true(boolean bumerang_true) { this.bumerang_true = bumerang_true; }
     public void setActivity(Activity activity) { this.activity = activity; }
     public void setHandler(Handler handler) { this.handler = handler; }
+    public void setCoefficient(double coefficient) { this.coefficient = coefficient; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -134,10 +135,10 @@ class DemageSimulThread extends Thread implements Serializable {
     }
 
     private int demage() {
-        int diff_demage = (int)(weapondemage*0.1);
+        /*int diff_demage = (int)(weapondemage*0.1);
         int ransu = (int)(Math.random()*123456)%(diff_demage*2)-diff_demage;
-        int real_demage = (int)weapondemage + ransu;
-        return real_demage;
+        int real_demage = (int)weapondemage + ransu;*/
+        return (int)weapondemage;
     }
 
     public void run() {
@@ -282,7 +283,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
-                if (pvp_true == true) now_demage *= 0.4;
+                if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
@@ -309,7 +310,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText("빗나감!");
+                            SimulActivity.txtNowDemage.setText("MISS!!!");
                         }
                     });
                 }
@@ -329,7 +330,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 now_ammo--;
                 all_ammo++;
-                ammo_log = "현재 탄수 : "+now_ammo;
+                ammo_log = Integer.toString(now_ammo);
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
                 dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
@@ -483,7 +484,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
-                if (pvp_true == true) now_demage *= 0.6;
+                if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
@@ -521,7 +522,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 now_ammo--;
                 all_ammo++;
-                ammo_log = "현재 탄수 : "+now_ammo;
+                ammo_log = Integer.toString(now_ammo);
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
                 dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
