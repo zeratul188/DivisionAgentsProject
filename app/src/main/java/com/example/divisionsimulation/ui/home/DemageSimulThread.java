@@ -512,7 +512,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText("빗나감!");
+                            SimulActivity.txtNowDemage.setText("MISS!!!");
                         }
                     });
                 }

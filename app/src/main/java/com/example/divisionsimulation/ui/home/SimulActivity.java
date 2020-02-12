@@ -208,7 +208,7 @@ public class SimulActivity extends Activity implements Serializable {
     }
     public static void defaultColor() { txtNowDemage.setTextColor(Color.parseColor("#F0F0F0")); }
     public static void shelddefaultColor() {
-        txtNowDemage.setTextColor(Color.parseColor("#5555FF"));
+        txtNowDemage.setTextColor(Color.parseColor("#A4A4FF"));
     }
 
     public static synchronized void changeCritical(boolean change) {

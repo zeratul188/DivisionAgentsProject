@@ -46,15 +46,15 @@
                 android:layout_height="wrap_content"
                 android:text="방어도 : "
                 android:textSize="20sp"
-                android:textColor="#0000FF"
+                android:textColor="#A4A4FF"
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtSheld"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:textColor="#0000FF"
+                android:text="10000000/10000000"
+                android:textColor="#A4A4FF"
                 android:fontFamily="@font/brickshapersfont"
                 android:textSize="35sp"/>
 
@@ -71,16 +71,16 @@
                 android:layout_height="wrap_content"
                 android:text="생명력 : "
                 android:textSize="20sp"
-                android:textColor="#FF0000"
+                android:textColor="#FF5252"
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtHealth"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:text="-"
+                android:text="10000000/10000000"
                 android:fontFamily="@font/brickshapersfont"
-                android:textColor="#FF0000"
+                android:textColor="#FF5252"
                 android:textSize="35sp"/>
 
         </LinearLayout>
@@ -104,7 +104,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="9999"
             android:textColor="#f0f0f0"
             android:fontFamily="@font/brickshapersfont"
             android:textSize="45sp"/>
@@ -137,7 +137,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="99"
             android:fontFamily="@font/brickshapers"
             android:textSize="35sp"
             android:textColor="#f0f0f0"/>
