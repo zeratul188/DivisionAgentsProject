@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttoncustom"
         android:padding="10dp"
-        android:text="- 소수점 첫째짜리까지만 입력해주세요.\n- 상대는 펄스 적용된 상태\n- 명중률은 0 이상이여야 합니다. 0이면 자동으로 50%로 변경됩니다.\n- 힌트로 나와있는 최소 숫자보다 작을 경우 자동으로 최솟값으로 변경됩니다."
+        android:text="- 소수점 첫째짜리까지만 입력해주세요.\n- 상대는 펄스 적용된 상태\n- 명중률은 0 이상이여야 합니다. 0이면 자동으로 50%로 변경됩니다.\n- 힌트로 나와있는 최소 숫자보다 작을 경우 자동으로 최솟값으로 변경됩니다.\n- 불꽃은 작동한 상태로 들어갑니다. (무자비가 안 터져도 버프 적용)"
         android:textSize="15sp"
         android:paddingLeft="30dp"
         android:layout_marginBottom="5dp"
@@ -372,6 +372,13 @@
                     android:textColor="#000000"
                     android:textSize="15sp"/>
                 <CheckBox
+                    android:id="@+id/chkFire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="불꽃 여부 (폭발물 데미지가 들어갈 경우 무기 데미지 +20%)"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+                <CheckBox
                     android:id="@+id/chkBoom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -497,28 +504,29 @@
                     android:layout_height="wrap_content"
                     android:text="카멜레온 여부"
                     android:textSize="15sp"/>
-                <RadioGroup
-                    android:id="@+id/rgCamel"
+                <LinearLayout
+                    android:id="@+id/layoutCamel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
                     android:visibility="gone">
-                    <RadioButton
-                        android:id="@+id/rdoCamel1"
+                    <CheckBox
+                        android:id="@+id/chkCamelOption1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="헤드샷 On (치명타 확률 +20%, 치명타 데미지 +50%)"/>
-                    <RadioButton
-                        android:id="@+id/rdoCamel2"
+                    <CheckBox
+                        android:id="@+id/chkCamelOption2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="바디샷 On (무기 데미지 +100%)"/>
-                    <RadioButton
-                        android:id="@+id/rdoCamel3"
+                    <CheckBox
+                        android:id="@+id/chkCamelOption3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="레그샷 On (재장전 시간 +150%)"/>
-                </RadioGroup>
-
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

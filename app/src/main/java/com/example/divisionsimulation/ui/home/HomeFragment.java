@@ -41,13 +41,15 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private CluchThread ct = null;
 
-    private RadioGroup rgCrazy, rgPush, rgCamel;
+    private RadioGroup rgCrazy, rgPush;
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
-    private RadioButton[] rdoCamel = new RadioButton[3];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel;
+    private CheckBox[] chkCamelOption = new CheckBox[3];
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire;
 
-    private boolean boom = false, quick_hand = false, bumerang_true = false;
+    private LinearLayout layoutCamel;
+
+    private boolean boom = false, quick_hand = false, bumerang_true = false, fire = false;
 
     private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
 
@@ -84,6 +86,7 @@ public class HomeFragment extends Fragment implements Serializable {
         chkQuickhand = root.findViewById(R.id.chkQuickhand);
         chkCrazy = root.findViewById(R.id.chkCrazy);
         chkBumerang = root.findViewById(R.id.chkBumerang);
+        chkFire = root.findViewById(R.id.chkFire);
         chkCamel = root.findViewById(R.id.chkCamel);
         rgCrazy = root.findViewById(R.id.rgCrazy);
         int temp;
@@ -94,14 +97,14 @@ public class HomeFragment extends Fragment implements Serializable {
 
         chkPush = root.findViewById(R.id.chkPush);
         rgPush = root.findViewById(R.id.rgPush);
-        rgCamel = root.findViewById(R.id.rgCamel);
+        layoutCamel = root.findViewById(R.id.layoutCamel);
         for (int i = 0; i < rdoPush.length; i++) {
             temp = root.getResources().getIdentifier("rdoPush"+(i+1), "id", getActivity().getPackageName());
             rdoPush[i] = (RadioButton) root.findViewById(temp);
         }
-        for (int i = 0; i < rdoCamel.length; i++) {
-            temp = root.getResources().getIdentifier("rdoCamel"+(i+1), "id", getActivity().getPackageName());
-            rdoCamel[i] = (RadioButton) root.findViewById(temp);
+        for (int i = 0; i < chkCamelOption.length; i++) {
+            temp = root.getResources().getIdentifier("chkCamelOption"+(i+1), "id", getActivity().getPackageName());
+            chkCamelOption[i] = (CheckBox) root.findViewById(temp);
         }
 
         chkSeeker = root.findViewById(R.id.chkSeeker);
@@ -215,7 +218,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(false);
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
-                    rgCamel.setVisibility(View.VISIBLE);
+                    layoutCamel.setVisibility(View.VISIBLE);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
                     chkBoom.setEnabled(true);
@@ -227,8 +230,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(true);
                     chkEagle.setTextColor(Color.parseColor("#000000"));
                     chkEagle.setEnabled(true);
-                    rgCamel.clearCheck();
-                    rgCamel.setVisibility(View.GONE);
+                    for (int i = 0; i < chkCamelOption.length; i++) if (chkCamelOption[i].isChecked()) chkCamelOption[i].toggle();
+                    layoutCamel.setVisibility(View.GONE);
                 }
             }
         });
@@ -442,7 +445,8 @@ public class HomeFragment extends Fragment implements Serializable {
 
                 rgPush.clearCheck();
                 rgCrazy.clearCheck();
-                rgCamel.clearCheck();
+
+                for (int i = 0; i < chkCamelOption.length; i++) if (chkCamelOption[i].isChecked()) chkCamelOption[i].toggle();
 
                 Toast.makeText(getActivity(), "입력값들이 모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -608,14 +612,8 @@ public class HomeFragment extends Fragment implements Serializable {
                         }
 
                         final boolean[] options = { false, false, false };
-                        switch (rgCamel.getCheckedRadioButtonId()) {
-                            case R.id.rdoCamel1:
-                                options[0] = true; break;
-                            case R.id.rdoCamel2:
-                                options[1] = true; break;
-                            case R.id.rdoCamel3:
-                                options[2] = true; break;
-                        }
+
+                        for (int i = 0; i < chkCamelOption.length; i++) if (chkCamelOption[i].isChecked()) options[i] = true;
 
                         if (chkSeeker.isChecked()) seeker_dmg = 20;
                         else seeker_dmg = 0;
@@ -625,6 +623,9 @@ public class HomeFragment extends Fragment implements Serializable {
 
                         if (chkEagle.isChecked()) eagle_dmg = 35;
                         else eagle_dmg = 0;
+
+                        if (chkFire.isChecked()) fire = true;
+                        else fire = false;
 
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
                         final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
@@ -795,6 +796,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setCluch_true(cluch_true);
                                             ws.setBumerang_true(bumerang_true);
                                             ws.setOptions(options);
+                                            ws.setFire(fire);
                                             if (chkPVP.isChecked()) ws.setCoefficient(coefficient);
 
                                             String elite = Boolean.toString(elite_true);

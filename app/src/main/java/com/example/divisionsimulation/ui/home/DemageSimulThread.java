@@ -13,7 +13,7 @@ import java.io.Serializable;
 class DemageSimulThread extends Thread implements Serializable {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
     private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false, reloaded = false;
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false, reloaded = false, fire = false;
     private int first_health, first_sheld;
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
@@ -85,6 +85,7 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setHandler(Handler handler) { this.handler = handler; }
     public void setCoefficient(double coefficient) { this.coefficient = coefficient; }
     public void setOptions(boolean[] options) { this.options = options; }
+    public void setFire(boolean fire) { this.fire = fire; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -295,6 +296,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
+                if (fire) now_demage += weapondemage * 0.2;
                 if (options[1]) now_demage += weapondemage;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
@@ -502,6 +504,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
+                if (fire) now_demage += weapondemage * 0.2;
                 if (options[1]) now_demage += weapondemage;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;

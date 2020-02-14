@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.5.6\n마지막 수정 일자 : 2020년 2월 14일 16시 32분\n\n변경 사항 : \n- 무기 시뮬레이션 : 카멜레온 탤런트 추가\n- 무기 시뮬레이션 : 데미지, 체력 등 잘 보이도록 하얀 그림자 추가\n- 무기 시뮬레이션 : 체력바 디자인 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 1.5.7\n마지막 수정 일자 : 2020년 2월 15일 0시 49분\n\n변경 사항 : \n- 무기 시뮬레이션 : 불꽃 탤런트 추가\n- 무기 시뮬레이션 : 카멜레온 모두 선택 가능하게 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
