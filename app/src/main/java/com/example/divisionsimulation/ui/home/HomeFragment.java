@@ -542,7 +542,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                 push_dmg = 50; break;
                             default:
                                 Toast.makeText(getActivity(), "중압감 여부가 체크가 안 되어 있으므로 중압감 없는 것으로 설정합니다.", Toast.LENGTH_SHORT).show();
-                                crazy_dmg = 0;
+                                push_dmg = 0;
                         }
 
                         if (chkSeeker.isChecked()) seeker_dmg = 20;
@@ -551,7 +551,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         if (chkBoom.isChecked()) boom = true;
                         else boom = false;
 
-                        if (chkEagle.isChecked()) eagle_dmg = 25;
+                        if (chkEagle.isChecked()) eagle_dmg = 35;
                         else eagle_dmg = 0;
 
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);

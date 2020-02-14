@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.5.4\n마지막 수정 일자 : 2020년 2월 12일 17시 5분\n\n변경 사항 : \n- 무기 시뮬레이션 : 시뮬 동안 소프트키 사라지지 않는 버그 수정\n- 무기 시뮬레이션 : 장비 종류 따라 PVP 계수 적용\n- 무기 시뮬레이션 : 폰트 적용");
+                builder.setTitle("버젼 확인").setMessage("Version 1.5.5\n마지막 수정 일자 : 2020년 2월 14일 12시 28분\n\n변경 사항 : \n- 무기 시뮬레이션 : 광분 적용 안되던 버그 수정\n- 무기 시뮬레이션 : 집념 데미지 35% 적용되도록 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
