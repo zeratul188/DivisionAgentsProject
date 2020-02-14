@@ -115,6 +115,11 @@ public class SimulActivity extends Activity implements Serializable {
 
         //progressHealth.getProgressDrawable().setColorFilter(Color.MAGENTA, PorterDuff.Mode.SRC_IN);
 
+        txtNowDemage.setShadowLayer(1, 5, 5, Color.parseColor("#bbe3e3e3"));
+        txtAmmo.setShadowLayer(1, 5, 5, Color.parseColor("#bb222222"));
+        txtSheld.setShadowLayer(1, 3, 3, Color.parseColor("#bbe3e3e3"));
+        txtHealth.setShadowLayer(1, 3, 3, Color.parseColor("#bbe3e3e3"));
+
         progressSheld.setMax(10000);
         progressHealth.setMax(10000);
         progressAmmo.setMax(10000);

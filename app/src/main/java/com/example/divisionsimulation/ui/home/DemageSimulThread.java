@@ -20,6 +20,7 @@ class DemageSimulThread extends Thread implements Serializable {
     private Activity activity;
     private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient;
     private int hit_critical = 0, out_demage, all_dmg = 0;
+    private boolean[] options = null;
 
     private Handler handler = null;
 
@@ -83,6 +84,7 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setActivity(Activity activity) { this.activity = activity; }
     public void setHandler(Handler handler) { this.handler = handler; }
     public void setCoefficient(double coefficient) { this.coefficient = coefficient; }
+    public void setOptions(boolean[] options) { this.options = options; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -115,6 +117,11 @@ class DemageSimulThread extends Thread implements Serializable {
                     SimulActivity.txtQuickhand.setText("0");
                 }
             });
+        } else if (options[2]) {
+            double temp_time = (double)time / 2;
+            temp_time *= 1.5;
+            time -= (int) temp_time;
+            if (time < 100) time = 100;
         }
         if (reloadtime != 0) {
             rt.setTime(time);
@@ -212,6 +219,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         }
                     });
                 }
+                if (options[0]) {
+                    critical += 20;
+                    if (critical > 60) critical = 60;
+                }
                 if (critical_ransu <= critical*10) {
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
@@ -236,6 +247,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         }
                     });
                     temp_criticaldemage = criticaldemage;
+                    if (options[0]) temp_criticaldemage += 50;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
@@ -283,6 +295,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
+                if (options[1]) now_demage += weapondemage;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
@@ -414,6 +427,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         }
                     });
                 }
+                if (options[0]) {
+                    critical += 20;
+                    if (critical > 60) critical = 60;
+                }
                 if (critical_ransu <= critical*10) {
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
@@ -438,6 +455,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         }
                     });
                     temp_criticaldemage = criticaldemage;
+                    if (options[0]) temp_criticaldemage += 50;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
                     now_demage += weapondemage * per;
@@ -484,6 +502,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
+                if (options[1]) now_demage += weapondemage;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;

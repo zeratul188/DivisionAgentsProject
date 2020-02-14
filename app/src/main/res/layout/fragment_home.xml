@@ -491,6 +491,34 @@
                         android:textSize="15sp"
                         android:textColor="#000000"/>
                 </RadioGroup>
+                <CheckBox
+                    android:id="@+id/chkCamel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="카멜레온 여부"
+                    android:textSize="15sp"/>
+                <RadioGroup
+                    android:id="@+id/rgCamel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <RadioButton
+                        android:id="@+id/rdoCamel1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="헤드샷 On (치명타 확률 +20%, 치명타 데미지 +50%)"/>
+                    <RadioButton
+                        android:id="@+id/rdoCamel2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="바디샷 On (무기 데미지 +100%)"/>
+                    <RadioButton
+                        android:id="@+id/rdoCamel3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="레그샷 On (재장전 시간 +150%)"/>
+                </RadioGroup>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -522,6 +550,7 @@
             android:textSize="20sp"
             android:background="@drawable/buttoncustom"
             android:layout_marginLeft="10dp"/>
+
 
     </LinearLayout>
 

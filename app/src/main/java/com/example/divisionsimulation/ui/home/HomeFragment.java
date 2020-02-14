@@ -41,10 +41,11 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private CluchThread ct = null;
 
-    private RadioGroup rgCrazy, rgPush;
+    private RadioGroup rgCrazy, rgPush, rgCamel;
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang;
+    private RadioButton[] rdoCamel = new RadioButton[3];
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel;
 
     private boolean boom = false, quick_hand = false, bumerang_true = false;
 
@@ -83,6 +84,7 @@ public class HomeFragment extends Fragment implements Serializable {
         chkQuickhand = root.findViewById(R.id.chkQuickhand);
         chkCrazy = root.findViewById(R.id.chkCrazy);
         chkBumerang = root.findViewById(R.id.chkBumerang);
+        chkCamel = root.findViewById(R.id.chkCamel);
         rgCrazy = root.findViewById(R.id.rgCrazy);
         int temp;
         for (int i = 0; i < rdoCrazy.length; i++) {
@@ -92,9 +94,14 @@ public class HomeFragment extends Fragment implements Serializable {
 
         chkPush = root.findViewById(R.id.chkPush);
         rgPush = root.findViewById(R.id.rgPush);
+        rgCamel = root.findViewById(R.id.rgCamel);
         for (int i = 0; i < rdoPush.length; i++) {
             temp = root.getResources().getIdentifier("rdoPush"+(i+1), "id", getActivity().getPackageName());
             rdoPush[i] = (RadioButton) root.findViewById(temp);
+        }
+        for (int i = 0; i < rdoCamel.length; i++) {
+            temp = root.getResources().getIdentifier("rdoCamel"+(i+1), "id", getActivity().getPackageName());
+            rdoCamel[i] = (RadioButton) root.findViewById(temp);
         }
 
         chkSeeker = root.findViewById(R.id.chkSeeker);
@@ -121,6 +128,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkEagle.setEnabled(false);
                     chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
                     chkBumerang.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
                 }
                 else {
                     rgPush.clearCheck();
@@ -129,9 +138,11 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkQuickhand.setEnabled(true);
                     chkBumerang.setTextColor(Color.parseColor("#000000"));
                     chkBumerang.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked()) {
+                    if (!chkBoom.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
+                        chkCamel.setTextColor(Color.parseColor("#000000"));
+                        chkCamel.setEnabled(true);
                     }
                 }
             }
@@ -146,14 +157,18 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPush.setEnabled(false);
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
                     chkQuickhand.setTextColor(Color.parseColor("#000000"));
                     chkQuickhand.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked()) {
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
+                        chkCamel.setTextColor(Color.parseColor("#000000"));
+                        chkCamel.setEnabled(true);
                     }
                 }
             }
@@ -170,6 +185,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPush.setEnabled(false);
                     chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
                     chkBumerang.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
                     chkBoom.setEnabled(true);
@@ -179,6 +196,39 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPush.setEnabled(true);
                     chkBumerang.setTextColor(Color.parseColor("#000000"));
                     chkBumerang.setEnabled(true);
+                    chkCamel.setTextColor(Color.parseColor("#000000"));
+                    chkCamel.setEnabled(true);
+                }
+            }
+        });
+        chkCamel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkBoom.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBoom.setEnabled(false);
+                    chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkQuickhand.setEnabled(false);
+                    chkPush.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkPush.setEnabled(false);
+                    chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBumerang.setEnabled(false);
+                    chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkEagle.setEnabled(false);
+                    rgCamel.setVisibility(View.VISIBLE);
+                } else {
+                    chkBoom.setTextColor(Color.parseColor("#000000"));
+                    chkBoom.setEnabled(true);
+                    chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                    chkQuickhand.setEnabled(true);
+                    chkPush.setTextColor(Color.parseColor("#000000"));
+                    chkPush.setEnabled(true);
+                    chkBumerang.setTextColor(Color.parseColor("#000000"));
+                    chkBumerang.setEnabled(true);
+                    chkEagle.setTextColor(Color.parseColor("#000000"));
+                    chkEagle.setEnabled(true);
+                    rgCamel.clearCheck();
+                    rgCamel.setVisibility(View.GONE);
                 }
             }
         });
@@ -188,10 +238,14 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
                 } else {
-                    if (!chkPush.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked()) {
+                    if (!chkPush.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked() && !chkEagle.isChecked() && !chkCamel.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
+                        chkCamel.setTextColor(Color.parseColor("#000000"));
+                        chkCamel.setEnabled(true);
                     }
                 }
             }
@@ -206,14 +260,18 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkEagle.setEnabled(false);
                     chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
                     chkBumerang.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
                     chkBumerang.setTextColor(Color.parseColor("#000000"));
                     chkBumerang.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkBumerang.isChecked()) {
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkBumerang.isChecked() && !chkEagle.isChecked() && !chkCamel.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
+                        chkCamel.setTextColor(Color.parseColor("#000000"));
+                        chkCamel.setEnabled(true);
                     }
                 }
             }
@@ -365,6 +423,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (chkCrazy.isChecked()) chkCrazy.toggle();
                 if (chkPush.isChecked()) chkPush.toggle();
                 if (chkQuickhand.isChecked()) chkQuickhand.toggle();
+                if (chkCamel.isChecked()) chkCamel.toggle();
 
                 chkPush.setTextColor(Color.parseColor("#000000"));
                 chkPush.setEnabled(true);
@@ -378,9 +437,12 @@ public class HomeFragment extends Fragment implements Serializable {
                 chkCrazy.setEnabled(true);
                 chkQuickhand.setTextColor(Color.parseColor("#000000"));
                 chkQuickhand.setEnabled(true);
+                chkCamel.setTextColor(Color.parseColor("#000000"));
+                chkCamel.setEnabled(true);
 
                 rgPush.clearCheck();
                 rgCrazy.clearCheck();
+                rgCamel.clearCheck();
 
                 Toast.makeText(getActivity(), "입력값들이 모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -543,6 +605,16 @@ public class HomeFragment extends Fragment implements Serializable {
                             default:
                                 Toast.makeText(getActivity(), "중압감 여부가 체크가 안 되어 있으므로 중압감 없는 것으로 설정합니다.", Toast.LENGTH_SHORT).show();
                                 push_dmg = 0;
+                        }
+
+                        final boolean[] options = { false, false, false };
+                        switch (rgCamel.getCheckedRadioButtonId()) {
+                            case R.id.rdoCamel1:
+                                options[0] = true; break;
+                            case R.id.rdoCamel2:
+                                options[1] = true; break;
+                            case R.id.rdoCamel3:
+                                options[2] = true; break;
                         }
 
                         if (chkSeeker.isChecked()) seeker_dmg = 20;
@@ -722,6 +794,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setQuick_hand(quick_hand);
                                             ws.setCluch_true(cluch_true);
                                             ws.setBumerang_true(bumerang_true);
+                                            ws.setOptions(options);
                                             if (chkPVP.isChecked()) ws.setCoefficient(coefficient);
 
                                             String elite = Boolean.toString(elite_true);

@@ -11,24 +11,29 @@
         android:text="표적"
         android:textSize="35sp"
         android:textColor="#f0f0f0"/>
-    <ProgressBar
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_sheld"
-        android:id="@+id/progressSheld"
-        android:indeterminateTint="#3B3B7C"
-        android:layerType="software"/>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:paddingTop="5dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_health"
-        android:id="@+id/progressHealth"
-        android:indeterminateTint="#ff0000"
-        android:layout_marginBottom="10dp"/>
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:paddingTop="5dp"
+            android:layout_marginTop="20dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progressbar_progressbar_health"
+            android:id="@+id/progressHealth"
+            android:indeterminateTint="#ff0000"
+            android:layout_marginBottom="10dp"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:paddingTop="12dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progressbar_progressbar_sheld"
+            android:id="@+id/progressSheld"
+            android:indeterminateTint="#3B3B7C"
+            android:layerType="software"/>
+    </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="방어도 : "
                 android:textSize="20sp"
-                android:textColor="#A4A4FF"
+                android:textColor="#0000FF"
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtSheld"
@@ -54,7 +59,7 @@
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:text="10000000/10000000"
-                android:textColor="#A4A4FF"
+                android:textColor="#0000FF"
                 android:fontFamily="@font/brickshapersfont"
                 android:textSize="35sp"/>
 
@@ -71,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="생명력 : "
                 android:textSize="20sp"
-                android:textColor="#FF5252"
+                android:textColor="#FF0000"
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtHealth"
@@ -80,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="10000000/10000000"
                 android:fontFamily="@font/brickshapersfont"
-                android:textColor="#FF5252"
+                android:textColor="#FF0000"
                 android:textSize="35sp"/>
 
         </LinearLayout>
@@ -107,7 +112,8 @@
             android:text="9999"
             android:textColor="#f0f0f0"
             android:fontFamily="@font/brickshapersfont"
-            android:textSize="45sp"/>
+            android:textSize="45sp"
+            style = "@style/TextShadow"/>
 
     </LinearLayout>
 
@@ -124,14 +130,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="현재 탄수 : "
+            android:textAlignment="textEnd"
             android:textColor="#f0f0f0"
-            android:textSize="20sp"
-            android:textAlignment="textEnd"/>
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/txtAmmo"
             android:layout_width="0dp"

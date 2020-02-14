@@ -5,4 +5,11 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="TextShadow">
+        <item name="android:shadowColor">#F0F0F0</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
 </resources>

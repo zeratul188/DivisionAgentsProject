@@ -14,7 +14,7 @@
             </shape>
         </clip>
     </item>
-    <item android:id="@android:id/progress" android:drawable="@drawable/sheld_satue">
+    <item android:id="@android:id/progress" android:drawable="@drawable/sheld_img">
         <clip>
             <shape>
                 <corners android:radius="0dp" />
