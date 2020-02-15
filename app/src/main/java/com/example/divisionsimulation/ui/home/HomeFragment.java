@@ -427,6 +427,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (chkPush.isChecked()) chkPush.toggle();
                 if (chkQuickhand.isChecked()) chkQuickhand.toggle();
                 if (chkCamel.isChecked()) chkCamel.toggle();
+                if (chkFire.isChecked()) chkFire.toggle();
 
                 chkPush.setTextColor(Color.parseColor("#000000"));
                 chkPush.setEnabled(true);
