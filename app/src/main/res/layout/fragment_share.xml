@@ -31,8 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="라이트존"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textColor="#000000"
+                android:padding="10dp"
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="10dp"/>
             <Button
@@ -40,7 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="다크존"
-                android:textSize="20sp"
+                android:padding="10dp"
+                android:textSize="25sp"
                 android:textColor="#000000"
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="10dp"/>
@@ -49,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="레이드 (칠흑의 시간)"
-                android:textSize="20sp"
+                android:textSize="25sp"
+                android:padding="10dp"
                 android:textColor="#000000"
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="10dp"/>
@@ -58,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="레이드 추가 박스"
-                android:textSize="20sp"
+                android:textSize="25sp"
+                android:padding="10dp"
                 android:textColor="#000000"
                 android:background="@drawable/buttoncustom"
                 android:layout_marginBottom="20dp"/>
@@ -160,7 +164,8 @@
                 android:layout_height="wrap_content"
                 android:text="초기화"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="25sp"
+                android:padding="10dp"
                 android:background="@drawable/buttoncustom"/>
             <Button
                 android:id="@+id/btnOutput"
@@ -168,8 +173,9 @@
                 android:layout_height="wrap_content"
                 android:text="이송하기 (0/10)"
                 android:textColor="#ffffff"
-                android:textSize="20sp"
-                android:background="@drawable/buttoncustomspecial"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:background="@drawable/buttonmaincustom"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
     </ScrollView>

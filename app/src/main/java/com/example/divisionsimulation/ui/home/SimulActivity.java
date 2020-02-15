@@ -143,8 +143,8 @@ public class SimulActivity extends Activity implements Serializable {
         boolean elite_true = Boolean.parseBoolean(getIntent().getStringExtra("elite"));
         if (elite_true) {
             progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite));
-            txtHealth.setTextColor(Color.parseColor("#A29900"));
-            txtHealthInfo.setTextColor(Color.parseColor("#A29900"));
+            txtHealth.setTextColor(Color.parseColor("#bdc900"));
+            txtHealthInfo.setTextColor(Color.parseColor("#bdc900"));
         }
         else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health));
 

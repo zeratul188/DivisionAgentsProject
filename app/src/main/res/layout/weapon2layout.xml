@@ -97,7 +97,7 @@
             android:text="무자비"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btnWP11"
@@ -106,7 +106,7 @@
             android:text="냉혈한"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btnWP12"
@@ -115,7 +115,7 @@
             android:text="다이아몬드백"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>

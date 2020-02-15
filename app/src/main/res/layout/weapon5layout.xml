@@ -34,7 +34,7 @@
             android:text="역병"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btnWP4"

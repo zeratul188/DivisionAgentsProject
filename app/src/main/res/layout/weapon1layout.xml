@@ -125,7 +125,7 @@
             android:text="독수리를 거느린 자"
             android:textSize="20sp"
             android:textColor="#ffffff"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>

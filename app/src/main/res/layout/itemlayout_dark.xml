@@ -94,10 +94,11 @@
         android:id="@+id/btnInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttoncustomspecial"
+        android:background="@drawable/buttonmaincustom"
         android:text="다크존 가방에 담기 (0/10)"
         android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textSize="25sp"
+        android:padding="10dp"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

@@ -71,7 +71,7 @@
             android:text="자장가"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btnWP8"
@@ -80,7 +80,7 @@
             android:text="달콤한 꿈"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:background="@drawable/buttoncustomspecial"
+            android:background="@drawable/buttonmaincustom"
             android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btnWP9"
