@@ -24,6 +24,7 @@
 
     <style name="nanumTextView" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:letterSpacing">0.1</item>
     </style>
 
     <style name="nanumButton" parent="android:Widget.Button">
