@@ -1,15 +1,22 @@
 package com.example.divisionsimulation;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private long backKeyPressedTime = 0;
     private Toast toast;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +59,37 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final View viewt = getWindow().getDecorView();
+
+        ActionBarDrawerToggle DrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            /** drawer가 닫혔을 때, 호출된다. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (viewt != null) {
+                        viewt.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "안드로이드 버젼이 마시멜로(6.0)보다 낮아 상태바 아이콘 색상 변경이 불가능합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            /** drawer가 열렸을 때, 호출된다. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (viewt != null) {
+                        viewt.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "안드로이드 버젼이 마시멜로(6.0)보다 낮아 상태바 아이콘 색상 변경이 불가능합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        };
+
+        drawer.setDrawerListener(DrawerToggle);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -63,8 +102,27 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        getSupportActionBar().setElevation(0);
+
+        /*View view = getWindow().getDecorView();
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (view != null) {
+                    view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                }
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (view != null) {
+                    view.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
+                }
+            }
+        }*/
+
         Intent intent = new Intent(this, LoadingActivity.class);
         startActivity(intent);
+
     }
     public void showGuide() {
         toast = Toast.makeText(getApplicationContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
@@ -100,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.5.10\n마지막 수정 일자 : 2020년 2월 16일 14시 14분\n\n변경 사항 : \n- 일부 디자인 변경");
+                builder.setTitle("버젼 확인").setMessage("Version 1.5.11\n마지막 수정 일자 : 2020년 2월 17일 14시 14분\n\n변경 사항 : \n- 일부 글꼴 크기 변경\n- 네비게이션 열 때 상단 그림자 제거");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

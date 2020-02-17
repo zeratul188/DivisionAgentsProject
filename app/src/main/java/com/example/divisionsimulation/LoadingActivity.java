@@ -41,4 +41,7 @@ public class LoadingActivity extends Activity {
             }
         }, 2000);
     }
+    public void onBackPressed() {
+
+    }
 }

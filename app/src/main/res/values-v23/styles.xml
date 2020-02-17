@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/nanumTextView</item>
+        <item name="android:buttonStyle">@style/nanumButton</item>
+        <item name="android:editTextStyle">@style/nanumEditView</item>
+        <item name="android:checkboxStyle">@style/nanumCheckBox</item>
+        <item name="android:radioButtonStyle">@style/nanumRadioButton</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+</resources>
