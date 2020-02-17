@@ -1,22 +1,20 @@
 package com.example.divisionsimulation;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.Gravity;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,8 +28,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -41,6 +41,23 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private AppBarConfiguration mAppBarConfiguration;
     private long backKeyPressedTime = 0;
     private Toast toast;
+
+    private AlertDialog.Builder builder = null;
+    private AlertDialog alertDialog = null;
+    private View dialogView = null;
+
+    public static AlertDialog.Builder builder_timer = null;
+    public static AlertDialog alertDialog_timer = null;
+    public static View dialogView_timer = null;
+    public static TextView txtTimer = null;
+
+    public static ProgressBar progressTimer;
+
+    public static TextView txtInfo = null;
+
+    private Handler handler;
+
+    private int hour, minute;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -60,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final View viewt = getWindow().getDecorView();
+
+        handler = new Handler();
 
         ActionBarDrawerToggle DrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
@@ -130,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
     public void onBackPressed() {
-        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+        /*if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis();
             showGuide();
             return;
@@ -138,7 +157,37 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             finish();
             toast.cancel();
-        }
+        }*/
+        dialogView = getLayoutInflater().inflate(R.layout.exitdialoglayout, null);
+
+        final ExitThread et = new ExitThread(this);
+
+        txtInfo = dialogView.findViewById(R.id.txtInfo);
+
+        builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                et.stopThread(true);
+            }
+        });
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                et.stopThread(true);
+            }
+        });
+        alertDialog = builder.create();
+        alertDialog.show();
+
+        et.start();
     }
 
     @Override
@@ -151,14 +200,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
     public boolean onOptionsItemSelected (MenuItem item)
     {
-        AlertDialog.Builder builder = null;
+        /*AlertDialog.Builder builder = null;
         AlertDialog alertDialog = null;
-        View dialogView = null;
+        View dialogView = null;*/
         switch(item.getItemId())
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.5.11\n마지막 수정 일자 : 2020년 2월 17일 14시 14분\n\n변경 사항 : \n- 일부 글꼴 크기 변경\n- 네비게이션 열 때 상단 그림자 제거");
+                builder.setTitle("버젼 확인").setMessage("Version 1.6.0\n마지막 수정 일자 : 2020년 2월 17일 17시 46분\n\n변경 사항 : \n- 타이머 추가\n- 무기 시뮬레이션 : 탄약 프로그레스 바 변경");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -205,6 +254,133 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 builder.setView(dialogView);
                 builder.setTitle("파밍 시뮬레이션 도움말");
                 builder.setPositiveButton("확인", null);
+                alertDialog = builder.create();
+                alertDialog.show();
+                break;
+            case R.id.menu7:
+                dialogView = getLayoutInflater().inflate(R.layout.timerlayout, null);
+
+                final TextView edtTarget = dialogView.findViewById(R.id.edtTarget);
+                final EditText edtHour = dialogView.findViewById(R.id.edtHour);
+                final EditText edtMinute = dialogView.findViewById(R.id.edtMinute);
+                final EditText edtSecond = dialogView.findViewById(R.id.edtSecond);
+                final Activity activity = this;
+
+                edtMinute.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String temp = String.valueOf(edtMinute.getText());
+                        int index = temp.indexOf(".");
+                        String result = "", end_result = "";
+                        if (index != -1) result = temp.substring(0, index);
+                        else result = temp;
+                        if (!result.equals("")) {
+                            if (index != -1) end_result = temp.substring(index+1, temp.length());
+                            if (Integer.parseInt(result) == 59 && !end_result.equals("")) {
+                                if (Integer.parseInt(end_result) > 0) {
+                                    Toast.makeText(activity, "'분'은 59 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                                    edtMinute.setText("60");
+                                }
+                            }
+                            if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 60) {
+                                Toast.makeText(activity, "'분'은 0 이상, 59 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                                edtMinute.setText("0");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                edtSecond.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String temp = String.valueOf(edtSecond.getText());
+                        int index = temp.indexOf(".");
+                        String result = "", end_result = "";
+                        if (index != -1) result = temp.substring(0, index);
+                        else result = temp;
+                        if (!result.equals("")) {
+                            if (index != -1) end_result = temp.substring(index+1, temp.length());
+                            if (Integer.parseInt(result) == 59 && !end_result.equals("")) {
+                                if (Integer.parseInt(end_result) > 0) {
+                                    Toast.makeText(activity, "'분'은 59 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                                    edtSecond.setText("60");
+                                }
+                            }
+                            if (Integer.parseInt(result) < 0 || Integer.parseInt(result) > 60) {
+                                Toast.makeText(activity, "'분'은 0 이상, 59 이하이여야 합니다.", Toast.LENGTH_SHORT).show();
+                                edtSecond.setText("0");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                builder.setTitle("목표 타이머");
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!String.valueOf(edtSecond.getText()).equals("") && Integer.parseInt(String.valueOf(edtSecond.getText())) != 0) {
+                            dialogView_timer = getLayoutInflater().inflate(R.layout.timerstartlayout, null);
+
+                            TextView txtResultTarget = dialogView_timer.findViewById(R.id.txtResultTarget);
+                            progressTimer = dialogView_timer.findViewById(R.id.progressTimer);
+                            txtTimer = dialogView_timer.findViewById(R.id.txtTimer);
+
+                            if (String.valueOf(edtHour.getText()).equals("")) hour = 0;
+                            else hour = Integer.parseInt(String.valueOf(edtHour.getText()));
+                            if (String.valueOf(edtMinute.getText()).equals("")) minute = 0;
+                            else minute = Integer.parseInt(String.valueOf(edtMinute.getText()));
+
+                            if (edtTarget.getText() != null && !String.valueOf(edtTarget.getText()).equals("")) txtResultTarget.setText(String.valueOf(edtTarget.getText())+"까지 남은 시간");
+                            else txtResultTarget.setText("'목표'까지 남은 시간");
+                            final TimerThread tt = new TimerThread(hour, minute, Integer.parseInt(String.valueOf(edtSecond.getText())), handler, activity);
+
+                            progressTimer.setMax(10000);
+                            progressTimer.setProgress(0);
+
+                            builder_timer = new AlertDialog.Builder(activity);
+                            builder_timer.setView(dialogView_timer);
+                            builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(activity, "타이머가 종료됩니다.", Toast.LENGTH_SHORT).show();
+                                    tt.stopThread();
+                                }
+                            });
+                            builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    Toast.makeText(activity, "타이머가 종료됩니다.", Toast.LENGTH_SHORT).show();
+                                    tt.stopThread();
+                                }
+                            });
+                            alertDialog_timer = builder_timer.create();
+                            alertDialog_timer.show();
+
+                            tt.start();
+                        } else Toast.makeText(activity, "초는 0 이상을 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 alertDialog = builder.create();
                 alertDialog.show();
                 break;
