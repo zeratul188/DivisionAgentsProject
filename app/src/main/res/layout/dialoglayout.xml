@@ -13,7 +13,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="방어구 : "
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textAlignment="textEnd"/>
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="체력 : "
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:textAlignment="textEnd"/>
 
         <EditText
@@ -63,14 +63,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정예 여부"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginRight="20dp"/>
         <CheckBox
             android:id="@+id/chkPVP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PVP 여부"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_marginRight="20dp"/>
         <CheckBox
             android:id="@+id/chkCluch"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="적 클러치 여부"
             android:enabled="false"
-            android:textSize="15sp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="계수를 선택하십시오. (좌, 우로 스크롤)"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textColor="#000000"
                     android:gravity="center"/>
                 <HorizontalScrollView
@@ -115,6 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="돌격소총"
+                            android:textSize="20sp"
                             android:checked="true"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -122,35 +123,41 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="소총"
+                            android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
                             android:id="@+id/rdoPVP3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="지정사수소총"
+                            android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
                             android:id="@+id/rdoPVP4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="기관단총"
+                            android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
                             android:id="@+id/rdoPVP5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="경기관총"
+                            android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
                             android:id="@+id/rdoPVP6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="산탄총"
+                            android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
                             android:id="@+id/rdoPVP7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="20sp"
                             android:text="권총"/>
                     </RadioGroup>
                 </HorizontalScrollView>
@@ -171,7 +178,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="RPM : "
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textColor="#000000"
                         android:textAlignment="textEnd"/>
                     <EditText
@@ -192,7 +199,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="치명타 확률 : "
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textColor="#000000"
                         android:textAlignment="textEnd"/>
                     <EditText
@@ -213,7 +220,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="재장전 시간 : "
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textColor="#000000"
                         android:textAlignment="textEnd"/>
                     <EditText
@@ -234,7 +241,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="탄창 수 : "
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textColor="#000000"
                         android:textAlignment="textEnd"/>
                     <EditText
@@ -255,7 +262,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="명중률 : "
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textColor="#000000"
                         android:textAlignment="textEnd"/>
                     <EditText
@@ -273,30 +280,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="======================================"
-        android:textColor="#000000"
-        android:gravity="center"
-        android:textSize="15sp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="방어구, 체력 모두 합쳐서 21억을 초과하면 안됩니다."
         android:textColor="#000000"
         android:gravity="center"
-        android:textSize="15sp"/>
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PVP는 정예 여부를 체크 해제하셔야 합니다."
         android:textColor="#000000"
         android:gravity="center"
-        android:textSize="15sp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="======================================"
-        android:textColor="#000000"
-        android:gravity="center"
-        android:textSize="15sp"/>
+        android:textSize="20sp"/>
 
 </LinearLayout>

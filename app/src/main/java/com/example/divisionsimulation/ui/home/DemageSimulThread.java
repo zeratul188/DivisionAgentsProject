@@ -343,7 +343,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     });
                     sheld = 0;
                 }
-                now_ammo--;
+                if (!bumerang) now_ammo--;
                 all_ammo++;
                 ammo_log = Integer.toString(now_ammo);
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
@@ -542,7 +542,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     SimulActivity.setHealth(0);
                     break;
                 }
-                now_ammo--;
+                if (!bumerang) now_ammo--;
                 all_ammo++;
                 ammo_log = Integer.toString(now_ammo);
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
