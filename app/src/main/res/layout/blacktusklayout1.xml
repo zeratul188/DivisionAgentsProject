@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp" android:background="@drawable/wall2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bt5"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="블랙터스크 전투병"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="블랙터스크 전투병 전술 정보"
+            android:textSize="30sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전투병은 군인, PMC, 미국 전역의 사관학교를 통들어 인재만을 선별해 구성한 정예 부대라 할 수 있다. 이들은 소규모 군사 전략에 능통했으며, 분쟁 지역에서의 경험도 풍부하다. 전장에 투입되지 않을 땐 훈련이나 다음 작전을 계획하면서 시간을 보낸다."
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</ScrollView>

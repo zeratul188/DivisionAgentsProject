@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wall2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnWP1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 전투병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 조종사"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 화염방사병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 중화기병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP5"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 돌격병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP6"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 저격수"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP7"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 지원병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP8"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 장갑병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+        <Button
+            android:id="@+id/btnWP9"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="아웃캐스트 투척병"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp" android:background="@drawable/wall2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/oc9"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아웃캐스트 화염방사병"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아웃캐스트 화염방사병 전술 정보"
+            android:textSize="30sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="화염방사병은 원래 아웃캐스트의 남아도는 연료를 활용할 목적으로 창설된 부대이다. 이후 화염방사기를 운용하기 시작하면서 DC 거리에서 제일 무시무시한 적 중 하나로 성장했다."
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</ScrollView>

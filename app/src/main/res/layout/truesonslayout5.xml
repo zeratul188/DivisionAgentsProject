@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp" android:background="@drawable/wall2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ts10"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="트루썬 포박병"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="트루썬 포박병 전술 정보"
+            android:textSize="30sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="포박병은 화학 무기로 근접 전투를 치르는 병력으로, 독선적이고 야심적인 기질이 강해 전장에서 신형 위험 물질을 시험하는 일에 선뜻 자원하기도 한다. 포박병 상당수는 소방서의 위험 물질 처리반에서 근무한 경험이 있는 자들이다."
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</ScrollView>

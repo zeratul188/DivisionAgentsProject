@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp" android:background="@drawable/wall2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bt3"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="블랙터스크 장갑병"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="블랙터스크 장갑병 전술 정보"
+            android:textSize="30sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장갑병은 탄띠 송탄식 미니건을 휴대하는 병력으로, 특수 부대의 건보트 운용 인원에서 차출된 자들이다. 이들은 전장에서 제압사격을 가해 적을 억누르고 아군을 지원하는 임무를 수행한다. 장갑병은 주기적으로 엄격한 체력 검사를 받으며, 탈락하면 블랙 터스크 병사 지위를 유지할 수 없다."
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</ScrollView>

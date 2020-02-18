@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="15dp" android:background="@drawable/wall2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ts4"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="트루썬 의무병"
+            android:textSize="40sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="트루썬 의무병 전술 정보"
+            android:textSize="30sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="의무병은 수요가 대단히 높아 기초적인 응급처치 지식만 있어도 입대 요건을 충족한 것으로 간주된다. 모든 신병은 과거 의료 경험에 대한 면접을 거쳐야 하며, 기본적인 능력만 갖추고 있으면 의료동으로 보내져 추가적인 훈련을 받는다."
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:background="@drawable/buttoncustom"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</ScrollView>
