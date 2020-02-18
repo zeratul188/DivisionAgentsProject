@@ -25,14 +25,34 @@ class TimerThread extends Thread {
     public void run() {
         sum_second = (hour*60*60)+(minute*60)+second;
         now_sum_second = (hour*60*60)+(minute*60)+second-1;
-        while ((hour != 0 || minute != 0 || second != 0) && !stop) {
+        while (((hour != 0 || minute != 0 || second != 0) || now_sum_second != -1) && !stop) {
             process = ((double)now_sum_second/(double)sum_second)*10000;
+
+            if (hour != 0) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainActivity.txtTimer.setText(hour+"시간 "+minute+"분 "+second+"초");
+                    }
+                });
+            } else if (minute != 0) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainActivity.txtTimer.setText(minute+"분 "+second+"초");
+                    }
+                });
+            } else {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainActivity.txtTimer.setText(second+"초");
+                    }
+                });
+            }
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (hour != 0) MainActivity.txtTimer.setText(hour+"시간 "+minute+"분 "+second+"초");
-                    else if (minute != 0) MainActivity.txtTimer.setText(minute+"분 "+second+"초");
-                    else MainActivity.txtTimer.setText(second+"초");
                     MainActivity.progressTimer.setProgress(10000-(int)process);
                 }
             });
@@ -53,24 +73,26 @@ class TimerThread extends Thread {
                 }
             }
 
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                e.getStackTrace();
+            if (now_sum_second != -1) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
             }
         }
         if (!stop) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, "타이머가 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "목표를 달성했습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, "타이머가 강제 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "목표를 정지합니다.", Toast.LENGTH_SHORT).show();
                 }
             });
         }

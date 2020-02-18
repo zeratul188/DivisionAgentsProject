@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     private Handler handler;
 
-    private int hour, minute;
+    private int hour, minute, second;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.6.0\n마지막 수정 일자 : 2020년 2월 17일 17시 46분\n\n변경 사항 : \n- 타이머 추가\n- 무기 시뮬레이션 : 탄약 프로그레스 바 변경");
+                builder.setTitle("버젼 확인").setMessage("Version 1.6.1\n마지막 수정 일자 : 2020년 2월 17일 17시 46분\n\n변경 사항 : \n- 타이머 입력 오류 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -339,7 +339,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (!String.valueOf(edtSecond.getText()).equals("") && Integer.parseInt(String.valueOf(edtSecond.getText())) != 0) {
+                        if (String.valueOf(edtHour.getText()).equals("") && String.valueOf(edtMinute.getText()).equals("") && String.valueOf(edtSecond.getText()).equals("")) {
+                            Toast.makeText(activity, "'시간', '분', '초' 중에서 1개 이상은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                        } else {
                             dialogView_timer = getLayoutInflater().inflate(R.layout.timerstartlayout, null);
 
                             TextView txtResultTarget = dialogView_timer.findViewById(R.id.txtResultTarget);
@@ -350,10 +352,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             else hour = Integer.parseInt(String.valueOf(edtHour.getText()));
                             if (String.valueOf(edtMinute.getText()).equals("")) minute = 0;
                             else minute = Integer.parseInt(String.valueOf(edtMinute.getText()));
+                            if (String.valueOf(edtSecond.getText()).equals("")) second = 0;
+                            else second = Integer.parseInt(String.valueOf(edtSecond.getText()));
 
                             if (edtTarget.getText() != null && !String.valueOf(edtTarget.getText()).equals("")) txtResultTarget.setText(String.valueOf(edtTarget.getText())+"까지 남은 시간");
                             else txtResultTarget.setText("'목표'까지 남은 시간");
-                            final TimerThread tt = new TimerThread(hour, minute, Integer.parseInt(String.valueOf(edtSecond.getText())), handler, activity);
+                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity);
 
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);
@@ -378,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             alertDialog_timer.show();
 
                             tt.start();
-                        } else Toast.makeText(activity, "초는 0 이상을 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 alertDialog = builder.create();

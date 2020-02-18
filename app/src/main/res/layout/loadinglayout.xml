@@ -10,6 +10,10 @@
     <com.example.divisionsimulation.MyVideoView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/aviLoading"/>
+        android:id="@+id/aviLoading"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
 
 </LinearLayout>
