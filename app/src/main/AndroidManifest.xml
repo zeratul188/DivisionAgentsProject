@@ -375,6 +375,9 @@
         <activity android:name=".ui.send.TruesonsList10Activity"
             android:screenOrientation="portrait"></activity>
 
+        <activity android:name=".ui.send.KeenerActivity"
+            android:screenOrientation="portrait"></activity>
+
         <activity android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait"/>

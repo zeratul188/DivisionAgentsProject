@@ -80,7 +80,8 @@ public class SendFragment extends Fragment {
         btnMenu[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "아직 제작 중입니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), KeenerActivity.class);
+                startActivity(intent);
             }
         });
 
