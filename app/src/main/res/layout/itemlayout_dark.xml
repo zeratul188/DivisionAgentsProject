@@ -84,7 +84,7 @@
     <Button
         android:id="@+id/btnChange"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="네임드"
         android:textColor="#ffffff"
         android:textSize="20sp"
@@ -93,7 +93,7 @@
     <Button
         android:id="@+id/btnInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@drawable/buttonmaincustom"
         android:text="다크존 가방에 담기 (0/10)"
         android:textColor="#ffffff"

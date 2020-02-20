@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("종료", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.6.4\n마지막 수정 일자 : 2020년 2월 19일 14시 26분\n\n변경 사항 : \n- 아론 키너 음성 기록 추가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.6.5\n마지막 수정 일자 : 2020년 2월 20일 10시 10분\n\n변경 사항 : \n- 일부 디자인 변경\n- 음성 기록 킬 경우 다이얼로그 생성");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
