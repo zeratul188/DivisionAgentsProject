@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.6.6\n마지막 수정 일자 : 2020년 2월 21일 10시 50분\n\n변경 사항 : \n- 일부 디자인 변경\n- 아론 키너 음성 기록 한국 자막 지원");
+                builder.setTitle("버젼 확인").setMessage("Version 1.6.7\n마지막 수정 일자 : 2020년 2월 25일 11시 38분\n\n변경 사항 : \n- 프로그레스바 우측 하얀 라인 생성");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

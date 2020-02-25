@@ -139,8 +139,8 @@
             android:progressDrawable="@drawable/progressbar_progressbar_gage"
             android:background="@drawable/gage"
             android:id="@+id/progressAmmo"
-            android:paddingLeft="9dp"
-            android:paddingRight="9dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
             android:paddingBottom="6dp"
             android:paddingTop="3dp"
             android:indeterminateTint="#E45435"/>

@@ -15,11 +15,25 @@
         </clip>
     </item>
     <item android:id="@android:id/progress">
-        <clip>
-            <shape>
-                <corners android:radius="0dp" />
-                <solid android:color="#E7BC00" />
-            </shape>
-        </clip>
+        <layer-list>
+            <item>
+                <clip>
+                    <shape>
+                        <corners android:radius="0dp" />
+                        <solid android:color="#F0F0F0" />
+                    </shape>
+                </clip>
+            </item>
+            <item
+                android:right="4dp"
+                android:left="-4dp">
+                <clip>
+                    <shape>
+                        <corners android:radius="0dp" />
+                        <solid android:color="#E7BC00" />
+                    </shape>
+                </clip>
+            </item>
+        </layer-list>
     </item>
 </layer-list>

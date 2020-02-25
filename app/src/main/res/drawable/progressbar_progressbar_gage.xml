@@ -9,11 +9,25 @@
         </clip>
     </item>
     <item android:id="@android:id/progress">
-        <clip>
-            <shape android:shape="rectangle">
-                <padding android:right="10dp"/>
-                <solid android:color="#FF5B00" />
-            </shape>
-        </clip>
+        <layer-list>
+            <item>
+                <clip>
+                    <shape>
+                        <corners android:radius="0dp" />
+                        <solid android:color="#F0F0F0" />
+                    </shape>
+                </clip>
+            </item>
+            <item
+                android:right="2dp"
+                android:left="-2dp">
+                <clip>
+                    <shape>
+                        <corners android:radius="0dp" />
+                        <solid android:color="#FF5B00" />
+                    </shape>
+                </clip>
+            </item>
+        </layer-list>
     </item>
 </layer-list>
