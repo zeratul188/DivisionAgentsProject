@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);
 
-                            builder_timer = new AlertDialog.Builder(activity);
+                            builder_timer = new AlertDialog.Builder(activity, R.style.MyAlertDialogStyle);
                             builder_timer.setView(dialogView_timer);
                             builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override

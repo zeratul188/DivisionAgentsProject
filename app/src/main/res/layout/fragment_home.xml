@@ -26,8 +26,7 @@
         android:text="무기 시뮬레이션"
         android:textSize="40sp"
         android:padding="10dp"
-        android:textColor="#000000"
-        android:layout_marginBottom="20dp"/>
+        android:textColor="#000000"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,6 +47,7 @@
                 android:textSize="18sp"
                 android:paddingLeft="30dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:textColor="#000000"/>
             <TableLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/buttoncustom"
                 android:padding="10dp">
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -64,7 +64,7 @@
                         android:textColor="#000000"
                         android:textSize="25sp"/>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="10dp">
                     <EditText
                         android:id="@+id/edtNickname"
                         android:layout_width="0dp"
@@ -73,9 +73,10 @@
                         android:text=""
                         android:hint="Nickname"
                         android:maxLength="15"
+                        android:background="@drawable/edittext_custom"
                         android:textSize="15sp"/>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -91,29 +92,42 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtWeaponDemage"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:hint="0 ~ 9999999"
-                        android:inputType="number"
-                        android:maxLength="7"
-                        android:textSize="15sp"/>
-                    <EditText
-                        android:id="@+id/edtRPM"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtWeaponDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="0 ~ 9999999"
+                            android:background="@drawable/edittext_custom"
+                            android:inputType="number"
+                            android:maxLength="7"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text=""
-                        android:hint="0~9999"
-                        android:maxLength="4"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtRPM"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text=""
+                            android:background="@drawable/edittext_custom"
+                            android:hint="0~9999"
+                            android:maxLength="4"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -129,28 +143,40 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtCritical"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~60"
-                        android:textSize="15sp"/>
-                    <EditText
-                        android:id="@+id/edtCriticalDemage"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtCritical"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="0~60"
+                            android:background="@drawable/edittext_custom"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="25.0~999.9"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtCriticalDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="25.0~999.9"
+                            android:background="@drawable/edittext_custom"
+                            android:maxLength="5"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -166,28 +192,40 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtHeadshot"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~100"
-                        android:textSize="15sp"/>
-                    <EditText
-                        android:id="@+id/edtHeadshotDemage"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtHeadshot"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="0~100"
+                            android:background="@drawable/edittext_custom"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="50.0~999.9"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtHeadshotDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="50.0~999.9"
+                            android:background="@drawable/edittext_custom"
+                            android:maxLength="5"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -203,29 +241,41 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtEliteDemage"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~999.9"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
-                    <EditText
-                        android:id="@+id/edtSheldDemage"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtEliteDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="0~999.9"
+                            android:background="@drawable/edittext_custom"
+                            android:maxLength="5"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~999.9"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtSheldDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:background="@drawable/edittext_custom"
+                            android:hint="0~999.9"
+                            android:maxLength="5"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -241,30 +291,41 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtHealthDemage"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~999.9"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
-
-                    <EditText
-                        android:id="@+id/edtReload"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtHealthDemage"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="0~999.9"
+                            android:maxLength="5"
+                            android:background="@drawable/edittext_custom"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~600"
-                        android:maxLength="4"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtReload"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:hint="0~600"
+                            android:maxLength="4"
+                            android:background="@drawable/edittext_custom"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </TableRow>
-                <TableRow>
+                <TableRow android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -280,26 +341,38 @@
                         android:textSize="25sp"
                         android:textColor="#000000"/>
                 </TableRow>
-                <TableRow>
-                    <EditText
-                        android:id="@+id/edtAmmo"
+                <TableRow android:layout_marginBottom="10dp">
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text=""
-                        android:hint="0~99999"
-                        android:maxLength="5"
-                        android:textSize="15sp"/>
-                    <EditText
-                        android:id="@+id/edtAiming"
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtAmmo"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text=""
+                            android:hint="0~99999"
+                            android:maxLength="5"
+                            android:background="@drawable/edittext_custom"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
-                        android:text=""
-                        android:hint="0~100"
-                        android:textSize="15sp"/>
+                        android:orientation="vertical">
+                        <EditText
+                            android:id="@+id/edtAiming"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text=""
+                            android:background="@drawable/edittext_custom"
+                            android:hint="0~100"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
                 </TableRow>
             </TableLayout>
             <LinearLayout

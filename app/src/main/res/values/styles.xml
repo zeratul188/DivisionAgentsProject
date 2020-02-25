@@ -12,6 +12,7 @@
         <item name="android:checkboxStyle">@style/nanumCheckBox</item>
         <item name="android:radioButtonStyle">@style/nanumRadioButton</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:alertDialogTheme">@style/MyAlertDialogStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -42,6 +43,13 @@
 
     <style name="nanumCheckBox" parent="android:Widget.CompoundButton.CheckBox">
         <item name="android:fontFamily">@font/korea_font</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#f0f0f0</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:background">#222222</item>
+
     </style>
 
 </resources>

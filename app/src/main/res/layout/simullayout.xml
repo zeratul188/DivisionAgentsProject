@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/wall4"
+        android:src="@drawable/redwall2"
         android:scaleType="centerCrop"/>
 
     <LinearLayout
@@ -177,19 +177,19 @@
                 android:id="@+id/imgBoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/boom"
+                android:src="@drawable/boom_custom"
                 android:layout_marginRight="10dp"/>
             <ImageView
                 android:id="@+id/imgCritical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/critical"
+                android:src="@drawable/critical_custom"
                 android:layout_marginRight="10dp"/>
             <ImageView
                 android:id="@+id/imgHeadshot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/headshot"
+                android:src="@drawable/headshot_custom"
                 android:layout_marginRight="10dp"/>
         </LinearLayout>
         <TextView
@@ -331,7 +331,7 @@
             <ImageView
                 android:layout_width="30sp"
                 android:layout_height="30sp"
-                android:src="@drawable/critical"/>
+                android:src="@drawable/critical_custom"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
             <ImageView
                 android:layout_width="30sp"
                 android:layout_height="30sp"
-                android:src="@drawable/headshot"/>
+                android:src="@drawable/headshot_custom"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -355,7 +355,7 @@
             <ImageView
                 android:layout_width="30sp"
                 android:layout_height="30sp"
-                android:src="@drawable/boom"/>
+                android:src="@drawable/boom_custom"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
