@@ -1,7 +1,7 @@
 package com.example.divisionsimulation.ui.share;
 
 class Itemlist {
-    private String[] weapontype = {"돌격 소총", "소총", "지정사수소총", "기관단총", "경기관총", "산탄총", "권총"};
+    private String[] weapontype = {"돌격소총", "소총", "지정사수소총", "기관단총", "경기관총", "산탄총", "권총"};
     private String[] weaponlist1 = {"경찰용 M4", "AK-M", "군용 AK-M", "블랙마켓 AK-M", "ACR", "ACR-E", "FAL", "FAL SA-58", "FAL SA-58 Para", "CTAR-21", "F2000", "AUG A3-CQC", "P416", "커스텀 P416 G3",
             "G36", "군용 G36", "강화형 G36", "FAMAS 2010", "Mk.16", "전술용 Mk.16", "SOCOM Mk.16", "Carbine 7"}; //돌격 소총
     private String[] weaponlist2 = {"경량형 M4", "LVOA-C", "도심 MDR", "ACR SS", "클래식 M1A", "SOCOM M1A", "M1A CQB", "경찰용 Mk.17", "군용 Mk.17", "USC .45 ACP", "M16A2", "1886", "SIG 716", "SIG 716 CQB"}; //소총
