@@ -18,7 +18,7 @@ class DemageSimulThread extends Thread implements Serializable {
     private double dec_health, dec_sheld, dec_ammo;
     private TimeThread tt;
     private Activity activity;
-    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient;
+    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient, front_dmg;
     private int hit_critical = 0, out_demage, all_dmg = 0;
     private boolean[] options = null;
 
@@ -86,6 +86,7 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setCoefficient(double coefficient) { this.coefficient = coefficient; }
     public void setOptions(boolean[] options) { this.options = options; }
     public void setFire(boolean fire) { this.fire = fire; }
+    public void setFront_dmg(int front_dmg) { this.front_dmg = front_dmg; }
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
@@ -298,6 +299,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (fire) now_demage += weapondemage * 0.2;
                 if (options[1]) now_demage += weapondemage;
+                if (front_dmg > 0) now_demage += weapondemage/2;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
@@ -506,6 +508,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (fire) now_demage += weapondemage * 0.2;
                 if (options[1]) now_demage += weapondemage;
+                if (front_dmg > 0) now_demage += weapondemage/2;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;

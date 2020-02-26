@@ -45,13 +45,13 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioButton[] rdoCrazy = new RadioButton[6];
     private RadioButton[] rdoPush = new RadioButton[11];
     private CheckBox[] chkCamelOption = new CheckBox[3];
-    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire;
+    private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire, chkFront;
 
     private LinearLayout layoutCamel;
 
     private boolean boom = false, quick_hand = false, bumerang_true = false, fire = false;
 
-    private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg;
+    private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg, front_dmg;
 
     private AlertDialog.Builder builder_error = null;
     private AlertDialog alertDialog_error = null;
@@ -88,6 +88,8 @@ public class HomeFragment extends Fragment implements Serializable {
         chkBumerang = root.findViewById(R.id.chkBumerang);
         chkFire = root.findViewById(R.id.chkFire);
         chkCamel = root.findViewById(R.id.chkCamel);
+        chkFront = root.findViewById(R.id.chkFront);
+
         rgCrazy = root.findViewById(R.id.rgCrazy);
         int temp;
         for (int i = 0; i < rdoCrazy.length; i++) {
@@ -133,6 +135,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(false);
                     chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
                     chkCamel.setEnabled(false);
+                    chkFront.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkFront.setEnabled(false);
                 }
                 else {
                     rgPush.clearCheck();
@@ -141,7 +145,9 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkQuickhand.setEnabled(true);
                     chkBumerang.setTextColor(Color.parseColor("#000000"));
                     chkBumerang.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked()) {
+                    chkFront.setTextColor(Color.parseColor("#000000"));
+                    chkFront.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkQuickhand.isChecked() && !chkBumerang.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked() && !chkFront.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
                         chkCamel.setTextColor(Color.parseColor("#000000"));
@@ -162,12 +168,46 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkEagle.setEnabled(false);
                     chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
                     chkCamel.setEnabled(false);
+                    chkFront.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkFront.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
                     chkQuickhand.setTextColor(Color.parseColor("#000000"));
                     chkQuickhand.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked()) {
+                    chkFront.setTextColor(Color.parseColor("#000000"));
+                    chkFront.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked() && !chkFront.isChecked()) {
+                        chkEagle.setTextColor(Color.parseColor("#000000"));
+                        chkEagle.setEnabled(true);
+                        chkCamel.setTextColor(Color.parseColor("#000000"));
+                        chkCamel.setEnabled(true);
+                    }
+                }
+            }
+        });
+        chkFront.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkQuickhand.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkQuickhand.setEnabled(false);
+                    chkPush.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkPush.setEnabled(false);
+                    chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkEagle.setEnabled(false);
+                    chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkCamel.setEnabled(false);
+                    chkBumerang.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkBumerang.setEnabled(false);
+                } else {
+                    chkPush.setTextColor(Color.parseColor("#000000"));
+                    chkPush.setEnabled(true);
+                    chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                    chkQuickhand.setEnabled(true);
+                    chkBumerang.setTextColor(Color.parseColor("#000000"));
+                    chkBumerang.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkQuickhand.isChecked() && !chkCamel.isChecked() && !chkEagle.isChecked() && !chkBumerang.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
                         chkCamel.setTextColor(Color.parseColor("#000000"));
@@ -190,6 +230,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(false);
                     chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
                     chkCamel.setEnabled(false);
+                    chkFront.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkFront.setEnabled(false);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
                     chkBoom.setEnabled(true);
@@ -201,6 +243,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(true);
                     chkCamel.setTextColor(Color.parseColor("#000000"));
                     chkCamel.setEnabled(true);
+                    chkFront.setTextColor(Color.parseColor("#000000"));
+                    chkFront.setEnabled(true);
                 }
             }
         });
@@ -218,6 +262,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(false);
                     chkEagle.setTextColor(Color.parseColor("#bbbbbb"));
                     chkEagle.setEnabled(false);
+                    chkFront.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkFront.setEnabled(false);
                     layoutCamel.setVisibility(View.VISIBLE);
                 } else {
                     chkBoom.setTextColor(Color.parseColor("#000000"));
@@ -230,6 +276,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(true);
                     chkEagle.setTextColor(Color.parseColor("#000000"));
                     chkEagle.setEnabled(true);
+                    chkFront.setTextColor(Color.parseColor("#000000"));
+                    chkFront.setEnabled(true);
                     for (int i = 0; i < chkCamelOption.length; i++) if (chkCamelOption[i].isChecked()) chkCamelOption[i].toggle();
                     layoutCamel.setVisibility(View.GONE);
                 }
@@ -265,12 +313,16 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkBumerang.setEnabled(false);
                     chkCamel.setTextColor(Color.parseColor("#bbbbbb"));
                     chkCamel.setEnabled(false);
+                    chkFront.setTextColor(Color.parseColor("#bbbbbb"));
+                    chkFront.setEnabled(false);
                 } else {
                     chkPush.setTextColor(Color.parseColor("#000000"));
                     chkPush.setEnabled(true);
                     chkBumerang.setTextColor(Color.parseColor("#000000"));
                     chkBumerang.setEnabled(true);
-                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkBumerang.isChecked() && !chkEagle.isChecked() && !chkCamel.isChecked()) {
+                    chkFront.setTextColor(Color.parseColor("#000000"));
+                    chkFront.setEnabled(true);
+                    if (!chkBoom.isChecked() && !chkPush.isChecked() && !chkBumerang.isChecked() && !chkEagle.isChecked() && !chkCamel.isChecked() && !chkFront.isChecked()) {
                         chkEagle.setTextColor(Color.parseColor("#000000"));
                         chkEagle.setEnabled(true);
                         chkCamel.setTextColor(Color.parseColor("#000000"));
@@ -628,6 +680,9 @@ public class HomeFragment extends Fragment implements Serializable {
                         if (chkFire.isChecked()) fire = true;
                         else fire = false;
 
+                        if (chkFront.isChecked()) front_dmg = 50;
+                        else front_dmg = 0;
+
                         View dialogView = getLayoutInflater().inflate(R.layout.dialoglayout, null);
                         final EditText edtSheld = dialogView.findViewById(R.id.edtSheld);
                         final EditText edtHealth = dialogView.findViewById(R.id.edtHealth);
@@ -799,6 +854,8 @@ public class HomeFragment extends Fragment implements Serializable {
                                             ws.setOptions(options);
                                             ws.setFire(fire);
                                             if (chkPVP.isChecked()) ws.setCoefficient(coefficient);
+                                            if (chkFront.isChecked()) ws.setFront_dmg(front_dmg);
+                                            else ws.setFront_dmg(0);
 
                                             String elite = Boolean.toString(elite_true);
 

@@ -203,23 +203,9 @@ public class ShareFragment extends Fragment {
                     btnChange.setText("특급");
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
-                    if (percent(1, 2) == 1) { //무기
-                        pick = percent(0, il.getSpecialweapon_Length());
-                        txtName.setText(il.getSpecialweapon(pick));
-                        txtType.setText(il.getSpecialweapon_type(pick));
-                    } else { //보호장구
-                        trOption.setVisibility(View.VISIBLE);
-                        int ransu;
-                        for (int i = 0; i < imgOption.length; i++) {
-                            ransu = percent(1, 3);
-                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
-                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
-                            else imgOption[i].setImageResource(R.drawable.power);
-                        }
-                        pick = percent(0, il.getSheldspecial_Length());
-                        txtName.setText(il.getSheldspecial(pick));
-                        txtType.setText(il.getSheldspecial_type(pick));
-                    }
+                    pick = percent(0, il.getSpecialweapon_Length());
+                    txtName.setText(il.getSpecialweapon(pick));
+                    txtType.setText(il.getSpecialweapon_type(pick));
                 } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
                     txtNamed.setText(Integer.toString(named));
@@ -377,11 +363,22 @@ public class ShareFragment extends Fragment {
                 trOption2.setVisibility(View.GONE);
                 for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 15) { //특급 장비
+                    btnChange2.setText("특급");
+                    btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                    tableMain2.setVisibility(View.GONE);
+                    btnChange2.setVisibility(View.VISIBLE);
                     txtName2.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     txtSpecial.setText(Integer.toString(special));
-                    txtName2.setText("역병");
-                    txtType2.setText("경기관총");
+                    pick = percent(2, 10);
+                    if (pick > 2) {
+                        txtName2.setText("역병");
+                        txtType2.setText("경기관총");
+                    } else {
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName2.setText(il.getSpecialweapon(pick));
+                        txtType2.setText(il.getSpecialweapon_type(pick));
+                    }
                 } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
                     txtNamed.setText(Integer.toString(named));

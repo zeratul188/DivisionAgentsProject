@@ -21,11 +21,11 @@ class Itemlist {
     private String[] namedweapon_dark = {"블랙 프라이데이", "코만도", "쿠엘레브레", "에킴의 장대", "보이지 않는 손", "궤도", "미세침", "로큰롤", "안전거리", "스왑 체인", "아파트", "나무꾼", "버지니아인"}; //네임드 무기 (다크존 전용)
     private String[] namedweapon_dark_type = {"경기관총", "지정사수소총", "산탄총", "지정사수소총", "돌격소총", "권총", "권총", "산탄총", "기관단총", "기관단총", "기관단총", "돌격소총", "소총"};
 
-    private String[] specialweapon = {"무자비", "달콤한 꿈"};
-    private String[] specialweapon_type = {"소총", "산탄총"};
+    private String[] specialweapon = {"무자비", "달콤한 꿈", "네메시스", "자유", "카멜레온", "촉새", "BTSU 데이터 장갑", "소여의 무릎 보호대"};
+    private String[] specialweapon_type = {"소총", "산탄총", "지정사수소총", "권총", "돌격소총", "기관단총", "장갑", "무릎 보호대"};
 
-    private String[] specialweapon_raid = {"무자비", "달콤한 꿈", "독수리를 거느린 자", "BTSU 데이터 장갑", "소여의 무릎 보호대"};
-    private String[] specialweapon_raid_type = {"소총", "산탄총", "돌격소총", "장갑", "무릎 보호대"};
+    private String[] specialweapon_raid = {"무자비", "달콤한 꿈", "독수리를 거느린 자", "BTSU 데이터 장갑", "소여의 무릎 보호대", "네메시스", "자유", "카멜레온", "촉새"};
+    private String[] specialweapon_raid_type = {"소총", "산탄총", "돌격소총", "장갑", "무릎 보호대", "지정사수소총", "권총", "돌격소총", "기관단총"};
 
     private String[] sheldtype = {"마스크", "백팩", "조끼", "장갑", "권총집", "무릎 보호대"};
     private String[] sheld_brand = {"5.11 Tactical", "길라 가드", "더글라스 & 하딩", "리히터 & 카이저 유한회사", "무라카미 산업", "배저 터프", "소콜로프 상사", "아이랄디 홀딩", "알프스 정상 군수산업", "얄 기어",

@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.6.7\n마지막 수정 일자 : 2020년 2월 25일 11시 38분\n\n변경 사항 : \n- 프로그레스바 우측 하얀 라인 생성");
+                builder.setTitle("버젼 확인").setMessage("Version 1.6.8\n마지막 수정 일자 : 2020년 2월 26일 10시 18분\n\n변경 사항 : \n- 일부 디자인 변경\n- 파밍 시뮬레이션 : 특급 무기 종류 추가, 다크존에서 역병 제외한 나머지 특급무기는 특급 확률의 20%확률로 나오도록 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

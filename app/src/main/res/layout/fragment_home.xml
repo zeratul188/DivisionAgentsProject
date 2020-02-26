@@ -25,7 +25,9 @@
         android:layout_height="wrap_content"
         android:text="무기 시뮬레이션"
         android:textSize="40sp"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:textColor="#000000"/>
 
     <ScrollView
@@ -67,11 +69,10 @@
                 <TableRow android:layout_marginBottom="10dp">
                     <EditText
                         android:id="@+id/edtNickname"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:hint="Nickname"
+                        android:hint="Nickname (최대 글자 : 15)"
                         android:maxLength="15"
                         android:background="@drawable/edittext_custom"
                         android:textSize="15sp"/>
@@ -633,6 +634,13 @@
                         android:buttonTint="#fe6e0e"
                         android:textSize="20sp"/>
                 </LinearLayout>
+                <CheckBox
+                    android:id="@+id/chkFront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="완벽한 근접전의 대가 (+무기 데미지 50%)"
+                    android:buttonTint="#fe6e0e"
+                    android:textSize="20sp"/>
             </LinearLayout>
 
         </LinearLayout>
