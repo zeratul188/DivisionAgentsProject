@@ -17,6 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--<com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/days_graph"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                app:style="solid_line"
+                app:progress_stroke_width="20dp"
+                app:progress_stroke_cap="round"
+                app:progress_text_size="15sp"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,6 +113,160 @@
                         android:layout_marginBottom="30dp"
                         android:background="@drawable/buttoncustom"
                         android:padding="10dp">
+                        <TableRow
+                            android:gravity="center"
+                            android:layout_marginBottom="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+                                <com.dinuscxj.progressbar.CircleProgressBar
+                                    android:id="@+id/progressSpecial"
+                                    android:layout_width="125dp"
+                                    android:layout_height="125dp"
+                                    android:layout_marginRight="10dp"
+                                    app:style="line"
+                                    app:progress_stroke_width="5dp"
+                                    app:progress_text_size="30sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+                                <com.dinuscxj.progressbar.CircleProgressBar
+                                    android:id="@+id/progressNamed"
+                                    android:layout_width="125dp"
+                                    android:layout_height="125dp"
+                                    android:layout_marginLeft="10dp"
+                                    app:style="line"
+                                    app:progress_stroke_width="5dp"
+                                    app:progress_text_size="30sp"/>
+                            </LinearLayout>
+                        </TableRow>
+                        <TableRow
+                            android:layout_marginBottom="15dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="특급 : "
+                                android:textSize="20sp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtSpecial"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="#000000"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="네임드 : "
+                                android:textSize="20sp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtNamed"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="#000000"/>
+                        </TableRow>
+                        <TableRow
+                            android:gravity="center"
+                            android:layout_marginBottom="5dp">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+                                <com.dinuscxj.progressbar.CircleProgressBar
+                                    android:id="@+id/progressGear"
+                                    android:layout_width="125dp"
+                                    android:layout_height="125dp"
+                                    android:layout_marginRight="10dp"
+                                    app:style="line"
+                                    app:progress_stroke_width="5dp"
+                                    app:progress_text_size="30sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+                                <com.dinuscxj.progressbar.CircleProgressBar
+                                    android:id="@+id/progressBrand"
+                                    android:layout_width="125dp"
+                                    android:layout_height="125dp"
+                                    android:layout_marginLeft="10dp"
+                                    app:style="line"
+                                    app:progress_stroke_width="5dp"
+                                    app:progress_text_size="30sp"/>
+                            </LinearLayout>
+                        </TableRow>
+                        <TableRow
+                            android:layout_marginBottom="15dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="기어 장비 : "
+                                android:textSize="20sp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtGear"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="#000000"/>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="기타 장비 : "
+                                android:textSize="20sp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtBrand"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="#000000"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="전체 나온 갯수 : "
+                                android:textSize="20sp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtAll"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="#000000"/>
+                        </TableRow>
+                    </TableLayout>
+
+                    <!--<TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/buttoncustom"
+                        android:padding="10dp">
                         <TableRow>
                             <TextView
                                 android:layout_width="0dp"
@@ -168,7 +331,7 @@
                                 android:textSize="20sp"
                                 android:textColor="#000000"/>
                         </TableRow>
-                    </TableLayout>
+                    </TableLayout>-->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

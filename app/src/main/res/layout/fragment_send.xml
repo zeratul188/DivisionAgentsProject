@@ -19,81 +19,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TableLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TableRow>
-                <Button
-                    android:id="@+id/btnFaction1"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="240dp"
-                    android:drawableTop="@drawable/blacktusk"
-                    android:text="블 랙 터 스 크"
-                    android:textSize="30sp"
-                    android:textColor="#222222"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="10dp"
-                    android:padding="20dp"/>
-                <Button
-                    android:id="@+id/btnFaction2"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="240dp"
-                    android:drawableTop="@drawable/hyenas"
-                    android:text="하 이 에 나"
-                    android:textSize="30sp"
-                    android:textColor="#222222"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="20dp"/>
-            </TableRow>
-            <TableRow>
-                <Button
-                    android:id="@+id/btnFaction3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="240dp"
-                    android:drawableTop="@drawable/truesons"
-                    android:text="트 루 썬"
-                    android:textSize="30sp"
-                    android:textColor="#222222"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="10dp"
-                    android:padding="20dp"/>
-                <Button
-                    android:id="@+id/btnFaction4"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="240dp"
-                    android:drawableTop="@drawable/outcast"
-                    android:text="아 웃 캐 스 트"
-                    android:textSize="30sp"
-                    android:textColor="#222222"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="20dp"/>
-            </TableRow>
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnFaction1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/blacktusk"
+                        android:text="블 랙 터 스 크"
+                        android:textSize="30sp"
+                        android:textColor="#222222"
+                        android:background="@drawable/buttoncustom"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="20dp"/>
+                    <Button
+                        android:id="@+id/btnFaction2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/hyenas"
+                        android:text="하 이 에 나"
+                        android:textSize="30sp"
+                        android:textColor="#222222"
+                        android:background="@drawable/buttoncustom"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="20dp"/>
+                </TableRow>
+                <TableRow>
+                    <Button
+                        android:id="@+id/btnFaction3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/truesons"
+                        android:text="트 루 썬"
+                        android:textSize="30sp"
+                        android:textColor="#222222"
+                        android:background="@drawable/buttoncustom"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="20dp"/>
+                    <Button
+                        android:id="@+id/btnFaction4"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="240dp"
+                        android:drawableTop="@drawable/outcast"
+                        android:text="아 웃 캐 스 트"
+                        android:textSize="30sp"
+                        android:textColor="#222222"
+                        android:background="@drawable/buttoncustom"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="20dp"/>
+                </TableRow>
 
-        </TableLayout>
-        <Button
-            android:id="@+id/btnMenu1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/buttoncustom"
-            android:text="아론 키너 음성 기록"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-    </LinearLayout>
+            </TableLayout>
+            <Button
+                android:id="@+id/btnMenu1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttoncustom"
+                android:text="아론 키너 음성 기록"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

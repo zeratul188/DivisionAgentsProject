@@ -1,5 +1,7 @@
 package com.example.divisionsimulation.ui.share;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,9 +34,11 @@ public class ShareFragment extends Fragment {
     final private int BIG = 1234567;
 
     private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput;
-    private TextView txtSpecial, txtNamed, txtGear, txtBrand;
+    private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll;
 
-    private int special = 0, named = 0, gear = 0, brand = 0, darkitem = 0;
+    private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand;
+
+    private int special = 0, named = 0, gear = 0, brand = 0, darkitem = 0, all = 0;
 
     private AlertDialog dialog_dark = null;
 
@@ -61,6 +66,35 @@ public class ShareFragment extends Fragment {
         txtNamed = root.findViewById(R.id.txtNamed);
         txtGear = root.findViewById(R.id.txtGear);
         txtBrand = root.findViewById(R.id.txtBrand);
+
+        txtAll = root.findViewById(R.id.txtAll);
+
+        progressSpecial = root.findViewById(R.id.progressSpecial);
+        progressNamed = root.findViewById(R.id.progressNamed);
+        progressGear = root.findViewById(R.id.progressGear);
+        progressBrand = root.findViewById(R.id.progressBrand);
+
+        progressSpecial.setProgressStartColor(Color.parseColor("#fe6e0e"));
+        progressSpecial.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressSpecial.setProgressBackgroundColor(Color.parseColor("#888888"));
+        progressSpecial.setLineWidth(40);
+        progressNamed.setProgressStartColor(Color.parseColor("#fe6e0e"));
+        progressNamed.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressNamed.setProgressBackgroundColor(Color.parseColor("#888888"));
+        progressNamed.setLineWidth(40);
+        progressGear.setProgressStartColor(Color.parseColor("#fe6e0e"));
+        progressGear.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressGear.setProgressBackgroundColor(Color.parseColor("#888888"));
+        progressGear.setLineWidth(40);
+        progressBrand.setProgressStartColor(Color.parseColor("#fe6e0e"));
+        progressBrand.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressBrand.setProgressBackgroundColor(Color.parseColor("#888888"));
+        progressBrand.setLineWidth(40);
+
+        progressSpecial.setMax(100);
+        progressNamed.setMax(100);
+        progressGear.setMax(100);
+        progressBrand.setMax(100);
 
         final Itemlist il = new Itemlist();
 
@@ -115,6 +149,11 @@ public class ShareFragment extends Fragment {
                 txtGear.setText("0");
                 txtBrand.setText("0");
                 darkitem = 0;
+                all = 0;
+                progressBrand.setProgress(0);
+                progressGear.setProgress(0);
+                progressNamed.setProgress(0);
+                progressSpecial.setProgress(0);
                 btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
                 btnOutput.setText("이송하기 ("+darkitem+"/10)");
             }
@@ -197,6 +236,12 @@ public class ShareFragment extends Fragment {
                 if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtSpecial.setText(Integer.toString(special));
                     tableMain.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
@@ -208,6 +253,12 @@ public class ShareFragment extends Fragment {
                     txtType.setText(il.getSpecialweapon_type(pick));
                 } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
                     tableMain.setVisibility(View.GONE);
@@ -246,6 +297,12 @@ public class ShareFragment extends Fragment {
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
                         brand++;
+                        all++;
+                        progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                        progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                        progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                        progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                        txtAll.setText(Integer.toString(all));
                         txtBrand.setText(Integer.toString(brand));
                         pick = percent(0, il.getWeapontype_Length());
                         int temp;
@@ -316,12 +373,24 @@ public class ShareFragment extends Fragment {
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtGear.setText(Integer.toString(gear));
                             txtName.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName.setText(il.getSheldgear(pick));
                         } else { //brand
                             brand++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
                             switch (il.getSheldbrand(pick)) {
@@ -369,6 +438,12 @@ public class ShareFragment extends Fragment {
                     btnChange2.setVisibility(View.VISIBLE);
                     txtName2.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtSpecial.setText(Integer.toString(special));
                     pick = percent(2, 10);
                     if (pick > 2) {
@@ -381,6 +456,12 @@ public class ShareFragment extends Fragment {
                     }
                 } else if (percent(1, 1000) <= 30) { //네임드 장비
                     named++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtNamed.setText(Integer.toString(named));
                     txtName2.setTextColor(Color.parseColor("#c99700"));
                     tableMain2.setVisibility(View.GONE);
@@ -419,6 +500,12 @@ public class ShareFragment extends Fragment {
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
                         brand++;
+                        all++;
+                        progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                        progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                        progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                        progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                        txtAll.setText(Integer.toString(all));
                         txtBrand.setText(Integer.toString(brand));
                         pick = percent(0, il.getWeapontype_Length());
                         int temp;
@@ -490,12 +577,24 @@ public class ShareFragment extends Fragment {
                         }
                         if (pick <= 10) { //gear
                             gear++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtGear.setText(Integer.toString(gear));
                             txtName2.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName2.setText(il.getSheldgear(pick));
                         } else { //brand
                             brand++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
                             switch (il.getSheldbrand(pick)) {
@@ -539,6 +638,12 @@ public class ShareFragment extends Fragment {
                 if (percent(1, 1000) <= 15) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtSpecial.setText(Integer.toString(special));
                     tableMain.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
@@ -549,6 +654,12 @@ public class ShareFragment extends Fragment {
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
                 } else if (percent(1, 1000) <= 40) { //네임드 장비
                     named++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtNamed.setText(Integer.toString(named));
                     txtName.setTextColor(Color.parseColor("#c99700"));
                     tableMain.setVisibility(View.GONE);
@@ -587,6 +698,12 @@ public class ShareFragment extends Fragment {
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
                         brand++;
+                        all++;
+                        progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                        progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                        progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                        progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                        txtAll.setText(Integer.toString(all));
                         txtBrand.setText(Integer.toString(brand));
                         pick = percent(0, il.getWeapontype_Length());
                         int temp;
@@ -658,12 +775,24 @@ public class ShareFragment extends Fragment {
                         }
                         if (pick <= 10) { //gear
                             gear++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtGear.setText(Integer.toString(gear));
                             txtName.setTextColor(Color.parseColor("#009900"));
                             pick = percent(0, il.getSheldgear_Length());
                             txtName.setText(il.getSheldgear(pick));
                         } else { //brand
                             brand++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
                             switch (il.getSheldbrand(pick)) {
@@ -706,6 +835,12 @@ public class ShareFragment extends Fragment {
                 if (percent(1, 100) <= 10) {
                     //txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
+                    all++;
+                    progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                    progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                    progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                    progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                    txtAll.setText(Integer.toString(all));
                     txtSpecial.setText(Integer.toString(special));
                     name += "독수리를 거느린 자\n";
                     type += "돌격소총\n";
@@ -714,6 +849,12 @@ public class ShareFragment extends Fragment {
                     if (percent(1, 1000) <= 10) { //특급 장비
                         //txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
+                        all++;
+                        progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                        progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                        progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                        progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                        txtAll.setText(Integer.toString(all));
                         txtSpecial.setText(Integer.toString(special));
                         pick = percent(0, il.getSpecialweapon_Length());
                         if (i != 4) {
@@ -727,6 +868,12 @@ public class ShareFragment extends Fragment {
                         //txtType.setText(il.getSpecialweapon_type(pick));
                     } else if (percent(1, 1000) <= 30) { //네임드 장비
                         named++;
+                        all++;
+                        progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                        progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                        progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                        progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                        txtAll.setText(Integer.toString(all));
                         txtNamed.setText(Integer.toString(named));
                         //txtName.setTextColor(Color.parseColor("#c99700"));
                         if (percent(1, 2) == 1) { //weapon
@@ -755,6 +902,12 @@ public class ShareFragment extends Fragment {
                     } else { //기타 장비
                         if (percent(1,2) == 1) { //weapon
                             brand++;
+                            all++;
+                            progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                            progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                            progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                            progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                            txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getWeapontype_Length());
                             int temp;
@@ -856,6 +1009,12 @@ public class ShareFragment extends Fragment {
                             pick = percent(1, 100);
                             if (pick <= 20) { //gear
                                 gear++;
+                                all++;
+                                progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                                progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                                progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                                progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                                txtAll.setText(Integer.toString(all));
                                 txtGear.setText(Integer.toString(gear));
                                 pick = percent(0, il.getSheldgear_Length());
                                 if (i != 4) name += il.getSheldgear(pick)+"\n";
@@ -863,6 +1022,12 @@ public class ShareFragment extends Fragment {
                                 //txtName.setText(il.getSheldgear(pick));
                             } else { //brand
                                 brand++;
+                                all++;
+                                progressBrand.setProgress((int)(((double)brand/(double)all)*100));
+                                progressSpecial.setProgress((int)(((double)special/(double)all)*100));
+                                progressNamed.setProgress((int)(((double)named/(double)all)*100));
+                                progressGear.setProgress((int)(((double)gear/(double)all)*100));
+                                txtAll.setText(Integer.toString(all));
                                 txtBrand.setText(Integer.toString(brand));
                                 pick = percent(0, il.getSheldbrand_Length());
                                 if (i != 4) name += il.getSheldbrand(pick)+"\n";
