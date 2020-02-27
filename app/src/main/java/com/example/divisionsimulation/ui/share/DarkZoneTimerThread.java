@@ -74,7 +74,7 @@ class DarkZoneTimerThread extends Thread {
                 }
             }
 
-            if (input_rogue && randomRogue(1, 100) < 20) {
+            if (input_rogue && randomRogue(1, 100) < 10) {
                 sf.deleteDZitem();
                 rogue = true;
             }

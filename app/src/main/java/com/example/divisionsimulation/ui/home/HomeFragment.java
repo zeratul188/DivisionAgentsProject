@@ -896,6 +896,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         });
                         builder.setNegativeButton("취소", null);
                         AlertDialog alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
                         alertDialog.show();
                     }
                 }

@@ -67,6 +67,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -98,6 +99,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -129,6 +131,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -160,6 +163,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -191,6 +195,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -222,6 +227,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -253,6 +259,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -284,6 +291,7 @@ public class KeenerActivity extends AppCompatActivity {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });

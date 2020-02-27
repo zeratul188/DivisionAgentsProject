@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.0\n마지막 수정 일자 : 2020년 2월 27일 10시 55분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 이송 시스템 추가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.1\n마지막 수정 일자 : 2020년 2월 27일 13시 34분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 이송 시스템 로그로 인한 탈취확률 조정, 즉시 이송과 이송 지점 벗어나는 기능 추가\n- 대부분 다이얼로그 바깥영역을 누르면 취소되는 것을 방지");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -379,6 +379,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 }
                             });
                             alertDialog_timer = builder_timer.create();
+                            alertDialog_timer.setCancelable(false);
                             alertDialog_timer.show();
 
                             tt.start();
@@ -386,6 +387,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                     }
                 });
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
                 break;
         }

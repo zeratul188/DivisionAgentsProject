@@ -10,32 +10,38 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_1"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_2"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_3"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_4"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_5"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list6_6"
             android:layout_marginBottom="5dp"/>
 

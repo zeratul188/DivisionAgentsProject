@@ -312,20 +312,41 @@ public class ShareFragment extends Fragment {
 
                     builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
                     builder_timer.setView(dialogView_timer);
-                    builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    builder_timer.setPositiveButton("바로 이송", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getActivity(), "이송을 중단합니다.", Toast.LENGTH_SHORT).show();
+                            darkitem = 0;
+                            btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+                            btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                            Toast.makeText(getActivity(), "즉시 이송시켰습니다.", Toast.LENGTH_SHORT).show();
                             coming_dz.stopThread();
                             output_dz.stopThread();
                             output_dz.setRogue(true);
                             coming_dz.setRogue(true);
                         }
                     });
+                    builder_timer.setNeutralButton("이송지점 벗어나기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (darkitem > 0) {
+                                Toast.makeText(getActivity(), "이송하지 않고 이송지점에서 벗어났습니다.", Toast.LENGTH_SHORT).show();
+                                coming_dz.stopThread();
+                                output_dz.stopThread();
+                                output_dz.setRogue(true);
+                                coming_dz.setRogue(true);
+                            } else {
+                                if (percent(1, 4) == 1) Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났지만 이송에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                else Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났으나 로그 요원에게 이송물을 탈취당했습니다.", Toast.LENGTH_SHORT).show();
+                                coming_dz.stopThread();
+                                output_dz.stopThread();
+                                output_dz.setRogue(true);
+                                coming_dz.setRogue(true);
+                            }
+                        }
+                    });
                     builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
-                            Toast.makeText(getActivity(), "이송을 중단합니다.", Toast.LENGTH_SHORT).show();
                             coming_dz.stopThread();
                             output_dz.stopThread();
                             output_dz.setRogue(true);
@@ -333,6 +354,7 @@ public class ShareFragment extends Fragment {
                         }
                     });
                     alertDialog_timer = builder_timer.create();
+                    alertDialog_timer.setCancelable(false);
                     alertDialog_timer.show();
 
                     coming_dz.setMinute(0);

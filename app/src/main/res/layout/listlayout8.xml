@@ -10,7 +10,8 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_1"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -22,7 +23,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_2"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -34,7 +36,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_3"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -46,7 +49,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_4"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -58,17 +62,20 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_5"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_6"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_7"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -80,7 +87,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_8"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -92,7 +100,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_9"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -104,7 +113,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_10"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -116,7 +126,8 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_11"
             android:layout_marginBottom="5dp"/>
         <TextView
@@ -128,21 +139,21 @@
             android:layout_marginBottom="10dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_12"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_13"
             android:layout_marginBottom="5dp"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/list8_14"
             android:layout_marginBottom="5dp"/>
-
-
-
     </LinearLayout>
 </ScrollView>
