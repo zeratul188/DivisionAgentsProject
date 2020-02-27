@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="15dp" android:background="#222222">
+
+    <TextView
+        android:id="@+id/txtInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="헬기 도착까지 남은 시간"
+        android:textSize="25sp"
+        android:textColor="#f0f0f0"
+        android:layout_marginBottom="20dp"/>
+
+    <ProgressBar
+        android:layout_width="320dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar_progressbar_gage"
+        android:background="@drawable/gage"
+        android:id="@+id/progressTimer"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:indeterminateTint="#E45435"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="남은 시간 : "
+            android:textSize="20sp"
+            android:textColor="#f0f0f0"
+            android:textAlignment="textEnd"/>
+        <TextView
+            android:id="@+id/txtTimer"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:text="0초"
+            android:textSize="20sp"
+            android:textColor="#f0f0f0"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnNowOutput"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonmaincustom"
+        android:text="다크존 가방 걸기"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:enabled="false"/>
+
+</LinearLayout>

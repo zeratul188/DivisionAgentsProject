@@ -2,8 +2,12 @@ package com.example.divisionsimulation.ui.share;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -16,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -31,6 +36,12 @@ public class ShareFragment extends Fragment {
 
     private ShareViewModel shareViewModel;
 
+    public static AlertDialog.Builder builder_timer = null;
+    public static AlertDialog alertDialog_timer = null;
+    public static View dialogView_timer = null;
+
+    Button btnInput = null;
+
     final private int BIG = 1234567;
 
     private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput;
@@ -42,10 +53,62 @@ public class ShareFragment extends Fragment {
 
     private int[] typet = new int[13];
 
+    private Handler handler;
+
+    public static DarkZoneTimerThread coming_dz = null;
+    public static DarkZoneTimerThread output_dz = null;
+
     private TextView[] txtTypelist = new TextView[13];
     private ProgressBar[] progressType = new ProgressBar[13];
 
     private AlertDialog dialog_dark = null;
+
+    public static TextView txtInfo = null;
+    public static ProgressBar progressTimer = null;
+    public static Button btnNowOutput = null;
+    public static TextView txtTimer = null;
+
+    public synchronized void playOutputDZ() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                btnNowOutput.setEnabled(true);
+                txtInfo.setText("이송 완료까지 남은 시간");
+            }
+        });
+        output_dz.setInput_rogue(coming_dz.getInput_rogue());
+        output_dz.start();
+    }
+
+    public void dialogOpen() {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                alertDialog_timer.dismiss();
+                AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity());
+                tbuilder.setMessage("이송 완료");
+                tbuilder.setPositiveButton("확인", null);
+                AlertDialog talertDialog = tbuilder.create();
+                talertDialog.show();
+            }
+        });
+    }
+
+    public void deleteDZitem() {
+        darkitem = 0;
+        btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+        btnOutput.setText("이송하기 ("+darkitem+"/10)");
+        alertDialog_timer.dismiss();
+        Looper.prepare();
+        //Toast.makeText(getActivity(), "로그 요원에게 이송물을 빼앗겼습니다.", Toast.LENGTH_SHORT).show();
+        alertDialog_timer.dismiss();
+        AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity());
+        tbuilder.setMessage("로그 요원에게 이송물을 빼앗겼습니다.");
+        tbuilder.setPositiveButton("확인", null);
+        AlertDialog talertDialog = tbuilder.create();
+        talertDialog.show();
+        Looper.loop();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +122,8 @@ public class ShareFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
+
+        handler = new Handler();
 
         btnLitezone = root.findViewById(R.id.btnLitezone);
         btnDarkzone = root.findViewById(R.id.btnDarkzone);
@@ -87,7 +152,7 @@ public class ShareFragment extends Fragment {
             txtTypelist[i] = root.findViewById(temp);
             temp = root.getResources().getIdentifier("progressType"+(i+1), "id", getActivity().getPackageName());
             progressType[i] = root.findViewById(temp);
-            progressType[i].setMax(10000);
+            progressType[i].setMax(20);
             progressType[i].setProgress(0);
         }
 
@@ -138,7 +203,7 @@ public class ShareFragment extends Fragment {
         final TextView txtType2 = dark_dialogView.findViewById(R.id.txtType);
         final Button btnChange2 = dark_dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
-        final Button btnInput = dark_dialogView.findViewById(R.id.btnInput);
+        btnInput = dark_dialogView.findViewById(R.id.btnInput);
         final ImageView[] imgOption2 = new ImageView[3];
         final TableRow trOption2 = dark_dialogView.findViewById(R.id.trOption);
 
@@ -177,6 +242,7 @@ public class ShareFragment extends Fragment {
                     progressType[i].setProgress(0);
                     typet[i] = 0;
                 }
+                for (int i = 0; i < progressType.length; i++) progressType[i].setMax(20);
                 btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
                 btnOutput.setText("이송하기 ("+darkitem+"/10)");
             }
@@ -220,11 +286,70 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (darkitem != 0) {
-                    darkitem = 0;
-                    btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
-                    btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                    dialogView_timer = getLayoutInflater().inflate(R.layout.timercominglayout, null);
 
-                    if (percent(1, 100) > 20) {
+                    txtInfo = dialogView_timer.findViewById(R.id.txtInfo);
+                    progressTimer = dialogView_timer.findViewById(R.id.progressTimer);
+                    btnNowOutput = dialogView_timer.findViewById(R.id.btnNowOutput);
+                    txtTimer = dialogView_timer.findViewById(R.id.txtTimer);
+
+                    btnNowOutput.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            darkitem = 0;
+                            btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+                            btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                            Toast.makeText(getActivity(), "헬기에 이송물을 걸었습니다.", Toast.LENGTH_SHORT).show();
+                            btnNowOutput.setEnabled(false);
+                        }
+                    });
+
+                    coming_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this);
+                    output_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this);
+
+                    progressTimer.setMax(10000);
+                    progressTimer.setProgress(0);
+
+                    builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                    builder_timer.setView(dialogView_timer);
+                    builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), "이송을 중단합니다.", Toast.LENGTH_SHORT).show();
+                            coming_dz.stopThread();
+                            output_dz.stopThread();
+                            output_dz.setRogue(true);
+                            coming_dz.setRogue(true);
+                        }
+                    });
+                    builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            Toast.makeText(getActivity(), "이송을 중단합니다.", Toast.LENGTH_SHORT).show();
+                            coming_dz.stopThread();
+                            output_dz.stopThread();
+                            output_dz.setRogue(true);
+                            coming_dz.setRogue(true);
+                        }
+                    });
+                    alertDialog_timer = builder_timer.create();
+                    alertDialog_timer.show();
+
+                    coming_dz.setMinute(0);
+                    coming_dz.setSecond(40);
+
+                    output_dz.setMinute(1);
+                    output_dz.setSecond(0);
+
+                    coming_dz.setRoguePercent(1);
+                    output_dz.setRoguePercent(2);
+
+                    coming_dz.setOutputing(false);
+                    output_dz.setOutputing(true);
+
+                    coming_dz.start();
+
+                    /*if (percent(1, 100) > 20) {
                         AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity());
                         tbuilder.setMessage("이송 완료");
                         tbuilder.setPositiveButton("확인", null);
@@ -236,7 +361,7 @@ public class ShareFragment extends Fragment {
                         tbuilder.setPositiveButton("확인", null);
                         AlertDialog talertDialog = tbuilder.create();
                         talertDialog.show();
-                    }
+                    }*/
                 } else {
                     AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity());
                     tbuilder.setMessage("이송할 아이템이 없습니다.");
@@ -1120,6 +1245,36 @@ public class ShareFragment extends Fragment {
                 txtTypelist[12].setText(Integer.toString(typet[12]));
                 break;
         }
-        for (int i = 0; i < progressType.length; i++) progressType[i].setProgress((int)(((double)typet[i]/(double)all)*10000));
+        switch (progressType[0].getMax()) {
+            case 20:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 20){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
+                    }
+                }
+                break;
+            case 40:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 40){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
+                    }
+                }
+                break;
+            case 60:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 60){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
+                    }
+                }
+                break;
+            case 80:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 80){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
+                    }
+                }
+                break;
+        }
+        for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
     }
 }
