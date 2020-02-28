@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
 
+/*
+현재 사용하지 않는 액티비티입니다.
+차후 사용할 가능성 있음.
+ */
+
 public class DemageSimulationActivity extends AppCompatActivity {
 
     private TextView txtBodyHealth, txtBodyCriticalHealth, txtHeadshotHealth, txtHeadshotCriticalHealth, txtDPSHealth, txtDPMHealth;

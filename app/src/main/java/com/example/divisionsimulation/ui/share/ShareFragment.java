@@ -971,6 +971,7 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special));
                     name += "독수리를 거느린 자\n";
                     type += "돌격소총\n";
+                    setSemiInterface("돌격소총");
                 }
                 for (int i = 0; i < 5; i++) {
                     if (percent(1, 1000) <= 10) { //특급 장비

@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             }
         });
         alertDialog = builder.create();
+        alertDialog.setCancelable(false);
         alertDialog.show();
 
         et.start();
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.1\n마지막 수정 일자 : 2020년 2월 27일 13시 34분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 이송 시스템 로그로 인한 탈취확률 조정, 즉시 이송과 이송 지점 벗어나는 기능 추가\n- 대부분 다이얼로그 바깥영역을 누르면 취소되는 것을 방지");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.2\n마지막 수정 일자 : 2020년 2월 28일 10시 17분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 레이드 박스에서 나오는 독수리를 거느린 자가 돌격 소총에 들어가지 않았던 버그 수정\n- 종료 다이얼로그 바깥영역을 누르면 취소되는 버그 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

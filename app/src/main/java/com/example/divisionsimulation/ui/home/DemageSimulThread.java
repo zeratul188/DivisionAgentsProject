@@ -10,28 +10,35 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 
+/*
+시뮬레이션의 핵심 스레드이다.
+홈 액티비티에서 등록된 데이터를 통해서 자신이 얼마나 데미지가 나오는지 상대 체력을 얼마나 빨리 깎을 수 있는지를 테스트하는 시뮬레이션이다.
+시뮬레이션이 정확하지는 않을 수 있으니 양해부탁드립니다.
+ */
+
 class DemageSimulThread extends Thread implements Serializable {
-    private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming;
-    private int health, sheld, all_ammo = 0;
-    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false, reloaded = false, fire = false;
-    private int first_health, first_sheld;
-    private double dec_health, dec_sheld, dec_ammo;
-    private TimeThread tt;
-    private Activity activity;
-    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient, front_dmg;
-    private int hit_critical = 0, out_demage, all_dmg = 0;
-    private boolean[] options = null;
+    private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo, aiming; //홈 액티비티에서 가져온 데이터들을 저장할 변수들이다.
+    private int health, sheld, all_ammo = 0; //체력, 방어도, 사용한 탄약 수
+    private boolean elite_true = false, pvp_true = false, boom = false, quick_hand = false, cluch_true = false, end = false, bumerang_true = false, bumerang = false, reloaded = false, fire = false; //기타 탤런트 여부
+    private int first_health, first_sheld; //최대 체력, 최대 방어도
+    private double dec_health, dec_sheld, dec_ammo; //체력, 방어도, 남은 탄약 수에 대한 진행도이다.
+    private TimeThread tt; //시뮬레이션 동안 진행되는 타이머 스레드를 저장하는 변수이다.
+    private Activity activity; //시뮬액티비티를 나타낼 변수이다.
+    private double crazy_dmg, seeker_dmg, push_critical_dmg, eagle_dmg, coefficient, front_dmg; //탤런트에 해당되는 데미지 비율을 저장하는 변수이다.
+    private int hit_critical = 0, out_demage, all_dmg = 0; //빠른 손의 히트 수, 등등이다.
+    private boolean[] options = null; //카멜레온의 하위 옵션 3개를 저장할 배열 변수이다.
+    private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
 
-    private Handler handler = null;
+    private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
-    private CluchThread ct = null;
+    private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
 
-    private boolean headshot_enable = false;
-    private boolean critical_enable = false;
+    //private boolean headshot_enable = false;
+    //private boolean critical_enable = false;
 
-    private ReloadThread rt = null;
+    private ReloadThread rt = null; //재장전 스레드이다. 재장전할 때 게이지가 차는 것을 보여주는 스레드이다.
 
-    private String log, statue_log = "", ammo_log = "";
+    private String log, statue_log = "", ammo_log = ""; //액티비티에 표현할 문자열을 저장하는 변수이다.
 
     /*final Handler headshot_handle = new Handler(){
 
@@ -91,8 +98,12 @@ class DemageSimulThread extends Thread implements Serializable {
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
 
-    private void reload() {
-        int time = (int)(reloadtime*1000);
+    /*
+    위 메소드들은 다른 클래스에서 이 스레드에 대한 변수 수정시 사용되는 메소드들이다.
+     */
+
+    private void reload() { //재장전 시 사용되는 메소드이다.
+        int time = (int)(reloadtime*1000); //재장전 시간을 저장하는 변수이다.
         /*handler.post(new Runnable() {
             @Override
             public void run() {
@@ -102,39 +113,39 @@ class DemageSimulThread extends Thread implements Serializable {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SimulActivity.txtStatue.setText("재장전 중...");
+                SimulActivity.txtStatue.setText("재장전 중..."); //액티비티에 재장전 상태를 나타낸다.
             }
         });
-        if (quick_hand) {
-            double handred_time = (double)time / 2;
-            if (hit_critical > 30) hit_critical = 30;
-            double down_parcent = hit_critical * 5;
-            double down_time = handred_time * (down_parcent / 100);
-            time -= (int) down_time;
-            if (time < 100) time = 100;
-            hit_critical = 0;
+        if (quick_hand) { //빠른 손 탤런트 여부에 따라 작동한다.
+            double handred_time = (double)time / 2; //100% 기준은 재장전 시간의 절반으로 기준으로 잡는다.
+            if (hit_critical > 30) hit_critical = 30; //빠른손 히트 수는 최대 30으로 맞춘다.
+            double down_parcent = hit_critical * 5; //빠른 손 히트 수 1개마다 재장전 속도를 5%으로 맞춘다.
+            double down_time = handred_time * (down_parcent / 100); //빠른 손 히트 수에 따라 줄어들 재장전 시간을 결정한다.
+            time -= (int) down_time; //총 재장전 시간에서 빠른 손으로 인해 감소될 시간을 빼준다.
+            if (time < 100) time = 100; //만약 총 재장전 시간이 0.1초 미만으로 내려갈 경우 자동으로 0.1초로 맞춰준다. (최소 0.1초)
+            hit_critical = 0; //빠른 손을 사용했으므로 다시 빠른 손 히트 수를 0으로 초기화해준다.
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    SimulActivity.txtQuickhand.setText("0");
+                    SimulActivity.txtQuickhand.setText("0"); //화면에 빠른 손이 초기화된 것을 갱신시켜준다.
                 }
             });
-        } else if (options[2]) {
-            double temp_time = (double)time / 2;
-            temp_time *= 1.5;
-            time -= (int) temp_time;
-            if (time < 100) time = 100;
+        } else if (options[2]) { //카멜레온 레그샷으로 인해 재장전 시간 100% 주는 것을 구현한다. (단, 빠른 손이랑 같이 사용할 수는 없으므로 else if로 하였다.)
+            double temp_time = (double)time / 2; //위와 동일
+            temp_time *= 1.5; //재장전 시간을 150%를 줄인다.
+            time -= (int) temp_time; //위와 동일
+            if (time < 100) time = 100; // 최소 0.1초보다 낮을 수 없게 한다.
         }
-        if (reloadtime != 0) {
-            rt.setTime(time);
-            rt.pause(false);
+        if (reloadtime != 0) { //재장전 시간이 0초일 경우 재장전 스레드를 사용할 필요가 없으므로 0초가 아닐 경우에만 재장전 스레드를 사용하게 해준다.
+            rt.setTime(time); //재장전 스레드의 재장전 시간을 설정해준다.
+            rt.pause(false); //재장전 스레드의 일시정지를 풀어준다.
         }
         try {
-            Thread.sleep(time);
+            Thread.sleep(time); //재장전 시간만큼 스레드를 일시 정지시켜준다.
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        reloaded = true;
+        reloaded = true; //재장전되었다는 것을 설정한다.
         /*handler.post(new Runnable() {
             @Override
             public void run() {
@@ -143,30 +154,30 @@ class DemageSimulThread extends Thread implements Serializable {
         });*/
     }
 
-    private int demage() {
+    private int demage() { //무기 데미지를 내보내는 메소드이다.
         /*int diff_demage = (int)(weapondemage*0.1);
         int ransu = (int)(Math.random()*123456)%(diff_demage*2)-diff_demage;
         int real_demage = (int)weapondemage + ransu;*/
         return (int)weapondemage;
     }
 
-    public void run() {
-        if (rt != null) rt.start();
-        SimulActivity.setHealth(getHealth());
+    public void run() { //스레드가 시작할 경우 자동으로 실행된다.
+        if (rt != null) rt.start(); //재장전 스레드가 null이 아닌 이상 재장전 스레드도 실행한다.
+        SimulActivity.setHealth(getHealth()); //입력받은 체력을 체력을 담당하는 액티비티로 보내준다.
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SimulActivity.progressAmmo.setIndeterminate(false);
+                SimulActivity.progressAmmo.setIndeterminate(false); //탄약 프로그래스가 무한 로딩 상태가 아니도록 설정한다.
             }
         });
-        first_health = SimulActivity.getHealth();
-        first_sheld = sheld;
-        int time = (60 * 1000) / (int) rpm;
-        int now_ammo = (int) ammo;
-        int headshot_ransu, critical_ransu, real_demage;
-        double temp_criticaldemage;
-        double now_demage;
-        double per;
+        first_health = SimulActivity.getHealth(); //다른 스레드에서 사용할 최대 체력에 100% 차 있는 체력을 대입한다.
+        first_sheld = sheld; //위와 동일한 방식으로 방어도를 대입한다.
+        int time = (60 * 1000) / (int) rpm; // 발당 딜레이를 계산해준다.
+        int now_ammo = (int) ammo; //현재 탄약 수를 탄창당 들어있는 탄약 수로 저장한다.
+        int headshot_ransu, critical_ransu, real_demage; //헤드샷, 치명타 난수를 지정하고 결정적으로 들어갈 총 데미지 변수를 생성한다.
+        double temp_criticaldemage; //임시 치명타 데미지를 저장하는 변수
+        double now_demage; //double 타입을 가진 총 데미지 변수
+        double per; //난수를 저장할 변수
         SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
         SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
         try {
@@ -195,17 +206,30 @@ class DemageSimulThread extends Thread implements Serializable {
                 statue_log = "";
                 ammo_log = "";
                 now_demage = demage();
+                new_weapondemage = demage();
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
+                if (crazy_dmg != 0) {
+                    per = crazy_dmg/100;
+                    new_weapondemage += weapondemage * per;
+                }
+                if (eagle_dmg != 0) {
+                    per = eagle_dmg/100;
+                    new_weapondemage += weapondemage * per;
+                }
+                if (fire) new_weapondemage += weapondemage * 0.2;
+                if (options[1]) new_weapondemage += weapondemage;
+                if (front_dmg > 0) new_weapondemage += weapondemage/2;
                 if (bumerang) {
-                    now_demage += weapondemage;
+                    new_weapondemage += weapondemage;
                     bumerang = false;
                     statue_log += "(부메랑 추가 데미지!)";
                 }
+                now_demage = new_weapondemage;
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
                     System.out.println("Headshot Demage : "+headshotdemage);
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                     /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -252,7 +276,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (options[0]) temp_criticaldemage += 50;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                     if (bumerang_true) {
                         per = (int)(Math.random()*1234567)%2;
                         if (per == 1) bumerang = true;
@@ -262,12 +286,12 @@ class DemageSimulThread extends Thread implements Serializable {
                 now_demage *= 1+per;
                 if (elite_true == true) {
                     per = elitedemage/100;
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                 }
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
-                        now_demage += (demage()*2);
+                        now_demage += (new_weapondemage*2);
                         statue_log += "(무자비 폭발탄!!)";
                         /*activity.runOnUiThread(new Runnable() {
                             @Override
@@ -285,21 +309,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         });
                     }
                 }
-                if (crazy_dmg != 0) {
-                    per = crazy_dmg/100;
-                    now_demage += weapondemage * per;
-                }
-                if (eagle_dmg != 0) {
-                    per = eagle_dmg/100;
-                    now_demage += weapondemage * per;
-                }
                 if (seeker_dmg != 0) {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
-                if (fire) now_demage += weapondemage * 0.2;
-                if (options[1]) now_demage += weapondemage;
-                if (front_dmg > 0) now_demage += weapondemage/2;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
@@ -406,16 +419,29 @@ class DemageSimulThread extends Thread implements Serializable {
                 statue_log = "";
                 ammo_log = "";
                 now_demage = demage();
+                new_weapondemage = demage();
+                if (crazy_dmg != 0) {
+                    per = crazy_dmg/100;
+                    new_weapondemage += weapondemage * per;
+                }
+                if (eagle_dmg != 0) {
+                    per = eagle_dmg/100;
+                    new_weapondemage += weapondemage * per;
+                }
+                if (fire) new_weapondemage += weapondemage * 0.2;
+                if (options[1]) new_weapondemage += weapondemage;
+                if (front_dmg > 0) new_weapondemage += weapondemage/2;
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
                 if (bumerang) {
-                    now_demage += weapondemage;
+                    new_weapondemage += weapondemage;
                     bumerang = false;
                     statue_log += "(부메랑 추가 데미지!)";
                 }
+                now_demage = new_weapondemage;
                 if (headshot_ransu <= headshot*10) {
                     per = headshotdemage / 100;
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                     /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -462,7 +488,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (options[0]) temp_criticaldemage += 50;
                     if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
                     per = temp_criticaldemage / 100;
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                     if (bumerang_true) {
                         per = (int)(Math.random()*1234567)%2;
                         if (per == 1) bumerang = true;
@@ -472,13 +498,13 @@ class DemageSimulThread extends Thread implements Serializable {
                 now_demage *= 1+per;
                 if (elite_true == true) {
                     per = elitedemage/100;
-                    now_demage += weapondemage * per;
+                    now_demage += new_weapondemage * per;
                 }
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
                         SimulActivity.hitBoom();
-                        now_demage += (demage()*2);
+                        now_demage += (new_weapondemage*2);
                         statue_log += "(무자비 폭발탄!!)";
                         /*activity.runOnUiThread(new Runnable() {
                             @Override
@@ -494,21 +520,10 @@ class DemageSimulThread extends Thread implements Serializable {
                         });
                     }
                 }
-                if (crazy_dmg != 0) {
-                    per = crazy_dmg/100;
-                    now_demage += weapondemage * per;
-                }
-                if (eagle_dmg != 0) {
-                    per = eagle_dmg/100;
-                    now_demage += weapondemage * per;
-                }
                 if (seeker_dmg != 0) {
                     per = seeker_dmg/100;
                     now_demage *= 1+per;
                 }
-                if (fire) now_demage += weapondemage * 0.2;
-                if (options[1]) now_demage += weapondemage;
-                if (front_dmg > 0) now_demage += weapondemage/2;
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (end) break;
