@@ -126,7 +126,6 @@
                                     android:id="@+id/progressSpecial"
                                     android:layout_width="125dp"
                                     android:layout_height="125dp"
-                                    android:layout_marginRight="10dp"
                                     app:style="solid_line"
                                     app:progress_stroke_width="5dp"
                                     app:progress_text_size="30sp" />
@@ -141,7 +140,6 @@
                                     android:id="@+id/progressNamed"
                                     android:layout_width="125dp"
                                     android:layout_height="125dp"
-                                    android:layout_marginLeft="10dp"
                                     app:style="solid_line"
                                     app:progress_stroke_width="5dp"
                                     app:progress_text_size="30sp"/>
@@ -191,7 +189,6 @@
                                     android:id="@+id/progressGear"
                                     android:layout_width="125dp"
                                     android:layout_height="125dp"
-                                    android:layout_marginRight="10dp"
                                     app:style="solid_line"
                                     app:progress_stroke_width="5dp"
                                     app:progress_text_size="30sp" />
@@ -206,7 +203,6 @@
                                     android:id="@+id/progressBrand"
                                     android:layout_width="125dp"
                                     android:layout_height="125dp"
-                                    android:layout_marginLeft="10dp"
                                     app:style="solid_line"
                                     app:progress_stroke_width="5dp"
                                     app:progress_text_size="30sp"/>
