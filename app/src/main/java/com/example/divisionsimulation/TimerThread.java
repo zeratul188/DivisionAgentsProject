@@ -1,8 +1,15 @@
 package com.example.divisionsimulation;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Handler;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 
 class TimerThread extends Thread {
     private int hour = 0, minute = 0, second = 0;
@@ -11,13 +18,18 @@ class TimerThread extends Thread {
     private double process;
     private Handler handler;
     private Activity activity;
+    private NotificationManager nm = null;
+    private Context context = null;
+    private String NOTIFICATION_ID = "10001";
 
-    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity) {
+    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity, NotificationManager nm, Context context) {
         this.hour = hour;
         this.minute = minute;
         this.second = second;
         this.handler = handler;
         this.activity = activity;
+        this.nm = nm;
+        this.context = context;
     }
     public void stopThread() { stop = true; }
 
@@ -82,6 +94,17 @@ class TimerThread extends Thread {
             }
         }
         if (!stop) {
+            nm.cancelAll();
+            NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                    .setContentTitle("목표 달성") //타이틀 TEXT
+                    .setContentText("'목표를 달성했습니다.") //서브 타이틀 TEXT
+                    .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                    .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
+            ;
+
+            nm.notify(0, buildert.build());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -89,6 +112,17 @@ class TimerThread extends Thread {
                 }
             });
         } else {
+            nm.cancelAll();
+            NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                    .setContentTitle("타이머 종료") //타이틀 TEXT
+                    .setContentText("타이머를 종료합니다.") //서브 타이틀 TEXT
+                    .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                    .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
+            ;
+
+            nm.notify(0, buildert.build());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

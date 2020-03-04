@@ -3,8 +3,13 @@ package com.example.divisionsimulation.ui.share;
 import com.dinuscxj.progressbar.CircleProgressBar;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -32,9 +38,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class ShareFragment extends Fragment {
 
     private ShareViewModel shareViewModel;
+    public static Context context = null;
+    private String NOTIFICATION_ID = "";
 
     public static AlertDialog.Builder builder_timer = null;
     public static AlertDialog alertDialog_timer = null;
@@ -54,6 +64,9 @@ public class ShareFragment extends Fragment {
     private int[] typet = new int[13];
 
     private Handler handler;
+    private NotificationChannel channel = null;
+
+    private NotificationManager notificationManager = null;
 
     public static DarkZoneTimerThread coming_dz = null;
     public static DarkZoneTimerThread output_dz = null;
@@ -69,6 +82,17 @@ public class ShareFragment extends Fragment {
     public static TextView txtTimer = null;
 
     public synchronized void playOutputDZ() {
+        notificationManager.cancelAll();
+        NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                .setContentTitle("이송 진행 중...") //타이틀 TEXT
+                .setContentText("이송 지점에서 이송 중...") //서브 타이틀 TEXT
+                .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
+        ;
+
+        notificationManager.notify(0, buildert.build());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -92,6 +116,17 @@ public class ShareFragment extends Fragment {
                 talertDialog.show();
             }
         });
+        notificationManager.cancelAll();
+        NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                .setContentTitle("이송 완료") //타이틀 TEXT
+                .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
+                .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
+        ;
+
+        notificationManager.notify(0, buildert.build());
     }
 
     public void deleteDZitem() {
@@ -124,6 +159,18 @@ public class ShareFragment extends Fragment {
         });*/
 
         handler = new Handler();
+
+        notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+        NOTIFICATION_ID = "10001";
+        String NOTIFICATION_NAME = "동기화";
+        int IMPORTANCE = NotificationManager.IMPORTANCE_DEFAULT;
+
+//채널 생성
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(NOTIFICATION_ID, NOTIFICATION_NAME, IMPORTANCE);
+            notificationManager.createNotificationChannel(channel);
+        }
 
         btnLitezone = root.findViewById(R.id.btnLitezone);
         btnDarkzone = root.findViewById(R.id.btnDarkzone);
@@ -286,6 +333,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (darkitem != 0) {
+                    notificationManager.cancelAll();
+
+                    NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                            .setContentTitle("이송 진행 중...") //타이틀 TEXT
+                            .setContentText("이송 지점에서 이송 헬기를 대기 중...") //서브 타이틀 TEXT
+                            .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                            .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
+                            ;
+
+                    notificationManager.notify(0, buildert.build());
+
                     dialogView_timer = getLayoutInflater().inflate(R.layout.timercominglayout, null);
 
                     txtInfo = dialogView_timer.findViewById(R.id.txtInfo);
@@ -312,7 +372,7 @@ public class ShareFragment extends Fragment {
 
                     builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
                     builder_timer.setView(dialogView_timer);
-                    builder_timer.setPositiveButton("바로 이송", new DialogInterface.OnClickListener() {
+                    builder_timer.setPositiveButton("즉시 이송", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             darkitem = 0;
@@ -323,6 +383,17 @@ public class ShareFragment extends Fragment {
                             output_dz.stopThread();
                             output_dz.setRogue(true);
                             coming_dz.setRogue(true);
+                            notificationManager.cancelAll();
+                            NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                                    .setContentTitle("이송 완료") //타이틀 TEXT
+                                    .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
+                                    .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                    .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
+                            ;
+
+                            notificationManager.notify(0, buildert.build());
                         }
                     });
                     builder_timer.setNeutralButton("이송지점 벗어나기", new DialogInterface.OnClickListener() {
@@ -342,6 +413,17 @@ public class ShareFragment extends Fragment {
                                 output_dz.setRogue(true);
                                 coming_dz.setRogue(true);
                             }
+                            notificationManager.cancelAll();
+                            NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                                    .setContentTitle("이송 완료") //타이틀 TEXT
+                                    .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
+                                    .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                    .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
+                            ;
+
+                            notificationManager.notify(0, buildert.build());
                         }
                     });
                     builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {

@@ -1,8 +1,11 @@
 package com.example.divisionsimulation;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,11 +18,13 @@ import android.view.View;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.divisionsimulation.ui.share.ShareFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -55,7 +60,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     public static TextView txtInfo = null;
 
+    private String NOTIFICATION_ID = "";
+
     private Handler handler;
+
+    private NotificationManager notificationManager = null;
+    private NotificationChannel channel = null;
 
     private int hour, minute, second;
 
@@ -75,10 +85,22 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             }
         });*/
 
+        ShareFragment.context = this;
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final View viewt = getWindow().getDecorView();
 
         handler = new Handler();
+        notificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
+
+        NOTIFICATION_ID = "10001";
+        String NOTIFICATION_NAME = "동기화";
+        int IMPORTANCE = NotificationManager.IMPORTANCE_DEFAULT;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = new NotificationChannel(NOTIFICATION_ID, NOTIFICATION_NAME, IMPORTANCE);
+            notificationManager.createNotificationChannel(channel);
+        }
 
         ActionBarDrawerToggle DrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
@@ -208,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.3\n마지막 수정 일자 : 2020년 3월 2일 17시 3분\n\n변경 사항 : \n- 일부 디자인 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.4\n마지막 수정 일자 : 2020년 3월 4일 10시 47분\n\n변경 사항 : \n- 다크존 이송, 목표 타이머 시 알림 생성");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -356,9 +378,37 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             if (String.valueOf(edtSecond.getText()).equals("")) second = 0;
                             else second = Integer.parseInt(String.valueOf(edtSecond.getText()));
 
-                            if (edtTarget.getText() != null && !String.valueOf(edtTarget.getText()).equals("")) txtResultTarget.setText(String.valueOf(edtTarget.getText())+"까지 남은 시간");
-                            else txtResultTarget.setText("'목표'까지 남은 시간");
-                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity);
+                            notificationManager.cancelAll();
+
+                            if (edtTarget.getText() != null && !String.valueOf(edtTarget.getText()).equals("")) {
+                                String message = String.valueOf(edtTarget.getText())+"까지 진행 중...";
+                                System.out.println(message);
+                                NotificationCompat.Builder buildert = new NotificationCompat.Builder(MainActivity.this, NOTIFICATION_ID)
+                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                                        .setContentTitle("타이머 진행 중...") //타이틀 TEXT
+                                        .setContentText(message) //서브 타이틀 TEXT
+                                        .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                        .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
+                                ;
+
+                                notificationManager.notify(0, buildert.build());
+                                txtResultTarget.setText(String.valueOf(edtTarget.getText())+"까지 남은 시간");
+                            }
+                            else {
+                                NotificationCompat.Builder buildert = new NotificationCompat.Builder(MainActivity.this, NOTIFICATION_ID)
+                                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_division2_logo)) //BitMap 이미지 요구
+                                        .setContentTitle("타이머 진행 중...") //타이틀 TEXT
+                                        .setContentText("'목표'까지 진행 중...") //서브 타이틀 TEXT
+                                        .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                        .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
+                                ;
+
+                                notificationManager.notify(0, buildert.build());
+                                txtResultTarget.setText("'목표'까지 남은 시간");
+                            }
+                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this);
 
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);
@@ -368,7 +418,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(activity, "타이머가 종료됩니다.", Toast.LENGTH_SHORT).show();
                                     tt.stopThread();
                                 }
                             });
