@@ -13,9 +13,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,13 @@ public class ShareFragment extends Fragment {
     public static Context context = null;
     private String NOTIFICATION_ID = "";
 
+    private int reset_count = 0;
+    private boolean btnEnd = false;
+
+    private AlertDialog.Builder buildera = null;
+    private AlertDialog alertDialog = null;
+    private View dialogViewa = null;
+
     public static AlertDialog.Builder builder_timer = null;
     public static AlertDialog alertDialog_timer = null;
     public static View dialogView_timer = null;
@@ -65,6 +74,8 @@ public class ShareFragment extends Fragment {
 
     private Handler handler;
     private NotificationChannel channel = null;
+
+    private CircleProgressBar progressReset = null;
 
     private NotificationManager notificationManager = null;
 
@@ -89,6 +100,7 @@ public class ShareFragment extends Fragment {
                 .setContentText("이송 지점에서 이송 중...") //서브 타이틀 TEXT
                 .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                .setSound(null)
                 .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
         ;
 
@@ -123,6 +135,7 @@ public class ShareFragment extends Fragment {
                 .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
                 .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                .setSound(null)
                 .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
         ;
 
@@ -144,6 +157,45 @@ public class ShareFragment extends Fragment {
         talertDialog.show();
         Looper.loop();
     }
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (reset_count >= 1500) btnEnd = true;
+            if (btnEnd) {
+                alertDialog.dismiss();
+                special = 0;
+                named = 0;
+                gear = 0;
+                brand = 0;
+                txtSpecial.setText("0");
+                txtNamed.setText("0");
+                txtGear.setText("0");
+                txtBrand.setText("0");
+                darkitem = 0;
+                all = 0;
+                txtAll.setText("0");
+                progressBrand.setProgress(0);
+                progressGear.setProgress(0);
+                progressNamed.setProgress(0);
+                progressSpecial.setProgress(0);
+                for (int i = 0; i < txtTypelist.length; i++) {
+                    txtTypelist[i].setText("0");
+                    progressType[i].setProgress(0);
+                    typet[i] = 0;
+                }
+                for (int i = 0; i < progressType.length; i++) progressType[i].setMax(20);
+                btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+                btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                btnEnd = false;
+                mHandler.removeMessages(0);
+            } else {
+                reset_count += 10;
+                progressReset.setProgress(reset_count);
+            }
+            Log.v("LC버튼", "Long클릭");
+            mHandler.sendEmptyMessageDelayed(0, 20);
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -266,32 +318,43 @@ public class ShareFragment extends Fragment {
         builder.setView(dialogView);
         */
 
+        btnReset.setOnLongClickListener(new Button.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                dialogViewa = getLayoutInflater().inflate(R.layout.resetlayout, null);
+                progressReset = dialogViewa.findViewById(R.id.progressReset);
+                progressReset.setMax(1500);
+                progressReset.setProgress(0);
+                reset_count = 0;
+
+                buildera = new AlertDialog.Builder(getActivity());
+                buildera.setView(dialogViewa);
+                buildera.setTitle("초기화까지");
+
+                alertDialog = buildera.create();
+                alertDialog.show();
+
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        reset_count = 0;
+                        progressReset.setProgress(0);
+                        alertDialog.dismiss();
+                        reset_count = 0;
+                        mHandler.removeMessages(0);
+                    }
+                });
+
+                mHandler.sendEmptyMessageDelayed(0, 20);
+
+                return false;
+            }
+        });
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                special = 0;
-                named = 0;
-                gear = 0;
-                brand = 0;
-                txtSpecial.setText("0");
-                txtNamed.setText("0");
-                txtGear.setText("0");
-                txtBrand.setText("0");
-                darkitem = 0;
-                all = 0;
-                txtAll.setText("0");
-                progressBrand.setProgress(0);
-                progressGear.setProgress(0);
-                progressNamed.setProgress(0);
-                progressSpecial.setProgress(0);
-                for (int i = 0; i < txtTypelist.length; i++) {
-                    txtTypelist[i].setText("0");
-                    progressType[i].setProgress(0);
-                    typet[i] = 0;
-                }
-                for (int i = 0; i < progressType.length; i++) progressType[i].setMax(20);
-                btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
-                btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                Toast.makeText(getActivity(), "길게 누르십시오.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -341,6 +404,7 @@ public class ShareFragment extends Fragment {
                             .setContentText("이송 지점에서 이송 헬기를 대기 중...") //서브 타이틀 TEXT
                             .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                            .setSound(null)
                             .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
                             ;
 
@@ -390,6 +454,7 @@ public class ShareFragment extends Fragment {
                                     .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
                                     .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                    .setSound(null)
                                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
                             ;
 
@@ -420,6 +485,7 @@ public class ShareFragment extends Fragment {
                                     .setContentText("이송이 끝났습니다.") //서브 타이틀 TEXT
                                     .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                    .setSound(null)
                                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
                             ;
 

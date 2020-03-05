@@ -101,6 +101,7 @@ class TimerThread extends Thread {
                     .setContentText("'목표를 달성했습니다.") //서브 타이틀 TEXT
                     .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                    .setSound(null)
                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
             ;
 
@@ -119,6 +120,7 @@ class TimerThread extends Thread {
                     .setContentText("타이머를 종료합니다.") //서브 타이틀 TEXT
                     .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                    .setSound(null)
                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
             ;
 

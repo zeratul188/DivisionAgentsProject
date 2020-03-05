@@ -1,14 +1,18 @@
 package com.example.divisionsimulation.ui.home;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,12 +32,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.divisionsimulation.R;
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.Serializable;
 
 public class HomeFragment extends Fragment implements Serializable {
+
+    private Button _btn1;
+    private boolean _isBtnDown;
+
+    private AlertDialog.Builder builder = null;
+    private AlertDialog alertDialog = null;
+    private View dialogView = null;
 
     private HomeViewModel homeViewModel;
 
@@ -57,7 +69,81 @@ public class HomeFragment extends Fragment implements Serializable {
     private AlertDialog alertDialog_error = null;
     private View dialogView_error = null;
 
+    private int reset_count = 0;
+    private boolean btnEnd = false;
+
+    private CircleProgressBar progressReset = null;
+
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname, edtAiming;
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (reset_count >= 1500) btnEnd = true;
+            if (btnEnd) {
+                alertDialog.dismiss();
+
+                edtNickname.setText("");
+                edtWeaponDemage.setText("");
+                edtRPM.setText("");
+                edtCritical.setText("");
+                edtCriticalDemage.setText("");
+                edtHeadshot.setText("");
+                edtHeadshotDemage.setText("");
+                edtEliteDemage.setText("");
+                edtSheldDemage.setText("");
+                edtHealthDemage.setText("");
+                edtReload.setText("");
+                edtAmmo.setText("");
+                edtAiming.setText("");
+
+                if (chkEagle.isChecked()) chkEagle.toggle();
+                if (chkBoom.isChecked()) chkBoom.toggle();
+                if (chkSeeker.isChecked()) chkSeeker.toggle();
+                if (chkBumerang.isChecked()) chkBumerang.toggle();
+                if (chkCrazy.isChecked()) chkCrazy.toggle();
+                if (chkPush.isChecked()) chkPush.toggle();
+                if (chkQuickhand.isChecked()) chkQuickhand.toggle();
+                if (chkCamel.isChecked()) chkCamel.toggle();
+                if (chkFire.isChecked()) chkFire.toggle();
+
+                chkPush.setTextColor(Color.parseColor("#000000"));
+                chkPush.setEnabled(true);
+                chkEagle.setTextColor(Color.parseColor("#000000"));
+                chkEagle.setEnabled(true);
+                chkBumerang.setTextColor(Color.parseColor("#000000"));
+                chkBumerang.setEnabled(true);
+                chkBoom.setTextColor(Color.parseColor("#000000"));
+                chkBoom.setEnabled(true);
+                chkCrazy.setTextColor(Color.parseColor("#000000"));
+                chkCrazy.setEnabled(true);
+                chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                chkQuickhand.setEnabled(true);
+                chkCamel.setTextColor(Color.parseColor("#000000"));
+                chkCamel.setEnabled(true);
+
+                rgPush.clearCheck();
+                rgCrazy.clearCheck();
+
+                btnEnd = false;
+                mHandler.removeMessages(0);
+            } else {
+                reset_count += 10;
+                progressReset.setProgress(reset_count);
+            }
+            Log.v("LC버튼", "Long클릭" + ct);
+            mHandler.sendEmptyMessageDelayed(0, 20);
+        }
+    };
+
+    /*public void mOnClick (View v){
+        reset_count = 0;
+        progressReset.setProgress(0);
+        alertDialog.dismiss();
+        reset_count = 0;
+        Log.v("OC버튼", "On클릭:"+ ct);
+        mHandler.removeMessages(0); //롱클릭리스너에서 동작이 넘어오면 remove시켜준다.
+    };*/
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -454,7 +540,46 @@ public class HomeFragment extends Fragment implements Serializable {
             }
         });
 
+        btnDPS.setOnLongClickListener(new Button.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                dialogView = getLayoutInflater().inflate(R.layout.resetlayout, null);
+                progressReset = dialogView.findViewById(R.id.progressReset);
+                progressReset.setMax(1500);
+                progressReset.setProgress(0);
+                reset_count = 0;
+
+                builder = new AlertDialog.Builder(getActivity());
+                builder.setView(dialogView);
+                builder.setTitle("초기화까지");
+                alertDialog = builder.create();
+                alertDialog.show();
+
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        reset_count = 0;
+                        progressReset.setProgress(0);
+                        alertDialog.dismiss();
+                        reset_count = 0;
+                        mHandler.removeMessages(0);
+                    }
+                });
+
+                mHandler.sendEmptyMessageDelayed(0, 20);
+
+                return false;
+            }
+        });
         btnDPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "길게 누르십시오.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /*btnDPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edtNickname.setText("");
@@ -503,7 +628,7 @@ public class HomeFragment extends Fragment implements Serializable {
 
                 Toast.makeText(getActivity(), "입력값들이 모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
 
-                /*if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
+                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("")) {
                     Toast.makeText(getActivity(), "무기 데미지, RPM, 탄창이 입력해야합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     int temp_demage = Integer.parseInt(String.valueOf(edtWeaponDemage.getText()));
@@ -581,9 +706,9 @@ public class HomeFragment extends Fragment implements Serializable {
                             alertDialog_error.show();
                         }
                     }
-                }*/
+                }
             }
-        });
+        });*/
 
         btnDemageSimul.setOnClickListener(new View.OnClickListener() {
             @Override

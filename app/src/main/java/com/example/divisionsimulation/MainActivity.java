@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.4\n마지막 수정 일자 : 2020년 3월 4일 10시 47분\n\n변경 사항 : \n- 다크존 이송, 목표 타이머 시 알림 생성");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.5\n마지막 수정 일자 : 2020년 3월 5일 14시 11분\n\n변경 사항 : \n- 알림 소리 제거\n- 파밍, 데미지 시뮬 초기화 시 재확인 메시지 추가");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -389,6 +389,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                         .setContentText(message) //서브 타이틀 TEXT
                                         .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                        .setSound(null)
                                         .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
                                 ;
 
@@ -402,6 +403,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                         .setContentText("'목표'까지 진행 중...") //서브 타이틀 TEXT
                                         .setSmallIcon (R.drawable.ic_division2_logo) //필수 (안해주면 에러)
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
+                                        .setSound(null)
                                         .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
                                 ;
 
