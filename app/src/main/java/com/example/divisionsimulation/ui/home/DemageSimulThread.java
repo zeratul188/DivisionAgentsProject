@@ -32,6 +32,7 @@ class DemageSimulThread extends Thread implements Serializable {
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
+    private SimulActivity sa = null;
 
     //private boolean headshot_enable = false;
     //private boolean critical_enable = false;
@@ -56,6 +57,8 @@ class DemageSimulThread extends Thread implements Serializable {
             else SimulActivity.changeCritical(false);
         }
     };*/
+
+    public void setSimulActivity(SimulActivity sa) { this.sa = sa; }
 
     public void setTimeThread(TimeThread tt) {
         this.tt = tt;
@@ -113,7 +116,8 @@ class DemageSimulThread extends Thread implements Serializable {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SimulActivity.txtStatue.setText("재장전 중..."); //액티비티에 재장전 상태를 나타낸다.
+                //SimulActivity.txtStatue.setText("재장전 중...");
+                sa.setTxtStatue("재장전 중..."); //액티비티에 재장전 상태를 나타낸다.
             }
         });
         if (quick_hand) { //빠른 손 탤런트 여부에 따라 작동한다.
@@ -127,7 +131,8 @@ class DemageSimulThread extends Thread implements Serializable {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    SimulActivity.txtQuickhand.setText("0"); //화면에 빠른 손이 초기화된 것을 갱신시켜준다.
+                    //SimulActivity.txtQuickhand.setText("0");
+                    sa.setTxtQuickhand("0"); //화면에 빠른 손이 초기화된 것을 갱신시켜준다.
                 }
             });
         } else if (options[2]) { //카멜레온 레그샷으로 인해 재장전 시간 100% 주는 것을 구현한다. (단, 빠른 손이랑 같이 사용할 수는 없으므로 else if로 하였다.)
@@ -167,7 +172,8 @@ class DemageSimulThread extends Thread implements Serializable {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SimulActivity.progressAmmo.setIndeterminate(false); //탄약 프로그래스가 무한 로딩 상태가 아니도록 설정한다.
+                //SimulActivity.progressAmmo.setIndeterminate(false);
+                sa.settingIndeterminate_Ammo(false);//탄약 프로그래스가 무한 로딩 상태가 아니도록 설정한다.
             }
         });
         first_health = SimulActivity.getHealth(); //다른 스레드에서 사용할 최대 체력에 100% 차 있는 체력을 대입한다.
@@ -178,8 +184,15 @@ class DemageSimulThread extends Thread implements Serializable {
         double temp_criticaldemage; //임시 치명타 데미지를 저장하는 변수
         double now_demage; //double 타입을 가진 총 데미지 변수
         double per; //난수를 저장할 변수
-        SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
-        SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
+                //SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
+                sa.setTxtSheld(Integer.toString(sheld)+"/"+Integer.toString(sheld));
+                sa.setTxtHealth(Integer.toString(health)+"/"+Integer.toString(health));
+            }
+        });
         try {
             while (sheld > 0 && !Thread.interrupted() && !end) {
                 /*activity.runOnUiThread(new Runnable() {
@@ -197,10 +210,10 @@ class DemageSimulThread extends Thread implements Serializable {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        SimulActivity.changeHeadshot(false);
-                        SimulActivity.changeCritical(false);
-                        SimulActivity.changeBoom(false);
-                        SimulActivity.shelddefaultColor();
+                        sa.changeHeadshot(false);
+                        sa.changeCritical(false);
+                        sa.changeBoom(false);
+                        sa.shelddefaultColor();
                     }
                 });
                 statue_log = "";
@@ -240,8 +253,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.hitHeadshot();
-                            SimulActivity.changeHeadshot(true);
+                            sa.hitHeadshot();
+                            sa.changeHeadshot(true);
                         }
                     });
                 }
@@ -255,7 +268,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical));
                             }
                         });
                     }
@@ -268,8 +282,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.changeCritical(true);
-                            SimulActivity.hitCritical();
+                            sa.changeCritical(true);
+                            sa.hitCritical();
                         }
                     });
                     temp_criticaldemage = criticaldemage;
@@ -303,8 +317,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.hitBoom();
-                                SimulActivity.changeBoom(true);
+                                sa.hitBoom();
+                                sa.changeBoom(true);
                             }
                         });
                     }
@@ -324,7 +338,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText(log);
+                            //SimulActivity.txtNowDemage.setText(log);
+                            sa.setTxtNowDemage(log);
                         }
                     });
                     if (hit_critical > 30) {
@@ -332,7 +347,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical));
                             }
                         });
                     }
@@ -340,7 +356,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText("");
+                            //SimulActivity.txtNowDemage.setText("");
+                            sa.setTxtNowDemage("");
                         }
                     });
                 }
@@ -352,8 +369,10 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
-                            SimulActivity.progressHealth.setProgress((int)dec_health);
+                            //SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                            //SimulActivity.progressHealth.setProgress((int)dec_health);
+                            sa.setTxtHealth(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                            sa.setProgressHealth((int)dec_health);
                         }
                     });
                     sheld = 0;
@@ -368,13 +387,20 @@ class DemageSimulThread extends Thread implements Serializable {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
-                        SimulActivity.txtAmmo.setText(ammo_log);
-                        SimulActivity.txtStatue.setText(statue_log);
-                        SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-                        SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
-                        SimulActivity.progressSheld.setProgress((int)dec_sheld);
-                        SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                        //SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
+                        sa.setTxtSheld(Integer.toString(sheld)+"/"+first_sheld);
+                        //SimulActivity.txtAmmo.setText(ammo_log);
+                        sa.setTxtAmmo(ammo_log);
+                        //SimulActivity.txtStatue.setText(statue_log);
+                        sa.setTxtStatue(statue_log);
+                        //SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                        sa.setTxtAllAmmo(Integer.toString(all_ammo));
+                        //SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                        sa.setTxtAdddemage(Integer.toString(all_dmg));
+                        //SimulActivity.progressSheld.setProgress((int)dec_sheld);
+                        sa.setProgressSheld((int)dec_sheld);
+                        //SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                        sa.setProgressAmmo((int)dec_ammo);
                     }
                 });
                 if (now_ammo == 0 && sheld != 0) {
@@ -410,10 +436,10 @@ class DemageSimulThread extends Thread implements Serializable {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        SimulActivity.changeHeadshot(false);
-                        SimulActivity.changeCritical(false);
-                        SimulActivity.changeBoom(false);
-                        SimulActivity.defaultColor();
+                        sa.changeHeadshot(false);
+                        sa.changeCritical(false);
+                        sa.changeBoom(false);
+                        sa.defaultColor();
                     }
                 });
                 statue_log = "";
@@ -452,8 +478,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.hitHeadshot();
-                            SimulActivity.changeHeadshot(true);
+                            sa.hitHeadshot();
+                            sa.changeHeadshot(true);
                         }
                     });
                 }
@@ -467,7 +493,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical));
                             }
                         });
                     }
@@ -480,8 +507,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.changeCritical(true);
-                            SimulActivity.hitCritical();
+                            sa.changeCritical(true);
+                            sa.hitCritical();
                         }
                     });
                     temp_criticaldemage = criticaldemage;
@@ -503,7 +530,6 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
-                        SimulActivity.hitBoom();
                         now_demage += (new_weapondemage*2);
                         statue_log += "(무자비 폭발탄!!)";
                         /*activity.runOnUiThread(new Runnable() {
@@ -515,7 +541,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.changeBoom(true);
+                                sa.hitBoom();
+                                sa.changeBoom(true);
                             }
                         });
                     }
@@ -536,7 +563,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText(log);
+                            //SimulActivity.txtNowDemage.setText(log);
+                            sa.setTxtNowDemage(log);
                         }
                     });
                     if (hit_critical > 30) {
@@ -544,7 +572,8 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical));
                             }
                         });
                     }
@@ -552,7 +581,8 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            SimulActivity.txtNowDemage.setText("");
+                            //SimulActivity.txtNowDemage.setText("");
+                            sa.setTxtNowDemage("");
                         }
                     });
                 }
@@ -570,13 +600,20 @@ class DemageSimulThread extends Thread implements Serializable {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
-                        SimulActivity.txtAmmo.setText(ammo_log);
-                        SimulActivity.txtStatue.setText(statue_log);
-                        SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
-                        SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
-                        SimulActivity.progressHealth.setProgress((int)dec_health);
-                        SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                        //SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                        sa.setTxtHealth(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                        //SimulActivity.txtAmmo.setText(ammo_log);
+                        sa.setTxtAmmo(ammo_log);
+                        //SimulActivity.txtStatue.setText(statue_log);
+                        sa.setTxtStatue(statue_log);
+                        //SimulActivity.txtAllAmmo.setText(Integer.toString(all_ammo));
+                        sa.setTxtAllAmmo(Integer.toString(all_ammo));
+                        //SimulActivity.txtAdddemage.setText(Integer.toString(all_dmg));
+                        sa.setTxtAdddemage(Integer.toString(all_dmg));
+                        //SimulActivity.progressHealth.setProgress((int)dec_health);
+                        sa.setProgressHealth((int)dec_health);
+                        //SimulActivity.progressAmmo.setProgress((int)dec_ammo);
+                        sa.setProgressAmmo((int)dec_ammo);
                     }
                 });
                 if (now_ammo == 0 && SimulActivity.getHealth() != 0) {
@@ -599,11 +636,16 @@ class DemageSimulThread extends Thread implements Serializable {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SimulActivity.progressHealth.setProgress(0);
-                SimulActivity.progressSheld.setProgress(0);
-                SimulActivity.txtSheld.setText("0");
-                SimulActivity.txtHealth.setText("0");
-                SimulActivity.btnExit.setText("뒤로 가기");
+                //SimulActivity.progressHealth.setProgress(0);
+                sa.setProgressHealth(0);
+                //SimulActivity.progressSheld.setProgress(0);
+                sa.setProgressSheld(0);
+                //SimulActivity.txtSheld.setText("0");
+                sa.setTxtSheld("0");
+                //SimulActivity.txtHealth.setText("0");
+                sa.setTxtHealth("0");
+                //SimulActivity.btnExit.setText("뒤로 가기");
+                sa.setBtnExitText("뒤로 가기");
             }
         });
         tt.setStop(true);
@@ -616,7 +658,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
             });*/
             rt.stopThread();
-            SimulActivity.setExit(true);
+            sa.setExit(true);
             handler.post(new Runnable() {
                 @Override
                 public void run() {

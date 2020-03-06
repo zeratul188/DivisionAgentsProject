@@ -47,23 +47,27 @@ class DarkZoneTimerThread extends Thread {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        ShareFragment.txtTimer.setText(minute+"분 "+second+"초");
+                        //ShareFragment.txtTimer.setText(minute+"분 "+second+"초");
+                        sf.setTxtTimer(minute+"분 "+second+"초");
+                        sf.setProgressTimer(10000-(int)process);
                     }
                 });
             } else {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        ShareFragment.txtTimer.setText(second+"초");
+                        //ShareFragment.txtTimer.setText(second+"초");
+                        sf.setTxtTimer(second+"초");
+                        sf.setProgressTimer(10000-(int)process);
                     }
                 });
             }
-            handler.post(new Runnable() {
+            /*handler.post(new Runnable() {
                 @Override
                 public void run() {
                     ShareFragment.progressTimer.setProgress(10000-(int)process);
                 }
-            });
+            });*/
 
             now_sum_second --;
             second --;

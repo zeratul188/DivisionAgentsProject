@@ -11,7 +11,8 @@ class ExitThread extends Thread{
 
     public void run() {
         while (time > -1 && !stop) {
-            MainActivity.txtInfo.setText(time+"초 뒤에 자동으로 종료됩니다.");
+            //MainActivity.txtInfo.setText(time+"초 뒤에 자동으로 종료됩니다.");
+            ma.setTxtInfo(time+"초 뒤에 자동으로 종료됩니다.");
             if (stop) break;
             if (time == 0) ma.finish();
             time--;

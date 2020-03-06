@@ -23,10 +23,10 @@ import java.io.Serializable;
 
 public class SimulActivity extends Activity implements Serializable {
 
-    public static TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
+    private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
     private TextView txtNickname, txtHealthInfo;
 
-    public static ProgressBar progressSheld, progressHealth, progressAmmo;
+    private ProgressBar progressSheld, progressHealth, progressAmmo;
 
     private DemageSimulThread dst = null;
     private CluchThread ct = null;
@@ -34,13 +34,13 @@ public class SimulActivity extends Activity implements Serializable {
     private ReloadThread rt = null;
 
     private LinearLayout layoutQuickhand;
-    public static TextView txtQuickhand;
+    private TextView txtQuickhand;
 
     private Handler handler;
 
-    private static boolean exit = false;
+    private boolean exit = false;
 
-    public static Button btnExit;
+    private Button btnExit;
 
     private boolean quick = false;
 
@@ -49,7 +49,24 @@ public class SimulActivity extends Activity implements Serializable {
 
     public static synchronized void setHealth(int hp) { health = hp; }
     public static synchronized int getHealth() { return health; }
-    public static void setExit(boolean et) { exit = et; }
+    public void setExit(boolean et) { exit = et; }
+
+    public void setProgressSheld(int progress) { progressSheld.setProgress(progress); }
+    public void setProgressHealth(int progress) { progressHealth.setProgress(progress); }
+    public void setProgressAmmo(int progress) { progressAmmo.setProgress(progress); }
+    public void settingIndeterminate_Ammo(boolean flag) { progressAmmo.setIndeterminate(flag); }
+
+    public void setTxtSheld(String message) { txtSheld.setText(message); }
+    public void setTxtHealth(String message) { txtHealth.setText(message); }
+    public void setTxtNowDemage(String message) { txtNowDemage.setText(message); }
+    public void setTxtAmmo(String message) { txtAmmo.setText(message); }
+    public void setTxtAllAmmo(String message) { txtAllAmmo.setText(message); }
+    public void setTxtTime(String message) { txtTime.setText(message); }
+    public void setTxtAdddemage(String message) { txtAdddemage.setText(message); }
+    public void setTxtStatue(String message) { txtStatue.setText(message); }
+    public void setTxtQuickhand(String message) { txtQuickhand.setText(message); }
+    public void setBtnExitText(String message) { btnExit.setText(message); }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,10 +148,11 @@ public class SimulActivity extends Activity implements Serializable {
         //tt.start();
 
         tt = (TimeThread) getIntent().getSerializableExtra("timethread");
+        tt.setSimulActivity(this);
         tt.setHandler(handler);
         tt.start();
 
-        rt = new ReloadThread(handler);
+        rt = new ReloadThread(handler, this);
 
         String nickname = getIntent().getStringExtra("nickname");
         if (!nickname.equals("")) txtNickname.setText(nickname);
@@ -153,12 +171,14 @@ public class SimulActivity extends Activity implements Serializable {
         else layoutQuickhand.setVisibility(View.GONE);
 
         dst = (DemageSimulThread) getIntent().getSerializableExtra("thread");
+        dst.setSimulActivity(this);
         ct = (CluchThread) getIntent().getSerializableExtra("cluchthread");
         if (rt != null) {
             dst.setReloadThread(rt);
         }
         dst.setHandler(handler);
         if (ct != null) {
+            ct.setSimulActivity(this);
             ct.setHandler(handler);
             dst.setCluchThread(ct);
         }
@@ -202,29 +222,29 @@ public class SimulActivity extends Activity implements Serializable {
         return super.onOptionsItemSelected(item);
     }*/
 
-    public static void hitCritical() {
+    public void hitCritical() {
         txtNowDemage.setTextColor(Color.parseColor("#FF6600"));
     }
-    public static void hitBoom() {
+    public void hitBoom() {
         txtNowDemage.setTextColor(Color.parseColor("#C7A900"));
     }
-    public static void hitHeadshot() {
+    public void hitHeadshot() {
         txtNowDemage.setTextColor(Color.parseColor("#FF0000"));
     }
-    public static void defaultColor() { txtNowDemage.setTextColor(Color.parseColor("#F0F0F0")); }
-    public static void shelddefaultColor() {
+    public void defaultColor() { txtNowDemage.setTextColor(Color.parseColor("#F0F0F0")); }
+    public void shelddefaultColor() {
         txtNowDemage.setTextColor(Color.parseColor("#A4A4FF"));
     }
 
-    public static synchronized void changeCritical(boolean change) {
+    public synchronized void changeCritical(boolean change) {
         if (change) imgCritical.setVisibility(View.VISIBLE);
         else imgCritical.setVisibility(View.INVISIBLE);
     }
-    public static synchronized void changeHeadshot(boolean change) {
+    public synchronized void changeHeadshot(boolean change) {
         if (change) imgHeadshot.setVisibility(View.VISIBLE);
         else imgHeadshot.setVisibility(View.INVISIBLE);
     }
-    public static synchronized void changeBoom(boolean change) {
+    public synchronized void changeBoom(boolean change) {
         if (change) imgBoom.setVisibility(View.VISIBLE);
         else imgBoom.setVisibility(View.INVISIBLE);
     }

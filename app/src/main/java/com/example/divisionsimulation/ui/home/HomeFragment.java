@@ -125,6 +125,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 rgCrazy.clearCheck();
 
                 btnEnd = false;
+                Toast.makeText(getActivity(), "입력 값들이 모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
                 mHandler.removeMessages(0);
             } else {
                 reset_count += 10;

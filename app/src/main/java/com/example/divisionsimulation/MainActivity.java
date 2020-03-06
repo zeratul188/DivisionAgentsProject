@@ -51,14 +51,15 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private AlertDialog alertDialog = null;
     private View dialogView = null;
 
-    public static AlertDialog.Builder builder_timer = null;
-    public static AlertDialog alertDialog_timer = null;
-    public static View dialogView_timer = null;
-    public static TextView txtTimer = null;
+    private AlertDialog.Builder builder_timer = null;
+    private AlertDialog alertDialog_timer = null;
+    private View dialogView_timer = null;
 
-    public static ProgressBar progressTimer;
+    private TextView txtTimer = null;
 
-    public static TextView txtInfo = null;
+    private ProgressBar progressTimer;
+
+    private TextView txtInfo = null;
 
     private String NOTIFICATION_ID = "";
 
@@ -68,6 +69,16 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private NotificationChannel channel = null;
 
     private int hour, minute, second;
+
+    public void setTxtInfo(String message) { txtInfo.setText(message); }
+
+    public void setTimerText(String message) {
+        txtTimer.setText(message);
+    }
+
+    public void setTimerProgress(int progress) {
+        progressTimer.setProgress(progress);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -230,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.5\n마지막 수정 일자 : 2020년 3월 5일 14시 11분\n\n변경 사항 : \n- 알림 소리 제거\n- 파밍, 데미지 시뮬 초기화 시 재확인 메시지 추가");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.6\n마지막 수정 일자 : 2020년 3월 6일 10시 40분\n\n변경 사항 : \n- 시스템을 효율적으로 변경함으로서 메모리 절약");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
@@ -410,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 notificationManager.notify(0, buildert.build());
                                 txtResultTarget.setText("'목표'까지 남은 시간");
                             }
-                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this);
+                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, MainActivity.this);
 
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);

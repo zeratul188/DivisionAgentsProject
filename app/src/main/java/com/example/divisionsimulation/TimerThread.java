@@ -21,8 +21,9 @@ class TimerThread extends Thread {
     private NotificationManager nm = null;
     private Context context = null;
     private String NOTIFICATION_ID = "10001";
+    private MainActivity ma = null;
 
-    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity, NotificationManager nm, Context context) {
+    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity, NotificationManager nm, Context context, MainActivity ma) {
         this.hour = hour;
         this.minute = minute;
         this.second = second;
@@ -30,9 +31,9 @@ class TimerThread extends Thread {
         this.activity = activity;
         this.nm = nm;
         this.context = context;
+        this.ma = ma;
     }
     public void stopThread() { stop = true; }
-
 
     public void run() {
         sum_second = (hour*60*60)+(minute*60)+second;
@@ -44,30 +45,30 @@ class TimerThread extends Thread {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        MainActivity.txtTimer.setText(hour+"시간 "+minute+"분 "+second+"초");
+                        //MainActivity.txtTimer.setText(hour+"시간 "+minute+"분 "+second+"초");
+                        ma.setTimerText(hour+"시간 "+minute+"분 "+second+"초");
+                        ma.setTimerProgress(10000-(int)process);
                     }
                 });
             } else if (minute != 0) {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        MainActivity.txtTimer.setText(minute+"분 "+second+"초");
+                        //MainActivity.txtTimer.setText(minute+"분 "+second+"초");
+                        ma.setTimerText(minute+"분 "+second+"초");
+                        ma.setTimerProgress(10000-(int)process);
                     }
                 });
             } else {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        MainActivity.txtTimer.setText(second+"초");
+                        //MainActivity.txtTimer.setText(second+"초");
+                        ma.setTimerText(second+"초");
+                        ma.setTimerProgress(10000-(int)process);
                     }
                 });
             }
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    MainActivity.progressTimer.setProgress(10000-(int)process);
-                }
-            });
 
             now_sum_second --;
             second --;

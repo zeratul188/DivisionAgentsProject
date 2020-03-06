@@ -8,9 +8,13 @@ class ReloadThread extends Thread implements Serializable {
     private int time, progress_time = 0;
     private double progress_parcent;
     private Handler handler;
+    private SimulActivity sa = null;
     private boolean stop = false, pause = true;
 
-    public ReloadThread(Handler handler) { this.handler = handler; }
+    public ReloadThread(Handler handler, SimulActivity sa) {
+        this.handler = handler;
+        this.sa = sa;
+    }
 
     public void setTime(int time) { this.time = time; }
     public void stopThread() { stop = true; }
@@ -23,7 +27,8 @@ class ReloadThread extends Thread implements Serializable {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        SimulActivity.progressAmmo.setProgress((int)progress_parcent);
+                        //SimulActivity.progressAmmo.setProgress((int)progress_parcent);
+                        sa.setProgressAmmo((int)progress_parcent);
                     }
                 });
                 if (progress_parcent >= 10000) break;

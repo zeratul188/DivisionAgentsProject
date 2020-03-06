@@ -17,6 +17,7 @@ class CluchThread extends Thread implements Serializable {
     private double dec_health; //프로그래스바 진행도
 
     private Handler handler; //UI 변경시 필요한 핸들러
+    private SimulActivity sa = null;
 
     public void setHandler(Handler handler) { this.handler = handler; } //외부 액티비티의 UI를 변경할 수 있게 해주는 핸들러를 가져온다.
 
@@ -27,6 +28,8 @@ class CluchThread extends Thread implements Serializable {
         this.critical = critical;
         this.aiming = aiming;
     }
+
+    public void setSimulActivity(SimulActivity sa) { this.sa = sa; }
 
     public void reload() { //재장전 메소드다.
         int time = (int)(reload * 1000); //재장전하는 시간을 나타낸다.
@@ -72,8 +75,10 @@ class CluchThread extends Thread implements Serializable {
                            handler.post(new Runnable() {
                                @Override
                                public void run() {
-                                   SimulActivity.txtHealth.setText(Integer.toString(temp_health)+"/"+first_health); //체력을 올려준만큼 액티비티 화면에도 갱신시킨다.
-                                   SimulActivity.progressHealth.setProgress((int)dec_health); //위와 동일
+                                   //SimulActivity.txtHealth.setText(Integer.toString(temp_health)+"/"+first_health);
+                                   sa.setTxtHealth(Integer.toString(temp_health)+"/"+first_health); //체력을 올려준만큼 액티비티 화면에도 갱신시킨다.
+                                   //SimulActivity.progressHealth.setProgress((int)dec_health);
+                                   sa.setProgressHealth((int)dec_health); //위와 동일
                                }
                            });
                        }

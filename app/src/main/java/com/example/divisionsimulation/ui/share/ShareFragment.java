@@ -38,6 +38,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.divisionsimulation.MainActivity;
 import com.example.divisionsimulation.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -79,18 +80,22 @@ public class ShareFragment extends Fragment {
 
     private NotificationManager notificationManager = null;
 
-    public static DarkZoneTimerThread coming_dz = null;
-    public static DarkZoneTimerThread output_dz = null;
+    private DarkZoneTimerThread coming_dz = null;
+    private DarkZoneTimerThread output_dz = null;
 
     private TextView[] txtTypelist = new TextView[13];
     private ProgressBar[] progressType = new ProgressBar[13];
 
     private AlertDialog dialog_dark = null;
 
-    public static TextView txtInfo = null;
-    public static ProgressBar progressTimer = null;
-    public static Button btnNowOutput = null;
-    public static TextView txtTimer = null;
+    private TextView txtInfo = null;
+    private ProgressBar progressTimer = null;
+    private Button btnNowOutput = null;
+    private TextView txtTimer = null;
+
+    //public void setTxtInfo(String message) { txtInfo.setText(message); }
+    public void setProgressTimer(int progress) { progressTimer.setProgress(progress); }
+    public void setTxtTimer(String message) { txtTimer.setText(message); }
 
     public synchronized void playOutputDZ() {
         notificationManager.cancelAll();
@@ -187,6 +192,7 @@ public class ShareFragment extends Fragment {
                 btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
                 btnOutput.setText("이송하기 ("+darkitem+"/10)");
                 btnEnd = false;
+                Toast.makeText(getActivity(), "모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show();
                 mHandler.removeMessages(0);
             } else {
                 reset_count += 10;

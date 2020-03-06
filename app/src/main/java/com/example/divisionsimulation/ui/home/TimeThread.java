@@ -11,6 +11,10 @@ class TimeThread extends Thread implements Serializable {
 
     private Handler handler = null;
 
+    private SimulActivity sa = null;
+
+    public void setSimulActivity(SimulActivity sa) { this.sa = sa; }
+
     public void setHandler(Handler handler) { this.handler = handler; }
 
     public void setStop(boolean stop) {
@@ -38,9 +42,16 @@ class TimeThread extends Thread implements Serializable {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (minutes == 0 && hours == 0) SimulActivity.txtTime.setText(seconds+"초");
-                    else if (hours == 0) SimulActivity.txtTime.setText(minutes+"분 "+seconds+"초");
-                    else SimulActivity.txtTime.setText(hours+"시간 "+minutes+"분 "+seconds+"초");
+                    if (minutes == 0 && hours == 0) {
+                        //SimulActivity.txtTime.setText(seconds+"초");
+                        sa.setTxtTime(seconds+"초");
+                    } else if (hours == 0) {
+                        //SimulActivity.txtTime.setText(minutes+"분 "+seconds+"초");
+                        sa.setTxtTime(minutes+"분 "+seconds+"초");
+                    } else {
+                        //SimulActivity.txtTime.setText(hours+"시간 "+minutes+"분 "+seconds+"초");
+                        sa.setTxtTime(hours+"시간 "+minutes+"분 "+seconds+"초");
+                    }
                 }
             });
 
