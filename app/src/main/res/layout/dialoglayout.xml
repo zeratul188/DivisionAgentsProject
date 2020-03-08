@@ -303,6 +303,33 @@
         android:text="PVP는 정예 여부를 체크 해제하셔야 합니다."
         android:textColor="#000000"
         android:gravity="center"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/buttoncustom"
+            android:text="취소"
+            android:textColor="#222222"
+            android:textSize="25sp"
+            android:layout_marginRight="5dp"/>
+        <Button
+            android:id="@+id/btnPlay"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/buttoncustomspecial"
+            android:text="실행"
+            android:textColor="#f0f0f0"
+            android:textSize="25sp"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
 
 </LinearLayout>

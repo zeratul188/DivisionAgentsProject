@@ -195,20 +195,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         final ExitThread et = new ExitThread(this);
 
+        final Button btnPlay = dialogView.findViewById(R.id.btnPlay);
+        final Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+
         txtInfo = dialogView.findViewById(R.id.txtInfo);
 
         builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
-        builder.setPositiveButton("종료", new DialogInterface.OnClickListener() {
+        btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 finish();
             }
         });
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 et.stopThread(true);
+                alertDialog.dismiss();
             }
         });
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -241,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 1.7.6\n마지막 수정 일자 : 2020년 3월 6일 10시 40분\n\n변경 사항 : \n- 시스템을 효율적으로 변경함으로서 메모리 절약");
+                builder.setTitle("버젼 확인").setMessage("Version 1.7.7\n마지막 수정 일자 : 2020년 3월 8일 12시 47분\n\n변경 사항 : \n- 데미지 수치 7개 출력하는 레이아웃 추가\n- 시뮬과 종료 시 시작 버튼, 취소버튼 변경");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

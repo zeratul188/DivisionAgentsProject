@@ -69,9 +69,10 @@
                 <TextView
                     android:id="@+id/txtSheld"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:text="10000000/10000000"
+                    android:singleLine="true"
                     android:textColor="#0000FF"
                     android:fontFamily="@font/brickshapersfont"
                     android:textSize="35sp"/>
@@ -95,9 +96,10 @@
                 <TextView
                     android:id="@+id/txtHealth"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
                     android:text="10000000/10000000"
+                    android:singleLine="true"
                     android:fontFamily="@font/brickshapersfont"
                     android:textColor="#FF0000"
                     android:textSize="35sp"/>
@@ -171,143 +173,314 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/imgBoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/boom_custom"
-                android:layout_marginRight="10dp"/>
-            <ImageView
-                android:id="@+id/imgCritical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/critical_custom"
-                android:layout_marginRight="10dp"/>
-            <ImageView
-                android:id="@+id/imgHeadshot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/headshot_custom"
-                android:layout_marginRight="10dp"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/txtStatue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="now statue"
-            android:textSize="15sp"
-            android:textColor="#f0f0f0"
-            android:fontFamily="@font/korea_font"
-            android:textAlignment="center"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/simulcustom">
+            android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/imgBoom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/boom_custom"
+                        android:layout_marginRight="10dp"/>
+                    <ImageView
+                        android:id="@+id/imgCritical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/critical_custom"
+                        android:layout_marginRight="10dp"/>
+                    <ImageView
+                        android:id="@+id/imgHeadshot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/headshot_custom"
+                        android:layout_marginRight="10dp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtStatue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="now statue"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:fontFamily="@font/korea_font"
+                    android:textAlignment="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/simulcustom">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="사용한 탄수 : "
+                            android:textSize="15sp"
+                            android:textColor="#AAAAAA"
+                            android:fontFamily="@font/korea_font"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtAllAmmo"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="9999"
+                            android:textColor="#f0f0f0"
+                            android:singleLine="true"
+                            android:fontFamily="@font/brickshapersfont"
+                            android:textSize="24sp"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="시간 : "
+                            android:textSize="15sp"
+                            android:fontFamily="@font/korea_font"
+                            android:textColor="#AAAAAA"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtTime"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="0초"
+                            android:singleLine="true"
+                            android:fontFamily="@font/korea_font"
+                            android:textColor="#f0f0f0"
+                            android:textSize="15sp"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="누적 데미지 : "
+                            android:textSize="15sp"
+                            android:textColor="#aaaaaa"
+                            android:fontFamily="@font/korea_font"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtAdddemage"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:singleLine="true"
+                            android:textColor="#f0f0f0"
+                            android:fontFamily="@font/brickshapersfont"
+                            android:textSize="24sp"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layoutQuickhand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="빠른 손 히트 수 : "
+                            android:textSize="20sp"
+                            android:textColor="#aaaaaa"
+                            android:fontFamily="@font/korea_font"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtQuickhand"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#f0f0f0"
+                            android:fontFamily="@font/brickshapersfont"
+                            android:textSize="34sp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:background="@drawable/simulcustom"
+                android:layout_marginLeft="5dp"
                 android:orientation="horizontal">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="사용한 탄수 : "
-                    android:textSize="20sp"
-                    android:textColor="#AAAAAA"
-                    android:fontFamily="@font/korea_font"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:id="@+id/txtAllAmmo"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                </LinearLayout>
+                <!--<TextView
+                    android:id="@+id/txtListDemage"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:text="9999"
+                    android:text="0\n0\n0\n0\n0\n0\n0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/brickshapersfont"
-                    android:textSize="34sp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="시간 : "
-                    android:textSize="20sp"
                     android:fontFamily="@font/korea_font"
-                    android:textColor="#AAAAAA"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:id="@+id/txtTime"
+                    android:textSize="12sp"/>-->
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
-                    android:text="0초"
-                    android:fontFamily="@font/korea_font"
-                    android:textColor="#f0f0f0"
-                    android:textSize="20sp"/>
-
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/txtListDemage1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="누적 데미지 : "
-                    android:textSize="20sp"
-                    android:textColor="#aaaaaa"
-                    android:fontFamily="@font/korea_font"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:id="@+id/txtAdddemage"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#f0f0f0"
-                    android:fontFamily="@font/brickshapersfont"
-                    android:textSize="34sp"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layoutQuickhand"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="빠른 손 히트 수 : "
-                    android:textSize="20sp"
-                    android:textColor="#aaaaaa"
-                    android:fontFamily="@font/korea_font"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:id="@+id/txtQuickhand"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#f0f0f0"
-                    android:fontFamily="@font/brickshapersfont"
-                    android:textSize="34sp"/>
-
-            </LinearLayout>
         </LinearLayout>
 
         <Button

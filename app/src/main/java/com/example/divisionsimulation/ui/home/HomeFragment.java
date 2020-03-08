@@ -827,6 +827,9 @@ public class HomeFragment extends Fragment implements Serializable {
                         final RadioGroup rgPVP = dialogView.findViewById(R.id.rgPVP);
                         final RadioButton[] rdoPVP = new RadioButton[7];
 
+                        final Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+                        final Button btnPlay = dialogView.findViewById(R.id.btnPlay);
+
                         int temp_index;
                         for (int i = 0; i < rdoPVP.length; i++) {
                             temp_index = dialogView.getResources().getIdentifier("rdoPVP"+(i+1), "id", getActivity().getPackageName());
@@ -904,10 +907,10 @@ public class HomeFragment extends Fragment implements Serializable {
                                 }
                             }
                         });
-
-                        builder.setPositiveButton("실행", new DialogInterface.OnClickListener() {
+                        final AlertDialog alertDialog = builder.create();
+                        btnPlay.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(View v) {
                                 boolean elite_true, pvp_true, cluch_true;
                                 double coefficient = 1;
                                 if (chkPVP.isChecked()) {
@@ -1007,6 +1010,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 intent.putExtra("quickhand", Boolean.toString(quick_hand));
 
                                                 startActivity(intent);
+                                                alertDialog.dismiss();
                                             }
                                         } catch (Exception e) {
                                             builder_error = new AlertDialog.Builder(getActivity());
@@ -1020,8 +1024,12 @@ public class HomeFragment extends Fragment implements Serializable {
                                 }
                             }
                         });
-                        builder.setNegativeButton("취소", null);
-                        AlertDialog alertDialog = builder.create();
+                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
                         alertDialog.setCancelable(false);
                         alertDialog.show();
                     }

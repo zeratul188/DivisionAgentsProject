@@ -34,12 +34,19 @@ class DemageSimulThread extends Thread implements Serializable {
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
     private SimulActivity sa = null;
 
+    private String[] listDemage = new String[7];
+    private boolean[] on_headshot_list = new boolean[7];
+    private boolean[] on_critical_list = new boolean[7];
+    private boolean[] on_boom_list = new boolean[7];
+
     //private boolean headshot_enable = false;
     //private boolean critical_enable = false;
 
     private ReloadThread rt = null; //재장전 스레드이다. 재장전할 때 게이지가 차는 것을 보여주는 스레드이다.
 
     private String log, statue_log = "", ammo_log = ""; //액티비티에 표현할 문자열을 저장하는 변수이다.
+
+    private boolean on_headshot = false, on_critical = false, on_boom = false;
 
     /*final Handler headshot_handle = new Handler(){
 
@@ -100,6 +107,15 @@ class DemageSimulThread extends Thread implements Serializable {
 
     public int getSheld() { return this.sheld; }
     public synchronized int getHealth() { return this.health; }
+
+    public void boolReset() {
+        on_boom = false;
+        on_critical = false;
+        on_headshot = false;
+        on_boom_list[on_boom_list.length-1] = false;
+        on_critical_list[on_critical_list.length-1] = false;
+        on_headshot_list[on_headshot_list.length-1] = false;
+    }
 
     /*
     위 메소드들은 다른 클래스에서 이 스레드에 대한 변수 수정시 사용되는 메소드들이다.
@@ -184,6 +200,19 @@ class DemageSimulThread extends Thread implements Serializable {
         double temp_criticaldemage; //임시 치명타 데미지를 저장하는 변수
         double now_demage; //double 타입을 가진 총 데미지 변수
         double per; //난수를 저장할 변수
+        for (int i = 0; i < listDemage.length; i++) {
+            final int final_index = i;
+            on_critical_list[i] = false;
+            on_boom_list[i] = false;
+            on_headshot_list[i] = false;
+            listDemage[i] = "0";
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    sa.setTxtListDemage(final_index, listDemage[final_index]);
+                }
+            });
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -195,6 +224,24 @@ class DemageSimulThread extends Thread implements Serializable {
         });
         try {
             while (sheld > 0 && !Thread.interrupted() && !end) {
+                for (int i = 0; i < listDemage.length-1; i++) {
+                    final int final_index = i;
+                    listDemage[i] = listDemage[i+1];
+                    on_boom_list[i] = on_boom_list[i+1];
+                    on_critical_list[i] = on_critical_list[i+1];
+                    on_headshot_list[i] = on_headshot_list[i+1];
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            sa.setTxtListDemage(final_index, listDemage[final_index]);
+                            if (on_boom_list[final_index]) sa.hitboom_list(final_index);
+                            else if (on_critical_list[final_index]) sa.hitCritical_list(final_index);
+                            else if (on_headshot_list[final_index]) sa.hitHeadshot_list(final_index);
+                            else sa.shelddefaultColor_list(final_index);
+                        }
+                    });
+                }
+                boolReset();
                 /*activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -240,6 +287,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 now_demage = new_weapondemage;
                 if (headshot_ransu <= headshot*10) {
+                    on_headshot = true;
                     per = headshotdemage / 100;
                     System.out.println("Headshot Demage : "+headshotdemage);
                     now_demage += new_weapondemage * per;
@@ -263,6 +311,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (critical > 60) critical = 60;
                 }
                 if (critical_ransu <= critical*10) {
+                    on_critical = true;
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
                         handler.post(new Runnable() {
@@ -305,6 +354,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
+                        on_boom = true;
                         now_demage += (new_weapondemage*2);
                         statue_log += "(무자비 폭발탄!!)";
                         /*activity.runOnUiThread(new Runnable() {
@@ -329,6 +379,24 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
+                if (on_boom) on_boom_list[listDemage.length-1] = true;
+                else if (on_critical) on_critical_list[listDemage.length-1] = true;
+                else if (on_headshot) on_headshot_list[listDemage.length-1] = true;
+                listDemage[6] = Integer.toString(real_demage);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sa.setTxtListDemage(6, listDemage[6]);
+                        if (on_boom_list[6]) sa.hitboom_list(6);
+                        else if (on_critical_list[6]) sa.hitCritical_list(6);
+                        else if (on_headshot_list[6]) sa.hitHeadshot_list(6);
+                        else sa.shelddefaultColor_list(6);
+                    }
+                });
+                /*if (on_boom) sa.hitboom_list(listDemage.length-1);
+                else if (on_critical) sa.hitCritical_list(listDemage.length-1);
+                else if (on_headshot) sa.hitboom_list(listDemage.length-1);
+                else sa.shelddefaultColor_list(listDemage.length-1);*/
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {
@@ -421,6 +489,24 @@ class DemageSimulThread extends Thread implements Serializable {
                 ct.start();
             }
             while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
+                for (int i = 0; i < listDemage.length-1; i++) {
+                    final int final_index = i;
+                    listDemage[i] = listDemage[i+1];
+                    on_boom_list[i] = on_boom_list[i+1];
+                    on_critical_list[i] = on_critical_list[i+1];
+                    on_headshot_list[i] = on_headshot_list[i+1];
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            sa.setTxtListDemage(final_index, listDemage[final_index]);
+                            if (on_boom_list[final_index]) sa.hitboom_list(final_index);
+                            else if (on_critical_list[final_index]) sa.hitCritical_list(final_index);
+                            else if (on_headshot_list[final_index]) sa.hitHeadshot_list(final_index);
+                            else sa.defaultColor_list(final_index);
+                        }
+                    });
+                }
+                boolReset();
                 /*activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -466,6 +552,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 now_demage = new_weapondemage;
                 if (headshot_ransu <= headshot*10) {
+                    on_headshot = true;
                     per = headshotdemage / 100;
                     now_demage += new_weapondemage * per;
                     /*activity.runOnUiThread(new Runnable() {
@@ -488,6 +575,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (critical > 60) critical = 60;
                 }
                 if (critical_ransu <= critical*10) {
+                    on_critical = true;
                     if (quick_hand && hit_critical < 30) {
                         hit_critical++;
                         handler.post(new Runnable() {
@@ -530,6 +618,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (boom) {
                     int ransu = (int)(Math.random()*123456)%100+1;
                     if (ransu <= 5) {
+                        on_boom = true;
                         now_demage += (new_weapondemage*2);
                         statue_log += "(무자비 폭발탄!!)";
                         /*activity.runOnUiThread(new Runnable() {
@@ -553,6 +642,20 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
+                if (on_boom) on_boom_list[listDemage.length-1] = true;
+                else if (on_critical) on_critical_list[listDemage.length-1] = true;
+                else if (on_headshot) on_headshot_list[listDemage.length-1] = true;
+                listDemage[6] = Integer.toString(real_demage);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sa.setTxtListDemage(6, listDemage[6]);
+                        if (on_boom_list[6]) sa.hitboom_list(6);
+                        else if (on_critical_list[6]) sa.hitCritical_list(6);
+                        else if (on_headshot_list[6]) sa.hitHeadshot_list(6);
+                        else sa.defaultColor_list(6);
+                    }
+                });
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {

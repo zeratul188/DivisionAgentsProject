@@ -26,6 +26,8 @@ public class SimulActivity extends Activity implements Serializable {
     private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
     private TextView txtNickname, txtHealthInfo;
 
+    private TextView[] txtListDemage = new TextView[7];
+
     private ProgressBar progressSheld, progressHealth, progressAmmo;
 
     private DemageSimulThread dst = null;
@@ -67,6 +69,7 @@ public class SimulActivity extends Activity implements Serializable {
     public void setTxtQuickhand(String message) { txtQuickhand.setText(message); }
     public void setBtnExitText(String message) { btnExit.setText(message); }
 
+    public void setTxtListDemage(int index, String message) { txtListDemage[index].setText(message); }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,12 @@ public class SimulActivity extends Activity implements Serializable {
         imgHeadshot = findViewById(R.id.imgHeadshot);
         imgBoom = findViewById(R.id.imgBoom);
         imgCritical = findViewById(R.id.imgCritical);
+
+        int temp;
+        for (int i = 0; i < txtListDemage.length; i++) {
+            temp = getResources().getIdentifier("txtListDemage"+(i+1), "id", getPackageName());
+            txtListDemage[i] = findViewById(temp);
+        }
 
         //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
 
@@ -235,6 +244,12 @@ public class SimulActivity extends Activity implements Serializable {
     public void shelddefaultColor() {
         txtNowDemage.setTextColor(Color.parseColor("#A4A4FF"));
     }
+
+    public void hitCritical_list(int index) { txtListDemage[index].setTextColor(Color.parseColor("#FF6600")); }
+    public void hitboom_list(int index) { txtListDemage[index].setTextColor(Color.parseColor("#C7A900")); }
+    public void hitHeadshot_list(int index) { txtListDemage[index].setTextColor(Color.parseColor("#FF0000")); }
+    public void defaultColor_list(int index) { txtListDemage[index].setTextColor(Color.parseColor("#F0F0F0")); }
+    public void shelddefaultColor_list(int index) { txtListDemage[index].setTextColor(Color.parseColor("#A4A4FF")); }
 
     public synchronized void changeCritical(boolean change) {
         if (change) imgCritical.setVisibility(View.VISIBLE);
