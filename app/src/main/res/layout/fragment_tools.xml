@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
+    android:layout_height="match_parent">
 
     <!--<TextView
         android:id="@+id/text_tools"
@@ -18,99 +17,108 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/redwall4"
+            android:scaleType="centerCrop"/>
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_height="match_parent">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="공략 및 정보"
-                android:textSize="40sp"
-                android:padding="10dp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-            <Button
-                android:id="@+id/btnList1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="디비전 2 헌터 마스크 공략"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="[매닝동물원] 히든보스 소환하는 방법"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList3"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="그랜드 워싱턴 호텔 비밀방 여는법"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList4"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="엑조틱 기관단총 촉새 만드는법"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList5"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="루스벨트아일랜드 비밀의방 여는방법 (일명 부엉이방)"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList6"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="뷰포인트박물관 비밀루팅방 여는 방법"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList7"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="항공우주박물관 숨겨진 우주인방"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/btnList8"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
-                android:text="미항공우주국 이스터에그 보는법"
-                android:textColor="#000000"
-                android:textSize="20sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="공략 및 정보"
+                    android:textSize="40sp"
+                    android:padding="10dp"
+                    android:textColor="#aaaaaa"
+                    android:layout_marginBottom="20dp"/>
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btnList1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="디비전 2 헌터 마스크 공략"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="[매닝동물원] 히든보스 소환하는 방법"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList3"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="그랜드 워싱턴 호텔 비밀방 여는법"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="엑조틱 기관단총 촉새 만드는법"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList5"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="루스벨트아일랜드 비밀의방 여는방법 (일명 부엉이방)"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList6"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="뷰포인트박물관 비밀루팅방 여는 방법"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList7"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="항공우주박물관 숨겨진 우주인방"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnList8"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/buttoncustom"
+                    android:text="미항공우주국 이스터에그 보는법"
+                    android:textColor="#aaaaaa"
+                    android:textSize="20sp" />
 
-    </ScrollView>
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

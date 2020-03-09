@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,60 +20,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="보호장구 드랍 테이블"
-                android:textSize="30sp"
-                android:textColor="#000000"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/backpack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vests"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/gloves"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="세트효과"
                 android:textSize="30sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:layout_marginBottom="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,6 +33,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(1/3)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -89,7 +42,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="명중률 +5%"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
@@ -101,6 +54,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(2/3)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -109,7 +63,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="치명타 대미지 +10%"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
@@ -122,6 +76,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(3/3)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -130,7 +85,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="치명타 확률 +7%"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
 
@@ -144,14 +99,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="42dp"
-                    android:src="@drawable/maskblack"/>
+                    android:src="@drawable/mask"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:text="마스크"
                     android:textSize="30sp"
-                    android:textColor="#000000"/>
+                    android:textColor="#aaa"/>
 
             </LinearLayout>
             <TextView
@@ -159,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:text="'로몬드' 중형 호흡기"
                 android:textSize="20sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
 
@@ -173,14 +128,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="42dp"
-                    android:src="@drawable/holstersblack"/>
+                    android:src="@drawable/holsters"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:text="권총집"
                     android:textSize="30sp"
-                    android:textColor="#000000"/>
+                    android:textColor="#aaa"/>
 
             </LinearLayout>
 
@@ -189,14 +144,14 @@
                 android:layout_height="wrap_content"
                 android:text="'경외심' 허벅지 부착형 탄창/권총집"
                 android:textSize="20sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:paddingLeft="20dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="'모라르' 권총집 시스템"
                 android:textSize="20sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
             <LinearLayout
@@ -209,14 +164,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="42dp"
-                    android:src="@drawable/kneepedsblack"/>
+                    android:src="@drawable/kneepeds"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:text="무릎 보호대"
                     android:textSize="30sp"
-                    android:textColor="#000000"/>
+                    android:textColor="#aaa"/>
 
             </LinearLayout>
 
@@ -225,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:text="'테이' 호신용 무릎보호대"
                 android:textSize="20sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="20dp"/>
 
@@ -236,8 +191,8 @@
                 android:textSize="20sp"
                 android:background="@drawable/buttoncustom"
                 android:padding="10dp"
-                android:textColor="#000000"/>
+                android:textColor="#aaa"/>
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

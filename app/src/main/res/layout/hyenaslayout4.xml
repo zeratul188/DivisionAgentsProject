@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="15dp" android:background="@drawable/wall2">
-    <LinearLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/hy4"
-            android:layout_marginBottom="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="하이에나 의무병"
-            android:textSize="40sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="30dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="하이에나 의무병 전술 정보"
-            android:textSize="30sp"
-            android:textColor="#222222"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="의무병은 압박 상황에서도 신속하고 능숙하게 주사를 놓을 수 있는 병력이다. 마약 중독자와 마약상이 주축을 이루고 있는 것으로 추정되고 있다. 의무병은 스파이스 생산에 깊게 연루되어 있으며, 신종 스파이스를 평가할 때 실험체로 자원하는 경우가 잦다고 한다."
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:background="@drawable/buttoncustom"
-            android:layout_marginBottom="10dp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/hy4"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="하이에나 의무병"
+                android:textSize="40sp"
+                android:textColor="#aaaaaa"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="하이에나 의무병 전술 정보"
+                android:textSize="30sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="의무병은 압박 상황에서도 신속하고 능숙하게 주사를 놓을 수 있는 병력이다. 마약 중독자와 마약상이 주축을 이루고 있는 것으로 추정되고 있다. 의무병은 스파이스 생산에 깊게 연루되어 있으며, 신종 스파이스를 평가할 때 실험체로 자원하는 경우가 잦다고 한다."
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="#aaaaaa"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</FrameLayout>

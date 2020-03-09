@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="15dp" android:background="@drawable/wall2">
-    <LinearLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/hy6"
-            android:layout_marginBottom="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="하이에나 저격수"
-            android:textSize="40sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="30dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="하이에나 저격수 전술 정보"
-            android:textSize="30sp"
-            android:textColor="#222222"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="저격수는 오만하고 무자비한 병력이다. 군대에서 운영하는 저격수와 달리 이들의 강점은 은밀성이 아니다. 한술 더 떠서 근접 전투 상황에 부닥치면 당황하기 일쑤고, 적이 너무 가까이 다가오면 도망치기까지 한다. 한편 이들 저격수는 매일 훈련하게 되어있으며, 사살 횟수를 기록한다."
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:background="@drawable/buttoncustom"
-            android:layout_marginBottom="10dp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/hy6"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="하이에나 저격수"
+                android:textSize="40sp"
+                android:textColor="#aaa"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="하이에나 저격수 전술 정보"
+                android:textSize="30sp"
+                android:textColor="#666"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="저격수는 오만하고 무자비한 병력이다. 군대에서 운영하는 저격수와 달리 이들의 강점은 은밀성이 아니다. 한술 더 떠서 근접 전투 상황에 부닥치면 당황하기 일쑤고, 적이 너무 가까이 다가오면 도망치기까지 한다. 한편 이들 저격수는 매일 훈련하게 되어있으며, 사살 횟수를 기록한다."
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="#aaa"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</FrameLayout>

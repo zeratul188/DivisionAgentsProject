@@ -67,12 +67,14 @@
             android:layout_height="wrap_content"
             android:text="정예 여부"
             android:textSize="20sp"
+            android:buttonTint="#fe6e0e"
             android:layout_marginRight="20dp"/>
         <CheckBox
             android:id="@+id/chkPVP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PVP 여부"
+            android:buttonTint="#fe6e0e"
             android:textSize="20sp"
             android:layout_marginRight="20dp"/>
         <CheckBox
@@ -80,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="적 클러치 여부"
+            android:buttonTint="#fe6e0e"
             android:enabled="false"
             android:textSize="20sp"/>
     </LinearLayout>

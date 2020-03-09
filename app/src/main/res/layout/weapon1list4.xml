@@ -1,173 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
-    <LinearLayout
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-        <TextView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FAL"
-            android:textSize="30sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="15dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FAL"
+                android:textSize="30sp"
+                android:textColor="#aaa"
+                android:layout_marginBottom="15dp"/>
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp">
 
-            <TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="데미지 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="11718~14322"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="11718~14322"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="발사 속도 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="650 RPM"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="발사 속도 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="650 RPM"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="장탄수 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="20"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="장탄수 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="재장전 속도 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="2초"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="재장전 속도 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="2초"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="발사방식 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="자동"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="발사방식 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="자동"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="장착 가능 모드 : "
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="스킨, 긴 광학 레일, 7.62mm 탄창 슬롯, 긴총열 하단부 레일, 7.62mm 총구 슬롯"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="장착 가능 모드 : "
+                        android:textSize="18sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="스킨, 긴 광학 레일, 7.62mm 탄창 슬롯, 긴총열 하단부 레일, 7.62mm 총구 슬롯"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
-            <TableRow>
+                </TableRow>
+                <TableRow>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="바리에이션 : "
-                    android:textSize="20sp"
-                    android:textColor="#000000"
-                    android:textAlignment="textEnd"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:text="FAL, FAL SA-58, FA SA-58 Para, 전술용 SA-58"
-                    android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="바리에이션 : "
+                        android:textSize="20sp"
+                        android:textColor="#aaa"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="FAL, FAL SA-58, FA SA-58 Para, 전술용 SA-58"
+                        android:textColor="#aaa"
+                        android:textSize="20sp"/>
 
-            </TableRow>
+                </TableRow>
 
-        </TableLayout>
+            </TableLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="설명"
-            android:textSize="30sp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="전작의 3점사 대신 이젠 자동사격만 된다. 다른 파워형 돌격소총들처럼 RPM은 낮아도 대미지가 매우 뛰어나며 적정 사거리도 긴 편이다. AK-M 대비 낮은 반동도 장점. 하지만 기본 탄창 용량이 20발이라는 점이 아쉽다. 2번 특수효과에 여유분이 달려있다면 Mk.16을 대체해서 쓰기 좋다."
-            android:textSize="20sp"
-            android:textColor="#000000"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="설명"
+                android:textColor="#aaa"
+                android:textSize="30sp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:text="전작의 3점사 대신 이젠 자동사격만 된다. 다른 파워형 돌격소총들처럼 RPM은 낮아도 대미지가 매우 뛰어나며 적정 사거리도 긴 편이다. AK-M 대비 낮은 반동도 장점. 하지만 기본 탄창 용량이 20발이라는 점이 아쉽다. 2번 특수효과에 여유분이 달려있다면 Mk.16을 대체해서 쓰기 좋다."
+                android:textSize="20sp"
+                android:textColor="#aaa"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</FrameLayout>

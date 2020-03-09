@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="세트효과"
                 android:textSize="30sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:layout_marginBottom="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,6 +33,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(2/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -38,7 +42,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="전체 방어도 +10%"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
@@ -50,6 +54,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(3/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -58,14 +63,14 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="성조"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="사격을 가하면 대상에게 디버프 효과를 적용합니다. 디버프 효과는 붉은색/하얀색/파란색 순서로 적용되며, 4초마다 순환합니다.\n\n붉은색 디버프 효과는 해당 적이 주는 대미지를 감소시킵니다\n하얀색 디버프 효과는 해당 적을 사격하는 아군의 방어도가 회복됩니다\n파란색 디버프 효과는 해당 적을 사격하는 아군의 스킬 재사용 대기시간 감소가 증가합니다"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:textSize="20sp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"/>
@@ -78,6 +83,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(4/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -86,14 +92,14 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="완전한 깃발"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="세 가지 디버프 효과가 전부 적용된 적을 사격하면 최소한 한 개의 디버프 효과가 부여된 주변의 다른 적에게도 25%만큼 대미지를 줍니다."
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:textSize="20sp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -106,9 +112,9 @@
                 android:textSize="20sp"
                 android:background="@drawable/buttoncustom"
                 android:padding="10dp"
-                android:textColor="#000000"/>
+                android:textColor="#aaa"/>
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

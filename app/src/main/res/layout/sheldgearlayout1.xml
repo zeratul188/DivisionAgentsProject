@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="세트효과"
                 android:textSize="30sp"
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:layout_marginBottom="5dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,6 +33,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(2/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -38,7 +42,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="출혈 대미지 +25%"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <LinearLayout
@@ -50,6 +54,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(3/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -58,14 +63,14 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="긴급 징발"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="무기를 재장전하면 40미터 반경 내에 있는 모든 전투자원(방어구 키트, 탄약, 수류탄)을 자동으로 획득합니다."
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:textSize="20sp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"/>
@@ -78,6 +83,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="(4/4)"
+                    android:textColor="#666"
                     android:textSize="20sp"
                     android:paddingRight="10dp"
                     android:textAlignment="textEnd"/>
@@ -86,14 +92,14 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="알맞은 도구"
-                    android:textColor="#000000"
+                    android:textColor="#aaa"
                     android:textSize="20sp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="상태 이상이 걸린 적을 처치하면 폭발탄을 드랍합니다."
-                android:textColor="#000000"
+                android:textColor="#aaa"
                 android:textSize="20sp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -106,9 +112,9 @@
                 android:textSize="20sp"
                 android:background="@drawable/buttoncustom"
                 android:padding="10dp"
-                android:textColor="#000000"/>
+                android:textColor="#aaa"/>
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

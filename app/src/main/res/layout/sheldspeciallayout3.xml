@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="소여의 무릎 보호대\n\n내용 없음"
         android:gravity="center"
         android:textSize="30sp"
-        android:textColor="#000000"/>
+        android:textColor="#aaa"/>
 
-</LinearLayout>
+</FrameLayout>

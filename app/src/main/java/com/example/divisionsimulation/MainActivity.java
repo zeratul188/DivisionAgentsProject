@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             notificationManager.createNotificationChannel(channel);
         }
 
-        ActionBarDrawerToggle DrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+        /*ActionBarDrawerToggle DrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
-            /** drawer가 닫혔을 때, 호출된다. */
+            // drawer가 닫혔을 때, 호출된다.
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }
             }
 
-            /** drawer가 열렸을 때, 호출된다. */
+            // drawer가 열렸을 때, 호출된다.
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             }
         };
 
-        drawer.setDrawerListener(DrawerToggle);
+        drawer.setDrawerListener(DrawerToggle);*/
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each

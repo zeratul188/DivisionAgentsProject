@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="15dp" android:background="@drawable/wall2">
-    <LinearLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/bt6"
-            android:layout_marginBottom="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="블랙터스크 조종사"
-            android:textSize="40sp"
-            android:textColor="#000000"
-            android:layout_marginBottom="30dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="블랙터스크 조종사 전술 정보"
-            android:textSize="30sp"
-            android:textColor="#222222"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="조종사는 블랙 터스트의 무인 지상 차량을 책임지는 병력이다. 자신의 장비에 대한 자부심이 대단하며, 새로 개발한 초소형 전차를 전장에서 사용하는데 열성적인 모습을 보인다. 조종사 구성원 상당수는 군대에서 전기 및 기계 공병으로 복무한 경험이 있다."
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:background="@drawable/buttoncustom"
-            android:layout_marginBottom="10dp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/bt6"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="블랙터스크 조종사"
+                android:textSize="40sp"
+                android:textColor="#aaaaaa"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="블랙터스크 조종사 전술 정보"
+                android:textSize="30sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="조종사는 블랙 터스트의 무인 지상 차량을 책임지는 병력이다. 자신의 장비에 대한 자부심이 대단하며, 새로 개발한 초소형 전차를 전장에서 사용하는데 열성적인 모습을 보인다. 조종사 구성원 상당수는 군대에서 전기 및 기계 공병으로 복무한 경험이 있다."
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="#aaaaaa"
+                android:background="@drawable/buttoncustom"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</FrameLayout>
