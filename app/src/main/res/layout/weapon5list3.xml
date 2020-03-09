@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wall2">
-
-    <LinearLayout
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-        <ImageView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:src="@drawable/weapon5list3"
-            android:layout_marginBottom="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="역병"
-            android:textSize="30sp"
-            android:textColor="#FFFE6E0E"
-            android:layout_marginBottom="15dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="우리가 겪은 고통을 느껴봐라\n\n-격리 경험이 있는 아웃캐스트 구성원-"
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:src="@drawable/weapon5list3"
+                android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="역병"
+                android:textSize="30sp"
+                android:textColor="#FFFE6E0E"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:text="우리가 겪은 고통을 느껴봐라\n\n-격리 경험이 있는 아웃캐스트 구성원-"
+                android:textColor="#aaa"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="아웃캐스트의 역병"
-            android:textSize="25sp"
-            android:textColor="#000000"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="동일한 적을 5 번 적중시키면 아웃캐스트의 역병에 감염시킵니다.\n아웃캐스트의 역병에 감염된 적은 사망할 때 5초동안 유지되는 독구름을 남기며, 1초마다 접촉하는 모든 대상에게 무기 대미지의 1000%에 해당하는 대미지를 줍니다. 추가로 역병 디버프 효과를 적용합니다."
-            android:textSize="20sp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="역병"
-            android:textSize="25sp"
-            android:textColor="#000000"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="해당 디버프 효과는 10초 동안 받는 치유를 50%만큼 감소시킵니다.\n역병 디버프 효과가 적용된 적은 빈사 상태에 이르면 그 즉시 사망합니다.\n적의 방어도가 완전히 회복되면 디버프 효과가 제거됩니다."
-            android:textSize="20sp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="아웃캐스트의 끈기"
-            android:textSize="25sp"
-            android:textColor="#000000"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="슬롯에 수납한 상태에서 시력 상실, 출혈, 화상 상태이상 효과에 걸릴 때마다 5초동안 보너스 방어도를 20%만큼 얻습니다."
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아웃캐스트의 역병"
+                android:textSize="25sp"
+                android:textColor="#aaa"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:textColor="#aaa"
+                android:text="동일한 적을 5 번 적중시키면 아웃캐스트의 역병에 감염시킵니다.\n아웃캐스트의 역병에 감염된 적은 사망할 때 5초동안 유지되는 독구름을 남기며, 1초마다 접촉하는 모든 대상에게 무기 대미지의 1000%에 해당하는 대미지를 줍니다. 추가로 역병 디버프 효과를 적용합니다."
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="역병"
+                android:textSize="25sp"
+                android:textColor="#aaa"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:text="해당 디버프 효과는 10초 동안 받는 치유를 50%만큼 감소시킵니다.\n역병 디버프 효과가 적용된 적은 빈사 상태에 이르면 그 즉시 사망합니다.\n적의 방어도가 완전히 회복되면 디버프 효과가 제거됩니다."
+                android:textColor="#aaa"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="아웃캐스트의 끈기"
+                android:textSize="25sp"
+                android:textColor="#aaa"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:text="슬롯에 수납한 상태에서 시력 상실, 출혈, 화상 상태이상 효과에 걸릴 때마다 5초동안 보너스 방어도를 20%만큼 얻습니다."
+                android:textColor="#aaa"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="설명"
-            android:textSize="30sp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttoncustom"
-            android:padding="10dp"
-            android:text="4월 5일 업데이트로 추가된 특급 LMG.\n\n일반/점령 구분 없이 다크존 네임드 몬스터가 적당히 높은 확률로 드랍하는데, 무조건 오염된 상태로만 드랍되기에 헬기 이송이 필수다. 따라서 보통 역병 파밍을 한다고 하면 다인큐를 운용하는 편이다.\n\n자체 DMG가 원본인 M249와 비교할시 아무리 좋게쳐줘도 1/4~1/5 수준으로 상당히 낮...았으나 5월 14일 패치로 대미지가 상승되엇다. 명중률과 안정성도 낮고, RPM도 원형인 M249와 동일한 550에 불과한데, 특급이라 개조가 불가능한 것까지 고려하면 참 쓰기가 난감한 총.\n\n때문에, 이 무기는 100% 탤런트만 노리고 사용해야 하는데 이 옵션들도 호불호가 갈리는 것들이다 보니 다른 엑조틱에 비해 평가가 상당히 미묘하다.\n\n좋은 쪽으로 생각해보자면 마지막 탤런트인 아웃캐스트의 끈기는 전투지속에 매우 효과적인 옵션이고, 나머지 두 옵션은 PvP에서나 PvE에서나 어느 정도 효과를 볼 수 있다는 점에서 이점을 가지지만, 결국 거기에 따라오는 후속 딜링이 없다면 끈기를 제외한 두 옵션은 없는 수준 정도까지 존재의의가 떨어지게 된다는 점이 주요 마이너스 포인트.\n\n첫 번째 아웃캐스트의 역병은 동일한 적을 10 번이나 맞춰야하는데 PVE면 모를까 PVP에서 10 번이나 맞아줄 착한 유저가 있을 턱이 없다. PVE도 현 디비전 2 몹들이 무지막지한 기동성과 은엄폐 실력을 자랑하기에 써먹기가 굉장히 힘들다. 힘겹게 독구름을 생성시켜도 자체 딜이 저질이라 꼴랑 200%로는 흠집도 안가는 수준.\n\n추가 이후 개발진 측에서 역병의 DMG 버프를 예고해서 얼마나 버프되냐에 따라 쓰일지 말지가 결정될 듯 하다.\n\n지금은 그저 좋은 특급 무기 업그레이드 재료와 컬렉션용 그 이상도 이하도 아닌 총.\n\n패치로 원본 M249의 3/4 수준으로 DMG가 올라갔고 역병 발동 조건이 20 번에서 10 번 적중으로 내려가서 활용하기가 쉬워졌다. 때문에, 역병을 들고 다니는 역병맨들이 많아져서 버프되었다지만 여전히 낮은 DMG와 역병 연기로 시야만 가리는 민폐를 끼치고 있다. 몹들도 애초에 젠될때를 빼면 뭉쳐있지를 않아서 역병 구름속에 2마리 넣기도 힘든 상황.\n\nTU6 업데이트에서 또 한번 상향되었다.또한 타겟팅 루팅이 도입되면서 경기관총이 타겟팅된 미션또는 지역에서 NPC가 드랍한다."
-            android:textSize="20sp"
-            android:textColor="#000000"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="설명"
+                android:textColor="#aaa"
+                android:textSize="30sp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttoncustom"
+                android:padding="10dp"
+                android:text="4월 5일 업데이트로 추가된 특급 LMG.\n\n일반/점령 구분 없이 다크존 네임드 몬스터가 적당히 높은 확률로 드랍하는데, 무조건 오염된 상태로만 드랍되기에 헬기 이송이 필수다. 따라서 보통 역병 파밍을 한다고 하면 다인큐를 운용하는 편이다.\n\n자체 DMG가 원본인 M249와 비교할시 아무리 좋게쳐줘도 1/4~1/5 수준으로 상당히 낮...았으나 5월 14일 패치로 대미지가 상승되엇다. 명중률과 안정성도 낮고, RPM도 원형인 M249와 동일한 550에 불과한데, 특급이라 개조가 불가능한 것까지 고려하면 참 쓰기가 난감한 총.\n\n때문에, 이 무기는 100% 탤런트만 노리고 사용해야 하는데 이 옵션들도 호불호가 갈리는 것들이다 보니 다른 엑조틱에 비해 평가가 상당히 미묘하다.\n\n좋은 쪽으로 생각해보자면 마지막 탤런트인 아웃캐스트의 끈기는 전투지속에 매우 효과적인 옵션이고, 나머지 두 옵션은 PvP에서나 PvE에서나 어느 정도 효과를 볼 수 있다는 점에서 이점을 가지지만, 결국 거기에 따라오는 후속 딜링이 없다면 끈기를 제외한 두 옵션은 없는 수준 정도까지 존재의의가 떨어지게 된다는 점이 주요 마이너스 포인트.\n\n첫 번째 아웃캐스트의 역병은 동일한 적을 10 번이나 맞춰야하는데 PVE면 모를까 PVP에서 10 번이나 맞아줄 착한 유저가 있을 턱이 없다. PVE도 현 디비전 2 몹들이 무지막지한 기동성과 은엄폐 실력을 자랑하기에 써먹기가 굉장히 힘들다. 힘겹게 독구름을 생성시켜도 자체 딜이 저질이라 꼴랑 200%로는 흠집도 안가는 수준.\n\n추가 이후 개발진 측에서 역병의 DMG 버프를 예고해서 얼마나 버프되냐에 따라 쓰일지 말지가 결정될 듯 하다.\n\n지금은 그저 좋은 특급 무기 업그레이드 재료와 컬렉션용 그 이상도 이하도 아닌 총.\n\n패치로 원본 M249의 3/4 수준으로 DMG가 올라갔고 역병 발동 조건이 20 번에서 10 번 적중으로 내려가서 활용하기가 쉬워졌다. 때문에, 역병을 들고 다니는 역병맨들이 많아져서 버프되었다지만 여전히 낮은 DMG와 역병 연기로 시야만 가리는 민폐를 끼치고 있다. 몹들도 애초에 젠될때를 빼면 뭉쳐있지를 않아서 역병 구름속에 2마리 넣기도 힘든 상황.\n\nTU6 업데이트에서 또 한번 상향되었다.또한 타겟팅 루팅이 도입되면서 경기관총이 타겟팅된 미션또는 지역에서 NPC가 드랍한다."
+                android:textSize="20sp"
+                android:textColor="#aaa"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</FrameLayout>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="20dp"
-    android:background="@drawable/wall2">
-
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/redwall4"
+        android:scaleType="centerCrop"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,6 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -30,107 +34,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/glovesblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="치명타 대미지"
-                android:textSize="30sp"
-                android:textColor="#ff0000"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
                     android:src="@drawable/mask"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/gloves"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepeds"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="엘리트 대상 대미지"
-                android:textSize="30sp"
-                android:textColor="#ff0000"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -166,7 +70,60 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="헤드샷 대미지"
+                android:text="치명타 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mask"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/backpack"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vests"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/gloves"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/holsters"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/kneepeds"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="엘리트 대상 대미지"
                 android:textSize="30sp"
                 android:textColor="#ff0000"
                 android:layout_marginBottom="20dp"/>
@@ -187,29 +144,89 @@
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/backpack"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
+                    android:src="@drawable/vests"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/gloves"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/holsters"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/kneepeds"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="헤드샷 대미지"
+                android:textSize="30sp"
+                android:textColor="#ff0000"
+                android:layout_marginBottom="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mask"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/backpack"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vests"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/gloves"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/holsters"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
                     android:src="@drawable/kneepeds"/>
 
             </LinearLayout>
@@ -267,35 +284,40 @@
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/mask"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/backpack"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/vests"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/glovesblack"
+                    android:src="@drawable/gloves"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/holsters"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
+                    android:visibility="invisible"
                     android:src="@drawable/kneepeds"/>
 
             </LinearLayout>
@@ -318,23 +340,79 @@
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/mask"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
+                    android:src="@drawable/backpack"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
+                    android:src="@drawable/vests"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
+                    android:src="@drawable/gloves"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/holsters"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/kneepeds"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="보너스 방호도"
+                android:textSize="30sp"
+                android:textColor="#6868FF"
+                android:layout_marginBottom="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mask"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/backpack"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vests"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
                     android:src="@drawable/gloves"
                     android:layout_marginRight="10dp"/>
                 <ImageView
@@ -342,6 +420,7 @@
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/holsters"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -353,9 +432,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="보너스 방호도"
+                android:text="상태이상 저항"
                 android:textSize="30sp"
-                android:textColor="#0000ff"
+                android:textColor="#6868FF"
                 android:layout_marginBottom="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -373,80 +452,35 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/gloves"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holsters"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="상태이상 저항"
-                android:textSize="30sp"
-                android:textColor="#0000ff"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
                     android:src="@drawable/backpack"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/vests"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/gloves"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
                     android:src="@drawable/holsters"
+                    android:visibility="invisible"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
+                    android:visibility="invisible"
                     android:src="@drawable/kneepeds"/>
 
             </LinearLayout>
@@ -455,7 +489,7 @@
                 android:layout_height="wrap_content"
                 android:text="생명력"
                 android:textSize="30sp"
-                android:textColor="#0000ff"
+                android:textColor="#6868FF"
                 android:layout_marginBottom="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -467,57 +501,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/glovesblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="적 처치시 생명력 회복"
-                android:textSize="30sp"
-                android:textColor="#0000ff"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
+                    android:src="@drawable/mask"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -541,7 +525,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
+                    android:src="@drawable/holsters"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -553,9 +537,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="스킬가속"
+                android:text="적 처치시 생명력 회복"
                 android:textSize="30sp"
-                android:textColor="#00ff00"
+                android:textColor="#6868FF"
                 android:layout_marginBottom="20dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -567,13 +551,119 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
+                    android:src="@drawable/mask"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
+                    android:src="@drawable/backpack"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vests"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/gloves"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/holsters"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/kneepeds"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="스킬가속"
+                android:textSize="30sp"
+                android:textColor="#FFC800"
+                android:layout_marginBottom="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mask"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/backpack"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/vests"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/gloves"
+                    android:visibility="invisible"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/holsters"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/kneepeds"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="스킬파워"
+                android:textSize="30sp"
+                android:textColor="#FFC800"
+                android:layout_marginBottom="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/mask"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:src="@drawable/backpack"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -591,63 +681,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
+                    android:src="@drawable/holsters"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
-
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="스킬파워"
-                android:textSize="30sp"
-                android:textColor="#00ff00"
-                android:layout_marginBottom="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/maskblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/backpackblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/vestsblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/glovesblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/holstersblack"
-                    android:layout_marginRight="10dp"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="50dp"
-                    android:src="@drawable/kneepedsblack"/>
+                    android:src="@drawable/kneepeds"/>
 
             </LinearLayout>
 
@@ -657,4 +697,4 @@
     </ScrollView>
 
 
-</LinearLayout>
+</FrameLayout>
