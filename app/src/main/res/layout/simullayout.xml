@@ -15,6 +15,50 @@
         android:orientation="vertical"
         android:padding="30dp"
         android:gravity="center">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/headshot_gray"/>
+            <ImageView
+                android:id="@+id/imgtake1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/take1"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/imgtake2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/take2"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/imgtake3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/takeheadshot1"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/imgtake4"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/takeheadshot2"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/imgAim"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/out_aim5"/>
+        </FrameLayout>
         <TextView
             android:id="@+id/txtNickname"
             android:layout_width="match_parent"
@@ -106,70 +150,7 @@
 
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="현재 데미지 : "
-                android:textSize="25sp"
-                android:textColor="#AAAAAA"
-                android:fontFamily="@font/korea_font"
-                android:textAlignment="textEnd"/>
-            <TextView
-                android:id="@+id/txtNowDemage"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="9999"
-                android:textColor="#f0f0f0"
-                android:fontFamily="@font/brickshapersfont"
-                android:textSize="45sp"
-                style = "@style/TextShadow"/>
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:layout_width="225dp"
-            android:layout_height="16dp"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/progressbar_progressbar_gage"
-            android:background="@drawable/gage"
-            android:id="@+id/progressAmmo"
-            android:paddingLeft="11dp"
-            android:paddingRight="11dp"
-            android:paddingBottom="6dp"
-            android:paddingTop="3dp"
-            android:indeterminateTint="#E45435"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="현재 탄수 : "
-                android:textAlignment="textEnd"
-                android:textColor="#f0f0f0"
-                android:fontFamily="@font/korea_font"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/txtAmmo"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="99"
-                android:fontFamily="@font/brickshapers"
-                android:textSize="35sp"
-                android:textColor="#f0f0f0"/>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,6 +161,70 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:text="현재 데미지 : "
+                        android:textSize="20sp"
+                        android:textColor="#AAAAAA"
+                        android:fontFamily="@font/korea_font"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:id="@+id/txtNowDemage"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="wrap_content"
+                        android:text="9999"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/brickshapersfont"
+                        android:textSize="32sp"
+                        style = "@style/TextShadow"/>
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:layout_width="200dp"
+                    android:layout_height="16dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                    android:background="@drawable/gage"
+                    android:id="@+id/progressAmmo"
+                    android:paddingLeft="11dp"
+                    android:paddingRight="11dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="3dp"
+                    android:indeterminateTint="#E45435"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="현재 탄수 : "
+                        android:textAlignment="textEnd"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/txtAmmo"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="99"
+                        android:fontFamily="@font/brickshapers"
+                        android:textSize="24sp"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -209,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="now statue"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textColor="#f0f0f0"
                     android:fontFamily="@font/korea_font"
                     android:textAlignment="center"/>
@@ -308,7 +353,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="빠른 손 히트 수 : "
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textColor="#aaaaaa"
                             android:fontFamily="@font/korea_font"
                             android:textAlignment="textEnd"/>
@@ -320,7 +365,7 @@
                             android:text="0"
                             android:textColor="#f0f0f0"
                             android:fontFamily="@font/brickshapersfont"
-                            android:textSize="34sp"/>
+                            android:textSize="24sp"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -337,6 +382,42 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="데미지 : "
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:textAlignment="textEnd"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -478,6 +559,42 @@
                         android:fontFamily="@font/korea_font"
                         android:textSize="15sp"
                         android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
+                    <TextView
+                        android:id="@+id/txtListDemage11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/korea_font"
+                        android:textSize="15sp"
+                        android:singleLine="true"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -498,6 +615,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:gravity="center">

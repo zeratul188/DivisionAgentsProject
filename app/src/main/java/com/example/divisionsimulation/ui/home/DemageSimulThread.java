@@ -34,10 +34,10 @@ class DemageSimulThread extends Thread implements Serializable {
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
     private SimulActivity sa = null;
 
-    private String[] listDemage = new String[7];
-    private boolean[] on_headshot_list = new boolean[7];
-    private boolean[] on_critical_list = new boolean[7];
-    private boolean[] on_boom_list = new boolean[7];
+    private String[] listDemage = new String[11];
+    private boolean[] on_headshot_list = new boolean[11];
+    private boolean[] on_critical_list = new boolean[11];
+    private boolean[] on_boom_list = new boolean[11];
 
     //private boolean headshot_enable = false;
     //private boolean critical_enable = false;
@@ -47,6 +47,8 @@ class DemageSimulThread extends Thread implements Serializable {
     private String log, statue_log = "", ammo_log = ""; //액티비티에 표현할 문자열을 저장하는 변수이다.
 
     private boolean on_headshot = false, on_critical = false, on_boom = false;
+
+    private int img_ransu, aim_ransu;
 
     /*final Handler headshot_handle = new Handler(){
 
@@ -382,15 +384,15 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (on_boom) on_boom_list[listDemage.length-1] = true;
                 else if (on_critical) on_critical_list[listDemage.length-1] = true;
                 else if (on_headshot) on_headshot_list[listDemage.length-1] = true;
-                listDemage[6] = Integer.toString(real_demage);
+                listDemage[10] = Integer.toString(real_demage);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        sa.setTxtListDemage(6, listDemage[6]);
-                        if (on_boom_list[6]) sa.hitboom_list(6);
-                        else if (on_critical_list[6]) sa.hitCritical_list(6);
-                        else if (on_headshot_list[6]) sa.hitHeadshot_list(6);
-                        else sa.shelddefaultColor_list(6);
+                        sa.setTxtListDemage(10, listDemage[10]);
+                        if (on_boom_list[10]) sa.hitboom_list(10);
+                        else if (on_critical_list[10]) sa.hitCritical_list(10);
+                        else if (on_headshot_list[10]) sa.hitHeadshot_list(10);
+                        else sa.shelddefaultColor_list(10);
                     }
                 });
                 /*if (on_boom) sa.hitboom_list(listDemage.length-1);
@@ -400,14 +402,33 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {
+                    if (on_headshot) {
+                        img_ransu = (int)(Math.random()*1234567)%2+2;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                sa.setImgTake(img_ransu);
+                            }
+                        });
+                    } else {
+                        img_ransu = (int)(Math.random()*1234567)%2;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                sa.setImgTake(img_ransu);
+                            }
+                        });
+                    }
                     sheld -= real_demage;
                     all_dmg += real_demage;
                     log = "-" + real_demage;
+                    aim_ransu = (int)(Math.random()*1234567)%10+1;
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText(log);
                             sa.setTxtNowDemage(log);
+                            sa.setImgAim(aim_ransu, true);
                         }
                     });
                     if (hit_critical > 30) {
@@ -421,11 +442,16 @@ class DemageSimulThread extends Thread implements Serializable {
                         });
                     }
                 } else {
+                    aim_ransu = (int)(Math.random()*1234567)%5+1;
+                    listDemage[10] = "";
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText("");
                             sa.setTxtNowDemage("");
+                            sa.setImgTake(4);
+                            sa.setTxtListDemage(10, "");
+                            sa.setImgAim(aim_ransu, false);
                         }
                     });
                 }
@@ -645,29 +671,48 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (on_boom) on_boom_list[listDemage.length-1] = true;
                 else if (on_critical) on_critical_list[listDemage.length-1] = true;
                 else if (on_headshot) on_headshot_list[listDemage.length-1] = true;
-                listDemage[6] = Integer.toString(real_demage);
+                listDemage[10] = Integer.toString(real_demage);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        sa.setTxtListDemage(6, listDemage[6]);
-                        if (on_boom_list[6]) sa.hitboom_list(6);
-                        else if (on_critical_list[6]) sa.hitCritical_list(6);
-                        else if (on_headshot_list[6]) sa.hitHeadshot_list(6);
-                        else sa.defaultColor_list(6);
+                        sa.setTxtListDemage(10, listDemage[10]);
+                        if (on_boom_list[10]) sa.hitboom_list(10);
+                        else if (on_critical_list[10]) sa.hitCritical_list(10);
+                        else if (on_headshot_list[10]) sa.hitHeadshot_list(10);
+                        else sa.defaultColor_list(10);
                     }
                 });
                 if (end) break;
                 per = (int)(Math.random()*1234567)%1000+1;
                 if (aiming*10 >= per) {
+                    if (on_headshot) {
+                        img_ransu = (int)(Math.random()*1234567)%2+2;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                sa.setImgTake(img_ransu);
+                            }
+                        });
+                    } else {
+                        img_ransu = (int)(Math.random()*1234567)%2;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                sa.setImgTake(img_ransu);
+                            }
+                        });
+                    }
                     temp_health = SimulActivity.getHealth() - real_demage;
                     SimulActivity.setHealth(temp_health);
                     all_dmg += real_demage;
                     log = "-" + real_demage;
+                    aim_ransu = (int)(Math.random()*1234567)%10+1;
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText(log);
                             sa.setTxtNowDemage(log);
+                            sa.setImgAim(aim_ransu, true);
                         }
                     });
                     if (hit_critical > 30) {
@@ -681,11 +726,16 @@ class DemageSimulThread extends Thread implements Serializable {
                         });
                     }
                 } else {
+                    aim_ransu = (int)(Math.random()*1234567)%5+1;
+                    listDemage[10] = "";
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText("");
                             sa.setTxtNowDemage("");
+                            sa.setImgTake(4);
+                            sa.setTxtListDemage(10, "");
+                            sa.setImgAim(aim_ransu, false);
                         }
                     });
                 }

@@ -26,7 +26,9 @@ public class SimulActivity extends Activity implements Serializable {
     private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue;
     private TextView txtNickname, txtHealthInfo;
 
-    private TextView[] txtListDemage = new TextView[7];
+    private TextView[] txtListDemage = new TextView[11];
+    private ImageView[] imgtake = new ImageView[4];
+    private ImageView imgAim;
 
     private ProgressBar progressSheld, progressHealth, progressAmmo;
 
@@ -70,6 +72,71 @@ public class SimulActivity extends Activity implements Serializable {
     public void setBtnExitText(String message) { btnExit.setText(message); }
 
     public void setTxtListDemage(int index, String message) { txtListDemage[index].setText(message); }
+    public void setImgTake(int index) {
+        for (int i = 0; i < imgtake.length; i++) {
+            if (index == i) imgtake[i].setVisibility(View.VISIBLE);
+            else imgtake[i].setVisibility(View.INVISIBLE);
+        }
+    }
+    /*
+    0~1 : 몸샷
+    2~3 : 헤드샷
+    4 : 빗나감
+     */
+    public void setImgAim(int index, boolean taked) {
+        if (taked) { //index : 1~10
+            switch (index) {
+                case 1:
+                    imgAim.setImageResource(R.drawable.aim1);
+                    break;
+                case 2:
+                    imgAim.setImageResource(R.drawable.aim2);
+                    break;
+                case 3:
+                    imgAim.setImageResource(R.drawable.aim3);
+                    break;
+                case 4:
+                    imgAim.setImageResource(R.drawable.aim4);
+                    break;
+                case 5:
+                    imgAim.setImageResource(R.drawable.aim5);
+                    break;
+                case 6:
+                    imgAim.setImageResource(R.drawable.aim6);
+                    break;
+                case 7:
+                    imgAim.setImageResource(R.drawable.aim7);
+                    break;
+                case 8:
+                    imgAim.setImageResource(R.drawable.aim8);
+                    break;
+                case 9:
+                    imgAim.setImageResource(R.drawable.aim9);
+                    break;
+                case 10:
+                    imgAim.setImageResource(R.drawable.aim10);
+                    break;
+            }
+        } else { //index : 1~5
+            switch (index) {
+                case 1:
+                    imgAim.setImageResource(R.drawable.out_aim1);
+                    break;
+                case 2:
+                    imgAim.setImageResource(R.drawable.out_aim2);
+                    break;
+                case 3:
+                    imgAim.setImageResource(R.drawable.out_aim3);
+                    break;
+                case 4:
+                    imgAim.setImageResource(R.drawable.out_aim4);
+                    break;
+                case 5:
+                    imgAim.setImageResource(R.drawable.out_aim5);
+                    break;
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +186,7 @@ public class SimulActivity extends Activity implements Serializable {
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
         progressAmmo = findViewById(R.id.progressAmmo);
+        imgAim = findViewById(R.id.imgAim);
 
         layoutQuickhand = findViewById(R.id.layoutQuickhand);
         txtQuickhand = findViewById(R.id.txtQuickhand);
@@ -133,6 +201,10 @@ public class SimulActivity extends Activity implements Serializable {
         for (int i = 0; i < txtListDemage.length; i++) {
             temp = getResources().getIdentifier("txtListDemage"+(i+1), "id", getPackageName());
             txtListDemage[i] = findViewById(temp);
+        }
+        for (int i = 0; i < imgtake.length; i++) {
+            temp = getResources().getIdentifier("imgtake"+(i+1), "id", getPackageName());
+            imgtake[i]  = findViewById(temp);
         }
 
         //progressSheld.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
