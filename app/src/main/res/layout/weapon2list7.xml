@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="3점사 전용 소총이다. 전작에서 3점사 소총으로 나오던 FAL이 본작에선 돌격소총이 되면서, 본 총기가 새로 등장했다.\n\n이론상으론 3발을 연달아서 꽃으면 꽤나 위력적인 무기지만, 실제로는 3발 모두 반동이 있기 때문에 제대로 맞히기가 어렵다. 게다가 부착물이라곤 짧은 광학레일, 탄창, 총구가 전부라서 성능 잡는데도 한계가 있다.[18] 그렇다고 3발을 거의 동시에 내뱉는 것도 아니며, 점사 간격이 길어서 배틀필드 4의 M16 같은, 점사를 빙자한 자동사격도 할 수 없다. 여기에 3점사라고 대미지가 돌격소총 수준으로 책정된 주제에 소지 탄약량은 소총 그대로 가기 때문에, 고난이도에선 첫 교전부터 탄약이 바닥나는 꼴을 볼 수 있었다. 이 때문에 레딧에서 최악의 무기를 논할 때 꼭 등장하는 무기가 되었다.\n\n사실상 필드 로밍할 때 미군 놀이를 하고 싶은 게 아니면 거르는 무기였으나, TU6에서 대미지가 68%나 상향되면서 상황이 많이 나아졌다. 반동 문제도 마스크 전용 탤런트로 조준 안정성을 15%나 올려주는 '정신 집중'이 생기면서 한결 편해졌고, 탄약 문제도 '뜻밖의 행운' 탤런트의 발동 확률이 25%에서 100%로 대거 상향 받으면서 많이 개선 되었다.\n\n다만 같은 패치에서 클래식 M1A도 상당히 많은 버프를 받았기 때문에 메리트가 살짝 떨어진다. 또한 대미지가 올라가고 운용 편의성을 갖출 여건이 많이 생겼을 뿐, 부품 개조가 제한적이라는 단점은 개선되지 않았다."
                 android:textSize="20sp"

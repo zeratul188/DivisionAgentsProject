@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -485,7 +485,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="ACS와 더불어 연사가 가능한 자동 샷건. 자동인 만큼 발 당 대미지는 낮으며, 러시아 제조 샷건 아니랄까봐 반동도 무식해서 이 총을 연사하며 적을 맞히기는 힘들다. 다만 연사인 만큼 적 대응에 있어서는 편한 편. 박스형 탄창이기 때문에 탄창 교체도 자유롭다는 것이 가장 큰 장점이다."
                 android:textSize="20sp"

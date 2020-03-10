@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="사거리에 투자해 주면 명중률 약간 낮은 돌격소총처럼 쓸 수 있다. RPM이 높지 않기 때문에 저지력은 낮지만 안정적인 딜링이 가능하다."
                 android:textSize="20sp"

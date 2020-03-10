@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -486,7 +486,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -635,7 +635,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="586 매그넘과 비슷한 성능을 가지고있으며 연사속도가 조금더 빠르다.\n\n이름인 Diceros는 검은코뿔소의 학명인 Diceros bicornis에서 앞부분을 따온것.\n폭파 전문가 전문화 업그레이드에서 Diceros Special을 얻을 수 있다. 일반 Diceros와의 차이점이라면 총열이 길어져 광학 레일 슬롯이 생겼다는 것. 다만 다른 전문화 업그레이드산 보조무기들도 그렇듯 발당 대미지가 이상한 수준으로 낮게 잡히는 상황이라 그다지 쓸모있는것은 아니다."
                 android:textSize="20sp"

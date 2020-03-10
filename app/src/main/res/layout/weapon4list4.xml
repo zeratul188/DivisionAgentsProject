@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -485,7 +485,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="전작의 3점사는 사라지고 모두 자동사격이 가능하다. 공격력은 강한편이며 RPM도 적당하다. 무엇 하나 떨어지는 점이 없는 평균 이상의 성능 덕분에 인기가 많으나, 치명타 사거리가 다른 SMG와는 달리 20m로 짧은 것이 단점."
                 android:textSize="20sp"

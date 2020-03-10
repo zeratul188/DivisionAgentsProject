@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="전작의 3점사 대신 이젠 자동사격만 된다. 다른 파워형 돌격소총들처럼 RPM은 낮아도 대미지가 매우 뛰어나며 적정 사거리도 긴 편이다. AK-M 대비 낮은 반동도 장점. 하지만 기본 탄창 용량이 20발이라는 점이 아쉽다. 2번 특수효과에 여유분이 달려있다면 Mk.16을 대체해서 쓰기 좋다."
                 android:textSize="20sp"

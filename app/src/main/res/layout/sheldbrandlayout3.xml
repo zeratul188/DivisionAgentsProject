@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:text="작중 사격장 NPC로 창립자중 한명인 더글라스를 볼수있다.\n\n풀크확 기관단총 빌드에서 명중률 5%를 챙기기 위해 자주 기용된다.\n\n여담으로 워싱턴 호텔에 TV화면에 출력되는 문구를 보면 재앙발생 직전에 전작의 적성세력인LMB의 본사와 앤드류 대통령 [4] 그리고 이 기업이 함께 포럼을 개최할 예정이었던것으로 보인다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

@@ -738,7 +738,7 @@
                 android:text="마스크에 붙는 옵션은 매우 한정적이지만 PVE에서 중요한 정예 대상 대미지를 속성으로 챙길 수 있는 유일한 부위이다. 최대 57% 정도까지 붙어나올 수 있고, 강력한 타격 탤런트까지 붙으면 파츠 단독으로 60~80%대의 엘리트 대상 대미지를 챙길 수 있기 때문에 PvP 세팅이 아니라면 보통 정예 대상 대미지는 꼭 챙기게 된다."
                 android:textSize="20sp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 
@@ -748,7 +748,7 @@
                 android:text="감시병 탤런트는 이번 TU5 패치에서 스킬들의 기본 쿨타임이 줄어들고, 펄스의 쿨타임이 펄스 지속시간이 끝난 뒤가 아닌 사용한 시점부터 돌게 바뀌어서 충분히 메인으로 굴릴만한 탤런트가 되었다. 게다가 15%가 총 대미지를 15%만큼 뻥튀기 시켜주는 것이기 때문에 대미지 증가 효율이 엄청나다. 보통 7/4/7 클러치 세팅으로 쓰이고, 감시병 뿐만 아니라 백팩의 절체절명 탤런트까지 쓰는 경우가 많다.\n7/4/7 이외에도 PvP 세팅으로 3/11/7도 있는데, 마스크에서 감시병, 백팩에서 절체절명, 장갑에서 보정, 조끼에서 흡혈귀를 사용하여 공격을 3 밖에 챙기지 못해도 딜이 잘 나오고 방어를 11이나 챙겨서 PvP에서 잘 죽지 않으면서도 딜과 유틸을 모두 챙기는 세팅으로 각광받고 있다.\n\n정신집중 탤런트는 무기 개조 시 안정성 부품을 빼고 공격력을 올려주는 파츠를 껴도 충분한 안정성을 확보할 수 있게 해줘 간접적인 딜링 스킬 효과를 볼 수 있다.(기본 명중율이 높은 무기일 수록 효과가 좋다.)"
                 android:textSize="20sp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 

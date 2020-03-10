@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="나에게는 자유를, 타인에게는 죽음을 선사한 물건이다. 예우를 갖춰라. 그럼 무기도 널 존중할 것이다.\n\n-리지웨이 장군, 자신의 보조 무기를 부하에게 주면서 한 말-"
                 android:textColor="#aaa"
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적의 전자 장비에 주는 대미지가 +100%만큼 증가합니다. (조준 시 적의 약점 및 전자 장비가 강조됩니다.)"
                 android:textColor="#aaa"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적의 약점 또는 전자 장비를 파괴할 경우 다음 탄환의 무기 대미지가 +500%만큼 증가합니다.\n대미지가 증가한 탄환으로 적을 처치할 경우 탄창이 보충되고, 해당 탄창을 사용하는 동안 무기 대미지가 +100%만큼 증가합니다."
                 android:textColor="#aaa"
@@ -77,7 +77,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태에서 약점을 파괴하면 현재 무기의 탄창이 20%만큼 보충됩니다."
                 android:textColor="#aaa"
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="국회의사당 임무를 거치면서 처음 부품을 발견하기 때문에, 사전 정보가 없이 주/부임무 위주로 게임을 진행했다면 처음으로 부품을 보게 되는 장비이다. 그러나 다른 조합형 특급 무기와 달리 고급 D50을 조합 재료로 요구하는데, 이 D50의 드랍률이 유독 낮아 사람에 따라선 오랜 시간동안 만들어보지도 못하는 경우도 있다.\n\n탤런트 모두가 전자 장비 및 약점에 집중되어 있다. 이는 전자 장비를 가장 많이 운용하는 블랙 터스크를 상대로 할 때 가장 극대화되는 이점.\n실제 D50을 갈아넣기 때문인지는 몰라도, 자유의 대미지는 동급 기코의 권총들과 비슷하거나 조금 더 높다. 다른 보조무기에 달아주는 기본 탤런트 중에 특별히 마음에 드는 게 없다면 그냥 들고 다녀도 무방한 수준. 특히 독립 탤런트에는 따로 쿨타임이 없기 때문에 PvE를 상정하고 약점을 지속적으로 노리는 플레이를 좋아한다면 시너지가 매우 크다. 다만 태생이 권총이기 때문에 빵빵하고 지속적인 딜링을 기대하긴 어렵고, 눈먼 정의를 활용하는 조커로 사용하는 것이 정석.\n\n아이러니하게도 D50을 매번 갈지 않고 차곡차곡 모으게 되는 범인으로 특급무기의 보정을 위한 특급재료의 수급원으로 많이 갈려나간다. 타 제조 장비의 경우 높은 난이도의 습득난이도를 가졌거나 랜덤성과 열쇠파밍을 요구하는 반면 자유는 D50만 있다면 만드는 것은 상대적으로 쉬운 탓이다.\n\n권총빌드를 애용하는 사람들이 쓰는 무기인데, 그이유는 권총대미지를 잘만 투자한다면 지정사수소총 급의 대미지 이상으로 화력이 어마무시하게 된다. 물론 각종 너프들과 권총빌드 자체의 난이도로 인하여 보통 반동이 낮은 일반 권총을 쓰는 경우도 있다."
                 android:textSize="20sp"

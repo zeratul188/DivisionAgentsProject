@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="전작과 유사한 성능을 가지고 있다. 반동이 적은 편이면서 에임이 조여지는 속도도 매우 빠르기 때문에 최대 연사 속도로 발사를 해도 탄이 많이 튀지를 않는다. 다른 소총에 비해 대미지가 유독 높게 책정되어 DPS가 어마어마했기에 사실상 다른 소총을 쓸 이유가 없을 정도였으나 너프되어 평범한 DPS를 갖게 되었다. 하지만 여전히 뛰어난 명중률과 비교적 낮은 반동 덕분에 명사수에 안정성 몰빵 후 편하게 광클사용할 수 있는 좋은 소총."
                 android:textSize="20sp"

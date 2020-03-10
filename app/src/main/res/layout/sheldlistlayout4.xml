@@ -838,7 +838,7 @@
                 android:text="화기 세팅이라면 주무기 대미지 옵션을 반드시 챙겨가야하는 부위이다. 옵션이 2개 이상이라면 +5 전후이지만, 동일 무기 대미지 옵션이 중첩된다면 +10%이상으로 붙어나오게 된다. 거기에 ㉦탤런트 중 클러치 등이 필요하다면 챙겨주고, 아니라면 ㉦탤런트가 붙지 않고 ㅇ탤런트 중 분쇄나 강력한 타격, 정밀 등이 붙어나온 것을 구한다면 쓸만하다."
                 android:textSize="20sp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 
@@ -848,7 +848,7 @@
                 android:text="클러치 탤런트를 치명타 세팅 뒤 사용하면 엄청난 회복력을 자랑한다. PVP PVE에서 모두 유용하며, 안전장치 탤런트로 회복력 극대화를 꾀하고 광분/중압감으로 공격력 증가를 꾀한다. 무기는 RPM이 높을수록 좋기 때문에 기관단총은 벡터를 사용하는 일이 많으며, 재장전 시간을 고려해 다른 기관단총도 감안된다. 치명타 확률은 떨어지지만 돌격소총과 조합해서 PVE 용으로 사용될 수도 있다.\n\n폭탄광 탤런트로 수류탄 특화 빌드를 사용한다면 맞춤 주문 탤런트가 상당히 유용하며, 분쇄나 정밀, 정확성, 강력한 타격 등 유용한 탤런트가 많이 모여있어 고르는 재미가 있는 부위이다.\n\n슬개골 탤런트를 채용하면 생존전문가 석궁 탄약을 많이 얻을 수 있지만 현재 석궁에 그럴 만한 가치가 있는 것 같지는 않다.\n\n박멸 탤런트는 적의 방어구를 없애는데 특효인 화학물질 발사기 산화제를 주로 사용하는 전력맨에게 있어 매우 유용하다."
                 android:textSize="20sp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 

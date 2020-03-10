@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="처음 시작 시 주는 기본 지급 무기이자, 유비소프트 작품에는 꼭 등장하는 유비의 영원한 친구이다. 전작에 비해 많이 상향되어 전작의 ACR 포지션인 밸런스형 돌격소총이 되었다.\n\nRPM은 돌격소총 내에선 딱 중간 수준이며, RPM 대비 대미지가 상당히 괜찮기 때문에 압도적인 건 아니지만 DPS가 높은 편이다. 반동은 평범한 편으로 스톡 기준 12시 반 방향으로 반동이 있는데 초탄 반동이 강한 편이다. 반면 명중률은 조금 떨어지는데, 비교적 짧은 적정 사거리와 맞물려 중장거리 교전에는 불이익을 받는다.\n\n고 RPM 무기와 고 대미지 무기 사이에 있는 밸런스형 총기로, Mk.16과 함께 지속 DPS측면에서 호각을 다툰다. 기본적으로 조금 가까운 거리에선 P416, 좀 더 긴 거리에선 Mk.16이 더 효율이 높은 편이다. 반동도 약한 편이고, 대미지와 연사속도 둘 다 괜찮게 나오기 때문에 집탄만 조금 조여주면 월드 랭크 5에서도 잘 사용할 수 있다."
                 android:textSize="20sp"

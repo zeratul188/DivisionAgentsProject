@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -485,7 +485,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="5.56mm 박스탄창 방식의 경기관총이다. 반동도 나쁘지 않고 발사속도나 대미지도 준수하지만, 30발들이 박스탄창이 항상 발목을 잡는다. 돌격소총과 같은 운용이 강제되는 무기.\n\n사실상 '생명력 대미지' 대신 '비엄폐 대상 대미지' 옵션을 받아왔으나, 성전사 방패 스킬과 같이 쓰지 못하는 돌격소총이라고 보는게 좋다.\nRPK-74보다 연사력도 느린게 탄창은 15발이나 적게 들어간다. 전작처럼 어중간한 위치에 끼여있는 애매모호한 무기."
                 android:textSize="20sp"

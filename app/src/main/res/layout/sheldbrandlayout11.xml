@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:text="소총과 공격 능력이 중심이 된 브랜드. 치명타 소총빌드를 만들다 보면 장갑이나 조끼를 맞추게 된다. 와이번 기어 3셋을 쓰려면 방탄구를 찾는게 제일 좋다. 빨강 스탯도 비교적 잘 나오는 편이라 대미지에 올인할 때 유용하다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

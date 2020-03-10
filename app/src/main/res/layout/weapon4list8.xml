@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="다들 나보고 닥치는 법이 없다고 하더라, 다 스파이스 때문인데 어쩌겠어.\n\n-다임, 하이에나 위원-"
                 android:textColor="#aaa"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="사격을 적중시킬 때마다 발사 속도가 1%만큼, 최대 60%까지 증가합니다. 재장전 시 효과가 초기화됩니다."
                 android:textColor="#aaa"
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"
                 android:text="해당 무기로 적을 처치하면 탄창이 75%만큼 보충되고, 10초 동안 버프 효과를 얻습니다. \n버프 효과가 활성화된 동안 사격을 적중시킬 때마다 탄창 휴대량이 3만큼, 최대 60까지 증가합니다. 대상 처치시 버프 효과가 소모되면서 휴대량이 증가한 탄창이 완전히 보충됩니다."
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태일 때, 적을 처치하고 5초 내로 무기를 재장전하면 10초 동안 발사 속도가 15%만큼 증가합니다."
                 android:textColor="#aaa"
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="P90을 베이스로 하는 엑조틱 기관단총이지만 성격은 P90과 조금 달라, 연사속도는 느리고 대미지는 높다. 하지만 특수효과 끝없는 수다 덕분에 RPM이 최대 1,120까지 치솟아 기관단총 최고의 DPS를 뿜어낼 수 있다. 재장전을 하면 RPM버프가 사라지지만 일단 첫 60+12발 이내에 적을 둘 이상 잡는데 성공한다면 어마어마한 연사속도로 100발 이상 연사가 가능해진다. 즉 고만고만한 적 다수를 근거리에서 상대한다면 재장전도 없이 말 그대로 쓸어버릴 수 있는 기관단총. 하지만 한 탄창 내에 적을 잡지 못한다면 힘이 많이 빠지기 때문에 고난이도 파티플레이 환경에선 효용성이 떨어지는 편이다. 월드5 기준으로 어려움 이후부턴 전문화의 도움을 받아도 빠르게 적을 처치하기 힘들고, 매우 어려움부턴 위험을 무릅쓰고 초근접전을 벌여야 그나마 탤런트를 발동할 수 있기 때문에 필드나 보통 난이도 정도에서나 주 딜링으로 사용한다.\n\n기관단총을 전혀 사용하지 않더라도 가벼운 입 탤런트만을 위해 예비무기 슬롯에 넣고 다니는 요원이 많이 있다. 경기관총 광란+촉새 조합은 비교적 많이 사용되는 편이다. (5초를 조금 넘겨서 재장전하더라도 버프가 켜지므로 탄창을 비울 시간은 충분하다.) 단 이런 경우 충분히 근접전을 벌이지 않으면 경기관총의 탄이 금방 떨어질 수 있으므로 거리를 조절해 탄수요를 줄이는 것이 중요하다. 이전까진 가벼운 입 탤런트는 재장전 시작 직후 발동되었으나 패치 이후 재장전이 끝난 직후에 발동되도록 변경되어 재장전 시점과 탤런트 지속시간이 더 여유로워졌다.\n\n광란+클러치 셋팅과 궁합이 좋다는 평가가 많다. 보통 중압감 텔런트까지 채용한 돌격소총이 주류이나 촉새의 탤런트와 광란+클러치 셋팅의 상승효과는 상당히 뛰어나며 고난이도에서도 엄폐없이 잔몹을 쓸고다닐수 있는 무시무시함을 보여준다. 특히 폭파전문가의 방어구 소진시 탄 보충옵션을 이용하여 높은연사력으로 적 네임드몹공격을 다 받아내면서 버티는게가능해 비 엄폐상태로 1:1로 정면 싸움이 가능할정도."
                 android:textSize="20sp"

@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:text="본작에서 사실상 체력을 담당하는 방탄 키트가 소모품화되어 사용 횟수가 제한되었기 때문에, 2세트 옵션인 적 처치 시 방어도 15% 회복이 정말 혜자 옵션이다. 초반 및 뉴비 레벨링의 완소 세트. 브랜드 특성으로 옵션 슬롯이 많은 대신 특수효과가 절대 붙어나오지 않기 때문에 아쉬운 부분이 있다. 때문에 세팅이 완성되어 갈수록 장갑에 붙는 클러치 탤런트(치명타 시 방어도+체력 회복. 치명타 세팅이 필요하다는 단점이 있다)나 무릎에 붙는 인내심 탤런트(엄폐 지속 시 초당 방어도 회복)로 대체되는 경향이 있다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

@@ -666,7 +666,7 @@
                 android:text="완전충전 탤런트가 상당히 유용하다. 경기관총의 재장전 시간을 줄이는데 이용할 수도 있고(이 경우 탄약은 무료리필이라는 점도 중요하다), 무기 탤런트인 영원과 조합해서 무한탄약을 구현할 수도 있다.[1] 지정사수소총의 선제공격 탤런트(빈 탄창을 재장전했을 때 첫 탄환은 어디에 맞더라도 헤드샷 판정)와 조합하면 초탄 발사 후 보조무기로 완전충전을 띄우면 다시 선제공격이 발동된다는 제보도 있다.\n\n7월 패치로 완전충전의 상위호환 효과를 가진[2] 닷지시티 권총집이 나왔다.\n\n그외에는 무난하게 분쇄나 정밀, 정확성, 강력한 타격 등을 챙겨가기 좋은 부위."
                 android:textSize="20sp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:layout_marginBottom="20dp"/>
 

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
                 <TableRow>
 
@@ -118,7 +118,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="TU5에서 추가된 경기관총. 특이하게 총구에 전용 소음기가 부착된 상태이며, 이 소음기는 특급 무기류의 부착물처럼 땔 수 없다.\n\n느린 연사속도와 경기관총 치고 매우 낮은 대미지를 압도적인 장탄수로 메꾸는 총기다. 기본 장탄수가 무려 200발인데, 1편에서도 기본 장탄수가 200발인 총기는 없었다. 여기에 고정으로 붙는 첫 번째 특성이 적 제압시 대미지 증가이다 그러나 NPC를 제압하면 엄폐물에서 몸을 숨긴상태인데 데미지 증가해봣자 맞추지 못하기때문에 버리는 특성....., 아예 제압사격하라고 나온 총기인 셈.\n\n캠프 화이트 오크 임무를 처음으로 클리어하면 1개를 확정으로 준다."
                 android:textSize="20sp"

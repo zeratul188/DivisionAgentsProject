@@ -293,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:text="방어적인 세팅이 눈에 띄는 브랜드로, 개조 슬롯이 많은게 특징인 브랜드다. 인내심 세팅을 할 때 무릎 보호대를 길라 가드로 골라주면 매우 편리하다.\n브랜드 특성으로 방어 옵션이나 슬롯이 잘 붙기 때문인데, 무려 방어 7 이상을 요구하는 인내심 탤런트를 발동시킬 때 동일 부위에서 방어 옵션을 최대한 끌어모아주면 다른 나머지 부위의 세팅이 훨씬 자유로워진다. 1세트 옵션인 전체 방어도+5%도 보통 인내심과 같이 가져가는 일이 많은 무적의 부대(동일하게 방어 7이상 발동이다. 적 처치시 방어도에 따라 공격력 상승) 탤런트와 궁합이 좋다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 2.0\n마지막 수정 일자 : 2020년 3월 9일 20시 11분\n\n변경 사항 : \n- 전체적인 디자인 변경");
+                builder.setTitle("버젼 확인").setMessage("Version 2.0.2\n마지막 수정 일자 : 2020년 3월 10일 18시 30분\n\n변경 사항 : \n- 무기 시뮬레이션 초기화 시 색깔 검은색으로 변경되는 버그 수정\n- 메시지 있는 박스 투명도를 높임");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

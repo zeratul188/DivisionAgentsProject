@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -485,7 +485,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="전작의 악명높은 경량형 M4와 LVOA-C. 낮은 대미지와 비교적 높은 RPM을 가진 소총으로, 5.56mm 탄창을 사용한다는 특징이 있다.\n\n경량형 M4의 명중률은 아주 좋은 수준이며 LVOA-C는 평범하다. 반동의 경우 경량형 M4는 평범한 상향반동에 불규칙적인 좌우반동이 들어가며 LVOA-C는 매우 강한 우향반동을 가지고 있어서, 안정성에 스탯을 몰아줘도 경량형 M4에 비해 쓰기가 어렵다.\n\n에피소드 2 트레일러에서 캐릭터가 LVOA-C를 자동사격으로 쏘는 장면이 나와서[11] 이 총기가 돌격 소총으로 돌아오길 바라는 유저들의 기대를 모았으나, 2019년 10월 9일자 SotG에서 '그것은 트레일러 담당팀이 넣은 것일 뿐, 그럴 계획은 없다. 그냥 그 사람이 총을 굉장히 빨리 쏘는 것 뿐이다.'라고 일축하여, 유저들이 이에 실망하기도 했다."
                 android:textSize="20sp"

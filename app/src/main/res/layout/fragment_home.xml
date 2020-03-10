@@ -55,7 +55,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/buttoncustom"
+                        android:background="@drawable/layoutcustom"
                         android:padding="10dp"
                         android:text="- 소수점 첫째짜리까지만 입력해주세요.\n- 상대는 펄스 적용된 상태\n- 명중률은 0 이상이여야 합니다. 0이면 자동으로 50%로 변경됩니다.\n- 힌트로 나와있는 최소 숫자보다 작을 경우 자동으로 최솟값으로 변경됩니다.\n- 불꽃은 작동한 상태로 들어갑니다. (무자비가 안 터져도 버프 적용)"
                         android:textSize="18sp"
@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
-                        android:background="@drawable/buttoncustom"
+                        android:background="@drawable/layoutcustom"
                         android:padding="10dp">
                         <TableRow android:layout_marginBottom="5dp">
                             <TextView
@@ -81,7 +81,8 @@
                         <TableRow android:layout_marginBottom="10dp">
                             <EditText
                                 android:id="@+id/edtNickname"
-                                android:layout_width="250dp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:hint="Nickname (최대 글자 : 15)"
@@ -115,11 +116,12 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtWeaponDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text=""
                                     android:hint="0 ~ 9999999"
                                     android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/edittext_custom"
                                     android:inputType="number"
@@ -133,7 +135,7 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtRPM"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
                                     android:text=""
@@ -170,12 +172,14 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtCritical"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="0~60"
                                     android:textColorHint="#666666"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:background="@drawable/edittext_custom"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -186,12 +190,13 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtCriticalDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="25.0~999.9"
                                     android:textColorHint="#666666"
+                                    android:textColor="#aaaaaa"
                                     android:background="@drawable/edittext_custom"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
@@ -221,12 +226,14 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtHeadshot"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="0~100"
                                     android:textColorHint="#666666"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:background="@drawable/edittext_custom"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -237,12 +244,13 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtHeadshotDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="50.0~999.9"
                                     android:textColorHint="#666666"
+                                    android:textColor="#aaaaaa"
                                     android:background="@drawable/edittext_custom"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
@@ -272,11 +280,13 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtEliteDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="0~999.9"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/edittext_custom"
                                     android:maxLength="5"
@@ -289,12 +299,13 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtSheldDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:background="@drawable/edittext_custom"
                                     android:hint="0~999.9"
+                                    android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
@@ -324,11 +335,13 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtHealthDemage"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="0~999.9"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:textColorHint="#666666"
                                     android:maxLength="5"
                                     android:background="@drawable/edittext_custom"
@@ -341,11 +354,12 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtReload"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:hint="0~600"
+                                    android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
                                     android:maxLength="4"
                                     android:background="@drawable/edittext_custom"
@@ -376,10 +390,12 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtAmmo"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="number"
                                     android:text=""
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="10dp"
                                     android:hint="0~99999"
                                     android:textColorHint="#666666"
                                     android:maxLength="5"
@@ -393,10 +409,11 @@
                                 android:orientation="vertical">
                                 <EditText
                                     android:id="@+id/edtAiming"
-                                    android:layout_width="150dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:inputType="numberDecimal"
                                     android:text=""
+                                    android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/edittext_custom"
                                     android:hint="0~100"
@@ -408,7 +425,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:background="@drawable/buttoncustom"
+                        android:background="@drawable/layoutcustom"
                         android:padding="10dp">
                         <CheckBox
                             android:id="@+id/chkCrazy"

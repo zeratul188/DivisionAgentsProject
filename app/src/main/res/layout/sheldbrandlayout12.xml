@@ -244,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:text="크뎀과 크확이 붙어서 치명타 소총 빌드에 애용되는 세트다. 치명타 확률이 게임 내 상당히 중요한 스탯이라 치명타 7% 이상이 뜬 놈들로 풀셋은 가지고 있는게 좋다.3개 입고 레이저 조준기만 더해도 이미 36%라는 미친듯한 크확을 건질수 있다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

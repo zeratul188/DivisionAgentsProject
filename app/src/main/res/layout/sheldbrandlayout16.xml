@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:text="대인 유도 지뢰나 폭격 드론 위주의 폭파 빌드를 위해 1세트 정도 챙기는 브랜드."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

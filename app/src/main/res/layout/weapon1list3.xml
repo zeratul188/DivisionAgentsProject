@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="FAL과 더불어 본작에 와서 가장 크게 변한 돌격소총. 본래 저반동 밸런스형에서 대미지는 높이고 RPM은 다운시켜 파워형 무기로 변경되었다. 그래도 전작부터 이어져온 레이저 총 특성은 그대로 유지되어 안정성에 어느 정도 투자하면 반동 제어하기 매우 쉬워진다. 특이하게도 적정 사거리가 타 돌격소총들에 비해 기형적으로 높고 동일한 스탯과 개조일 시 ACR-E 쪽이 단축형인데도 불구하고 명중률과 안정성이 더 높게 나온다.\n\n스톡 기준 반동이 정직하게 상향으로만 있다."
                 android:textSize="20sp"

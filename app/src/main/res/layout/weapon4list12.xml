@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -478,7 +478,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="새겨진 글: 전쟁에선 살아 남는 자가 승리자다. 패배자가 되지 마라."
                 android:textColor="#aaa"
@@ -495,7 +495,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="전작에서 엑조틱 장비로 등장했던 무기.\n일반무기로 등장하면서 전작의 지향사격 관련 고정 탤런트가 삭제되었다. 반동도 정직한 느낌의 수직반동이고, 발당 대미지도 기관단총 치고는 썩 나쁘지 않지만, 전작과 동일하게 부품 확장성이 썩 좋지 못하다.\n발당 대미지가 높은 기관단총을 찾는다면, M1928 대신 개조범위도 더 넓고, 장전속도도 약간 더 빠른 T821을 찾게 된다.\n\n토미건은 M1928보다 RPM이 200 오르고 드럼탄창을 장착했기 때문에 탄환이 20발이나 더 많이 들어있지만, 발당 대미지가 M1928보다 낮게 나오는 편이며 더블배럴 샷건처럼 개조가능한 부분이 전혀 없다.\n그 외에 사소한 특징이라면, M1928에 붙어나오는 문구의 번역이 디비전 2로 넘어오면서 변경되었다."
                 android:textSize="20sp"

@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:text="스킬 위주의 플레이에 유용한 브랜드. 1옵션 2옵션이 스킬 관련 능력들이라 전력맨이라면 프로비던스 1파츠와 함께 최소 2파츠는 챙겨주게 된다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

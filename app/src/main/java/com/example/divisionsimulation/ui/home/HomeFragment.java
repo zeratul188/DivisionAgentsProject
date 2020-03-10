@@ -106,19 +106,19 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (chkCamel.isChecked()) chkCamel.toggle();
                 if (chkFire.isChecked()) chkFire.toggle();
 
-                chkPush.setTextColor(Color.parseColor("#000000"));
+                chkPush.setTextColor(Color.parseColor("#aaa"));
                 chkPush.setEnabled(true);
-                chkEagle.setTextColor(Color.parseColor("#000000"));
+                chkEagle.setTextColor(Color.parseColor("#aaa"));
                 chkEagle.setEnabled(true);
-                chkBumerang.setTextColor(Color.parseColor("#000000"));
+                chkBumerang.setTextColor(Color.parseColor("#aaa"));
                 chkBumerang.setEnabled(true);
-                chkBoom.setTextColor(Color.parseColor("#000000"));
+                chkBoom.setTextColor(Color.parseColor("#aaa"));
                 chkBoom.setEnabled(true);
-                chkCrazy.setTextColor(Color.parseColor("#000000"));
+                chkCrazy.setTextColor(Color.parseColor("#aaa"));
                 chkCrazy.setEnabled(true);
-                chkQuickhand.setTextColor(Color.parseColor("#000000"));
+                chkQuickhand.setTextColor(Color.parseColor("#aaa"));
                 chkQuickhand.setEnabled(true);
-                chkCamel.setTextColor(Color.parseColor("#000000"));
+                chkCamel.setTextColor(Color.parseColor("#aaa"));
                 chkCamel.setEnabled(true);
 
                 rgPush.clearCheck();

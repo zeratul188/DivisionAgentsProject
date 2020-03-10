@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="펌프식 반자동 산탄총으로 강한 대미지가 특징. M870보다 3발 많은 장탄수를 가지고있지만 개조가능 범위가 적다.\n\n예약 구매자 특전으로 1레벨제 엑조틱 무기인 '자장가(Lullaby)'를 제공했다. 상점에서 자장가 무기점수를 올릴수있는 설계도면을 팔기도 하니 꼭 확인해주도록 하자!"
                 android:textSize="20sp"

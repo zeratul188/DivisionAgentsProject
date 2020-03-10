@@ -34,10 +34,10 @@ class DemageSimulThread extends Thread implements Serializable {
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
     private SimulActivity sa = null;
 
-    private String[] listDemage = new String[11];
-    private boolean[] on_headshot_list = new boolean[11];
-    private boolean[] on_critical_list = new boolean[11];
-    private boolean[] on_boom_list = new boolean[11];
+    private String[] listDemage = new String[11]; //데미지 수치들을 저장할 배열 변수 한 줄당 배열 1개씩 차지한다.
+    private boolean[] on_headshot_list = new boolean[11]; //각 줄마다 헤드샷 여부를 저장한다.
+    private boolean[] on_critical_list = new boolean[11]; //각 줄마다 치명타 여부를 저장한다.
+    private boolean[] on_boom_list = new boolean[11]; //각 줄마다 무자비 폭발탄 여부를 저장한다.
 
     //private boolean headshot_enable = false;
     //private boolean critical_enable = false;
@@ -46,9 +46,9 @@ class DemageSimulThread extends Thread implements Serializable {
 
     private String log, statue_log = "", ammo_log = ""; //액티비티에 표현할 문자열을 저장하는 변수이다.
 
-    private boolean on_headshot = false, on_critical = false, on_boom = false;
+    private boolean on_headshot = false, on_critical = false, on_boom = false; //현재 탄환의 헤드샷, 치명타, 무자비 폭발탄 발동 여부를 저장한다.
 
-    private int img_ransu, aim_ransu;
+    private int img_ransu, aim_ransu; //무작위 이미지를 선택할 변수이다.
 
     /*final Handler headshot_handle = new Handler(){
 
@@ -67,56 +67,56 @@ class DemageSimulThread extends Thread implements Serializable {
         }
     };*/
 
-    public void setSimulActivity(SimulActivity sa) { this.sa = sa; }
+    public void setSimulActivity(SimulActivity sa) { this.sa = sa; } //SimulActivity의 액티비티를 가져온다.
 
     public void setTimeThread(TimeThread tt) {
         this.tt = tt;
-    }
-    public void setCluchThread(CluchThread ct) { this.ct = ct; }
-    public void setReloadThread(ReloadThread rt) { this.rt = rt; }
+    } //타이머 스레드를 불러온다.
+    public void setCluchThread(CluchThread ct) { this.ct = ct; } //클러치 스레드를 불러온다.
+    public void setReloadThread(ReloadThread rt) { this.rt = rt; } //재장전 스레드를 불러온다.
 
-    public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; }
-    public void setRPM(double rpm) { this.rpm = rpm; }
-    public void setCritical(double critical) { this.critical = critical; }
-    public void setCriticaldemage(double criticaldemage) { this.criticaldemage = criticaldemage; }
-    public void setHeadshot(double headshot) { this.headshot = headshot; }
-    public void setHeadshotdemage(double headshotdemage) { this.headshotdemage = headshotdemage; }
-    public void setElitedemage(double elitedemage) { this.elitedemage = elitedemage; }
-    public void setShelddemage(double shelddemage) { this.shelddemage = shelddemage; }
-    public void setHealthdemage(double healthdemage) { this.healthdemage = healthdemage; }
-    public void setReloadtime(double reloadtime) { this.reloadtime = reloadtime; }
-    public void setAmmo(double ammo) { this.ammo = ammo; }
-    public synchronized void setHealth(int health) { this.health = health; }
-    public void setSheld(int sheld) { this.sheld = sheld; }
-    public void setElite_true(boolean elite_true) { this.elite_true = elite_true; }
-    public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; }
-    public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = (double)crazy_dmg; }
-    public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = (double)seeker_dmg; }
-    public void setBoom(boolean boom) { this.boom = boom; }
-    public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; }
-    public void setEagle_dmg(int eagle_dmg) { this.eagle_dmg = eagle_dmg; }
-    public void setQuick_hand(boolean quick_hand) { this.quick_hand = quick_hand; }
-    public void setCluch_true(boolean cluch_true) { this.cluch_true = cluch_true; }
-    public void setEnd(boolean end) { this.end = end; }
-    public void setAiming(double aiming) { this.aiming = aiming; }
-    public void setBumerang_true(boolean bumerang_true) { this.bumerang_true = bumerang_true; }
-    public void setActivity(Activity activity) { this.activity = activity; }
-    public void setHandler(Handler handler) { this.handler = handler; }
-    public void setCoefficient(double coefficient) { this.coefficient = coefficient; }
-    public void setOptions(boolean[] options) { this.options = options; }
-    public void setFire(boolean fire) { this.fire = fire; }
-    public void setFront_dmg(int front_dmg) { this.front_dmg = front_dmg; }
+    public void setWeapondemage(double weapondemage) { this.weapondemage = weapondemage; } //무기 데미지를 가져온다.
+    public void setRPM(double rpm) { this.rpm = rpm; } //RPM을 가져온다.
+    public void setCritical(double critical) { this.critical = critical; } //치명타 확률을 가져온다.
+    public void setCriticaldemage(double criticaldemage) { this.criticaldemage = criticaldemage; } //치명타 데미지를 가져온다.
+    public void setHeadshot(double headshot) { this.headshot = headshot; } //헤드샷 확률을 가져온다.
+    public void setHeadshotdemage(double headshotdemage) { this.headshotdemage = headshotdemage; } //헤드샷 데미지를 가져온다.
+    public void setElitedemage(double elitedemage) { this.elitedemage = elitedemage; } //정예 대상 데미지를 가져온다.
+    public void setShelddemage(double shelddemage) { this.shelddemage = shelddemage; } //방어도 대상 데미지를 가져온다.
+    public void setHealthdemage(double healthdemage) { this.healthdemage = healthdemage; } //생명력 대상 데미지를 가져온다.
+    public void setReloadtime(double reloadtime) { this.reloadtime = reloadtime; } //재장전 시간을 가져온다.
+    public void setAmmo(double ammo) { this.ammo = ammo; } //탄창의 탄환 수를 가져온다.
+    public synchronized void setHealth(int health) { this.health = health; } //시뮬의 체력을 저장한다.
+    public void setSheld(int sheld) { this.sheld = sheld; } //시뮬의 방어도를 저장한다.
+    public void setElite_true(boolean elite_true) { this.elite_true = elite_true; } //정예 여부를 가져온다.
+    public void setPVP_true(boolean pvp_true) { this.pvp_true = pvp_true; } //PVP 여부를 가져온다.
+    public void setCrazy_dmg(int crazy_dmg) { this.crazy_dmg = (double)crazy_dmg; } //광분의 데미지 수치를 가져온다.
+    public void setSeeker_dmg(int seeker_dmg) { this.seeker_dmg = (double)seeker_dmg; } //감시병의 여부를 가져온다.
+    public void setBoom(boolean boom) { this.boom = boom; } //무자비 수납 여부를 가져온다.
+    public void setPush_critical_dmg(int push_critical_dmg) { this.push_critical_dmg = push_critical_dmg; } //중압감의 치명타 데미지 수치를 가져온다.
+    public void setEagle_dmg(int eagle_dmg) { this.eagle_dmg = eagle_dmg; } //독수리 집념 데미지 수치를 가져온다.
+    public void setQuick_hand(boolean quick_hand) { this.quick_hand = quick_hand; } //빠른 손 여부를 가져온다.
+    public void setCluch_true(boolean cluch_true) { this.cluch_true = cluch_true; } //클러치 여부를 가져온다.
+    public void setEnd(boolean end) { this.end = end; } //종료시킬지 말지를 결정하는 메소드이다. true가 되면 스레드는 종료된다.
+    public void setAiming(double aiming) { this.aiming = aiming; } //명중률을 설정한다.
+    public void setBumerang_true(boolean bumerang_true) { this.bumerang_true = bumerang_true; } //부메랑 여부를 가져온다.
+    public void setActivity(Activity activity) { this.activity = activity; } //액티비티를 가져온다.
+    public void setHandler(Handler handler) { this.handler = handler; } //전 액티비티에서 핸들러를 가져온다. UI 변경 시 사용한다. (스레드에서 UI변경이 어렵기 때문에 핸들러를 사용한다.)
+    public void setCoefficient(double coefficient) { this.coefficient = coefficient; } //무기 계수를 설정한다. (PVP 전용)
+    public void setOptions(boolean[] options) { this.options = options; } //카멜레온 각각 탤런트 발동 여부를 가져온다.
+    public void setFire(boolean fire) { this.fire = fire; } //불꽃 여부를 가져온다.
+    public void setFront_dmg(int front_dmg) { this.front_dmg = front_dmg; } //완벽한 근접전의 대가 여부를 가져온다.
 
-    public int getSheld() { return this.sheld; }
-    public synchronized int getHealth() { return this.health; }
+    public int getSheld() { return this.sheld; } //방어도를 가져온다.
+    public synchronized int getHealth() { return this.health; } //생명력을 가져온다.
 
-    public void boolReset() {
-        on_boom = false;
-        on_critical = false;
-        on_headshot = false;
-        on_boom_list[on_boom_list.length-1] = false;
-        on_critical_list[on_critical_list.length-1] = false;
-        on_headshot_list[on_headshot_list.length-1] = false;
+    public void boolReset() { //탄환마다 헤드샷, 치명타, 폭발탄 여부가 달라질 수 밖에 없으므로 다시 초기화해주는 메소드이다.
+        on_boom = false; //폭발탄 여부를 초기화한다.
+        on_critical = false; //치명타 여부를 초기화한다.
+        on_headshot = false; //헤드샷 여부를 초기화한다.
+        on_boom_list[on_boom_list.length-1] = false; //마지막 줄의 폭발탄 여부를 초기화한다.
+        on_critical_list[on_critical_list.length-1] = false; //마지막 줄의 치명타 여부를 초기화한다.
+        on_headshot_list[on_headshot_list.length-1] = false; //마지막 줄의 헤드샷 여부를 초기화한다.
     }
 
     /*
@@ -202,16 +202,19 @@ class DemageSimulThread extends Thread implements Serializable {
         double temp_criticaldemage; //임시 치명타 데미지를 저장하는 변수
         double now_demage; //double 타입을 가진 총 데미지 변수
         double per; //난수를 저장할 변수
-        for (int i = 0; i < listDemage.length; i++) {
-            final int final_index = i;
+        for (int i = 0; i < listDemage.length; i++) { //스레드 시작 시 전부 초기화를 한다.
+            final int final_index = i; //핸들러에서는 final 변수가 필요하므로 final_index에 저장하여 사용한다.
             on_critical_list[i] = false;
             on_boom_list[i] = false;
             on_headshot_list[i] = false;
             listDemage[i] = "0";
+            /*
+            위는 초기화하는 과정이다.
+             */
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    sa.setTxtListDemage(final_index, listDemage[final_index]);
+                    sa.setTxtListDemage(final_index, listDemage[final_index]); //초기화한 값들을 UI에 적용시킨다.
                 }
             });
         }
@@ -225,13 +228,17 @@ class DemageSimulThread extends Thread implements Serializable {
             }
         });
         try {
-            while (sheld > 0 && !Thread.interrupted() && !end) {
+            while (sheld > 0 && !Thread.interrupted() && !end) { //방어도가 소진되거나 스레드가 인터럽트되거나 종료시키게 된다면 자동으로 종료되게 된다.
                 for (int i = 0; i < listDemage.length-1; i++) {
-                    final int final_index = i;
+                    final int final_index = i; //위와 동일
                     listDemage[i] = listDemage[i+1];
                     on_boom_list[i] = on_boom_list[i+1];
                     on_critical_list[i] = on_critical_list[i+1];
                     on_headshot_list[i] = on_headshot_list[i+1];
+                    /*
+                    탄환이 새로 발사될 때마다 한줄씩 올라가므로 배열도 한칸씩 밀어준다.
+                    단, 마지막 줄에서는 밀릴 것이 없기 때문에 마지막은 제외된다.
+                     */
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -240,6 +247,7 @@ class DemageSimulThread extends Thread implements Serializable {
                             else if (on_critical_list[final_index]) sa.hitCritical_list(final_index);
                             else if (on_headshot_list[final_index]) sa.hitHeadshot_list(final_index);
                             else sa.shelddefaultColor_list(final_index);
+                            //변경된 값들을 UI에 적용시킨다.
                         }
                     });
                 }
@@ -252,9 +260,9 @@ class DemageSimulThread extends Thread implements Serializable {
                         SimulActivity.changeBoom(false);
                     }
                 });*/
-                if (reloaded) {
-                    reloaded = false;
-                    rt.pause(true);
+                if (reloaded) { //재장된 되었었으면 작동한다.
+                    reloaded = false; //다시 재장전 여부를 초기화한다.
+                    rt.pause(true); //재장전때만 작동하는 재장전 스레드를 일시정지 시킨다.
                 }
                 handler.post(new Runnable() {
                     @Override
@@ -263,36 +271,37 @@ class DemageSimulThread extends Thread implements Serializable {
                         sa.changeCritical(false);
                         sa.changeBoom(false);
                         sa.shelddefaultColor();
+                        //탄환이 다시 발사되는 시점이므로 치명타, 헤드샷 등을 초기화한다.
                     }
                 });
-                statue_log = "";
-                ammo_log = "";
-                now_demage = demage();
-                new_weapondemage = demage();
-                critical_ransu = (int) (Math.random() * 123456) % 1001;
-                headshot_ransu = (int) (Math.random() * 123456) % 1001;
-                if (crazy_dmg != 0) {
-                    per = crazy_dmg/100;
-                    new_weapondemage += weapondemage * per;
+                statue_log = ""; //상태메시지를 초기화한다.
+                ammo_log = ""; //탄약 수를 초기화한다.
+                now_demage = demage(); //현재 데미지에 무기 데미지를 적용시킨다.
+                new_weapondemage = demage(); //위와 동일
+                critical_ransu = (int) (Math.random() * 123456) % 1001; //치명타 확률에 적용될 소수점 첫째까지이므로 1000까지 무작위 난수로 잡는다.
+                headshot_ransu = (int) (Math.random() * 123456) % 1001; //위와 동일하게 헤드샷 확률에 적용될 무작위 난수를 잡는다.
+                if (crazy_dmg != 0) { //광분의 수치가 0이면 꺼져있거나 방어도가 100%일 경우이다. 그 외이면 광분이 켜져 있고 방어도가 일부 또는 전부 소진되어 있는 상태이다.
+                    per = crazy_dmg/100; //40%데미지면 0.4로 변경시켜준다. 나중에 무기 데미지에 적용한다.
+                    new_weapondemage += weapondemage * per; //현재 데미지에 적용시켜 넣는다.
                 }
-                if (eagle_dmg != 0) {
-                    per = eagle_dmg/100;
-                    new_weapondemage += weapondemage * per;
+                if (eagle_dmg != 0) { //집념의 여부에 따라 작동한다. 0보다 크면 작동한다. (0 또는 35이다.)
+                    per = eagle_dmg/100; //위와 동일
+                    new_weapondemage += weapondemage * per; //위와 동일
                 }
-                if (fire) new_weapondemage += weapondemage * 0.2;
-                if (options[1]) new_weapondemage += weapondemage;
-                if (front_dmg > 0) new_weapondemage += weapondemage/2;
-                if (bumerang) {
-                    new_weapondemage += weapondemage;
-                    bumerang = false;
-                    statue_log += "(부메랑 추가 데미지!)";
+                if (fire) new_weapondemage += weapondemage * 0.2; //불꽃 여부에 따라 20% 무기 데미지에 추가하여 현재 데미지에 추가한다.
+                if (options[1]) new_weapondemage += weapondemage; //위와 동일하게 카멜레온 바디샷 기준에 맞춰 100% 무기 데미지를 추가한다.
+                if (front_dmg > 0) new_weapondemage += weapondemage/2; //위와 동일하게 완벽한 근접전의 대가를 적용시킨다. (무기 데미지의 50%)
+                if (bumerang) { //부메랑의 여부에 따라 작동한다.
+                    new_weapondemage += weapondemage; //부메랑 추가 데미지가 무기데미지의 100%이므로 추가한다.
+                    bumerang = false; //부메랑이 한번 작동하여 데미지가 추가되었으므로 초기화한다.
+                    statue_log += "(부메랑 추가 데미지!)"; //상태메시지에 부메랑 발동 여부를 추가한다.
                 }
                 now_demage = new_weapondemage;
-                if (headshot_ransu <= headshot*10) {
-                    on_headshot = true;
-                    per = headshotdemage / 100;
-                    System.out.println("Headshot Demage : "+headshotdemage);
-                    now_demage += new_weapondemage * per;
+                if (headshot_ransu <= headshot*10) { //헤드샷 확률이 난수보다 클 경우에 작동한다.
+                    on_headshot = true; //헤드샷 참으로 바꾼다.
+                    per = headshotdemage / 100; //헤드샷 데미지가 예를 들어 50%면 50%만큼이므로 100으로 나눠 0.5로 바꿔준다.
+                    //System.out.println("Headshot Demage : "+headshotdemage);
+                    now_demage += new_weapondemage * per; //현재 데미지에 헤드샷 데미지를 추가한다.
                     /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -303,24 +312,24 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            sa.hitHeadshot();
-                            sa.changeHeadshot(true);
+                            sa.hitHeadshot(); //헤드샷시 현재 데미지 색상이 빨간색으로 변하게 해준다.
+                            sa.changeHeadshot(true); //헤드샷 아이콘이 보이도록 한다.
                         }
                     });
                 }
-                if (options[0]) {
-                    critical += 20;
-                    if (critical > 60) critical = 60;
+                if (options[0]) { //카멜레온 헤드샷 버프 적용시 작동한다. (다른 것과 중복 가능)
+                    critical += 20; //치명타 확률을 20% 증가시킨다.
+                    if (critical > 60) critical = 60; //치명타 확률의 최대치가 60%이므로 60%가 넘어가게 되면
                 }
-                if (critical_ransu <= critical*10) {
-                    on_critical = true;
-                    if (quick_hand && hit_critical < 30) {
-                        hit_critical++;
+                if (critical_ransu <= critical*10) { //치명타 확률이 난수보다 작거나 같을 경우 작동한다.
+                    on_critical = true; //치명타를 참으로 바꾼다.
+                    if (quick_hand && hit_critical < 30) { //빠른손이 적용되어 있고 빠른 손 히트 수가 30 미만일 경우에만 작동한다. 빠른 손 히트 수는 30이 최대치이기 때문이다.
+                        hit_critical++; //치명타가 작동했으므로 빠른 손 히트 수를 1개 증가시킨다.
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
-                                sa.setTxtQuickhand(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical)); //빠른 손 히트 수가 늘어났으므로 UI에 갱신시켜준다.
                             }
                         });
                     }
@@ -333,32 +342,32 @@ class DemageSimulThread extends Thread implements Serializable {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            sa.changeCritical(true);
-                            sa.hitCritical();
+                            sa.changeCritical(true); //치명타 아이콘을 보여준다.
+                            sa.hitCritical(); //치명타 색깔은 주황색으로 데미지를 보여준다.
                         }
                     });
-                    temp_criticaldemage = criticaldemage;
-                    if (options[0]) temp_criticaldemage += 50;
-                    if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg;
-                    per = temp_criticaldemage / 100;
-                    now_demage += new_weapondemage * per;
-                    if (bumerang_true) {
-                        per = (int)(Math.random()*1234567)%2;
-                        if (per == 1) bumerang = true;
+                    temp_criticaldemage = criticaldemage; //임시 크리티컬 데미지를 저장시킨다.
+                    if (options[0]) temp_criticaldemage += 50; //카멜레온 헤드샷 버프로 인해 치명타 데미지 50%를 증가한다.
+                    if (push_critical_dmg != 0) temp_criticaldemage += push_critical_dmg; //중압감의 효과로 소진된 방어도에 따라 치명타 데미지를 추가한다.
+                    per = temp_criticaldemage / 100; //0.? 단위로 바꿔준다.
+                    now_demage += new_weapondemage * per; //현재 데미지에 치명타 데미지를 추가시킨다. (중압감, 카멜레온 헤드샷 버프 포함)
+                    if (bumerang_true) { //부메랑이 적용되면 작동한다.
+                        per = (int)(Math.random()*1234567)%2; //부메랑 작동 확률이 50%이므로 난수를 0 또는 1로 잡아 확률 50%를 만들어준다.
+                        if (per == 1) bumerang = true; //난수가 1일 경우 부메랑을 작동시킨다. (난수가 1 또는 0이므로 50% 확률이 된다.)
                     }
                 }
-                per = shelddemage/100;
-                now_demage *= 1+per;
-                if (elite_true == true) {
-                    per = elitedemage/100;
-                    now_demage += new_weapondemage * per;
+                per = shelddemage/100; //방어도 데미지를 0.?로 바꿔준다.
+                now_demage *= 1+per; //현재 데미지에 추가시킨다.
+                if (elite_true == true) { //정예 대상 여부가 참이면 작동한다.
+                    per = elitedemage/100; //정예 대상 데미지를 0.?단위로 바꿔준다.
+                    now_demage += new_weapondemage * per; //현재 데미지에 정예 대상 데미지를 추가시킨다.
                 }
-                if (boom) {
-                    int ransu = (int)(Math.random()*123456)%100+1;
-                    if (ransu <= 5) {
-                        on_boom = true;
-                        now_demage += (new_weapondemage*2);
-                        statue_log += "(무자비 폭발탄!!)";
+                if (boom) { //무자비가 수납되어 있으면 작동한다.
+                    int ransu = (int)(Math.random()*123456)%100+1; //1~100 중 무작위 난수를 생성한다.
+                    if (ransu <= 5) { //난수가 5 이하일 경우 작동한다.(확률 : 5%)
+                        on_boom = true; //무자비 폭발탄 작동됨을 참으로 바꾼다.
+                        now_demage += (new_weapondemage*2); //무기 데미지의 100%를 추가시킨다.
+                        statue_log += "(무자비 폭발탄!!)"; //상태메시지에 무자비 폭발탄을 추가한다.
                         /*activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -369,22 +378,22 @@ class DemageSimulThread extends Thread implements Serializable {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                sa.hitBoom();
-                                sa.changeBoom(true);
+                                sa.hitBoom(); //무자비 폭발탄은 폭발데미지이므로 노란색으로 바꾼다.
+                                sa.changeBoom(true); //무자비 폭발탄 아이콘을 보여준다.
                             }
                         });
                     }
                 }
-                if (seeker_dmg != 0) {
-                    per = seeker_dmg/100;
-                    now_demage *= 1+per;
+                if (seeker_dmg != 0) { //감시병 여부에 따라 작동한다. 0이면 꺼져있는 것이며 20이면 감시병이 켜져있다는 것이다.
+                    per = seeker_dmg/100; //감시병 데미지를 0.?로 바꿔준다. 감시병 데미지가 종합데미지의 20% 추가이므로 0.2가 된다.
+                    now_demage *= 1+per; //무기데미지가 아닌 종합데미지에 0.2를 곱해준다.
                 }
-                if (pvp_true == true) now_demage *= coefficient;
-                real_demage = (int) now_demage;
-                if (on_boom) on_boom_list[listDemage.length-1] = true;
-                else if (on_critical) on_critical_list[listDemage.length-1] = true;
-                else if (on_headshot) on_headshot_list[listDemage.length-1] = true;
-                listDemage[10] = Integer.toString(real_demage);
+                if (pvp_true == true) now_demage *= coefficient; //pvp 대상은 데미지가 낮아져야 하므로 무기별 계수를 받아 현재데미지에 곱해준다. (계수들은 전부 1보다 작다.)
+                real_demage = (int) now_demage; //데미지는 정수로 빠지므로 double 타입을 int 타입인 변수에 저장시킨다.
+                if (on_boom) on_boom_list[listDemage.length-1] = true; //마지막 데미지 수치에 무자비 폭발탄이 참일 경우 참으로 바꿔준다.
+                else if (on_critical) on_critical_list[listDemage.length-1] = true; //위와 동일한 방식
+                else if (on_headshot) on_headshot_list[listDemage.length-1] = true; //위와 동일한 방식
+                listDemage[10] = Integer.toString(real_demage); //마지막 데미지 수치를 현재 탄환의 데미지로 문자열로 변환한 다음 저장한다.
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -395,55 +404,58 @@ class DemageSimulThread extends Thread implements Serializable {
                         else sa.shelddefaultColor_list(10);
                     }
                 });
+                /*
+                마지막 데미지 수치에 적용된 값들을 UI에 갱신시킨다.
+                 */
                 /*if (on_boom) sa.hitboom_list(listDemage.length-1);
                 else if (on_critical) sa.hitCritical_list(listDemage.length-1);
                 else if (on_headshot) sa.hitboom_list(listDemage.length-1);
                 else sa.shelddefaultColor_list(listDemage.length-1);*/
-                if (end) break;
-                per = (int)(Math.random()*1234567)%1000+1;
-                if (aiming*10 >= per) {
-                    if (on_headshot) {
-                        img_ransu = (int)(Math.random()*1234567)%2+2;
+                if (end) break; //종료 명령을 받으면 종료시킨다.
+                per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
+                if (aiming*10 >= per) { //명중률 확률이 난수보다 클 경우 작동한다.
+                    if (on_headshot) { //헤드샷이 적용되었을 경우 작동한다.
+                        img_ransu = (int)(Math.random()*1234567)%2+2; //2 또는 3인 난수를 생성한다. (확률 : 50%)
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                sa.setImgTake(img_ransu);
+                                sa.setImgTake(img_ransu); //타격 이미지를 보여준다. (2 또는 3이므로 빨간색 타켓 이미지를 보여준다.)
                             }
                         });
                     } else {
-                        img_ransu = (int)(Math.random()*1234567)%2;
+                        img_ransu = (int)(Math.random()*1234567)%2; //0 또는 1인 난수를 생성한다. (확률 : 50%)
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                sa.setImgTake(img_ransu);
+                                sa.setImgTake(img_ransu); //타격 이미지를 보여준다. (0 또는 1이므로 하얀색 타켓 이미지를 보여준다.)
                             }
                         });
                     }
-                    sheld -= real_demage;
-                    all_dmg += real_demage;
-                    log = "-" + real_demage;
-                    aim_ransu = (int)(Math.random()*1234567)%10+1;
+                    sheld -= real_demage; //방어도에서 현재 데미지를 뺀다.
+                    all_dmg += real_demage; //누적 데미지에 현재 데미지를 추가한다.
+                    log = "-" + real_demage; //기록에 현재 데미지를 추가한다. (자동으로 문자열로 추가된다.)
+                    aim_ransu = (int)(Math.random()*1234567)%10+1; //1~10까지의 무작위 난수를 생성한다.
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText(log);
-                            sa.setTxtNowDemage(log);
-                            sa.setImgAim(aim_ransu, true);
+                            sa.setTxtNowDemage(log); //기록을 현재 데미지 UI에 갱신한다. 현재 데미지를 출력된다.
+                            sa.setImgAim(aim_ransu, true); //명중률 맞을 때 이미지가 10개이므로 무작위 난수를 받고 타격 되었으므로 참값을 받는다.
                         }
                     });
-                    if (hit_critical > 30) {
-                        hit_critical--;
+                    if (hit_critical > 30) { //빠른 손이 30보다 클 경우에 작동한다.
+                        hit_critical--; //30 이상이면 30을 유지해야 하므로 증가한 히트수를 줄여준다.
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 //SimulActivity.txtQuickhand.setText(Integer.toString(hit_critical));
-                                sa.setTxtQuickhand(Integer.toString(hit_critical));
+                                sa.setTxtQuickhand(Integer.toString(hit_critical)); //변경된 히트수를 갱신시킨다.
                             }
                         });
                     }
                 } else {
-                    aim_ransu = (int)(Math.random()*1234567)%5+1;
-                    listDemage[10] = "";
+                    aim_ransu = (int)(Math.random()*1234567)%5+1; //1~5까지의 무작위 난수를 생성한다.
+                    listDemage[10] = ""; //빗나갔으므로 데미지 수치를 보여주지 않는다.
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -454,12 +466,15 @@ class DemageSimulThread extends Thread implements Serializable {
                             sa.setImgAim(aim_ransu, false);
                         }
                     });
+                    /*
+                    변경된 값들을 UI에 갱신시켜준다.
+                     */
                 }
-                if (sheld < 0) {
-                    out_demage = sheld * (-1);
-                    int temp = SimulActivity.getHealth() - out_demage;
-                    SimulActivity.setHealth(temp);
-                    dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
+                if (sheld < 0) { //방어도가 0보다 작아졌을 경우 작동한다.
+                    out_demage = sheld * (-1); //방어도가 소진되었고 그 데미지가 남은 방어도보다 컸으면 그만큼 생명력에서 빼야하므로 마이너스가 된 방어도를 다시 양수로 바꿔 다른 변수에 저장한다.
+                    int temp = SimulActivity.getHealth() - out_demage; //총 생명력에서 남은 데미지를 뺀다.
+                    SimulActivity.setHealth(temp); //SimulActivity에서 생명력을 담당하므로 갱신시켜준다.
+                    dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000; //프로그레스 바의 진행도를 설정할 변수에 변경된 생명력 진행도를 저장한다.
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -469,15 +484,18 @@ class DemageSimulThread extends Thread implements Serializable {
                             sa.setProgressHealth((int)dec_health);
                         }
                     });
-                    sheld = 0;
+                    /*
+                    변경된 값들을 UI에 갱신시켜준다.
+                     */
+                    sheld = 0; //방어도가 마이너스가 될 수 없으므로 방어도를 0으로 바꿔준다.
                 }
-                if (!bumerang) now_ammo--;
-                all_ammo++;
-                ammo_log = Integer.toString(now_ammo);
-                if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
-                if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
-                dec_sheld = ((double)sheld / (double)first_sheld) * 10000;
-                dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
+                if (!bumerang) now_ammo--; //부메랑이 적용되어 있으면 탄환이 소모되지 않으므로 줄어들지 않고 적용되어 있지 않으면 남은 탄환 수를 줄인다.
+                all_ammo++; //사용한 탄환 수를 추가시킨다.
+                ammo_log = Integer.toString(now_ammo); //남은 탄약 수 문자열에 현재 남은 탄약 수를 문자열로 바꿔 저장한다.
+                if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)"; //치명타일 경우 상태메시지에 추가한다.
+                if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)"; //위와 동일한 방식
+                dec_sheld = ((double)sheld / (double)first_sheld) * 10000; //방어도 진행도를 설정한다.
+                dec_ammo = ((double)now_ammo / (double)ammo) * 10000; //남은 탄약수 진행도를 설정한다.
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -497,23 +515,30 @@ class DemageSimulThread extends Thread implements Serializable {
                         sa.setProgressAmmo((int)dec_ammo);
                     }
                 });
-                if (now_ammo == 0 && sheld != 0) {
-                    reload();
-                    now_ammo += (int) ammo;
+                /*
+                변경된 값들을 UI에 갱신시켜준다.
+                 */
+                if (now_ammo == 0 && sheld != 0) { //방어도가 남아있고 남은 탄약 수가 없으면 작동한다.
+                    reload(); //재장전을 한다. (재장전 메소드 실행)
+                    now_ammo += (int) ammo; //현재 탄약 수에 기존 탄약 수를 추가한다.
                 } else {
                     try {
-                        this.sleep(time);
+                        this.sleep(time); //RPM으로 인한 탄약간 딜레이만큼 스레드를 일시 정지한다.
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
             }
-            int temp_health;
-            if (cluch_true) {
-                ct.setFirst_health(health);
-                ct.start();
+            int temp_health; //임시 생명력을 저장할 변수를 생성한다.
+            if (cluch_true) { //클러치 여부가 적용되어 있으면 작동한다.
+                ct.setFirst_health(health); //클러치 스레드에 최초 생명력을 저장한다.
+                ct.start(); //클러치 스레드를 작동시킨다.
             }
+            /*
+            아래 생명력 관련된 구절은 위 방어도 구절과 거의 동일하므로 주석은 생략한다.
+            방어도를 생명력으로 바꾼 것 외에는 변경점이 거의 없다.
+             */
             while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
                 for (int i = 0; i < listDemage.length-1; i++) {
                     final int final_index = i;
@@ -801,21 +826,21 @@ class DemageSimulThread extends Thread implements Serializable {
                 sa.setBtnExitText("뒤로 가기");
             }
         });
-        tt.setStop(true);
-        if (cluch_true) ct.setStop(true);
-        if (!end) {
+        tt.setStop(true); //방어도, 생명력이 전부 소진되어 적이 퇴치되었으므로 타이머 스레드를 정지시킨다.
+        if (cluch_true) ct.setStop(true); //클러치 여부가 적용되어 있다면 클러치 스레드도 정지시킨다.
+        rt.stopThread(); //재장전 스레드를 정지시킨다.
+        if (!end) { //강제 종료된 것이 아니라면 작동한다.
             /*activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             });*/
-            rt.stopThread();
             sa.setExit(true);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "시뮬레이션이 종료되었습니다.", Toast.LENGTH_SHORT).show(); //토스트로 시뮬이 정상적으로 종료되었다는 것을 알려준다.
                 }
             });
         }

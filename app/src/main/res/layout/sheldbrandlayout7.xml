@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:text="기관단총과 대인 유도 지뢰에 특화된 브랜드 세트. 치명타 확률이 잘 나온 방호구와 마스크를 착용하면 폭파 전문가 기관단총 빌드에 잘 써먹을수 있다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

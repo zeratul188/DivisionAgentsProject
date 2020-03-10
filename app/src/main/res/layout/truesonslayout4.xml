@@ -41,7 +41,7 @@
                 android:textSize="20sp"
                 android:padding="10dp"
                 android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:layout_marginBottom="10dp"/>
         </LinearLayout>
     </ScrollView>

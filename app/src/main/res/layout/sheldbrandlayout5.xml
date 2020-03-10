@@ -296,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:text="SF 컨셉의 일본제 보호장구 브랜드로 방어적인 성능을 가진다. 보통 1세트 효과인 생명력 + 8%를 보고 장착하는 경우가 많다. 독 상태이상은 방어력을 뚫고 들어오므로 최소한의 생명력을 챙기는 것도 나쁘지 않다.\n\n클러치 세팅에서도 생명력에 비중을 많이 둘 때 장갑에서 1세트 효과 + 생명력 + 특정 무기 대미지 +O 탤런트 식으로 가져가기도 한다. 2세트 이상은 다른 브랜드 세트 효과가 더 좋으므로 비추천."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>

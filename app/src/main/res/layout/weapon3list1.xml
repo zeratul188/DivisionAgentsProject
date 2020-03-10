@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -186,7 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -336,7 +336,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -486,7 +486,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -635,7 +635,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="M44의 하위호환 취급에서 벗어나 발당 대미지가 지정사수소총 중 가장 높지만 장전을 무조건 1발씩 집어넣는다는 단점이 있어 탄을 전부 소모하면 장전에 한세월이 걸린다. 그 외에 전작처럼 M44보다 유효사거리가 짧다는 단점도 있다. 깡딜이 워낙 높기에 대미지가 약 10% 정도 깎이는 너프를 먹어서 M44와 큰 차이가 없어졌지만 여전히 대미지는 가장 높다.\n\nM700 택티컬과 카본은 탄창식이므로 장전속도가 획기적으로 줄어들지만, 대신 발당 대미지가 줄어들었다. M700 카본은 전작처럼 모든 부위의 부품을 장착할 수 있고 탄창식 볼트액션 중 장탄수가 8발로 가장 많아서 편의성에서는 압도적으로 좋다."
                 android:textSize="20sp"

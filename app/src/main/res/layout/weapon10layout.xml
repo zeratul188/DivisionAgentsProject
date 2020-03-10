@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -81,7 +81,7 @@
                 android:textSize="20sp"
                 android:textColor="#aaa"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"/>
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -141,7 +141,7 @@
                 android:textSize="20sp"
                 android:textColor="#aaa"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"/>
 
             <TextView
@@ -155,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -197,7 +197,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="바디샷을 적중시키면 10초 동안 다음 헤드샷의 데미지가 50%만큼 증가합니다. 최대 3번 중첩됩니다."
                 android:textSize="20sp"
@@ -215,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -257,7 +257,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="치명타 공격이 적중하면, 50%/75%의 확률로 탄환을 소모하지 않습니다. 만약 탄환을 소모하지 않았다면, 다음 사격의 데미지가 50% 증가합니다. 버프 효과는 10초 동안 지속되며, 재장전하거나 무기를 교체하거나 전투가 종료되면 버프 효과가 사라집니다."
                 android:textSize="20sp"
@@ -275,7 +275,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -317,7 +317,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="7m 이내에서 적을 사살하면, 10초간 무기 데미지가 50% 증가합니다."
                 android:textSize="20sp"
@@ -335,7 +335,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -377,7 +377,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="치명타 공격이 발동하면 재장전 속도가 5%씩 증가하며, 총 30번까지 중첩됩니다."
                 android:textSize="20sp"
@@ -395,7 +395,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -437,7 +437,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적을 죽인 후 10초 안에 무기를 바꾸면, 15초간 치명타 확률이 30%/40%, 치명타 데미지가 30%/50% 증가합니다."
                 android:textSize="20sp"
@@ -455,7 +455,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -497,7 +497,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="빈 탄창을 재장전하면 해당 탄창의 첫/두 발은 무조건 헤드샷 판정이 뜹니다."
                 android:textSize="20sp"
@@ -515,7 +515,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -557,7 +557,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="빈 탄창을 재장전하면 5초 동안 데미지와 발사속도가 장탄수 10발 당 3%/4%씩 증가합니다."
                 android:textSize="20sp"
@@ -575,7 +575,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -617,7 +617,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="무기 조작력이 25%가 감소하고 무기 데미지가 20%/25% 증가합니다."
                 android:textSize="20sp"
@@ -635,7 +635,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -677,7 +677,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="화상 상태의 적에게 주는 데미지가 30%/40% 증가합니다. 적 3/2명을 처치하면 다음에 적중하는 대상을 화상 상태로 만듭니다."
                 android:textSize="20sp"
@@ -695,7 +695,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -737,7 +737,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="실명 상태의 적에게 주는 데미지가 30% 증가합니다. 적 3명을 처치하면 다음에 적중하는 대상을 실명 상태로 만듭니다."
                 android:textSize="20sp"
@@ -755,7 +755,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -797,7 +797,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="출혈 상태의 적에게 주는 데미지가 30% 증가합니다. 적 3명을 처치하면 다음에 적중하는 대상을 출혈 상태로 만듭니다."
                 android:textSize="20sp"
@@ -811,7 +811,7 @@
                 android:textSize="25sp"
                 android:textColor="#aaa"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"/>
             <TableLayout
                 android:layout_width="match_parent"
@@ -857,7 +857,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적을 치명타 공격으로 죽이면, 15초간 치명타 데미지가 50% 증가합니다."
                 android:textSize="20sp"
@@ -875,7 +875,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -917,7 +917,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="무기의 장탄수가 20% 증가하며, 엄폐 중 빗나간 공격이 100%의 확률로 탄환을 소모하지 않습니다."
                 android:textSize="20sp"
@@ -935,7 +935,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -977,7 +977,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="탄창 중 절반은 발사속도가 20% 증가하지만, 데미지가 15%/10% 감소하며 나머지 절반은 발사속도가 20%/15% 감소하지만 데미지가 30% 증가합니다."
                 android:textSize="20sp"
@@ -995,7 +995,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1037,7 +1037,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="방어구가 파괴되면 무기 데미지가 6초 동안 40%/50% 증가합니다."
                 android:textSize="20sp"
@@ -1055,7 +1055,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1097,7 +1097,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="안정성이 80% 증가하지만, 적정 사거리가 35% 감소합니다."
                 android:textSize="20sp"
@@ -1115,7 +1115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1157,7 +1157,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="빈 탄창을 재장전하면 10초 동안 무기 조작력이 30% 증가합니다."
                 android:textSize="20sp"
@@ -1175,7 +1175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1217,7 +1217,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="탄창의 탄약이 10%씩 줄어들 때마다 무기 데미지가 3%/5%씩 증가합니다."
                 android:textSize="20sp"
@@ -1235,7 +1235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1277,7 +1277,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="빈 탄창을 3번 재장전할 때마다 탄창 휴대량이 100% 증가합니다."
                 android:textSize="20sp"
@@ -1295,7 +1295,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1337,7 +1337,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="제압되지 않은 적을 제압할 때 12초 동안 무기 데미지가 10% 증가합니다. 최대 4번 중첩됩니다. 중첩을 얻을 때마다 지속시간을 갱신시킵니다."
                 android:textSize="20sp"
@@ -1355,7 +1355,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1397,7 +1397,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적을 처치하면 적정 사거리와 명중률이 100%/150% 증가합니다."
                 android:textSize="20sp"
@@ -1415,7 +1415,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1457,7 +1457,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="헤드샷으로 적을 처치 시 스킬의 탄약, 효과, 지속시간이 5%씩 증가하며, 10번까지 중첩됩니다."
                 android:textSize="20sp"
@@ -1475,7 +1475,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1517,7 +1517,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="탄환을 장전할 때마다 무기 데미지가 증가하여 최대 25%까지 증가합니다. 모든 탄창이 채워졌을 경우 추가로 10%만큼 무기 데미지가 증가합니다. 10초 동안 지속됩니다."
                 android:textSize="20sp"
@@ -1535,7 +1535,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1577,7 +1577,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적을 사살하면 3초 동안 10%/15%의 아머가 재생됩니다. 헤드샷 처치 시 즉시 회복됩니다."
                 android:textSize="20sp"
@@ -1595,7 +1595,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1637,7 +1637,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="20초 이내에 3/2명을 연속적으로 바디샷으로 사살할 경우, 탄창이 즉시 보충되며 10초 동안 무기 데미지가 40%/50% 증가합니다."
                 android:textSize="20sp"
@@ -1655,7 +1655,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1697,7 +1697,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="헤드샷으로 적을 처치하면 25초 동안 수리 효과와 치료 효과가 50%/75%만큼 증가합니다."
                 android:textSize="20sp"
@@ -1715,7 +1715,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1757,7 +1757,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="헤드샷을 하면 5초 동안 무기 데미지가 10%/12%만큼 증가하며, 최대 5번까지 중첩됩니다. 5중첩 이후의 헤드샷은 지속시간을 갱신시킵니다."
                 android:textSize="20sp"
@@ -1775,7 +1775,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1817,7 +1817,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적을 사살하면 50%/75%의 확률로 즉시 탄약을 보충합니다."
                 android:textSize="20sp"
@@ -1835,7 +1835,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1877,7 +1877,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="헤드샷으로 적을 처치하면 20초동안 스킬 데미지가 35% 증가합니다."
                 android:textSize="20sp"
@@ -1895,7 +1895,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1937,7 +1937,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="소진된 방어도 5%마다 치명타 데미지가 10% 증가합니다."
                 android:textSize="20sp"
@@ -1955,7 +1955,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -1997,7 +1997,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="이 무기로 전환하면, 5초간 안전성이 200% 증가하며, 적을 처치하면 지속시간이 갱신됩니다. 무기를 다시 전환하면 5초 동안 버프가 작동하지 않습니다."
                 android:textSize="20sp"
@@ -2015,7 +2015,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -2057,7 +2057,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="상태이상 효과가 적용된 적을 처치하면 15m 내에 있는 모든 그룹 맴버의 치명타 확률 및 치명타 데미지가 20초 동안 20% 증가합니다."
                 android:textSize="20sp"
@@ -2080,7 +2080,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="적정 사거리가 15%만큼 증가합니다."
                 android:textSize="20sp"
@@ -2096,7 +2096,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="안정성이 15%만큼 증가합니다."
                 android:textSize="20sp"
@@ -2112,7 +2112,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="발사 속도가 10%/15% 증가합니다."
                 android:textSize="20sp"
@@ -2128,7 +2128,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="재장전 속도가 10%/20% 빨라집니다."
                 android:textSize="20sp"
@@ -2144,7 +2144,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="명중률이 15% 증가합니다."
                 android:textSize="20sp"
@@ -2160,7 +2160,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="무기 조작력이 15% 증가합니다."
                 android:textSize="20sp"
@@ -2176,7 +2176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="탄창 휴대량이 20%/50% 증가합니다. (산탄총 제외)"
                 android:textSize="20sp"
@@ -2200,7 +2200,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 엄폐할 경우 10초/15초 동안 모든 스킬 데미지 및 치유가 25%/30%만큼 증가합니다. 엄폐물에서 벗어나면 버프 효과가 제거됩니다. 60초에 1번씩만 발동합니다."
                 android:textSize="20sp"
@@ -2216,7 +2216,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태에서 엄폐할 경우 해당 무기의 탄약이 5초마다 2개 충전됩니다. (권총은 제외)"
                 android:textSize="20sp"
@@ -2232,7 +2232,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태에서 무기 교체 속도가 10% 증가합니다."
                 android:textSize="20sp"
@@ -2248,7 +2248,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 투척 거리가 10% 증가합니다."
                 android:textSize="20sp"
@@ -2264,7 +2264,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 적을 처치하면 5% 확률로 활성화된 스킬 재사용 대기시간이 갱신됩니다. 60초에 1번씩만 발동합니다."
                 android:textSize="20sp"
@@ -2280,7 +2280,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 구르기를 사용하면 화상, 출혈, 독 상태이상이 제거됩니다. 60초에 1번씩만 발동합니다."
                 android:textSize="20sp"
@@ -2296,7 +2296,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 스킬을 사용하는 동안 방어도가 10% 증가합니다."
                 android:textSize="20sp"
@@ -2312,7 +2312,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 재장전을 하는 동안 방어도가 10% 증가합니다."
                 android:textSize="20sp"
@@ -2328,7 +2328,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태일 때 3초 동안 엄폐를 유지하면 시야 상실, 방향 감각 상실 상태이상 효과가 제고됩니다."
                 android:textSize="20sp"
@@ -2344,7 +2344,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 방어도가 최대일 때 스킬을 사용하면 지속 시간과 사용 횟수, 탄약이 25%만큼 증가합니다.(권총은 제외)"
                 android:textSize="20sp"
@@ -2360,7 +2360,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태에서 속박 상태이상에 걸릴 경우 저항합니다. 그후 5초간 면역이 됩니다. 60초에 1번씩만 발동합니다."
                 android:textSize="20sp"
@@ -2376,7 +2376,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태에서 요원에게 충격 상태이상 효과가 적용되면 10m 내에 있는 적에게 이전시킵니다. 60초에 1번만 발동합니다."
                 android:textSize="20sp"
@@ -2392,7 +2392,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태일 때, 이 무기의 유형에 따라 현재 장착한 무기에 조작력 보너스가 부여됩니다."
                 android:textSize="20sp"
@@ -2408,7 +2408,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="슬롯에 수납한 상태일 때, 빈탄창을 재장전하면 해당 탄창의 20%만큼 무료 탄약으로 돌려받습니다. 30초에 1번씩만 발동합니다."
                 android:textSize="20sp"

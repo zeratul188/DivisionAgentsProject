@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="잘 자라, 버러지야.\n\n-로치, 하이에나 위원회-"
                 android:textColor="#aaa"
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp">
 
                 <TableRow>
@@ -170,7 +170,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="해당 무기로 교체한 후 근접공격을 적중시키면 5초동안 보너스 방어도를 35%만큼 얻습니다."
                 android:textColor="#aaa"
@@ -185,7 +185,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="장착한 상태에서 회피할 경우 현재 무기의 탄창이 25%만큼 재장전됩니다."
                 android:textColor="#aaa"
@@ -202,7 +202,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="예약구매자들에게 증정된 레어 버전 SPAS-12. 레벨1 제한으로 게임 시작하자마자 바로 사용하는게 가능하지만, 무려 1.2k라는 대미지로 게임 초중반까지 죽창으로 써먹는게 가능하다."
                 android:textSize="20sp"

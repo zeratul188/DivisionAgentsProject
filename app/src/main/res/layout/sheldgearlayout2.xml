@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:text="파란색 디버프가 소생하이브 쿨감에 유용하다는 의견도 있지만, 5세트가 강제되며 2세트와 6세트 옵션을 제외하곤 전혀 딜링에 관여하는 옵션이 없다는 것이 특징. 타임어택을 위한 극 딜링 세팅을 한 유저 중 방어도 대상 대미지 +10%를 위해 정예대미지 42% 맥스가 자주 뜨는 마스크와 더불어 2부위를 채용하는 경우가 있지만 그 이외에는 전혀 사용할 가치가 없다.\n\n종종 무개념 중국 유저들이 애국자 세트와 누더기를 기워 입어, 타 유저들의 혈압을 유발하는 경우가 있다."
                 android:textSize="20sp"
-                android:background="@drawable/buttoncustom"
+                android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:textColor="#aaa"/>
         </LinearLayout>
