@@ -1,11 +1,14 @@
 package com.example.divisionsimulation;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -33,6 +36,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -246,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 2.0.2\n마지막 수정 일자 : 2020년 3월 10일 18시 30분\n\n변경 사항 : \n- 무기 시뮬레이션 초기화 시 색깔 검은색으로 변경되는 버그 수정\n- 메시지 있는 박스 투명도를 높임");
+                builder.setTitle("버젼 확인").setMessage("Version 2.0.3\n마지막 수정 일자 : 2020년 3월 18일 18시 46분\n\n변경 사항 : \n- 빠른 손이 빗나갔을 때도 적용되던 버그 수정\n- 일부 디자인 변경");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

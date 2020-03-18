@@ -20,7 +20,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:layout_marginTop="-32dp"
-        app:itemTextColor="#bbf0f0f0"
+        app:itemTextColor="#bbcdcdcd"
         android:background="@drawable/drawerbackground"
         app:itemTextAppearance="@style/nanumTextView"
         app:headerLayout="@layout/nav_header_main"

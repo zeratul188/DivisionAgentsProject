@@ -33,6 +33,7 @@ class DemageSimulThread extends Thread implements Serializable {
 
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
     private SimulActivity sa = null;
+    private boolean hitted = false;
 
     private String[] listDemage = new String[11]; //데미지 수치들을 저장할 배열 변수 한 줄당 배열 1개씩 차지한다.
     private boolean[] on_headshot_list = new boolean[11]; //각 줄마다 헤드샷 여부를 저장한다.
@@ -181,7 +182,7 @@ class DemageSimulThread extends Thread implements Serializable {
         /*int diff_demage = (int)(weapondemage*0.1);
         int ransu = (int)(Math.random()*123456)%(diff_demage*2)-diff_demage;
         int real_demage = (int)weapondemage + ransu;*/
-        return (int)weapondemage;
+        return (int)weapondemage; //무기 데미지를 반환한다.
     }
 
     public void run() { //스레드가 시작할 경우 자동으로 실행된다.
@@ -229,6 +230,8 @@ class DemageSimulThread extends Thread implements Serializable {
         });
         try {
             while (sheld > 0 && !Thread.interrupted() && !end) { //방어도가 소진되거나 스레드가 인터럽트되거나 종료시키게 된다면 자동으로 종료되게 된다.
+                per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
+                if (aiming*10 >= per) hitted = true;
                 for (int i = 0; i < listDemage.length-1; i++) {
                     final int final_index = i; //위와 동일
                     listDemage[i] = listDemage[i+1];
@@ -323,7 +326,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (critical_ransu <= critical*10) { //치명타 확률이 난수보다 작거나 같을 경우 작동한다.
                     on_critical = true; //치명타를 참으로 바꾼다.
-                    if (quick_hand && hit_critical < 30) { //빠른손이 적용되어 있고 빠른 손 히트 수가 30 미만일 경우에만 작동한다. 빠른 손 히트 수는 30이 최대치이기 때문이다.
+                    if (hitted && quick_hand && hit_critical < 30) { //빠른손이 적용되어 있고 빠른 손 히트 수가 30 미만일 경우에만 작동한다. 빠른 손 히트 수는 30이 최대치이기 때문이다.
                         hit_critical++; //치명타가 작동했으므로 빠른 손 히트 수를 1개 증가시킨다.
                         handler.post(new Runnable() {
                             @Override
@@ -412,8 +415,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 else if (on_headshot) sa.hitboom_list(listDemage.length-1);
                 else sa.shelddefaultColor_list(listDemage.length-1);*/
                 if (end) break; //종료 명령을 받으면 종료시킨다.
-                per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
-                if (aiming*10 >= per) { //명중률 확률이 난수보다 클 경우 작동한다.
+                if (hitted) { //명중률 확률이 난수보다 클 경우 작동한다.
                     if (on_headshot) { //헤드샷이 적용되었을 경우 작동한다.
                         img_ransu = (int)(Math.random()*1234567)%2+2; //2 또는 3인 난수를 생성한다. (확률 : 50%)
                         handler.post(new Runnable() {
@@ -496,6 +498,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)"; //위와 동일한 방식
                 dec_sheld = ((double)sheld / (double)first_sheld) * 10000; //방어도 진행도를 설정한다.
                 dec_ammo = ((double)now_ammo / (double)ammo) * 10000; //남은 탄약수 진행도를 설정한다.
+                hitted = false;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -540,6 +543,8 @@ class DemageSimulThread extends Thread implements Serializable {
             방어도를 생명력으로 바꾼 것 외에는 변경점이 거의 없다.
              */
             while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
+                per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
+                if (aiming*10 >= per) hitted = true;
                 for (int i = 0; i < listDemage.length-1; i++) {
                     final int final_index = i;
                     listDemage[i] = listDemage[i+1];
@@ -627,7 +632,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (critical_ransu <= critical*10) {
                     on_critical = true;
-                    if (quick_hand && hit_critical < 30) {
+                    if (hitted && quick_hand && hit_critical < 30) {
                         hit_critical++;
                         handler.post(new Runnable() {
                             @Override
@@ -708,8 +713,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     }
                 });
                 if (end) break;
-                per = (int)(Math.random()*1234567)%1000+1;
-                if (aiming*10 >= per) {
+                if (hitted) {
                     if (on_headshot) {
                         img_ransu = (int)(Math.random()*1234567)%2+2;
                         handler.post(new Runnable() {
@@ -775,6 +779,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (headshot_ransu <= (int) headshot*10) statue_log += "(헤드샷!!)";
                 dec_health = ((double)SimulActivity.getHealth() / (double)first_health) * 10000;
                 dec_ammo = ((double)now_ammo / (double)ammo) * 10000;
+                hitted = false;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
