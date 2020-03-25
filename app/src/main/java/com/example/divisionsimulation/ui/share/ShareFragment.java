@@ -403,13 +403,13 @@ public class ShareFragment extends Fragment {
                         bonus = 0;
                         break;
                     case R.id.rdoDif2:
-                        bonus = 20;
+                        bonus = 5;
                         break;
                     case R.id.rdoDif3:
-                        bonus = 40;
+                        bonus = 10;
                         break;
                     case R.id.rdoDif4:
-                        bonus = 60;
+                        bonus = 15;
                         break;
                 }
             }
@@ -734,7 +734,7 @@ public class ShareFragment extends Fragment {
                 trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -771,7 +771,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -979,7 +979,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1149,7 +1149,7 @@ public class ShareFragment extends Fragment {
                 trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1178,7 +1178,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1348,7 +1348,7 @@ public class ShareFragment extends Fragment {
                 trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1377,7 +1377,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1547,7 +1547,7 @@ public class ShareFragment extends Fragment {
                 trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1576,7 +1576,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1762,7 +1762,7 @@ public class ShareFragment extends Fragment {
                     pick = percent(0, il.getSpecialweapon_Length());
                     txtName.setText(il.getSpecialweapon(pick));
                     txtType.setText(il.getSpecialweapon_type(pick));
-                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1952,7 +1952,7 @@ public class ShareFragment extends Fragment {
                         txtName2.setText(il.getSpecialweapon(pick));
                         txtType2.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -2123,7 +2123,7 @@ public class ShareFragment extends Fragment {
                 btnChange.setVisibility(View.GONE);
                 trOption.setVisibility(View.GONE);
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -2137,7 +2137,7 @@ public class ShareFragment extends Fragment {
                     pick = percent(0, il.getSpecialweapon_raid_Length());
                     txtName.setText(il.getSpecialweapon_raid(pick));
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
-                } else if (percent(1, 1000) <= 30+bonus) { //네임드 장비
+                } else if (percent(1, 1000) <= 30+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -2339,7 +2339,7 @@ public class ShareFragment extends Fragment {
                         setSemiInterface(il.getSpecialweapon_type(pick));
                         //txtName.setText(il.getSpecialweapon(pick));
                         //txtType.setText(il.getSpecialweapon_type(pick));
-                    } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
+                    } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                         named++;
                         all++;
                         setInterface();

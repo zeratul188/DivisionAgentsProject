@@ -46,6 +46,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="15dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="난이도 선택"
+                        android:textSize="25sp"
+                        android:textColor="#f0f0f0"
+                        android:layout_marginBottom="5dp"/>
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -837,17 +844,6 @@
                                     android:textColor="#000000"/>
                             </TableRow>
                         </TableLayout>-->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/layoutcustom"
-                            android:text="라이트존 : \n특급 : 1%, 네임드 : 3%\n다크존 : \n특급(역병) : 1.5%, 네임드 : 3%\n레이드 (칠흑의 시간) : \n특급(독수리를 거느린 자 포함) : 1.5%, 네임드 : 4%\n레이드 추가 박스 :\n'독수리를 거느린자' 10% 확률로 추가\n특급 (독수리를 거느린 자 제외하고 라이트 존 특급만 포함) : 1%, 네임드 : 3%"
-                            android:textSize="15sp"
-                            android:textColor="#aaaaaa"
-                            android:padding="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
