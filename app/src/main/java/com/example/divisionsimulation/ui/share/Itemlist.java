@@ -39,6 +39,11 @@ class Itemlist {
     private String[] namedsheld_dark = {"날카로운 발톱", "Deathgrips", "황제의 근위병", "흉포한 평정심", "굳은 악수", "밤의 감시자", "전략적 조정", "희생양", "공허한 사내", "무관심의 극치"};
     private String[] namedsheld_dark_type = {"권총집", "장갑", "무릎 보호대", "조끼", "장갑", "마스크", "백팩", "백팩", "마스크", "조끼"};
 
+    private String[] newSpecialweapon = {"탄환 제왕", "\"타디그레이드\" 방탄복 시스템", "죽음의 귀부인", "아코스타의 비상가방", "빅혼"};
+
+    public String getNewSpecialweapon(int index) { return newSpecialweapon[index]; }
+    public int getNewSpecialweapon_Length() { return newSpecialweapon.length; }
+
     public String getSpecialweapon_type(int index) { return specialweapon_type[index]; }
     public int getSpecialweapon_type_Length() { return specialweapon_type.length; }
     public String getSheldspecial_type(int index) { return sheld_special_type[index]; }

@@ -46,6 +46,59 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="15dp">
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+                            <RadioGroup
+                                android:id="@+id/rgDifficulty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:orientation="horizontal">
+                                <RadioButton
+                                    android:id="@+id/rdoDif1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="#fe6e0e"
+                                    android:text="스토리/보통"
+                                    android:textSize="20sp"
+                                    android:textColor="#f0f0f0"
+                                    android:checked="true"
+                                    android:layout_marginRight="10dp"/>
+                                <RadioButton
+                                    android:id="@+id/rdoDif2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="#fe6e0e"
+                                    android:text="어려움"
+                                    android:textSize="20sp"
+                                    android:textColor="#f0f0f0"
+                                    android:layout_marginRight="10dp"/>
+                                <RadioButton
+                                    android:id="@+id/rdoDif3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="#fe6e0e"
+                                    android:text="매우 어려움"
+                                    android:textSize="20sp"
+                                    android:textColor="#f0f0f0"
+                                    android:layout_marginRight="10dp"/>
+                                <RadioButton
+                                    android:id="@+id/rdoDif4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="#fe6e0e"
+                                    android:text="영웅"
+                                    android:textSize="20sp"
+                                    android:textColor="#f0f0f0"/>
+                            </RadioGroup>
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -105,6 +158,56 @@
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                         </TableLayout>
+                        <Button
+                            android:id="@+id/btnTruesun"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="트루썬 마지막 보스 처치"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttoncustom"/>
+                        <Button
+                            android:id="@+id/btnLastBoss"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="전설 난이도 마지막 보스 처치"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttoncustom"/>
+                        <Button
+                            android:id="@+id/btnDragov"
+                           android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="제임스 드래고프 또는 테오 파넬 처치"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttoncustom"/>
+                        <Button
+                            android:id="@+id/btnBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="세션 상자 열기"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/buttoncustom"/>
+                        <Button
+                            android:id="@+id/btnNewYork"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="뉴욕 필드 보스 처치"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/buttoncustom"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -112,7 +215,7 @@
                             android:textColor="#aaaaaa"
                             android:textSize="25sp"
                             android:gravity="center"
-                            android:layout_marginBottom="10dp"/>
+                            android:layout_marginBottom="20dp"/>
 
                         <TableLayout
                             android:layout_width="match_parent"
@@ -273,7 +376,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/layoutcustom"
-                            android:layout_marginBottom="30dp"
+                            android:layout_marginBottom="10dp"
                             android:padding="10dp">
                             <TableRow>
                                 <TextView
@@ -653,6 +756,16 @@
                                     android:indeterminateTint="#E45435"/>
                             </TableRow>
                         </TableLayout>
+                        <Button
+                            android:id="@+id/btnItemList"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="획득 아이템 목록 (최대 50개)"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/buttoncustom"/>
                         <!--<TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

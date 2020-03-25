@@ -94,7 +94,7 @@
                             android:textSize="20sp"
                             android:textColor="#aaaaaa"
                             android:background="@drawable/buttoncustom"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_marginRight="5dp"/>
                         <Button
                             android:id="@+id/btnWeapon6"
@@ -105,28 +105,34 @@
                             android:textSize="20sp"
                             android:textColor="#aaaaaa"
                             android:background="@drawable/buttoncustom"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
+                    <TableRow>
+                        <Button
+                            android:id="@+id/btnWeapon7"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="60dp"
+                            android:text="권총"
+                            android:textSize="20sp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="20dp"/>
+                        <Button
+                            android:id="@+id/btnWeapon8"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="60dp"
+                            android:text="보조무기 산탄총"
+                            android:textSize="20sp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="20dp"/>
+                    </TableRow>
                 </TableLayout>
-                <Button
-                    android:id="@+id/btnWeapon7"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="권총"
-                    android:textSize="20sp"
-                    android:textColor="#aaaaaa"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"/>
-                <Button
-                    android:id="@+id/btnWeapon8"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="보조무기 산탄총"
-                    android:textSize="20sp"
-                    android:textColor="#aaaaaa"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"/>
                 <Button
                     android:id="@+id/btnWeapon9"
                     android:layout_width="match_parent"

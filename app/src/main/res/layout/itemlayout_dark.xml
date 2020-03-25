@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="15dp">
+    android:layout_height="match_parent" android:padding="15dp"
+    android:background="#222222">
 
     <TableLayout
         android:id="@+id/tableMain"
@@ -16,6 +17,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="이름 : "
+                android:textColor="#777777"
             android:textSize="20sp"
             android:textAlignment="textEnd"/>
             <TextView
@@ -25,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="name"
                 android:textSize="20sp"
-                android:textColor="#000000"/>
+                android:textColor="#aaaaaa"/>
         </TableRow>
         <TableRow
             android:layout_marginBottom="20dp">
@@ -34,6 +36,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="종류 : "
+                android:textColor="#777777"
                 android:textSize="20sp"
                 android:textAlignment="textEnd"/>
             <TextView
@@ -43,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="type"
                 android:textSize="20sp"
-                android:textColor="#000000"/>
+                android:textColor="#aaaaaa"/>
         </TableRow>
         <TableRow
             android:id="@+id/trOption"
@@ -53,6 +56,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="옵션 : "
+                android:textColor="#777777"
                 android:textSize="20sp"
                 android:textAlignment="textEnd"/>
             <LinearLayout
@@ -84,21 +88,38 @@
     <Button
         android:id="@+id/btnChange"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:text="네임드"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:background="@drawable/buttoncustomnamed"
         android:visibility="gone"/>
     <Button
         android:id="@+id/btnInput"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@drawable/buttonmaincustom"
         android:text="다크존 가방에 담기 (0/10)"
         android:textColor="#ffffff"
-        android:textSize="25sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textSize="20sp"
         android:padding="10dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginBottom="20dp"/>
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="닫기"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textColor="#aaaaaa"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttoncustom"/>
 
 </LinearLayout>

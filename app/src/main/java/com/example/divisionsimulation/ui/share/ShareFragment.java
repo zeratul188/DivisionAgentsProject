@@ -18,12 +18,16 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -60,11 +64,18 @@ public class ShareFragment extends Fragment {
     public static AlertDialog alertDialog_timer = null;
     public static View dialogView_timer = null;
 
+    public AlertDialog.Builder builder_list = null;
+    public AlertDialog alertDialog_list = null;
+    public View dialogView_list = null;
+
+    private LinearLayout layoutItemList;
+    private TextView view;
+
     Button btnInput = null;
 
     final private int BIG = 1234567;
 
-    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput;
+    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList;
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll;
 
     private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand;
@@ -72,6 +83,8 @@ public class ShareFragment extends Fragment {
     private int special = 0, named = 0, gear = 0, brand = 0, darkitem = 0, all = 0, temp;
 
     private int[] typet = new int[13];
+
+    private boolean one_time = false;
 
     private Handler handler;
     private NotificationChannel channel = null;
@@ -92,6 +105,29 @@ public class ShareFragment extends Fragment {
     private ProgressBar progressTimer = null;
     private Button btnNowOutput = null;
     private TextView txtTimer = null;
+
+    private RadioGroup rgDifficulty;
+    private RadioButton[] rdoDiff = new RadioButton[4];
+    private int bonus = 0;
+
+    private String[] item_name = new String[50];
+    private String[] item_type = new String[50];
+    private int index = 0;
+
+    public void inputData(String name, String type) {
+        if (index >= 50) {
+            for (int i = 0; i < 49; i++) {
+                item_name[i] = item_name[i+1];
+                item_type[i] = item_type[i+1];
+            }
+            item_name[49] = name;
+            item_type[49] = type;
+        } else {
+            item_name[index] = name;
+            item_type[index] = type;
+        }
+        index++;
+    }
 
     //public void setTxtInfo(String message) { txtInfo.setText(message); }
     public void setProgressTimer(int progress) { progressTimer.setProgress(progress); }
@@ -163,10 +199,71 @@ public class ShareFragment extends Fragment {
         Looper.loop();
     }
 
+    public void addTextView(int number, String name, String type, LinearLayout layout) {
+        String result = number+". "+name+" ("+type+")";
+
+        SpannableString spannableString = new SpannableString(result);
+
+        String word;
+        int start, end;
+        Itemlist il = new Itemlist();
+        for (int i = 0; i < il.getNewSpecialweapon_Length(); i++) {
+            word = il.getNewSpecialweapon(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        for (int i = 0; i < il.getSpecialweapon_raid_Length(); i++) {
+            word = il.getSpecialweapon_raid(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        for (int i = 0; i < il.getNamedweapon_lite_Length(); i++) {
+            word = il.getNamedweapon_lite(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        for (int i = 0; i < il.getNamedsheld_lite_Length(); i++) {
+            word = il.getNamedsheld_lite(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        for (int i = 0; i < il.getSheldgear_Length(); i++) {
+            word = il.getSheldgear(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        view = new TextView(getActivity());
+        view.setText(spannableString);
+        view.setTextSize(20);
+        view.setTextColor(Color.parseColor("#aaaaaa"));
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.LEFT;
+        view.setLayoutParams(lp);
+
+        layout.addView(view);
+    }
+    public void removeTextView() {
+        if (view.getParent() != null) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
+    }
+
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             if (reset_count >= 1500) btnEnd = true;
             if (btnEnd) {
+                index = 0;
+                for (int i = 0; i < item_name.length; i++) {
+                    item_name[i] = null;
+                    item_type[i] = null;
+                }
                 alertDialog.dismiss();
                 special = 0;
                 named = 0;
@@ -237,10 +334,18 @@ public class ShareFragment extends Fragment {
         btnReset = root.findViewById(R.id.btnReset);
         btnOutput = root.findViewById(R.id.btnOutput);
 
+        btnTruesun = root.findViewById(R.id.btnTruesun);
+        btnLastBoss = root.findViewById(R.id.btnLastBoss);
+        btnDragov = root.findViewById(R.id.btnDragov);
+        btnNewYork = root.findViewById(R.id.btnNewYork);
+        btnBox = root.findViewById(R.id.btnBox);
+
         txtSpecial = root.findViewById(R.id.txtSpecial);
         txtNamed = root.findViewById(R.id.txtNamed);
         txtGear = root.findViewById(R.id.txtGear);
         txtBrand = root.findViewById(R.id.txtBrand);
+
+        btnItemList = root.findViewById(R.id.btnItemList);
 
         txtAll = root.findViewById(R.id.txtAll);
 
@@ -283,6 +388,33 @@ public class ShareFragment extends Fragment {
         progressGear.setMax(10000);
         progressBrand.setMax(10000);
 
+        rgDifficulty = root.findViewById(R.id.rgDifficulty);
+        int id_number;
+        for (int i = 0; i < rdoDiff.length; i++) {
+            id_number = root.getResources().getIdentifier("rdoDiff"+(i+1), "id", getActivity().getPackageName());
+            rdoDiff[i] = root.findViewById(id_number);
+        }
+
+        rgDifficulty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rdoDif1:
+                        bonus = 0;
+                        break;
+                    case R.id.rdoDif2:
+                        bonus = 20;
+                        break;
+                    case R.id.rdoDif3:
+                        bonus = 40;
+                        break;
+                    case R.id.rdoDif4:
+                        bonus = 60;
+                        break;
+                }
+            }
+        });
+
         final Itemlist il = new Itemlist();
 
         final View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null);
@@ -293,6 +425,7 @@ public class ShareFragment extends Fragment {
         final TableLayout tableMain = dialogView.findViewById(R.id.tableMain);
         final ImageView[] imgOption = new ImageView[3];
         final TableRow trOption = dialogView.findViewById(R.id.trOption);
+        final Button btnExit = dialogView.findViewById(R.id.btnExit);
 
 
         for (int i = 0; i < imgOption.length; i++) {
@@ -308,9 +441,17 @@ public class ShareFragment extends Fragment {
         final TextView txtType2 = dark_dialogView.findViewById(R.id.txtType);
         final Button btnChange2 = dark_dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
+        final Button btnExit2 = dark_dialogView.findViewById(R.id.btnExit);
         btnInput = dark_dialogView.findViewById(R.id.btnInput);
         final ImageView[] imgOption2 = new ImageView[3];
         final TableRow trOption2 = dark_dialogView.findViewById(R.id.trOption);
+
+        btnExit2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_dark.dismiss();
+            }
+        });
 
         for (int i = 0; i < imgOption2.length; i++) {
             temp = dark_dialogView.getResources().getIdentifier("imgOption"+(i+1), "id", getActivity().getPackageName());
@@ -324,6 +465,36 @@ public class ShareFragment extends Fragment {
         builder.setView(dialogView);
         */
 
+        btnItemList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogView_list = getLayoutInflater().inflate(R.layout.itemlistlayout, null);
+                layoutItemList = dialogView_list.findViewById(R.id.layoutItemList);
+                Button btnExit = dialogView_list.findViewById(R.id.btnExit);
+
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog_list.dismiss();
+                    }
+                });
+
+                /*if (one_time) removeTextView();
+                else one_time = true;*/
+
+                for (int i = 0; i < item_name.length; i++) {
+                    if (item_name[i] != null) addTextView(i+1, item_name[i], item_type[i], layoutItemList);
+                }
+
+                builder_list = new AlertDialog.Builder(getActivity());
+                builder_list.setView(dialogView_list);
+
+                alertDialog_list = builder_list.create();
+                alertDialog_list.setCancelable(false);
+                alertDialog_list.show();
+            }
+        });
+
         btnReset.setOnLongClickListener(new Button.OnLongClickListener() {
 
             @Override
@@ -336,7 +507,6 @@ public class ShareFragment extends Fragment {
 
                 buildera = new AlertDialog.Builder(getActivity());
                 buildera.setView(dialogViewa);
-                buildera.setTitle("초기화까지");
 
                 alertDialog = buildera.create();
                 alertDialog.show();
@@ -377,6 +547,13 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
+            }
+        });
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
             }
         });
 
@@ -548,6 +725,1020 @@ public class ShareFragment extends Fragment {
             }
         });
 
+        btnTruesun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    if (percent(0, 2) == 1) {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                        txtName.setText("\"타디그레이드\" 방탄복 시스템");
+                        txtType.setText("조끼");
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                    } else {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName.setText(il.getSpecialweapon(pick));
+                        txtType.setText(il.getSpecialweapon_type(pick));
+                    }
+                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_lite_Length());
+                        txtName.setText(il.getNamedweapon_lite(pick));
+                        txtType.setText(il.getNamedweapon_lite_type(pick));
+                    } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(0, il.getNamedsheld_lite_Length());
+                        switch (il.getNamedsheld_lite_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        txtName.setText(il.getNamedsheld_lite(pick));
+                        txtType.setText(il.getNamedsheld_lite_type(pick));
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName.setText(il.getWeaponlist2(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName.setText(il.getWeaponlist3(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName.setText(il.getWeaponlist4(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName.setText(il.getWeaponlist5(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName.setText(il.getWeaponlist6(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName.setText(il.getWeaponlist7(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName.setText("Error");
+                                txtType.setText("Error");
+                        }
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType.setText(il.getSheldtype(pick));
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 10) { //gear
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+
+                                    }
+                            }
+                            txtName.setText(il.getSheldbrand(pick));
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null)
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                builder.setView(dialogView);
+
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+
+                setSemiInterface(String.valueOf(txtType.getText()));
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        });
+
+        btnBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    if (percent(0, 2) == 1) {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                        txtName.setText("아코스타의 비상가방");
+                        txtType.setText("백팩");
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                    } else {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName.setText(il.getSpecialweapon(pick));
+                        txtType.setText(il.getSpecialweapon_type(pick));
+                    }
+                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_lite_Length());
+                        txtName.setText(il.getNamedweapon_lite(pick));
+                        txtType.setText(il.getNamedweapon_lite_type(pick));
+                    } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(0, il.getNamedsheld_lite_Length());
+                        switch (il.getNamedsheld_lite_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        txtName.setText(il.getNamedsheld_lite(pick));
+                        txtType.setText(il.getNamedsheld_lite_type(pick));
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName.setText(il.getWeaponlist2(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName.setText(il.getWeaponlist3(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName.setText(il.getWeaponlist4(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName.setText(il.getWeaponlist5(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName.setText(il.getWeaponlist6(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName.setText(il.getWeaponlist7(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName.setText("Error");
+                                txtType.setText("Error");
+                        }
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType.setText(il.getSheldtype(pick));
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 10) { //gear
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+
+                                    }
+                            }
+                            txtName.setText(il.getSheldbrand(pick));
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null)
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                builder.setView(dialogView);
+
+                setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        });
+
+        btnLastBoss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    if (percent(0, 2) == 1) {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        txtName.setText("빅혼");
+                        txtType.setText("돌격소총");
+                    } else {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName.setText(il.getSpecialweapon(pick));
+                        txtType.setText(il.getSpecialweapon_type(pick));
+                    }
+                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_lite_Length());
+                        txtName.setText(il.getNamedweapon_lite(pick));
+                        txtType.setText(il.getNamedweapon_lite_type(pick));
+                    } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(0, il.getNamedsheld_lite_Length());
+                        switch (il.getNamedsheld_lite_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        txtName.setText(il.getNamedsheld_lite(pick));
+                        txtType.setText(il.getNamedsheld_lite_type(pick));
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName.setText(il.getWeaponlist2(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName.setText(il.getWeaponlist3(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName.setText(il.getWeaponlist4(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName.setText(il.getWeaponlist5(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName.setText(il.getWeaponlist6(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName.setText(il.getWeaponlist7(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName.setText("Error");
+                                txtType.setText("Error");
+                        }
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType.setText(il.getSheldtype(pick));
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 10) { //gear
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+
+                                    }
+                            }
+                            txtName.setText(il.getSheldbrand(pick));
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null)
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                builder.setView(dialogView);
+
+                setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        });
+
+        btnDragov.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    if (percent(0, 2) == 1) {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        txtName.setText("탄환 제왕");
+                        txtType.setText("경기관총");
+                    } else {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName.setText(il.getSpecialweapon(pick));
+                        txtType.setText(il.getSpecialweapon_type(pick));
+                    }
+                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_lite_Length());
+                        txtName.setText(il.getNamedweapon_lite(pick));
+                        txtType.setText(il.getNamedweapon_lite_type(pick));
+                    } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(0, il.getNamedsheld_lite_Length());
+                        switch (il.getNamedsheld_lite_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        txtName.setText(il.getNamedsheld_lite(pick));
+                        txtType.setText(il.getNamedsheld_lite_type(pick));
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName.setText(il.getWeaponlist2(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName.setText(il.getWeaponlist3(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName.setText(il.getWeaponlist4(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName.setText(il.getWeaponlist5(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName.setText(il.getWeaponlist6(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName.setText(il.getWeaponlist7(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName.setText("Error");
+                                txtType.setText("Error");
+                        }
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType.setText(il.getSheldtype(pick));
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 10) { //gear
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+
+                                    }
+                            }
+                            txtName.setText(il.getSheldbrand(pick));
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null)
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                builder.setView(dialogView);
+
+                setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        });
+
+        btnNewYork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick;
+                tableMain.setVisibility(View.VISIBLE);
+                btnChange.setVisibility(View.GONE);
+                trOption.setVisibility(View.GONE);
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    if (percent(0, 2) == 1) {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        txtName.setText("죽음의 귀부인");
+                        txtType.setText("기관단총");
+                    } else {
+                        txtName.setTextColor(Color.parseColor("#ff3c00"));
+                        special++;
+                        all++;
+                        setInterface();
+                        txtSpecial.setText(Integer.toString(special));
+                        tableMain.setVisibility(View.GONE);
+                        btnChange.setVisibility(View.VISIBLE);
+                        btnChange.setText("특급");
+                        btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        pick = percent(0, il.getSpecialweapon_Length());
+                        txtName.setText(il.getSpecialweapon(pick));
+                        txtType.setText(il.getSpecialweapon_type(pick));
+                    }
+                } else if (percent(1, 1000) <= 50+bonus) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+                    btnChange.setText("네임드");
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_lite_Length());
+                        txtName.setText(il.getNamedweapon_lite(pick));
+                        txtType.setText(il.getNamedweapon_lite_type(pick));
+                    } else { //sheld
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(0, il.getNamedsheld_lite_Length());
+                        switch (il.getNamedsheld_lite_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        txtName.setText(il.getNamedsheld_lite(pick));
+                        txtType.setText(il.getNamedsheld_lite_type(pick));
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName.setText(il.getWeaponlist2(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName.setText(il.getWeaponlist3(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName.setText(il.getWeaponlist4(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName.setText(il.getWeaponlist5(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName.setText(il.getWeaponlist6(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName.setText(il.getWeaponlist7(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName.setText("Error");
+                                txtType.setText("Error");
+                        }
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType.setText(il.getSheldtype(pick));
+                        trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                                break;
+                        }
+                        for (int i = 0; i < imgOption.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
+                            else imgOption[i].setImageResource(R.drawable.power);
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 10) { //gear
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+
+                                    }
+                            }
+                            txtName.setText(il.getSheldbrand(pick));
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null)
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
+                builder.setView(dialogView);
+
+
+
+                setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        });
+
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -555,9 +1746,9 @@ public class ShareFragment extends Fragment {
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
                 trOption.setVisibility(View.GONE);
-                txtName.setTextColor(Color.parseColor("#000000"));
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 10) { //특급 장비
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -571,7 +1762,7 @@ public class ShareFragment extends Fragment {
                     pick = percent(0, il.getSpecialweapon_Length());
                     txtName.setText(il.getSpecialweapon(pick));
                     txtType.setText(il.getSpecialweapon_type(pick));
-                } else if (percent(1, 1000) <= 30) { //네임드 장비
+                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -723,11 +1914,11 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                builder.setPositiveButton("확인", null);
-
                 setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
-                AlertDialog alertDialog = builder.create();
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -738,10 +1929,10 @@ public class ShareFragment extends Fragment {
                 int pick;
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
-                txtName2.setTextColor(Color.parseColor("#000000"));
+                txtName2.setTextColor(Color.parseColor("#aaaaaa"));
                 trOption2.setVisibility(View.GONE);
                 for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 15) { //특급 장비
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     btnChange2.setText("특급");
                     btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     tableMain2.setVisibility(View.GONE);
@@ -761,7 +1952,7 @@ public class ShareFragment extends Fragment {
                         txtName2.setText(il.getSpecialweapon(pick));
                         txtType2.setText(il.getSpecialweapon_type(pick));
                     }
-                } else if (percent(1, 1000) <= 30) { //네임드 장비
+                } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -914,11 +2105,11 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dark_dialogView.getParent()).removeView(dark_dialogView);
                 builder_dark.setView(dark_dialogView);
 
-                builder_dark.setPositiveButton("확인", null);
-
                 setSemiInterface(String.valueOf(txtType2.getText()));
+                inputData(String.valueOf(txtName2.getText()), String.valueOf(txtType2.getText()));
 
                 dialog_dark = builder_dark.create();
+                dialog_dark.setCancelable(false);
                 dialog_dark.show();
             }
         });
@@ -927,12 +2118,12 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int pick;
-                txtName.setTextColor(Color.parseColor("#000000"));
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
                 trOption.setVisibility(View.GONE);
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
-                if (percent(1, 1000) <= 15) { //특급 장비
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -946,7 +2137,7 @@ public class ShareFragment extends Fragment {
                     pick = percent(0, il.getSpecialweapon_raid_Length());
                     txtName.setText(il.getSpecialweapon_raid(pick));
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
-                } else if (percent(1, 1000) <= 40) { //네임드 장비
+                } else if (percent(1, 1000) <= 30+bonus) { //네임드 장비
                     named++;
                     all++;
                     setInterface();
@@ -1099,11 +2290,11 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                builder.setPositiveButton("확인", null);
-
                 setSemiInterface(String.valueOf(txtType.getText()));
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
-                AlertDialog alertDialog = builder.create();
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
@@ -1113,10 +2304,10 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick;
                 int start, end;
-                txtName.setTextColor(Color.parseColor("#000000"));
+                txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 String name = "", type = "";
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
-                if (percent(1, 100) <= 10) {
+                if (percent(1, 100) <= 10+bonus) {
                     //txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -1125,10 +2316,11 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special));
                     name += "독수리를 거느린 자\n";
                     type += "돌격소총\n";
+                    inputData("독수리를 거느린 자", "돌격소총");
                     setSemiInterface("돌격소총");
                 }
                 for (int i = 0; i < 5; i++) {
-                    if (percent(1, 1000) <= 10) { //특급 장비
+                    if (percent(1, 1000) <= 10+bonus) { //특급 장비
                         //txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
                         all++;
@@ -1143,10 +2335,11 @@ public class ShareFragment extends Fragment {
                             name += il.getSpecialweapon(pick);
                             type += il.getSpecialweapon_type(pick);
                         }
+                        inputData(il.getSpecialweapon(pick), il.getSpecialweapon_type(pick));
                         setSemiInterface(il.getSpecialweapon_type(pick));
                         //txtName.setText(il.getSpecialweapon(pick));
                         //txtType.setText(il.getSpecialweapon_type(pick));
-                    } else if (percent(1, 1000) <= 30) { //네임드 장비
+                    } else if (percent(1, 1000) <= 20+bonus) { //네임드 장비
                         named++;
                         all++;
                         setInterface();
@@ -1163,6 +2356,7 @@ public class ShareFragment extends Fragment {
                                 type += il.getNamedweapon_lite_type(pick);
                             }
                             setSemiInterface(il.getNamedweapon_lite_type(pick));
+                            inputData(il.getNamedweapon_lite(pick), il.getNamedweapon_lite_type(pick));
                             //txtName.setText(il.getNamedweapon_lite(pick));
                             //txtType.setText(il.getNamedweapon_lite_type(pick));
                         } else { //sheld
@@ -1175,6 +2369,7 @@ public class ShareFragment extends Fragment {
                                 type += il.getNamedsheld_lite_type(pick);
                             }
                             setSemiInterface(il.getNamedsheld_lite_type(pick));
+                            inputData(il.getNamedsheld_lite(pick), il.getNamedsheld_lite_type(pick));
                             //txtName.setText(il.getNamedsheld_lite(pick));
                             //txtType.setText(il.getNamedsheld_lite_type(pick));
                         }
@@ -1197,6 +2392,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist1(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist1(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist1(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1209,6 +2405,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist2(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist2(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist2(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1221,6 +2418,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist3(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist3(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist3(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1233,6 +2431,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist4(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist4(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist4(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1245,6 +2444,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist5(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist5(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist5(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1257,6 +2457,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist6(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist6(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist6(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1269,6 +2470,7 @@ public class ShareFragment extends Fragment {
                                         name += il.getWeaponlist7(temp);
                                         type += il.getWeapontype(pick);
                                     }
+                                    inputData(il.getWeaponlist7(temp), il.getWeapontype(pick));
                                     //txtName.setText(il.getWeaponlist7(temp));
                                     //txtType.setText(il.getWeapontype(pick));
                                     break;
@@ -1278,9 +2480,11 @@ public class ShareFragment extends Fragment {
                             }
                             setSemiInterface(il.getWeapontype(pick));
                         } else { //sheld
+                            int temp_pick;
                             pick = percent(0, il.getSheldtype_Length());
                             if (i != 4) type += il.getSheldtype(pick)+"\n";
                             else type += il.getSheldtype(pick);
+                            temp_pick = pick;
                             setSemiInterface(il.getSheldtype(pick));
                             //txtType.setText(il.getSheldtype(pick));
                             pick = percent(1, 100);
@@ -1294,6 +2498,7 @@ public class ShareFragment extends Fragment {
                                 if (i != 4) name += il.getSheldgear(pick)+"\n";
                                 else name += il.getSheldgear(pick);
                                 //txtName.setText(il.getSheldgear(pick));
+                                inputData(il.getSheldgear(pick), il.getSheldtype(pick));
                             } else { //brand
                                 brand++;
                                 all++;
@@ -1304,6 +2509,7 @@ public class ShareFragment extends Fragment {
                                 if (i != 4) name += il.getSheldbrand(pick)+"\n";
                                 else name += il.getSheldbrand(pick);
                                 txtName.setText(il.getSheldbrand(pick));
+                                inputData(il.getSheldbrand(pick), il.getSheldtype(temp_pick));
                             }
                         }
                     }
@@ -1345,9 +2551,8 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                builder.setPositiveButton("확인", null);
-
-                AlertDialog alertDialog = builder.create();
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
             }
         });
