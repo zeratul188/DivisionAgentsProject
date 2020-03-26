@@ -505,10 +505,19 @@ public class ShareFragment extends Fragment {
                 progressReset.setProgress(0);
                 reset_count = 0;
 
+                Button btnExit = dialogViewa.findViewById(R.id.btnExit);
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
                 buildera = new AlertDialog.Builder(getActivity());
                 buildera.setView(dialogViewa);
 
                 alertDialog = buildera.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
 
                 alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

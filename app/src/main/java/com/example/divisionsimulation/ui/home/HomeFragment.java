@@ -587,10 +587,18 @@ public class HomeFragment extends Fragment implements Serializable {
                 progressReset.setProgress(0);
                 reset_count = 0;
 
+                Button btnExit = dialogView.findViewById(R.id.btnExit);
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
                 builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
-                builder.setTitle("초기화까지");
                 alertDialog = builder.create();
+                alertDialog.setCancelable(false);
                 alertDialog.show();
 
                 alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -924,12 +932,14 @@ public class HomeFragment extends Fragment implements Serializable {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (chkPVP.isChecked()) {
-                                    chkElite.setTextColor(Color.parseColor("#bbbbbb"));
+                                    chkElite.setTextColor(Color.parseColor("#444444"));
+                                    chkCluch.setTextColor(Color.parseColor("#f0f0f0"));
                                     chkElite.setEnabled(false);
                                     chkCluch.setEnabled(true);
                                     layoutPVP.setVisibility(View.VISIBLE);
                                 } else {
-                                    chkElite.setTextColor(Color.parseColor("#000000"));
+                                    chkElite.setTextColor(Color.parseColor("#f0f0f0"));
+                                    chkCluch.setTextColor(Color.parseColor("#444444"));
                                     chkElite.setEnabled(true);
                                     layoutPVP.setVisibility(View.GONE);
                                     rdoPVP[0].setChecked(true);
@@ -946,10 +956,10 @@ public class HomeFragment extends Fragment implements Serializable {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked) {
-                                    chkPVP.setTextColor(Color.parseColor("#bbbbbb"));
+                                    chkPVP.setTextColor(Color.parseColor("#444444"));
                                     chkPVP.setEnabled(false);
                                 } else {
-                                    chkPVP.setTextColor(Color.parseColor("#000000"));
+                                    chkPVP.setTextColor(Color.parseColor("#f0f0f0"));
                                     chkPVP.setEnabled(true);
                                 }
                             }

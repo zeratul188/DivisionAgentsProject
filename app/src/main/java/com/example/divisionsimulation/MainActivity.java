@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 2.1.1\n마지막 수정 일자 : 2020년 3월 25일 13시 36분\n\n변경 사항 : \n파밍 시뮬레이션 : 난이도 별 엑조틱 또는 네임드 아이템 획득 확률 조정");
+                builder.setTitle("버젼 확인").setMessage("Version 2.1.2\n마지막 수정 일자 : 2020년 3월 26일 12시 4분\n\n변경 사항 : \n디자인 일부 변경");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();

@@ -59,7 +59,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:orientation="horizontal">
                             <RadioGroup
                                 android:id="@+id/rgDifficulty"
@@ -74,6 +73,8 @@
                                     android:buttonTint="#fe6e0e"
                                     android:text="스토리/보통"
                                     android:textSize="20sp"
+                                    android:drawableLeft="@drawable/difficulty1"
+                                    android:drawablePadding="10dp"
                                     android:textColor="#f0f0f0"
                                     android:checked="true"
                                     android:layout_marginRight="10dp"/>
@@ -83,6 +84,8 @@
                                     android:layout_height="wrap_content"
                                     android:buttonTint="#fe6e0e"
                                     android:text="어려움"
+                                    android:drawableLeft="@drawable/difficulty2"
+                                    android:drawablePadding="10dp"
                                     android:textSize="20sp"
                                     android:textColor="#f0f0f0"
                                     android:layout_marginRight="10dp"/>
@@ -92,6 +95,8 @@
                                     android:layout_height="wrap_content"
                                     android:buttonTint="#fe6e0e"
                                     android:text="매우 어려움"
+                                    android:drawableLeft="@drawable/difficulty3"
+                                    android:drawablePadding="10dp"
                                     android:textSize="20sp"
                                     android:textColor="#f0f0f0"
                                     android:layout_marginRight="10dp"/>
@@ -101,6 +106,8 @@
                                     android:layout_height="wrap_content"
                                     android:buttonTint="#fe6e0e"
                                     android:text="영웅"
+                                    android:drawableLeft="@drawable/difficulty4"
+                                    android:drawablePadding="10dp"
                                     android:textSize="20sp"
                                     android:textColor="#f0f0f0"/>
                             </RadioGroup>
@@ -870,6 +877,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="이송하기 (0/10)"
+                    android:drawableLeft="@drawable/output"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     android:padding="10dp"

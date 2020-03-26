@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="15dp">
+    android:layout_height="match_parent" android:padding="15dp"
+    android:background="#222222">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="방어구 : "
+            android:textColor="#aaaaaa"
             android:textSize="25sp"
             android:textAlignment="textEnd"/>
 
@@ -23,6 +25,8 @@
             android:layout_weight="3"
             android:inputType="number"
             android:text=""
+            android:textColor="#f0f0f0"
+            android:textColorHint="#aaaaaa"
             android:hint="0~999999999"
             android:maxLength="9"
             android:background="@drawable/edittext_custom"
@@ -40,6 +44,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="체력 : "
+            android:textColor="#aaaaaa"
             android:textSize="25sp"
             android:textAlignment="textEnd"/>
 
@@ -49,6 +54,8 @@
             android:layout_weight="3"
             android:inputType="number"
             android:text=""
+            android:textColor="#f0f0f0"
+            android:textColorHint="#aaaaaa"
             android:background="@drawable/edittext_custom"
             android:hint="1~999999999"
             android:maxLength="9"
@@ -66,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정예 여부"
+            android:textColor="#f0f0f0"
             android:textSize="20sp"
             android:buttonTint="#fe6e0e"
             android:layout_marginRight="20dp"/>
@@ -74,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PVP 여부"
+            android:textColor="#f0f0f0"
             android:buttonTint="#fe6e0e"
             android:textSize="20sp"
             android:layout_marginRight="20dp"/>
@@ -82,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="적 클러치 여부"
+            android:textColor="#444444"
             android:buttonTint="#fe6e0e"
             android:enabled="false"
             android:textSize="20sp"/>
@@ -104,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="계수를 선택하십시오. (좌, 우로 스크롤)"
                     android:textSize="20sp"
-                    android:textColor="#000000"
+                    android:textColor="#f0f0f0"
                     android:gravity="center"/>
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -121,6 +131,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="돌격소총"
+                            android:buttonTint="#fe6e0e"
+                            android:textColor="#f0f0f0"
                             android:textSize="20sp"
                             android:checked="true"
                             android:layout_marginRight="10dp"/>
@@ -129,6 +141,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="소총"
+                            android:buttonTint="#fe6e0e"
+                            android:textColor="#f0f0f0"
                             android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -136,6 +150,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="지정사수소총"
+                            android:textColor="#f0f0f0"
+                            android:buttonTint="#fe6e0e"
                             android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -143,6 +159,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="기관단총"
+                            android:textColor="#f0f0f0"
+                            android:buttonTint="#fe6e0e"
                             android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -150,6 +168,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="경기관총"
+                            android:textColor="#f0f0f0"
+                            android:buttonTint="#fe6e0e"
                             android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -157,6 +177,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="산탄총"
+                            android:textColor="#f0f0f0"
+                            android:buttonTint="#fe6e0e"
                             android:textSize="20sp"
                             android:layout_marginRight="10dp"/>
                         <RadioButton
@@ -164,6 +186,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
+                            android:buttonTint="#fe6e0e"
+                            android:textColor="#f0f0f0"
                             android:text="권총"/>
                     </RadioGroup>
                 </HorizontalScrollView>
@@ -186,13 +210,15 @@
                         android:layout_height="wrap_content"
                         android:text="RPM : "
                         android:textSize="20sp"
-                        android:textColor="#000000"
+                        android:textColor="#f0f0f0"
                         android:textAlignment="textEnd"/>
                     <EditText
                         android:id="@+id/edtCluchRPM"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
+                        android:textColorHint="#aaaaaa"
+                        android:textColor="#f0f0f0"
                         android:hint="0~9999"
                         android:background="@drawable/edittext_custom"
                         android:inputType="number"
@@ -209,13 +235,15 @@
                         android:layout_height="wrap_content"
                         android:text="치명타 확률 : "
                         android:textSize="20sp"
-                        android:textColor="#000000"
+                        android:textColor="#f0f0f0"
                         android:textAlignment="textEnd"/>
                     <EditText
                         android:id="@+id/edtCluchCritical"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
+                        android:textColorHint="#aaaaaa"
+                        android:textColor="#f0f0f0"
                         android:hint="0~99.9"
                         android:background="@drawable/edittext_custom"
                         android:inputType="numberDecimal"
@@ -232,13 +260,15 @@
                         android:layout_height="wrap_content"
                         android:text="재장전 시간 : "
                         android:textSize="20sp"
-                        android:textColor="#000000"
+                        android:textColor="#f0f0f0"
                         android:textAlignment="textEnd"/>
                     <EditText
                         android:id="@+id/edtCluchReload"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
+                        android:textColorHint="#aaaaaa"
+                        android:textColor="#f0f0f0"
                         android:hint="0~99.9"
                         android:background="@drawable/edittext_custom"
                         android:inputType="numberDecimal"
@@ -255,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:text="탄창 수 : "
                         android:textSize="20sp"
-                        android:textColor="#000000"
+                        android:textColor="#f0f0f0"
                         android:textAlignment="textEnd"/>
                     <EditText
                         android:id="@+id/edtCluchAmmo"
@@ -263,6 +293,8 @@
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
                         android:hint="0~9999"
+                        android:textColorHint="#aaaaaa"
+                        android:textColor="#f0f0f0"
                         android:background="@drawable/edittext_custom"
                         android:inputType="number"
                         android:maxLength="4"/>
@@ -277,7 +309,7 @@
                         android:layout_height="wrap_content"
                         android:text="명중률 : "
                         android:textSize="20sp"
-                        android:textColor="#000000"
+                        android:textColor="#f0f0f0"
                         android:textAlignment="textEnd"/>
                     <EditText
                         android:id="@+id/edtCluchAiming"
@@ -285,6 +317,8 @@
                         android:layout_weight="2"
                         android:layout_height="wrap_content"
                         android:hint="0~9999"
+                        android:textColorHint="#aaaaaa"
+                        android:textColor="#f0f0f0"
                         android:background="@drawable/edittext_custom"
                         android:inputType="number"
                         android:maxLength="4"/>
@@ -296,7 +330,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="방어구, 체력 모두 합쳐서 21억을 초과하면 안됩니다."
-        android:textColor="#000000"
+        android:textColor="#f0f0f0"
         android:gravity="center"
         android:textSize="20sp"
         android:layout_marginTop="15dp"/>
@@ -304,7 +338,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PVP는 정예 여부를 체크 해제하셔야 합니다."
-        android:textColor="#000000"
+        android:textColor="#f0f0f0"
         android:gravity="center"
         android:textSize="20sp"
         android:layout_marginBottom="10dp"/>
@@ -318,9 +352,9 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="60dp"
-            android:background="@drawable/cancelcustom"
+            android:background="@drawable/buttoncustom"
             android:text="취소"
-            android:textColor="#444444"
+            android:textColor="#aaaaaa"
             android:textSize="25sp"
             android:layout_marginRight="5dp"/>
         <Button
