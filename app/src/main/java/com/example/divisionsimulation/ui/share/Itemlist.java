@@ -41,6 +41,131 @@ class Itemlist {
 
     private String[] newSpecialweapon = {"탄환 제왕", "\"타디그레이드\" 방탄복 시스템", "죽음의 귀부인", "아코스타의 비상가방", "빅혼"};
 
+    private String[] weaponMainOption = {"생명력 대상 데미지", "치명타 데미지", "헤드샷 데미지", "치명타 확률", "비엄폐 대상 데미지", "방어구 대상 데미지", "적정 사거리"};
+    private String[] weaponSubOption = {"생명력 대상 데미지", "치명타 데미지", "헤드샷 데미지", "치명타 확률", "비엄폐 대상 데미지", "방어구 대상 데미지", "적정 사거리", "명중률", "안정성", "탄창 용량", "재장전 속도", "발사 속도", "교체 속도"};
+
+    private String[] sheldMainOption = {"% 무기 데미지", " 방어구", " 스킬 등급"};
+    private String[] sheldSubWeaponOption = {"% 치명타 확률", "% 치명타 데미지", "% 무기 조작력", "% 헤드샷 데미지"};
+    private String[] sheldSubSheldOption = {" 생명력", "% 상태이상 저항", "HP/s 방어구 재생"};
+    private String[] sheldSubPowerOption = {"% 스킬 가속", "% 상태이상 효과", "% 스킬 데미지"};
+
+    private String[] weapon1Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "근시안", "텅 빈 탄창", "신중함", "공급과잉"};
+    private String[] weapon2Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "소총수", "부메랑", "뜻밖의 행운"};
+    private String[] weapon3Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "뜻밖의 행운", "벌거숭이", "선제공격"};
+    private String[] weapon4Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "신중함", "외부인", "흔들림 방지"};
+    private String[] weapon5Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "신중함", "불안정", "광란", "압도적인 화력"};
+    private String[] weapon6Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "연속 타격", "의기충전"};
+    private String[] weapon7Talent = {"브레드바스켓", "킬러", "보존", "낙천주의자", "중압감", "근접전의 대가", "빠른 손", "새디스트", "앙심", "레인저", "떨리지 않는 손", "가시", "맹인", "점화", "영속성", "혁신", "뜻박의 행운", "회수", "확인사살"};
+
+    public String getWeapon1Talent() { return weapon1Talent[percent(0, weapon1Talent.length)]; }
+    public String getWeapon2Talent() { return weapon2Talent[percent(0, weapon2Talent.length)]; }
+    public String getWeapon3Talent() { return weapon3Talent[percent(0, weapon3Talent.length)]; }
+    public String getWeapon4Talent() { return weapon4Talent[percent(0, weapon4Talent.length)]; }
+    public String getWeapon5Talent() { return weapon5Talent[percent(0, weapon5Talent.length)]; }
+    public String getWeapon6Talent() { return weapon6Talent[percent(0, weapon6Talent.length)]; }
+    public String getWeapon7Talent() { return weapon7Talent[percent(0, weapon7Talent.length)]; }
+
+    public String getWeaponTalent(String type) {
+        switch (type) {
+            case "돌격소총":
+            case "돌격 소총":
+                return weapon1Talent[percent(0, weapon1Talent.length)];
+            case "소총":
+                return weapon2Talent[percent(0, weapon2Talent.length)];
+            case "지정사수소총":
+                return weapon3Talent[percent(0, weapon3Talent.length)];
+            case "기관단총":
+                return weapon4Talent[percent(0, weapon4Talent.length)];
+            case "경기관총":
+                return weapon5Talent[percent(0, weapon5Talent.length)];
+            case "산탄총":
+                return weapon6Talent[percent(0, weapon6Talent.length)];
+            case "권총":
+                return weapon7Talent[percent(0, weapon7Talent.length)];
+            default:
+                return "Error";
+        }
+    }
+
+    public int percent(int min, int max) {
+        return (int)(Math.random()*1234567)%max+min;
+    }
+
+    public int getMaxWeaponSubOption(String type) {
+        if (weaponSubOption[0].equals(type) || weaponSubOption[1].equals(type) || weaponSubOption[7].equals(type) || weaponSubOption[8].equals(type) || weaponSubOption[9].equals(type) || weaponSubOption[10].equals(type)) return 12;
+        else if (weaponSubOption[2].equals(type)) return 12;
+        else if (weaponSubOption[4].equals(type) || weaponSubOption[3].equals(type)) return 10;
+        else if (weaponSubOption[5].equals(type)) return 6;
+        else if (weaponSubOption[6].equals(type)) return 30;
+        else if (weaponSubOption[11].equals(type)) return 5;
+        else if (weaponSubOption[12].equals(type)) return 15;
+        else return 1;
+    }
+
+    public String getWeaponMainOption(String type) {
+        switch (type) {
+            case "돌격소총":
+            case "돌격 소총":
+                return weaponMainOption[0];
+            case "소총":
+                return weaponMainOption[1];
+            case "지정사수소총":
+                return weaponMainOption[2];
+            case "기관단총":
+                return weaponMainOption[3];
+            case "경기관총":
+                return weaponMainOption[4];
+            case "산탄총":
+                return weaponMainOption[5];
+            case "권총":
+                return weaponMainOption[6];
+                default:
+                    return "Error";
+        }
+    }
+    public String getWeaponSubOption() { return weaponSubOption[percent(0, weaponMainOption.length)]; }
+
+    public String getSheldMainOption() { return sheldMainOption[percent(0, sheldMainOption.length)]; }
+    public String getSheldMainOption(int index) { return sheldMainOption[index]; }
+    public String getSheldSubWeaponOption() { return sheldSubWeaponOption[percent(0, sheldSubWeaponOption.length)]; }
+    public String getSheldSubSheldOption() { return sheldSubSheldOption[percent(0, sheldSubSheldOption.length)]; }
+    public String getSheldSubPowerOption() { return sheldSubPowerOption[percent(0, sheldSubPowerOption.length)]; }
+
+    public int getMaxSheldMainOption(String type) {
+        if (sheldMainOption[0].equals(type)) return 15;
+        else if (sheldMainOption[1].equals(type)) return 170000;
+        else return 1;
+    }
+
+    public int getMaxSheldSubWeaponOption(String type) {
+        if (sheldSubWeaponOption[0].equals(type)) return 6;
+        else if (sheldSubWeaponOption[1].equals(type) || sheldSubWeaponOption[3].equals(type)) return 12;
+        else if (sheldSubWeaponOption[2].equals(type)) return 14;
+        else return 1;
+    }
+
+    public int getMaxSheldSubSheldOption(String type) {
+        if (sheldSubSheldOption[0].equals(type)) return 15000;
+        else if (sheldSubSheldOption[1].equals(type)) return 10;
+        else if (sheldSubSheldOption[2].equals(type)) return 6000;
+        else return 1;
+    }
+
+    public int getMaxSheldSubPowerOption(String type) {
+        if (sheldSubPowerOption[0].equals(type) || sheldSubPowerOption[2].equals(type)) return 12;
+        else if (sheldSubPowerOption[1].equals(type)) return 10;
+        else return 1;
+    }
+
+    public int getMaxWeaponMainOption(String type) {
+        if (weaponMainOption[0].equals(type) || weaponMainOption[1].equals(type)) return 12;
+        else if (weaponMainOption[2].equals(type)) return 120;
+        else if (weaponMainOption[4].equals(type) || weaponMainOption[3].equals(type)) return 10;
+        else if (weaponMainOption[5].equals(type)) return 6;
+        else if (weaponMainOption[6].equals(type)) return 30;
+        else return 1;
+    }
+
     public String getNewSpecialweapon(int index) { return newSpecialweapon[index]; }
     public int getNewSpecialweapon_Length() { return newSpecialweapon.length; }
 

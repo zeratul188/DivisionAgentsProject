@@ -108,11 +108,14 @@ public class ShareFragment extends Fragment {
 
     private RadioGroup rgDifficulty;
     private RadioButton[] rdoDiff = new RadioButton[4];
-    private int bonus = 0;
+    private int bonus = 0, option_bonus = 0;
 
     private String[] item_name = new String[50];
     private String[] item_type = new String[50];
     private int index = 0;
+
+    private boolean openWeapon = false;
+    private boolean openSheld = false;
 
     public void inputData(String name, String type) {
         if (index >= 50) {
@@ -221,6 +224,12 @@ public class ShareFragment extends Fragment {
         }
         for (int i = 0; i < il.getNamedweapon_lite_Length(); i++) {
             word = il.getNamedweapon_lite(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        for (int i = 0; i < il.getNamedweapon_dark_Length(); i++) {
+            word = il.getNamedweapon_dark(i);
             start = result.indexOf(word);
             end = start + word.length();
             if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -401,15 +410,19 @@ public class ShareFragment extends Fragment {
                 switch (checkedId) {
                     case R.id.rdoDif1:
                         bonus = 0;
+                        option_bonus = 0;
                         break;
                     case R.id.rdoDif2:
                         bonus = 5;
+                        option_bonus = 30;
                         break;
                     case R.id.rdoDif3:
                         bonus = 10;
+                        option_bonus = 50;
                         break;
                     case R.id.rdoDif4:
                         bonus = 15;
+                        option_bonus = 70;
                         break;
                 }
             }
@@ -423,15 +436,36 @@ public class ShareFragment extends Fragment {
         final TextView txtType = dialogView.findViewById(R.id.txtType);
         final Button btnChange = dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain = dialogView.findViewById(R.id.tableMain);
-        final ImageView[] imgOption = new ImageView[3];
-        final TableRow trOption = dialogView.findViewById(R.id.trOption);
+        //final ImageView[] imgOption = new ImageView[3];
+        //final TableRow trOption = dialogView.findViewById(R.id.trOption);
         final Button btnExit = dialogView.findViewById(R.id.btnExit);
 
+        final TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1);
+        final TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2);
+        final TextView txtWSub = dialogView.findViewById(R.id.txtWSub);
+        final ProgressBar progressWMain1 = dialogView.findViewById(R.id.progressWMain1);
+        final ProgressBar progressWMain2 = dialogView.findViewById(R.id.progressWMain2);
+        final ProgressBar progressWSub = dialogView.findViewById(R.id.progressWSub);
+        final TextView txtWTalent = dialogView.findViewById(R.id.txtWTalent);
 
-        for (int i = 0; i < imgOption.length; i++) {
+        final TextView txtSMain = dialogView.findViewById(R.id.txtSMain);
+        final TextView txtSSub1 = dialogView.findViewById(R.id.txtSSub1);
+        final TextView txtSSub2 = dialogView.findViewById(R.id.txtSSub2);
+        final ProgressBar progressSMain = dialogView.findViewById(R.id.progressSMain);
+        final ProgressBar progressSSub1 = dialogView.findViewById(R.id.progressSSub1);
+        final ProgressBar progressSSub2 = dialogView.findViewById(R.id.progressSSub2);
+        final ImageView imgSMain = dialogView.findViewById(R.id.imgSMain);
+        final ImageView imgSSub1 = dialogView.findViewById(R.id.imgSSub1);
+        final ImageView imgSSub2 = dialogView.findViewById(R.id.imgSSub2);
+
+        final LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon);
+        final LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld);
+
+
+        /*for (int i = 0; i < imgOption.length; i++) {
             temp = dialogView.getResources().getIdentifier("imgOption"+(i+1), "id", getActivity().getPackageName());
             imgOption[i] = dialogView.findViewById(temp);
-        }
+        }*/
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -442,9 +476,31 @@ public class ShareFragment extends Fragment {
         final Button btnChange2 = dark_dialogView.findViewById(R.id.btnChange);
         final TableLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
         final Button btnExit2 = dark_dialogView.findViewById(R.id.btnExit);
+
+        final TextView txtWMain1_dark = dark_dialogView.findViewById(R.id.txtWMain1);
+        final TextView txtWMain2_dark = dark_dialogView.findViewById(R.id.txtWMain2);
+        final TextView txtWSub_dark = dark_dialogView.findViewById(R.id.txtWSub);
+        final ProgressBar progressWMain1_dark = dark_dialogView.findViewById(R.id.progressWMain1);
+        final ProgressBar progressWMain2_dark = dark_dialogView.findViewById(R.id.progressWMain2);
+        final ProgressBar progressWSub_dark = dark_dialogView.findViewById(R.id.progressWSub);
+        final TextView txtWTalent_dark = dark_dialogView.findViewById(R.id.txtWTalent);
+
+        final TextView txtSMain_dark = dark_dialogView.findViewById(R.id.txtSMain);
+        final TextView txtSSub1_dark = dark_dialogView.findViewById(R.id.txtSSub1);
+        final TextView txtSSub2_dark = dark_dialogView.findViewById(R.id.txtSSub2);
+        final ProgressBar progressSMain_dark = dark_dialogView.findViewById(R.id.progressSMain);
+        final ProgressBar progressSSub1_dark = dark_dialogView.findViewById(R.id.progressSSub1);
+        final ProgressBar progressSSub2_dark = dark_dialogView.findViewById(R.id.progressSSub2);
+        final ImageView imgSMain_dark = dark_dialogView.findViewById(R.id.imgSMain);
+        final ImageView imgSSub1_dark = dark_dialogView.findViewById(R.id.imgSSub1);
+        final ImageView imgSSub2_dark = dark_dialogView.findViewById(R.id.imgSSub2);
+
+        final LinearLayout layoutWeapon_dark = dark_dialogView.findViewById(R.id.layoutWeapon);
+        final LinearLayout layoutSheld_dark = dark_dialogView.findViewById(R.id.layoutSheld);
+
         btnInput = dark_dialogView.findViewById(R.id.btnInput);
-        final ImageView[] imgOption2 = new ImageView[3];
-        final TableRow trOption2 = dark_dialogView.findViewById(R.id.trOption);
+        //final ImageView[] imgOption2 = new ImageView[3];
+        //final TableRow trOption2 = dark_dialogView.findViewById(R.id.trOption);
 
         btnExit2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -453,10 +509,10 @@ public class ShareFragment extends Fragment {
             }
         });
 
-        for (int i = 0; i < imgOption2.length; i++) {
+        /*for (int i = 0; i < imgOption2.length; i++) {
             temp = dark_dialogView.getResources().getIdentifier("imgOption"+(i+1), "id", getActivity().getPackageName());
             imgOption2[i] =dark_dialogView.findViewById(temp);
-        }
+        }*/
 
         final AlertDialog.Builder builder_dark = new AlertDialog.Builder((getActivity()));
 
@@ -546,6 +602,10 @@ public class ShareFragment extends Fragment {
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (openWeapon) layoutWeapon.setVisibility(View.VISIBLE);
+                else layoutWeapon.setVisibility(View.GONE);
+                if (openSheld) layoutSheld.setVisibility(View.VISIBLE);
+                else layoutSheld.setVisibility(View.GONE);
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
             }
@@ -737,12 +797,19 @@ public class ShareFragment extends Fragment {
         btnTruesun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -754,17 +821,125 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                         txtName.setText("\"타디그레이드\" 방탄복 시스템");
                         txtType.setText("조끼");
-                        trOption.setVisibility(View.VISIBLE);
+
+                        type = 2;
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        now_option = 170000;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                                default:
+                                    imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = 2;
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = 2;
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -775,12 +950,269 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
+
+                        switch (il.getSpecialweapon_type(pick)) {
+                            case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                                openWeapon = true;
+                                temp_option = String.valueOf(txtType.getText());
+                                progressWMain1.setMax(15);
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain1.setProgress((int)now_option);
+                                txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                                temp_option = il.getWeaponMainOption(temp_option);
+                                progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain2.setProgress((int)now_option);
+                                txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                temp_option = il.getWeaponSubOption();
+                                progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWSub.setProgress((int)now_option);
+                                txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                txtWTalent.setText("특급 전용 탤런트");
+                                break;
+                            case "장갑":
+                                type = 3;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(2);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 1;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+                            case "무릎 보호대":
+                                type = 2;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(1);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 170000;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+
+                        }
                     }
-                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비 확률 : 5%(시스템 : 50)
                     named++;
                     all++;
                     setInterface();
@@ -795,17 +1227,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -816,9 +1285,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -870,10 +1451,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -892,7 +1510,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -910,7 +1528,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -922,9 +1540,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -945,12 +1676,21 @@ public class ShareFragment extends Fragment {
         btnBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -962,17 +1702,125 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                         txtName.setText("아코스타의 비상가방");
                         txtType.setText("백팩");
-                        trOption.setVisibility(View.VISIBLE);
+                        //trOption.setVisibility(View.VISIBLE);
                         int ransu;
-                        for (int i = 0; i < imgOption.length; i++) {
+                        /*for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
+                        }*/
+
+                        type = 2;
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        now_option = 170000;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
                         }
+                        type = 2;
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = 2;
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -983,12 +1831,270 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
+
+                        switch (il.getSpecialweapon_type(pick)) {
+                            case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                                openWeapon = true;
+                                temp_option = String.valueOf(txtType.getText());
+                                progressWMain1.setMax(15);
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain1.setProgress((int)now_option);
+                                txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                                temp_option = il.getWeaponMainOption(temp_option);
+                                progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain2.setProgress((int)now_option);
+                                txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                temp_option = il.getWeaponSubOption();
+                                progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWSub.setProgress((int)now_option);
+                                txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                txtWTalent.setText("특급 전용 탤런트");
+                                break;
+                            case "장갑":
+                                type = 3;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(2);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 1;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+                            case "무릎 보호대":
+                                type = 2;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(1);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 170000;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+
+                        }
+
                     }
-                } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비 확률 : 5%(시스템 : 50)
                     named++;
                     all++;
                     setInterface();
@@ -1003,17 +2109,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1024,9 +2167,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -1078,10 +2333,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -1100,7 +2392,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -1118,7 +2410,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -1130,9 +2422,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -1152,12 +2557,20 @@ public class ShareFragment extends Fragment {
         btnLastBoss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -1169,9 +2582,46 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         txtName.setText("빅혼");
                         txtType.setText("돌격소총");
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("특급 전용 탤런트");
+
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1182,12 +2632,270 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
+
+                        switch (il.getSpecialweapon_type(pick)) {
+                            case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                                openWeapon = true;
+                                temp_option = String.valueOf(txtType.getText());
+                                progressWMain1.setMax(15);
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain1.setProgress((int)now_option);
+                                txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                                temp_option = il.getWeaponMainOption(temp_option);
+                                progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain2.setProgress((int)now_option);
+                                txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                temp_option = il.getWeaponSubOption();
+                                progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWSub.setProgress((int)now_option);
+                                txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                txtWTalent.setText("특급 전용 탤런트");
+                                break;
+                            case "장갑":
+                                type = 3;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(2);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 1;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+                            case "무릎 보호대":
+                                type = 2;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(1);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 170000;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+
+                        }
+
                     }
-                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비 확률 : 5%(시스템 : 50)
                     named++;
                     all++;
                     setInterface();
@@ -1202,17 +2910,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1223,9 +2968,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -1277,10 +3134,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -1299,7 +3193,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -1317,7 +3211,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -1329,9 +3223,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -1351,12 +3358,20 @@ public class ShareFragment extends Fragment {
         btnDragov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -1368,9 +3383,47 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         txtName.setText("탄환 제왕");
                         txtType.setText("경기관총");
+
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("특급 전용 탤런트");
+
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1381,12 +3434,270 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
+
+                        switch (il.getSpecialweapon_type(pick)) {
+                            case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                                openWeapon = true;
+                                temp_option = String.valueOf(txtType.getText());
+                                progressWMain1.setMax(15);
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain1.setProgress((int)now_option);
+                                txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                                temp_option = il.getWeaponMainOption(temp_option);
+                                progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain2.setProgress((int)now_option);
+                                txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                temp_option = il.getWeaponSubOption();
+                                progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWSub.setProgress((int)now_option);
+                                txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                txtWTalent.setText("특급 전용 탤런트");
+                                break;
+                            case "장갑":
+                                type = 3;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(2);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 1;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+                            case "무릎 보호대":
+                                type = 2;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(1);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 170000;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+
+                        }
+
                     }
-                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비 확률 : 5%(시스템 : 50)
                     named++;
                     all++;
                     setInterface();
@@ -1401,17 +3712,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1422,9 +3770,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -1476,10 +3936,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -1498,7 +3995,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -1516,7 +4013,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -1528,9 +4025,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -1550,12 +4160,20 @@ public class ShareFragment extends Fragment {
         btnNewYork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -1567,9 +4185,46 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         txtName.setText("죽음의 귀부인");
                         txtType.setText("기관단총");
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("특급 전용 탤런트");
+
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -1580,12 +4235,270 @@ public class ShareFragment extends Fragment {
                         btnChange.setVisibility(View.VISIBLE);
                         btnChange.setText("특급");
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                        for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                         pick = percent(0, il.getSpecialweapon_Length());
                         txtName.setText(il.getSpecialweapon(pick));
                         txtType.setText(il.getSpecialweapon_type(pick));
+
+                        switch (il.getSpecialweapon_type(pick)) {
+                            case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                                openWeapon = true;
+                                temp_option = String.valueOf(txtType.getText());
+                                progressWMain1.setMax(15);
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain1.setProgress((int)now_option);
+                                txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                                temp_option = il.getWeaponMainOption(temp_option);
+                                progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWMain2.setProgress((int)now_option);
+                                txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                temp_option = il.getWeaponSubOption();
+                                progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressWSub.setProgress((int)now_option);
+                                txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                                txtWTalent.setText("특급 전용 탤런트");
+                                break;
+                            case "장갑":
+                                type = 3;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(2);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 1;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 3;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+                            case "무릎 보호대":
+                                type = 2;
+                                openSheld = true;
+                                temp_option = il.getSheldMainOption(1);
+                                progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                                now_option = 170000;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSMain.setProgress((int)now_option);
+                                txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                                switch (type) {
+                                    case 1:
+                                        imgSMain.setImageResource(R.drawable.attack);
+                                        break;
+                                    case 2:
+                                        imgSMain.setImageResource(R.drawable.sheld);
+                                        break;
+                                    case 3:
+                                        imgSMain.setImageResource(R.drawable.power);
+                                        break;
+                                    default:
+                                        imgSMain.setImageResource(R.drawable.critical);
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub1.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub1.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub1.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                        else temp_percent = percent(1, 20) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub1.setProgress((int)now_option);
+                                        txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                type = 2;
+                                switch (type) {
+                                    case 1:
+                                        imgSSub2.setImageResource(R.drawable.attack);
+                                        temp_option = il.getSheldSubWeaponOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 2:
+                                        imgSSub2.setImageResource(R.drawable.sheld);
+                                        temp_option = il.getSheldSubSheldOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                    case 3:
+                                        imgSSub2.setImageResource(R.drawable.power);
+                                        temp_option = il.getSheldSubPowerOption();
+                                        pick = percent(1, 100);
+                                        if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                        else temp_percent = percent(1, 30) + option_bonus;
+                                        now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                        if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                        else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                        progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                        progressSSub2.setProgress((int)now_option);
+                                        txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                        break;
+                                }
+                                break;
+
+                        }
+
                     }
-                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비
+                } else if (percent(1, 1000) <= 50+(bonus*4)) { //네임드 장비 확률 : 5%(시스템 : 50)
                     named++;
                     all++;
                     setInterface();
@@ -1600,17 +4513,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1621,9 +4571,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -1675,10 +4737,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -1697,7 +4796,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -1715,7 +4814,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -1727,9 +4826,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -1751,12 +4963,20 @@ public class ShareFragment extends Fragment {
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
+                //trOption.setVisibility(View.GONE);
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
@@ -1767,10 +4987,268 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE);
                     btnChange.setText("특급");
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
-                    for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                    //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                     pick = percent(0, il.getSpecialweapon_Length());
                     txtName.setText(il.getSpecialweapon(pick));
                     txtType.setText(il.getSpecialweapon_type(pick));
+
+                    switch (il.getSpecialweapon_type(pick)) {
+                        case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                            openWeapon = true;
+                            temp_option = String.valueOf(txtType.getText());
+                            progressWMain1.setMax(15);
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain1.setProgress((int)now_option);
+                            txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                            temp_option = il.getWeaponMainOption(temp_option);
+                            progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain2.setProgress((int)now_option);
+                            txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            temp_option = il.getWeaponSubOption();
+                            progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWSub.setProgress((int)now_option);
+                            txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            txtWTalent.setText("특급 전용 탤런트");
+                            break;
+                        case "장갑":
+                            type = 3;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(2);
+                            progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 1;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain.setProgress((int)now_option);
+                            txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain.setImageResource(R.drawable.critical);
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+                        case "무릎 보호대":
+                            type = 2;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(1);
+                            progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 170000;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain.setProgress((int)now_option);
+                            txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain.setImageResource(R.drawable.critical);
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+
+                    }
+
                 } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
@@ -1786,17 +5264,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1807,9 +5322,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -1822,10 +5449,10 @@ public class ShareFragment extends Fragment {
                         int temp;
                         switch (pick) {
                             case 0: //돌격소총
-                               temp = percent(0, il.getWeaponlist1_Length());
-                               txtName.setText(il.getWeaponlist1(temp));
-                               txtType.setText(il.getWeapontype(pick));
-                               break;
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName.setText(il.getWeaponlist1(temp));
+                                txtType.setText(il.getWeapontype(pick));
+                                break;
                             case 1: //소총
                                 temp = percent(0, il.getWeaponlist2_Length());
                                 txtName.setText(il.getWeaponlist2(temp));
@@ -1861,10 +5488,47 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
@@ -1883,7 +5547,7 @@ public class ShareFragment extends Fragment {
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
@@ -1901,7 +5565,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -1913,9 +5577,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -1935,12 +5712,20 @@ public class ShareFragment extends Fragment {
         btnDarkzone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld_dark.setVisibility(View.GONE);
+                layoutWeapon_dark.setVisibility(View.GONE);
+
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
                 txtName2.setTextColor(Color.parseColor("#aaaaaa"));
-                trOption2.setVisibility(View.GONE);
-                for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
+                //trOption2.setVisibility(View.GONE);
+                //for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
                     btnChange2.setText("특급");
                     btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
@@ -1961,6 +5746,264 @@ public class ShareFragment extends Fragment {
                         txtName2.setText(il.getSpecialweapon(pick));
                         txtType2.setText(il.getSpecialweapon_type(pick));
                     }
+
+                    switch (il.getSpecialweapon_type(pick)) {
+                        case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총": case "경기관총":
+                            openWeapon = true;
+                            temp_option = String.valueOf(txtType2.getText());
+                            progressWMain1_dark.setMax(15);
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain1_dark.setProgress((int)now_option);
+                            txtWMain1_dark.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                            temp_option = il.getWeaponMainOption(temp_option);
+                            progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain2_dark.setProgress((int)now_option);
+                            txtWMain2_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            temp_option = il.getWeaponSubOption();
+                            progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWSub_dark.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWSub_dark.setProgress((int)now_option);
+                            txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            txtWTalent_dark.setText("특급 전용 탤런트");
+                            break;
+                        case "장갑":
+                            type = 3;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(2);
+                            progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 1;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain_dark.setProgress((int)now_option);
+                            txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain_dark.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain_dark.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain_dark.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain_dark.setImageResource(R.drawable.critical);
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1_dark.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1_dark.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2_dark.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2_dark.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+                        case "무릎 보호대":
+                            type = 2;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(1);
+                            progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 170000;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain_dark.setProgress((int)now_option);
+                            txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain_dark.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain_dark.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain_dark.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain_dark.setImageResource(R.drawable.critical);
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1_dark.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1_dark.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1_dark.setProgress((int)now_option);
+                                    txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2_dark.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2_dark.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2_dark.setProgress((int)now_option);
+                                    txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+
+                    }
+
                 } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
@@ -1976,17 +6019,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_dark_Length());
                         txtName2.setText(il.getNamedweapon_dark(pick));
                         txtType2.setText(il.getNamedweapon_dark_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType2.getText());
+                        progressWMain1_dark.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1_dark.setProgress((int)now_option);
+                        txtWMain1_dark.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2_dark.setProgress((int)now_option);
+                        txtWMain2_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub_dark.setProgress((int)now_option);
+                        txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent_dark.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption2.setVisibility(View.VISIBLE);
+                        /*trOption2.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption2.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
                             else imgOption2[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_dark_Length());
-                        switch (il.getNamedsheld_dark_type(pick)) {
+                        /*switch (il.getNamedsheld_dark_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -1997,9 +6077,119 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName2.setText(il.getNamedsheld_dark(pick));
                         txtType2.setText(il.getNamedsheld_dark_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option));
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain_dark.setProgress((int)now_option);
+                        txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain_dark.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain_dark.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain_dark.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain_dark.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -2051,11 +6241,48 @@ public class ShareFragment extends Fragment {
                                 txtType2.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon_dark.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType2.getText());
+                        progressWMain1_dark.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1_dark.setProgress((int)now_option);
+                        txtWMain1_dark.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2_dark.setProgress((int)now_option);
+                        txtWMain2_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub_dark.setProgress((int)now_option);
+                        txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent_dark.setText("네임드 전용 탤런트");
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType2.setText(il.getSheldtype(pick));
                         int option;
-                        switch (il.getSheldtype(pick)) {
+                        /*switch (il.getSheldtype(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -2066,16 +6293,16 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         pick = percent(1, 100);
-                        trOption2.setVisibility(View.VISIBLE);
+                        /*trOption2.setVisibility(View.VISIBLE);
                         int ransu;
                         for (int i = 0; i < imgOption2.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
                             else imgOption2[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         if (pick <= 10) { //gear
                             gear++;
                             all++;
@@ -2092,7 +6319,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType2.getText())) {
@@ -2104,8 +6331,119 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName2.setText(il.getSheldbrand(pick));
+                        }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld_dark.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option));
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain_dark.setProgress((int)now_option);
+                        txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain_dark.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain_dark.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain_dark.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain_dark.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1_dark.setProgress((int)now_option);
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2_dark.setProgress((int)now_option);
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
                         }
                     }
                 }
@@ -2126,12 +6464,20 @@ public class ShareFragment extends Fragment {
         btnRaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pick;
+                int pick, temp_percent;
+                double now_option;
+                int type = 0; // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld.setVisibility(View.GONE);
+                layoutWeapon.setVisibility(View.GONE);
+
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 tableMain.setVisibility(View.VISIBLE);
                 btnChange.setVisibility(View.GONE);
-                trOption.setVisibility(View.GONE);
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                /*trOption.setVisibility(View.GONE);
+                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);*/
                 if (percent(1, 1000) <= 10) { //특급 장비
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
@@ -2146,6 +6492,264 @@ public class ShareFragment extends Fragment {
                     pick = percent(0, il.getSpecialweapon_raid_Length());
                     txtName.setText(il.getSpecialweapon_raid(pick));
                     txtType.setText(il.getSpecialweapon_raid_type(pick));
+
+                    switch (il.getSpecialweapon_type(pick)) {
+                        case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총":
+                            openWeapon = true;
+                            temp_option = String.valueOf(txtType.getText());
+                            progressWMain1.setMax(15);
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain1.setProgress((int)now_option);
+                            txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                            temp_option = il.getWeaponMainOption(temp_option);
+                            progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWMain2.setProgress((int)now_option);
+                            txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            temp_option = il.getWeaponSubOption();
+                            progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                            pick = percent(1, 100);
+                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressWSub.setProgress((int)now_option);
+                            txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                            txtWTalent.setText("특급 전용 탤런트");
+                            break;
+                        case "장갑":
+                            type = 3;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(2);
+                            progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 1;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain.setProgress((int)now_option);
+                            txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain.setImageResource(R.drawable.critical);
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 3;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+                        case "무릎 보호대":
+                            type = 2;
+                            openSheld = true;
+                            temp_option = il.getSheldMainOption(1);
+                            progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                            now_option = 170000;
+                            if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                            else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                            progressSMain.setProgress((int)now_option);
+                            txtSMain.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                            switch (type) {
+                                case 1:
+                                    imgSMain.setImageResource(R.drawable.attack);
+                                    break;
+                                case 2:
+                                    imgSMain.setImageResource(R.drawable.sheld);
+                                    break;
+                                case 3:
+                                    imgSMain.setImageResource(R.drawable.power);
+                                    break;
+                                default:
+                                    imgSMain.setImageResource(R.drawable.critical);
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub1.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub1.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub1.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub1.setProgress((int)now_option);
+                                    txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            type = 2;
+                            switch (type) {
+                                case 1:
+                                    imgSSub2.setImageResource(R.drawable.attack);
+                                    temp_option = il.getSheldSubWeaponOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 2:
+                                    imgSSub2.setImageResource(R.drawable.sheld);
+                                    temp_option = il.getSheldSubSheldOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                                case 3:
+                                    imgSSub2.setImageResource(R.drawable.power);
+                                    temp_option = il.getSheldSubPowerOption();
+                                    pick = percent(1, 100);
+                                    if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                    else temp_percent = percent(1, 30) + option_bonus;
+                                    now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                    if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                    else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                    progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                    progressSSub2.setProgress((int)now_option);
+                                    txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                    break;
+                            }
+                            break;
+
+                    }
+
                 } else if (percent(1, 1000) <= 30+(bonus*2)) { //네임드 장비
                     named++;
                     all++;
@@ -2161,17 +6765,54 @@ public class ShareFragment extends Fragment {
                         pick = percent(0, il.getNamedweapon_lite_Length());
                         txtName.setText(il.getNamedweapon_lite(pick));
                         txtType.setText(il.getNamedweapon_lite_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText("네임드 전용 탤런트");
+
                     } else { //sheld
-                        trOption.setVisibility(View.VISIBLE);
+                        /*trOption.setVisibility(View.VISIBLE);
                         int ransu, option;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
                         pick = percent(0, il.getNamedsheld_lite_Length());
-                        switch (il.getNamedsheld_lite_type(pick)) {
+                        /*switch (il.getNamedsheld_lite_type(pick)) {
                             case "마스크":
                             case "장갑":
                             case "권총집":
@@ -2182,9 +6823,121 @@ public class ShareFragment extends Fragment {
                             case "무릎 보호대":
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
-                        }
+                        }*/
                         txtName.setText(il.getNamedsheld_lite(pick));
                         txtType.setText(il.getNamedsheld_lite_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 } else { //기타 장비
                     if (percent(1,2) == 1) { //weapon
@@ -2236,10 +6989,48 @@ public class ShareFragment extends Fragment {
                                 txtType.setText("Error");
                         }
 
+                        openWeapon = true;
+                        layoutWeapon.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType.getText());
+                        progressWMain1.setMax(15);
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain1.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain1.setProgress((int)now_option);
+                        txtWMain1.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2.setMax(il.getMaxWeaponMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWMain2.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWMain2.setProgress((int)now_option);
+                        txtWMain2.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub.setMax(il.getMaxWeaponSubOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) == 15) txtWSub.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressWSub.setProgress((int)now_option);
+                        txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
                         txtType.setText(il.getSheldtype(pick));
-                        int option;
+                        /*trOption.setVisibility(View.VISIBLE);
+                        int ransu, option;
                         switch (il.getSheldtype(pick)) {
                             case "마스크":
                             case "장갑":
@@ -2252,15 +7043,13 @@ public class ShareFragment extends Fragment {
                                 for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                                 break;
                         }
-                        pick = percent(1, 100);
-                        trOption.setVisibility(View.VISIBLE);
-                        int ransu;
                         for (int i = 0; i < imgOption.length; i++) {
                             ransu = percent(1, 3);
                             if (ransu == 1) imgOption[i].setImageResource(R.drawable.attack);
                             else if (ransu == 2) imgOption[i].setImageResource(R.drawable.sheld);
                             else imgOption[i].setImageResource(R.drawable.power);
-                        }
+                        }*/
+                        pick = percent(1, 100);
                         if (pick <= 10) { //gear
                             gear++;
                             all++;
@@ -2277,7 +7066,7 @@ public class ShareFragment extends Fragment {
                             txtAll.setText(Integer.toString(all));
                             txtBrand.setText(Integer.toString(brand));
                             pick = percent(0, il.getSheldbrand_Length());
-                            switch (il.getSheldbrand(pick)) {
+                            /*switch (il.getSheldbrand(pick)) {
                                 case "알프스 정상 군수산업":
                                 case "아이랄디 홀딩":
                                     switch (String.valueOf(txtType.getText())) {
@@ -2289,9 +7078,122 @@ public class ShareFragment extends Fragment {
                                             for (int i = 1; i < 3; i++) imgOption[i].setVisibility(View.GONE);
 
                                     }
-                            }
+                            }*/
                             txtName.setText(il.getSheldbrand(pick));
                         }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain.setMax(il.getMaxSheldMainOption(temp_option));
+                        pick = percent(1, 100);
+                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) == il.getMaxSheldMainOption(temp_option)) txtSMain.setTextColor(Color.parseColor("#ff3c00"));
+                        else txtSMain.setTextColor(Color.parseColor("#aaaaaa"));
+                        progressSMain.setProgress((int)now_option);
+                        txtSMain.setText("+"+now_option+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
+                                else temp_percent = percent(1, 20) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub1.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub1.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub1.setProgress((int)now_option);
+                                txtSSub1.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubWeaponOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubSheldOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubSheldOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 10) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) == il.getMaxSheldSubPowerOption(temp_option)) txtSSub2.setTextColor(Color.parseColor("#ff3c00"));
+                                else txtSSub2.setTextColor(Color.parseColor("#aaaaaa"));
+                                progressSSub2.setMax(il.getMaxSheldSubPowerOption(temp_option));
+                                progressSSub2.setProgress((int)now_option);
+                                txtSSub2.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+
                     }
                 }
 
@@ -2315,7 +7217,7 @@ public class ShareFragment extends Fragment {
                 int start, end;
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 String name = "", type = "";
-                for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                 if (percent(1, 100) <= 10+bonus) {
                     //txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
