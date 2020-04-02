@@ -400,8 +400,8 @@ public class ShareFragment extends Fragment {
         rgDifficulty = root.findViewById(R.id.rgDifficulty);
         int id_number;
         for (int i = 0; i < rdoDiff.length; i++) {
-            id_number = root.getResources().getIdentifier("rdoDiff"+(i+1), "id", getActivity().getPackageName());
-            rdoDiff[i] = root.findViewById(id_number);
+            id_number = root.getResources().getIdentifier("rdoDif"+(i+1), "id", getActivity().getPackageName());
+            rdoDiff[i] = (RadioButton) root.findViewById(id_number);
         }
 
         rgDifficulty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -614,6 +614,10 @@ public class ShareFragment extends Fragment {
         btnChange2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (openWeapon) layoutWeapon_dark.setVisibility(View.VISIBLE);
+                else layoutWeapon_dark.setVisibility(View.GONE);
+                if (openSheld) layoutSheld_dark.setVisibility(View.VISIBLE);
+                else layoutSheld_dark.setVisibility(View.GONE);
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
             }
@@ -5739,6 +5743,7 @@ public class ShareFragment extends Fragment {
                 layoutSheld_dark.setVisibility(View.GONE);
                 layoutWeapon_dark.setVisibility(View.GONE);
 
+                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
                 txtName2.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5765,14 +5770,14 @@ public class ShareFragment extends Fragment {
                         txtType2.setText(il.getSpecialweapon_type(pick));
                     }
 
-                    switch (il.getSpecialweapon_type(pick)) {
+                    switch (String.valueOf(txtType2.getText())) {
                         case "소총": case "산탄총": case "지정사수소총": case "권총": case "돌격소총": case "기관단총": case "경기관총":
                             openWeapon = true;
                             temp_option = String.valueOf(txtType2.getText());
                             progressWMain1_dark.setMax(150);
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                             now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(now_option) >= 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
                             else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5782,8 +5787,8 @@ public class ShareFragment extends Fragment {
                             temp_option = il.getWeaponMainOption(temp_option);
                             progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option)*10);
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                             now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(now_option) >= il.getMaxWeaponMainOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                             else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5793,8 +5798,8 @@ public class ShareFragment extends Fragment {
                             temp_option = il.getWeaponSubOption();
                             progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option)*10);
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                             now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                             else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5832,8 +5837,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.attack);
                                     temp_option = il.getSheldSubWeaponOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5845,8 +5850,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.sheld);
                                     temp_option = il.getSheldSubSheldOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5858,8 +5863,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.power);
                                     temp_option = il.getSheldSubPowerOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5874,8 +5879,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.attack);
                                     temp_option = il.getSheldSubWeaponOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5887,8 +5892,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.sheld);
                                     temp_option = il.getSheldSubSheldOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5900,8 +5905,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.power);
                                     temp_option = il.getSheldSubPowerOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5940,8 +5945,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.attack);
                                     temp_option = il.getSheldSubWeaponOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5953,8 +5958,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.sheld);
                                     temp_option = il.getSheldSubSheldOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5966,8 +5971,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub1_dark.setImageResource(R.drawable.power);
                                     temp_option = il.getSheldSubPowerOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5982,8 +5987,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.attack);
                                     temp_option = il.getSheldSubWeaponOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5995,8 +6000,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.sheld);
                                     temp_option = il.getSheldSubSheldOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6008,8 +6013,8 @@ public class ShareFragment extends Fragment {
                                     imgSSub2_dark.setImageResource(R.drawable.power);
                                     temp_option = il.getSheldSubPowerOption();
                                     pick = percent(1, 100);
-                                    if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                    else temp_percent = percent(1, 20) + option_bonus;
+                                    if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                     now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                     if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                     else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6042,8 +6047,8 @@ public class ShareFragment extends Fragment {
                         temp_option = String.valueOf(txtType2.getText());
                         progressWMain1_dark.setMax(150);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6053,8 +6058,8 @@ public class ShareFragment extends Fragment {
                         temp_option = il.getWeaponMainOption(temp_option);
                         progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option)*10);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= il.getMaxWeaponMainOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6064,8 +6069,8 @@ public class ShareFragment extends Fragment {
                         temp_option = il.getWeaponSubOption();
                         progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option)*10);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6103,8 +6108,8 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         temp_option = il.getSheldMainOption(type-1);
                         progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         else now_option = 1;
                         if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
@@ -6130,8 +6135,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.attack);
                                 temp_option = il.getSheldSubWeaponOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6143,8 +6148,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.sheld);
                                 temp_option = il.getSheldSubSheldOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6156,8 +6161,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.power);
                                 temp_option = il.getSheldSubPowerOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6172,8 +6177,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.attack);
                                 temp_option = il.getSheldSubWeaponOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6185,8 +6190,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.sheld);
                                 temp_option = il.getSheldSubSheldOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6198,8 +6203,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.power);
                                 temp_option = il.getSheldSubPowerOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6264,8 +6269,8 @@ public class ShareFragment extends Fragment {
                         temp_option = String.valueOf(txtType2.getText());
                         progressWMain1_dark.setMax(150);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((15.0*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= 15) txtWMain1_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWMain1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6275,8 +6280,8 @@ public class ShareFragment extends Fragment {
                         temp_option = il.getWeaponMainOption(temp_option);
                         progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option)*10);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= il.getMaxWeaponMainOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWMain2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6286,8 +6291,8 @@ public class ShareFragment extends Fragment {
                         temp_option = il.getWeaponSubOption();
                         progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option)*10);
                         pick = percent(1, 100);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.round((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWMain2_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtWSub_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6358,14 +6363,14 @@ public class ShareFragment extends Fragment {
                         layoutSheld_dark.setVisibility(View.VISIBLE);
                         temp_option = il.getSheldMainOption(type-1);
                         progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
-                        if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                         if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         else now_option = 1;
                         if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
                         progressSMain_dark.setProgress((int)(now_option*10));
-                        txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        txtSMain_dark.setText("+"+Double.toString(now_option)+temp_option);
                         switch (type) {
                             case 1:
                                 imgSMain_dark.setImageResource(R.drawable.attack);
@@ -6385,8 +6390,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.attack);
                                 temp_option = il.getSheldSubWeaponOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6398,8 +6403,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.sheld);
                                 temp_option = il.getSheldSubSheldOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6411,8 +6416,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub1_dark.setImageResource(R.drawable.power);
                                 temp_option = il.getSheldSubPowerOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub1_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6427,8 +6432,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.attack);
                                 temp_option = il.getSheldSubWeaponOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6440,8 +6445,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.sheld);
                                 temp_option = il.getSheldSubSheldOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6453,8 +6458,8 @@ public class ShareFragment extends Fragment {
                                 imgSSub2_dark.setImageResource(R.drawable.power);
                                 temp_option = il.getSheldSubPowerOption();
                                 pick = percent(1, 100);
-                                if (pick <= 20) temp_percent = percent(21, 10) + option_bonus;
-                                else temp_percent = percent(1, 20) + option_bonus;
+                                if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.round(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setTextColor(Color.parseColor("#ff3c00"));
                                 else txtSSub2_dark.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6484,6 +6489,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 int pick, temp_percent;
                 double now_option;
+                if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 int type = 0; // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
@@ -7235,6 +7241,7 @@ public class ShareFragment extends Fragment {
                 int start, end;
                 layoutSheld.setVisibility(View.GONE);
                 layoutWeapon.setVisibility(View.GONE);
+                if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 String name = "", type = "";
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);

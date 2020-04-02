@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         {
             case R.id.menu1:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 2.2.1\n마지막 수정 일자 : 2020년 4월 2일 10시 56분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 수치가 최대치 이상으로 올라가는 버그 수정");
+                builder.setTitle("버젼 확인").setMessage("Version 2.2.2\n마지막 수정 일자 : 2020년 4월 2일 13시 32분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 다크존 -> 매우 어려움, 레이드 관련 -> 영웅 모드로 자동 전환\n- 파밍 시뮬레이션 : 다크존 경우 핵심속성이 최대치로 기재되어 있는 버그 수정 및 튕김 버그 수정");
                 builder.setPositiveButton("확인", null);
                 alertDialog = builder.create();
                 alertDialog.show();
