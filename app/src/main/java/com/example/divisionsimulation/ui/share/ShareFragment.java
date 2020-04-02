@@ -6299,7 +6299,7 @@ public class ShareFragment extends Fragment {
                         progressWSub_dark.setProgress((int)(now_option*10));
                         txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent_dark.setText("네임드 전용 탤런트");
+                        txtWTalent_dark.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
 
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
