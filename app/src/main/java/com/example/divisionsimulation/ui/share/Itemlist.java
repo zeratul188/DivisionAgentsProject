@@ -160,7 +160,8 @@ class Itemlist {
     public int getMaxWeaponMainOption(String type) {
         if (weaponMainOption[0].equals(type) || weaponMainOption[1].equals(type)) return 12;
         else if (weaponMainOption[2].equals(type)) return 120;
-        else if (weaponMainOption[4].equals(type) || weaponMainOption[3].equals(type)) return 10;
+        else if (weaponMainOption[4].equals(type)) return 10;
+        else if (weaponMainOption[3].equals(type)) return 22;
         else if (weaponMainOption[5].equals(type)) return 6;
         else if (weaponMainOption[6].equals(type)) return 30;
         else return 1;
