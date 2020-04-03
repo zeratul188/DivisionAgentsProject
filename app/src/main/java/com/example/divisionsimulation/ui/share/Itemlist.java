@@ -17,15 +17,19 @@ class Itemlist {
 
     private String[] namedweapon_lite = {"예술가의 도구", "코만도", "쿠엘레브레", "지정 타자", "에킴의 장대", "에멜린의 수호자", "보이지 않는 손", "피뢰침", "방화광", "안전거리", "방패 분쇄기", "스왑 체인", "타뷸라 라사",
             "쓰나미"}; //네임드 무기 (라이트존 전용)
+    private String[] namedweapon_lite_talent = {"완벽한 소총수", "완벽한 벌거숭이", "완벽한 재즈 핸드", "완벽한 혁신", "완벽한 레인저", "완벽한 보존", "완벽한 빠르고 경쾌하게", "완벽한 구제", "완벽한 점화", "완벽한 외부인", "완벽한 낙천주의자", "완벽한 빠르고 경쾌하게", "완벽한 떨리지 않는 손", "완벽한 연속 타격"};
     private String[] namedweapon_lite_type = {"소총", "지정사수소총", "산탄총", "지정사수소총", "지정사수소총", "기관단총", "돌격소총", "권총", "돌격소총", "기관단총", "돌격소총", "기관단총", "경기관총", "산탄총"};
     private String[] namedweapon_dark = {"블랙 프라이데이", "코만도", "쿠엘레브레", "에킴의 장대", "보이지 않는 손", "궤도", "미세침", "로큰롤", "안전거리", "스왑 체인", "아파트", "나무꾼", "버지니아인"}; //네임드 무기 (다크존 전용)
     private String[] namedweapon_dark_type = {"경기관총", "지정사수소총", "산탄총", "지정사수소총", "돌격소총", "권총", "권총", "산탄총", "기관단총", "기관단총", "기관단총", "돌격소총", "소총"};
+    private String[] namedweapon_dark_talent = {"완벽한 불안정", "완벽한 벌거숭이", "완벽한 재즈 핸드", "완벽한 레인저", "완벽한 빠르고 경쾌하게", "완벽한 확인사살", "완벽한 선제공격", "완벽한 여유분", "완벽한 외부인", "완벽한 빠르고 경쾌하게", "완벽한 신중함", "완벽한 신중함", "완벽한 부메랑"};
 
     private String[] specialweapon = {"무자비", "달콤한 꿈", "네메시스", "자유", "카멜레온", "촉새", "BTSU 데이터 장갑", "소여의 무릎 보호대"};
     private String[] specialweapon_type = {"소총", "산탄총", "지정사수소총", "권총", "돌격소총", "기관단총", "장갑", "무릎 보호대"};
 
     private String[] specialweapon_raid = {"무자비", "달콤한 꿈", "독수리를 거느린 자", "BTSU 데이터 장갑", "소여의 무릎 보호대", "네메시스", "자유", "카멜레온", "촉새"};
     private String[] specialweapon_raid_type = {"소총", "산탄총", "돌격소총", "장갑", "무릎 보호대", "지정사수소총", "권총", "돌격소총", "기관단총"};
+
+    private String[] specialTalent = {"이중 방아쇠", "잠귀신", "독수리의 공격\n집념", "오버클럭 전이", "극한 상황 적응력", "전자기 가속기", "자유가 아니면 죽음을", "적응 본능", "끝없는 수다"};
 
     private String[] sheldtype = {"마스크", "백팩", "조끼", "장갑", "권총집", "무릎 보호대"};
     private String[] sheld_brand = {"5.11 Tactical", "길라 가드", "더글라스 & 하딩", "리히터 & 카이저 유한회사", "무라카미 산업", "배저 터프", "소콜로프 상사", "아이랄디 홀딩", "알프스 정상 군수산업", "얄 기어",
@@ -36,10 +40,13 @@ class Itemlist {
 
     private String[] namedsheld_lite = {"청부업자의 장갑", "굳은 악수", "용광로", "여우의 기도", "밤의 감시자", "물리식 기계 수리기", "훌륭한 귀감", "펀치드렁크", "전략적 조정", "무관심의 극치"};
     private String[] namedsheld_lite_type = {"장갑", "장갑", "권총집", "무릎 보호대", "마스크", "백팩", "조끼", "마스크", "백팩", "조끼"};
+    private String[] namedsheld_lite_talent = {"완벽한 박멸", "완벽한 사악함", "완벽한 대장장이", "완벽한 참호파기", "완벽함 감시병", "완벽한 기술지원", "완벽한 경계", "완벽한 뇌진탕", "완벽한 불꽃", "완벽한 파괴불가"};
     private String[] namedsheld_dark = {"날카로운 발톱", "Deathgrips", "황제의 근위병", "흉포한 평정심", "굳은 악수", "밤의 감시자", "전략적 조정", "희생양", "공허한 사내", "무관심의 극치"};
     private String[] namedsheld_dark_type = {"권총집", "장갑", "무릎 보호대", "조끼", "장갑", "마스크", "백팩", "백팩", "마스크", "조끼"};
+    private String[] namedsheld_dark_talent = {"완벽한 살인 충동", "완벽한 클러치", "완벽한 은폐", "완벽한 광분", "완벽한 사악함", "완벽한 감시병", "완벽한 불꽃", "완벽한 절체절명", "완벽한 단열", "완벽한 파괴불가"};
 
-    private String[] newSpecialweapon = {"탄환 제왕", "\"타디그레이드\" 방탄복 시스템", "죽음의 귀부인", "아코스타의 비상가방", "빅혼"};
+    private String[] newSpecialweapon = {"탄환 제왕", "\"타디그레이드\" 방탄복 시스템", "죽음의 귀부인", "아코스타의 비상가방", "빅혼", "역병"};
+    private String[] newSpecialweaponTalent = {"탄환 지옥", "단열 나노 장갑판", "안도의 호흡", "손에 하나...\n...가방에 둘", "거물 사냥꾼", "아웃캐스트의 역병"};
 
     private String[] weaponMainOption = {"생명력 대상 데미지", "치명타 데미지", "헤드샷 데미지", "치명타 확률", "비엄폐 대상 데미지", "방어구 대상 데미지", "적정 사거리"};
     private String[] weaponSubOption = {"생명력 대상 데미지", "치명타 데미지", "헤드샷 데미지", "치명타 확률", "비엄폐 대상 데미지", "방어구 대상 데미지", "적정 사거리", "명중률", "안정성", "탄창 용량", "재장전 속도", "발사 속도", "교체 속도"};
@@ -64,6 +71,36 @@ class Itemlist {
     public String getWeapon5Talent() { return weapon5Talent[percent(0, weapon5Talent.length)]; }
     public String getWeapon6Talent() { return weapon6Talent[percent(0, weapon6Talent.length)]; }
     public String getWeapon7Talent() { return weapon7Talent[percent(0, weapon7Talent.length)]; }
+
+    public String getSpecialTalent(String name) {
+        for (int i = 0; i < specialweapon_raid.length; i++) if (name.equals(specialweapon_raid[i])) return specialTalent[i];
+        return "null";
+    }
+
+    public String getNewSpecialWeaponTalent(String name) {
+        for (int i = 0; i < newSpecialweapon.length; i++) if (name.equals(newSpecialweapon[i])) return newSpecialweaponTalent[i];
+        return "null";
+    }
+
+    public String getNamedWeaponLiteTalent(String name) {
+        for (int i = 0; i < namedweapon_lite.length; i++) if (name.equals(namedweapon_lite[i])) return namedweapon_lite_talent[i];
+        return "null";
+    }
+
+    public String getNamedWeaponDarkTalent(String name) {
+        for (int i = 0; i < namedweapon_dark.length; i++) if (name.equals(namedweapon_dark[i])) return namedweapon_dark_talent[i];
+        return "null";
+    }
+
+    public String getNamedSheldLiteTalent(String name) {
+        for (int i = 0; i < namedsheld_lite.length; i++) if (name.equals(namedsheld_lite[i])) return namedsheld_lite_talent[i];
+        return "null";
+    }
+
+    public String getNamedSheldDarkTalent(String name) {
+        for (int i = 0; i < namedsheld_dark.length; i++) if (name.equals(namedsheld_dark[i])) return namedsheld_dark_talent[i];
+        return "null";
+    }
 
     public String getWeaponTalent(String type) {
         switch (type) {

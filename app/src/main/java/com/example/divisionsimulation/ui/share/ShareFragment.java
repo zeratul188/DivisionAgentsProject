@@ -240,6 +240,12 @@ public class ShareFragment extends Fragment {
             end = start + word.length();
             if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+        for (int i = 0; i < il.getNamedsheld_dark_Length(); i++) {
+            word = il.getNamedsheld_dark(i);
+            start = result.indexOf(word);
+            end = start + word.length();
+            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         for (int i = 0; i < il.getSheldgear_Length(); i++) {
             word = il.getSheldgear(i);
             start = result.indexOf(word);
@@ -995,7 +1001,7 @@ public class ShareFragment extends Fragment {
                                 progressWSub.setProgress((int)(now_option*10));
                                 txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                                txtWTalent.setText("특급 전용 탤런트");
+                                txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                                 break;
                             case "장갑":
                                 type = 3;
@@ -1266,7 +1272,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -1876,7 +1882,7 @@ public class ShareFragment extends Fragment {
                                 progressWSub.setProgress((int)(now_option*10));
                                 txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                                txtWTalent.setText("특급 전용 탤런트");
+                                txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                                 break;
                             case "장갑":
                                 type = 3;
@@ -2148,7 +2154,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -2624,7 +2630,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("특급 전용 탤런트");
+                        txtWTalent.setText(il.getNewSpecialWeaponTalent(String.valueOf(txtName.getText())));
 
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -2677,7 +2683,7 @@ public class ShareFragment extends Fragment {
                                 progressWSub.setProgress((int)(now_option*10));
                                 txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                                txtWTalent.setText("특급 전용 탤런트");
+                                txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                                 break;
                             case "장갑":
                                 type = 3;
@@ -2949,7 +2955,8 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
+                        
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -3426,7 +3433,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("특급 전용 탤런트");
+                        txtWTalent.setText(il.getNewSpecialWeaponTalent(String.valueOf(txtName.getText())));
 
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -3479,7 +3486,7 @@ public class ShareFragment extends Fragment {
                                 progressWSub.setProgress((int)(now_option*10));
                                 txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                                txtWTalent.setText("특급 전용 탤런트");
+                                txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                                 break;
                             case "장갑":
                                 type = 3;
@@ -3751,7 +3758,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -4245,7 +4252,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("특급 전용 탤런트");
+                        txtWTalent.setText(il.getNewSpecialWeaponTalent(String.valueOf(txtName.getText())));
 
                     } else {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
@@ -4298,7 +4305,7 @@ public class ShareFragment extends Fragment {
                                 progressWSub.setProgress((int)(now_option*10));
                                 txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                                txtWTalent.setText("특급 전용 탤런트");
+                                txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                                 break;
                             case "장갑":
                                 type = 3;
@@ -4570,7 +4577,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -5050,7 +5057,7 @@ public class ShareFragment extends Fragment {
                             progressWSub.setProgress((int)(now_option*10));
                             txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                            txtWTalent.setText("특급 전용 탤런트");
+                            txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                             break;
                         case "장갑":
                             type = 3;
@@ -5321,7 +5328,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
@@ -5806,7 +5813,8 @@ public class ShareFragment extends Fragment {
                             progressWSub_dark.setProgress((int)(now_option*10));
                             txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                            txtWTalent_dark.setText("특급 전용 탤런트");
+                            if (!String.valueOf(txtName2.getText()).equals("역병")) txtWTalent_dark.setText(il.getSpecialTalent(String.valueOf(txtName2.getText())));
+                            else txtWTalent_dark.setText(il.getNewSpecialWeaponTalent(String.valueOf(txtName2.getText())));
                             break;
                         case "장갑":
                             type = 3;
@@ -6077,7 +6085,7 @@ public class ShareFragment extends Fragment {
                         progressWSub_dark.setProgress((int)(now_option*10));
                         txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent_dark.setText("네임드 전용 탤런트");
+                        txtWTalent_dark.setText(il.getNamedWeaponDarkTalent(String.valueOf(txtName2.getText())));
 
                     } else { //sheld
                         /*trOption2.setVisibility(View.VISIBLE);
@@ -6109,13 +6117,13 @@ public class ShareFragment extends Fragment {
                         temp_option = il.getSheldMainOption(type-1);
                         progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
                         if (pick <= 20) temp_percent = percent(31, 20) + option_bonus;
-                            else temp_percent = percent(1, 30) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
                         if (type != 3) now_option = Math.round((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
                         else now_option = 1;
                         if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setTextColor(Color.parseColor("#ff3c00"));
                         else txtSMain_dark.setTextColor(Color.parseColor("#aaaaaa"));
                         progressSMain_dark.setProgress((int)(now_option*10));
-                        txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                        txtSMain_dark.setText("+"+Double.toString(now_option)+temp_option);
                         switch (type) {
                             case 1:
                                 imgSMain_dark.setImageResource(R.drawable.attack);
@@ -6299,7 +6307,7 @@ public class ShareFragment extends Fragment {
                         progressWSub_dark.setProgress((int)(now_option*10));
                         txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent_dark.setText(il.getWeaponTalent(String.valueOf(txtType.getText())));
+                        txtWTalent_dark.setText(il.getWeaponTalent(String.valueOf(txtType2.getText())));
 
                     } else { //sheld
                         pick = percent(0, il.getSheldtype_Length());
@@ -6553,7 +6561,7 @@ public class ShareFragment extends Fragment {
                             progressWSub.setProgress((int)(now_option*10));
                             txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                            txtWTalent.setText("특급 전용 탤런트");
+                            txtWTalent.setText(il.getSpecialTalent(String.valueOf(txtName.getText())));
                             break;
                         case "장갑":
                             type = 3;
@@ -6824,7 +6832,7 @@ public class ShareFragment extends Fragment {
                         progressWSub.setProgress((int)(now_option*10));
                         txtWSub.setText("+"+Double.toString(now_option)+"% "+temp_option);
 
-                        txtWTalent.setText("네임드 전용 탤런트");
+                        txtWTalent.setText(il.getNamedWeaponLiteTalent(String.valueOf(txtName.getText())));
 
                     } else { //sheld
                         /*trOption.setVisibility(View.VISIBLE);
