@@ -27,10 +27,10 @@ public class KeenerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.keenerlayout);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("아론 키너 음성 기록");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //액션바에 뒤로가기 버튼 추가
+        setTitle("아론 키너 음성 기록"); //타이틀 설정
 
-        Intent intent = getIntent();
+        Intent intent = getIntent(); //인텐트로 전 액티비티에서 가져온 데이터들도 들어있다.
 
         int temp;
         for (int i = 0; i < btnKeener.length; i++) {
@@ -38,42 +38,45 @@ public class KeenerActivity extends AppCompatActivity {
             btnKeener[i] = findViewById(temp);
             btnKeener[i].setAdjustViewBounds(true);
         }
+        /*
+        아론 키너의 음성 기록 버튼이 배열로 설정한다.
+         */
 
         btnKeener[0].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound1);
-                mp.start();
-                builder = new AlertDialog.Builder(KeenerActivity.this);
+            public void onClick(View v) { //버튼을 한번 눌렀을 경우 작동
+                mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound1); //버튼에 해당하는 음성기록가 담긴 미디어 플레이어를 생성한다.
+                mp.start(); //미디어 플레이어를 재생함으로서 미디어 소리로 음성기록이 재생된다.
+                builder = new AlertDialog.Builder(KeenerActivity.this); //한글 자막이 보이도록 다이얼로그를 띄운다.
                 builder.setTitle("'간단한 계산' 음성 기록 재생 중...").setMessage("죽이는 건 쉬운 일이지.\n난 분명 그 대상이 사람이라는 말은 안했다고.\n상대가 사람이라고 생각하기 시작하면 갑자기 죽이기가 훨씬 더 어려워 지거든.\n하지만 그럴 땐 대차대조표를 떠올리면 편해지지.\n이 사람이 얼마나 방해가 되는지, 잠시 더 살려둬서 얻을 수 있는 이점은 무엇인지 생각하다 보면 간단한 수학 문제처럼 금세 답이 보일거야.\n간단한 수학 문제는 풀이도 간단한 법이지.\n정중앙에 두 개의 총알을 쏘고 세번째는 머리에 쏘는 것처럼 쉽다고.");
                 builder.setPositiveButton("종료", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mp.stop();
-                        mp.reset();
+                    public void onClick(DialogInterface dialog, int which) { //종료를 누르게 되면 작동한다.
+                        mp.stop(); //미디어 플레이어를 중지한다.
+                        mp.reset(); //미디어 플레이어를 초기화한다.
                     }
                 });
                 builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        mp.stop();
-                        mp.reset();
+                    public void onDismiss(DialogInterface dialog) { //종료버튼을 제외한 다른 방법으로 종료하게 되었을 경우 작동한다.
+                        mp.stop(); //위와 동일한 방식
+                        mp.reset(); //위와 동일한 방식
                     }
                 });
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        alertDialog.setTitle("'간단한 계산' 음성 기록 재생 완료");
+                    public void onCompletion(MediaPlayer mp) { //미디어 플레이어 음성 기록이 모두 재생되고 중지되었을 경우 작동한다.
+                        alertDialog.setTitle("'간단한 계산' 음성 기록 재생 완료"); //제목을 재생 완료로 변경한다. 변경함으로서 음성 기록이 재생이 끝났다는 것을 알려준다.
                     }
                 });
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
+                alertDialog = builder.create(); //다이얼로그 설정
+                alertDialog.setCancelable(false); //다이얼로그 바깥영역 또는 뒤로가기버튼을 눌렀을 경우에 꺼지는 것을 방지한다. 뒤로가기, 바깥영역을 눌러도 꺼지지 않는다. true면 꺼진다.
+                alertDialog.show(); //액티비티에 다이얼로그를 띄운다.
             }
         });
         btnKeener[1].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound2);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -105,7 +108,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[2].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound3);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -137,7 +140,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[3].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound4);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -169,7 +172,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[4].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound5);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -201,7 +204,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[5].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound6);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -233,7 +236,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[6].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound7);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -265,7 +268,7 @@ public class KeenerActivity extends AppCompatActivity {
         });
         btnKeener[7].setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //위와 동일한 방식
                 mp = MediaPlayer.create(KeenerActivity.this, R.raw.keenersound8);
                 mp.start();
                 builder = new AlertDialog.Builder(KeenerActivity.this);
@@ -286,7 +289,7 @@ public class KeenerActivity extends AppCompatActivity {
                 });
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
-                    public void onCompletion(MediaPlayer mp) {
+                    public void onCompletion(MediaPlayer mp) { //위와 동일한 방식
                         alertDialog.setTitle("'출입구 열기' 음성 기록 재생 완료");
                     }
                 });

@@ -544,25 +544,25 @@ class DemageSimulThread extends Thread implements Serializable {
              */
             while (SimulActivity.getHealth() > 0 && !Thread.interrupted() && !end) {
                 per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
-                if (aiming*10 >= per) hitted = true;
-                for (int i = 0; i < listDemage.length-1; i++) {
-                    final int final_index = i;
-                    listDemage[i] = listDemage[i+1];
-                    on_boom_list[i] = on_boom_list[i+1];
-                    on_critical_list[i] = on_critical_list[i+1];
-                    on_headshot_list[i] = on_headshot_list[i+1];
+                if (aiming*10 >= per) hitted = true; //명중했으면 hiteed를 참으로 바꾼다. 명중했을때만 적용되는 것을 작동시키는데 사용된다.
+                for (int i = 0; i < listDemage.length-1; i++) { //데미지 목록이 표시될 수 있는 만큼 반복시킨다.
+                    final int final_index = i; //handler안에 있는 내부 메소드에 사용할 인덱스를 생성한다. final로 사용해야 내부 메소드에서도 사용이 가능하다. (또는 전역변수로 생성해도 된다.)
+                    listDemage[i] = listDemage[i+1]; //탄약이 사용될때마다 1줄씩 올려줘야하므로 i+1번째 변수값을 i번째 변수값으로 옮겨준다. 예를 들어 3번째 변수값을 2번재 변수값에 넣는다.
+                    on_boom_list[i] = on_boom_list[i+1]; //위와 동일
+                    on_critical_list[i] = on_critical_list[i+1]; //위와 동일
+                    on_headshot_list[i] = on_headshot_list[i+1]; //위와 동일
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            sa.setTxtListDemage(final_index, listDemage[final_index]);
-                            if (on_boom_list[final_index]) sa.hitboom_list(final_index);
-                            else if (on_critical_list[final_index]) sa.hitCritical_list(final_index);
-                            else if (on_headshot_list[final_index]) sa.hitHeadshot_list(final_index);
-                            else sa.defaultColor_list(final_index);
+                            sa.setTxtListDemage(final_index, listDemage[final_index]); //액티비티에 적용시킨다.
+                            if (on_boom_list[final_index]) sa.hitboom_list(final_index); //폭발물(무자비 폭발탄)일 경우 글자색을 노란색으로 변경해준다.
+                            else if (on_critical_list[final_index]) sa.hitCritical_list(final_index); //위와 동일한 방식
+                            else if (on_headshot_list[final_index]) sa.hitHeadshot_list(final_index); //위와 동일한 방식
+                            else sa.defaultColor_list(final_index); //치명타, 헤드샷, 폭발물 전부 아니라면 기본색(흰색)으로 변경한다.
                         }
                     });
                 }
-                boolReset();
+                boolReset(); //헤드샷, 치명타, 폭발탄 등 여부를 초기화시켜준다.
                 /*activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -571,21 +571,21 @@ class DemageSimulThread extends Thread implements Serializable {
                         SimulActivity.changeBoom(false);
                     }
                 });*/
-                if (reloaded) {
-                    reloaded = false;
-                    rt.pause(true);
+                if (reloaded) { //제장전 되었을 경우 작동한다.
+                    reloaded = false; //재장전 여부를 거짓으로 초기화한다.
+                    rt.pause(true); //재장전 스레드를 일시정지한다.
                 }
                 handler.post(new Runnable() {
                     @Override
-                    public void run() {
+                    public void run() { //현재 데미지 색을 초기화하는 과정
                         sa.changeHeadshot(false);
                         sa.changeCritical(false);
                         sa.changeBoom(false);
                         sa.defaultColor();
                     }
                 });
-                statue_log = "";
-                ammo_log = "";
+                statue_log = ""; //상태 메시지를 초기화한다.
+                ammo_log = ""; //탄약 메시지를 초기화한다.
                 now_demage = demage();
                 new_weapondemage = demage();
                 if (crazy_dmg != 0) {
