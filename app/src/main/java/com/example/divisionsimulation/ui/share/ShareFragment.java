@@ -7334,28 +7334,27 @@ public class ShareFragment extends Fragment {
 
         btnRaidbox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //칠흑의 시간 레이드에서 마지막 보스 처치 후 상자 개봉할 경우, 위와 내용이 비슷하므로 설명 생략
+            public void onClick(View v) { //칠흑의 시간 레이드에서 마지막 보스 처치 후 상자 개봉할 경우, 위와 내용은 비슷하나 박스에서는 5개의 아이템이 나온다. 이 부분만 설명함.
                 int pick;
                 int start, end;
                 layoutSheld.setVisibility(View.GONE);
                 layoutWeapon.setVisibility(View.GONE);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                String name = "", type = "";
+                String name = "", type = ""; //5+알파개 아이템 이름, 종류를 모두 저장하여 한번에 출력할 문자열 변수
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
-                if (percent(1, 100) <= 10+bonus) {
-                    //txtName.setTextColor(Color.parseColor("#ff3c00"));
-                    special++;
-                    all++;
-                    setInterface();
-                    txtAll.setText(Integer.toString(all));
-                    txtSpecial.setText(Integer.toString(special));
-                    name += "독수리를 거느린 자\n";
-                    type += "돌격소총\n";
-                    inputData("독수리를 거느린 자", "돌격소총");
-                    setSemiInterface("돌격소총");
+                if (percent(1, 100) <= 10+bonus) { //5개와 별개로 10%확률로 "독수리를 거느린 자" 특급 돌격소총이 드랍됨.
+                    special++; //특급 갯수를 1개 늘린다.
+                    all++; //총 갯수를 1개 늘린다.
+                    setInterface(); //변경된 데이터 값을 UI에 업데이트한다.
+                    txtAll.setText(Integer.toString(all)); //총 갯수에 업데이트한다.
+                    txtSpecial.setText(Integer.toString(special)); //위와 동일한 방식
+                    name += "독수리를 거느린 자\n"; //name 문자열에 "독수리를 거느린 자"를 추가한 후 줄바꿈을 한다.
+                    type += "돌격소총\n"; //위와 동일한 방식
+                    inputData("독수리를 거느린 자", "돌격소총"); //아이템 목록에 아이템 정보를 추가한다.
+                    setSemiInterface("돌격소총"); //돌격소총 종류의 갯수에 1개 늘린다.
                 }
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++) { //아이템이 총 5개가 랜덤으로 나타나므로 5번을 반복하여 name, type에 1줄씩 추가한다.
                     if (percent(1, 1000) <= 10+bonus) { //특급 장비
                         //txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -7552,36 +7551,36 @@ public class ShareFragment extends Fragment {
                 }
 
 
-                SpannableString spannableString = new SpannableString(name);
+                SpannableString spannableString = new SpannableString(name); //특급, 네임드 아이템 이름을 가졌으면 색을 바꿔줘야하는데 전체부분이 아니라 특급, 네임드에 해당하는 이름만 색을 바꿔줘야하므로 SpannableString으로 객체를 만들어 넣어준다.
 
-                String word;
-                for (int i = 0; i < il.getSpecialweapon_raid_Length(); i++) {
-                    word = il.getSpecialweapon_raid(i);
-                    start = name.indexOf(word);
-                    end = start + word.length();
-                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                String word; //아이템 목록에서 임시로 아이템 이름을 저장할 변수
+                for (int i = 0; i < il.getSpecialweapon_raid_Length(); i++) { //특급 무기를 비교하여 특급 무기에 해당하는 아이템 이름이 있을 경우 특급색(주황색)으로 변경해준다.
+                    word = il.getSpecialweapon_raid(i); //i번째에 있는 배열 값을 word 문자열에 대입한다.
+                    start = name.indexOf(word); //name 문자열에서 word와 같은 단어 혹은 문장이 있으면 시작부분을 저장한다. ex) "hello my name is ???".indexOf("my") = 7
+                    end = start + word.length(); //찾고자 하는 문자열이 끝나는 부분을 저장한다.
+                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //start가 -1이라면 해당하는 문자열이 없다는 뜻이므로 -1이면 실행하지 않고 -1보다 크게 되면 그 문자열부분만 색을 특급색(주황색)으로 변경한다.
                 }
-                for (int i = 0; i < il.getNamedweapon_lite_Length(); i++) {
+                for (int i = 0; i < il.getNamedweapon_lite_Length(); i++) { //위와 동일한 방식
                     word = il.getNamedweapon_lite(i);
                     start = name.indexOf(word);
                     end = start + word.length();
                     if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-                for (int i = 0; i < il.getNamedsheld_lite_Length(); i++) {
+                for (int i = 0; i < il.getNamedsheld_lite_Length(); i++) { //위와 동일한 방식
                     word = il.getNamedsheld_lite(i);
                     start = name.indexOf(word);
                     end = start + word.length();
                     if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-                for (int i = 0; i < il.getSheldgear_Length(); i++) {
+                for (int i = 0; i < il.getSheldgear_Length(); i++) { //위와 동일한 방식
                     word = il.getSheldgear(i);
                     start = name.indexOf(word);
                     end = start + word.length();
                     if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
-                txtName.setText(spannableString);
-                txtType.setText(type);
+                txtName.setText(spannableString); //아이템 이름 텍스트뷰에 변경한 spannablestring을 넣어준다. 그럼 일부 텍스트만 색을 적용이 되어 있을 것이다.
+                txtType.setText(type); //아이템 종류 텍스트 뷰에 업데이트한다.
 
                 if (dialogView.getParent() != null)
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
@@ -7598,9 +7597,9 @@ public class ShareFragment extends Fragment {
 
     public int percent(int min, int length) {
         return (int)(Math.random()*BIG)%length + min;
-    }
+    } //min~length까지 임의의 숫자를 반환한다.
 
-    public void setInterface() {
+    public void setInterface() { //특급, 네임드, 기어, 브랜드 갯수가 전체에서 몇 %인지 진행도를 통해 보여주므로 진행도를 설정한다.
         progressBrand.setProgress((int)(((double)brand/(double)all)*10000));
         progressSpecial.setProgress((int)(((double)special/(double)all)*10000));
         progressNamed.setProgress((int)(((double)named/(double)all)*10000));
@@ -7608,7 +7607,7 @@ public class ShareFragment extends Fragment {
         txtAll.setText(Integer.toString(all));
     }
 
-    public void setSemiInterface(String type_name) {
+    public void setSemiInterface(String type_name) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.
         switch (type_name) {
             case "돌격소총":
                 typet[0]++;
