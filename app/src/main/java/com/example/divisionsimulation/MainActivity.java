@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#00222222"));
         setSupportActionBar(toolbar);
         /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         .setAction("Action", null).show();
             }
         });*/
+
+        Drawable draw = getResources().getDrawable(R.drawable.redwall4);
+        //getSupportActionBar().setBackgroundDrawable(draw);
 
         ShareFragment.context = this;
 
@@ -287,51 +292,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 builder.setView(dialogView);
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
-                alertDialog.show();
-                break;
-            case R.id.menu2:
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout1, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                builder.setTitle("무기 시뮬레이션 도움말");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
-                alertDialog.show();
-                break;
-            case R.id.menu3:
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout2, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                builder.setTitle("무기 정보 도움말");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
-                alertDialog.show();
-                break;
-            case R.id.menu4:
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout3, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                builder.setTitle("보호장구(방어구) 정보 도움말");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
-                alertDialog.show();
-                break;
-            case R.id.menu5:
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout4, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                builder.setTitle("공략 및 정보 도움말");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
-                alertDialog.show();
-                break;
-            case R.id.menu6:
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout5, null);
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                builder.setTitle("파밍 시뮬레이션 도움말");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
                 alertDialog.show();
                 break;
             case R.id.menu7:

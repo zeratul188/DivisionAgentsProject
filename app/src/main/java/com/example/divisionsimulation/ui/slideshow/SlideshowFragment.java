@@ -16,8 +16,8 @@ import com.example.divisionsimulation.R;
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
-    private Button[] btnSheldlist = new Button[6];
-    private Button[] btnSheldoption = new Button[5];
+    //private Button[] btnSheldlist = new Button[6];
+    private Button[] btnSheldoption = new Button[2];
     private int temp;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,16 +33,16 @@ public class SlideshowFragment extends Fragment {
             }
         });*/
 
-        for (int i = 0; i < btnSheldlist.length; i++) {
+        /*for (int i = 0; i < btnSheldlist.length; i++) {
             temp = getResources().getIdentifier("btnSheldlist"+(i+1), "id", getActivity().getPackageName());
             btnSheldlist[i] = root.findViewById(temp);
-        }
+        }*/
         for (int i = 0; i < btnSheldoption.length; i++) {
             temp = getResources().getIdentifier("btnSheldoption"+(i+1), "id", getActivity().getPackageName());
             btnSheldoption[i] = root.findViewById(temp);
         }
 
-        btnSheldlist[0].setOnClickListener(new View.OnClickListener() {
+        /*btnSheldlist[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SheldList1Activity.class);
@@ -83,22 +83,22 @@ public class SlideshowFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SheldList6Activity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         btnSheldoption[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SheldBrandActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnSheldoption[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SheldOption2Activity.class);
                 startActivity(intent);
             }
         });
-        btnSheldoption[2].setOnClickListener(new View.OnClickListener() {
+        btnSheldoption[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldOption4Activity.class);
+                startActivity(intent);
+            }
+        });
+        /*btnSheldoption[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SheldOption3Activity.class);
@@ -118,7 +118,7 @@ public class SlideshowFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SheldOption5Activity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return root;
     }

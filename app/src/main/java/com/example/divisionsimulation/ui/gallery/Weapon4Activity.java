@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,7 @@ import com.example.divisionsimulation.R;
 
 public class Weapon4Activity extends AppCompatActivity {
 
-    private Button[] btnWP = new Button[12];
+    private LinearLayout[] btnWP = new LinearLayout[12];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
