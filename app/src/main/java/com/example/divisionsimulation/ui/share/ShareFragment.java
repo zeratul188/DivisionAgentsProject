@@ -126,6 +126,8 @@ public class ShareFragment extends Fragment {
     private boolean openWeapon = false; //드랍된 장비가 무기일 때 사용
     private boolean openSheld = false; //드랍된 장비가 보호장구일 때 사용
 
+    private ImageView imgType, imgType2;
+
     public void inputData(String name, String type) { //드랍되고 아이템 목록에 아이템이 추가 될 경우 사용
         if (index >= 50) { //아이템 목록이 최대 50개이므로 50개가 넘어갈 경우 작동된다.
             for (int i = 0; i < 49; i++) { //첫번째 아이템 정보는 사라지고 나머지는 앞으로 1칸씩 땡겨준다.
@@ -509,10 +511,11 @@ public class ShareFragment extends Fragment {
         final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
         final TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
         final Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
-        final TableLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+        final LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
         //final ImageView[] imgOption = new ImageView[3];
         //final TableRow trOption = dialogView.findViewById(R.id.trOption);
         final Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼
+        imgType = dialogView.findViewById(R.id.imgType);
 
         final TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
         final TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2); //두번째 무기 핵심속성
@@ -551,7 +554,8 @@ public class ShareFragment extends Fragment {
         final TextView txtName2 = dark_dialogView.findViewById(R.id.txtName);
         final TextView txtType2 = dark_dialogView.findViewById(R.id.txtType);
         final Button btnChange2 = dark_dialogView.findViewById(R.id.btnChange);
-        final TableLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
+        final LinearLayout tableMain2 = dark_dialogView.findViewById(R.id.tableMain);
+        imgType2 = dark_dialogView.findViewById(R.id.imgType);
         final Button btnExit2 = dark_dialogView.findViewById(R.id.btnExit);
 
         final TextView txtWMain1_dark = dark_dialogView.findViewById(R.id.txtWMain1);
@@ -1764,7 +1768,7 @@ public class ShareFragment extends Fragment {
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -2645,7 +2649,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -3447,7 +3451,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -4267,7 +4271,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -5070,7 +5074,7 @@ public class ShareFragment extends Fragment {
 
 
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -5819,7 +5823,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -6573,7 +6577,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dark_dialogView.getParent()).removeView(dark_dialogView);
                 builder_dark.setView(dark_dialogView);
 
-                setSemiInterface(String.valueOf(txtType2.getText()));
+                setSemiInterface(String.valueOf(txtType2.getText()), imgType2);
                 inputData(String.valueOf(txtName2.getText()), String.valueOf(txtType2.getText()));
 
                 dialog_dark = builder_dark.create();
@@ -7323,7 +7327,7 @@ public class ShareFragment extends Fragment {
                     ((ViewGroup) dialogView.getParent()).removeView(dialogView);
                 builder.setView(dialogView);
 
-                setSemiInterface(String.valueOf(txtType.getText()));
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
 
                 alertDialog = builder.create();
@@ -7352,7 +7356,7 @@ public class ShareFragment extends Fragment {
                     name += "독수리를 거느린 자\n"; //name 문자열에 "독수리를 거느린 자"를 추가한 후 줄바꿈을 한다.
                     type += "돌격소총\n"; //위와 동일한 방식
                     inputData("독수리를 거느린 자", "돌격소총"); //아이템 목록에 아이템 정보를 추가한다.
-                    setSemiInterface("돌격소총"); //돌격소총 종류의 갯수에 1개 늘린다.
+                    setSemiInterface("돌격소총", imgType); //돌격소총 종류의 갯수에 1개 늘린다.
                 }
                 for (int i = 0; i < 5; i++) { //아이템이 총 5개가 랜덤으로 나타나므로 5번을 반복하여 name, type에 1줄씩 추가한다.
                     if (percent(1, 1000) <= 10+bonus) { //특급 장비
@@ -7371,7 +7375,7 @@ public class ShareFragment extends Fragment {
                             type += il.getSpecialweapon_type(pick);
                         }
                         inputData(il.getSpecialweapon(pick), il.getSpecialweapon_type(pick));
-                        setSemiInterface(il.getSpecialweapon_type(pick));
+                        setSemiInterface(il.getSpecialweapon_type(pick), imgType);
                         //txtName.setText(il.getSpecialweapon(pick));
                         //txtType.setText(il.getSpecialweapon_type(pick));
                     } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
@@ -7390,7 +7394,7 @@ public class ShareFragment extends Fragment {
                                 name += il.getNamedweapon_lite(pick);
                                 type += il.getNamedweapon_lite_type(pick);
                             }
-                            setSemiInterface(il.getNamedweapon_lite_type(pick));
+                            setSemiInterface(il.getNamedweapon_lite_type(pick), imgType);
                             inputData(il.getNamedweapon_lite(pick), il.getNamedweapon_lite_type(pick));
                             //txtName.setText(il.getNamedweapon_lite(pick));
                             //txtType.setText(il.getNamedweapon_lite_type(pick));
@@ -7403,7 +7407,7 @@ public class ShareFragment extends Fragment {
                                 name += il.getNamedsheld_lite(pick);
                                 type += il.getNamedsheld_lite_type(pick);
                             }
-                            setSemiInterface(il.getNamedsheld_lite_type(pick));
+                            setSemiInterface(il.getNamedsheld_lite_type(pick), imgType);
                             inputData(il.getNamedsheld_lite(pick), il.getNamedsheld_lite_type(pick));
                             //txtName.setText(il.getNamedsheld_lite(pick));
                             //txtType.setText(il.getNamedsheld_lite_type(pick));
@@ -7513,14 +7517,14 @@ public class ShareFragment extends Fragment {
                                     txtName.setText("Error");
                                     txtType.setText("Error");
                             }
-                            setSemiInterface(il.getWeapontype(pick));
+                            setSemiInterface(il.getWeapontype(pick), imgType);
                         } else { //sheld
                             int temp_pick;
                             pick = percent(0, il.getSheldtype_Length());
                             if (i != 4) type += il.getSheldtype(pick)+"\n";
                             else type += il.getSheldtype(pick);
                             temp_pick = pick;
-                            setSemiInterface(il.getSheldtype(pick));
+                            setSemiInterface(il.getSheldtype(pick), imgType);
                             //txtType.setText(il.getSheldtype(pick));
                             pick = percent(1, 100);
                             if (pick <= 20) { //gear
@@ -7607,59 +7611,73 @@ public class ShareFragment extends Fragment {
         txtAll.setText(Integer.toString(all));
     }
 
-    public void setSemiInterface(String type_name) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.
+    public void setSemiInterface(String type_name, ImageView view) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.
+        ImageView temp = view;
         switch (type_name) {
             case "돌격소총":
                 typet[0]++;
                 txtTypelist[0].setText(Integer.toString(typet[0]));
+                temp.setImageResource(R.drawable.wp1custom);
                 break;
             case "소총":
                 typet[1]++;
                 txtTypelist[1].setText(Integer.toString(typet[1]));
+                temp.setImageResource(R.drawable.wp2custom);
                 break;
             case "지정사수소총":
                 typet[2]++;
                 txtTypelist[2].setText(Integer.toString(typet[2]));
+                temp.setImageResource(R.drawable.wp3custom);
                 break;
             case "기관단총":
                 typet[3]++;
                 txtTypelist[3].setText(Integer.toString(typet[3]));
+                temp.setImageResource(R.drawable.wp4custom);
                 break;
             case "경기관총":
                 typet[4]++;
                 txtTypelist[4].setText(Integer.toString(typet[4]));
+                temp.setImageResource(R.drawable.wp5custom);
                 break;
             case "산탄총":
                 typet[5]++;
                 txtTypelist[5].setText(Integer.toString(typet[5]));
+                temp.setImageResource(R.drawable.wp6custom);
                 break;
             case "권총":
                 typet[6]++;
                 txtTypelist[6].setText(Integer.toString(typet[6]));
+                temp.setImageResource(R.drawable.wp7custom);
                 break;
             case "마스크":
                 typet[7]++;
                 txtTypelist[7].setText(Integer.toString(typet[7]));
+                temp.setImageResource(R.drawable.sd1custom);
                 break;
             case "백팩":
                 typet[8]++;
                 txtTypelist[8].setText(Integer.toString(typet[8]));
+                temp.setImageResource(R.drawable.sd4custom);
                 break;
             case "조끼":
                 typet[9]++;
                 txtTypelist[9].setText(Integer.toString(typet[9]));
+                temp.setImageResource(R.drawable.sd2custom);
                 break;
             case "장갑":
                 typet[10]++;
                 txtTypelist[10].setText(Integer.toString(typet[10]));
+                temp.setImageResource(R.drawable.sd5custom);
                 break;
             case "권총집":
                 typet[11]++;
                 txtTypelist[11].setText(Integer.toString(typet[11]));
+                temp.setImageResource(R.drawable.sd3custom);
                 break;
             case "무릎 보호대":
                 typet[12]++;
                 txtTypelist[12].setText(Integer.toString(typet[12]));
+                temp.setImageResource(R.drawable.sd6custom);
                 break;
         }
         switch (progressType[0].getMax()) {

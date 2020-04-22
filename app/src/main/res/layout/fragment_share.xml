@@ -119,7 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
-                        <TableLayout
+                        <!--<TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TableRow
@@ -133,7 +133,7 @@
                                     android:textSize="20sp"
                                     android:textColor="#aaaaaa"
                                     android:padding="10dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/rareclickcustom"
                                     android:layout_marginRight="5dp"/>
                                 <Button
                                     android:id="@+id/btnDarkzone"
@@ -144,7 +144,7 @@
                                     android:padding="10dp"
                                     android:textSize="20sp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/rareclickcustom"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                             <TableRow
@@ -158,7 +158,7 @@
                                     android:textSize="20sp"
                                     android:padding="10dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/rareclickcustom"
                                     android:layout_marginRight="5dp"/>
                                 <Button
                                     android:id="@+id/btnRaidbox"
@@ -169,10 +169,53 @@
                                     android:textSize="20sp"
                                     android:padding="10dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/rareclickcustom"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
-                        </TableLayout>
+                        </TableLayout>-->
+
+                        <Button
+                            android:id="@+id/btnLitezone"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="라이트존"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rareclickcustom"/>
+                        <Button
+                            android:id="@+id/btnDarkzone"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="다크존"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rareclickcustom"/>
+                        <Button
+                            android:id="@+id/btnRaid"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="레이드 (칠흑의 시간)"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rareclickcustom"/>
+                        <Button
+                            android:id="@+id/btnRaidbox"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="레이드 추가 박스"
+                            android:textSize="20sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rareclickcustom"/>
+
+
                         <Button
                             android:id="@+id/btnTruesun"
                             android:layout_width="match_parent"
@@ -182,7 +225,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <Button
                             android:id="@+id/btnLastBoss"
                             android:layout_width="match_parent"
@@ -192,7 +235,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <Button
                             android:id="@+id/btnDragov"
                            android:layout_width="match_parent"
@@ -202,7 +245,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <Button
                             android:id="@+id/btnBox"
                             android:layout_width="match_parent"
@@ -212,7 +255,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <Button
                             android:id="@+id/btnNewYork"
                             android:layout_width="match_parent"
@@ -222,7 +265,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="20dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -780,7 +823,7 @@
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="20dp"
-                            android:background="@drawable/buttoncustom"/>
+                            android:background="@drawable/rareclickcustom"/>
                         <!--<TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

@@ -303,6 +303,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 final EditText edtSecond = dialogView.findViewById(R.id.edtSecond);
                 final Activity activity = this;
 
+                final Button btnTimerPlay = dialogView.findViewById(R.id.btnTimerPlay);
+                final Button btnTImerCancel = dialogView.findViewById(R.id.btnTimerCancel);
+
                 edtMinute.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -372,10 +375,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                 builder = new AlertDialog.Builder(this);
                 builder.setView(dialogView);
-                builder.setTitle("목표 타이머");
-                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+
+                btnTimerPlay.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
                         if (String.valueOf(edtHour.getText()).equals("") && String.valueOf(edtMinute.getText()).equals("") && String.valueOf(edtSecond.getText()).equals("")) {
                             Toast.makeText(activity, "'시간', '분', '초' 중에서 1개 이상은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -405,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
                                         .setSound(null)
                                         .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
-                                ;
+                                        ;
 
                                 notificationManager.notify(0, buildert.build());
                                 txtResultTarget.setText(String.valueOf(edtTarget.getText())+"까지 남은 시간");
@@ -419,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
                                         .setSound(null)
                                         .setOngoing(true) // 사용자가 직접 못지우게 계속 실행하기.
-                                ;
+                                        ;
 
                                 notificationManager.notify(0, buildert.build());
                                 txtResultTarget.setText("'목표'까지 남은 시간");
@@ -452,6 +456,14 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         }
                     }
                 });
+
+                btnTImerCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
                 alertDialog.show();
