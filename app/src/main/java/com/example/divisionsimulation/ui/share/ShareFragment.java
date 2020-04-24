@@ -5872,7 +5872,7 @@ public class ShareFragment extends Fragment {
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
-                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
+                tableMain2.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -5886,7 +5886,7 @@ public class ShareFragment extends Fragment {
                 //trOption2.setVisibility(View.GONE);
                 //for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
-                    tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    tableMain2.setBackgroundResource(R.drawable.exoticitem);
                     btnChange2.setText("특급");
                     btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     tableMain2.setVisibility(View.GONE);
@@ -6465,7 +6465,7 @@ public class ShareFragment extends Fragment {
                             else imgOption2[i].setImageResource(R.drawable.power);
                         }*/
                         if (pick <= 20) { //gear
-                            tableMain.setBackgroundResource(R.drawable.gearitem);
+                            tableMain2.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();

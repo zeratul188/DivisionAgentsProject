@@ -380,6 +380,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/buttoncustomnamed"
         android:visibility="gone"/>
     <Button
@@ -391,7 +392,6 @@
         android:textColor="#ffffff"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="30dp"
         android:textSize="20sp"
         android:padding="10dp"
         android:layout_marginBottom="20dp"/>
