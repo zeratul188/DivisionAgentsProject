@@ -4,8 +4,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         progressTimer.setProgress(progress);
     }
 
+    private static Activity activity;
+    public static Activity mainActivity() { return activity; }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         .setAction("Action", null).show();
             }
         });*/
+
+        activity = this;
 
         Drawable draw = getResources().getDrawable(R.drawable.redwall4);
         //getSupportActionBar().setBackgroundDrawable(draw);

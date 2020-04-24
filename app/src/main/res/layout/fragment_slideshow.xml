@@ -706,7 +706,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd1"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -789,7 +789,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd2"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -872,7 +872,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd3"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -955,7 +955,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd4"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1038,7 +1038,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd5"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1121,7 +1121,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd6"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1204,7 +1204,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd7"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1287,7 +1287,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd8"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1370,7 +1370,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd9"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1453,7 +1453,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd10"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1536,7 +1536,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd11"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1619,7 +1619,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd12"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1702,7 +1702,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd13"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1785,7 +1785,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd14"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1868,7 +1868,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd15"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -1951,7 +1951,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:scaleType="center"
-                        android:src="@drawable/systemcorruption"/>
+                        android:src="@drawable/sd16"/>
                     <TableLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"

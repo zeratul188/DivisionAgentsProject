@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -359,6 +361,8 @@ public class ShareFragment extends Fragment {
                 btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
                 btnEnd = false; //초기화 완료 조건 초기화
                 Toast.makeText(getActivity(), "모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show(); //초기화가 되었다며 토스트를 통해 전달한다.
+                editor.clear();
+                editor.commit();
                 mHandler.removeMessages(0); //현재 핸들러를 종료시킨다.
             } else { //아직 리셋카운트로 인해 btnEnd가 참이 되지 않았을 경우 작동
                 reset_count += 10; //10을 늘려준다. (1500까지 3초 걸린다.)
@@ -368,6 +372,9 @@ public class ShareFragment extends Fragment {
             mHandler.sendEmptyMessageDelayed(0, 20); //핸들러를 0.02초만큼 반복시킨다. (다시 핸들러를 불러오는 방식으로 반복시키는 것이다.)
         }
     };
+
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -381,6 +388,13 @@ public class ShareFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
+
+        pref = getContext().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        //pref = MainActivity.mainActivity().getPreferences(Activity.MODE_PRIVATE);
+        editor = pref.edit();
+
+        //editor.clear();
+        //editor.commit();
 
         handler = new Handler(); //핸들러 객체를 생성한다.
 
@@ -504,6 +518,8 @@ public class ShareFragment extends Fragment {
             }
         });
 
+        if (pref.getBoolean("Saved", false)) startInterface();
+
         final Itemlist il = new Itemlist(); //모든 아이템 정보가 들어있다.
 
         final View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
@@ -608,7 +624,7 @@ public class ShareFragment extends Fragment {
                 });
 
                 for (int i = 0; i < item_name.length; i++) { //아이템 목록의 최대치(50)만큼 반복한다.
-                    if (item_name[i] != null) addTextView(i+1, item_name[i], item_type[i], layoutItemList); //아이템 이름이 비어있지 않다면 그 아이템 정보를 통해 텍스트뷰를 생성한다. (위쪽에 메소드 존재)
+                    if (item_name[i] != null && !item_name[i].equals("")) addTextView(i+1, item_name[i], item_type[i], layoutItemList); //아이템 이름이 비어있지 않다면 그 아이템 정보를 통해 텍스트뷰를 생성한다. (위쪽에 메소드 존재)
                 }
 
                 builder_list = new AlertDialog.Builder(getActivity());
@@ -896,6 +912,7 @@ public class ShareFragment extends Fragment {
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
                 btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
@@ -906,6 +923,7 @@ public class ShareFragment extends Fragment {
                 txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     if (percent(0, 2) == 1) { //50% 확률로 작동된다.
                         txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                         special++; //특급 장비 갯수를 1개 늘린다.
@@ -1614,6 +1632,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100); //위와 동일한 방식
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++; //기어 갯수를 1개 늘려준다.
                             all++; //위와 동일한 방식
                             setInterface(); //위와 동일한 방식
@@ -1780,9 +1799,10 @@ public class ShareFragment extends Fragment {
         btnBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //세션 박스를 열었을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -1796,6 +1816,7 @@ public class ShareFragment extends Fragment {
 
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -2499,6 +2520,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -2661,9 +2683,10 @@ public class ShareFragment extends Fragment {
         btnLastBoss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //전설난이도에서 마지막 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -2676,6 +2699,7 @@ public class ShareFragment extends Fragment {
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -3301,6 +3325,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -3463,9 +3488,10 @@ public class ShareFragment extends Fragment {
         btnDragov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //월 스트리트 미션에서 마지막 보스 제임스 드래고프를 처치했을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -3478,6 +3504,7 @@ public class ShareFragment extends Fragment {
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -4103,6 +4130,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -4283,9 +4311,10 @@ public class ShareFragment extends Fragment {
         btnNewYork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //뉴욕에서 필드 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -4298,6 +4327,7 @@ public class ShareFragment extends Fragment {
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+(bonus*4)) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     if (percent(0, 2) == 1) {
                         txtName.setTextColor(Color.parseColor("#ff3c00"));
                         special++;
@@ -4922,6 +4952,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -5086,9 +5117,10 @@ public class ShareFragment extends Fragment {
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //라이트존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -5101,6 +5133,7 @@ public class ShareFragment extends Fragment {
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -5673,6 +5706,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -5835,9 +5869,10 @@ public class ShareFragment extends Fragment {
         btnDarkzone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
-                int pick, temp_percent;
-                double now_option;
-                int type = 0; // 1:attack, 2:sheld, 3:power
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
                 openWeapon = false;
@@ -5851,6 +5886,7 @@ public class ShareFragment extends Fragment {
                 //trOption2.setVisibility(View.GONE);
                 //for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
                 if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     btnChange2.setText("특급");
                     btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
                     tableMain2.setVisibility(View.GONE);
@@ -6429,6 +6465,7 @@ public class ShareFragment extends Fragment {
                             else imgOption2[i].setImageResource(R.drawable.power);
                         }*/
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -6592,6 +6629,7 @@ public class ShareFragment extends Fragment {
                 int pick, temp_percent;
                 double now_option;
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
+                tableMain.setBackgroundResource(R.drawable.rareitem);
                 int type = 0; // 1:attack, 2:sheld, 3:power
                 String temp_option;
                 openSheld = false;
@@ -6605,6 +6643,7 @@ public class ShareFragment extends Fragment {
                 /*trOption.setVisibility(View.GONE);
                 for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);*/
                 if (percent(1, 1000) <= 10) { //특급 장비
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
                     txtName.setTextColor(Color.parseColor("#ff3c00"));
                     special++;
                     all++;
@@ -7177,6 +7216,7 @@ public class ShareFragment extends Fragment {
                         }*/
                         pick = percent(1, 100);
                         if (pick <= 20) { //gear
+                            tableMain.setBackgroundResource(R.drawable.gearitem);
                             gear++;
                             all++;
                             setInterface();
@@ -7345,6 +7385,7 @@ public class ShareFragment extends Fragment {
                 layoutWeapon.setVisibility(View.GONE);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 txtName.setTextColor(Color.parseColor("#aaaaaa"));
+                tableMain.setBackgroundResource(Color.parseColor("#00000000"));
                 String name = "", type = ""; //5+알파개 아이템 이름, 종류를 모두 저장하여 한번에 출력할 문자열 변수
                 //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
                 if (percent(1, 100) <= 10+bonus) { //5개와 별개로 10%확률로 "독수리를 거느린 자" 특급 돌격소총이 드랍됨.
@@ -7604,11 +7645,84 @@ public class ShareFragment extends Fragment {
     } //min~length까지 임의의 숫자를 반환한다.
 
     public void setInterface() { //특급, 네임드, 기어, 브랜드 갯수가 전체에서 몇 %인지 진행도를 통해 보여주므로 진행도를 설정한다.
+        System.out.println("Brand : "+brand+"\nAll : "+all);
         progressBrand.setProgress((int)(((double)brand/(double)all)*10000));
         progressSpecial.setProgress((int)(((double)special/(double)all)*10000));
         progressNamed.setProgress((int)(((double)named/(double)all)*10000));
         progressGear.setProgress((int)(((double)gear/(double)all)*10000));
         txtAll.setText(Integer.toString(all));
+    }
+
+    public void startInterface() {
+        special = pref.getInt("Special", 0);
+        named = pref.getInt("Named", 0);
+        gear = pref.getInt("Gear", 0);
+        brand = pref.getInt("Brand", 0);
+        darkitem = pref.getInt("DarkItem", 0);
+        all = pref.getInt("All", 0);
+        index = pref.getInt("Index", 0);
+        for (int i = 0; i < typet.length; i++) typet[i] = pref.getInt("typet"+(i+1), 0);
+        for (int i = 0; i < item_name.length; i++) {
+            item_name[i] = pref.getString("ItemName"+(i+1), "");
+            item_type[i] = pref.getString("ItemType"+(i+1), "");
+        }
+        setInterface();
+        txtSpecial.setText(Integer.toString(special));
+        txtNamed.setText(Integer.toString(named));
+        txtGear.setText(Integer.toString(gear));
+        txtBrand.setText(Integer.toString(brand));
+        for (int i = 0; i < txtTypelist.length; i++) txtTypelist[i].setText(Integer.toString(pref.getInt("typet"+(i+1), 0)));
+        switch (pref.getInt("ProgessMax", 20)) {
+            case 20:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 20){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
+                    }
+                }
+                break;
+            case 40:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 40){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
+                    }
+                }
+                break;
+            case 60:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 60){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
+                    }
+                }
+                break;
+            case 80:
+                for (int i = 0; i < typet.length; i++) {
+                    if (typet[i] > 80){
+                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
+                    }
+                }
+                break;
+                default:
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(20);
+        }
+        for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
+    }
+
+    public void setEditor() {
+        editor.putInt("Special", special);
+        editor.putInt("Named", named);
+        editor.putInt("Gear", gear);
+        editor.putInt("Brand", brand);
+        editor.putInt("Darkitem", darkitem);
+        editor.putInt("All", all);
+        for (int i = 0; i < typet.length; i++) editor.putInt("typet"+(i+1), typet[i]);
+        for (int i = 0; i < item_name.length; i++) {
+            editor.putString("ItemName"+(i+1), item_name[i]);
+            editor.putString("ItemType"+(i+1), item_type[i]);
+        }
+        editor.putInt("Index", index);
+        editor.putInt("ProgressMax", progressType[0].getMax());
+        editor.putBoolean("Saved", true);
+        editor.commit();
     }
 
     public void setSemiInterface(String type_name, ImageView view) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.
@@ -7711,5 +7825,6 @@ public class ShareFragment extends Fragment {
                 break;
         }
         for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
+        setEditor();
     }
 }
