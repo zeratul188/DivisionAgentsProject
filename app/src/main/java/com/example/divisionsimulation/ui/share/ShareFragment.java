@@ -47,6 +47,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.divisionsimulation.MainActivity;
 import com.example.divisionsimulation.R;
 
+import org.w3c.dom.Text;
+
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class ShareFragment extends Fragment {
@@ -228,7 +230,8 @@ public class ShareFragment extends Fragment {
     }
 
     public void addTextView(int number, String name, String type, LinearLayout layout) { //아이템 목록을 열었을 때 보여줄 택스브튜를 생성한다.
-        String result = number+". "+name+" ("+type+")"; //텍스트 뷰에 메시지를 올릴 문자열을 적는다. 아이템 이름, 종류를 출력한다.
+        //String result = number+". "+name+" ("+type+")"; //텍스트 뷰에 메시지를 올릴 문자열을 적는다. 아이템 이름, 종류를 출력한다.
+        String result = name;
 
         SpannableString spannableString = new SpannableString(result); //텍스트뷰 메시지 일부 글자만 색을 바꿀 때 사용한다.
 
@@ -239,6 +242,63 @@ public class ShareFragment extends Fragment {
         기타 장비 : 기본 색인 하얀색
          */
 
+        LinearLayout itemLayout = new LinearLayout(getActivity());
+        itemLayout.setBackgroundResource(R.drawable.rareitem);
+        itemLayout.setOrientation(LinearLayout.HORIZONTAL);
+        itemLayout.setPadding(10, 10, 10, 10);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 250);
+        layoutParams.bottomMargin = 15;
+        itemLayout.setLayoutParams(layoutParams);
+        itemLayout.setGravity(Gravity.CENTER);
+
+        ImageView imgView = new ImageView(getActivity());
+        LinearLayout.LayoutParams imgParam = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        imgParam.weight = 1;
+        imgView.setLayoutParams(imgParam);
+        imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        switch (type) {
+            case "돌격소총":
+                imgView.setImageResource(R.drawable.wp1custom);
+                break;
+            case "소총":
+                imgView.setImageResource(R.drawable.wp2custom);
+                break;
+            case "지정사수소총":
+                imgView.setImageResource(R.drawable.wp3custom);
+                break;
+            case "기관단총":
+                imgView.setImageResource(R.drawable.wp4custom);
+                break;
+            case "경기관총":
+                imgView.setImageResource(R.drawable.wp5custom);
+                break;
+            case "산탄총":
+                imgView.setImageResource(R.drawable.wp6custom);
+                break;
+            case "권총":
+                imgView.setImageResource(R.drawable.wp7custom);
+                break;
+            case "마스크":
+                imgView.setImageResource(R.drawable.sd1custom);
+                break;
+            case "백팩":
+                imgView.setImageResource(R.drawable.sd4custom);
+                break;
+            case "조끼":
+                imgView.setImageResource(R.drawable.sd2custom);
+                break;
+            case "장갑":
+                imgView.setImageResource(R.drawable.sd5custom);
+                break;
+            case "권총집":
+                imgView.setImageResource(R.drawable.sd3custom);
+                break;
+            case "무릎 보호대":
+                imgView.setImageResource(R.drawable.sd6custom);
+                break;
+        }
+
         String word; //찾을 문자열
         int start, end; //시작번호, 끝번호
         Itemlist il = new Itemlist(); //모든 아이템 정보가 들어있는 객체 생성
@@ -246,13 +306,19 @@ public class ShareFragment extends Fragment {
             word = il.getNewSpecialweapon(i); //찾을 문자열에 새로운 특급 장비 이름을 넣는다. 반복문으로 모든 엑조틱과 비교가 된다.
             start = result.indexOf(word); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
             end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //start가 -1이면 찾을 문자열이 없다는 뜻이므로 실행을 하지 않고 -1보다 크게 되면 찾았다는 뜻이므로 그 특정 부분만 특급 색으로 변경한다.
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //start가 -1이면 찾을 문자열이 없다는 뜻이므로 실행을 하지 않고 -1보다 크게 되면 찾았다는 뜻이므로 그 특정 부분만 특급 색으로 변경한다.
+                itemLayout.setBackgroundResource(R.drawable.exoticitem);
+            }
         }
         for (int i = 0; i < il.getSpecialweapon_raid_Length(); i++) {
             word = il.getSpecialweapon_raid(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.exoticitem);
+            }
         }
         /*
         위와 동일한 방식
@@ -262,7 +328,10 @@ public class ShareFragment extends Fragment {
             word = il.getNamedweapon_lite(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.rareitem);
+            }
         }
         /*
         위와 동일한 방식
@@ -272,7 +341,10 @@ public class ShareFragment extends Fragment {
             word = il.getNamedweapon_dark(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.rareitem);
+            }
         }
         /*
         위와 동일한 방식
@@ -282,7 +354,10 @@ public class ShareFragment extends Fragment {
             word = il.getNamedsheld_lite(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.rareitem);
+            }
         }
         /*
         위와 동일한 방식
@@ -292,7 +367,10 @@ public class ShareFragment extends Fragment {
             word = il.getNamedsheld_dark(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.rareitem);
+            }
         }
         /*
         위와 동일한 방식
@@ -302,23 +380,53 @@ public class ShareFragment extends Fragment {
             word = il.getSheldgear(i);
             start = result.indexOf(word);
             end = start + word.length();
-            if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (start != -1) {
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                itemLayout.setBackgroundResource(R.drawable.gearitem);
+            }
         }
         /*
         위와 동일한 방식
         기어 장비들을 기어 색으로 변경한다.
          */
 
-        view = new TextView(getActivity()); //현재 액티비티 (다이얼로그)에 추가할 텍스트뷰를 생성
+        /*view = new TextView(getActivity()); //현재 액티비티 (다이얼로그)에 추가할 텍스트뷰를 생성
         view.setText(spannableString); //위에 색까지 적용한 텍스트를 저장한다.
         view.setTextSize(20); //텍스트 사이즈를 20sp로 설정한다.
-        view.setTextColor(Color.parseColor("#aaaaaa")); //텍스트 색을 설정한다. 위에 색을 적용한 부분은 바뀌지 않는다.
+        view.setTextColor(Color.parseColor("#aaaaaa")); //텍스트 색을 설정한다. 위에 색을 적용한 부분은 바뀌지 않는다.*/
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); //레이아웃
-        lp.gravity = Gravity.LEFT; //왼쪽 정렬시킨다.
-        view.setLayoutParams(lp);
+        imgView.setPadding(30, 30, 30, 30);
 
-        layout.addView(view); //레이아웃에 텍스트뷰를 추가한다.
+        LinearLayout infoLayout = new LinearLayout(getActivity());
+        infoLayout.setOrientation(LinearLayout.VERTICAL);
+        infoLayout.setPadding(5, 0, 0, 0);
+        LinearLayout.LayoutParams infoParam = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        infoParam.weight = 4;
+        infoLayout.setLayoutParams(infoParam);
+
+        TextView nameView = new TextView(getActivity());
+        nameView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        nameView.setText(spannableString);
+        nameView.setTextSize(25);
+        nameView.setTextColor(Color.parseColor("#f0f0f0"));
+
+        TextView typeView = new TextView(getActivity());
+        typeView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        typeView.setText(type);
+        typeView.setTextSize(18);
+        typeView.setTextColor(Color.parseColor("#888888"));
+
+        infoLayout.addView(nameView);
+        infoLayout.addView(typeView);
+
+        itemLayout.addView(imgView);
+        itemLayout.addView(infoLayout);
+
+        /*LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); //레이아웃
+        lp.gravity = Gravity.CENTER; //왼쪽 정렬시킨다.
+        view.setLayoutParams(lp);*/
+
+        layout.addView(itemLayout); //레이아웃에 텍스트뷰를 추가한다.
     }
     public void removeTextView() { //텍스트뷰 제거 메소드 현재 사용하지 않는다.
         if (view.getParent() != null) { //뷰의 부모가 비어있지 않다면 작동

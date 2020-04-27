@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:scaleType="fitStart"
+            android:scaleType="fitCenter"
             android:src="@drawable/wp1custom"/>
         <LinearLayout
             android:layout_width="0dp"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="돌격소총"
                 android:textSize="18sp"
-                android:textColor="#666666"/>
+                android:textColor="#888888"/>
         </LinearLayout>
     </LinearLayout>
 
