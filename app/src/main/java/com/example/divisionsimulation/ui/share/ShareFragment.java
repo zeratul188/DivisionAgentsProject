@@ -22,6 +22,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -98,6 +99,7 @@ public class ShareFragment extends Fragment {
     private int[] typet = new int[13]; //돌격소총, 소총 등 드랍된 아이템 갯수를 저장할 배열 변수 생성
 
     private boolean one_time = false; //현재 사용하지 않는 변수
+    private boolean isBtnDown;
 
     private Handler handler; //UI 변경시 사용할 핸들러
     private NotificationChannel channel = null; //알림때 필요한 채널
@@ -116,11 +118,12 @@ public class ShareFragment extends Fragment {
 
     private TextView txtInfo = null; //이송 상태를 알려준다.
     private ProgressBar progressTimer = null; //이송 진행률을 진행바로 보여준다.
-    private Button btnNowOutput = null; //가방 이송헬기에 걸 때 사용하는 버튼
+    //private Button btnNowOutput = null; //가방 이송헬기에 걸 때 사용하는 버튼
+    private ProgressBar processOutput = null;
     private TextView txtTimer = null; //이송 진행률을 숫자로 표현해준다.
 
     private RadioGroup rgDifficulty; //난이도 그룹
-    private RadioButton[] rdoDiff = new RadioButton[4]; //난이도 버튼 목록 (스토리/보통, 어려움, 매우어려움, 영웅)
+    private RadioButton[] rdoDiff = new RadioButton[5]; //난이도 버튼 목록 (스토리/보통, 어려움, 매우어려움, 영웅)
     private int bonus = 0, option_bonus = 0; //난이도별 추가 드랍률, 난이도별 장비 추가 보너스 옵션
 
     private String[] item_name = new String[50]; //얻었던 아이템을 50개까지 저장
@@ -167,7 +170,8 @@ public class ShareFragment extends Fragment {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                btnNowOutput.setEnabled(true); //이송이 도착한 후엔 다크존 가방을 이송 헬기에 걸 수 있도록 해준다.
+                //btnNowOutput.setEnabled(true); //이송이 도착한 후엔 다크존 가방을 이송 헬기에 걸 수 있도록 해준다.
+                activate = true;
                 txtInfo.setText("이송 완료까지 남은 시간"); //이송 상태를 업데이트한다.
             }
         });
@@ -246,9 +250,6 @@ public class ShareFragment extends Fragment {
         itemLayout.setBackgroundResource(R.drawable.rareitem);
         itemLayout.setOrientation(LinearLayout.HORIZONTAL);
         itemLayout.setPadding(10, 10, 10, 10);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 250);
-        layoutParams.bottomMargin = 15;
-        itemLayout.setLayoutParams(layoutParams);
         itemLayout.setGravity(Gravity.CENTER);
 
         ImageView imgView = new ImageView(getActivity());
@@ -405,16 +406,24 @@ public class ShareFragment extends Fragment {
         infoLayout.setLayoutParams(infoParam);
 
         TextView nameView = new TextView(getActivity());
-        nameView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        /*LinearLayout.LayoutParams nameParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        nameView.setLayoutParams(nameParam);*/
         nameView.setText(spannableString);
         nameView.setTextSize(25);
         nameView.setTextColor(Color.parseColor("#f0f0f0"));
 
         TextView typeView = new TextView(getActivity());
-        typeView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        /*LinearLayout.LayoutParams typeParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        typeView.setLayoutParams(typeParam);*/
         typeView.setText(type);
         typeView.setTextSize(18);
         typeView.setTextColor(Color.parseColor("#888888"));
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        //layoutParams.height = nameParam.height+typeParam.height;
+        layoutParams.height = 200;
+        layoutParams.bottomMargin = 15;
+        itemLayout.setLayoutParams(layoutParams);
 
         infoLayout.addView(nameView);
         infoLayout.addView(typeView);
@@ -483,6 +492,75 @@ public class ShareFragment extends Fragment {
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+
+    private boolean activate = false;
+
+    public Handler touchHandler = new Handler() {
+        public void handlerMessage(Message msg) {
+            Log.d("ShareFragment", "click");
+        }
+    };
+
+    private class TouchThread extends Thread {
+
+        int process = 0;
+
+        @Override
+        public void run() {
+            super.run();
+            while(isBtnDown) {
+                touchHandler.sendEmptyMessage(9876);
+
+                if (process >= 5000) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            output();
+                        }
+                    });
+                    break;
+                }
+
+                process += 10;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        processOutput.setProgress(process);
+                    }
+                });
+
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    processOutput.setProgress(0);
+                }
+            });
+        }
+    }
+
+    public void onBtnDown() {
+        TouchThread tt = new TouchThread();
+        tt.start();
+    }
+
+    public void output() {
+        activate = false;
+        darkitem = 0; //다크존 아이템을 초기화한다.
+        btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+        btnOutput.setText("이송하기 ("+darkitem+"/10)");
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.mainActivity(), "헬기에 이송물을 걸었습니다.", Toast.LENGTH_SHORT).show(); //토스트를 통해 이송물을 걸었다는 것을 알려준다.
+            }
+        });
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -602,6 +680,8 @@ public class ShareFragment extends Fragment {
         난이도 UI 객체에 아이디를 찾아 대입
          */
 
+        btnLastBoss.setEnabled(false);
+
         rgDifficulty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) { //난이도를 선택할 때마다 작동
@@ -619,8 +699,36 @@ public class ShareFragment extends Fragment {
                         option_bonus = 50;
                         break;
                     case R.id.rdoDif4: //영웅
+                    case R.id.rdoDif5: //전설
                         bonus = 15;
                         option_bonus = 70;
+                        break;
+                }
+                switch (checkedId) {
+                    case R.id.rdoDif1:
+                    case R.id.rdoDif2:
+                    case R.id.rdoDif3:
+                    case R.id.rdoDif4:
+                        btnLastBoss.setEnabled(false);
+                        btnLitezone.setEnabled(true);
+                        btnDarkzone.setEnabled(true);
+                        btnRaid.setEnabled(true);
+                        btnRaidbox.setEnabled(true);
+                        btnTruesun.setEnabled(true);
+                        btnDragov.setEnabled(true);
+                        btnBox.setEnabled(true);
+                        btnNewYork.setEnabled(true);
+                        break;
+                    case R.id.rdoDif5:
+                        btnLastBoss.setEnabled(true);
+                        btnLitezone.setEnabled(false);
+                        btnDarkzone.setEnabled(false);
+                        btnRaid.setEnabled(false);
+                        btnRaidbox.setEnabled(false);
+                        btnTruesun.setEnabled(false);
+                        btnDragov.setEnabled(false);
+                        btnBox.setEnabled(false);
+                        btnNewYork.setEnabled(false);
                         break;
                 }
             }
@@ -857,7 +965,7 @@ public class ShareFragment extends Fragment {
             }
         });
 
-        btnOutput.setOnClickListener(new View.OnClickListener() { //이송하는 버튼
+        btnOutput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (darkitem != 0) { //다크존 아이템이 하나도 없을 경우
@@ -880,20 +988,41 @@ public class ShareFragment extends Fragment {
 
                     txtInfo = dialogView_timer.findViewById(R.id.txtInfo); //현재 이송 상태를 알려준다.
                     progressTimer = dialogView_timer.findViewById(R.id.progressTimer); //타이머 진행도를 알려준다.
-                    btnNowOutput = dialogView_timer.findViewById(R.id.btnNowOutput); //이송헬기에 가방을 걸 버튼이다.
+                    //btnNowOutput = dialogView_timer.findViewById(R.id.btnNowOutput); //이송헬기에 가방을 걸 버튼이다.
+                    processOutput = dialogView_timer.findViewById(R.id.progressOutput);
                     txtTimer = dialogView_timer.findViewById(R.id.txtTimer); //남은 시간을 나타낸다.
+            /*btnNowOutput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { //가방을 거는 버튼을 눌렀을 경우
+                    darkitem = 0; //다크존 아이템을 초기화한다.
+                    btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
+                    btnOutput.setText("이송하기 ("+darkitem+"/10)");
+                    Toast.makeText(getActivity(), "헬기에 이송물을 걸었습니다.", Toast.LENGTH_SHORT).show(); //토스트를 통해 이송물을 걸었다는 것을 알려준다.
+                    btnNowOutput.setEnabled(false); //이송물 걸기 버튼을 비활성화시킨다.
+                }
+            });*/
+                    processOutput.setMax(5000);
+                    processOutput.setProgress(0);
+                    processOutput.setClickable(true);
 
-                    btnNowOutput.setOnClickListener(new View.OnClickListener() {
+                    processOutput.setOnTouchListener(new View.OnTouchListener() {
                         @Override
-                        public void onClick(View v) { //가방을 거는 버튼을 눌렀을 경우
-                            darkitem = 0; //다크존 아이템을 초기화한다.
-                            btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
-                            btnOutput.setText("이송하기 ("+darkitem+"/10)");
-                            /*
-                            기타 버튼들에게도 업데이트한다.
-                             */
-                            Toast.makeText(getActivity(), "헬기에 이송물을 걸었습니다.", Toast.LENGTH_SHORT).show(); //토스트를 통해 이송물을 걸었다는 것을 알려준다.
-                            btnNowOutput.setEnabled(false); //이송물 걸기 버튼을 비활성화시킨다.
+                        public boolean onTouch(View v, MotionEvent event) {
+                            switch (event.getAction()) {
+                                case MotionEvent.ACTION_DOWN:
+                                    if (activate) {
+                                        isBtnDown = true;
+                                        onBtnDown();
+                                    } else Toast.makeText(MainActivity.mainActivity(), "이송물을 부착하였거나 이송헬기가 도착하지 않았습니다.", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    isBtnDown = false;
+                                    processOutput.setProgress(0);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return false;
                         }
                     });
 
@@ -925,7 +1054,7 @@ public class ShareFragment extends Fragment {
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
                                     .setSound(null)
                                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
-                            ;
+                                    ;
 
                             notificationManager.notify(0, buildert.build()); //새로운 알림을 띄운다.
                         }
@@ -962,7 +1091,7 @@ public class ShareFragment extends Fragment {
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT) //중요도 기본
                                     .setSound(null)
                                     .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
-                            ;
+                                    ;
 
                             notificationManager.notify(0, buildert.build()); //새로운 알림을 띄운다.
                         }
@@ -974,6 +1103,8 @@ public class ShareFragment extends Fragment {
                             output_dz.stopThread();
                             output_dz.setRogue(true);
                             coming_dz.setRogue(true);
+                            isBtnDown = false;
+                            activate = false;
                             /*
                             스레드들을 종료
                              */
@@ -991,7 +1122,7 @@ public class ShareFragment extends Fragment {
                     //1분 타이머를 설정
 
                     coming_dz.setRoguePercent(1);
-                    output_dz.setRoguePercent(2);
+                    output_dz.setRoguePercent(1);
                     /*
                     헬기 도착 전 스레드에서 로그 등장 빈도를 1%로 설정 (1초마다)
                     헬기 도착 후 스레드에서 로그 등장 빈도를 2%로 설정
@@ -1013,6 +1144,8 @@ public class ShareFragment extends Fragment {
                 }
             }
         });
+
+
 
         btnTruesun.setOnClickListener(new View.OnClickListener() {
             @Override

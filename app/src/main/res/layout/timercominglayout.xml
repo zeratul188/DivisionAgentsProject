@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -50,7 +51,20 @@
             android:textSize="20sp"
             android:textColor="#f0f0f0"/>
     </LinearLayout>
-    <Button
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar_progressbar_output"
+        android:background="@drawable/darkbackpack"
+        android:id="@+id/progressOutput"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="3dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="#E45435"/>
+    <!--<Button
         android:id="@+id/btnNowOutput"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -60,6 +74,6 @@
         android:textSize="25sp"
         android:padding="10dp"
         android:layout_marginTop="20dp"
-        android:enabled="false"/>
+        android:enabled="false"/>-->
 
 </LinearLayout>

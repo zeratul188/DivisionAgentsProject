@@ -111,6 +111,16 @@
                                     android:drawablePadding="10dp"
                                     android:textSize="20sp"
                                     android:textColor="#f0f0f0"/>
+                                <RadioButton
+                                    android:id="@+id/rdoDif5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:buttonTint="#fe6e0e"
+                                    android:text="전설"
+                                    android:drawableLeft="@drawable/difficulty5"
+                                    android:drawablePadding="10dp"
+                                    android:textSize="20sp"
+                                    android:textColor="#f0f0f0"/>
                             </RadioGroup>
                         </LinearLayout>
                     </HorizontalScrollView>
