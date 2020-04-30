@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
@@ -22,6 +22,11 @@ public class Weapon1Activity extends AppCompatActivity {
         setContentView(R.layout.weapon1layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("돌격소총");
+
+        /*ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.trans));
+        actionBar.setStackedBackgroundDrawable(getResources().getDrawable(R.drawable.trans));*/
+
 
         int temp;
         for (int i = 0; i < btnWP.length; i++) {

@@ -332,7 +332,11 @@
                                         android:layout_width="125dp"
                                         android:layout_height="125dp"
                                         app:style="solid_line"
-                                        app:progress_stroke_width="5dp"
+                                        app:progress_stroke_width="2dp"
+                                        app:progress_start_color="#ff6337"
+                                        app:progress_end_color="#ff6337"
+                                        app:progress_background_color="#444444"
+                                        app:progress_text_color="#888888"
                                         app:progress_text_size="30sp" />
                                 </LinearLayout>
                                 <LinearLayout
@@ -346,7 +350,11 @@
                                         android:layout_width="125dp"
                                         android:layout_height="125dp"
                                         app:style="solid_line"
-                                        app:progress_stroke_width="5dp"
+                                        app:progress_stroke_width="2dp"
+                                        app:progress_start_color="#ff6337"
+                                        app:progress_end_color="#ff6337"
+                                        app:progress_background_color="#444444"
+                                        app:progress_text_color="#888888"
                                         app:progress_text_size="30sp"/>
                                 </LinearLayout>
                             </TableRow>
@@ -397,7 +405,11 @@
                                         android:layout_width="125dp"
                                         android:layout_height="125dp"
                                         app:style="solid_line"
-                                        app:progress_stroke_width="5dp"
+                                        app:progress_stroke_width="2dp"
+                                        app:progress_start_color="#ff6337"
+                                        app:progress_end_color="#ff6337"
+                                        app:progress_background_color="#444444"
+                                        app:progress_text_color="#888888"
                                         app:progress_text_size="30sp" />
                                 </LinearLayout>
                                 <LinearLayout
@@ -411,7 +423,11 @@
                                         android:layout_width="125dp"
                                         android:layout_height="125dp"
                                         app:style="solid_line"
-                                        app:progress_stroke_width="5dp"
+                                        app:progress_stroke_width="2dp"
+                                        app:progress_start_color="#ff6337"
+                                        app:progress_end_color="#ff6337"
+                                        app:progress_background_color="#444444"
+                                        app:progress_text_color="#888888"
                                         app:progress_text_size="30sp"/>
                                 </LinearLayout>
                             </TableRow>

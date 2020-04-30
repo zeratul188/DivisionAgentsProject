@@ -7,12 +7,16 @@
     android:background="#222222">
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/progressReset"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         app:style="solid_line"
-        app:progress_stroke_width="5dp"
+        app:progress_stroke_width="2dp"
         app:progress_text_size="30sp"
+        app:progress_start_color="#ff6337"
+        app:progress_end_color="#ff6337"
+        app:progress_background_color="#444444"
+        app:progress_text_color="#888888"
         android:layout_marginBottom="40dp"
         android:layout_marginTop="40dp"/>
     <Button

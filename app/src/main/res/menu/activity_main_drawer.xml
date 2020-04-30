@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="데미지 시뮬레이션" />
+            android:title="전투 시뮬레이션" />
         <item
             android:id="@+id/nav_gallery"
             android:title="무기 정보" />
