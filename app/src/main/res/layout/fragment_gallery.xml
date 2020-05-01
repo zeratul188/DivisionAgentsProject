@@ -45,7 +45,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp1custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -58,7 +58,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp2custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -71,7 +71,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp3custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -84,7 +84,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp4custom"
                     android:drawablePadding="50dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -97,7 +97,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp5custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -110,7 +110,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp6custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -123,7 +123,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp7custom"
                     android:drawablePadding="50dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
 
@@ -139,7 +139,7 @@
                             android:text="돌격소총"
                             android:textSize="20sp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/rareclickcustom"
+                            android:background="@drawable/buttoncustom"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -237,7 +237,7 @@
                     android:textAlignment="textStart"
                     android:drawableLeft="@drawable/wp6custom"
                     android:drawablePadding="30dp"
-                    android:background="@drawable/rareclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="5dp"/>
                 <Button
@@ -247,7 +247,7 @@
                     android:text="네임드 무기"
                     android:textSize="20sp"
                     android:textColor="#aaaaaa"
-                    android:background="@drawable/veterangclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"/>
                 <Button
                     android:id="@+id/btnWeapon10"
@@ -256,7 +256,7 @@
                     android:text="특수효과"
                     android:textSize="20sp"
                     android:textColor="#aaaaaa"
-                    android:background="@drawable/veterangclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="20dp"/>
 
             </LinearLayout>

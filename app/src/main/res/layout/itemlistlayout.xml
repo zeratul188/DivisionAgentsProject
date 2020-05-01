@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#222222">
+    android:background="#222222" android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <LinearLayout
             android:id="@+id/layoutItemList"
             android:layout_width="match_parent"
@@ -14,20 +14,20 @@
             android:orientation="vertical"
             android:padding="10dp">
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/btnExit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="닫기"
-            android:textSize="20sp"
-            android:padding="10dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:textColor="#aaaaaa"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/buttoncustom"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="닫기"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textColor="#aaaaaa"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttoncustom"/>
 
-</ScrollView>
+</LinearLayout>

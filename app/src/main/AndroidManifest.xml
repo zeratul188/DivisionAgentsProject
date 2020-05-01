@@ -23,8 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.home.DemageSimulationActivity"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.home.SimulActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait"></activity>
@@ -199,8 +197,6 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".ui.slideshow.SheldOption2Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.slideshow.SheldOption3Activity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.slideshow.SheldOption4Activity"
             android:screenOrientation="portrait"></activity>

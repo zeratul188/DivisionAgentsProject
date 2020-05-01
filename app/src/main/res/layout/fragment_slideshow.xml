@@ -2359,7 +2359,7 @@
                     android:text="네임드 보호장구"
                     android:textSize="20sp"
                     android:textColor="#aaaaaa"
-                    android:background="@drawable/veterangclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"/>
                 <Button
                     android:id="@+id/btnSheldoption2"
@@ -2368,7 +2368,7 @@
                     android:text="특수 장비"
                     android:textSize="20sp"
                     android:textColor="#aaaaaa"
-                    android:background="@drawable/veterangclickcustom"
+                    android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="20dp"/>
 
                 <!--<TableLayout
