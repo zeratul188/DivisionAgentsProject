@@ -360,36 +360,47 @@
                             </TableRow>
                             <TableRow
                                 android:layout_marginBottom="15dp">
-                                <TextView
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="특급 : "
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"
+                                        android:textAlignment="textEnd"/>
+                                    <TextView
+                                        android:id="@+id/txtSpecial"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"/>
+                                </LinearLayout>
+                                <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:text="특급 : "
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"
-                                    android:textAlignment="textEnd"/>
-                                <TextView
-                                    android:id="@+id/txtSpecial"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="0"
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"/>
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:text="네임드 : "
-                                    android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
-                                    android:textAlignment="textEnd"/>
-                                <TextView
-                                    android:id="@+id/txtNamed"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="0"
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="네임드 : "
+                                        android:textColor="#aaaaaa"
+                                        android:textSize="20sp"
+                                        android:textAlignment="textEnd"/>
+                                    <TextView
+                                        android:id="@+id/txtNamed"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"/>
+                                </LinearLayout>
                             </TableRow>
                             <TableRow
                                 android:gravity="center"
@@ -433,41 +444,53 @@
                             </TableRow>
                             <TableRow
                                 android:layout_marginBottom="15dp">
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:text="기어 장비 : "
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"
-                                    android:textAlignment="textEnd"/>
-                                <TextView
-                                    android:id="@+id/txtGear"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="0"
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"/>
-                                <TextView
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="기어 장비 : "
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"
+                                        android:textAlignment="textEnd"/>
+                                    <TextView
+                                        android:id="@+id/txtGear"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"/>
+                                </LinearLayout>
+                                <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:text="기타 장비 : "
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"
-                                    android:textAlignment="textEnd"/>
-                                <TextView
-                                    android:id="@+id/txtBrand"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:text="0"
-                                    android:textSize="20sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:orientation="horizontal"
+                                    android:gravity="center">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="기타 장비 : "
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"
+                                        android:textAlignment="textEnd"/>
+                                    <TextView
+                                        android:id="@+id/txtBrand"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textColor="#aaaaaa"/>
+                                </LinearLayout>
                             </TableRow>
-                            <TableRow>
+                            <TableRow
+                                android:gravity="center">
                                 <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="전체 나온 갯수 : "
                                     android:textSize="20sp"
@@ -475,8 +498,8 @@
                                     android:textAlignment="textEnd"/>
                                 <TextView
                                     android:id="@+id/txtAll"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="20sp"
                                     android:textColor="#aaaaaa"/>

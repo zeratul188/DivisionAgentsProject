@@ -81,11 +81,11 @@ class DarkZoneTimerThread extends Thread {
                 }
             }
 
-            if (input_rogue && randomRogue(1, 100) <= 10) { //1~100까지 램던 난수가 5 이하가 되면 작동한다. (로그 등장 이후)
+            if (input_rogue && randomRogue(1, 100) <= 5) { //1~100까지 램던 난수가 5 이하가 되면 작동한다. (로그 등장 이후)
                 sf.deleteDZitem(); //다크존 아이템 초기화
                 rogue = true; //로그 탈취를 참으로 변경
             }
-            if ((randomRogue(1, 100) <= rogue_percent) && !input_rogue) { //위와 동일한 방식 (로그 등장 이전)
+            if ((randomRogue(1, 1000) <= rogue_percent) && !input_rogue) { //위와 동일한 방식 (로그 등장 이전)
                 input_rogue = true; //로그 등장 여부를 참으로 변경
                 handler.post(new Runnable() {
                     @Override

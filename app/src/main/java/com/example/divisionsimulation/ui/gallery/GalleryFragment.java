@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,9 @@ public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 
-    private Button[] btnWeapon = new Button[10]; //각 메뉴들의 버튼 배열로 10개 정리
+    //private Button[] btnWeapon = new Button[10]; //각 메뉴들의 버튼 배열로 10개 정리
+    private LinearLayout[] btnWeapon = new LinearLayout[8];
+    private Button[] btnMenu = new Button[2];
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +38,11 @@ public class GalleryFragment extends Fragment {
         int temp;
         for (int i = 0; i < btnWeapon.length; i++) {
             temp = root.getResources().getIdentifier("btnWeapon"+(i+1), "id", getActivity().getPackageName()); //btnWeapon? 아이디를 temp 변수에 저장
-            btnWeapon[i] = (Button)root.findViewById(temp); //btnWeapon에 배열마다 아이디가 temp인 뷰를 찾아서 넣는다.
+            btnWeapon[i] = root.findViewById(temp); //btnWeapon에 배열마다 아이디가 temp인 뷰를 찾아서 넣는다.
+        }
+        for (int i = 0; i < btnMenu.length; i++) {
+            temp = root.getResources().getIdentifier("btnMenu"+(i+1), "id", getActivity().getPackageName());
+            btnMenu[i] = root.findViewById(temp);
         }
 
         btnWeapon[0].setOnClickListener(new View.OnClickListener() {
@@ -94,14 +101,14 @@ public class GalleryFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        btnWeapon[8].setOnClickListener(new View.OnClickListener() {
+        btnMenu[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
                 Intent intent = new Intent(getActivity(), Weapon9Activity.class);
                 startActivity(intent);
             }
         });
-        btnWeapon[9].setOnClickListener(new View.OnClickListener() {
+        btnMenu[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
                 Intent intent = new Intent(getActivity(), Weapon10Activity.class);
