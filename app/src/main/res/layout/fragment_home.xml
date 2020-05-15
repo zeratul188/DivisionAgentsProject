@@ -33,7 +33,7 @@
             android:orientation="vertical"
             android:layout_marginTop="?attr/actionBarSize"
             android:padding="10dp">
-            <TextView
+            <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="전투 시뮬레이션"
@@ -41,7 +41,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
-                android:textColor="#aaaaaa"/>
+                android:textColor="#aaaaaa"/>-->
 
             <ScrollView
                 android:layout_width="match_parent"
