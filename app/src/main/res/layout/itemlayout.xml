@@ -233,7 +233,8 @@
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtSMain"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="+170000 방어구"
                 android:drawablePadding="10dp"
@@ -275,7 +276,8 @@
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtSSub1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="+10% 스킬 가속"
                 android:layout_marginBottom="5dp"
@@ -310,7 +312,8 @@
                 android:textAlignment="textEnd"/>
             <TextView
                 android:id="@+id/txtSSub2"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="+6% 치명타 확률"
                 android:layout_marginBottom="5dp"
