@@ -18,7 +18,6 @@ public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 
-    //private Button[] btnWeapon = new Button[10]; //각 메뉴들의 버튼 배열로 10개 정리
     private LinearLayout[] btnWeapon = new LinearLayout[8];
     private Button[] btnMenu = new Button[2];
 
@@ -27,13 +26,6 @@ public class GalleryFragment extends Fragment {
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
         int temp;
         for (int i = 0; i < btnWeapon.length; i++) {
@@ -48,49 +40,56 @@ public class GalleryFragment extends Fragment {
         btnWeapon[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //각 버튼마다 다른 화면을 출력하기 위해서 이벤트 처리
-                Intent intent = new Intent(getActivity(), Weapon1Activity.class); //intent에 현재 화면에 Weapon1Activity를 새로운 화면에 출력시키는 변수다.
+                Intent intent = new Intent(getActivity(), WeaponActivity.class); //intent에 현재 화면에 Weapon1Activity를 새로운 화면에 출력시키는 변수다.
+                intent.putExtra("Type", "돌격소총");
                 startActivity(intent); //intent 액티비티를 시작시킨다.
             }
         });
         btnWeapon[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon2Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "소총");
                 startActivity(intent);
             }
         });
         btnWeapon[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon3Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "지정사수소총");
                 startActivity(intent);
             }
         });
         btnWeapon[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon4Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "기관단총");
                 startActivity(intent);
             }
         });
         btnWeapon[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon5Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "경기관총");
                 startActivity(intent);
             }
         });
         btnWeapon[5].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon6Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "산탄총");
                 startActivity(intent);
             }
         });
         btnWeapon[6].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon7Activity.class);
+                Intent intent = new Intent(getActivity(), WeaponActivity.class);
+                intent.putExtra("Type", "권총");
                 startActivity(intent);
             }
         });

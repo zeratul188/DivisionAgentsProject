@@ -9,19 +9,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.R;
-import com.example.divisionsimulation.ui.gallery.Weapon1List10Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List11Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List12Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List13Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List1Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List2Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List3Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List4Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List5Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List6Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List7Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List8Activity;
-import com.example.divisionsimulation.ui.gallery.Weapon1List9Activity;
 
 public class BlacktuskListActivity extends AppCompatActivity {
 
