@@ -2,11 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/layoutclickcustom"
-    android:layout_marginBottom="10dp"
-    android:paddingLeft="5dp"
+    android:background="@drawable/weaponitemcustom"
     android:gravity="center"
+    android:padding="0dp"
     android:orientation="horizontal">
+    <View
+        android:layout_width="7dp"
+        android:layout_height="match_parent"
+        android:background="#fe6e0e"/>
     <ImageView
         android:id="@+id/imgWeaponType"
         android:layout_width="60dp"
