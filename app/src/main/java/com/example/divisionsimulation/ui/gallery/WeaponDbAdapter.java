@@ -32,7 +32,7 @@ public class WeaponDbAdapter {
             +"MODE text, VARIATION text, TYPE text not null, "
             +"CONTENT text);";
 
-    private static final String DATABASE_NAME = "DIVISION";
+    private static final String DATABASE_NAME = "DIVISION_WEAPON";
     private static final String DATABASE_TABLE = "WEAPON";
     private static final int DATABASE_VERSION = 2;
     private final Context mCtx;

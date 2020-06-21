@@ -35,42 +35,46 @@ public class Weapon9Activity extends AppCompatActivity {
         this.adapterDB = new NamedWeaponDbAdapter(this);
         copyExcelDataToDatabase();
 
-        adapterDB.open();
+        try {
+            adapterDB.open();
 
-        Cursor cursor;
-        View view;
-        cursor = adapterDB.fetchAllWeapon();
-        cursor.moveToFirst();
+            Cursor cursor;
+            View view;
+            cursor = adapterDB.fetchAllWeapon();
+            cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()) {
-            String name = cursor.getString(1);
-            String weapon = cursor.getString(2);
-            String talent = cursor.getString(3);
-            String location = cursor.getString(4);
-            String content = cursor.getString(5);
-            cursor.moveToNext();
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(1);
+                String weapon = cursor.getString(2);
+                String talent = cursor.getString(3);
+                String location = cursor.getString(4);
+                String content = cursor.getString(5);
+                cursor.moveToNext();
 
-            view = getLayoutInflater().inflate(R.layout.nameditem, null);
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            param.bottomMargin = 20;
-            view.setLayoutParams(param);
+                view = getLayoutInflater().inflate(R.layout.nameditem, null);
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                param.bottomMargin = 50;
+                view.setLayoutParams(param);
 
-            final TextView txtName = view.findViewById(R.id.txtName);
-            final TextView txtWeapon = view.findViewById(R.id.txtWeapon);
-            final TextView txtLocation = view.findViewById(R.id.txtLocation);
-            final TextView txtTalent = view.findViewById(R.id.txtTalent);
-            final TextView txtContent = view.findViewById(R.id.txtContent);
+                final TextView txtName = view.findViewById(R.id.txtName);
+                final TextView txtWeapon = view.findViewById(R.id.txtWeapon);
+                final TextView txtLocation = view.findViewById(R.id.txtLocation);
+                final TextView txtTalent = view.findViewById(R.id.txtTalent);
+                final TextView txtContent = view.findViewById(R.id.txtContent);
 
-            txtName.setText(name);
-            txtWeapon.setText(weapon);
-            txtLocation.setText(location);
-            txtTalent.setText(talent);
-            txtContent.setText(content);
+                txtName.setText(name);
+                txtWeapon.setText(weapon);
+                txtLocation.setText(location);
+                txtTalent.setText(talent);
+                txtContent.setText(content);
 
-            mainLayout.addView(view);
+                mainLayout.addView(view);
+            }
+
+            adapterDB.close();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
         }
-
-        adapterDB.close();
     }
 
     @Override

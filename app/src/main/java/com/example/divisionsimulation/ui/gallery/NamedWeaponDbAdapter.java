@@ -22,7 +22,7 @@ public class NamedWeaponDbAdapter {
             +"NAME text not null, WEAPON text not null, "
             +"TALENT text, LOCATION text, CONTENT text);";
 
-    private static final String DATABASE_NAME = "DIVISION";
+    private static final String DATABASE_NAME = "DIVISION_NAMED_WEAPON";
     private static final String DATABASE_TABLE = "NAMEDWEAPON";
     private static final int DATABASE_VERSION = 2;
     private final Context mCtx;
