@@ -62,7 +62,7 @@ public class WeaponActivity extends AppCompatActivity {
             cursor.moveToNext();
             view = getLayoutInflater().inflate(R.layout.weaponitem, null);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 160);
-            param.bottomMargin = 20;
+            param.bottomMargin = 50;
             view.setLayoutParams(param);
 
             final TextView txtName = view.findViewById(R.id.txtName);
