@@ -73,7 +73,7 @@ public class Weapon9Activity extends AppCompatActivity {
 
             adapterDB.close();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 
