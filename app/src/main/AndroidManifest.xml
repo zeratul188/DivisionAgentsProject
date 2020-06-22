@@ -153,6 +153,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.WeaponListActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.gallery.WeaponExoticListActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

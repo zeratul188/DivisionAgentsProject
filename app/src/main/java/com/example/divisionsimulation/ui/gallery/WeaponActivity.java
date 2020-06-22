@@ -58,7 +58,7 @@ public class WeaponActivity extends AppCompatActivity {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            name =cursor.getString(1);
+            name = cursor.getString(1);
             cursor.moveToNext();
             view = getLayoutInflater().inflate(R.layout.weaponitem, null);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 160);

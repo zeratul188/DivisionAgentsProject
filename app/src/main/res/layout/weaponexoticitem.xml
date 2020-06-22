@@ -9,7 +9,7 @@
     <View
         android:layout_width="7dp"
         android:layout_height="match_parent"
-        android:background="#fdae13"/>
+        android:background="#fe6e0e"/>
     <ImageView
         android:id="@+id/imgWeaponType"
         android:layout_width="60dp"
@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:text="경찰용 M4"
         android:textSize="30sp"
-        android:textColor="#aaaaaa"
+        android:textColor="#fe6e0e"
         android:layout_marginLeft="15dp"/>
 </LinearLayout>

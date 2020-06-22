@@ -216,12 +216,11 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/wp6custom"
-                                android:paddingRight="15dp"/>
+                                android:src="@drawable/exoticlogo"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="보조무기 산탄총"
+                                android:text="엑조틱 목록"
                                 android:textSize="20sp"
                                 android:textColor="#aaaaaa"/>
                         </LinearLayout>
