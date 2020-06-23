@@ -1,6 +1,5 @@
 package com.example.divisionsimulation.ui.slideshow;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,97 +19,65 @@ import java.io.InputStream;
 import jxl.Sheet;
 import jxl.Workbook;
 
-public class SheldOption2Activity extends AppCompatActivity {
+public class SheldTalentActivity extends AppCompatActivity {
     
     private LinearLayout mainLayout;
-    private NamedSheldDbAdapter namedAdapter;
+    private SheldTalentDbAdapter talentAdapter;
 
-    private int[] arrItem = {R.drawable.mask, R.drawable.vests, R.drawable.holsters, R.drawable.backpack, R.drawable.gloves, R.drawable.kneepeds};
-    // 0 : 마스크
-    // 1 : 조끼
-    // 2 : 권총집
-    // 3 : 백팩
-    // 4 : 장갑
-    // 5 : 무릎 보호대
+    private int[] arrItem = {R.drawable.vests, R.drawable.backpack};
+    private String[] arrNames = {"조끼", "백팩"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sheldoptionlayout2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("네임드 보호장구");
+        setTitle("특수 효과");
 
         mainLayout = findViewById(R.id.mainLayout);
 
-        this.namedAdapter = new NamedSheldDbAdapter(this);
+        this.talentAdapter = new SheldTalentDbAdapter(this);
         copyExcelDataToDatabase();
 
         try {
-            namedAdapter.open();
+            talentAdapter.open();
 
             Cursor cursor;
             View view;
-            cursor = namedAdapter.fetchAllWeapon();
+            cursor = talentAdapter.fetchAllWeapon();
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
                 String name = cursor.getString(1);
-                String brand = cursor.getString(2);
-                String talent = cursor.getString(3);
-                String content = cursor.getString(4);
-                String location = cursor.getString(5);
-                String type = cursor.getString(6);
+                String content = cursor.getString(2);
+                String type = cursor.getString(3);
                 cursor.moveToNext();
 
-                view = getLayoutInflater().inflate(R.layout.namedshelditem, null);
+                view = getLayoutInflater().inflate(R.layout.sheldtalentitem, null);
                 LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 param.bottomMargin = 50;
                 view.setLayoutParams(param);
 
                 final ImageView imgType = view.findViewById(R.id.imgType);
                 final TextView txtName = view.findViewById(R.id.txtName);
-                final TextView txtBrand = view.findViewById(R.id.txtBrand);
-                final TextView txtLocation = view.findViewById(R.id.txtLocation);
-                final TextView txtTalent = view.findViewById(R.id.txtTalent);
                 final TextView txtContent = view.findViewById(R.id.txtContent);
 
-                switch (type) {
-                    case "마스크":
-                        imgType.setImageResource(arrItem[0]);
-                        break;
-                    case "조끼":
-                        imgType.setImageResource(arrItem[1]);
-                        break;
-                    case "권총집":
-                        imgType.setImageResource(arrItem[2]);
-                        break;
-                    case "백팩":
-                        imgType.setImageResource(arrItem[3]);
-                        break;
-                    case "장갑":
-                        imgType.setImageResource(arrItem[4]);
-                        break;
-                    case "무릎 보호대":
-                        imgType.setImageResource(arrItem[5]);
-                        break;
-                    default :
-                        imgType.setImageResource(arrItem[0]);
-                }
-
                 txtName.setText(name);
-                txtBrand.setText(brand);
-                txtLocation.setText(location);
-                txtTalent.setText(talent);
-                if (content.equals("-")) txtContent.setVisibility(View.GONE);
-                else txtContent.setText(content);
+                txtContent.setText(content);
+                imgType.setImageResource(setImageResource(type));
 
                 mainLayout.addView(view);
             }
 
-            namedAdapter.close();
+            talentAdapter.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private int setImageResource(String type) {
+        for (int i = 0; i < arrNames.length; i++) if (type.equals(arrNames[i])) return arrItem[i];
+        return arrItem[0];
     }
 
     @Override
@@ -131,33 +98,30 @@ public class SheldOption2Activity extends AppCompatActivity {
         Sheet sheet = null;
 
         try {
-            InputStream is = getBaseContext().getResources().getAssets().open("namedsheld.xls");
+            InputStream is = getBaseContext().getResources().getAssets().open("sheldtalent.xls");
             workbook = Workbook.getWorkbook(is);
 
             if (workbook != null) {
                 sheet = workbook.getSheet(0);
                 if (sheet != null) {
-                    int nMaxColumn = 6;
+                    int nMaxColumn = 3;
                     int nRowStartIndex = 0;
                     int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                     int nColumnStartIndex = 0;
                     int nColumnEndIndex = sheet.getRow(1).length - 1;
 
-                    namedAdapter.open();
-                    namedAdapter.databaseReset();
+                    talentAdapter.open();
+                    talentAdapter.databaseReset();
 
                     for (int nRow = nRowStartIndex; nRow <= nRowEndIndex; nRow++) {
                         String name = sheet.getCell(nColumnStartIndex, nRow).getContents();
-                        String brand = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
-                        String talent = sheet.getCell(nColumnStartIndex+2, nRow).getContents();
-                        String content = sheet.getCell(nColumnStartIndex+3, nRow).getContents();
-                        String location = sheet.getCell(nColumnStartIndex+4, nRow).getContents();
-                        String type = sheet.getCell(nColumnStartIndex+5, nRow).getContents();
+                        String content = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
+                        String type = sheet.getCell(nColumnStartIndex+2, nRow).getContents();
 
-                        namedAdapter.createWeapon(name, brand, talent, content, location, type);
+                        talentAdapter.createWeapon(name, content, type);
                     }
 
-                    namedAdapter.close();
+                    talentAdapter.close();
                     //Toast.makeText(getApplicationContext(), "불러오기 성공", Toast.LENGTH_SHORT).show();
                 } else System.out.println("Sheet is null!!!");
             } else System.out.println("WorkBook is null!!!");

@@ -38,11 +38,7 @@
         <activity android:name=".ui.slideshow.SheldOption4Activity"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".ui.slideshow.SheldSpecial1Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.slideshow.SheldSpecial2Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.slideshow.SheldSpecial3Activity"
+        <activity android:name=".ui.slideshow.SheldExoticListActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".ui.tools.List1Activity"
@@ -154,6 +150,8 @@
         <activity android:name=".ui.gallery.WeaponListActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.WeaponExoticListActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.slideshow.SheldTalentActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".LoadingActivity"

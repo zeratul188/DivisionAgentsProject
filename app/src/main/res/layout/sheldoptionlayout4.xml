@@ -11,40 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <Button
-                android:id="@+id/btnWP1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="닷지 시티의 총잡이 권총집"
-                android:textSize="20sp"
-                android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
-                android:layout_marginBottom="20dp"/>
-            <Button
-                android:id="@+id/btnWP2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="BTSU 데이터 장갑"
-                android:textSize="20sp"
-                android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
-                android:layout_marginBottom="20dp"/>
-            <Button
-                android:id="@+id/btnWP3"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="소여의 무릎 보호대"
-                android:textSize="20sp"
-                android:textColor="#aaa"
-                android:background="@drawable/buttoncustom"
-                android:layout_marginBottom="20dp"/>
-
-        </LinearLayout>
+            android:padding="20dp"/>
     </ScrollView>
 
 </FrameLayout>

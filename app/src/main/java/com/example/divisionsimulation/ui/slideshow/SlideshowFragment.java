@@ -37,6 +37,7 @@ public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
     private Button[] btnSheldoption = new Button[2];
+    private Button btnTalent;
     private int temp;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,6 +47,7 @@ public class SlideshowFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
         
         mainLayout = root.findViewById(R.id.mainLayout);
+        btnTalent = root.findViewById(R.id.btnTalent);
 
         for (int i = 0; i < images.length; i++) images[i] = getActivity().getResources().getIdentifier("eq"+(i+1), "drawable", getActivity().getPackageName());
         
@@ -146,6 +148,13 @@ public class SlideshowFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SheldOption4Activity.class);
+                startActivity(intent);
+            }
+        });
+        btnTalent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SheldTalentActivity.class);
                 startActivity(intent);
             }
         });
