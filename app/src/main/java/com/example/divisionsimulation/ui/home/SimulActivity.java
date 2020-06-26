@@ -48,6 +48,8 @@ public class SimulActivity extends Activity implements Serializable {
 
     private boolean quick = false; //빠른 손 여부
 
+    private int type = 0;
+
     private static int health; //생명력 변수
     private static ImageView imgBoom, imgCritical, imgHeadshot; //치명타, 헤드샷, 무자비 폭발탄 이미지뷰
 
@@ -142,20 +144,6 @@ public class SimulActivity extends Activity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simullayout);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        /*int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
-        int newUiOptions = uiOptions;
-        boolean isImmersiveModeEnabled = ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
-        if (isImmersiveModeEnabled) {
-            Log.i("Is on?", "Turning immersive mode mode off. ");
-        } else {
-            Log.i("Is on?", "Turning immersive mode mode on.");
-        }
-        newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);*/
 
         getWindow().getDecorView().setSystemUiVisibility( //상단바, 소프트키를 보이지 않게 한다.
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
@@ -234,6 +222,8 @@ public class SimulActivity extends Activity implements Serializable {
         //TimeThread tt = new TimeThread();
         //tt.start();
 
+        type = getIntent().getIntExtra("type", 0);
+
         tt = (TimeThread) getIntent().getSerializableExtra("timethread"); //전 액티비티에서 생성했던 타이머 스레드를 가져와 현재 타이머 스레드 객체에 저장한다.
         tt.setSimulActivity(this); //시뮬액티비티를 현재 액티비티로 설정한다.
         tt.setHandler(handler); //핸들러를 설정한다.
@@ -246,12 +236,26 @@ public class SimulActivity extends Activity implements Serializable {
         else txtNickname.setText("표적"); //닉네임이 비었다면 기본값인 "표적"으로 설정한다.
 
         boolean elite_true = Boolean.parseBoolean(getIntent().getStringExtra("elite")); //정예 여부를 전 액티비티 정예 여부 체크여부를 통해 저장한다.
-        if (elite_true) { //표적이 정예대상이라면 적용된다. 정예 여부를 체크하게 되면 작동한다.
+        /*if (elite_true) { //표적이 정예대상이라면 적용된다. 정예 여부를 체크하게 되면 작동한다.
             progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
             txtHealth.setTextColor(Color.parseColor("#bdc900")); //생명력 텍스트 색상 변경
             txtHealthInfo.setTextColor(Color.parseColor("#bdc900")); //위와 동일한 방식
         }
-        else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health)); //생명력 진행도 이미지를 원래대로 되돌린다.
+        else progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health)); //생명력 진행도 이미지를 원래대로 되돌린다.*/
+
+        if (type == 3) {
+            progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
+            txtHealth.setTextColor(Color.parseColor("#bdc900")); //생명력 텍스트 색상 변경
+            txtHealthInfo.setTextColor(Color.parseColor("#bdc900")); //위와 동일한 방식
+        } else if (type == 2) {
+            progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_veterang)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
+            txtHealth.setTextColor(Color.parseColor("#A05BD5")); //생명력 텍스트 색상 변경
+            txtHealthInfo.setTextColor(Color.parseColor("#A05BD5")); //위와 동일한 방식
+        } else {
+            progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
+            txtHealth.setTextColor(Color.parseColor("#F15757")); //생명력 텍스트 색상 변경
+            txtHealthInfo.setTextColor(Color.parseColor("#F15757")); //위와 동일한 방식
+        }
 
         quick = Boolean.parseBoolean(getIntent().getStringExtra("quickhand")); //전 액티비티에서 빠른손 여부를 가져온다.
         if (quick) layoutQuickhand.setVisibility(View.VISIBLE); //빠른손이 적용되어 있으면 빠른손 UI를 보여준다.

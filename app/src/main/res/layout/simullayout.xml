@@ -135,7 +135,7 @@
                     android:text="생명력 : "
                     android:textSize="20sp"
                     android:fontFamily="@font/korea_font"
-                    android:textColor="#FF0000"
+                    android:textColor="#FFF15757"
                     android:textAlignment="textEnd"/>
                 <TextView
                     android:id="@+id/txtHealth"
@@ -145,7 +145,7 @@
                     android:text="10000000/10000000"
                     android:singleLine="true"
                     android:fontFamily="@font/brickshapersfont"
-                    android:textColor="#FF0000"
+                    android:textColor="#FFF15757"
                     android:textSize="35sp"/>
 
             </LinearLayout>

@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment implements Serializable {
 
     private boolean boom = false, quick_hand = false, bumerang_true = false, fire = false; //무자비 폭발탄, 빠른 손, 부메랑, 불꽃 여부
 
+    private int type = 0;
+
     private int crazy_dmg, seeker_dmg, push_dmg, eagle_dmg, front_dmg; //광분 데미지, 감시병 데미지, 중압감 치명타 데미지, 집념 데미지, 완벽한 근접전의 대가 데미지를 스레드로 보내기 위해 임시 저장하는 변수이다.
 
     private AlertDialog.Builder builder_error = null;
@@ -881,6 +883,9 @@ public class HomeFragment extends Fragment implements Serializable {
                         final RadioGroup rgPVP = dialogView.findViewById(R.id.rgPVP);
                         final RadioButton[] rdoPVP = new RadioButton[7];
 
+                        final RadioGroup rgType = dialogView.findViewById(R.id.rgType);
+                        final RadioButton[] rdoType = new RadioButton[3];
+
                         final Button btnCancel = dialogView.findViewById(R.id.btnCancel);
                         final Button btnPlay = dialogView.findViewById(R.id.btnPlay);
                         //레이아웃에 있는 view들을 가져온다.
@@ -889,6 +894,10 @@ public class HomeFragment extends Fragment implements Serializable {
                         for (int i = 0; i < rdoPVP.length; i++) {
                             temp_index = dialogView.getResources().getIdentifier("rdoPVP"+(i+1), "id", getActivity().getPackageName()); //규칙적으로 rdoPVP1, rdoPVP2 등 숫자만 바뀌므로 배열을 사용하여 view를 가져와 임시 변수에 주소를 넣는다.
                             rdoPVP[i] = dialogView.findViewById(temp_index); //임시로 담은 변수에 있는 주소를 통해 view에 저장한다.
+                        }
+                        for (int i = 0; i < rdoType.length; i++) {
+                            temp_index = dialogView.getResources().getIdentifier("rdoType"+(i+1), "id", getActivity().getPackageName());
+                            rdoType[i] = dialogView.findViewById(temp_index);
                         }
 
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //다이얼로그를 띄우는 객체이다.
@@ -932,15 +941,11 @@ public class HomeFragment extends Fragment implements Serializable {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (chkPVP.isChecked()) {
-                                    chkElite.setTextColor(Color.parseColor("#444444"));
                                     chkCluch.setTextColor(Color.parseColor("#f0f0f0"));
-                                    chkElite.setEnabled(false);
                                     chkCluch.setEnabled(true);
                                     layoutPVP.setVisibility(View.VISIBLE);
                                 } else {
-                                    chkElite.setTextColor(Color.parseColor("#f0f0f0"));
                                     chkCluch.setTextColor(Color.parseColor("#444444"));
-                                    chkElite.setEnabled(true);
                                     layoutPVP.setVisibility(View.GONE);
                                     rdoPVP[0].setChecked(true);
                                     if (chkCluch.isChecked()) {
@@ -948,19 +953,6 @@ public class HomeFragment extends Fragment implements Serializable {
                                         chkCluch.toggle();
                                     }
                                     chkCluch.setEnabled(false);
-                                }
-                            }
-                        });
-
-                        chkElite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked) {
-                                    chkPVP.setTextColor(Color.parseColor("#444444"));
-                                    chkPVP.setEnabled(false);
-                                } else {
-                                    chkPVP.setTextColor(Color.parseColor("#f0f0f0"));
-                                    chkPVP.setEnabled(true);
                                 }
                             }
                         });
@@ -1061,6 +1053,18 @@ public class HomeFragment extends Fragment implements Serializable {
                                                     //클러치 스레드를 생성한다. 입력한 값들도 자동으로 생성과 동시에 저장된다.
                                                 }
 
+                                                switch (rgType.getCheckedRadioButtonId()) {
+                                                    case R.id.rdoType1:
+                                                        type = 1; // 일반
+                                                        break;
+                                                    case R.id.rdoType2:
+                                                        type = 2; // 베테랑
+                                                        break;
+                                                    case R.id.rdoType3:
+                                                        type = 3; //정예
+                                                        break;
+                                                }
+
                                                 TimeThread tt = new TimeThread(); //시뮬 동안 타이머를 작동할 타이머 스레드를 생성한다.
 
                                                 Intent intent = new Intent(getActivity(), SimulActivity.class); //SimulActivity를 화면에 띄울 intent를 생성한다.
@@ -1071,6 +1075,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 intent.putExtra("nickname", String.valueOf(edtNickname.getText())); //입력한 닉네임을 다음 액티비티로 넘긴다.
                                                 intent.putExtra("elite", elite); //정예 여부를 다음 액티비티로 넘긴다.
                                                 intent.putExtra("quickhand", Boolean.toString(quick_hand)); //빠른 손 여부를 문자열로 변환하여 다음 액티비티로 넘긴다.
+                                                intent.putExtra("type", type);
 
                                                 startActivity(intent); //액티비티를 실행한다.
                                                 alertDialog.dismiss(); //할 일을 마친 다이얼로그는 닫는다.
