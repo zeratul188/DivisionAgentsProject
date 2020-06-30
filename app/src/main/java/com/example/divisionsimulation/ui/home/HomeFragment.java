@@ -67,13 +67,16 @@ public class HomeFragment extends Fragment implements Serializable {
     private LinearLayout layoutUndo, layoutAfter;
 
     private CheckBox chkFocus, chkPerfectFocus, chkScrifice, chkPerfectScrifice, chkSympathy, chkObel, chkWicked, chkCompanion, chkComposure;
-    private CheckBox chkUnstoppable, chkVersatile, chkVigilance, chkKiller, chkOptimist, chkPerfectOptimist;
+    private CheckBox chkUnstoppable, chkVersatile, chkVigilance, chkKiller, chkOptimist, chkPerfectOptimist, chkSadist, chkPerfectSadist, chkVindictive, chkPerfectVindictive;
+    private CheckBox chkRanger, chkPerfectRanger, chkRifleman, chkPerfectRifleman, chkLuckyShot, chkPerfectLuckyShot, chkPummel, chkUnhinged;
+    private CheckBox chkOverwhelm, chkPerfectOverwhelm, chkSync, chkDoubleSync, chkPerfectSync;
+    private EditText edtRanger;
     private Spinner spinnerFocus, spinnerSympathy, spinnerUnstoppable, spinnerVersatile;
     private String[] focus_items = new String[10];
     private String[] sympathy_items = new String[7];
     private String[] unstoppable_items = new String[5];
     private String[] versatile_items = {"산탄총/기관단총", "소총/지정사수소총", "돌격소총/경기관총"};
-    private int focus, scrifice, sympathy, intimidate, unstoppable, versatile;
+    private int focus, scrifice, sympathy, intimidate, unstoppable, versatile, sadist, vindictive, overwhelm, sync;
     private boolean perfect_optimist;
 
     private ArrayList<CheckBox> vestTalents;
@@ -282,9 +285,204 @@ public class HomeFragment extends Fragment implements Serializable {
         chkKiller = root.findViewById(R.id.chkKiller);
         chkOptimist = root.findViewById(R.id.chkOptimist);
         chkPerfectOptimist = root.findViewById(R.id.chkPerfectOptimist);
+        chkSadist = root.findViewById(R.id.chkSadist);
+        chkPerfectSadist = root.findViewById(R.id.chkPerfectSadist);
+        chkVindictive = root.findViewById(R.id.chkVindictive);
+        chkPerfectVindictive = root.findViewById(R.id.chkPerfectVindictive);
+        chkRanger = root.findViewById(R.id.chkRanger);
+        chkPerfectRanger = root.findViewById(R.id.chkPerfectRanger);
+        edtRanger = root.findViewById(R.id.edtRanger);
+        chkRifleman = root.findViewById(R.id.chkRifleman);
+        chkPerfectRifleman = root.findViewById(R.id.chkPerfectRifleman);
+        chkLuckyShot = root.findViewById(R.id.chkLuckyShot);
+        chkPerfectLuckyShot = root.findViewById(R.id.chkPerfectLuckyShot);
+        chkPummel = root.findViewById(R.id.chkPummel);
+        chkUnhinged = root.findViewById(R.id.chkUnhinged);
+        chkOverwhelm = root.findViewById(R.id.chkOverwhelm);
+        chkPerfectOverwhelm = root.findViewById(R.id.chkPerfectOverwhelm);
+        chkSync = root.findViewById(R.id.chkSync);
+        chkDoubleSync = root.findViewById(R.id.chkDoubleSync);
+        chkPerfectSync = root.findViewById(R.id.chkPerfectSync);
 
         weaponTalents.add(chkKiller);
         weaponTalents.add(chkOptimist);
+        weaponTalents.add(chkSadist);
+        weaponTalents.add(chkVindictive);
+        weaponTalents.add(chkRanger);
+        weaponTalents.add(chkRifleman);
+        weaponTalents.add(chkLuckyShot);
+        weaponTalents.add(chkPummel);
+        weaponTalents.add(chkUnhinged);
+        weaponTalents.add(chkOverwhelm);
+        weaponTalents.add(chkSync);
+
+        chkSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectSync.setVisibility(View.VISIBLE);
+                    chkDoubleSync.setVisibility(View.VISIBLE);
+                    sync = 15;
+                } else {
+                    chkPerfectSync.setVisibility(View.INVISIBLE);
+                    chkDoubleSync.setVisibility(View.INVISIBLE);
+                    chkPerfectSync.setChecked(false);
+                    chkDoubleSync.setChecked(false);
+                    sync = 0;
+                }
+                weaponActivate(buttonView);
+            }
+        });
+        chkPerfectSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) sync = 20;
+                else sync = 15;
+            }
+        });
+
+        chkOverwhelm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectOverwhelm.setVisibility(View.VISIBLE);
+                    overwhelm = 10;
+                } else {
+                    chkPerfectOverwhelm.setVisibility(View.INVISIBLE);
+                    chkPerfectOverwhelm.setChecked(false);
+                    overwhelm = 0;
+                }
+                weaponActivate(buttonView);
+            }
+        });
+        chkPerfectOverwhelm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) overwhelm = 12;
+                else overwhelm = 10;
+            }
+        });
+
+        chkUnhinged.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkPummel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkLuckyShot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectLuckyShot.setVisibility(View.VISIBLE);
+                } else {
+                    chkPerfectLuckyShot.setVisibility(View.INVISIBLE);
+                    chkPerfectLuckyShot.setChecked(false);
+                }
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkRifleman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectRifleman.setVisibility(View.VISIBLE);
+                } else {
+                    chkPerfectRifleman.setVisibility(View.INVISIBLE);
+                    chkPerfectRifleman.setChecked(false);
+                }
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkRanger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectRanger.setVisibility(View.VISIBLE);
+                    edtRanger.setVisibility(View.VISIBLE);
+                } else {
+                    chkPerfectRanger.setVisibility(View.INVISIBLE);
+                    chkPerfectRanger.setChecked(false);
+                    edtRanger.setVisibility(View.INVISIBLE);
+                    edtRanger.setText("");
+                }
+                weaponActivate(buttonView);
+            }
+        });
+        edtRanger.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!String.valueOf(edtRanger.getText()).equals("")) {
+                    if (Integer.parseInt(String.valueOf(edtRanger.getText())) > 200) {
+                        edtRanger.setText("");
+                        Toast.makeText(getActivity(), "200m를 넘길 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        chkVindictive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectVindictive.setVisibility(View.VISIBLE);
+                    vindictive = 15;
+                } else {
+                    chkPerfectVindictive.setVisibility(View.INVISIBLE);
+                    chkPerfectVindictive.setChecked(false);
+                    vindictive = 0;
+                }
+                weaponActivate(buttonView);
+            }
+        });
+        chkPerfectVindictive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) vindictive = 18;
+                else vindictive = 15;
+            }
+        });
+
+        chkSadist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectSadist.setVisibility(View.VISIBLE);
+                    sadist = 20;
+                } else {
+                    chkPerfectSadist.setVisibility(View.INVISIBLE);
+                    chkPerfectSadist.setChecked(false);
+                    sadist = 0;
+                }
+                weaponActivate(buttonView);
+            }
+        });
+        chkPerfectSadist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) sadist = 25;
+                else sadist = 20;
+            }
+        });
 
         chkOptimist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -1168,7 +1366,11 @@ public class HomeFragment extends Fragment implements Serializable {
                             (temp_reload.indexOf(".") == temp_reload.length()-1 && !temp_reload.equals("")) ||
                             (temp_aiming.indexOf(".") == temp_aiming.length()-1 && !temp_aiming.equals(""))) {
                         Toast.makeText(getActivity(), "입력했던 값들 중 끝에 .으로 끝나는 입력값이 있습니다. 확인 후 다시 시도해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-                    }*/ else { //필수 항목이 올바르게 입력되었을 경우 작동한다.
+                    }*/
+                    else if (chkRanger.isChecked() && String.valueOf(edtRanger.getText()).equals("")) {
+                        Toast.makeText(getActivity(), "레인저 거리를 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    else { //필수 항목이 올바르게 입력되었을 경우 작동한다.
                         switch (rgCrazy.getCheckedRadioButtonId()) {
                             case R.id.rdoCrazy1:
                                 crazy_dmg = 0; break; //방어도가 80~100일 경우
@@ -1435,6 +1637,16 @@ public class HomeFragment extends Fragment implements Serializable {
                                             if (chkKiller.isChecked()) ws.setKiller(50);
                                             ws.setOptimist(chkOptimist.isChecked());
                                             ws.setPerfectOptimist(chkPerfectOptimist.isChecked());
+                                            if (chkSadist.isChecked()) ws.setSadist(sadist);
+                                            if (chkVindictive.isChecked()) ws.setVindictive(vindictive);
+                                            if (chkRanger.isChecked()) ws.setRanger(Integer.parseInt(String.valueOf(edtRanger.getText())));
+                                            ws.setPerfectRanger(chkPerfectRanger.isChecked());
+                                            ws.setRifleman(chkRifleman.isChecked(), chkPerfectRifleman.isChecked());
+                                            ws.setLuckyShot(chkLuckyShot.isChecked(), chkPerfectLuckyShot.isChecked());
+                                            if (chkPummel.isChecked()) ws.setPummel(40);
+                                            if (chkUnhinged.isChecked()) ws.setUnhinged(18);
+                                            if (chkOverwhelm.isChecked()) ws.setOverwhelm(overwhelm);
+                                            if (chkSync.isChecked()) ws.setSync(sync, chkDoubleSync.isChecked());
 
                                             String elite = Boolean.toString(elite_true); //정예 여부를 문자열로 변환하여 임시 변수에 저장한다. 이후 다음 액티비티로 넘길 때 사용한다.
 

@@ -28,9 +28,9 @@ class DemageSimulThread extends Thread implements Serializable {
     private int hit_critical = 0, out_demage, all_dmg = 0; //빠른 손의 히트 수, 등등이다.
     private boolean[] options = null; //카멜레온의 하위 옵션 3개를 저장할 배열 변수이다.
     private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
-    private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0;
-    private int unstoppable = 0, versatile = 0, vigilance = 0;
-    private boolean focus_checked = false, optimist = false, perfect_optimist = false;
+    private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0, sadist = 0;
+    private int unstoppable = 0, versatile = 0, vigilance = 0, vindictive = 0, ranger = 0, pummel = 0, unhinged = 0, overwhelm = 0, sync = 0;
+    private boolean focus_checked = false, optimist = false, perfect_optimist = false, perfect_ranger = false, double_sync = false;
 
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
@@ -38,8 +38,8 @@ class DemageSimulThread extends Thread implements Serializable {
     private SimulActivity sa = null;
     private boolean hitted = false;
 
-    private boolean obel = false;
-    private int obel_count = 0;
+    private boolean obel = false, rifleman = false, perfect_rifleman = false, lucky = false, perfect_lucky = false;
+    private int obel_count = 0, rifleman_count = 0;
 
     private String[] listDemage = new String[11]; //데미지 수치들을 저장할 배열 변수 한 줄당 배열 1개씩 차지한다.
     private boolean[] on_headshot_list = new boolean[11]; //각 줄마다 헤드샷 여부를 저장한다.
@@ -129,6 +129,25 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setKiller(int killer) { this.killer = killer; }
     public void setOptimist(boolean optimist) { this.optimist = optimist; }
     public void setPerfectOptimist(boolean perfect_optimist) { this.perfect_optimist = perfect_optimist; }
+    public void setSadist(int sadist) { this.sadist = sadist; }
+    public void setVindictive(int vindictive) { this.vindictive = vindictive; }
+    public void setRanger(int ranger) { this.ranger = ranger; }
+    public void setPerfectRanger(boolean perfect_ranger) { this.perfect_ranger = perfect_ranger; }
+    public void setRifleman(boolean rifleman, boolean perfect_rifleman) {
+        this.rifleman = rifleman;
+        this.perfect_rifleman = perfect_rifleman;
+    }
+    public void setLuckyShot(boolean lucky, boolean perfect_lucky) {
+        this.lucky = lucky;
+        this.perfect_lucky = perfect_lucky;
+    }
+    public void setPummel(int pummel) { this.pummel = pummel; }
+    public void setUnhinged(int unhinged) { this.unhinged = unhinged; }
+    public void setOverwhelm(int overwhelm) { this.overwhelm = overwhelm; }
+    public void setSync(int sync, boolean double_sync) {
+        this.sync = sync;
+        this.double_sync = double_sync;
+    }
 
     public int getSheld() { return this.sheld; } //방어도를 가져온다.
     public synchronized int getHealth() { return this.health; } //생명력을 가져온다.
@@ -148,6 +167,7 @@ class DemageSimulThread extends Thread implements Serializable {
 
     private void reload() { //재장전 시 사용되는 메소드이다.
         obel_count = 0;
+        rifleman_count = 0;
         int time = (int)(reloadtime*1000); //재장전 시간을 저장하는 변수이다.
         /*handler.post(new Runnable() {
             @Override
@@ -220,6 +240,14 @@ class DemageSimulThread extends Thread implements Serializable {
                 sa.settingIndeterminate_Ammo(false);//탄약 프로그래스가 무한 로딩 상태가 아니도록 설정한다.
             }
         });
+        if (lucky) {
+            if (perfect_lucky) ammo = (int)(ammo*1.3);
+            else ammo = (int)(ammo*1.2);
+        }
+        if (unhinged != 0) {
+            aiming -= 10;
+            if (aiming < 1) aiming = 1;
+        }
         first_health = SimulActivity.getHealth(); //다른 스레드에서 사용할 최대 체력에 100% 차 있는 체력을 대입한다.
         first_sheld = sheld; //위와 동일한 방식으로 방어도를 대입한다.
         int time = (60 * 1000) / (int) rpm; // 발당 딜레이를 계산해준다.
@@ -311,24 +339,10 @@ class DemageSimulThread extends Thread implements Serializable {
                 new_weapondemage = demage(now_ammo); //위와 동일
                 critical_ransu = (int) (Math.random() * 123456) % 1001; //치명타 확률에 적용될 소수점 첫째까지이므로 1000까지 무작위 난수로 잡는다.
                 headshot_ransu = (int) (Math.random() * 123456) % 1001; //위와 동일하게 헤드샷 확률에 적용될 무작위 난수를 잡는다.
-                if (crazy_dmg != 0) { //광분의 수치가 0이면 꺼져있거나 방어도가 100%일 경우이다. 그 외이면 광분이 켜져 있고 방어도가 일부 또는 전부 소진되어 있는 상태이다.
-                    per = crazy_dmg/100; //40%데미지면 0.4로 변경시켜준다. 나중에 무기 데미지에 적용한다.
-                    new_weapondemage += weapondemage * per; //현재 데미지에 적용시켜 넣는다.
-                }
-                if (eagle_dmg != 0) { //집념의 여부에 따라 작동한다. 0보다 크면 작동한다. (0 또는 35이다.)
-                    per = eagle_dmg/100; //위와 동일
-                    new_weapondemage += weapondemage * per; //위와 동일
-                }
-                if (fire) new_weapondemage += weapondemage * 0.2; //불꽃 여부에 따라 20% 무기 데미지에 추가하여 현재 데미지에 추가한다.
-                if (options[1]) new_weapondemage += weapondemage; //위와 동일하게 카멜레온 바디샷 기준에 맞춰 100% 무기 데미지를 추가한다.
-                if (front_dmg > 0) new_weapondemage += weapondemage/2; //위와 동일하게 완벽한 근접전의 대가를 적용시킨다. (무기 데미지의 50%)
-                if (bumerang) { //부메랑의 여부에 따라 작동한다.
-                    new_weapondemage += weapondemage; //부메랑 추가 데미지가 무기데미지의 100%이므로 추가한다.
-                    bumerang = false; //부메랑이 한번 작동하여 데미지가 추가되었으므로 초기화한다.
-                    statue_log += "(부메랑 추가 데미지!)"; //상태메시지에 부메랑 발동 여부를 추가한다.
-                }
-                now_demage = new_weapondemage;
+                now_demage = new_weapondemage + plusWeaponDemage(demage(now_ammo));
                 if (headshot_ransu <= headshot*10) { //헤드샷 확률이 난수보다 클 경우에 작동한다.
+                    if (hitted && rifleman && rifleman_count < 5 && !perfect_rifleman) rifleman_count++;
+                    else if (hitted && rifleman && rifleman_count < 6 && perfect_rifleman) rifleman_count++;
                     on_headshot = true; //헤드샷 참으로 바꾼다.
                     per = headshotdemage / 100; //헤드샷 데미지가 예를 들어 50%면 50%만큼이므로 100으로 나눠 0.5로 바꿔준다.
                     //System.out.println("Headshot Demage : "+headshotdemage);
@@ -521,7 +535,9 @@ class DemageSimulThread extends Thread implements Serializable {
                      */
                     sheld = 0; //방어도가 마이너스가 될 수 없으므로 방어도를 0으로 바꿔준다.
                 }
-                if (!bumerang) now_ammo--; //부메랑이 적용되어 있으면 탄환이 소모되지 않으므로 줄어들지 않고 적용되어 있지 않으면 남은 탄환 수를 줄인다.
+                if (lucky) {
+                    if (hitted) now_ammo--;
+                } else if (!bumerang) now_ammo--; //부메랑이 적용되어 있으면 탄환이 소모되지 않으므로 줄어들지 않고 적용되어 있지 않으면 남은 탄환 수를 줄인다.
                 all_ammo++; //사용한 탄환 수를 추가시킨다.
                 ammo_log = Integer.toString(now_ammo); //남은 탄약 수 문자열에 현재 남은 탄약 수를 문자열로 바꿔 저장한다.
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)"; //치명타일 경우 상태메시지에 추가한다.
@@ -618,26 +634,12 @@ class DemageSimulThread extends Thread implements Serializable {
                 ammo_log = ""; //탄약 메시지를 초기화한다.
                 now_demage = demage(now_ammo);
                 new_weapondemage = demage(now_ammo);
-                if (crazy_dmg != 0) {
-                    per = crazy_dmg/100;
-                    new_weapondemage += weapondemage * per;
-                }
-                if (eagle_dmg != 0) {
-                    per = eagle_dmg/100;
-                    new_weapondemage += weapondemage * per;
-                }
-                if (fire) new_weapondemage += weapondemage * 0.2;
-                if (options[1]) new_weapondemage += weapondemage;
-                if (front_dmg > 0) new_weapondemage += weapondemage/2;
                 critical_ransu = (int) (Math.random() * 123456) % 1001;
                 headshot_ransu = (int) (Math.random() * 123456) % 1001;
-                if (bumerang) {
-                    new_weapondemage += weapondemage;
-                    bumerang = false;
-                    statue_log += "(부메랑 추가 데미지!)";
-                }
-                now_demage = new_weapondemage;
+                now_demage = new_weapondemage + plusWeaponDemage(demage(now_ammo));
                 if (headshot_ransu <= headshot*10) {
+                    if (hitted && rifleman && rifleman_count < 5 && !perfect_rifleman) rifleman_count++;
+                    else if (hitted && rifleman && rifleman_count < 6 && perfect_rifleman) rifleman_count++;
                     on_headshot = true;
                     per = headshotdemage / 100;
                     now_demage += new_weapondemage * per;
@@ -800,7 +802,9 @@ class DemageSimulThread extends Thread implements Serializable {
                     SimulActivity.setHealth(0);
                     break;
                 }
-                if (!bumerang) now_ammo--;
+                if (lucky) {
+                    if (hitted) now_ammo--;
+                } else if (!bumerang) now_ammo--;
                 all_ammo++;
                 ammo_log = Integer.toString(now_ammo);
                 if (critical_ransu <= (int) critical*10) statue_log += "(치명타!!)";
@@ -917,5 +921,48 @@ class DemageSimulThread extends Thread implements Serializable {
         else if (percent >= 80 && percent < 90) cal = bonus*1;
         else cal = 0;
         return cal;
+    }
+
+    private double plusWeaponDemage(double defaultdemage) {
+        double per, result = 0;
+        if (crazy_dmg != 0) { //광분의 수치가 0이면 꺼져있거나 방어도가 100%일 경우이다. 그 외이면 광분이 켜져 있고 방어도가 일부 또는 전부 소진되어 있는 상태이다.
+            per = crazy_dmg/100; //40%데미지면 0.4로 변경시켜준다. 나중에 무기 데미지에 적용한다.
+            result += weapondemage * per; //현재 데미지에 적용시켜 넣는다.
+        }
+        if (eagle_dmg != 0) { //집념의 여부에 따라 작동한다. 0보다 크면 작동한다. (0 또는 35이다.)
+            per = eagle_dmg/100; //위와 동일
+            result += weapondemage * per; //위와 동일
+        }
+        if (fire) result += weapondemage * 0.2; //불꽃 여부에 따라 20% 무기 데미지에 추가하여 현재 데미지에 추가한다.
+        if (options[1]) result += weapondemage; //위와 동일하게 카멜레온 바디샷 기준에 맞춰 100% 무기 데미지를 추가한다.
+        if (front_dmg > 0) result += weapondemage/2; //위와 동일하게 완벽한 근접전의 대가를 적용시킨다. (무기 데미지의 50%)
+        if (bumerang) { //부메랑의 여부에 따라 작동한다.
+            result += weapondemage; //부메랑 추가 데미지가 무기데미지의 100%이므로 추가한다.
+            bumerang = false; //부메랑이 한번 작동하여 데미지가 추가되었으므로 초기화한다.
+            statue_log += "(부메랑 추가 데미지!)"; //상태메시지에 부메랑 발동 여부를 추가한다.
+        }
+        if (sadist != 0) result += weapondemage * ((double)sadist/100.0);
+        if (vindictive != 0) result += weapondemage * ((double)vindictive/100.0);
+        if (ranger >= 4) {
+            int div;
+            if (perfect_ranger) div = 4;
+            else div = 5;
+            int sum = (ranger/div)*2;
+            result += weapondemage * ((double)sum/100.0);
+        }
+        if (rifleman) {
+            int mul;
+            if (perfect_rifleman) mul = 11;
+            else mul = 10;
+            result += weapondemage * ((double)(mul*rifleman_count)/100.0);
+        }
+        if (pummel != 0) result += weapondemage * ((double)pummel/100.0);
+        if (unhinged != 0) result += weapondemage * ((double)unhinged/100.0);
+        if (overwhelm != 0) result += weapondemage * ((double)overwhelm/100.0);
+        if (sync != 0) {
+            if (double_sync) result += weapondemage *((double)(sync*2)/100.0);
+            else result += weapondemage *((double)sync/100.0);
+        }
+        return result;
     }
 }
