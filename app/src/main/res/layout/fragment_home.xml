@@ -744,17 +744,208 @@
                                     android:id="@+id/chkPerfectFocus"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="왁벽한"
+                                    android:text="완벽한"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
                                     android:textSize="20sp"
+                                    android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                                 <Spinner
                                     android:id="@+id/spinnerFocus"
+                                    android:background="@drawable/spinnercustom"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:visibility="invisible"/>
                             </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkScrifice"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="유리 대포"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkPerfectScrifice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="완벽한"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkSympathy"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="공감의 결의"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <Spinner
+                                    android:id="@+id/spinnerSympathy"
+                                    android:background="@drawable/spinnercustom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <CheckBox
+                                android:id="@+id/chkOverwatch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="경계 태세"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkIntimidate"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="위협 전술"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkPerfectIntimidate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="완벽한"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <CheckBox
+                                android:id="@+id/chkObel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="절멸"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <CheckBox
+                                android:id="@+id/chkWicked"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="사악함"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <CheckBox
+                                android:id="@+id/chkCompanion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="동지애"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <CheckBox
+                                android:id="@+id/chkComposure"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="태연자약"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkUnstoppable"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="무적의 부대"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <Spinner
+                                    android:id="@+id/spinnerUnstoppable"
+                                    android:background="@drawable/spinnercustom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkVersatile"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="팔방미인"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <Spinner
+                                    android:id="@+id/spinnerVersatile"
+                                    android:background="@drawable/spinnercustom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+                            <CheckBox
+                                android:id="@+id/chkVigilance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="경계"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <CheckBox
+                                android:id="@+id/chkKiller"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="킬러"
+                                android:buttonTint="#fe6e0e"
+                                android:textColor="#aaaaaa"
+                                android:textSize="20sp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <CheckBox
+                                    android:id="@+id/chkOptimist"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="낙천주의자"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkPerfectOptimist"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="완벽한"
+                                    android:buttonTint="#fe6e0e"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="20sp"
+                                    android:layout_marginRight="10dp"
+                                    android:visibility="invisible"/>
+                            </LinearLayout>
+
 
                         </LinearLayout>
                     </LinearLayout>

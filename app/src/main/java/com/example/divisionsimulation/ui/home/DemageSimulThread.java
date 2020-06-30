@@ -28,14 +28,18 @@ class DemageSimulThread extends Thread implements Serializable {
     private int hit_critical = 0, out_demage, all_dmg = 0; //빠른 손의 히트 수, 등등이다.
     private boolean[] options = null; //카멜레온의 하위 옵션 3개를 저장할 배열 변수이다.
     private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
-    private int focus = 0;
-    private boolean focus_checked = false;
+    private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0;
+    private int unstoppable = 0, versatile = 0, vigilance = 0;
+    private boolean focus_checked = false, optimist = false, perfect_optimist = false;
 
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
     private CluchThread ct = null; //상대 클러치 여부에 따라 스레드를 사용할 변수이다.
     private SimulActivity sa = null;
     private boolean hitted = false;
+
+    private boolean obel = false;
+    private int obel_count = 0;
 
     private String[] listDemage = new String[11]; //데미지 수치들을 저장할 배열 변수 한 줄당 배열 1개씩 차지한다.
     private boolean[] on_headshot_list = new boolean[11]; //각 줄마다 헤드샷 여부를 저장한다.
@@ -111,6 +115,20 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setFront_dmg(int front_dmg) { this.front_dmg = front_dmg; } //완벽한 근접전의 대가 여부를 가져온다.
     public void setFocus(int focus) { this.focus = focus; }
     public void setFocusChecked(boolean focus_checked) { this.focus_checked = focus_checked; }
+    public void setScrifice(int scrifice) { this.scrifice = scrifice; }
+    public void setSympathy(int sympathy) { this.sympathy = sympathy; }
+    public void setOverwatch(int overwatch) { this.overwatch = overwatch; }
+    public void setIntimidate(int intimidate) { this.intimidate = intimidate; }
+    public void setObel(boolean obel) { this.obel = obel; }
+    public void setWicked(int wicked) { this.wicked = wicked; }
+    public void setCompanion(int companion) { this.companion = companion; }
+    public void setComposure(int composure) { this.composure = composure; }
+    public void setUnstoppable(int unstoppable) { this.unstoppable = unstoppable; }
+    public void setVersatile(int versatile) { this.versatile = versatile; }
+    public void setVigilance(int vigilance) { this.vigilance = vigilance; }
+    public void setKiller(int killer) { this.killer = killer; }
+    public void setOptimist(boolean optimist) { this.optimist = optimist; }
+    public void setPerfectOptimist(boolean perfect_optimist) { this.perfect_optimist = perfect_optimist; }
 
     public int getSheld() { return this.sheld; } //방어도를 가져온다.
     public synchronized int getHealth() { return this.health; } //생명력을 가져온다.
@@ -129,6 +147,7 @@ class DemageSimulThread extends Thread implements Serializable {
      */
 
     private void reload() { //재장전 시 사용되는 메소드이다.
+        obel_count = 0;
         int time = (int)(reloadtime*1000); //재장전 시간을 저장하는 변수이다.
         /*handler.post(new Runnable() {
             @Override
@@ -182,11 +201,13 @@ class DemageSimulThread extends Thread implements Serializable {
         });*/
     }
 
-    private int demage() { //무기 데미지를 내보내는 메소드이다.
+    private int demage(int now_ammo) { //무기 데미지를 내보내는 메소드이다.
         /*int diff_demage = (int)(weapondemage*0.1);
         int ransu = (int)(Math.random()*123456)%(diff_demage*2)-diff_demage;
         int real_demage = (int)weapondemage + ransu;*/
-        return (int)weapondemage; //무기 데미지를 반환한다.
+        double result = weapondemage;
+        if (optimist) result *= 1 + (double)calOptimist(now_ammo, (int)ammo)/100.0;
+        return (int)result; //무기 데미지를 반환한다.
     }
 
     public void run() { //스레드가 시작할 경우 자동으로 실행된다.
@@ -232,6 +253,9 @@ class DemageSimulThread extends Thread implements Serializable {
                 sa.setTxtHealth(Integer.toString(health)+"/"+Integer.toString(health));
             }
         });
+
+        if (killer != 0) criticaldemage += killer;
+
         try {
             while (sheld > 0 && !Thread.interrupted() && !end) { //방어도가 소진되거나 스레드가 인터럽트되거나 종료시키게 된다면 자동으로 종료되게 된다.
                 per = (int)(Math.random()*1234567)%1000+1; //명중률에 해당하는 1~1000까지의 난수를 생성한다. (명중률이 소수점 1자리까지 있으므로 소수점까지 포함하여 1000으로 잡는다.)
@@ -283,8 +307,8 @@ class DemageSimulThread extends Thread implements Serializable {
                 });
                 statue_log = ""; //상태메시지를 초기화한다.
                 ammo_log = ""; //탄약 수를 초기화한다.
-                now_demage = demage(); //현재 데미지에 무기 데미지를 적용시킨다.
-                new_weapondemage = demage(); //위와 동일
+                now_demage = demage(now_ammo); //현재 데미지에 무기 데미지를 적용시킨다.
+                new_weapondemage = demage(now_ammo); //위와 동일
                 critical_ransu = (int) (Math.random() * 123456) % 1001; //치명타 확률에 적용될 소수점 첫째까지이므로 1000까지 무작위 난수로 잡는다.
                 headshot_ransu = (int) (Math.random() * 123456) % 1001; //위와 동일하게 헤드샷 확률에 적용될 무작위 난수를 잡는다.
                 if (crazy_dmg != 0) { //광분의 수치가 0이면 꺼져있거나 방어도가 100%일 경우이다. 그 외이면 광분이 켜져 있고 방어도가 일부 또는 전부 소진되어 있는 상태이다.
@@ -329,6 +353,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (critical > 60) critical = 60; //치명타 확률의 최대치가 60%이므로 60%가 넘어가게 되면
                 }
                 if (critical_ransu <= critical*10) { //치명타 확률이 난수보다 작거나 같을 경우 작동한다.
+                    if (hitted && obel && obel_count < 15) obel_count++;
                     on_critical = true; //치명타를 참으로 바꾼다.
                     if (hitted && quick_hand && hit_critical < 30) { //빠른손이 적용되어 있고 빠른 손 히트 수가 30 미만일 경우에만 작동한다. 빠른 손 히트 수는 30이 최대치이기 때문이다.
                         hit_critical++; //치명타가 작동했으므로 빠른 손 히트 수를 1개 증가시킨다.
@@ -395,10 +420,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     per = seeker_dmg/100; //감시병 데미지를 0.?로 바꿔준다. 감시병 데미지가 종합데미지의 20% 추가이므로 0.2가 된다.
                     now_demage *= 1+per; //무기데미지가 아닌 종합데미지에 0.2를 곱해준다.
                 }
-                if (focus_checked) {
-                    per = (double)focus/100.0;
-                    now_demage *= 1+per;
-                }
+                now_demage = talentCal(now_demage);
                 if (pvp_true == true) now_demage *= coefficient; //pvp 대상은 데미지가 낮아져야 하므로 무기별 계수를 받아 현재데미지에 곱해준다. (계수들은 전부 1보다 작다.)
                 real_demage = (int) now_demage; //데미지는 정수로 빠지므로 double 타입을 int 타입인 변수에 저장시킨다.
                 if (on_boom) on_boom_list[listDemage.length-1] = true; //마지막 데미지 수치에 무자비 폭발탄이 참일 경우 참으로 바꿔준다.
@@ -594,8 +616,8 @@ class DemageSimulThread extends Thread implements Serializable {
                 });
                 statue_log = ""; //상태 메시지를 초기화한다.
                 ammo_log = ""; //탄약 메시지를 초기화한다.
-                now_demage = demage();
-                new_weapondemage = demage();
+                now_demage = demage(now_ammo);
+                new_weapondemage = demage(now_ammo);
                 if (crazy_dmg != 0) {
                     per = crazy_dmg/100;
                     new_weapondemage += weapondemage * per;
@@ -639,6 +661,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     if (critical > 60) critical = 60;
                 }
                 if (critical_ransu <= critical*10) {
+                    if (hitted && obel && obel_count < 15) obel_count++;
                     on_critical = true;
                     if (hitted && quick_hand && hit_critical < 30) {
                         hit_critical++;
@@ -700,14 +723,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         });
                     }
                 }
-                if (seeker_dmg != 0) {
-                    per = seeker_dmg/100;
-                    now_demage *= 1+per;
-                }
-                if (focus_checked) {
-                    per = (double)focus/100.0;
-                    now_demage *= 1+per;
-                }
+                now_demage = talentCal(now_demage);
                 if (pvp_true == true) now_demage *= coefficient;
                 real_demage = (int) now_demage;
                 if (on_boom) on_boom_list[listDemage.length-1] = true;
@@ -862,5 +878,44 @@ class DemageSimulThread extends Thread implements Serializable {
             });
         }
         System.out.println("(DemageSimulThread) 정상적으로 종료됨");
+    }
+
+    private double talentCal(double now_demage) {
+        double per, result = now_demage;
+        int sum = 0;
+        if (focus_checked) sum += focus;
+        if (scrifice != 0) sum += scrifice;
+        if (sympathy != 0) sum += sympathy;
+        if (overwatch != 0) sum += overwatch;
+        if (intimidate != 0) sum += intimidate;
+        if (obel) sum += obel_count;
+        if (wicked != 0) sum += wicked;
+        if (companion != 0) sum += companion;
+        if (composure != 0) sum += composure;
+        if (unstoppable != 0) sum += unstoppable;
+        if (versatile != 0) sum += versatile;
+        if (vigilance != 0) sum += vigilance;
+        per = (double)sum/100.0;
+        result *= 1+per;
+        return result;
+    }
+
+    private int calOptimist(int ammo, int max_ammo) {
+        double percent = ((double)ammo/(double)max_ammo)*100.0;
+        int bonus;
+        if (perfect_optimist) bonus = 4;
+        else bonus = 3;
+        int cal;
+        if (percent >= 0 && percent < 10) cal = bonus*9;
+        else if (percent >= 10 && percent < 20) cal = bonus*8;
+        else if (percent >= 20 && percent < 30) cal = bonus*7;
+        else if (percent >= 30 && percent < 40) cal = bonus*6;
+        else if (percent >= 40 && percent < 50) cal = bonus*5;
+        else if (percent >= 50 && percent < 60) cal = bonus*4;
+        else if (percent >= 60 && percent < 70) cal = bonus*3;
+        else if (percent >= 70 && percent < 80) cal = bonus*2;
+        else if (percent >= 80 && percent < 90) cal = bonus*1;
+        else cal = 0;
+        return cal;
     }
 }

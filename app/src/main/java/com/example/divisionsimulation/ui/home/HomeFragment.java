@@ -40,6 +40,8 @@ import com.example.divisionsimulation.R;
 import com.google.android.material.chip.ChipGroup;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements Serializable {
 
@@ -61,13 +63,22 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioButton[] rdoPush = new RadioButton[11]; //중압감 라디오 버튼 배열이다.
     private CheckBox[] chkCamelOption = new CheckBox[3]; //카멜레온 옵션 체크 박스 배열이다.
     private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire, chkFront; //기타 체크 박스이다. (집념, 무자비 등)
-    private CheckBox chkUndo, chkAfter;
+    private CheckBox chkUndo, chkAfter, chkOverwatch, chkIntimidate, chkPerfectIntimidate;
     private LinearLayout layoutUndo, layoutAfter;
 
-    private CheckBox chkFocus, chkPerfectFocus;
-    private Spinner spinnerFocus;
+    private CheckBox chkFocus, chkPerfectFocus, chkScrifice, chkPerfectScrifice, chkSympathy, chkObel, chkWicked, chkCompanion, chkComposure;
+    private CheckBox chkUnstoppable, chkVersatile, chkVigilance, chkKiller, chkOptimist, chkPerfectOptimist;
+    private Spinner spinnerFocus, spinnerSympathy, spinnerUnstoppable, spinnerVersatile;
     private String[] focus_items = new String[10];
-    private int focus;
+    private String[] sympathy_items = new String[7];
+    private String[] unstoppable_items = new String[5];
+    private String[] versatile_items = {"산탄총/기관단총", "소총/지정사수소총", "돌격소총/경기관총"};
+    private int focus, scrifice, sympathy, intimidate, unstoppable, versatile;
+    private boolean perfect_optimist;
+
+    private ArrayList<CheckBox> vestTalents;
+    private ArrayList<CheckBox> backpackTalents;
+    private ArrayList<CheckBox> weaponTalents;
 
     private LinearLayout layoutCamel; //카멜레온 여부 체크 시 기타 버프 옵션이 나타나기 위한 레이아웃이다.
 
@@ -128,7 +139,20 @@ public class HomeFragment extends Fragment implements Serializable {
                 체크 해제 되면서 체크로 인해 비활성화, 펼쳐진 레이아웃은 자동으로 해제된다.
                  */
 
-                chkPush.setTextColor(Color.parseColor("#aaaaaa"));
+                chkUndo.setChecked(false);
+                chkAfter.setChecked(false);
+                chkFocus.setChecked(false);
+                chkPerfectFocus.setChecked(false);
+                layoutUndo.setVisibility(View.GONE);
+                layoutAfter.setVisibility(View.GONE);
+                chkPerfectFocus.setVisibility(View.INVISIBLE);
+                spinnerFocus.setVisibility(View.INVISIBLE);
+                spinnerFocus.setSelection(0);
+                chkScrifice.setChecked(false);
+                chkPerfectScrifice.setChecked(false);
+                chkPerfectScrifice.setVisibility(View.INVISIBLE);
+
+                /*chkPush.setTextColor(Color.parseColor("#aaaaaa"));
                 chkPush.setEnabled(true);
                 chkEagle.setTextColor(Color.parseColor("#aaaaaa"));
                 chkEagle.setEnabled(true);
@@ -141,10 +165,23 @@ public class HomeFragment extends Fragment implements Serializable {
                 chkQuickhand.setTextColor(Color.parseColor("#aaaaaa"));
                 chkQuickhand.setEnabled(true);
                 chkCamel.setTextColor(Color.parseColor("#aaaaaa"));
-                chkCamel.setEnabled(true);
-                /*
-                비활성화로 인한 글자 색상이 변한 것들을 원래대로 되돌려놓는다.
-                 */
+                chkCamel.setEnabled(true);*/
+                for (int i = 0; i < weaponTalents.size(); i++) {
+                    weaponTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    weaponTalents.get(i).setEnabled(true);
+                    weaponTalents.get(i).setChecked(false);
+                }
+                for (int i = 0; i < backpackTalents.size(); i++) {
+                    backpackTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    backpackTalents.get(i).setEnabled(true);
+                    backpackTalents.get(i).setChecked(false);
+                }
+                for (int i = 0; i < vestTalents.size(); i++) {
+                    vestTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    vestTalents.get(i).setEnabled(true);
+                    vestTalents.get(i).setChecked(false);
+                }
+                chkSympathy.setChecked(false);
 
                 rgPush.clearCheck();
                 rgCrazy.clearCheck();
@@ -180,6 +217,10 @@ public class HomeFragment extends Fragment implements Serializable {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        vestTalents = new ArrayList<CheckBox>();
+        backpackTalents = new ArrayList<CheckBox>();
+        weaponTalents = new ArrayList<CheckBox>();
+
         edtWeaponDemage = root.findViewById(R.id.edtWeaponDemage);
         edtRPM = root.findViewById(R.id.edtRPM);
         edtCritical = root.findViewById(R.id.edtCritical);
@@ -205,17 +246,263 @@ public class HomeFragment extends Fragment implements Serializable {
         chkCamel = root.findViewById(R.id.chkCamel);
         chkFront = root.findViewById(R.id.chkFront);
 
+        vestTalents.add(chkCrazy);
+        vestTalents.add(chkFire);
+        weaponTalents.add(chkBoom);
+        weaponTalents.add(chkQuickhand);
+        weaponTalents.add(chkBumerang);
+        weaponTalents.add(chkCamel);
+        weaponTalents.add(chkFront);
+
         chkUndo = root.findViewById(R.id.chkUndo);
         chkAfter = root.findViewById(R.id.chkAfter);
         layoutUndo = root.findViewById(R.id.layoutUndo);
         layoutAfter = root.findViewById(R.id.layoutAfter);
 
+        chkScrifice = root.findViewById(R.id.chkScrifice);
+        chkPerfectScrifice = root.findViewById(R.id.chkPerfectScrifice);
+        chkOverwatch = root.findViewById(R.id.chkOverwatch);
+        chkIntimidate = root.findViewById(R.id.chkIntimidate);
+        chkPerfectIntimidate = root.findViewById(R.id.chkPerfectIntimidate);
+        chkObel = root.findViewById(R.id.chkObel);
+        chkWicked = root.findViewById(R.id.chkWicked);
+        chkCompanion = root.findViewById(R.id.chkCompanion);
+        chkComposure = root.findViewById(R.id.chkComposure);
+        chkVigilance = root.findViewById(R.id.chkVigilance);
+
+        vestTalents.add(chkScrifice);
+        vestTalents.add(chkOverwatch);
+        vestTalents.add(chkIntimidate);
+        vestTalents.add(chkObel);
+        backpackTalents.add(chkWicked);
+        backpackTalents.add(chkCompanion);
+        backpackTalents.add(chkComposure);
+        backpackTalents.add(chkVigilance);
+
+        chkKiller = root.findViewById(R.id.chkKiller);
+        chkOptimist = root.findViewById(R.id.chkOptimist);
+        chkPerfectOptimist = root.findViewById(R.id.chkPerfectOptimist);
+
+        weaponTalents.add(chkKiller);
+        weaponTalents.add(chkOptimist);
+
+        chkOptimist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectOptimist.setVisibility(View.VISIBLE);
+                } else {
+                    chkPerfectOptimist.setVisibility(View.INVISIBLE);
+                    chkPerfectOptimist.setChecked(false);
+                }
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkPerfectOptimist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                perfect_optimist = isChecked;
+            }
+        });
+
+        chkKiller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                weaponActivate(buttonView);
+            }
+        });
+
+        chkVigilance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkComposure.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkCompanion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkWicked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkObel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vestActivate(buttonView);
+            }
+        });
+
+        chkPerfectIntimidate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) intimidate = 40;
+                else intimidate = 35;
+            }
+        });
+
+        chkIntimidate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectIntimidate.setVisibility(View.VISIBLE);
+                    intimidate = 35;
+                } else {
+                    chkPerfectIntimidate.setVisibility(View.INVISIBLE);
+                    chkPerfectIntimidate.setChecked(false);
+                    intimidate = 0;
+                }
+                vestActivate(buttonView);
+            }
+        });
+
+        chkOverwatch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vestActivate(buttonView);
+            }
+        });
+
+        chkVersatile = root.findViewById(R.id.chkVersatile);
+        backpackTalents.add(chkVersatile);
+        spinnerVersatile = root.findViewById(R.id.spinnerVersatile);
+        ArrayAdapter<String> versatile_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, versatile_items);
+        spinnerVersatile.setAdapter(versatile_adapter);
+        spinnerVersatile.setSelection(0);
+        spinnerVersatile.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                    case 1:
+                        versatile = 35;
+                        break;
+                    case 2:
+                        versatile = 10;
+                        break;
+                    default:
+                        versatile = 0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        chkVersatile.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    spinnerVersatile.setVisibility(View.VISIBLE);
+                } else {
+                    spinnerVersatile.setVisibility(View.INVISIBLE);
+                    spinnerVersatile.setSelection(0);
+                }
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkUnstoppable = root.findViewById(R.id.chkUnstoppable);
+        backpackTalents.add(chkUnstoppable);
+        spinnerUnstoppable = root.findViewById(R.id.spinnerUnstoppable);
+        for (int i = 0; i < unstoppable_items.length; i++) unstoppable_items[i] = "적 "+(i+1)+"명 처치";
+        ArrayAdapter<String> unstoppable_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, unstoppable_items);
+        spinnerUnstoppable.setAdapter(unstoppable_adapter);
+        spinnerUnstoppable.setSelection(0);
+        spinnerUnstoppable.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                unstoppable = (position+1) * 5;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        chkUnstoppable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    spinnerUnstoppable.setVisibility(View.VISIBLE);
+                } else {
+                    spinnerUnstoppable.setVisibility(View.INVISIBLE);
+                    spinnerUnstoppable.setSelection(0);
+                }
+                backpackActivate(buttonView);
+            }
+        });
+
+        chkSympathy = root.findViewById(R.id.chkSympathy);
+        spinnerSympathy = root.findViewById(R.id.spinnerSympathy);
+        for (int i = 0; i < sympathy_items.length; i++) sympathy_items[i] = "스킬 "+i+"등급";
+        ArrayAdapter<String> sympathy_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, sympathy_items);
+        spinnerSympathy.setAdapter(sympathy_adapter);
+        spinnerSympathy.setSelection(0);
+        spinnerSympathy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sympathy = 3 + (position*2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        chkSympathy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) spinnerSympathy.setVisibility(View.VISIBLE);
+                else spinnerSympathy.setVisibility(View.INVISIBLE);
+                spinnerSympathy.setSelection(0);
+            }
+        });
+
+        chkScrifice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectScrifice.setVisibility(View.VISIBLE);
+                    scrifice = 20;
+                } else {
+                    chkPerfectScrifice.setVisibility(View.INVISIBLE);
+                    chkPerfectScrifice.setChecked(false);
+                    scrifice = 0;
+                }
+                vestActivate(buttonView);
+            }
+        });
+        chkPerfectScrifice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) scrifice = 25;
+                else scrifice = 20;
+            }
+        });
+
         chkFocus = root.findViewById(R.id.chkFocus);
         chkPerfectFocus = root.findViewById(R.id.chkPerfectFocus);
         spinnerFocus = root.findViewById(R.id.spinnerFocus);
         for (int i = 0; i < focus_items.length; i++) focus_items[i] = (i+1)+"초";
-        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, focus_items);
-        spinnerFocus.setAdapter(spinner_adapter);
+        ArrayAdapter<String> focus_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, focus_items);
+        spinnerFocus.setAdapter(focus_adapter);
         spinnerFocus.setSelection(0);
         if (chkPerfectFocus.isChecked()) focus = 6;
         else focus = 5;
@@ -240,7 +527,10 @@ public class HomeFragment extends Fragment implements Serializable {
                 } else {
                     chkPerfectFocus.setVisibility(View.INVISIBLE);
                     spinnerFocus.setVisibility(View.INVISIBLE);
+                    chkPerfectFocus.setChecked(false);
+                    spinnerFocus.setSelection(0);
                 }
+                vestActivate(buttonView);
             }
         });
         chkPerfectFocus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -251,6 +541,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 else focus = (position+1)*5;
             }
         });
+        vestTalents.add(chkFocus);
 
         rgCrazy = root.findViewById(R.id.rgCrazy);
         /*
@@ -281,6 +572,10 @@ public class HomeFragment extends Fragment implements Serializable {
 
         chkSeeker = root.findViewById(R.id.chkSeeker);
         chkEagle = root.findViewById(R.id.chkEagle);
+
+        vestTalents.add(chkSeeker);
+        weaponTalents.add(chkEagle);
+        weaponTalents.add(chkPush);
         /*
         위와 동일한 방식
          */
@@ -309,6 +604,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     rgCrazy.clearCheck(); //광분 라디오 그룹이 다시 화면에 사라지면서 초기화를 해줘야 하기 때문에 전부 체크를 풀어준다.
                     rgCrazy.setVisibility(View.GONE); //광분 라디오 그룹이 화면에 안 보이도록 설정한다.
                 }
+                vestActivate(buttonView);
             }
         });
         chkPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -349,6 +645,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     중압감 체크 해제로 인해 비활성화, 색이 변경된 것들을 다시 원래대로 되돌려놓는다.
                      */
                 }
+                weaponActivate(buttonView);
             }
         });
         chkBumerang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -379,6 +676,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         chkCamel.setEnabled(true);
                     }
                 }
+                weaponActivate(buttonView);
             }
         });
         chkFront.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -409,6 +707,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         chkCamel.setEnabled(true);
                     }
                 }
+                weaponActivate(buttonView);
             }
         });
         chkEagle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -441,6 +740,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkFront.setTextColor(Color.parseColor("#aaaaaa"));
                     chkFront.setEnabled(true);
                 }
+                weaponActivate(buttonView);
             }
         });
         chkCamel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -476,6 +776,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     for (int i = 0; i < chkCamelOption.length; i++) if (chkCamelOption[i].isChecked()) chkCamelOption[i].toggle();
                     layoutCamel.setVisibility(View.GONE);
                 }
+                weaponActivate(buttonView);
             }
         });
         chkBoom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -494,6 +795,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         chkCamel.setEnabled(true);
                     }
                 }
+                weaponActivate(buttonView);
             }
         });
         chkQuickhand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -524,6 +826,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         chkCamel.setEnabled(true);
                     }
                 }
+                weaponActivate(buttonView);
             }
         });
         /*
@@ -1118,6 +1421,20 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 ws.setFocusChecked(chkFocus.isChecked());
                                                 ws.setFocus(0);
                                             }
+                                            if (chkScrifice.isChecked()) ws.setScrifice(scrifice);
+                                            if (chkSympathy.isChecked()) ws.setSympathy(sympathy);
+                                            if (chkOverwatch.isChecked()) ws.setOverwatch(12);
+                                            if (chkIntimidate.isChecked()) ws.setIntimidate(intimidate);
+                                            ws.setObel(chkObel.isChecked());
+                                            if (chkWicked.isChecked()) ws.setWicked(18);
+                                            if (chkCompanion.isChecked()) ws.setCompanion(15);
+                                            if (chkComposure.isChecked()) ws.setComposure(15);
+                                            if (chkUnstoppable.isChecked()) ws.setUnstoppable(unstoppable);
+                                            if (chkVersatile.isChecked()) ws.setVersatile(versatile);
+                                            if (chkVigilance.isChecked()) ws.setVigilance(25);
+                                            if (chkKiller.isChecked()) ws.setKiller(50);
+                                            ws.setOptimist(chkOptimist.isChecked());
+                                            ws.setPerfectOptimist(chkPerfectOptimist.isChecked());
 
                                             String elite = Boolean.toString(elite_true); //정예 여부를 문자열로 변환하여 임시 변수에 저장한다. 이후 다음 액티비티로 넘길 때 사용한다.
 
@@ -1188,4 +1505,59 @@ public class HomeFragment extends Fragment implements Serializable {
 
         return root;
     }
+
+    private void vestActivate(View view) {
+        if (((CheckBox)view).isChecked()) {
+            for (int i = 0; i < vestTalents.size(); i++) {
+                if (vestTalents.get(i) != view) {
+                    vestTalents.get(i).setTextColor(Color.parseColor("#666666"));
+                    vestTalents.get(i).setEnabled(false);
+                }
+            }
+        } else {
+            for (int i = 0; i < vestTalents.size(); i++) {
+                if (vestTalents.get(i) != view) {
+                    vestTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    vestTalents.get(i).setEnabled(true);
+                }
+            }
+        }
+    }
+
+    private void backpackActivate(View view) {
+        if (((CheckBox)view).isChecked()) {
+            for (int i = 0; i < backpackTalents.size(); i++) {
+                if (backpackTalents.get(i) != view) {
+                    backpackTalents.get(i).setTextColor(Color.parseColor("#666666"));
+                    backpackTalents.get(i).setEnabled(false);
+                }
+            }
+        } else {
+            for (int i = 0; i < backpackTalents.size(); i++) {
+                if (backpackTalents.get(i) != view) {
+                    backpackTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    backpackTalents.get(i).setEnabled(true);
+                }
+            }
+        }
+    }
+
+    private void weaponActivate(View view) {
+        if (((CheckBox)view).isChecked()) {
+            for (int i = 0; i < weaponTalents.size(); i++) {
+                if (weaponTalents.get(i) != view) {
+                    weaponTalents.get(i).setTextColor(Color.parseColor("#666666"));
+                    weaponTalents.get(i).setEnabled(false);
+                }
+            }
+        } else {
+            for (int i = 0; i < weaponTalents.size(); i++) {
+                if (weaponTalents.get(i) != view) {
+                    weaponTalents.get(i).setTextColor(Color.parseColor("#aaaaaa"));
+                    weaponTalents.get(i).setEnabled(true);
+                }
+            }
+        }
+    }
+
 }
