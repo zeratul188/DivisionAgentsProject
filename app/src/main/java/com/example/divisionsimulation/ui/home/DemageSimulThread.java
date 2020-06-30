@@ -28,6 +28,8 @@ class DemageSimulThread extends Thread implements Serializable {
     private int hit_critical = 0, out_demage, all_dmg = 0; //빠른 손의 히트 수, 등등이다.
     private boolean[] options = null; //카멜레온의 하위 옵션 3개를 저장할 배열 변수이다.
     private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
+    private int focus = 0;
+    private boolean focus_checked = false;
 
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
@@ -107,6 +109,8 @@ class DemageSimulThread extends Thread implements Serializable {
     public void setOptions(boolean[] options) { this.options = options; } //카멜레온 각각 탤런트 발동 여부를 가져온다.
     public void setFire(boolean fire) { this.fire = fire; } //불꽃 여부를 가져온다.
     public void setFront_dmg(int front_dmg) { this.front_dmg = front_dmg; } //완벽한 근접전의 대가 여부를 가져온다.
+    public void setFocus(int focus) { this.focus = focus; }
+    public void setFocusChecked(boolean focus_checked) { this.focus_checked = focus_checked; }
 
     public int getSheld() { return this.sheld; } //방어도를 가져온다.
     public synchronized int getHealth() { return this.health; } //생명력을 가져온다.
@@ -390,6 +394,10 @@ class DemageSimulThread extends Thread implements Serializable {
                 if (seeker_dmg != 0) { //감시병 여부에 따라 작동한다. 0이면 꺼져있는 것이며 20이면 감시병이 켜져있다는 것이다.
                     per = seeker_dmg/100; //감시병 데미지를 0.?로 바꿔준다. 감시병 데미지가 종합데미지의 20% 추가이므로 0.2가 된다.
                     now_demage *= 1+per; //무기데미지가 아닌 종합데미지에 0.2를 곱해준다.
+                }
+                if (focus_checked) {
+                    per = (double)focus/100.0;
+                    now_demage *= 1+per;
                 }
                 if (pvp_true == true) now_demage *= coefficient; //pvp 대상은 데미지가 낮아져야 하므로 무기별 계수를 받아 현재데미지에 곱해준다. (계수들은 전부 1보다 작다.)
                 real_demage = (int) now_demage; //데미지는 정수로 빠지므로 double 타입을 int 타입인 변수에 저장시킨다.
@@ -694,6 +702,10 @@ class DemageSimulThread extends Thread implements Serializable {
                 }
                 if (seeker_dmg != 0) {
                     per = seeker_dmg/100;
+                    now_demage *= 1+per;
+                }
+                if (focus_checked) {
+                    per = (double)focus/100.0;
                     now_demage *= 1+per;
                 }
                 if (pvp_true == true) now_demage *= coefficient;

@@ -127,7 +127,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="부속성 : "
+                android:text="개조부품 : "
                 android:textSize="20sp"
                 android:textColor="#aaaaaa"
                 android:gravity="right"/>

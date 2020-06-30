@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,13 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioButton[] rdoPush = new RadioButton[11]; //중압감 라디오 버튼 배열이다.
     private CheckBox[] chkCamelOption = new CheckBox[3]; //카멜레온 옵션 체크 박스 배열이다.
     private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire, chkFront; //기타 체크 박스이다. (집념, 무자비 등)
+    private CheckBox chkUndo, chkAfter;
+    private LinearLayout layoutUndo, layoutAfter;
+
+    private CheckBox chkFocus, chkPerfectFocus;
+    private Spinner spinnerFocus;
+    private String[] focus_items = new String[10];
+    private int focus;
 
     private LinearLayout layoutCamel; //카멜레온 여부 체크 시 기타 버프 옵션이 나타나기 위한 레이아웃이다.
 
@@ -195,6 +205,53 @@ public class HomeFragment extends Fragment implements Serializable {
         chkCamel = root.findViewById(R.id.chkCamel);
         chkFront = root.findViewById(R.id.chkFront);
 
+        chkUndo = root.findViewById(R.id.chkUndo);
+        chkAfter = root.findViewById(R.id.chkAfter);
+        layoutUndo = root.findViewById(R.id.layoutUndo);
+        layoutAfter = root.findViewById(R.id.layoutAfter);
+
+        chkFocus = root.findViewById(R.id.chkFocus);
+        chkPerfectFocus = root.findViewById(R.id.chkPerfectFocus);
+        spinnerFocus = root.findViewById(R.id.spinnerFocus);
+        for (int i = 0; i < focus_items.length; i++) focus_items[i] = (i+1)+"초";
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, focus_items);
+        spinnerFocus.setAdapter(spinner_adapter);
+        spinnerFocus.setSelection(0);
+        if (chkPerfectFocus.isChecked()) focus = 6;
+        else focus = 5;
+        spinnerFocus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (chkPerfectFocus.isChecked()) focus = (position+1)*6;
+                else focus = (position+1)*5;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        chkFocus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkPerfectFocus.setVisibility(View.VISIBLE);
+                    spinnerFocus.setVisibility(View.VISIBLE);
+                } else {
+                    chkPerfectFocus.setVisibility(View.INVISIBLE);
+                    spinnerFocus.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        chkPerfectFocus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int position = spinnerFocus.getSelectedItemPosition();
+                if (chkPerfectFocus.isChecked()) focus = (position+1)*6;
+                else focus = (position+1)*5;
+            }
+        });
+
         rgCrazy = root.findViewById(R.id.rgCrazy);
         /*
         레이아웃에 있는 것들을 아이디를 받아온다.
@@ -227,6 +284,22 @@ public class HomeFragment extends Fragment implements Serializable {
         /*
         위와 동일한 방식
          */
+
+        chkUndo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) layoutUndo.setVisibility(View.VISIBLE);
+                else layoutUndo.setVisibility(View.GONE);
+            }
+        });
+
+        chkAfter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) layoutAfter.setVisibility(View.VISIBLE);
+                else layoutAfter.setVisibility(View.GONE);
+            }
+        });
 
         chkCrazy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -1038,6 +1111,13 @@ public class HomeFragment extends Fragment implements Serializable {
                                             if (chkPVP.isChecked()) ws.setCoefficient(coefficient); //PVP 여부가 적용되어 있다면 무기의 종류에 따른 무기 계수를 저장시킨다.
                                             if (chkFront.isChecked()) ws.setFront_dmg(front_dmg); //근접전의 대가가 적용되어 있다면 급접전의 대가의 데미지 수치를 저장시킨다.
                                             else ws.setFront_dmg(0); //근접전의 대가가 적용되어 있지 않다면 0으로 초기화한다.
+                                            if (chkFocus.isChecked()) {
+                                                ws.setFocusChecked(chkFocus.isChecked());
+                                                ws.setFocus(focus);
+                                            } else {
+                                                ws.setFocusChecked(chkFocus.isChecked());
+                                                ws.setFocus(0);
+                                            }
 
                                             String elite = Boolean.toString(elite_true); //정예 여부를 문자열로 변환하여 임시 변수에 저장한다. 이후 다음 액티비티로 넘길 때 사용한다.
 
