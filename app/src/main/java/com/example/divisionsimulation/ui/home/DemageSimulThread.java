@@ -277,8 +277,8 @@ class DemageSimulThread extends Thread implements Serializable {
             public void run() {
                 //SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+Integer.toString(sheld));
                 //SimulActivity.txtHealth.setText(Integer.toString(health)+"/"+Integer.toString(health));
-                sa.setTxtSheld(Integer.toString(sheld)+"/"+Integer.toString(sheld));
-                sa.setTxtHealth(Integer.toString(health)+"/"+Integer.toString(health));
+                sa.setTxtSheld(Integer.toString(sheld));
+                sa.setTxtHealth(Integer.toString(health));
             }
         });
 
@@ -479,7 +479,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     }
                     sheld -= real_demage; //방어도에서 현재 데미지를 뺀다.
                     all_dmg += real_demage; //누적 데미지에 현재 데미지를 추가한다.
-                    log = "-" + real_demage; //기록에 현재 데미지를 추가한다. (자동으로 문자열로 추가된다.)
+                    log = Integer.toString(real_demage); //기록에 현재 데미지를 추가한다. (자동으로 문자열로 추가된다.)
                     aim_ransu = (int)(Math.random()*1234567)%10+1; //1~10까지의 무작위 난수를 생성한다.
                     handler.post(new Runnable() {
                         @Override
@@ -526,7 +526,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         public void run() {
                             //SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
                             //SimulActivity.progressHealth.setProgress((int)dec_health);
-                            sa.setTxtHealth(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                            sa.setTxtHealth(Integer.toString(SimulActivity.getHealth()));
                             sa.setProgressHealth((int)dec_health);
                         }
                     });
@@ -549,7 +549,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     @Override
                     public void run() {
                         //SimulActivity.txtSheld.setText(Integer.toString(sheld)+"/"+first_sheld);
-                        sa.setTxtSheld(Integer.toString(sheld)+"/"+first_sheld);
+                        sa.setTxtSheld(Integer.toString(sheld));
                         //SimulActivity.txtAmmo.setText(ammo_log);
                         sa.setTxtAmmo(ammo_log);
                         //SimulActivity.txtStatue.setText(statue_log);
@@ -764,7 +764,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     temp_health = SimulActivity.getHealth() - real_demage;
                     SimulActivity.setHealth(temp_health);
                     all_dmg += real_demage;
-                    log = "-" + real_demage;
+                    log = Integer.toString(real_demage);
                     aim_ransu = (int)(Math.random()*1234567)%10+1;
                     handler.post(new Runnable() {
                         @Override
@@ -816,7 +816,7 @@ class DemageSimulThread extends Thread implements Serializable {
                     @Override
                     public void run() {
                         //SimulActivity.txtHealth.setText(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
-                        sa.setTxtHealth(Integer.toString(SimulActivity.getHealth())+"/"+first_health);
+                        sa.setTxtHealth(Integer.toString(SimulActivity.getHealth()));
                         //SimulActivity.txtAmmo.setText(ammo_log);
                         sa.setTxtAmmo(ammo_log);
                         //SimulActivity.txtStatue.setText(statue_log);

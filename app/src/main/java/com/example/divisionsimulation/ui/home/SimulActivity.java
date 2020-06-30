@@ -24,7 +24,7 @@ import java.io.Serializable;
 public class SimulActivity extends Activity implements Serializable {
 
     private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue; //방어도, 생명력, 현재 데미지, 탄약 수, 누적 탄약 수, 시뮬 시간, 추가 데미지, 상태메시지 변수
-    private TextView txtNickname, txtHealthInfo; //표적 이름, "생명력 : " 부분 텍스트뷰
+    private TextView txtNickname; //표적 이름, "생명력 : " 부분 텍스트뷰
 
     private TextView[] txtListDemage = new TextView[11]; //데미지 목록 배열
     private ImageView[] imgtake = new ImageView[4]; //타격 이미지뷰
@@ -169,7 +169,6 @@ public class SimulActivity extends Activity implements Serializable {
         txtTime = findViewById(R.id.txtTime);
         txtAdddemage = findViewById(R.id.txtAdddemage);
         txtNickname = findViewById(R.id.txtNickname);
-        txtHealthInfo = findViewById(R.id.txtHealthInfo);
 
         progressSheld = findViewById(R.id.progressSheld);
         progressHealth = findViewById(R.id.progressHealth);
@@ -245,16 +244,10 @@ public class SimulActivity extends Activity implements Serializable {
 
         if (type == 3) {
             progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_elite)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
-            txtHealth.setTextColor(Color.parseColor("#bdc900")); //생명력 텍스트 색상 변경
-            txtHealthInfo.setTextColor(Color.parseColor("#bdc900")); //위와 동일한 방식
         } else if (type == 2) {
             progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health_veterang)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
-            txtHealth.setTextColor(Color.parseColor("#A05BD5")); //생명력 텍스트 색상 변경
-            txtHealthInfo.setTextColor(Color.parseColor("#A05BD5")); //위와 동일한 방식
         } else {
             progressHealth.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_health)); //생명력 진행도 이미지를 변경 (색상만 노란색으로 변경됨)
-            txtHealth.setTextColor(Color.parseColor("#F15757")); //생명력 텍스트 색상 변경
-            txtHealthInfo.setTextColor(Color.parseColor("#F15757")); //위와 동일한 방식
         }
 
         quick = Boolean.parseBoolean(getIntent().getStringExtra("quickhand")); //전 액티비티에서 빠른손 여부를 가져온다.
