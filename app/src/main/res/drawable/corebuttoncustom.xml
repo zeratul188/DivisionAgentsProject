@@ -21,12 +21,6 @@
                         android:color="#fe6e0e"/>
                 </shape>
             </item>
-            <item
-                android:left="100dp"
-                android:top="-50dp"
-                android:bottom="-50dp"
-                android:right="100dp"
-                android:drawable="@drawable/exoticlogo"/>
         </layer-list>
     </item>
 

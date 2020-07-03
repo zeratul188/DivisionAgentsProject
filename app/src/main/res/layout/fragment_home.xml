@@ -46,7 +46,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="15"
+                android:layout_weight="10"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -86,12 +86,26 @@
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text=""
-                                android:hint="Nickname (최대 글자 : 15)"
+                                android:hint="네임드 여부를 체크하십시오."
                                 android:maxLength="15"
+                                android:enabled="false"
                                 android:textColorHint="#666666"
                                 android:textColor="#aaaaaa"
                                 android:background="@drawable/edittext_custom"
                                 android:textSize="15sp"/>
+                            <CheckBox
+                                android:id="@+id/chkNamed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="네임드"
+                                android:textColor="#f0f0f0"
+                                android:textSize="20sp"
+                                android:button="@null"
+                                android:background="@drawable/radiocustom"
+                                android:gravity="center"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:layout_marginLeft="10dp"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="5dp">
                             <TextView
@@ -1163,7 +1177,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:padding="3dp">
 

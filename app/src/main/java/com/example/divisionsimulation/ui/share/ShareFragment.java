@@ -923,10 +923,9 @@ public class ShareFragment extends Fragment {
             }
         });
 
-        btnReset.setOnLongClickListener(new Button.OnLongClickListener() {
-
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) { //초기화 버튼, 길게 눌러야 작동된다.
+            public void onClick(View v) {
                 dialogViewa = getLayoutInflater().inflate(R.layout.resetlayout, null); //다이얼로그에 추가할 뷰 생성
                 progressReset = dialogViewa.findViewById(R.id.progressReset);
                 progressReset.setMax(1500);
@@ -970,14 +969,6 @@ public class ShareFragment extends Fragment {
                 });
 
                 mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
-
-                return false;
-            }
-        });
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "길게 누르십시오.", Toast.LENGTH_SHORT).show(); //리셋버튼을 한번만 누르게 되면 길게 누르라며 토스트를 통해 전달한다.
             }
         });
 

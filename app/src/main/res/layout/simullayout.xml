@@ -157,53 +157,58 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:orientation="horizontal"
                     android:background="@drawable/simulcustom"
-                    android:padding="10dp"
                     android:gravity="center"
                     android:layout_marginBottom="10dp">
-                    <TextView
-                        android:id="@+id/txtAmmo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="999"
-                        android:fontFamily="@font/brickshapers"
-                        android:textSize="50sp"
-                        android:textColor="#f0f0f0"
-                        android:singleLine="true"
-                        android:layout_marginRight="5dp"/>
+                    <ProgressBar
+                        android:layout_width="50dp"
+                        android:layout_height="6dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:rotation="270"
+                        android:layout_marginLeft="-21dp"
+                        android:layout_marginRight="-21dp"
+                        android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                        android:id="@+id/progressAmmo"
+                        android:progress="50"
+                        android:indeterminateTint="#E45435"/>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:gravity="center">
                         <TextView
-                            android:id="@+id/txtNowDemage"
+                            android:id="@+id/txtAmmo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="9999"
+                            android:text="999"
+                            android:fontFamily="@font/brickshapers"
+                            android:textSize="50sp"
                             android:textColor="#f0f0f0"
-                            android:singleLine="true"
-                            android:fontFamily="@font/brickshapersfont"
-                            android:textSize="32sp"
-                            android:layout_gravity="right"
-                            style = "@style/TextShadow"/>
-
-                        <ProgressBar
-                            android:layout_width="140dp"
-                            android:layout_height="16dp"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                            android:background="@drawable/gage"
-                            android:id="@+id/progressAmmo"
-                            android:paddingLeft="9dp"
-                            android:paddingRight="9dp"
-                            android:paddingBottom="6dp"
-                            android:paddingTop="3dp"
-                            android:layout_gravity="right"
-                            android:progress="50"
-                            android:indeterminateTint="#E45435"/>
+                            android:gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:singleLine="true"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:id="@+id/txtNowDemage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="9999"
+                                android:textColor="#f0f0f0"
+                                android:singleLine="true"
+                                android:fontFamily="@font/brickshapersfont"
+                                android:textSize="32sp"
+                                android:layout_gravity="right"
+                                android:layout_marginRight="10dp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 

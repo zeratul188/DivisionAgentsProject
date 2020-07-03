@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment implements Serializable {
     private RadioButton[] rdoPush = new RadioButton[11]; //중압감 라디오 버튼 배열이다.
     private CheckBox[] chkCamelOption = new CheckBox[3]; //카멜레온 옵션 체크 박스 배열이다.
     private CheckBox chkSeeker, chkCrazy, chkBoom, chkPush, chkEagle, chkQuickhand, chkBumerang, chkCamel, chkFire, chkFront; //기타 체크 박스이다. (집념, 무자비 등)
-    private CheckBox chkUndo, chkAfter, chkOverwatch, chkIntimidate, chkPerfectIntimidate;
+    private CheckBox chkUndo, chkAfter, chkOverwatch, chkIntimidate, chkPerfectIntimidate, chkNamed;
     private LinearLayout layoutUndo, layoutAfter;
 
     private CheckBox chkFocus, chkPerfectFocus, chkScrifice, chkPerfectScrifice, chkSympathy, chkObel, chkWicked, chkCompanion, chkComposure;
@@ -237,6 +237,21 @@ public class HomeFragment extends Fragment implements Serializable {
         edtAmmo = root.findViewById(R.id.edtAmmo);
         edtNickname = root.findViewById(R.id.edtNickname);
         edtAiming = root.findViewById(R.id.edtAiming);
+        chkNamed = root.findViewById(R.id.chkNamed);
+
+        chkNamed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    edtNickname.setEnabled(true);
+                    edtNickname.setHint("Nickname (최대 글자 : 15)");
+                } else {
+                    edtNickname.setText("");
+                    edtNickname.setHint("네임드 여부를 체크하십시오.");
+                    edtNickname.setEnabled(false);
+                }
+            }
+        });
 
         btnDPS = root.findViewById(R.id.btnDPS);
         btnDemageSimul = root.findViewById(R.id.btnDemageSimul);
@@ -1153,10 +1168,9 @@ public class HomeFragment extends Fragment implements Serializable {
             }
         });
 
-        btnDPS.setOnLongClickListener(new Button.OnLongClickListener() {
-
+        btnDPS.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) { //초기화 버튼이 한번 눌렸을 경우 작동한다.
                 dialogView = getLayoutInflater().inflate(R.layout.resetlayout, null);
                 progressReset = dialogView.findViewById(R.id.progressReset);
                 progressReset.setMax(1500);
@@ -1189,17 +1203,6 @@ public class HomeFragment extends Fragment implements Serializable {
                 });
 
                 mHandler.sendEmptyMessageDelayed(0, 20);
-
-                return false;
-            }
-        });
-        /*
-        위와 동일한 방식
-         */
-        btnDPS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //초기화 버튼이 한번 눌렸을 경우 작동한다.
-                Toast.makeText(getActivity(), "길게 누르십시오.", Toast.LENGTH_SHORT).show(); //길게 눌러야 작동되는 초기화 버튼이므로 길게 누르라고 토스트로 알려준다.
             }
         });
 
@@ -1478,6 +1481,19 @@ public class HomeFragment extends Fragment implements Serializable {
                             rdoType[i] = dialogView.findViewById(temp_index);
                         }
 
+                        if (chkNamed.isChecked()) {
+                            rdoType[2].setChecked(true);
+                            for (int i = 0; i < rdoType.length-1; i++) {
+                                rdoType[i].setEnabled(false);
+                                rdoType[i].setTextColor(Color.parseColor("#444444"));
+                            }
+                        } else {
+                            for (int i = 0; i < rdoType.length-1; i++) {
+                                rdoType[i].setEnabled(true);
+                                rdoType[i].setTextColor(Color.parseColor("#f0f0f0"));
+                            }
+                        }
+
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //다이얼로그를 띄우는 객체이다.
                         builder.setView(dialogView); //다이얼로그 빌더에 dialogView를 넣어 다이얼로그를 보여줄 때 해당 뷰를 보여주게 해준다.
 
@@ -1685,6 +1701,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 intent.putExtra("elite", elite); //정예 여부를 다음 액티비티로 넘긴다.
                                                 intent.putExtra("quickhand", Boolean.toString(quick_hand)); //빠른 손 여부를 문자열로 변환하여 다음 액티비티로 넘긴다.
                                                 intent.putExtra("type", type);
+                                                intent.putExtra("named", chkNamed.isChecked());
 
                                                 startActivity(intent); //액티비티를 실행한다.
                                                 alertDialog.dismiss(); //할 일을 마친 다이얼로그는 닫는다.

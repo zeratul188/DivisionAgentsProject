@@ -25,6 +25,7 @@ public class SimulActivity extends Activity implements Serializable {
 
     private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue; //방어도, 생명력, 현재 데미지, 탄약 수, 누적 탄약 수, 시뮬 시간, 추가 데미지, 상태메시지 변수
     private TextView txtNickname; //표적 이름, "생명력 : " 부분 텍스트뷰
+    private Boolean named = false;
 
     private TextView[] txtListDemage = new TextView[11]; //데미지 목록 배열
     private ImageView[] imgtake = new ImageView[4]; //타격 이미지뷰
@@ -206,10 +207,10 @@ public class SimulActivity extends Activity implements Serializable {
 
         //progressHealth.getProgressDrawable().setColorFilter(Color.MAGENTA, PorterDuff.Mode.SRC_IN);
 
-        txtNowDemage.setShadowLayer(1, 5, 5, Color.parseColor("#bbe3e3e3")); //현재 데미지에 그림자를 추가한다.
-        txtAmmo.setShadowLayer(1, 5, 5, Color.parseColor("#bb222222")); //위와 동일한 방식
-        txtSheld.setShadowLayer(1, 3, 3, Color.parseColor("#bbe3e3e3")); //위와 동일한 방식
-        txtHealth.setShadowLayer(1, 3, 3, Color.parseColor("#bbe3e3e3")); //위와 동일한 방식
+        txtNowDemage.setShadowLayer(1, 2, 2, Color.parseColor("#bbe3e3e3")); //현재 데미지에 그림자를 추가한다.
+        txtAmmo.setShadowLayer(1, 2, 2, Color.parseColor("#bb222222")); //위와 동일한 방식
+        txtSheld.setShadowLayer(1, 2, 2, Color.parseColor("#bbe3e3e3")); //위와 동일한 방식
+        txtHealth.setShadowLayer(1, 2, 2, Color.parseColor("#bbe3e3e3")); //위와 동일한 방식
 
         progressSheld.setMax(10000); //방어도 진행도의 최대치를 10000으로 잡는다.
         progressHealth.setMax(10000); //위와 동일한 방식
@@ -220,6 +221,10 @@ public class SimulActivity extends Activity implements Serializable {
 
         //TimeThread tt = new TimeThread();
         //tt.start();
+
+        named = getIntent().getBooleanExtra("named", false);
+        if (named) txtNickname.setVisibility(View.VISIBLE);
+        else txtNickname.setVisibility(View.INVISIBLE);
 
         type = getIntent().getIntExtra("type", 0);
 
