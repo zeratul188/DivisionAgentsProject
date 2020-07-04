@@ -3,6 +3,8 @@ package com.example.divisionsimulation.ui.share;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.os.Handler;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -18,11 +20,16 @@ class DarkZoneTimerThread extends Thread {
     private Activity activity = null; //토스트를 어디에 띄우기 위한 액티비티
     private ShareFragment sf = null; //스레드를 사용하는 액티비티
     private int rogue_percent = 0; //로그 출몰 확률을 저장하는 변수
+    private String text;
+    private TextView txtTimer;
+    private ProgressBar progressTimer;
 
-    public DarkZoneTimerThread(Handler handler, Activity activity, ShareFragment sf) { //생성자
+    public DarkZoneTimerThread(Handler handler, Activity activity, ShareFragment sf, TextView txtTimer, ProgressBar progressTimer) { //생성자
         this.handler = handler; //핸들러를 가져옴
         this.activity = activity; //액티비티를 가져옴
         this.sf = sf; //ShareFragment를 가져옴
+        this.txtTimer = txtTimer;
+        this.progressTimer = progressTimer;
     }
     public void stopThread() { stop = true; } //스레드를 중지시킨다.
     public void setMinute(int minute) { this.minute = minute; } //분을 서정한다.
@@ -43,25 +50,16 @@ class DarkZoneTimerThread extends Thread {
         while (((minute != 0 || second != 0) || now_sum_second != -1) && !stop && !rogue) { //로그로 인해 탈취당하거나 분, 초가 0이 되었거나 남은 시간이 없을 경우 종료된다. 그 전까지는 무한 반복 상태이다.
             process = ((double)now_sum_second/(double)sum_second)*10000; //현재 남은 시간을 통해 현재 진행도를 저장한다.
 
-            if (minute != 0) { //분이 0이 아닐 경우 작동
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //ShareFragment.txtTimer.setText(minute+"분 "+second+"초");
-                        sf.setTxtTimer(minute+"분 "+second+"초"); //분, 초 모두 출력한다.
-                        sf.setProgressTimer(10000-(int)process); // 진행도 설정
-                    }
-                });
-            } else { //분이 0이 될 경우 출력할 필요가 없으므로 초 단위만 보여준다.
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //ShareFragment.txtTimer.setText(second+"초");
-                        sf.setTxtTimer(second+"초"); //초만 보여준다.
-                        sf.setProgressTimer(10000-(int)process); //위와 동일
-                    }
-                });
-            }
+            if (minute != 0) text = minute+"분 "+(second-1)+"초";
+            else text = (second-1)+"초";
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //ShareFragment.txtTimer.setText(second+"초");
+                    txtTimer.setText(text); //초만 보여준다.
+                    progressTimer.setProgress(10000-(int)process); //위와 동일
+                }
+            });
             /*handler.post(new Runnable() {
                 @Override
                 public void run() {

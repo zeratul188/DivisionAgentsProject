@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -22,8 +24,11 @@ class TimerThread extends Thread {
     private Context context = null;
     private String NOTIFICATION_ID = "10001";
     private MainActivity ma = null;
+    private String time_text;
+    private TextView txtTImer;
+    private ProgressBar progressTImer;
 
-    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity, NotificationManager nm, Context context, MainActivity ma) {
+    public TimerThread(int hour, int minute, int second, Handler handler, Activity activity, NotificationManager nm, Context context, TextView txtTimer, ProgressBar progressTimer) {
         this.hour = hour;
         this.minute = minute;
         this.second = second;
@@ -31,7 +36,8 @@ class TimerThread extends Thread {
         this.activity = activity;
         this.nm = nm;
         this.context = context;
-        this.ma = ma;
+        this.txtTImer = txtTimer;
+        this.progressTImer = progressTimer;
     }
     public void stopThread() { stop = true; }
 
@@ -41,34 +47,17 @@ class TimerThread extends Thread {
         while (((hour != 0 || minute != 0 || second != 0) || now_sum_second != -1) && !stop) {
             process = ((double)now_sum_second/(double)sum_second)*10000;
 
-            if (hour != 0) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //MainActivity.txtTimer.setText(hour+"시간 "+minute+"분 "+second+"초");
-                        ma.setTimerText(hour+"시간 "+minute+"분 "+second+"초");
-                        ma.setTimerProgress(10000-(int)process);
-                    }
-                });
-            } else if (minute != 0) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //MainActivity.txtTimer.setText(minute+"분 "+second+"초");
-                        ma.setTimerText(minute+"분 "+second+"초");
-                        ma.setTimerProgress(10000-(int)process);
-                    }
-                });
-            } else {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //MainActivity.txtTimer.setText(second+"초");
-                        ma.setTimerText(second+"초");
-                        ma.setTimerProgress(10000-(int)process);
-                    }
-                });
-            }
+            if (hour != 0) time_text = hour+"시간 "+minute+"분 "+(second-1)+"초";
+            else if (minute != 0) time_text = minute+"분 "+(second-1)+"초";
+            else time_text = (second-1)+"초";
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //MainActivity.txtTimer.setText(second+"초");
+                    txtTImer.setText(time_text);
+                    progressTImer.setProgress(10000-(int)process);
+                }
+            });
 
             now_sum_second --;
             second --;

@@ -1121,8 +1121,8 @@ public class ShareFragment extends Fragment {
                         }
                     });
 
-                    coming_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this); //헬기 오기 전 타이머 스레드
-                    output_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this); //헬기 도착 후 타이머 스레드
+                    coming_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this, txtTimer, progressTimer); //헬기 오기 전 타이머 스레드
+                    output_dz = new DarkZoneTimerThread(handler, getActivity(), ShareFragment.this, txtTimer, progressTimer); //헬기 도착 후 타이머 스레드
 
                     progressTimer.setMax(10000); //타이머의 최대치를 설정
                     progressTimer.setProgress(0); //타이머의 진행도를 초기화

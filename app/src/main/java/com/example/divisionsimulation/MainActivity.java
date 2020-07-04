@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 notificationManager.notify(0, buildert.build());
                                 txtResultTarget.setText("'목표'까지 남은 시간");
                             }
-                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, MainActivity.this);
+                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, txtTimer, progressTimer);
 
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);
