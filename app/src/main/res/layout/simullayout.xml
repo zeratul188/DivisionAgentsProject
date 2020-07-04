@@ -89,6 +89,12 @@
                 android:id="@+id/progressSheld"
                 android:indeterminateTint="#3B3B7C"
                 android:layerType="software"/>
+            <ImageView
+                android:id="@+id/imgHittedSheld"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/hittedsheld"
+                android:layout_gravity="center"/>
         </FrameLayout>
 
         <LinearLayout

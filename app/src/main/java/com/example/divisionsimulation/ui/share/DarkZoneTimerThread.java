@@ -50,8 +50,17 @@ class DarkZoneTimerThread extends Thread {
         while (((minute != 0 || second != 0) || now_sum_second != -1) && !stop && !rogue) { //로그로 인해 탈취당하거나 분, 초가 0이 되었거나 남은 시간이 없을 경우 종료된다. 그 전까지는 무한 반복 상태이다.
             process = ((double)now_sum_second/(double)sum_second)*10000; //현재 남은 시간을 통해 현재 진행도를 저장한다.
 
-            if (minute != 0) text = minute+"분 "+(second-1)+"초";
-            else text = (second-1)+"초";
+            if (second != 0) {
+                if (minute < 10) text = "0"+minute+":";
+                else text = minute+":";
+                if (second-1 < 10) text += "0"+(second-1);
+                else text += Integer.toString(second-1);
+            } else {
+                if (minute < 10) text = "0"+minute+":";
+                else text = minute+":";
+                if (second < 10) text += "0"+second;
+                else text += Integer.toString(second);
+            }
             handler.post(new Runnable() {
                 @Override
                 public void run() {

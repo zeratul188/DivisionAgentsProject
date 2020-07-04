@@ -47,9 +47,16 @@ class TimerThread extends Thread {
         while (((hour != 0 || minute != 0 || second != 0) || now_sum_second != -1) && !stop) {
             process = ((double)now_sum_second/(double)sum_second)*10000;
 
-            if (hour != 0) time_text = hour+"시간 "+minute+"분 "+(second-1)+"초";
-            else if (minute != 0) time_text = minute+"분 "+(second-1)+"초";
-            else time_text = (second-1)+"초";
+            if (hour != 0) {
+                if (second != 0) time_text = hour+"시간 "+minute+"분 "+(second-1)+"초";
+                else time_text = hour+"시간 "+minute+"분 0초";
+            }else if (minute != 0) {
+                if (second != 0) time_text = minute+"분 "+(second-1)+"초";
+                else time_text = minute+"분 0초";
+            } else {
+                if (second != 0) time_text = (second-1)+"초";
+                else time_text = "0초";
+            }
             handler.post(new Runnable() {
                 @Override
                 public void run() {

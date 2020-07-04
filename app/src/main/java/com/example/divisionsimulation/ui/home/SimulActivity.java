@@ -25,11 +25,11 @@ public class SimulActivity extends Activity implements Serializable {
 
     private TextView txtSheld, txtHealth, txtNowDemage, txtAmmo, txtAllAmmo, txtTime, txtAdddemage, txtStatue; //방어도, 생명력, 현재 데미지, 탄약 수, 누적 탄약 수, 시뮬 시간, 추가 데미지, 상태메시지 변수
     private TextView txtNickname; //표적 이름, "생명력 : " 부분 텍스트뷰
-    private Boolean named = false;
+    private Boolean named = false, hitted = false;
 
     private TextView[] txtListDemage = new TextView[11]; //데미지 목록 배열
     private ImageView[] imgtake = new ImageView[4]; //타격 이미지뷰
-    private ImageView imgAim; //에임 이미지뷰
+    private ImageView imgAim, imgHittedSheld; //에임 이미지뷰
 
     private ProgressBar progressSheld, progressHealth, progressAmmo; //방어도, 생명력, 탄약 진행바
 
@@ -73,6 +73,10 @@ public class SimulActivity extends Activity implements Serializable {
     public void setTxtStatue(String message) { txtStatue.setText(message); } //위와 동일한 방식
     public void setTxtQuickhand(String message) { txtQuickhand.setText(message); } //위와 동일한 방식
     public void setBtnExitText(String message) { btnExit.setText(message); } //위와 동일한 방식
+    public void setHitted(boolean hitted) {
+        if (hitted) imgHittedSheld.setVisibility(View.VISIBLE);
+        else imgHittedSheld.setVisibility(View.INVISIBLE);
+    }
 
     public void setTxtListDemage(int index, String message) { txtListDemage[index].setText(message); } //index에 해당하는 데미지 목록을 UI에 적용시킨다.
     public void setImgTake(int index) { //타격 이미지를 적용시킨다.
@@ -175,6 +179,7 @@ public class SimulActivity extends Activity implements Serializable {
         progressHealth = findViewById(R.id.progressHealth);
         progressAmmo = findViewById(R.id.progressAmmo);
         imgAim = findViewById(R.id.imgAim);
+        imgHittedSheld = findViewById(R.id.imgHittedSheld);
 
         layoutQuickhand = findViewById(R.id.layoutQuickhand);
         txtQuickhand = findViewById(R.id.txtQuickhand);
@@ -225,6 +230,11 @@ public class SimulActivity extends Activity implements Serializable {
         named = getIntent().getBooleanExtra("named", false);
         if (named) txtNickname.setVisibility(View.VISIBLE);
         else txtNickname.setVisibility(View.INVISIBLE);
+
+        hitted = getIntent().getBooleanExtra("hitted", false);
+        if (hitted) progressSheld.setVisibility(View.INVISIBLE);
+        else progressSheld.setVisibility(View.VISIBLE);
+        imgHittedSheld.setVisibility(View.INVISIBLE);
 
         type = getIntent().getIntExtra("type", 0);
 

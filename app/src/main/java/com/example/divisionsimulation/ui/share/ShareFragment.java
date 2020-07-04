@@ -90,7 +90,7 @@ public class ShareFragment extends Fragment {
 
     final private int BIG = 1234567; //램덤 함수에 쓰일 고정형 변수
 
-    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList, btnMaterialList; //라이트존, 다크존, 칠흑의 시간 레이드, 레이드 박스, 초기화, 트루썬 막보, 드래고프, 뉴욕 필드보스, 전설난이도 막보, 세션 박스, 아이템 목록 버튼 객체 생성
+    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList, btnMaterialList, btnDropBox; //라이트존, 다크존, 칠흑의 시간 레이드, 레이드 박스, 초기화, 트루썬 막보, 드래고프, 뉴욕 필드보스, 전설난이도 막보, 세션 박스, 아이템 목록 버튼 객체 생성
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll; //특급, 네임드, 기어, 일반, 전체 갯수 텍스트뷰 생성
 
     private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand; //특급, 네임드, 기어, 브랜드의 백분율을 나타낼 진행바 객체 생성
@@ -188,7 +188,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void run() {
                 alertDialog_timer.dismiss(); //이송 중 다이얼로그를 닫는다.
-                AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
                 tbuilder.setMessage("이송 완료");
                 tbuilder.setPositiveButton("확인", null);
                 AlertDialog talertDialog = tbuilder.create();
@@ -611,6 +611,7 @@ public class ShareFragment extends Fragment {
         btnRaidbox = root.findViewById(R.id.btnRaidbox);
         btnReset = root.findViewById(R.id.btnReset);
         btnOutput = root.findViewById(R.id.btnOutput);
+        btnDropBox = root.findViewById(R.id.btnDropBox);
 
         btnTruesun = root.findViewById(R.id.btnTruesun);
         btnLastBoss = root.findViewById(R.id.btnLastBoss);
@@ -728,6 +729,7 @@ public class ShareFragment extends Fragment {
                         btnDragov.setEnabled(true);
                         btnBox.setEnabled(true);
                         btnNewYork.setEnabled(true);
+                        btnDropBox.setEnabled(true);
                         break;
                     case R.id.rdoDif5:
                         btnLastBoss.setEnabled(true);
@@ -739,6 +741,7 @@ public class ShareFragment extends Fragment {
                         btnDragov.setEnabled(false);
                         btnBox.setEnabled(false);
                         btnNewYork.setEnabled(false);
+                        btnDropBox.setEnabled(false);
                         break;
                 }
             }
@@ -7022,7 +7025,7 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
                             else temp_percent = percent(1, 30) + option_bonus;
                         now_option = Math.floor((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWMain2_dark.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWSub_dark.setBackgroundResource(R.drawable.maxbackground);
                         else txtWSub_dark.setBackgroundResource(R.drawable.notmaxbackground);
                         progressWSub_dark.setProgress((int)(now_option*10));
                         txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
@@ -7196,6 +7199,632 @@ public class ShareFragment extends Fragment {
                                 if (pick <= 5) temp_percent = 100;
                             else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
                             else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                    }
+                }
+
+                if (dark_dialogView.getParent() != null)
+                    ((ViewGroup) dark_dialogView.getParent()).removeView(dark_dialogView);
+                builder_dark.setView(dark_dialogView);
+
+                setSemiInterface(String.valueOf(txtType2.getText()), imgType2);
+                inputData(String.valueOf(txtName2.getText()), String.valueOf(txtType2.getText()));
+
+                dialog_dark = builder_dark.create();
+                dialog_dark.setCancelable(false);
+                dialog_dark.show();
+            }
+        });
+
+        btnDropBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                double now_option; //임시로 저장될 옵션 수치
+                int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
+                tableMain2.setBackgroundResource(R.drawable.rareitem); // 1:attack, 2:sheld, 3:power
+                String temp_option;
+                openSheld = false;
+                openWeapon = false;
+                layoutSheld_dark.setVisibility(View.GONE);
+                layoutWeapon_dark.setVisibility(View.GONE);
+
+                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+                tableMain2.setVisibility(View.VISIBLE);
+                btnChange2.setVisibility(View.GONE);
+                txtName2.setTextColor(Color.parseColor("#aaaaaa"));
+                //trOption2.setVisibility(View.GONE);
+                //for (int i = 0; i < 3; i++) imgOption2[i].setVisibility(View.VISIBLE);
+                if (percent(1, 1000) <= 10+bonus) { //특급 장비
+                    tableMain2.setBackgroundResource(R.drawable.exoticitem);
+                    btnChange2.setText("특급");
+                    btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial));
+                    tableMain2.setVisibility(View.GONE);
+                    btnChange2.setVisibility(View.VISIBLE);
+                    txtName2.setTextColor(Color.parseColor("#ff3c00"));
+                    special++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtSpecial.setText(Integer.toString(special));
+                    pick = percent(2, 10);
+                    txtName2.setText("닌자바이크 무릎 보호대");
+                    txtType2.setText("무릎 보호대");
+
+                    type = 1;
+                    openSheld = true;
+                    temp_option = il.getSheldMainOption(0);
+                    progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
+                    now_option = 15;
+                    if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setBackgroundResource(R.drawable.maxbackground);
+                    else txtSMain_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                    progressSMain_dark.setProgress((int)(now_option*10));
+                    txtSMain_dark.setText("+"+il.getMaxSheldMainOption(temp_option)+temp_option);
+                    switch (type) {
+                        case 1:
+                            imgSMain_dark.setImageResource(R.drawable.attack);
+                            break;
+                        case 2:
+                            imgSMain_dark.setImageResource(R.drawable.sheld);
+                            break;
+                        case 3:
+                            imgSMain_dark.setImageResource(R.drawable.power);
+                            break;
+                        default:
+                            imgSMain_dark.setImageResource(R.drawable.critical);
+                    }
+                    type = 1;
+                    switch (type) {
+                        case 1:
+                            imgSSub1_dark.setImageResource(R.drawable.attack);
+                            temp_option = il.getSheldSubWeaponOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                            progressSSub1_dark.setProgress((int)(now_option*10));
+                            txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                        case 2:
+                            imgSSub1_dark.setImageResource(R.drawable.sheld);
+                            temp_option = il.getSheldSubSheldOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                            progressSSub1_dark.setProgress((int)(now_option*10));
+                            txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                        case 3:
+                            imgSSub1_dark.setImageResource(R.drawable.power);
+                            temp_option = il.getSheldSubPowerOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                            progressSSub1_dark.setProgress((int)(now_option*10));
+                            txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                    }
+                    type = 1;
+                    switch (type) {
+                        case 1:
+                            imgSSub2_dark.setImageResource(R.drawable.attack);
+                            temp_option = il.getSheldSubWeaponOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                            progressSSub2_dark.setProgress((int)(now_option*10));
+                            txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                        case 2:
+                            imgSSub2_dark.setImageResource(R.drawable.sheld);
+                            temp_option = il.getSheldSubSheldOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                            progressSSub2_dark.setProgress((int)(now_option*10));
+                            txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                        case 3:
+                            imgSSub2_dark.setImageResource(R.drawable.power);
+                            temp_option = il.getSheldSubPowerOption();
+                            pick = percent(1, 100);
+                            if (pick <= 5) temp_percent = 100;
+                            else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                            else temp_percent = percent(1, 30) + option_bonus;
+                            now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                            else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                            progressSSub2_dark.setProgress((int)(now_option*10));
+                            txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                            break;
+                    }
+
+                } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName2.setTextColor(Color.parseColor("#c99700"));
+                    tableMain2.setVisibility(View.GONE);
+                    btnChange2.setVisibility(View.VISIBLE);
+                    btnChange2.setText("네임드");
+                    btnChange2.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    if (percent(1, 2) == 1) { //weapon
+                        pick = percent(0, il.getNamedweapon_dark_Length());
+                        txtName2.setText(il.getNamedweapon_dark(pick));
+                        txtType2.setText(il.getNamedweapon_dark_type(pick));
+
+                        openWeapon = true;
+                        temp_option = String.valueOf(txtType2.getText());
+                        progressWMain1_dark.setMax(150);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= 15) txtWMain1_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWMain1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWMain1_dark.setProgress((int)(now_option*10));
+                        txtWMain1_dark.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option)*10);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= il.getMaxWeaponMainOption(temp_option)) txtWMain2_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWMain2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWMain2_dark.setProgress((int)(now_option*10));
+                        txtWMain2_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option)*10);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWSub_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWSub_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWSub_dark.setProgress((int)(now_option*10));
+                        txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent_dark.setText(il.getNamedWeaponDarkTalent(String.valueOf(txtName2.getText())));
+
+                    } else { //sheld
+                        /*trOption2.setVisibility(View.VISIBLE);
+                        int ransu, option;
+                        for (int i = 0; i < imgOption2.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
+                            else imgOption2[i].setImageResource(R.drawable.power);
+                        }*/
+                        pick = percent(0, il.getNamedsheld_dark_Length());
+                        /*switch (il.getNamedsheld_dark_type(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption2[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
+                                break;
+                        }*/
+                        txtName2.setText(il.getNamedsheld_dark(pick));
+                        txtType2.setText(il.getNamedsheld_dark_type(pick));
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        if (type != 3) now_option = Math.floor((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtSMain_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain_dark.setProgress((int)(now_option*10));
+                        txtSMain_dark.setText("+"+Double.toString(now_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain_dark.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain_dark.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain_dark.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain_dark.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                    }
+                } else { //기타 장비
+                    if (percent(1,2) == 1) { //weapon
+                        brand++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtBrand.setText(Integer.toString(brand));
+                        pick = percent(0, il.getWeapontype_Length());
+                        int temp;
+                        switch (pick) {
+                            case 0: //돌격소총
+                                temp = percent(0, il.getWeaponlist1_Length());
+                                txtName2.setText(il.getWeaponlist1(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 1: //소총
+                                temp = percent(0, il.getWeaponlist2_Length());
+                                txtName2.setText(il.getWeaponlist2(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 2: //지정사수소총
+                                temp = percent(0, il.getWeaponlist3_Length());
+                                txtName2.setText(il.getWeaponlist3(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 3: //기관단총
+                                temp = percent(0, il.getWeaponlist4_Length());
+                                txtName2.setText(il.getWeaponlist4(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 4: //경기관총
+                                temp = percent(0, il.getWeaponlist5_Length());
+                                txtName2.setText(il.getWeaponlist5(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 5: //산탄총
+                                temp = percent(0, il.getWeaponlist6_Length());
+                                txtName2.setText(il.getWeaponlist6(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            case 6: //권총
+                                temp = percent(0, il.getWeaponlist7_Length());
+                                txtName2.setText(il.getWeaponlist7(temp));
+                                txtType2.setText(il.getWeapontype(pick));
+                                break;
+                            default:
+                                txtName2.setText("Error");
+                                txtType2.setText("Error");
+                        }
+
+                        openWeapon = true;
+                        layoutWeapon_dark.setVisibility(View.VISIBLE);
+                        temp_option = String.valueOf(txtType2.getText());
+                        progressWMain1_dark.setMax(150);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((15.0*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= 15) txtWMain1_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWMain1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWMain1_dark.setProgress((int)(now_option*10));
+                        txtWMain1_dark.setText("+"+Double.toString(now_option)+"% "+temp_option+" 데미지");
+
+                        temp_option = il.getWeaponMainOption(temp_option);
+                        progressWMain2_dark.setMax(il.getMaxWeaponMainOption(temp_option)*10);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((il.getMaxWeaponMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= il.getMaxWeaponMainOption(temp_option)) txtWMain2_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWMain2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWMain2_dark.setProgress((int)(now_option*10));
+                        txtWMain2_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        temp_option = il.getWeaponSubOption();
+                        progressWSub_dark.setMax(il.getMaxWeaponSubOption(temp_option)*10);
+                        pick = percent(1, 100);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        now_option = Math.floor((il.getMaxWeaponSubOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(now_option) >= il.getMaxWeaponSubOption(temp_option)) txtWMain2_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtWSub_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressWSub_dark.setProgress((int)(now_option*10));
+                        txtWSub_dark.setText("+"+Double.toString(now_option)+"% "+temp_option);
+
+                        txtWTalent_dark.setText(il.getWeaponTalent(String.valueOf(txtType2.getText())));
+
+                    } else { //sheld
+                        pick = percent(0, il.getSheldtype_Length());
+                        txtType2.setText(il.getSheldtype(pick));
+                        int option;
+                        /*switch (il.getSheldtype(pick)) {
+                            case "마스크":
+                            case "장갑":
+                            case "권총집":
+                                option = percent(1, 100);
+                                if (option <= 80) imgOption2[2].setVisibility(View.GONE);
+                                else for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
+                                break;
+                            case "무릎 보호대":
+                                for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
+                                break;
+                        }*/
+                        pick = percent(1, 100);
+                        /*trOption2.setVisibility(View.VISIBLE);
+                        int ransu;
+                        for (int i = 0; i < imgOption2.length; i++) {
+                            ransu = percent(1, 3);
+                            if (ransu == 1) imgOption2[i].setImageResource(R.drawable.attack);
+                            else if (ransu == 2) imgOption2[i].setImageResource(R.drawable.sheld);
+                            else imgOption2[i].setImageResource(R.drawable.power);
+                        }*/
+                        if (pick <= 20) { //gear
+                            tableMain2.setBackgroundResource(R.drawable.gearitem);
+                            gear++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtGear.setText(Integer.toString(gear));
+                            txtName2.setTextColor(Color.parseColor("#009900"));
+                            pick = percent(0, il.getSheldgear_Length());
+                            txtName2.setText(il.getSheldgear(pick));
+                        } else { //brand
+                            brand++;
+                            all++;
+                            setInterface();
+                            txtAll.setText(Integer.toString(all));
+                            txtBrand.setText(Integer.toString(brand));
+                            pick = percent(0, il.getSheldbrand_Length());
+                            /*switch (il.getSheldbrand(pick)) {
+                                case "알프스 정상 군수산업":
+                                case "아이랄디 홀딩":
+                                    switch (String.valueOf(txtType2.getText())) {
+                                        case "백팩":
+                                        case "조끼":
+                                            imgOption2[2].setVisibility(View.GONE);
+                                            break;
+                                        default:
+                                            for (int i = 1; i < 3; i++) imgOption2[i].setVisibility(View.GONE);
+
+                                    }
+                            }*/
+                            txtName2.setText(il.getSheldbrand(pick));
+                        }
+
+                        type = percent(1, 3);
+                        openSheld = true;
+                        layoutSheld_dark.setVisibility(View.VISIBLE);
+                        temp_option = il.getSheldMainOption(type-1);
+                        progressSMain_dark.setMax(il.getMaxSheldMainOption(temp_option)*10);
+                        if (pick <= 5) temp_percent = 100;
+                        else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                        else temp_percent = percent(1, 30) + option_bonus;
+                        if (type != 3) now_option = Math.floor((il.getMaxSheldMainOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                        else now_option = 1;
+                        if ((int)Math.floor(now_option) >= il.getMaxSheldMainOption(temp_option)) txtSMain_dark.setBackgroundResource(R.drawable.maxbackground);
+                        else txtSMain_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain_dark.setProgress((int)(now_option*10));
+                        txtSMain_dark.setText("+"+Double.toString(now_option)+temp_option);
+                        switch (type) {
+                            case 1:
+                                imgSMain_dark.setImageResource(R.drawable.attack);
+                                break;
+                            case 2:
+                                imgSMain_dark.setImageResource(R.drawable.sheld);
+                                break;
+                            case 3:
+                                imgSMain_dark.setImageResource(R.drawable.power);
+                                break;
+                            default:
+                                imgSMain_dark.setImageResource(R.drawable.critical);
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub1_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub1_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub1_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub1_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub1_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub1_dark.setMax(il.getMaxSheldSubPowerOption(temp_option)*10);
+                                progressSSub1_dark.setProgress((int)(now_option*10));
+                                txtSSub1_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                        }
+                        type = percent(1, 3);
+                        switch (type) {
+                            case 1:
+                                imgSSub2_dark.setImageResource(R.drawable.attack);
+                                temp_option = il.getSheldSubWeaponOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubWeaponOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubWeaponOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubWeaponOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 2:
+                                imgSSub2_dark.setImageResource(R.drawable.sheld);
+                                temp_option = il.getSheldSubSheldOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
+                                now_option = Math.floor(((double)il.getMaxSheldSubSheldOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
+                                if ((int)Math.floor(now_option) >= il.getMaxSheldSubSheldOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
+                                else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);
+                                progressSSub2_dark.setMax(il.getMaxSheldSubSheldOption(temp_option)*10);
+                                progressSSub2_dark.setProgress((int)(now_option*10));
+                                txtSSub2_dark.setText("+"+Double.toString(now_option)+temp_option);
+                                break;
+                            case 3:
+                                imgSSub2_dark.setImageResource(R.drawable.power);
+                                temp_option = il.getSheldSubPowerOption();
+                                pick = percent(1, 100);
+                                if (pick <= 5) temp_percent = 100;
+                                else if (pick <= 25) temp_percent = percent(31, 20) + option_bonus;
+                                else temp_percent = percent(1, 30) + option_bonus;
                                 now_option = Math.floor(((double)il.getMaxSheldSubPowerOption(temp_option)*(double)((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(now_option) >= il.getMaxSheldSubPowerOption(temp_option)) txtSSub2_dark.setBackgroundResource(R.drawable.maxbackground);
                                 else txtSSub2_dark.setBackgroundResource(R.drawable.notmaxbackground);

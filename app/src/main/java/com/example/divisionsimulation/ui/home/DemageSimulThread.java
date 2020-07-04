@@ -30,7 +30,7 @@ class DemageSimulThread extends Thread implements Serializable {
     private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
     private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0, sadist = 0;
     private int unstoppable = 0, versatile = 0, vigilance = 0, vindictive = 0, ranger = 0, pummel = 0, unhinged = 0, overwhelm = 0, sync = 0;
-    private boolean focus_checked = false, optimist = false, perfect_optimist = false, perfect_ranger = false, double_sync = false;
+    private boolean focus_checked = false, optimist = false, perfect_optimist = false, perfect_ranger = false, double_sync = false, hitted_sheld = false;
 
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
@@ -148,6 +148,7 @@ class DemageSimulThread extends Thread implements Serializable {
         this.sync = sync;
         this.double_sync = double_sync;
     }
+    public void setHittedSheld(boolean hitted_sheld) { this.hitted_sheld = hitted_sheld; }
 
     public int getSheld() { return this.sheld; } //방어도를 가져온다.
     public synchronized int getHealth() { return this.health; } //생명력을 가져온다.
@@ -485,6 +486,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText(log);
+                            if (hitted_sheld) sa.setHitted(true);
                             sa.setTxtNowDemage(log); //기록을 현재 데미지 UI에 갱신한다. 현재 데미지를 출력된다.
                             sa.setImgAim(aim_ransu, true); //명중률 맞을 때 이미지가 10개이므로 무작위 난수를 받고 타격 되었으므로 참값을 받는다.
                         }
@@ -506,6 +508,7 @@ class DemageSimulThread extends Thread implements Serializable {
                         @Override
                         public void run() {
                             //SimulActivity.txtNowDemage.setText("");
+                            if (hitted_sheld) sa.setHitted(false);
                             sa.setTxtNowDemage("");
                             sa.setImgTake(4);
                             sa.setTxtListDemage(10, "");
@@ -583,6 +586,14 @@ class DemageSimulThread extends Thread implements Serializable {
             if (cluch_true) { //클러치 여부가 적용되어 있으면 작동한다.
                 ct.setFirst_health(health); //클러치 스레드에 최초 생명력을 저장한다.
                 ct.start(); //클러치 스레드를 작동시킨다.
+            }
+            if (hitted_sheld) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        sa.setHitted(false);
+                    }
+                });
             }
             /*
             아래 생명력 관련된 구절은 위 방어도 구절과 거의 동일하므로 주석은 생략한다.

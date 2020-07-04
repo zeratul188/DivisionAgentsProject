@@ -861,6 +861,14 @@ public class HomeFragment extends Fragment implements Serializable {
                 weaponActivate(buttonView);
             }
         });
+
+        chkSeeker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                vestActivate(buttonView);
+            }
+        });
+
         chkBumerang.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -1453,6 +1461,7 @@ public class HomeFragment extends Fragment implements Serializable {
                         final CheckBox chkPVP = dialogView.findViewById(R.id.chkPVP);
                         final CheckBox chkCluch = dialogView.findViewById(R.id.chkCluch);
                         final LinearLayout layoutCluch = dialogView.findViewById(R.id.layoutCluch);
+                        final CheckBox chkHittedSheld = dialogView.findViewById(R.id.chkHittedSheld);
 
                         final EditText edtCluchRPM = dialogView.findViewById(R.id.edtCluchRPM);
                         final EditText edtCluchAmmo = dialogView.findViewById(R.id.edtCluchAmmo);
@@ -1663,6 +1672,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                             if (chkUnhinged.isChecked()) ws.setUnhinged(18);
                                             if (chkOverwhelm.isChecked()) ws.setOverwhelm(overwhelm);
                                             if (chkSync.isChecked()) ws.setSync(sync, chkDoubleSync.isChecked());
+                                            if (chkHittedSheld.isChecked()) ws.setHittedSheld(chkHittedSheld.isChecked());
 
                                             String elite = Boolean.toString(elite_true); //정예 여부를 문자열로 변환하여 임시 변수에 저장한다. 이후 다음 액티비티로 넘길 때 사용한다.
 
@@ -1702,6 +1712,7 @@ public class HomeFragment extends Fragment implements Serializable {
                                                 intent.putExtra("quickhand", Boolean.toString(quick_hand)); //빠른 손 여부를 문자열로 변환하여 다음 액티비티로 넘긴다.
                                                 intent.putExtra("type", type);
                                                 intent.putExtra("named", chkNamed.isChecked());
+                                                intent.putExtra("hitted", chkHittedSheld.isChecked());
 
                                                 startActivity(intent); //액티비티를 실행한다.
                                                 alertDialog.dismiss(); //할 일을 마친 다이얼로그는 닫는다.

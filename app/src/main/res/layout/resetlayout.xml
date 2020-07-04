@@ -5,20 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222222">
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/progressReset"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        app:style="solid_line"
-        app:progress_stroke_width="2dp"
-        app:progress_text_size="30sp"
-        app:progress_start_color="#ff6337"
-        app:progress_end_color="#ff6337"
-        app:progress_background_color="#444444"
-        app:progress_text_color="#888888"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="40dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="20dp">
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progressReset"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            app:style="solid_line"
+            app:progress_stroke_width="2dp"
+            app:progress_text_size="20sp"
+            app:progress_start_color="#ff6337"
+            app:progress_end_color="#ff6337"
+            app:progress_background_color="#444444"
+            app:progress_text_color="#888888"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="초기화 중..."
+            android:textColor="#aaaaaa"
+            android:textSize="25sp"
+            android:layout_marginLeft="30dp"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnExit"
         android:layout_width="match_parent"
@@ -28,7 +43,7 @@
         android:textSize="20sp"
         android:textColor="#aaaaaa"
         android:background="@drawable/buttoncustom"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
 </LinearLayout>
