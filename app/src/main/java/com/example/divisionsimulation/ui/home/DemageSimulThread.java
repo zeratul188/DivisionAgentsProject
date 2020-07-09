@@ -180,6 +180,7 @@ class DemageSimulThread extends Thread implements Serializable {
             @Override
             public void run() {
                 //SimulActivity.txtStatue.setText("재장전 중...");
+                if (hitted_sheld) sa.setHitted(false);
                 sa.setTxtStatue("재장전 중..."); //액티비티에 재장전 상태를 나타낸다.
             }
         });
