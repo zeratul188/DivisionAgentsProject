@@ -88,9 +88,15 @@ public class SlideshowFragment extends Fragment {
             final TextView txtFirst = view.findViewById(R.id.txtFirst);
             final TextView txtSecond = view.findViewById(R.id.txtSecond);
             final TextView txtThird = view.findViewById(R.id.txtThird);
-            final TextView txtCore = view.findViewById(R.id.txtCore);
-            final TextView txtSub = view.findViewById(R.id.txtSub);
+            //final TextView txtCore = view.findViewById(R.id.txtCore);
+            //final TextView txtSub = view.findViewById(R.id.txtSub);
             final LinearLayout layoutGearOptions = view.findViewById(R.id.layoutGearOptions);
+            final ImageView imgCore = view.findViewById(R.id.imgCore);
+            final ImageView imgSub = view.findViewById(R.id.imgSub);
+            final ImageView imgCore2 = view.findViewById(R.id.imgCore2);
+            final ImageView imgSub2 = view.findViewById(R.id.imgSub2);
+            final TextView txtSplit1 = view.findViewById(R.id.txtSplit1);
+            final TextView txtSplit2 = view.findViewById(R.id.txtSplit2);
 
             if (type.equals("1")) {
                 viewLine.setBackgroundColor(Color.parseColor("#04ff8c"));
@@ -124,9 +130,40 @@ public class SlideshowFragment extends Fragment {
             txtFirst.setText(first);
             txtSecond.setText(second);
             txtThird.setText(third);
-            txtCore.setText(core);
-            txtSub.setText(sub);
+            //txtCore.setText(core);
+            //txtSub.setText(sub);
             txtName.setText(name);
+
+            String[] array1 = core.split(", ");
+            if (array1.length > 1) {
+                txtSplit1.setVisibility(View.VISIBLE);
+                txtSplit2.setVisibility(View.VISIBLE);
+                imgCore2.setVisibility(View.VISIBLE);
+                imgSub2.setVisibility(View.VISIBLE);
+            } else {
+                txtSplit1.setVisibility(View.INVISIBLE);
+                txtSplit2.setVisibility(View.INVISIBLE);
+                imgCore2.setVisibility(View.INVISIBLE);
+                imgSub2.setVisibility(View.INVISIBLE);
+            }
+
+            int resource;
+            for (int i = 0; i < array1.length; i++) {
+                if (array1[i].equals("공격")) resource = R.drawable.attack;
+                else if (array1[i].equals("방어")) resource = R.drawable.sheld;
+                else resource = R.drawable.power;
+                if (i == 0) imgCore.setImageResource(resource);
+                else imgCore2.setImageResource(resource);
+            }
+
+            String[] array2 = sub.split(", ");
+            for (int i = 0; i < array2.length; i++) {
+                if (array2[i].equals("공격")) resource = R.drawable.attack;
+                else if (array2[i].equals("방어")) resource = R.drawable.sheld;
+                else resource = R.drawable.power;
+                if (i == 0) imgSub.setImageResource(resource);
+                else imgSub2.setImageResource(resource);
+            }
 
             mainLayout.addView(view);
         }
