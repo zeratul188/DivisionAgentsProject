@@ -28,9 +28,9 @@ class DemageSimulThread extends Thread implements Serializable {
     private int hit_critical = 0, out_demage, all_dmg = 0; //빠른 손의 히트 수, 등등이다.
     private boolean[] options = null; //카멜레온의 하위 옵션 3개를 저장할 배열 변수이다.
     private double new_weapondemage; //탤런트 등으로 인한 무기 데미지 상승을 저장할 변수이다.
-    private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0, sadist = 0;
+    private int focus = 0, scrifice = 0, sympathy = 0, overwatch = 0, intimidate = 0, wicked = 0, companion = 0, composure = 0, killer = 0, sadist = 0, lady = 0;
     private int unstoppable = 0, versatile = 0, vigilance = 0, vindictive = 0, ranger = 0, pummel = 0, unhinged = 0, overwhelm = 0, sync = 0;
-    private boolean focus_checked = false, optimist = false, perfect_optimist = false, perfect_ranger = false, double_sync = false, hitted_sheld = false;
+    private boolean focus_checked = false, optimist = false, perfect_optimist = false, perfect_ranger = false, double_sync = false, hitted_sheld = false, mantis = false, koyotae = false, koyotae_15down = false, koyotae_15to25 = false, koyotae_25up = false;
 
     private Handler handler = null; //상위 액티비티 UI를 수정할 핸들러를 가져온다.
 
@@ -148,6 +148,17 @@ class DemageSimulThread extends Thread implements Serializable {
         this.sync = sync;
         this.double_sync = double_sync;
     }
+    public void setLady(int lady) {
+        this.lady = lady;
+    }
+    public void setMantis(boolean mantis) { this.mantis = mantis; }
+    public void setKoyotae(boolean koyotae, boolean koyotae_15down, boolean koyotae_15to25, boolean koyotae_25up) {
+        this.koyotae = koyotae;
+        this.koyotae_15down = koyotae_15down;
+        this.koyotae_15to25 = koyotae_15to25;
+        this.koyotae_25up = koyotae_25up;
+    }
+
     public void setHittedSheld(boolean hitted_sheld) { this.hitted_sheld = hitted_sheld; }
 
     public int getSheld() { return this.sheld; } //방어도를 가져온다.
@@ -249,6 +260,19 @@ class DemageSimulThread extends Thread implements Serializable {
         if (unhinged != 0) {
             aiming -= 10;
             if (aiming < 1) aiming = 1;
+        }
+        if (mantis) headshotdemage += 50;
+        if (koyotae) {
+            if (koyotae_15down) criticaldemage += 25;
+            if (koyotae_15to25) {
+                critical += 10;
+                if (critical > 60) critical = 60;
+                criticaldemage += 10;
+            }
+            if (koyotae_25up) {
+                critical += 25;
+                if (critical > 60) critical = 60;
+            }
         }
         first_health = SimulActivity.getHealth(); //다른 스레드에서 사용할 최대 체력에 100% 차 있는 체력을 대입한다.
         first_sheld = sheld; //위와 동일한 방식으로 방어도를 대입한다.
@@ -911,6 +935,7 @@ class DemageSimulThread extends Thread implements Serializable {
         if (unstoppable != 0) sum += unstoppable;
         if (versatile != 0) sum += versatile;
         if (vigilance != 0) sum += vigilance;
+        if (lady != 0) sum += lady;
         per = (double)sum/100.0;
         result *= 1+per;
         return result;

@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment implements Serializable {
     private CheckBox chkFocus, chkPerfectFocus, chkScrifice, chkPerfectScrifice, chkSympathy, chkObel, chkWicked, chkCompanion, chkComposure;
     private CheckBox chkUnstoppable, chkVersatile, chkVigilance, chkKiller, chkOptimist, chkPerfectOptimist, chkSadist, chkPerfectSadist, chkVindictive, chkPerfectVindictive;
     private CheckBox chkRanger, chkPerfectRanger, chkRifleman, chkPerfectRifleman, chkLuckyShot, chkPerfectLuckyShot, chkPummel, chkUnhinged;
-    private CheckBox chkOverwhelm, chkPerfectOverwhelm, chkSync, chkDoubleSync, chkPerfectSync;
+    private CheckBox chkOverwhelm, chkPerfectOverwhelm, chkSync, chkDoubleSync, chkPerfectSync, chkLady, chkMantis, chkKoyotae, chkKoyotae_15down, chkKoyotae_15to25, chkKoyotae_25up;
     private EditText edtRanger;
     private Spinner spinnerFocus, spinnerSympathy, spinnerUnstoppable, spinnerVersatile;
     private String[] focus_items = new String[10];
@@ -330,6 +330,46 @@ public class HomeFragment extends Fragment implements Serializable {
         weaponTalents.add(chkUnhinged);
         weaponTalents.add(chkOverwhelm);
         weaponTalents.add(chkSync);
+
+        chkLady = root.findViewById(R.id.chkLady);
+        chkMantis = root.findViewById(R.id.chkMantis);
+        weaponTalents.add(chkLady);
+        weaponTalents.add(chkMantis);
+
+        chkKoyotae = root.findViewById(R.id.chkKoyotae);
+        chkKoyotae_15down = root.findViewById(R.id.chkKoyotae15down);
+        chkKoyotae_15to25 = root.findViewById(R.id.chkKoyotae15to25);
+        chkKoyotae_25up = root.findViewById(R.id.chkKoyotae25up);
+
+        chkLady.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                weaponActivate(buttonView);
+            }
+        });
+        chkMantis.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                weaponActivate(buttonView);
+            }
+        });
+        chkKoyotae.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    chkKoyotae_15down.setVisibility(View.VISIBLE);
+                    chkKoyotae_15to25.setVisibility(View.VISIBLE);
+                    chkKoyotae_25up.setVisibility(View.VISIBLE);
+                } else {
+                    chkKoyotae_15down.setVisibility(View.INVISIBLE);
+                    chkKoyotae_15to25.setVisibility(View.INVISIBLE);
+                    chkKoyotae_25up.setVisibility(View.INVISIBLE);
+                    chkKoyotae_15down.setChecked(false);
+                    chkKoyotae_15to25.setChecked(false);
+                    chkKoyotae_25up.setChecked(false);
+                }
+            }
+        });
 
         chkSync.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -1673,6 +1713,9 @@ public class HomeFragment extends Fragment implements Serializable {
                                             if (chkOverwhelm.isChecked()) ws.setOverwhelm(overwhelm);
                                             if (chkSync.isChecked()) ws.setSync(sync, chkDoubleSync.isChecked());
                                             if (chkHittedSheld.isChecked()) ws.setHittedSheld(chkHittedSheld.isChecked());
+                                            if (chkLady.isChecked()) ws.setLady(75);
+                                            ws.setMantis(chkMantis.isChecked());
+                                            ws.setKoyotae(chkKoyotae.isChecked(), chkKoyotae_15down.isChecked(), chkKoyotae_15to25.isChecked(), chkKoyotae_25up.isChecked());
 
                                             String elite = Boolean.toString(elite_true); //정예 여부를 문자열로 변환하여 임시 변수에 저장한다. 이후 다음 액티비티로 넘길 때 사용한다.
 
