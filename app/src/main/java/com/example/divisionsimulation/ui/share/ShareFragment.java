@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -47,6 +48,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.MainActivity;
+import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
 
 import org.w3c.dom.Text;
@@ -99,6 +101,7 @@ public class ShareFragment extends Fragment {
 
     private int[] material = new int[8];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄"};
+    private MaterialDbAdapter materialDbAdapter;
 
     private int[] typet = new int[13]; //돌격소총, 소총 등 드랍된 아이템 갯수를 저장할 배열 변수 생성
 
@@ -448,6 +451,8 @@ public class ShareFragment extends Fragment {
         }
     }
 
+    private boolean material_reset = false;
+
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             if (reset_count >= 1500) btnEnd = true; //리셋카운트가 1500 이상이 되면 작동 (3초 이후)
@@ -482,7 +487,14 @@ public class ShareFragment extends Fragment {
                 btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)"); //다크존 이송 갯수 초기화
                 btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
                 btnEnd = false; //초기화 완료 조건 초기화
-                for (int i = 0; i < material.length; i++) material[i] = 0;
+                if (material_reset) {
+                    materialDbAdapter.open();
+                    for (int i = 0; i < material.length; i++) {
+                        material[i] = 0;
+                        materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                    }
+                    materialDbAdapter.close();
+                }
                 Toast.makeText(getActivity(), "모두 초기화 되었습니다.", Toast.LENGTH_SHORT).show(); //초기화가 되었다며 토스트를 통해 전달한다.
                 editor.clear();
                 editor.commit();
@@ -584,6 +596,8 @@ public class ShareFragment extends Fragment {
         pref = getContext().getSharedPreferences("pref", Context.MODE_PRIVATE);
         //pref = MainActivity.mainActivity().getPreferences(Activity.MODE_PRIVATE);
         editor = pref.edit();
+
+        materialDbAdapter = new MaterialDbAdapter(getActivity());
 
         //editor.clear();
         //editor.commit();
@@ -882,6 +896,18 @@ public class ShareFragment extends Fragment {
                     }
                 });
 
+                Cursor cursor;
+                materialDbAdapter.open();
+                cursor = materialDbAdapter.fetchAllMaterial();
+                cursor.moveToFirst();
+                int count = 0;
+                while (!cursor.isAfterLast()) {
+                    material[count] = cursor.getInt(2);
+                    cursor.moveToNext();
+                    count++;
+                }
+                materialDbAdapter.close();
+
                 TextView[] txtNormal = new TextView[2];
                 TextView[] txtRare = new TextView[3];
                 TextView[] txtEpic = new TextView[3];
@@ -929,49 +955,29 @@ public class ShareFragment extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogViewa = getLayoutInflater().inflate(R.layout.resetlayout, null); //다이얼로그에 추가할 뷰 생성
-                progressReset = dialogViewa.findViewById(R.id.progressReset);
-                progressReset.setMax(1500);
-                progressReset.setProgress(0);
-                reset_count = 0;
-                /*
-                프로그레스바를 불러오고 최대치, 처음 진행도, 카운트를 설정한다.
-                리셋 카운트는 리셋 카운트가 1500이 되게 되면 초기화해주는 역할을 수행한다.
-                 */
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                builder.setTitle("초기화");
+                builder.setMessage("재료 모두 초기화 하시겠습니까?");
 
-                Button btnExit = dialogViewa.findViewById(R.id.btnExit); //다이얼로그를 닫는 버튼을 불러온다.
-                btnExit.setOnClickListener(new View.OnClickListener() {
+                builder.setPositiveButton("모두 초기화", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss(); //다이얼로그를 닫아준다.
+                    public void onClick(DialogInterface dialog, int which) {
+                        material_reset = true;
+                        resetDialog();
                     }
                 });
+                builder.setNegativeButton("재료 제외 초기화", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        material_reset = false;
+                        resetDialog();
+                    }
+                });
+                builder.setNeutralButton("취소", null);
 
-                buildera = new AlertDialog.Builder(getActivity());
-                buildera.setView(dialogViewa);
-
-                alertDialog = buildera.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.setCancelable(false);
                 alertDialog.show();
-                /*
-                다이얼로그 생성 및 지우기
-                 */
-
-                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        reset_count = 0;
-                        progressReset.setProgress(0);
-                        alertDialog.dismiss();
-                        mHandler.removeMessages(0);
-                        /*
-                        초기화 작업
-                        핸들러 메시지를 지움으로써 핸들러가 무한 반복되는 것을 종료한다.
-                         */
-                    }
-                });
-
-                mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
             }
         });
 
@@ -1027,6 +1033,11 @@ public class ShareFragment extends Fragment {
                         normal_str = material_name[1];
                         break;
                 }
+                materialDbAdapter.open();
+                for (int i = 0; i < material.length; i++) {
+                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                }
+                materialDbAdapter.close();
                 random_select = percent(2, 3);
                 rare = percent(7, 6);
                 material[random_select] += rare;
@@ -9088,5 +9099,51 @@ public class ShareFragment extends Fragment {
         }
         for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
         setEditor();
+    }
+
+    private void resetDialog() {
+        dialogViewa = getLayoutInflater().inflate(R.layout.resetlayout, null); //다이얼로그에 추가할 뷰 생성
+        progressReset = dialogViewa.findViewById(R.id.progressReset);
+        progressReset.setMax(1500);
+        progressReset.setProgress(0);
+        reset_count = 0;
+                /*
+                프로그레스바를 불러오고 최대치, 처음 진행도, 카운트를 설정한다.
+                리셋 카운트는 리셋 카운트가 1500이 되게 되면 초기화해주는 역할을 수행한다.
+                 */
+
+        Button btnExit = dialogViewa.findViewById(R.id.btnExit); //다이얼로그를 닫는 버튼을 불러온다.
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss(); //다이얼로그를 닫아준다.
+            }
+        });
+
+        buildera = new AlertDialog.Builder(getActivity());
+        buildera.setView(dialogViewa);
+
+        alertDialog = buildera.create();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+                /*
+                다이얼로그 생성 및 지우기
+                 */
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                reset_count = 0;
+                progressReset.setProgress(0);
+                alertDialog.dismiss();
+                mHandler.removeMessages(0);
+                        /*
+                        초기화 작업
+                        핸들러 메시지를 지움으로써 핸들러가 무한 반복되는 것을 종료한다.
+                         */
+            }
+        });
+
+        mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
     }
 }
