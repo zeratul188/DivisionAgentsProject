@@ -7,6 +7,11 @@
         android:title="버젼 확인"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menu2"
+        android:orderInCategory="100"
+        android:title="SHD 레벨"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu7"
         android:orderInCategory="100"
         android:title="목표 타이머"
