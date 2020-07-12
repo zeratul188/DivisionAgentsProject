@@ -321,6 +321,7 @@ public class SHDActivity extends AppCompatActivity {
         }
         txtNextAttribute.setText(nextOption);
         progressEXP.setProgress(exp);
+        shdAdapter.close();
     }
 
     @Override
