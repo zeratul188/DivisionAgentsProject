@@ -103,7 +103,7 @@ public class SHDActivity extends AppCompatActivity {
                 builder = new AlertDialog.Builder(SHDActivity.this, R.style.MyAlertDialogStyle);
                 builder.setTitle("SHD 초기화");
                 builder.setMessage("SHD 레벨과 포인트 모두 초기화됩니다.");
-                builder.setPositiveButton("레벨 업", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         shdAdapter.open();
