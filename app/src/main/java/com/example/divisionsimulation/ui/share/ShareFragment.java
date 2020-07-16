@@ -50,6 +50,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.divisionsimulation.MainActivity;
 import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
+import com.example.divisionsimulation.SHDDBAdapter;
 
 import org.w3c.dom.Text;
 
@@ -94,6 +95,7 @@ public class ShareFragment extends Fragment {
 
     private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList, btnMaterialList, btnDropBox; //라이트존, 다크존, 칠흑의 시간 레이드, 레이드 박스, 초기화, 트루썬 막보, 드래고프, 뉴욕 필드보스, 전설난이도 막보, 세션 박스, 아이템 목록 버튼 객체 생성
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll; //특급, 네임드, 기어, 일반, 전체 갯수 텍스트뷰 생성
+    private Button btnMission;
 
     private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand; //특급, 네임드, 기어, 브랜드의 백분율을 나타낼 진행바 객체 생성
 
@@ -102,6 +104,7 @@ public class ShareFragment extends Fragment {
     private int[] material = new int[8];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄"};
     private MaterialDbAdapter materialDbAdapter;
+    private SHDDBAdapter shdAdapter;
 
     private int[] typet = new int[13]; //돌격소총, 소총 등 드랍된 아이템 갯수를 저장할 배열 변수 생성
 
@@ -598,6 +601,7 @@ public class ShareFragment extends Fragment {
         editor = pref.edit();
 
         materialDbAdapter = new MaterialDbAdapter(getActivity());
+        shdAdapter = new SHDDBAdapter(getActivity());
 
         //editor.clear();
         //editor.commit();
@@ -632,6 +636,15 @@ public class ShareFragment extends Fragment {
         btnDragov = root.findViewById(R.id.btnDragov);
         btnNewYork = root.findViewById(R.id.btnNewYork);
         btnBox = root.findViewById(R.id.btnBox);
+
+        btnMission = root.findViewById(R.id.btnMission);
+        btnMission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setExp(102453, 213265, 402154, 675426, 1012645);
+                Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
+            }
+        });
 
         txtSpecial = root.findViewById(R.id.txtSpecial);
         txtNamed = root.findViewById(R.id.txtNamed);
@@ -735,7 +748,6 @@ public class ShareFragment extends Fragment {
                     case R.id.rdoDif3:
                     case R.id.rdoDif4:
                         btnLastBoss.setEnabled(false);
-                        btnLitezone.setEnabled(true);
                         btnDarkzone.setEnabled(true);
                         btnRaid.setEnabled(true);
                         btnRaidbox.setEnabled(true);
@@ -747,7 +759,6 @@ public class ShareFragment extends Fragment {
                         break;
                     case R.id.rdoDif5:
                         btnLastBoss.setEnabled(true);
-                        btnLitezone.setEnabled(false);
                         btnDarkzone.setEnabled(false);
                         btnRaid.setEnabled(false);
                         btnRaidbox.setEnabled(false);
@@ -1033,11 +1044,6 @@ public class ShareFragment extends Fragment {
                         normal_str = material_name[1];
                         break;
                 }
-                materialDbAdapter.open();
-                for (int i = 0; i < material.length; i++) {
-                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
-                }
-                materialDbAdapter.close();
                 random_select = percent(2, 3);
                 rare = percent(7, 6);
                 material[random_select] += rare;
@@ -1048,6 +1054,11 @@ public class ShareFragment extends Fragment {
                 material[random_select] += epic;
                 if (material[random_select] >= 1500) material[random_select] = 1500;
                 epic_str = material_name[random_select];
+                materialDbAdapter.open();
+                for (int i = 0; i < material.length; i++) {
+                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                }
+                materialDbAdapter.close();
                 Toast.makeText(getActivity(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
@@ -1259,6 +1270,7 @@ public class ShareFragment extends Fragment {
         btnTruesun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //트루썬 마지막 보스 처치할 경우
+                setExp(25846, 40326, 85542, 101141, 0);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -3113,6 +3125,7 @@ public class ShareFragment extends Fragment {
         btnLastBoss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //전설난이도에서 마지막 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(0, 0, 0, 0, 250000);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -3954,6 +3967,7 @@ public class ShareFragment extends Fragment {
         btnDragov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //월 스트리트 미션에서 마지막 보스 제임스 드래고프를 처치했을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(25846, 40326, 85542, 101141, 0);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -4815,6 +4829,7 @@ public class ShareFragment extends Fragment {
         btnNewYork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //뉴욕에서 필드 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(17846, 34326, 67542, 81141, 0);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -5658,6 +5673,7 @@ public class ShareFragment extends Fragment {
         btnLitezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //라이트존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(946, 1926, 4542, 8141, 10114);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -6445,6 +6461,7 @@ public class ShareFragment extends Fragment {
         btnDarkzone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(0, 0, 7441, 0, 0);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -7237,6 +7254,7 @@ public class ShareFragment extends Fragment {
         btnDropBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setExp(0, 0, 15542, 0, 0);
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 double now_option; //임시로 저장될 옵션 수치
                 int type = 0; // 1:attack, 2:sheld, 3:power 옵션 종류 (화기, 방어, 전력)
@@ -7863,6 +7881,7 @@ public class ShareFragment extends Fragment {
         btnRaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //칠흑의 시간 레이드에서 네임드 보스를 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(0, 0, 0, 121141, 0);
                 int pick, temp_percent;
                 double now_option;
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
@@ -9099,6 +9118,28 @@ public class ShareFragment extends Fragment {
         }
         for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
         setEditor();
+    }
+
+    private void addExp(int exp) {
+        shdAdapter.open();
+        shdAdapter.addEXP(exp);
+        shdAdapter.levelUp();
+        shdAdapter.close();
+    }
+
+    private void setExp(int normal, int hard, int very_hard, int hero, int legend) {
+        switch (rgDifficulty.getCheckedRadioButtonId()) {
+            case R.id.rdoDif1:
+                addExp(normal); break;
+            case R.id.rdoDif2:
+                addExp(hard); break;
+            case R.id.rdoDif3:
+                addExp(very_hard); break;
+            case R.id.rdoDif4:
+                addExp(hero); break;
+            case R.id.rdoDif5:
+                addExp(legend); break;
+        }
     }
 
     private void resetDialog() {

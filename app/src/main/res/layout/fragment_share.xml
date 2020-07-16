@@ -320,7 +320,7 @@
                                     android:drawableTop="@drawable/fm8"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="20dp">
+                                android:layout_marginBottom="10dp">
                                 <Button
                                     android:id="@+id/btnNewYork"
                                     android:layout_width="0dp"
@@ -349,6 +349,17 @@
                                     android:drawableTop="@drawable/fm10"/>
                             </TableRow>
                         </TableLayout>
+                        <Button
+                            android:id="@+id/btnMission"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:text="미션 완료"
+                            android:textSize="25sp"
+                            android:padding="10dp"
+                            android:textColor="#aaaaaa"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/buttoncustom"
+                            android:textAlignment="center"/>
 
                         <!--<Button
                             android:id="@+id/btnLitezone"

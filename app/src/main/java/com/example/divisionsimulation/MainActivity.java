@@ -301,6 +301,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 alertDialog.setCancelable(false);
                 alertDialog.show();
                 break;
+            case R.id.menu2:
+                Intent intent = new Intent(this, SHDActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menu7:
                 dialogView = getLayoutInflater().inflate(R.layout.timerlayout, null);
 

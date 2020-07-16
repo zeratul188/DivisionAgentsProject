@@ -153,6 +153,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.slideshow.SheldTalentActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".SHDActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
