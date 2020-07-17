@@ -173,6 +173,19 @@ public class ExoticFMDBAdapter {
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
+
+    public ArrayList<String> arrayAllData() {
+        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS}, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<String> arrayList = new ArrayList<String>();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            arrayList.add(name);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
     public Cursor fetchIDData(long rowid) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS}, KEY_ROWID+"="+rowid, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

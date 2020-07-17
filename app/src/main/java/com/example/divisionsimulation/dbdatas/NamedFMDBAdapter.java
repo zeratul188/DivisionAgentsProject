@@ -160,6 +160,18 @@ public class NamedFMDBAdapter {
         return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, null, null, null, null, null);
     }
 
+    public ArrayList<String> arrayAllData() {
+        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<String> arrayList = new ArrayList<String>();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            arrayList.add(name);
+            cursor.moveToNext();
+        }
+        return arrayList;
+    }
+
     public Cursor fetchData(String name) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
