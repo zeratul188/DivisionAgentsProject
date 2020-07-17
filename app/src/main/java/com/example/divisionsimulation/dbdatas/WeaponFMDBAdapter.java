@@ -8,7 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.divisionsimulation.ui.share.SheldItem;
+import com.example.divisionsimulation.ui.share.WeaponItem;
+
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -130,11 +134,11 @@ public class WeaponFMDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COREOPTION}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COREOPTION}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -152,5 +156,26 @@ public class WeaponFMDBAdapter {
         values.put(KEY_TYPE, type);
         values.put(KEY_COREOPTION, coreoption);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
+    }
+
+    public WeaponItem fetchRandomData() {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION}, null, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<WeaponItem> weaponItems = new ArrayList<WeaponItem>();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            String type = cursor.getString(2);
+            String option = cursor.getString(3);
+
+            WeaponItem item = new WeaponItem(name, type, option);
+            weaponItems.add(item);
+            cursor.moveToNext();
+        }
+        int index = percent(0, weaponItems.size());
+        return weaponItems.get(index);
+    }
+
+    public int percent(int min, int length) {
+        return (int)(Math.random()*12345678)%length+min;
     }
 }
