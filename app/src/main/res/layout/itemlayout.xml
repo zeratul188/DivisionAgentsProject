@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:visibility="gone">
         <TextView
             android:layout_width="match_parent"
@@ -188,7 +188,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:visibility="gone">
         <TextView
             android:layout_width="match_parent"
@@ -312,6 +312,12 @@
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:indeterminateTint="#E45435"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutTalentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <LinearLayout
             android:id="@+id/layoutTalent"
             android:layout_width="match_parent"
@@ -337,7 +343,6 @@
                 android:textColor="#aaaaaa"/>
         </LinearLayout>
     </LinearLayout>
-
 
     <Button
         android:id="@+id/btnChange"

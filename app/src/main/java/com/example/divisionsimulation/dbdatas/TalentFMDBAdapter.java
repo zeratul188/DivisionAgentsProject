@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -168,6 +169,28 @@ public class TalentFMDBAdapter {
         return cursor;
     }
 
+    public String fetchRandomData(String type) {
+        Cursor cursor;
+        if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_AR+"="+1, null, null, null, null, null);
+        else if (type.equals("기관단총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_SR+"="+1, null, null, null, null, null);
+        else if (type.equals("경기관총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_BR+"="+1, null, null, null, null, null);
+        else if (type.equals("소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_RF+"="+1, null, null, null, null, null);
+        else if (type.equals("지정사수소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_MMR+"="+1, null, null, null, null, null);
+        else if (type.equals("산탄총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_SG+"="+1, null, null, null, null, null);
+        else if (type.equals("권총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_PT+"="+1, null, null, null, null, null);
+        else if (type.equals("조끼")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_VEST+"="+1, null, null, null, null, null);
+        else cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_BACKPACK+"="+1, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<String> items = new ArrayList<String>();
+        while (!cursor.isAfterLast()) {
+            String item = cursor.getString(1);
+            items.add(item);
+            cursor.moveToNext();
+        }
+        int index = percent(0, items.size());
+        return items.get(index);
+    }
+
     public int getCount() {
         Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+";", null);
         int count = 0;
@@ -188,5 +211,9 @@ public class TalentFMDBAdapter {
         values.put(KEY_VEST, vest);
         values.put(KEY_BACKPACK, backpack);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
+    }
+
+    public int percent(int min, int length) {
+        return (int)(Math.random()*12345678)%length+min;
     }
 }
