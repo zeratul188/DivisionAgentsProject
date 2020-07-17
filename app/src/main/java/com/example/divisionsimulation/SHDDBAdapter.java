@@ -50,7 +50,7 @@ public class SHDDBAdapter {
             for (int i = 0; i < values.length; i++) {
                 values[i] = new ContentValues();
                 values[i].put(KEY_NAME, shd_name[i]);
-                if (i == 0 || shd_name[i].equals("공격")) values[i].put(KEY_CONTENT, 1);
+                if (i == 0 || shd_name[i].equals("공격") || shd_name[i].equals("다음 속성")) values[i].put(KEY_CONTENT, 1);
                 else values[i].put(KEY_CONTENT, 0);
                 db.insert(DATABASE_TABLE, null, values[i]);
             }
@@ -113,7 +113,7 @@ public class SHDDBAdapter {
         boolean result = false;
         for (int i = 0; i < getCount(); i++) {
             values = new ContentValues();
-            if (i == 0 || shd_name[i].equals("공격")) values.put(KEY_CONTENT, 1);
+            if (i == 0 || shd_name[i].equals("공격") || shd_name[i].equals("다음 속성")) values.put(KEY_CONTENT, 1);
             else values.put(KEY_CONTENT, 0);
             result = sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+shd_name[i]+"'", null) > 0;
         }

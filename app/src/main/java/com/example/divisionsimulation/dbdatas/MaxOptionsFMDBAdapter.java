@@ -21,9 +21,10 @@ public class MaxOptionsFMDBAdapter {
     public static final String KEY_MAX = "MAX";
     public static final String KEY_TYPE = "TYPE";
     public static final String KEY_ATTRIBUTE = "ATTRIBUTE";
+    public static final String KEY_TAIL = "TAIL";
 
     private static final String DATABASE_CREATE = "create table FARMING_MAXOPTION (_id integer primary key, " +
-            "CONTENT text not null, MAX text not null, TYPE text, ATTRIBUTE text);";
+            "CONTENT text not null, MAX text not null, TYPE text, ATTRIBUTE text, TAIL text);";
 
     private static final String DATABASE_NAME = "DIVISION_FARMING_MAXOPTION";
     private static final String DATABASE_TABLE = "FARMING_MAXOPTION";
@@ -73,7 +74,7 @@ public class MaxOptionsFMDBAdapter {
                 if (workbook != null) {
                     sheet = workbook.getSheet(0);
                     if (sheet != null) {
-                        int nMaxColumn = 4;
+                        int nMaxColumn = 5;
                         int nRowStartIndex = 0;
                         int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                         int nColumnStartIndex = 0;
@@ -85,16 +86,17 @@ public class MaxOptionsFMDBAdapter {
                             String max = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
                             String type = sheet.getCell(nColumnStartIndex+2, nRow).getContents();
                             String attribute = sheet.getCell(nColumnStartIndex+3, nRow).getContents();
+                            String tail = sheet.getCell(nColumnStartIndex+4, nRow).getContents();
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_CONTENT, content);
                             values[nRow].put(KEY_MAX, max);
                             values[nRow].put(KEY_TYPE, type);
                             values[nRow].put(KEY_ATTRIBUTE, attribute);
+                            values[nRow].put(KEY_TAIL, tail);
 
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
-                        close();
                         //Toast.makeText(getApplicationContext(), "불러오기 성공", Toast.LENGTH_SHORT).show();
                     } else System.out.println("Sheet is null!!!");
                 } else System.out.println("WorkBook is null!!!");
@@ -120,12 +122,13 @@ public class MaxOptionsFMDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String content, String max, String type, String attribute) {
+    public long insertData(String content, String max, String type, String attribute, String tail) {
         ContentValues values = new ContentValues();
         values.put(KEY_CONTENT, content);
         values.put(KEY_MAX, max);
         values.put(KEY_TYPE, type);
         values.put(KEY_ATTRIBUTE, attribute);
+        values.put(KEY_TAIL, tail);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -139,7 +142,13 @@ public class MaxOptionsFMDBAdapter {
     }
 
     public Cursor fetchData(String content) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE}, KEY_CONTENT+"='"+content+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor fetchTypeData(String type) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -151,12 +160,13 @@ public class MaxOptionsFMDBAdapter {
         return count;
     }
 
-    public boolean updateData(String undo_content, String content, String max, String type, String attribute) {
+    public boolean updateData(String undo_content, String content, String max, String type, String attribute, String tail) {
         ContentValues values = new ContentValues();
         values.put(KEY_CONTENT, content);
         values.put(KEY_MAX, max);
         values.put(KEY_TYPE, type);
         values.put(KEY_ATTRIBUTE, attribute);
+        values.put(KEY_TAIL, tail);
         return sqlDB.update(DATABASE_TABLE, values, KEY_CONTENT+"='"+undo_content+"'", null) > 0;
     }
 }
