@@ -1,15 +1,10 @@
 package com.example.divisionsimulation.ui.share;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.core.app.NotificationCompat;
-
-import com.example.divisionsimulation.MainActivity;
 
 class DarkZoneTimerThread extends Thread {
     private int minute = 0, second = 0; //분, 초를 저장하는 변수

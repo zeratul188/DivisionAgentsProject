@@ -1,11 +1,7 @@
 package com.example.divisionsimulation.ui.home;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Handler;
-import android.os.Message;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.Serializable;

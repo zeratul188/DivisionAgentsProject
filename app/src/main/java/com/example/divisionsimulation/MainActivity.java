@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,7 +25,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.divisionsimulation.ui.gallery.WeaponDbAdapter;
 import com.example.divisionsimulation.ui.share.ShareFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -42,11 +40,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
 import java.io.Serializable;
-
-import jxl.Sheet;
-import jxl.Workbook;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
 

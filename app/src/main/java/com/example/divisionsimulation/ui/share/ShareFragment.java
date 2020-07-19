@@ -2,7 +2,6 @@ package com.example.divisionsimulation.ui.share;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -11,13 +10,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -33,18 +30,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.MainActivity;
@@ -57,8 +50,6 @@ import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -118,7 +109,6 @@ public class ShareFragment extends Fragment {
 
     private int[] typet = new int[13]; //돌격소총, 소총 등 드랍된 아이템 갯수를 저장할 배열 변수 생성
 
-    private boolean one_time = false; //현재 사용하지 않는 변수
     private boolean isBtnDown;
 
     private Handler handler; //UI 변경시 사용할 핸들러
@@ -134,7 +124,7 @@ public class ShareFragment extends Fragment {
     private TextView[] txtTypelist = new TextView[13]; //장비 종류에 따른 갯수를 표현할 텍스트뷰
     private ProgressBar[] progressType = new ProgressBar[13]; //장비 종류에 따른 진행바
 
-    private AlertDialog dialog_dark = null; //다크존 전용 다이얼로그 생성
+    //private AlertDialog dialog_dark = null; //다크존 전용 다이얼로그 생성
 
     private TextView txtInfo = null; //이송 상태를 알려준다.
     private ProgressBar progressTimer = null; //이송 진행률을 진행바로 보여준다.
@@ -178,8 +168,8 @@ public class ShareFragment extends Fragment {
     }
 
     //public void setTxtInfo(String message) { txtInfo.setText(message); }
-    public void setProgressTimer(int progress) { progressTimer.setProgress(progress); } //이송 진행률을 설정한다.
-    public void setTxtTimer(String message) { txtTimer.setText(message); } //이송 진행 상태(초단위로 보여주는 TextView)를 설정한다.
+    //public void setProgressTimer(int progress) { progressTimer.setProgress(progress); } //이송 진행률을 설정한다.
+    //public void setTxtTimer(String message) { txtTimer.setText(message); } //이송 진행 상태(초단위로 보여주는 TextView)를 설정한다.
 
     public synchronized void playOutputDZ() {
         notificationManager.cancelAll(); //현재 앱에서 사용된 알림을 모두 제거한다.
@@ -828,7 +818,7 @@ public class ShareFragment extends Fragment {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        final View dark_dialogView = getLayoutInflater().inflate(R.layout.itemlayout_dark, null);
+        /*final View dark_dialogView = getLayoutInflater().inflate(R.layout.itemlayout_dark, null);
 
         final TextView txtName2 = dark_dialogView.findViewById(R.id.txtName);
         final TextView txtType2 = dark_dialogView.findViewById(R.id.txtType);
@@ -863,12 +853,12 @@ public class ShareFragment extends Fragment {
 
         //btnInput = dark_dialogView.findViewById(R.id.btnInput); //다크존 아이템을 다크존 가방에 담는 버튼이다.
 
-        btnExit2.setOnClickListener(new View.OnClickListener() {
+        /*btnExit2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog_dark.dismiss();
             }
-        }); //닫기 버튼을 누르게 되면 다크존 다이얼로그가 닫히게 된다.
+        });*/ //닫기 버튼을 누르게 되면 다크존 다이얼로그가 닫히게 된다.
 
         final AlertDialog.Builder builder_dark = new AlertDialog.Builder((getActivity()));
 
@@ -1013,7 +1003,7 @@ public class ShareFragment extends Fragment {
             }
         });
 
-        btnChange2.setOnClickListener(new View.OnClickListener() {
+        /*btnChange2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //위와 동일 (다크존 전용)
                 if (openWeapon) layoutWeapon_dark.setVisibility(View.VISIBLE);
@@ -1023,7 +1013,7 @@ public class ShareFragment extends Fragment {
                 tableMain2.setVisibility(View.VISIBLE);
                 btnChange2.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         btnExit.setOnClickListener(new View.OnClickListener() { //닫기 버튼 누를 경우 작동
             @Override

@@ -3,7 +3,6 @@ package com.example.divisionsimulation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.MediaController;
 import android.widget.VideoView;
 import android.net.Uri;
 

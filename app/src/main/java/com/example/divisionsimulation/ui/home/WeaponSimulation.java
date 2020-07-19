@@ -1,7 +1,5 @@
 package com.example.divisionsimulation.ui.home;
 
-import android.text.Editable;
-
 class WeaponSimulation {
     private double weapondemage, rpm, critical, criticaldemage, headshot, headshotdemage, elitedemage, shelddemage, healthdemage, reloadtime, ammo;
 

@@ -1,11 +1,9 @@
 package com.example.divisionsimulation;
 
 import android.app.Activity;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
