@@ -1309,7 +1309,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "\"타디그레이드\" 방탄복 시스템";
                     exoticDBAdpater.open();
@@ -1383,7 +1383,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -1525,7 +1525,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -1767,10 +1767,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -2091,7 +2097,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "아코스타의 비상 가방";
                     exoticDBAdpater.open();
@@ -2164,7 +2170,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -2406,10 +2412,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -2731,7 +2743,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "빅혼";
                     exoticDBAdpater.open();
@@ -2740,7 +2752,6 @@ public class ShareFragment extends Fragment {
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
                     txtWTalentContent.setText(cursor.getString(12));
-                    txtWTalentContent.setText(cursor.getString(11));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -2816,7 +2827,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -2958,7 +2969,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -3200,10 +3211,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -3525,7 +3542,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "탄환 제왕";
                     exoticDBAdpater.open();
@@ -3534,7 +3551,6 @@ public class ShareFragment extends Fragment {
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
                     txtWTalentContent.setText(cursor.getString(12));
-                    txtWTalentContent.setText(cursor.getString(11));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -3610,7 +3626,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -3752,7 +3768,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -3994,10 +4010,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -4319,7 +4341,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "죽음의 귀부인";
                     exoticDBAdpater.open();
@@ -4328,7 +4350,6 @@ public class ShareFragment extends Fragment {
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
                     txtWTalentContent.setText(cursor.getString(12));
-                    txtWTalentContent.setText(cursor.getString(11));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -4404,7 +4425,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -4546,7 +4567,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -4788,10 +4809,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -5113,7 +5140,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -5255,7 +5282,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -5499,10 +5526,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -5825,7 +5858,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "역병";
                     exoticDBAdpater.open();
@@ -5834,7 +5867,6 @@ public class ShareFragment extends Fragment {
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
                     txtWTalentContent.setText(cursor.getString(12));
-                    txtWTalentContent.setText(cursor.getString(11));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -5910,7 +5942,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -6052,7 +6084,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -6294,10 +6326,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -6618,7 +6656,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "닌자바이크 메신저 무릎 보호대";
                     exoticDBAdpater.open();
@@ -6692,7 +6730,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -6834,7 +6872,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -7076,10 +7114,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }
@@ -7402,7 +7446,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setText("특급"); //버튼의 이름을 "특급"으로 바꾼다.
+                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "독수리를 거느린 자";
                     exoticDBAdpater.open();
@@ -7411,7 +7455,6 @@ public class ShareFragment extends Fragment {
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
                     txtWTalentContent.setText(cursor.getString(12));
-                    txtWTalentContent.setText(cursor.getString(11));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -7487,7 +7530,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                    btnChange.setText("특급"); //버튼 텍스트를 바꾼다.
+                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -7629,7 +7672,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
-                    btnChange.setText("네임드");
+                    
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
@@ -7871,10 +7914,16 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
                         }

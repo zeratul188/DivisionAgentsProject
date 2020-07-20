@@ -416,7 +416,6 @@
             android:id="@+id/btnChange"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="네임드"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:padding="15dp"
