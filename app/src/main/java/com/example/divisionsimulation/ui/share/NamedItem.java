@@ -1,15 +1,24 @@
 package com.example.divisionsimulation.ui.share;
 
 public class NamedItem {
-    private String name, talent, type, brand, asp;
+    private String name, talent, type, brand, asp, talentcontent;
     private boolean noTalent = false;
 
-    public NamedItem(String name, String talent, String type, String brand, String asp) {
+    public NamedItem(String name, String talent, String type, String brand, String asp, String talentcontent) {
         this.name = name;
         this.talent = talent;
         this.type = type;
         this.brand = brand;
         this.asp = asp;
+        this.talentcontent = talentcontent;
+    }
+
+    public String getTalentcontent() {
+        return talentcontent;
+    }
+
+    public void setTalentcontent(String talentcontent) {
+        this.talentcontent = talentcontent;
     }
 
     public String getAsp() {

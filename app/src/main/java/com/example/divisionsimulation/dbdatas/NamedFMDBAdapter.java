@@ -29,10 +29,11 @@ public class NamedFMDBAdapter {
     public static final String KEY_WS = "WS";
     public static final String KEY_BRAND = "BRAND";
     public static final String KEY_ASP = "ASP";
+    public static final String KEY_TALENTCONTENT = "TALENTCONTENT";
 
     private static final String DATABASE_CREATE = "create table FARMING_NAMED (_id integer primary key, " +
             "NAME text not null, TALENT text not null, TYPE text not null, " +
-            "LITE int not null, DARK int not null, SUB int not null, WS text not null, BRAND text, ASP text);";
+            "LITE int not null, DARK int not null, SUB int not null, WS text not null, BRAND text, ASP text, TALENTCONTENT text);";
 
     private static final String DATABASE_NAME = "DIVISION_FARMING_NAMED";
     private static final String DATABASE_TABLE = "FARMING_NAMED";
@@ -82,7 +83,7 @@ public class NamedFMDBAdapter {
                 if (workbook != null) {
                     sheet = workbook.getSheet(0);
                     if (sheet != null) {
-                        int nMaxColumn = 9;
+                        int nMaxColumn = 10;
                         int nRowStartIndex = 0;
                         int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                         int nColumnStartIndex = 0;
@@ -99,6 +100,7 @@ public class NamedFMDBAdapter {
                             String ws = sheet.getCell(nColumnStartIndex+6, nRow).getContents();
                             String brand = sheet.getCell(nColumnStartIndex+7, nRow).getContents();
                             String asp = sheet.getCell(nColumnStartIndex+8, nRow).getContents();
+                            String talentcontent = sheet.getCell(nColumnStartIndex+9, nRow).getContents();
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_NAME, name);
@@ -110,6 +112,7 @@ public class NamedFMDBAdapter {
                             values[nRow].put(KEY_WS, ws);
                             values[nRow].put(KEY_BRAND, brand);
                             values[nRow].put(KEY_ASP, asp);
+                            values[nRow].put(KEY_TALENTCONTENT, talentcontent);
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
                         //Toast.makeText(getApplicationContext(), "불러오기 성공", Toast.LENGTH_SHORT).show();
@@ -137,7 +140,7 @@ public class NamedFMDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String name, String talent, String type, int lite, int dark, int sub, String ws, String brand, String asp) {
+    public long insertData(String name, String talent, String type, int lite, int dark, int sub, String ws, String brand, String asp, String talentcontent) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TALENT, talent);
@@ -148,6 +151,7 @@ public class NamedFMDBAdapter {
         values.put(KEY_WS, ws);
         values.put(KEY_BRAND, brand);
         values.put(KEY_ASP, asp);
+        values.put(KEY_TALENTCONTENT, talentcontent);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -157,11 +161,11 @@ public class NamedFMDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, null, null, null, null, null);
     }
 
     public ArrayList<String> arrayAllData() {
-        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<String> arrayList = new ArrayList<String>();
         while (!cursor.isAfterLast()) {
@@ -173,13 +177,13 @@ public class NamedFMDBAdapter {
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public NamedItem fetchLiteData_Random(String ws) {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, KEY_LITE+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_LITE+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<NamedItem> namedItems = new ArrayList<NamedItem>();
         while (!cursor.isAfterLast()) {
@@ -189,7 +193,8 @@ public class NamedFMDBAdapter {
             int noTalent = Integer.parseInt(cursor.getString(6));
             String brand = cursor.getString(8);
             String asp = cursor.getString(9);
-            NamedItem item = new NamedItem(name, talent, type, brand, asp);
+            String talentcontent = cursor.getString(10);
+            NamedItem item = new NamedItem(name, talent, type, brand, asp, talentcontent);
             item.setNoTalent(noTalent);
             namedItems.add(item);
             cursor.moveToNext();
@@ -199,7 +204,7 @@ public class NamedFMDBAdapter {
     }
 
     public NamedItem fetchDarkData_Random(String ws) {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP}, KEY_DARK+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_DARK+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<NamedItem> namedItems = new ArrayList<NamedItem>();
         while (!cursor.isAfterLast()) {
@@ -209,7 +214,8 @@ public class NamedFMDBAdapter {
             int noTalent = Integer.parseInt(cursor.getString(6));
             String brand = cursor.getString(8);
             String asp = cursor.getString(9);
-            NamedItem item = new NamedItem(name, talent, type, brand, asp);
+            String talentcontent = cursor.getString(10);
+            NamedItem item = new NamedItem(name, talent, type, brand, asp, talentcontent);
             item.setNoTalent(noTalent);
             namedItems.add(item);
             cursor.moveToNext();
@@ -225,7 +231,7 @@ public class NamedFMDBAdapter {
         return count;
     }
 
-    public boolean updateData(String undo_name, String name, String talent, String type, int lite, int dark, int sub, String ws, String brand, String asp) {
+    public boolean updateData(String undo_name, String name, String talent, String type, int lite, int dark, int sub, String ws, String brand, String asp, String talentcontent) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TALENT, talent);
@@ -236,6 +242,7 @@ public class NamedFMDBAdapter {
         values.put(KEY_WS, ws);
         values.put(KEY_BRAND, brand);
         values.put(KEY_ASP, asp);
+        values.put(KEY_TALENTCONTENT, talentcontent);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
     }
 

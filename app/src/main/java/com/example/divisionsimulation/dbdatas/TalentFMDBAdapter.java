@@ -28,10 +28,11 @@ public class TalentFMDBAdapter {
     public static final String KEY_PT = "PT"; //권총
     public static final String KEY_VEST = "VEST"; //조끼
     public static final String KEY_BACKPACK = "BACKPACK"; //백팩
+    public static final String KEY_TALENTCONTENT = "TALENTCONTENT";
 
     private static final String DATABASE_CREATE = "create table FARMING_TALENT (_id integer primary key, " +
             "NAME text not null, AR int not null, SR int not null, BR int not null, RF int not null, " +
-            "MMR int not null, SG int not null, PT int not null, VEST int not null, BACKPACK int not null);";
+            "MMR int not null, SG int not null, PT int not null, VEST int not null, BACKPACK int not null, TALENTCONTENT text);";
 
     private static final String DATABASE_NAME = "DIVISION_FARMING_TALENT";
     private static final String DATABASE_TABLE = "FARMING_TALENT";
@@ -81,7 +82,7 @@ public class TalentFMDBAdapter {
                 if (workbook != null) {
                     sheet = workbook.getSheet(0);
                     if (sheet != null) {
-                        int nMaxColumn = 10;
+                        int nMaxColumn = 11;
                         int nRowStartIndex = 0;
                         int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                         int nColumnStartIndex = 0;
@@ -99,6 +100,7 @@ public class TalentFMDBAdapter {
                             int pt = Integer.parseInt(sheet.getCell(nColumnStartIndex+7, nRow).getContents());
                             int vest = Integer.parseInt(sheet.getCell(nColumnStartIndex+8, nRow).getContents());
                             int backpack = Integer.parseInt(sheet.getCell(nColumnStartIndex+9, nRow).getContents());
+                            String talentcontent = sheet.getCell(nColumnStartIndex+10, nRow).getContents();
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_NAME, name);
@@ -111,6 +113,7 @@ public class TalentFMDBAdapter {
                             values[nRow].put(KEY_PT, pt);
                             values[nRow].put(KEY_VEST, vest);
                             values[nRow].put(KEY_BACKPACK, backpack);
+                            values[nRow].put(KEY_TALENTCONTENT, talentcontent);
 
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
@@ -139,7 +142,7 @@ public class TalentFMDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String name, int ar, int sr, int br, int rf, int mmr, int sg, int pt, int vest, int backpack) {
+    public long insertData(String name, int ar, int sr, int br, int rf, int mmr, int sg, int pt, int vest, int backpack, String talentcontent) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_AR, ar);
@@ -151,6 +154,7 @@ public class TalentFMDBAdapter {
         values.put(KEY_PT, pt);
         values.put(KEY_VEST, vest);
         values.put(KEY_BACKPACK, backpack);
+        values.put(KEY_TALENTCONTENT, talentcontent);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -160,26 +164,33 @@ public class TalentFMDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
+    public String findContent(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        String result = cursor.getString(11);
+        return result;
+    }
+
     public String fetchRandomData(String type) {
         Cursor cursor;
-        if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_AR+"="+1, null, null, null, null, null);
-        else if (type.equals("기관단총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_SR+"="+1, null, null, null, null, null);
-        else if (type.equals("경기관총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_BR+"="+1, null, null, null, null, null);
-        else if (type.equals("소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_RF+"="+1, null, null, null, null, null);
-        else if (type.equals("지정사수소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_MMR+"="+1, null, null, null, null, null);
-        else if (type.equals("산탄총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_SG+"="+1, null, null, null, null, null);
-        else if (type.equals("권총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_PT+"="+1, null, null, null, null, null);
-        else if (type.equals("조끼")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_VEST+"="+1, null, null, null, null, null);
-        else cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_BACKPACK+"="+1, null, null, null, null, null);
+        if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_AR+"="+1, null, null, null, null, null);
+        else if (type.equals("기관단총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_SR+"="+1, null, null, null, null, null);
+        else if (type.equals("경기관총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_BR+"="+1, null, null, null, null, null);
+        else if (type.equals("소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_RF+"="+1, null, null, null, null, null);
+        else if (type.equals("지정사수소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_MMR+"="+1, null, null, null, null, null);
+        else if (type.equals("산탄총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_SG+"="+1, null, null, null, null, null);
+        else if (type.equals("권총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_PT+"="+1, null, null, null, null, null);
+        else if (type.equals("조끼")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_VEST+"="+1, null, null, null, null, null);
+        else cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_BACKPACK+"="+1, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<String> items = new ArrayList<String>();
         while (!cursor.isAfterLast()) {
@@ -198,7 +209,7 @@ public class TalentFMDBAdapter {
         return count;
     }
 
-    public boolean updateData(String undo_name, String name, int ar, int sr, int br, int rf, int mmr, int sg, int pt, int vest, int backpack) {
+    public boolean updateData(String undo_name, String name, int ar, int sr, int br, int rf, int mmr, int sg, int pt, int vest, int backpack, String talentcontent) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_AR, ar);
@@ -210,6 +221,7 @@ public class TalentFMDBAdapter {
         values.put(KEY_PT, pt);
         values.put(KEY_VEST, vest);
         values.put(KEY_BACKPACK, backpack);
+        values.put(KEY_TALENTCONTENT, talentcontent);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
     }
 
