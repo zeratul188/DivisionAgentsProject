@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -808,6 +809,13 @@ public class ShareFragment extends Fragment {
 
         final TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
 
+        final LinearLayout layoutWeaponMain1 = dialogView.findViewById(R.id.layoutWeaponMain1);
+        final LinearLayout layoutWeaponMain2 = dialogView.findViewById(R.id.layoutWeaponMain2);
+        final LinearLayout layoutWeaponSub = dialogView.findViewById(R.id.layoutWeaponSub);
+        final LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
+        final LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
+        final LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+
         btnInput = dialogView.findViewById(R.id.btnInput);
         /*
         위들과 동일한 방식이지만 프래그먼트에서 추가하는 것이 아닌 위 다이얼로그뷰에서 추가한다.
@@ -1295,7 +1303,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 10+(bonus*4)) {
@@ -1344,8 +1352,8 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageType(item_core1_type, imgSMain);
@@ -1356,8 +1364,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
                     txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
@@ -1366,8 +1374,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
@@ -1409,8 +1417,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -1423,19 +1431,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -1448,8 +1452,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -1475,8 +1479,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -1487,8 +1491,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -1499,8 +1503,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -1567,8 +1571,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -1585,17 +1589,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -1604,9 +1606,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -1618,14 +1618,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -1686,8 +1686,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -1700,7 +1700,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -1717,8 +1717,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -1738,8 +1738,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -1750,7 +1750,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -1810,8 +1810,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -1831,8 +1831,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -1851,8 +1851,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -1892,8 +1892,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -1910,19 +1910,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -1934,8 +1930,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -1990,8 +1986,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -2011,8 +2007,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -2031,8 +2027,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -2053,6 +2049,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -2083,7 +2080,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 30) {
@@ -2132,8 +2129,8 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageType(item_core1_type, imgSMain);
@@ -2144,8 +2141,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
                     txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
@@ -2154,8 +2151,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
@@ -2212,8 +2209,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -2230,17 +2227,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -2249,9 +2244,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -2263,14 +2256,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -2331,8 +2324,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -2345,7 +2338,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -2362,8 +2355,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -2383,8 +2376,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -2395,7 +2388,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -2455,8 +2448,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -2476,8 +2469,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -2496,8 +2489,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -2537,8 +2530,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -2555,19 +2548,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -2579,8 +2568,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -2635,8 +2624,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -2656,8 +2645,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -2676,8 +2665,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -2698,6 +2687,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -2729,7 +2719,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 50) { //50
@@ -2767,8 +2757,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (!item_type.equals("권총")) {
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -2781,19 +2771,15 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        txtWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
-                        txtWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
+                        layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
                     System.out.println(item_sub1);
@@ -2806,8 +2792,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
@@ -2853,8 +2839,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -2867,19 +2853,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -2892,8 +2874,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -2919,8 +2901,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -2931,8 +2913,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -2943,8 +2925,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -3011,8 +2993,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -3029,17 +3011,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -3048,9 +3028,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -3062,14 +3040,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -3130,8 +3108,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -3144,7 +3122,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -3161,8 +3139,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -3182,8 +3160,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -3194,7 +3172,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -3254,8 +3232,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -3275,8 +3253,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -3295,8 +3273,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -3336,8 +3314,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -3354,19 +3332,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -3378,8 +3352,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -3434,8 +3408,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -3455,8 +3429,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -3475,8 +3449,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -3497,6 +3471,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -3528,7 +3503,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 20+(bonus*4)) { //20+(bonus*4)
@@ -3566,8 +3541,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (!item_type.equals("권총")) {
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -3580,19 +3555,15 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        txtWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
-                        txtWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
+                        layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
                     System.out.println(item_sub1);
@@ -3605,8 +3576,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
@@ -3652,8 +3623,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -3666,19 +3637,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -3691,8 +3658,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -3718,8 +3685,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -3730,8 +3697,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -3742,8 +3709,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -3810,8 +3777,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -3828,17 +3795,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -3847,9 +3812,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -3861,14 +3824,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -3929,8 +3892,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -3943,7 +3906,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -3960,8 +3923,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -3981,8 +3944,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -3993,7 +3956,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -4053,8 +4016,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -4074,8 +4037,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -4094,8 +4057,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -4135,8 +4098,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -4153,19 +4116,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -4177,8 +4136,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -4233,8 +4192,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -4254,8 +4213,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -4274,8 +4233,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -4296,6 +4255,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -4327,7 +4287,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 30) { //30
@@ -4365,8 +4325,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (!item_type.equals("권총")) {
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -4379,19 +4339,15 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        txtWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
-                        txtWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
+                        layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
                     System.out.println(item_sub1);
@@ -4404,8 +4360,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
@@ -4451,8 +4407,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -4465,19 +4421,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -4490,8 +4442,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -4517,8 +4469,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -4529,8 +4481,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -4541,8 +4493,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -4609,8 +4561,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -4627,17 +4579,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -4646,9 +4596,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -4660,14 +4608,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -4728,8 +4676,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -4742,7 +4690,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -4759,8 +4707,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -4780,8 +4728,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -4792,7 +4740,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -4852,8 +4800,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -4873,8 +4821,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -4893,8 +4841,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -4934,8 +4882,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -4952,19 +4900,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -4976,8 +4920,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -5032,8 +4976,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -5053,8 +4997,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -5073,8 +5017,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -5095,6 +5039,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -5126,7 +5071,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //2
@@ -5166,8 +5111,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -5180,19 +5125,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -5205,8 +5146,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -5232,8 +5173,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -5244,8 +5185,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -5256,8 +5197,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -5325,8 +5266,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -5343,17 +5284,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -5362,9 +5301,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -5376,14 +5313,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -5445,8 +5382,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -5459,7 +5396,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -5476,8 +5413,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -5497,8 +5434,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -5509,7 +5446,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -5569,8 +5506,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -5590,8 +5527,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -5610,8 +5547,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -5651,8 +5588,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -5669,19 +5606,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -5693,8 +5626,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -5749,8 +5682,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -5770,8 +5703,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -5790,8 +5723,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -5812,6 +5745,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -5844,7 +5778,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.VISIBLE);
 
                 if (percent(1, 1000) <= 30) { //30
@@ -5882,8 +5816,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (!item_type.equals("권총")) {
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -5896,19 +5830,15 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        txtWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
-                        txtWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
+                        layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
                     System.out.println(item_sub1);
@@ -5921,8 +5851,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
@@ -5968,8 +5898,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -5982,19 +5912,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -6007,8 +5933,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -6034,8 +5960,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -6046,8 +5972,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -6058,8 +5984,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -6126,8 +6052,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -6144,17 +6070,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -6163,9 +6087,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -6177,14 +6099,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -6245,8 +6167,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -6259,7 +6181,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -6276,8 +6198,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -6297,8 +6219,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -6309,7 +6231,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -6369,8 +6291,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -6390,8 +6312,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -6410,8 +6332,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -6451,8 +6373,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -6469,19 +6391,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -6493,8 +6411,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -6549,8 +6467,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -6570,8 +6488,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -6590,8 +6508,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -6612,6 +6530,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -6642,7 +6561,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.VISIBLE);
 
                 if (percent(1, 1000) <= 30) { //30
@@ -6691,8 +6610,8 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageType(item_core1_type, imgSMain);
@@ -6703,8 +6622,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
                     txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
@@ -6713,8 +6632,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
@@ -6756,8 +6675,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -6770,19 +6689,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -6795,8 +6710,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -6822,8 +6737,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -6834,8 +6749,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -6846,8 +6761,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -6914,8 +6829,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -6932,17 +6847,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -6951,9 +6864,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -6965,14 +6876,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -7033,8 +6944,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -7047,7 +6958,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -7064,8 +6975,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -7085,8 +6996,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -7097,7 +7008,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -7157,8 +7068,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -7178,8 +7089,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -7198,8 +7109,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -7239,8 +7150,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -7257,19 +7168,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -7281,8 +7188,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -7337,8 +7244,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -7358,8 +7265,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -7378,8 +7285,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -7400,6 +7307,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -7432,7 +7340,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
-                layoutSSub2.setVisibility(View.VISIBLE);
+                layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
                 if (percent(1, 1000) <= 5) { //20+(bonus*4)
@@ -7470,8 +7378,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (!item_type.equals("권총")) {
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -7484,19 +7392,15 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        txtWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
-                        progressWMain2.setVisibility(View.VISIBLE);
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
-                        txtWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
-                        progressWMain2.setVisibility(View.GONE);
+                        layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
                     System.out.println(item_sub1);
@@ -7509,8 +7413,8 @@ public class ShareFragment extends Fragment {
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
@@ -7556,8 +7460,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item_type);
@@ -7570,19 +7474,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         System.out.println(item_sub1);
@@ -7595,8 +7495,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
@@ -7622,8 +7522,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
@@ -7634,8 +7534,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
@@ -7646,8 +7546,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
@@ -7714,8 +7614,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (!item_type.equals("권총")) {
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -7732,17 +7632,15 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                            txtWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
-                            progressWMain2.setVisibility(View.VISIBLE);
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (item.getName().equals("하얀 사신")) {
                                 txtWMain2.setTextColor(Color.parseColor("#c99700"));
                                 txtWMain2.setText(item.getTalent());
                                 progressWMain2.setMax(100);
                                 progressWMain2.setProgress(100);
-                                txtWMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
@@ -7751,9 +7649,7 @@ public class ShareFragment extends Fragment {
                                 progressWMain2.setProgress((int)(core2*10));
                             }
                         } else {
-                            txtWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
-                            progressWMain2.setVisibility(View.GONE);
+                            layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -7765,14 +7661,14 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (item.getName().equals("보조 붐스틱")) {
                             txtWMain1.setTextColor(Color.parseColor("#c99700"));
                             txtWMain1.setText(item.getTalent());
                             progressWMain1.setMax(100);
                             progressWMain1.setProgress(100);
-                            txtWMain1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -7833,8 +7729,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -7847,7 +7743,7 @@ public class ShareFragment extends Fragment {
                             if (item.getAsp().equals("공격")) imgSSub1.setImageResource(R.drawable.attack);
                             else if (item.getAsp().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
-                            txtSSub1.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
@@ -7864,8 +7760,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -7885,8 +7781,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -7897,7 +7793,7 @@ public class ShareFragment extends Fragment {
                         openSheld = true;
                         tableMain.setBackgroundResource(R.drawable.gearitem);
                         layoutSheld.setVisibility(View.VISIBLE);
-                        layoutSSub2.setVisibility(View.GONE);
+                        layoutSheldSub2.setVisibility(View.GONE);
                         gear++;
                         all++;
                         setInterface();
@@ -7957,8 +7853,8 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
@@ -7978,8 +7874,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -7998,8 +7894,8 @@ public class ShareFragment extends Fragment {
                         else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                        if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -8039,8 +7935,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(core1) >= max_core1) txtWMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (!item_type.equals("권총")) {
                                 maxoptionDBAdapter.open();
                                 cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
@@ -8057,19 +7953,15 @@ public class ShareFragment extends Fragment {
                                 else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                                if ((int)Math.floor(core2) >= max_core2) txtWMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                                else txtWMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                                txtWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
-                                progressWMain2.setVisibility(View.VISIBLE);
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
-                                txtWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
-                                progressWMain2.setVisibility(View.GONE);
+                                layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
                             cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
@@ -8081,8 +7973,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            if ((int)Math.floor(sub1) >= max_sub1) txtWSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                            else txtWSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
@@ -8137,8 +8029,8 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) txtSMain.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
@@ -8158,8 +8050,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub1) >= max_sub1) txtSSub1.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
@@ -8178,8 +8070,8 @@ public class ShareFragment extends Fragment {
                             else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
-                            if ((int)Math.floor(sub2) >= max_sub2) txtSSub2.setBackgroundResource(R.drawable.maxbackground);
-                            else txtSSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
@@ -8200,6 +8092,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 //다이얼로그를 화면에 띄움
             }
@@ -8462,6 +8355,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });

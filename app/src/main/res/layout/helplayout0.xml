@@ -11,7 +11,7 @@
             android:id="@+id/txtVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version 2.9.2"
+            android:text="Version 2.9.3"
             android:textSize="20sp"
             android:textColor="#f0f0f0"
             android:background="@drawable/txtclickevent"/>
