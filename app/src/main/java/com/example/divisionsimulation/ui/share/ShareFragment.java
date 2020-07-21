@@ -1318,7 +1318,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "\"타디그레이드\" 방탄복 시스템";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -1392,7 +1392,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -1530,7 +1530,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -2095,7 +2095,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "아코스타의 비상 가방";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -2168,7 +2168,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -2734,7 +2734,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "빅혼";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -2753,8 +2753,8 @@ public class ShareFragment extends Fragment {
                     tail_core1 = cursor.getString(5);
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    if (pick <= 4+max) temp_percent = 100;
+                    else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2767,8 +2767,8 @@ public class ShareFragment extends Fragment {
                         item_core2 = cursor.getString(1);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2788,8 +2788,8 @@ public class ShareFragment extends Fragment {
                     tail_sub1 = cursor.getString(5);
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    if (pick <= 4+max) temp_percent = 100;
+                    else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2814,7 +2814,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -2835,8 +2835,8 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2849,8 +2849,8 @@ public class ShareFragment extends Fragment {
                             item_core2 = cursor.getString(1);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2870,8 +2870,8 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2909,8 +2909,8 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2921,8 +2921,8 @@ public class ShareFragment extends Fragment {
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2952,7 +2952,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -2989,8 +2989,8 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = option_item.getReter();
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3007,8 +3007,8 @@ public class ShareFragment extends Fragment {
                             item_core2 = cursor.getString(1);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3036,8 +3036,8 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3103,8 +3103,8 @@ public class ShareFragment extends Fragment {
                         }
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -3135,8 +3135,8 @@ public class ShareFragment extends Fragment {
                             else if (optionItem.getOption().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3156,8 +3156,8 @@ public class ShareFragment extends Fragment {
                         else if (optionItem.getOption().equals("방어")) imgSSub2.setImageResource(R.drawable.sheld);
                         else imgSSub2.setImageResource(R.drawable.power);
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3227,8 +3227,8 @@ public class ShareFragment extends Fragment {
                         }
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -3249,8 +3249,8 @@ public class ShareFragment extends Fragment {
                         else if (optionItem.getOption().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                         else imgSSub1.setImageResource(R.drawable.power);
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3269,8 +3269,8 @@ public class ShareFragment extends Fragment {
                         else if (optionItem.getOption().equals("방어")) imgSSub2.setImageResource(R.drawable.sheld);
                         else imgSSub2.setImageResource(R.drawable.power);
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        if (pick <= 4+max) temp_percent = 100;
+                        else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3310,8 +3310,8 @@ public class ShareFragment extends Fragment {
                             tail_sub1 = option_item.getReter();
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3328,8 +3328,8 @@ public class ShareFragment extends Fragment {
                                 item_core2 = cursor.getString(1);
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
-                                if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                if (pick <= 4+max) temp_percent = 100;
+                                else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3348,8 +3348,8 @@ public class ShareFragment extends Fragment {
                             tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3403,8 +3403,8 @@ public class ShareFragment extends Fragment {
                             }
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -3425,8 +3425,8 @@ public class ShareFragment extends Fragment {
                             else if (optionItem.getOption().equals("방어")) imgSSub1.setImageResource(R.drawable.sheld);
                             else imgSSub1.setImageResource(R.drawable.power);
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3445,8 +3445,8 @@ public class ShareFragment extends Fragment {
                             else if (optionItem.getOption().equals("방어")) imgSSub2.setImageResource(R.drawable.sheld);
                             else imgSSub2.setImageResource(R.drawable.power);
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            if (pick <= 4+max) temp_percent = 100;
+                            else if (pick <= 50) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3518,7 +3518,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "탄환 제왕";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -3598,7 +3598,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -3736,7 +3736,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -4302,7 +4302,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "죽음의 귀부인";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -4382,7 +4382,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -4520,7 +4520,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -5086,7 +5086,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -5224,7 +5224,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -5793,7 +5793,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "역병";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -5873,7 +5873,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -6011,7 +6011,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -6576,7 +6576,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "닌자바이크 메신저 무릎 보호대";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -6650,7 +6650,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -6788,7 +6788,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
@@ -7355,7 +7355,7 @@ public class ShareFragment extends Fragment {
                     btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
                     item_name = "독수리를 거느린 자";
                     exoticDBAdpater.open();
                     cursor = exoticDBAdpater.fetchData(item_name);
@@ -7435,7 +7435,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomspecial)); //버튼 배경을 주황색 계열로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
                     cursor = exoticDBAdpater.fetchIDData(id);
@@ -7573,7 +7573,7 @@ public class ShareFragment extends Fragment {
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
                     
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.buttoncustomnamed));
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);

@@ -122,7 +122,7 @@
             android:padding="10dp"
             android:layout_marginBottom="10dp">
             <TableRow
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
                     android:id="@+id/layoutAttack1"
@@ -322,7 +322,7 @@
             android:padding="10dp"
             android:layout_marginBottom="10dp">
             <TableRow
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:id="@+id/layoutSheld1"
                     android:layout_width="0dp"
@@ -518,7 +518,7 @@
             android:padding="10dp"
             android:layout_marginBottom="10dp">
             <TableRow
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:id="@+id/layoutPower1"
                     android:layout_width="0dp"
@@ -714,7 +714,7 @@
             android:padding="10dp"
             android:layout_marginBottom="10dp">
             <TableRow
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:id="@+id/layoutAnother1"
                     android:layout_width="0dp"

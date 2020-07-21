@@ -141,10 +141,10 @@ public class SHDDBAdapter {
     }
 
     public boolean levelUp() {
+        int next;
+        Cursor next_cursor;
         Cursor exp_cursor = fetchSHD("EXP");
         int now_exp = exp_cursor.getInt(2);
-        Cursor next_cursor = fetchSHD("다음 속성");
-        int next = next_cursor.getInt(2);
         if (now_exp < 700000) return false;
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_CONTENT}, KEY_NAME+"='SHD 레벨'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
@@ -154,17 +154,21 @@ public class SHDDBAdapter {
         level += add_level;
         increaseSHD("SHD 레벨");
         updateSHD("EXP", now_exp);
-        switch (next) {
-            case 0:
-                increaseSHD("공격"); break;
-            case 1:
-                increaseSHD("방어"); break;
-            case 2:
-                increaseSHD("다용도"); break;
-            case 3:
-                increaseSHD("기타"); break;
+        for (int i = 0; i < add_level; i++) {
+            next_cursor = fetchSHD("다음 속성");
+            next = next_cursor.getInt(2);
+            switch (next) {
+                case 0:
+                    increaseSHD("공격"); break;
+                case 1:
+                    increaseSHD("방어"); break;
+                case 2:
+                    increaseSHD("다용도"); break;
+                case 3:
+                    increaseSHD("기타"); break;
+            }
+            nextOption();
         }
-        nextOption();
         ContentValues values = new ContentValues();
         values.put(KEY_CONTENT, level);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='SHD 레벨'", null) > 0;

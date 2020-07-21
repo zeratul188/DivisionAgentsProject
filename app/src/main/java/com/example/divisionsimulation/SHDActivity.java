@@ -5,9 +5,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +58,8 @@ public class SHDActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
 
+    private int add_level = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,14 +80,35 @@ public class SHDActivity extends AppCompatActivity {
         btnLevelUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View view = getLayoutInflater().inflate(R.layout.levelupdialog, null);
+
+                final Spinner spinnerLevel = view.findViewById(R.id.spinnerLevel);
+
+                String[] items = new String[100];
+                for (int i = 0; i < items.length; i++) items[i] = Integer.toString(i+1);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_item_2, items);
+                spinnerLevel.setAdapter(adapter);
+                spinnerLevel.setSelection(0);
+                spinnerLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        add_level = position+1;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
                 builder = new AlertDialog.Builder(SHDActivity.this, R.style.MyAlertDialogStyle);
                 builder.setTitle("SHD 레벨 업");
-                builder.setMessage("레벨 1 상승합니다.");
+                builder.setView(view);
                 builder.setPositiveButton("레벨 업", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         shdAdapter.open();
-                        shdAdapter.addEXP(700000);
+                        shdAdapter.addEXP(700000*add_level);
                         shdAdapter.levelUp();
                         shdAdapter.close();
                         toast("레벨업하였습니다.", false);
@@ -184,7 +210,24 @@ public class SHDActivity extends AppCompatActivity {
                             shdAdapter.close();
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+                    builder.setNegativeButton("포인트 모두 사용", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            shdAdapter.open();
+                            Cursor cursor = shdAdapter.fetchSHD("공격");
+                            int count = cursor.getInt(2);
+                            int length = Integer.parseInt(String.valueOf(txtPoint[0].getText()));
+                            if (count > 0) {
+                                for (int i = 0; i < length; i++) {
+                                    if (shdAdapter.increaseSHD(String.valueOf(txtAttackTitle[index].getText()))) shdAdapter.usePoint("공격");
+                                    else break;
+                                }
+                                refreshData();
+                            } else toast("사용가능한 포인트가 없습니다.", false);
+                            shdAdapter.close();
+                        }
+                    });
+                    builder.setNeutralButton("취소", null);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
@@ -211,7 +254,24 @@ public class SHDActivity extends AppCompatActivity {
                             shdAdapter.close();
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+                    builder.setNegativeButton("포인트 모두 사용", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            shdAdapter.open();
+                            Cursor cursor = shdAdapter.fetchSHD("방어");
+                            int count = cursor.getInt(2);
+                            int length = Integer.parseInt(String.valueOf(txtPoint[1].getText()));
+                            if (count > 0) {
+                                for (int i = 0; i < length; i++) {
+                                    if (shdAdapter.increaseSHD(String.valueOf(txtSheldTitle[index].getText()))) shdAdapter.usePoint("방어");
+                                    else break;
+                                }
+                                refreshData();
+                            } else toast("사용가능한 포인트가 없습니다.", false);
+                            shdAdapter.close();
+                        }
+                    });
+                    builder.setNeutralButton("취소", null);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
@@ -238,7 +298,24 @@ public class SHDActivity extends AppCompatActivity {
                             shdAdapter.close();
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+                    builder.setNegativeButton("포인트 모두 사용", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            shdAdapter.open();
+                            Cursor cursor = shdAdapter.fetchSHD("다용도");
+                            int count = cursor.getInt(2);
+                            int length = Integer.parseInt(String.valueOf(txtPoint[2].getText()));
+                            if (count > 0) {
+                                for (int i = 0; i < length; i++) {
+                                    if (shdAdapter.increaseSHD(String.valueOf(txtPowerTitle[index].getText()))) shdAdapter.usePoint("다용도");
+                                    else break;
+                                }
+                                refreshData();
+                            } else toast("사용가능한 포인트가 없습니다.", false);
+                            shdAdapter.close();
+                        }
+                    });
+                    builder.setNeutralButton("취소", null);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
@@ -265,7 +342,24 @@ public class SHDActivity extends AppCompatActivity {
                             shdAdapter.close();
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+                    builder.setNegativeButton("포인트 모두 사용", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            shdAdapter.open();
+                            Cursor cursor = shdAdapter.fetchSHD("기타");
+                            int count = cursor.getInt(2);
+                            int length = Integer.parseInt(String.valueOf(txtPoint[3].getText()));
+                            if (count > 0) {
+                                for (int i = 0; i < length; i++) {
+                                    if (shdAdapter.increaseSHD(String.valueOf(txtAnotherTitle[index].getText()))) shdAdapter.usePoint("기타");
+                                    else break;
+                                }
+                                refreshData();
+                            } else toast("사용가능한 포인트가 없습니다.", false);
+                            shdAdapter.close();
+                        }
+                    });
+                    builder.setNeutralButton("취소", null);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
