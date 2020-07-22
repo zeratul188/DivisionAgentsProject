@@ -12,8 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/layoutcustom">
+            android:layout_marginBottom="30dp">
             <TableRow
                 android:layout_marginBottom="5dp">
                 <LinearLayout
@@ -406,7 +405,8 @@
                     android:layout_gravity="center"
                     android:indeterminateTint="#E45435"/>
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="2"
@@ -461,6 +461,62 @@
                     android:layout_gravity="center"
                     android:indeterminateTint="#E45435"/>
             </TableRow>
+            <TableRow>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="left">
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="15sp"
+                        android:background="#888888"
+                        android:layout_marginRight="5dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="다크존 자원"
+                        android:textSize="15sp"
+                        android:gravity="left"
+                        android:textColor="#aaaaaa"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtDark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/300"
+                        android:textSize="15sp"
+                        android:textColor="#aaaaaa"/>
+                </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progressDark"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                    android:background="@drawable/gage"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="3dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="#E45435"/>
+             </TableRow>
+
         </TableLayout>
 
         <Button
