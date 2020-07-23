@@ -92,7 +92,7 @@ public class ShareFragment extends Fragment {
 
     private LinearLayout layoutItemList; //아이템 목록 레이아웃 객체 생성
     private TextView view; //목록 아이템 목록 1줄당 나타낼 뷰 생성
-    private Boolean darked = false, first_darked = true;
+    private Boolean darked = false, first_darked = true, exotic = false;
 
     private Button btnInput = null; //다크존 가방 담는 버튼 생성
 
@@ -107,8 +107,8 @@ public class ShareFragment extends Fragment {
     private int special = 0, named = 0, gear = 0, brand = 0, darkitem = 0, all = 0, temp; //특급, 네임드, 기어, 브랜드, 다크존 가방 아이템 갯수, 전체 갯수를 저장할 변수 생성
     private int max = 0;
 
-    private int[] material = new int[9];
-    private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원"};
+    private int[] material = new int[10];
+    private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
     private String[] sheld_type = {"마스크", "백팩", "조끼", "장갑", "권총집", "무릎보호대"};
     private MaterialDbAdapter materialDbAdapter;
     private SHDDBAdapter shdAdapter;
@@ -938,6 +938,8 @@ public class ShareFragment extends Fragment {
                 TextView[] txtEpic = new TextView[3];
                 TextView txtDark = dialogView_list.findViewById(R.id.txtDark);
                 ProgressBar progressDark = dialogView_list.findViewById(R.id.progressDark);
+                TextView txtExotic = dialogView_list.findViewById(R.id.txtExotic);
+                ProgressBar progressExotic = dialogView_list.findViewById(R.id.progressExotic);
 
                 ProgressBar[] progressNormal = new ProgressBar[2];
                 ProgressBar[] progressRare = new ProgressBar[3];
@@ -972,6 +974,10 @@ public class ShareFragment extends Fragment {
                 txtDark.setText(Integer.toString(material[8]));
                 progressDark.setMax(300);
                 progressDark.setProgress(material[8]);
+
+                txtExotic.setText(Integer.toString(material[9]));
+                progressExotic.setMax(20);
+                progressExotic.setProgress(material[9]);
 
                 builder_list = new AlertDialog.Builder(getActivity());
                 builder_list.setView(dialogView_list);
@@ -1068,6 +1074,13 @@ public class ShareFragment extends Fragment {
                     materialDbAdapter.updateMaterial(material_name[8], material[8]);
                     materialDbAdapter.close();
                     Toast.makeText(getActivity(), "다크존 자원을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                } else if (exotic) {
+                    material[9]++;
+                    if (material[9] >= 20) material[8] = 20;
+                    materialDbAdapter.open();
+                    materialDbAdapter.updateMaterial(material_name[9], material[9]);
+                    materialDbAdapter.close();
+                    Toast.makeText(getActivity(), "특급 부품을 획득하였습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     switch (str) {
                         case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
@@ -1316,6 +1329,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -1340,6 +1354,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 10+(bonus*4)) {
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -1415,6 +1430,7 @@ public class ShareFragment extends Fragment {
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -2183,6 +2199,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -2207,6 +2224,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 30) {
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -2911,6 +2929,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -2935,6 +2954,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 50) { //50
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -3015,6 +3035,7 @@ public class ShareFragment extends Fragment {
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -3784,6 +3805,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -3808,6 +3830,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 20+(bonus*4)) { //20+(bonus*4)
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -3888,6 +3911,7 @@ public class ShareFragment extends Fragment {
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -4657,6 +4681,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -4681,6 +4706,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 30) { //30
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -4761,6 +4787,7 @@ public class ShareFragment extends Fragment {
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -5530,6 +5557,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -5554,6 +5582,7 @@ public class ShareFragment extends Fragment {
 
                 if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -6326,6 +6355,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = true;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -6350,6 +6380,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 30) { //30
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -6430,6 +6461,7 @@ public class ShareFragment extends Fragment {
                     progressWSub.setProgress((int)(sub1*10));
                 } else if (percent(1, 100) <= 1) { //1
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -7198,6 +7230,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = true;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -7222,6 +7255,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 30) { //30
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -7296,6 +7330,7 @@ public class ShareFragment extends Fragment {
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.
@@ -8066,6 +8101,7 @@ public class ShareFragment extends Fragment {
                 String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
+                exotic = false;
                 boolean weaponed = true;
                 double core1, core2, sub1, sub2;
                 double max_core1, max_core2, max_sub1, max_sub2;
@@ -8090,6 +8126,7 @@ public class ShareFragment extends Fragment {
 
                 if (percent(1, 1000) <= 5) { //20+(bonus*4)
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
                     special++; //특급 장비 갯수를 1개 늘린다.
@@ -8170,6 +8207,7 @@ public class ShareFragment extends Fragment {
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //1
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
                     txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
                     special++; //특급 갯수를 1개 늘린다.

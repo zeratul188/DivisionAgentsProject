@@ -39,6 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtNormal1"
@@ -95,6 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtNormal2"
@@ -151,6 +153,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtRare1"
@@ -207,6 +210,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtRare2"
@@ -263,6 +267,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtRare3"
@@ -319,6 +324,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtEpic1"
@@ -375,6 +381,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtEpic2"
@@ -431,6 +438,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtEpic3"
@@ -448,6 +456,63 @@
                 </LinearLayout>
                 <ProgressBar
                     android:id="@+id/progressEpic3"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                    android:background="@drawable/gage"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="3dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="#E45435"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginBottom="5dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="left">
+                    <View
+                        android:layout_width="3dp"
+                        android:layout_height="15sp"
+                        android:background="#fe6e0e"
+                        android:layout_marginRight="5dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="특급 부품 "
+                        android:textSize="15sp"
+                        android:gravity="left"
+                        android:textColor="#aaaaaa"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtExotic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/20"
+                        android:textSize="15sp"
+                        android:textColor="#aaaaaa"/>
+                </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progressExotic"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="15dp"
@@ -486,6 +551,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/txtDark"
