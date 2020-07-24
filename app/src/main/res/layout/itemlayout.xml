@@ -395,7 +395,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:textSize="20sp"
-                        android:textColor="#999999"/>
+                        android:textColor="#aaaaaa"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -380,6 +380,7 @@
                     android:fontFamily="@font/korea_font"
                     android:textColor="#aaaaaa"
                     android:textSize="18sp"
+                    android:gravity="center"
                     android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage1"
@@ -574,52 +575,6 @@
             android:fontFamily="@font/korea_font"
             android:textSize="25sp"
             android:textColor="#f0f0f0"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:src="@drawable/critical_custom"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=": 치명타, "
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"
-                android:fontFamily="@font/korea_font"
-                android:layout_marginLeft="3dp"/>
-            <ImageView
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:src="@drawable/headshot_custom"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=": 헤드샷, "
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"
-                android:fontFamily="@font/korea_font"
-                android:layout_marginLeft="3dp"/>
-            <ImageView
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:src="@drawable/boom_custom"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=": 무자비 폭발탄 "
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"
-                android:fontFamily="@font/korea_font"
-                android:layout_marginLeft="3dp"/>
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
