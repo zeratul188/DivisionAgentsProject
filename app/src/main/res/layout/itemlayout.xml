@@ -34,14 +34,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="독수리를 거느린 자"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"/>
                 <TextView
                     android:id="@+id/txtType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="돌격소총"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="#888888"/>
             </LinearLayout>
         </LinearLayout>
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="핵심 속성"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:background="#40f0f0f0"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:text="+15% 돌격소총 데미지"
                     android:layout_marginBottom="5dp"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="#aaaaaa"/>
@@ -111,7 +111,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#aaaaaa"/>
                 <ProgressBar
                     android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="속성"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:background="#40f0f0f0"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:text="+5% 방어구 대상 데미지"
                     android:layout_marginBottom="5dp"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="#aaaaaa"/>
@@ -184,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="핵심 속성"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:background="#40f0f0f0"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
@@ -219,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:text="+170000 방어구"
                         android:drawablePadding="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginRight="10dp"
                         android:textColor="#aaaaaa"/>
                 </LinearLayout>
@@ -242,7 +242,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="속성"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:background="#40f0f0f0"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -276,7 +276,7 @@
                         android:layout_height="wrap_content"
                         android:text="+10% 스킬 가속"
                         android:layout_marginBottom="5dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:layout_marginRight="10dp"
                         android:textColor="#aaaaaa"/>
                 </LinearLayout>
@@ -326,7 +326,7 @@
                             android:layout_height="wrap_content"
                             android:text="+6% 치명타 확률"
                             android:layout_marginBottom="5dp"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:layout_marginRight="10dp"
                             android:textColor="#aaaaaa"/>
                     </LinearLayout>
@@ -363,7 +363,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="특수효과"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:background="#40f0f0f0"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
@@ -384,7 +384,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#aaaaaa"/>
                     <TextView
                         android:id="@+id/txtWTalentContent"
@@ -394,7 +394,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#aaaaaa"/>
                 </LinearLayout>
             </LinearLayout>
@@ -405,7 +405,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:padding="15dp"
             android:layout_gravity="center"
             android:background="@drawable/namedlogo"
@@ -424,7 +424,7 @@
             android:textColor="#ffffff"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:padding="10dp"
             android:visibility="gone"/>
 
@@ -439,7 +439,7 @@
                 android:layout_weight="1"
                 android:layout_height="50dp"
                 android:text="닫기"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
@@ -450,7 +450,7 @@
                 android:layout_weight="1"
                 android:layout_height="50dp"
                 android:text="분해"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="#aaaaaa"

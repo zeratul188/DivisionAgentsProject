@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="[Name]"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     android:textColor="#f0f0f0"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"/>
@@ -52,15 +52,15 @@
                             android:id="@+id/txtFirstInfo"
                             android:layout_width="0dp"
                             android:layout_weight="2"
-                            android:text="1 세트 + :"
+                            android:text="1 Set + :"
                             android:gravity="right"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtFirst"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#f0f0f0"
                             android:text="[First Set Option]"/>
                     </TableRow>
@@ -69,15 +69,15 @@
                             android:id="@+id/txtSecondInfo"
                             android:layout_width="0dp"
                             android:layout_weight="2"
-                            android:text="2 세트 + :"
+                            android:text="2 Set + :"
                             android:gravity="right"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtSecond"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#f0f0f0"
                             android:text="[Second Set Option]"/>
                     </TableRow>
@@ -86,15 +86,15 @@
                             android:id="@+id/txtThirdInfo"
                             android:layout_width="0dp"
                             android:layout_weight="2"
-                            android:text="3 세트 + :"
+                            android:text="3 Set + :"
                             android:gravity="right"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtThird"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="#f0f0f0"
                             android:text="[First Set Option]"/>
                     </TableRow>
@@ -115,7 +115,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="주속성 : "
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"
                     android:gravity="right"/>
                 <ImageView
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=", "
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"
                     android:visibility="invisible"
                     android:gravity="right"/>
@@ -144,7 +144,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="개조부품 : "
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"
                     android:gravity="right"/>
                 <ImageView
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:text=", "
                     android:visibility="invisible"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"
                     android:gravity="right"/>
                 <ImageView
@@ -175,7 +175,7 @@
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text="[Core]"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"/>-->
             </LinearLayout>
         </LinearLayout>
@@ -203,7 +203,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:textColor="#f0f0f0"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="[Vest Options]"/>
             </LinearLayout>
             <LinearLayout
@@ -224,7 +224,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:textColor="#f0f0f0"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="[Backpack Options]"/>
             </LinearLayout>
         </LinearLayout>

@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
@@ -84,7 +84,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="이름"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
                             <EditText
@@ -99,6 +99,7 @@
                                 android:textColorHint="#666666"
                                 android:textColor="#aaaaaa"
                                 android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                 android:textSize="15sp"/>
                             <CheckBox
                                 android:id="@+id/chkNamed"
@@ -106,7 +107,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="네임드"
                                 android:textColor="#f0f0f0"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:button="@null"
                                 android:background="@drawable/radiocustom"
                                 android:gravity="center"
@@ -120,14 +121,14 @@
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text="무기 데미지"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text="RPM"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -146,6 +147,7 @@
                                     android:layout_marginRight="10dp"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/title_edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:inputType="number"
                                     android:maxLength="7"
                                     android:textSize="15sp"/>
@@ -164,6 +166,7 @@
                                     android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/title_edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:hint="0~9999"
                                     android:maxLength="4"
                                     android:textSize="15sp"/>
@@ -175,15 +178,15 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="치명타 확률 (%)"
-                                android:textSize="20sp"
+                                android:text="치명타 확률 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="치명타 데미지 (%)"
-                                android:textSize="20sp"
+                                android:text="치명타 데미지 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -203,6 +206,7 @@
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:textSize="15sp"/>
                             </LinearLayout>
                             <LinearLayout
@@ -220,6 +224,7 @@
                                     android:textColorHint="#666666"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -229,15 +234,15 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="헤드샷 확률 (%)"
-                                android:textSize="20sp"
+                                android:text="헤드샷 확률 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="헤드샷 데미지 (%)"
-                                android:textSize="20sp"
+                                android:text="헤드샷 데미지 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -257,6 +262,7 @@
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:textSize="15sp"/>
                             </LinearLayout>
                             <LinearLayout
@@ -274,6 +280,7 @@
                                     android:textColorHint="#666666"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -283,15 +290,15 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="비엄폐 대상 데미지 (%)"
-                                android:textSize="20sp"
+                                android:text="비엄폐 대상 데미지 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="방어도 데미지 (%)"
-                                android:textSize="20sp"
+                                android:text="방어도 데미지 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -311,6 +318,7 @@
                                     android:layout_marginRight="10dp"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:maxLength="5"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -326,6 +334,7 @@
                                     android:inputType="numberDecimal"
                                     android:text=""
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:hint="0~999.9"
                                     android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
@@ -338,15 +347,15 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="생명력 데미지 (%)"
-                                android:textSize="20sp"
+                                android:text="생명력 데미지 "
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text="재장전 속도 (초)"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -367,6 +376,7 @@
                                     android:textColorHint="#666666"
                                     android:maxLength="5"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:textSize="15sp"/>
                             </LinearLayout>
                             <LinearLayout
@@ -385,6 +395,7 @@
                                     android:textColorHint="#666666"
                                     android:maxLength="4"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:textSize="15sp"/>
                             </LinearLayout>
                         </TableRow>
@@ -394,14 +405,14 @@
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text="탄수"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:text="명중률"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                         </TableRow>
                         <TableRow android:layout_marginBottom="10dp">
@@ -422,6 +433,7 @@
                                     android:textColorHint="#666666"
                                     android:maxLength="5"
                                     android:background="@drawable/title_edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:textSize="15sp"/>
                             </LinearLayout>
                             <LinearLayout
@@ -438,6 +450,7 @@
                                     android:textColor="#aaaaaa"
                                     android:textColorHint="#666666"
                                     android:background="@drawable/title_edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:hint="1~100"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -461,7 +474,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="확장팩 이전 특수효과"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:buttonTint="#fe6e0e"
                             android:textColor="#aaaaaa"/>
                         <LinearLayout
@@ -476,7 +489,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="광분 여부 (잃은 방어도 20% 마다 무기 데미지 10% 증가)"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"/>
                             <RadioGroup
@@ -493,7 +506,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 0 (dmg +0%, 방어도 80% 초과)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoCrazy2"
@@ -501,7 +514,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 1(무기 데미지 +10%, 방어도 60% 초과 80% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoCrazy3"
@@ -509,7 +522,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 2(무기 데미지 +20%, 방어도 40% 초과 60% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoCrazy4"
@@ -517,7 +530,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 3(무기 데미지 +30%, 방어도 20% 초과 40% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoCrazy5"
@@ -525,7 +538,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 4(무기 데미지 +40%, 방어도 0% 초과 20% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoCrazy6"
@@ -533,7 +546,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 5(무기 데미지 +50%, 방어도 0%)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                             </RadioGroup>
                             <CheckBox
@@ -543,14 +556,14 @@
                                 android:text="감시병 여부 (펄스 강조된 데미지 20% 증가)"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkFire"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="불꽃 여부 (폭발물 데미지가 들어갈 경우 무기 데미지 +20%)"
                                 android:buttonTint="#fe6e0e"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <CheckBox
                                 android:id="@+id/chkBoom"
@@ -559,7 +572,7 @@
                                 android:text="무자비 수납(5% 확률로 무기데미지 +100% 증가된 폭발탄)"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkEagle"
                                 android:layout_width="match_parent"
@@ -567,14 +580,14 @@
                                 android:text="집념 효과 여부(무기 데미지 +35%)"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkQuickhand"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="빠른손 여부 (치명타 적중 시 재장전 시간 5% 감소)"
                                 android:buttonTint="#fe6e0e"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <CheckBox
                                 android:id="@+id/chkBumerang"
@@ -582,7 +595,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="부메랑 여부 (치명타 적중 후 50% 확률로 다음 탄 데미지가 무기 데미지의 100% 증가)"
                                 android:buttonTint="#fe6e0e"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <CheckBox
                                 android:id="@+id/chkPush"
@@ -590,7 +603,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="중압감 여부 (방어도 10% 잃을 때마다 치명타 데미지 5% 증가)"
                                 android:buttonTint="#fe6e0e"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#aaaaaa"/>
                             <RadioGroup
                                 android:id="@+id/rgPush"
@@ -606,7 +619,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 0 (치명타 데미지 +0%, 방어도 90% 초과)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush2"
@@ -614,7 +627,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 1 (치명타 데미지 +5%, 방어도 80% 초과 90% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush3"
@@ -622,7 +635,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 2 (치명타 데미지 +10%, 방어도 70% 초과 80% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush4"
@@ -630,7 +643,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 3 (치명타 데미지 +15%, 방어도 60% 초과 70% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush5"
@@ -638,7 +651,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 4 (치명타 데미지 +20%, 방어도 50% 초과 60% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush6"
@@ -646,7 +659,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 5 (치명타 데미지 25%, 방어도 40% 초과 50% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush7"
@@ -654,7 +667,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 6 (치명타 데미지 +30%, 방어도 30% 초과 40% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush8"
@@ -662,7 +675,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 7 (치명타 데미지 +35%, 방어도 20% 초과 30% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush9"
@@ -670,7 +683,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 8 (치명타 데미지 +40%, 방어도 10% 초과 20% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush10"
@@ -678,7 +691,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 9 (치명타 데미지 +45%, 방어도 0% 초과 10% 이하)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioButton
                                     android:id="@+id/rdoPush11"
@@ -686,7 +699,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="Revel 10 (치명타 데미지 +50%, 방어도 0%)"
                                     android:buttonTint="#fe6e0e"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                             </RadioGroup>
                             <CheckBox
@@ -696,7 +709,7 @@
                                 android:text="카멜레온 여부"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:id="@+id/layoutCamel"
                                 android:layout_width="match_parent"
@@ -713,7 +726,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkCamelOption2"
                                     android:layout_width="match_parent"
@@ -723,7 +736,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkCamelOption3"
                                     android:layout_width="match_parent"
@@ -733,7 +746,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                             </LinearLayout>
                             <CheckBox
                                 android:id="@+id/chkFront"
@@ -742,7 +755,7 @@
                                 android:text="완벽한 근접전의 대가 (+무기 데미지 50%)"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                         </LinearLayout>
 
                         <CheckBox
@@ -750,7 +763,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="확장팩 특수효과"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:buttonTint="#fe6e0e"
                             android:textColor="#aaaaaa"/>
                         <LinearLayout
@@ -773,7 +786,7 @@
                                     android:text="집중"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectFocus"
                                     android:layout_width="wrap_content"
@@ -783,7 +796,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                                 <Spinner
@@ -805,7 +818,7 @@
                                     android:text="유리 대포"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectScrifice"
                                     android:layout_width="wrap_content"
@@ -815,7 +828,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -831,7 +844,7 @@
                                     android:text="공감의 결의"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <Spinner
                                     android:id="@+id/spinnerSympathy"
                                     android:background="@drawable/spinnercustom"
@@ -846,7 +859,7 @@
                                 android:text="경계 태세"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -859,7 +872,7 @@
                                     android:text="위협 전술"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectIntimidate"
                                     android:layout_width="wrap_content"
@@ -869,7 +882,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -880,7 +893,7 @@
                                 android:text="절멸"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkWicked"
                                 android:layout_width="match_parent"
@@ -888,7 +901,7 @@
                                 android:text="사악함"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkCompanion"
                                 android:layout_width="match_parent"
@@ -896,7 +909,7 @@
                                 android:text="동지애"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkComposure"
                                 android:layout_width="match_parent"
@@ -904,7 +917,7 @@
                                 android:text="태연자약"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -917,7 +930,7 @@
                                     android:text="무적의 부대"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <Spinner
                                     android:id="@+id/spinnerUnstoppable"
                                     android:background="@drawable/spinnercustom"
@@ -937,7 +950,7 @@
                                     android:text="팔방미인"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <Spinner
                                     android:id="@+id/spinnerVersatile"
                                     android:background="@drawable/spinnercustom"
@@ -952,7 +965,7 @@
                                 android:text="경계"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkKiller"
                                 android:layout_width="match_parent"
@@ -960,7 +973,7 @@
                                 android:text="킬러"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -973,7 +986,7 @@
                                     android:text="새디스트 / 맹인 / 점화"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectSadist"
                                     android:layout_width="wrap_content"
@@ -983,7 +996,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -999,7 +1012,7 @@
                                     android:text="낙천주의자"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectOptimist"
                                     android:layout_width="wrap_content"
@@ -1009,7 +1022,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1025,7 +1038,7 @@
                                     android:text="앙심"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectVindictive"
                                     android:layout_width="wrap_content"
@@ -1035,7 +1048,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1051,7 +1064,7 @@
                                     android:text="레인저"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectRanger"
                                     android:layout_width="wrap_content"
@@ -1061,7 +1074,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                                 <EditText
@@ -1075,6 +1088,7 @@
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/edittext_custom"
+                                    android:fontFamily="@font/borda"
                                     android:visibility="invisible"
                                     android:textSize="15sp"/>
                             </LinearLayout>
@@ -1090,7 +1104,7 @@
                                     android:text="소총수"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectRifleman"
                                     android:layout_width="wrap_content"
@@ -1100,7 +1114,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1116,7 +1130,7 @@
                                     android:text="뜻밖의 행운"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectLuckyShot"
                                     android:layout_width="wrap_content"
@@ -1126,7 +1140,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1137,7 +1151,7 @@
                                 android:text="연속 타격"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkUnhinged"
                                 android:layout_width="match_parent"
@@ -1145,7 +1159,7 @@
                                 android:text="불안정"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1158,7 +1172,7 @@
                                     android:text="압도적인 화력"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkPerfectOverwhelm"
                                     android:layout_width="wrap_content"
@@ -1168,7 +1182,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1184,7 +1198,7 @@
                                     android:text="동기화"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <CheckBox
                                     android:id="@+id/chkDoubleSync"
                                     android:layout_width="wrap_content"
@@ -1194,7 +1208,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                                 <CheckBox
@@ -1206,7 +1220,7 @@
                                     android:background="@drawable/radiocustom"
                                     android:gravity="center"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:layout_marginRight="10dp"
                                     android:visibility="invisible"/>
                             </LinearLayout>
@@ -1217,7 +1231,7 @@
                                 android:text="죽음의 귀부인 - 안도의 호흡"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <CheckBox
                                 android:id="@+id/chkMantis"
                                 android:layout_width="match_parent"
@@ -1225,7 +1239,7 @@
                                 android:text="사마귀 - 등잔 밑"
                                 android:buttonTint="#fe6e0e"
                                 android:textColor="#aaaaaa"
-                                android:textSize="20sp"/>
+                                android:textSize="18sp"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1238,7 +1252,7 @@
                                     android:text="코요태 마스크"
                                     android:buttonTint="#fe6e0e"
                                     android:textColor="#aaaaaa"
-                                    android:textSize="20sp"/>
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="120dp"
                                     android:layout_height="wrap_content"
@@ -1252,7 +1266,7 @@
                                         android:background="@drawable/radiocustom"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:layout_marginBottom="5dp"
                                         android:visibility="invisible"/>
                                     <CheckBox
@@ -1264,7 +1278,7 @@
                                         android:background="@drawable/radiocustom"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:layout_marginBottom="5dp"
                                         android:visibility="invisible"/>
                                     <CheckBox
@@ -1276,7 +1290,7 @@
                                         android:background="@drawable/radiocustom"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:visibility="invisible"/>
                                 </LinearLayout>
                             </LinearLayout>
@@ -1301,7 +1315,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="초기화"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#aaaaaa"
                     android:background="@drawable/buttoncustom"
                     android:layout_marginRight="5dp"/>
@@ -1311,7 +1325,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="데미지 시뮬"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#f0f0f0"
                     android:background="@drawable/buttonmaincustom"
                     android:layout_marginLeft="5dp"/>

@@ -591,7 +591,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttoncustom"
             android:text="닫기"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textColor="#aaaaaa"
             android:padding="15dp"/>
 

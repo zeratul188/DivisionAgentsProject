@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="경찰용 M4"
             android:layout_gravity="center"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="#fe6e0e"
             android:layout_marginLeft="15dp"/>
     </LinearLayout>

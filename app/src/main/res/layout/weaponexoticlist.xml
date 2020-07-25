@@ -24,17 +24,62 @@
                 <ImageView
                     android:id="@+id/imgWeaponType"
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:paddingLeft="-10dp"
+                    android:layout_height="40dp"
+                    android:adjustViewBounds="true"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/wp1custom"/>
                 <TextView
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="무기 이름"
-                    android:textSize="30sp"
+                    android:textSize="22sp"
                     android:textColor="#fe6e0e"/>
             </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+                <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="RPM"
+                        android:textSize="18sp"
+                        android:textColor="#aaaaaa"
+                        android:fontFamily="@font/borda"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="MAG"
+                        android:textSize="18sp"
+                        android:textColor="#aaaaaa"
+                        android:fontFamily="@font/borda"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/txtRPM"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="900"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/borda"
+                        android:textSize="40sp"/>
+                    <TextView
+                        android:id="@+id/txtMAG"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="50"
+                        android:textColor="#f0f0f0"
+                        android:fontFamily="@font/borda"
+                        android:textSize="40sp"/>
+                </TableRow>
+            </TableLayout>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -50,7 +95,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="고정 부 속성 : "
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView
@@ -60,27 +105,7 @@
                         android:layout_height="wrap_content"
                         android:text="-"
                         android:textColor="#f0f0f0"
-                        android:textSize="20sp"/>
-
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="발사 속도 : "
-                        android:textSize="20sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtRPM"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#f0f0f0"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 </TableRow>
                 <TableRow>
@@ -90,7 +115,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="재장전 시간 : "
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView
@@ -100,27 +125,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="#f0f0f0"
-                        android:textSize="20sp"/>
-
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="장탄수 : "
-                        android:textSize="20sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtMAG"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#f0f0f0"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 </TableRow>
                 <TableRow>
@@ -130,7 +135,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="발사방식 : "
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView
@@ -140,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="-"
                         android:textColor="#f0f0f0"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
 
                 </TableRow>
             </TableLayout>
@@ -150,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:text="고정 개조 부품"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtItem"
@@ -159,7 +164,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"
                 android:layout_marginBottom="20dp"/>
 
@@ -175,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:text="[Talent]"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtTalentContent"
@@ -184,7 +189,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"
                 android:layout_marginBottom="20dp"/>
 
@@ -193,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:text="획득 방법"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtDroped"
@@ -202,7 +207,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"
                 android:layout_marginBottom="20dp"/>
 
@@ -211,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:text="설명"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtContent"
@@ -220,7 +225,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
 
         </LinearLayout>

@@ -124,8 +124,7 @@
                             android:text="방어도 : "
                             android:singleLine="true"
                             android:textColor="#bcbcbc"
-                            android:fontFamily="@font/korea_font"
-                            android:textSize="20sp"/>
+                            android:textSize="15sp"/>
                         <TextView
                             android:id="@+id/txtSheld"
                             android:layout_width="0dp"
@@ -147,8 +146,7 @@
                             android:text="생명력 : "
                             android:singleLine="true"
                             android:textColor="#bcbcbc"
-                            android:fontFamily="@font/korea_font"
-                            android:textSize="20sp"/>
+                            android:textSize="15sp"/>
                         <TextView
                             android:id="@+id/txtHealth"
                             android:layout_width="0dp"
@@ -269,7 +267,6 @@
                             android:text="사용한 탄수 : "
                             android:textSize="15sp"
                             android:textColor="#AAAAAA"
-                            android:fontFamily="@font/korea_font"
                             android:textAlignment="textEnd"/>
                         <TextView
                             android:id="@+id/txtAllAmmo"
@@ -294,7 +291,6 @@
                             android:layout_height="wrap_content"
                             android:text="시간 : "
                             android:textSize="15sp"
-                            android:fontFamily="@font/korea_font"
                             android:textColor="#AAAAAA"
                             android:textAlignment="textEnd"/>
                         <TextView
@@ -304,7 +300,6 @@
                             android:layout_height="wrap_content"
                             android:text="0초"
                             android:singleLine="true"
-                            android:fontFamily="@font/korea_font"
                             android:textColor="#f0f0f0"
                             android:textSize="15sp"/>
 
@@ -321,7 +316,6 @@
                             android:text="누적 데미지 : "
                             android:textSize="15sp"
                             android:textColor="#aaaaaa"
-                            android:fontFamily="@font/korea_font"
                             android:textAlignment="textEnd"/>
                         <TextView
                             android:id="@+id/txtAdddemage"
@@ -377,9 +371,8 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="데미지 로그"
-                    android:fontFamily="@font/korea_font"
                     android:textColor="#aaaaaa"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:gravity="center"
                     android:layout_marginBottom="2dp"/>
                 <TextView
@@ -572,8 +565,7 @@
             android:layout_height="60dp"
             android:background="@drawable/buttonsimulcustom"
             android:text="강제 종료"
-            android:fontFamily="@font/korea_font"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#f0f0f0"/>
     </LinearLayout>
 

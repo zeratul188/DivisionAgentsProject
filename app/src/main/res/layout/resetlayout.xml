@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="초기화 중..."
             android:textColor="#aaaaaa"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:layout_marginLeft="30dp"/>
     </LinearLayout>
 
@@ -38,9 +38,9 @@
         android:id="@+id/btnExit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="닫기"
+        android:text="취소"
         android:padding="10dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#aaaaaa"
         android:background="@drawable/buttoncustom"
         android:layout_marginBottom="10dp"

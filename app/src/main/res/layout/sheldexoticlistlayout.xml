@@ -25,8 +25,8 @@
                 android:layout_marginBottom="20dp">
                 <ImageView
                     android:id="@+id/imgType"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
                     android:adjustViewBounds="true"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/mask"/>
@@ -36,7 +36,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="[Name]"
-                    android:textSize="30sp"
+                    android:textSize="22sp"
                     android:textColor="#fe6e0e"/>
             </LinearLayout>
 
@@ -54,14 +54,14 @@
                         android:gravity="right"
                         android:text="기본 방어도 : "
                         android:textColor="#aaaaaa"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txtSheld"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:text="[Default Sheld]"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#f0f0f0"/>
                 </TableRow>
                 <TableRow>
@@ -71,13 +71,13 @@
                         android:text="주 속성 : "
                         android:gravity="right"
                         android:textColor="#aaaaaa"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/txtCore"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:text="[Core Option]"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#f0f0f0"/>
                 </TableRow>
                 <TableRow>
@@ -87,13 +87,13 @@
                         android:text="부 속성 1 : "
                         android:gravity="right"
                         android:textColor="#aaaaaa"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/txtSub1"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:text="[Sub Option 1]"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#f0f0f0"/>
                 </TableRow>
                 <TableRow>
@@ -103,13 +103,13 @@
                         android:text="부 속성 2 : "
                         android:gravity="right"
                         android:textColor="#aaaaaa"
-                        android:textSize="20sp"/>
+                        android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/txtSub2"
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:text="[Sub Option 2]"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="#f0f0f0"/>
                 </TableRow>
             </TableLayout>
@@ -119,14 +119,14 @@
                 android:layout_height="wrap_content"
                 android:text="특수효과"
                 android:textColor="#aaaaaa"
-                android:textSize="15sp"/>
+                android:textSize="13sp"/>
             <TextView
                 android:id="@+id/txtTalent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="[Talent]"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtTalentContent"
@@ -135,7 +135,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"
                 android:layout_marginBottom="20dp"/>
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="획득 방법"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtLocation"
@@ -153,7 +153,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"
                 android:layout_marginBottom="20dp"/>
 
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:text="설명"
                 android:textColor="#fe6e0e"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtContent"
@@ -171,7 +171,7 @@
                 android:background="@drawable/layoutcustom"
                 android:padding="10dp"
                 android:text="-"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
         </LinearLayout>
 

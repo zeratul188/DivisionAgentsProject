@@ -12,7 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="난이도 선택"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="#f0f0f0"
                         android:layout_marginBottom="5dp"/>
                     <HorizontalScrollView
@@ -72,7 +72,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="스토리/보통"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:drawableLeft="@drawable/difficulty1"
                                     android:drawablePadding="10dp"
                                     android:textColor="#f0f0f0"
@@ -93,7 +93,7 @@
                                     android:text="어려움"
                                     android:drawableLeft="@drawable/difficulty2"
                                     android:drawablePadding="10dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#f0f0f0"
                                     android:layout_marginRight="10dp"/>
                                 <RadioButton
@@ -107,7 +107,7 @@
                                     android:text="매우 어려움"
                                     android:drawableLeft="@drawable/difficulty3"
                                     android:drawablePadding="10dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#f0f0f0"
                                     android:layout_marginRight="10dp"/>
                                 <RadioButton
@@ -121,7 +121,7 @@
                                     android:text="영웅"
                                     android:drawableLeft="@drawable/difficulty4"
                                     android:drawablePadding="10dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#f0f0f0"
                                     android:layout_marginRight="10dp"/>
                                 <RadioButton
@@ -135,7 +135,7 @@
                                     android:text="전설"
                                     android:drawableLeft="@drawable/difficulty5"
                                     android:drawablePadding="10dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#f0f0f0"/>
                             </RadioGroup>
                         </LinearLayout>
@@ -156,7 +156,7 @@
                                     android:layout_weight="1"
                                     android:layout_height="70dp"
                                     android:text="라이트존"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"
                                     android:padding="10dp"
                                     android:background="@drawable/buttoncustom"
@@ -168,7 +168,7 @@
                                     android:layout_height="70dp"
                                     android:text="다크존"
                                     android:padding="10dp"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
                                     android:layout_marginLeft="5dp"/>
@@ -181,7 +181,7 @@
                                     android:layout_weight="1"
                                     android:layout_height="70dp"
                                     android:text="레이드 (칠흑의 시간)"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:padding="10dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -192,7 +192,7 @@
                                     android:layout_weight="1"
                                     android:layout_height="70dp"
                                     android:text="레이드 추가 박스"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:padding="10dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -212,7 +212,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="라이트존"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -225,7 +225,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="다크존"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -241,7 +241,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="칠흑의 시간"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -253,8 +253,8 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="칠흑의 시간 추가 박스"
-                                    android:textSize="20sp"
+                                    android:text="칠흑의 시간 박스"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:background="@drawable/buttoncustom"
@@ -270,7 +270,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="트루썬 보스"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
@@ -283,7 +283,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="전설 난이도 보스"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
@@ -299,7 +299,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="라이커 보스 처치"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
@@ -312,7 +312,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="팩션 상자"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
@@ -328,7 +328,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="뉴욕 필드 보스"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
@@ -341,7 +341,7 @@
                                     android:layout_height="130dp"
                                     android:gravity="center"
                                     android:text="다크존 보급품"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
@@ -354,7 +354,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="미션 완료"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="20dp"
@@ -366,7 +366,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="라이트존"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -379,7 +379,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="다크존"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -392,7 +392,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="레이드 (칠흑의 시간)"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -405,7 +405,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="레이드 추가 박스"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -420,7 +420,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="트루썬 마지막 보스 처치"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -433,7 +433,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="전설 난이도 마지막 보스 처치"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -446,7 +446,7 @@
                            android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="제임스 드래고프 또는 테오 파넬 처치"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -459,7 +459,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="세션 상자 열기"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="5dp"
@@ -472,7 +472,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="뉴욕 필드 보스 처치"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="20dp"
@@ -485,7 +485,7 @@
                             android:layout_height="wrap_content"
                             android:text="장비 나온 갯수"
                             android:textColor="#aaaaaa"
-                            android:textSize="25sp"
+                            android:textSize="20sp"
                             android:layout_marginBottom="5dp"/>
 
                         <TableLayout
@@ -545,7 +545,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="특급 : "
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"
                                         android:textAlignment="textEnd"/>
                                     <TextView
@@ -553,7 +553,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </LinearLayout>
                                 <LinearLayout
@@ -567,14 +567,14 @@
                                         android:layout_height="wrap_content"
                                         android:text="네임드 : "
                                         android:textColor="#aaaaaa"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textAlignment="textEnd"/>
                                     <TextView
                                         android:id="@+id/txtNamed"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </LinearLayout>
                             </TableRow>
@@ -630,7 +630,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="기어 장비 : "
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"
                                         android:textAlignment="textEnd"/>
                                     <TextView
@@ -638,7 +638,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </LinearLayout>
                                 <LinearLayout
@@ -651,7 +651,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="기타 장비 : "
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"
                                         android:textAlignment="textEnd"/>
                                     <TextView
@@ -659,7 +659,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0"
-                                        android:textSize="20sp"
+                                        android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </LinearLayout>
                             </TableRow>
@@ -669,7 +669,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="전체 나온 갯수 : "
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"
                                     android:textAlignment="textEnd"/>
                                 <TextView
@@ -677,7 +677,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                             </TableRow>
                         </TableLayout>
@@ -691,10 +691,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="돌격소총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType1"
@@ -702,10 +702,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -720,10 +720,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="소총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType2"
@@ -731,10 +731,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -749,10 +749,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="지정사수소총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType3"
@@ -760,10 +760,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -778,10 +778,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="기관단총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType4"
@@ -789,10 +789,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -807,10 +807,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="경기관총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType5"
@@ -818,10 +818,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -836,10 +836,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="산탄총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType6"
@@ -847,10 +847,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -865,10 +865,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="권총"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType7"
@@ -876,10 +876,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -894,10 +894,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="마스크"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType8"
@@ -905,10 +905,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -923,10 +923,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="백팩"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType9"
@@ -934,10 +934,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -952,10 +952,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="조끼"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType10"
@@ -963,10 +963,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -981,10 +981,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="장갑"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType11"
@@ -992,10 +992,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -1010,10 +1010,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="권총집"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType12"
@@ -1021,10 +1021,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -1039,10 +1039,10 @@
                             <TableRow>
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="2"
+                                    android:layout_weight="3"
                                     android:layout_height="wrap_content"
                                     android:text="무릎 보호대"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <TextView
                                     android:id="@+id/txtType13"
@@ -1050,10 +1050,10 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <ProgressBar
-                                    android:layout_width="225dp"
+                                    android:layout_width="200dp"
                                     android:layout_height="16dp"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -1071,7 +1071,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="획득 아이템 목록 (최대 50개)"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="10dp"
@@ -1084,7 +1084,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:text="재료 확인"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
                             android:layout_marginBottom="20dp"
@@ -1104,14 +1104,14 @@
                                     android:layout_weight="2"
                                     android:layout_height="wrap_content"
                                     android:text="특급 : "
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textAlignment="textEnd"/>
                                 <TextView
                                     android:id="@+id/txtSpecial"
                                     android:layout_width="0dp"
                                     android:layout_weight="5"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#000000"/>
                             </TableRow>
                             <TableRow>
@@ -1120,14 +1120,14 @@
                                     android:layout_weight="2"
                                     android:layout_height="wrap_content"
                                     android:text="네임드 : "
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textAlignment="textEnd"/>
                                 <TextView
                                     android:id="@+id/txtNamed"
                                     android:layout_width="0dp"
                                     android:layout_weight="5"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#000000"/>
                             </TableRow>
                             <TableRow>
@@ -1136,14 +1136,14 @@
                                     android:layout_weight="2"
                                     android:layout_height="wrap_content"
                                     android:text="기어 장비 : "
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textAlignment="textEnd"/>
                                 <TextView
                                     android:id="@+id/txtGear"
                                     android:layout_width="0dp"
                                     android:layout_weight="5"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#000000"/>1%
                             </TableRow>
                             <TableRow>
@@ -1152,14 +1152,14 @@
                                     android:layout_weight="2"
                                     android:layout_height="wrap_content"
                                     android:text="기타 장비 : "
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textAlignment="textEnd"/>
                                 <TextView
                                     android:id="@+id/txtBrand"
                                     android:layout_width="0dp"
                                     android:layout_weight="5"
                                     android:text="0"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="#000000"/>
                             </TableRow>
                         </TableLayout>-->
@@ -1179,7 +1179,7 @@
                     android:layout_height="match_parent"
                     android:text="초기화"
                     android:textColor="#aaaaaa"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:padding="10dp"
                     android:background="@drawable/buttoncustom"
                     android:layout_marginRight="5dp"/>
@@ -1191,7 +1191,7 @@
                     android:text="이송하기 (0/10)"
                     android:drawableLeft="@drawable/output"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:padding="10dp"
                     android:background="@drawable/buttonmaincustom"
                     android:layout_marginLeft="5dp"/>

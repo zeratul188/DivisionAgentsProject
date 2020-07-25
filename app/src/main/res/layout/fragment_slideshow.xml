@@ -12,7 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="네임드 보호장구"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#aaaaaa"
                     android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"/>
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="특수 효과"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#aaaaaa"
                     android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="10dp"/>
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="특수 장비"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="#aaaaaa"
                     android:background="@drawable/buttoncustom"
                     android:layout_marginBottom="20dp"/>

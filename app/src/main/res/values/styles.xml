@@ -32,24 +32,24 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="nanumTextView" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:fontFamily">@font/borda</item>
         <item name="android:letterSpacing">0.1</item>
     </style>
 
     <style name="nanumButton" parent="android:Widget.Button">
-        <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:fontFamily">@font/borda</item>
     </style>
 
     <style name="nanumEditView" parent="android:Widget.EditText">
-        <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:fontFamily">@font/borda</item>
     </style>
 
     <style name="nanumRadioButton" parent="android:Widget.CompoundButton.RadioButton">
-        <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:fontFamily">@font/borda</item>
     </style>
 
     <style name="nanumCheckBox" parent="android:Widget.CompoundButton.CheckBox">
-        <item name="android:fontFamily">@font/korea_font</item>
+        <item name="android:fontFamily">@font/borda</item>
     </style>
 
     <style name="MyAlertDialogStyle" parent="@style/Theme.AppCompat.Dialog.Alert">
