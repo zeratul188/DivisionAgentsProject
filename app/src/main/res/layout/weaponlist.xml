@@ -24,7 +24,7 @@
                 <ImageView
                     android:id="@+id/imgWeaponType"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="50dp"
                     android:adjustViewBounds="true"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/wp1custom"/>
@@ -33,7 +33,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="무기 이름"
-                    android:textSize="22sp"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
                     android:textColor="#aaa"/>
             </LinearLayout>
             <TableLayout
@@ -110,7 +111,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="재장전 속도 : "
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <LinearLayout
@@ -140,7 +141,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="발사방식 : "
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView
@@ -160,7 +161,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="장착 가능 모드 : "
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView
@@ -180,7 +181,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="바리에이션 : "
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textColor="#aaa"
                         android:textAlignment="textEnd"/>
                     <TextView

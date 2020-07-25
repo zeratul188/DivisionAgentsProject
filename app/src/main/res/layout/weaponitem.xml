@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="경찰용 M4"
-            android:textSize="20sp"
+            android:textSize="23sp"
             android:layout_gravity="center"
             android:textColor="#aaaaaa"
             android:layout_marginLeft="15dp"/>

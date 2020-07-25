@@ -409,14 +409,14 @@ public class ShareFragment extends Fragment {
         /*LinearLayout.LayoutParams nameParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         nameView.setLayoutParams(nameParam);*/
         nameView.setText(spannableString);
-        nameView.setTextSize(25);
+        nameView.setTextSize(20);
         nameView.setTextColor(Color.parseColor("#f0f0f0"));
 
         TextView typeView = new TextView(getActivity());
         /*LinearLayout.LayoutParams typeParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         typeView.setLayoutParams(typeParam);*/
         typeView.setText(type);
-        typeView.setTextSize(18);
+        typeView.setTextSize(14);
         typeView.setTextColor(Color.parseColor("#888888"));
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);

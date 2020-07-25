@@ -58,7 +58,7 @@
                 <ProgressBar
                     android:id="@+id/progressNormal1"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -115,7 +115,7 @@
                 <ProgressBar
                     android:id="@+id/progressNormal2"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -172,7 +172,7 @@
                 <ProgressBar
                     android:id="@+id/progressRare1"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -229,7 +229,7 @@
                 <ProgressBar
                     android:id="@+id/progressRare2"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -286,7 +286,7 @@
                 <ProgressBar
                     android:id="@+id/progressRare3"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -343,7 +343,7 @@
                 <ProgressBar
                     android:id="@+id/progressEpic1"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -400,7 +400,7 @@
                 <ProgressBar
                     android:id="@+id/progressEpic2"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -457,7 +457,7 @@
                 <ProgressBar
                     android:id="@+id/progressEpic3"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -514,7 +514,7 @@
                 <ProgressBar
                     android:id="@+id/progressExotic"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
@@ -570,7 +570,7 @@
                 <ProgressBar
                     android:id="@+id/progressDark"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2"
                     android:layout_height="15dp"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_progressbar_gage"
