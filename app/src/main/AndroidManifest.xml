@@ -41,23 +41,6 @@
         <activity android:name=".ui.slideshow.SheldExoticListActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".ui.tools.List1Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List2Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List3Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List4Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List5Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List6Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List7Activity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.tools.List8Activity"
-            android:screenOrientation="portrait"></activity>
-
         <activity android:name=".ui.send.BlacktuskListActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.send.BlacktuskList1Activity"

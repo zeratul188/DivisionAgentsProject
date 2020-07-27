@@ -50,6 +50,7 @@ import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
 import com.example.divisionsimulation.SHDDBAdapter;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
@@ -157,6 +158,37 @@ public class ShareFragment extends Fragment {
     private SheldFMDBAdapter sheldDBAdapter;
     private TalentFMDBAdapter talentDBAdapter;
     private WeaponFMDBAdapter weaponDBAdpater;
+    private InventoryDBAdapter inventoryDBAdapter;
+
+    private Item item;
+
+    public void inputItem(Item item) {
+        inventoryDBAdapter.open();
+        if (inventoryDBAdapter.getCount() < 300) {
+            switch (item.getType()) {
+                case "돌격소총":
+                case "소총":
+                case "지정사수소총":
+                case "기관단총":
+                case "산탄총":
+                case "경기관총":
+                case "권총":
+                    inventoryDBAdapter.insertWeaponData(item.getName(), item.getType(), item.getCore1(), item.getCore2(), item.getSub1(), item.getCore1_value(), item.getCore2_value(), item.getSub1_value(), item.getTalent());
+                    break;
+                case "마스크":
+                case "백팩":
+                case "조끼":
+                case "장갑":
+                case "권총집":
+                case "무릎보호대":
+                    inventoryDBAdapter.insertSheldData(item.getName(), item.getType(), item.getCore1(), item.getSub1(), item.getSub2(), item.getCore1_value(), item.getSub1_value(), item.getSub2_value(), item.getTalent());
+                    break;
+            }
+            Toast.makeText(getActivity(), item.getName()+"("+item.getType()+")을 인벤토리에 추가하였습니다.", Toast.LENGTH_SHORT).show();
+            alertDialog.dismiss();
+        } else Toast.makeText(getActivity(), "인벤토리가 가득찼습니다.", Toast.LENGTH_SHORT).show();
+        inventoryDBAdapter.close();
+    }
 
     public void inputData(String name, String type) { //드랍되고 아이템 목록에 아이템이 추가 될 경우 사용
         if (index >= 50) { //아이템 목록이 최대 50개이므로 50개가 넘어갈 경우 작동된다.
@@ -171,6 +203,7 @@ public class ShareFragment extends Fragment {
             item_type[index] = type; //현재 index 공간에 새로운 장비 종류를 추가한다.
         }
         index++; //장비가 목록에 추가될때마다 인덱스를 1씩 늘려주어 다음 배열 공간에 추가할 수 있도록 한다.
+
     }
 
     //public void setTxtInfo(String message) { txtInfo.setText(message); }
@@ -599,6 +632,7 @@ public class ShareFragment extends Fragment {
         sheldDBAdapter = new SheldFMDBAdapter(getActivity());
         talentDBAdapter = new TalentFMDBAdapter(getActivity());
         weaponDBAdpater = new WeaponFMDBAdapter(getActivity());
+        inventoryDBAdapter = new InventoryDBAdapter(getActivity());
 
         //editor.clear();
         //editor.commit();
@@ -774,8 +808,6 @@ public class ShareFragment extends Fragment {
 
         if (pref.getBoolean("Saved", false)) startInterface();
 
-        final Itemlist il = new Itemlist(); //모든 아이템 정보가 들어있다.
-
         final View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
 
         final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
@@ -786,6 +818,7 @@ public class ShareFragment extends Fragment {
         //final TableRow trOption = dialogView.findViewById(R.id.trOption);
         final Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
         final Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
+        final Button btnAdd = dialogView.findViewById(R.id.btnAdd);
         imgType = dialogView.findViewById(R.id.imgType);
 
         final TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
@@ -811,6 +844,9 @@ public class ShareFragment extends Fragment {
         final LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon); //무기 속성 레이아웃
         final LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld); //보호장구 속성 레이아웃
         final LinearLayout layoutSSub2 = dialogView.findViewById(R.id.layoutSSub2);
+        
+        final TextView txtInventory = dialogView.findViewById(R.id.txtInventory);
+        final LinearLayout layoutInventory = dialogView.findViewById(R.id.layoutInventory);
 
         final TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
 
@@ -1046,6 +1082,13 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss(); //닫기 버튼을 누르면 다이얼로그가 닫힌다.
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputItem(item);
             }
         });
 
@@ -1325,14 +1368,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //트루썬 마지막 보스 처치할 경우
                 setExp(25846, 40326, 85542, 101141, 0);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -2181,6 +2229,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -2195,14 +2253,19 @@ public class ShareFragment extends Fragment {
         btnBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //세션 박스를 열었을 경우, 위와 내용이 비슷하므로 설명 생략
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -2910,6 +2973,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -2925,14 +2998,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //전설난이도에서 마지막 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 0, 0, 250000);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -3786,6 +3864,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -3801,14 +3889,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //월 스트리트 미션에서 마지막 보스 제임스 드래고프를 처치했을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(25846, 40326, 85542, 101141, 0);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -4662,6 +4755,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -4677,14 +4780,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //뉴욕에서 필드 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(17846, 34326, 67542, 81141, 0);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -5538,6 +5646,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -5553,14 +5671,19 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //라이트존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(946, 1926, 4542, 8141, 10114);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -6335,6 +6458,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -6351,14 +6484,16 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 7441, 0, 0);
                 if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = true;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                layoutInventory.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.GONE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -7212,6 +7347,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -7226,14 +7371,16 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setExp(0, 0, 15542, 0, 0);
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = true;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                layoutInventory.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.GONE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -8081,6 +8228,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -8097,14 +8254,19 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //칠흑의 시간 레이드에서 네임드 보스를 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 0, 121141, 0);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
-                String item_name, item_type, item_talent;
-                String item_core1, item_core2, item_sub1, item_sub2, tail_core1, tail_core2, tail_sub1, tail_sub2;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                 darked = false;
                 exotic = false;
                 boolean weaponed = true;
-                double core1, core2, sub1, sub2;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
+                inventoryDBAdapter.open();
+                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -8958,6 +9120,16 @@ public class ShareFragment extends Fragment {
                 builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
 
                 inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
@@ -8972,262 +9144,7 @@ public class ShareFragment extends Fragment {
         btnRaidbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //칠흑의 시간 레이드에서 마지막 보스 처치 후 상자 개봉할 경우, 위와 내용은 비슷하나 박스에서는 5개의 아이템이 나온다. 이 부분만 설명함.
-                int pick;
-                int start, end;
-                layoutSheld.setVisibility(View.GONE);
-                layoutWeapon.setVisibility(View.GONE);
-                if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
-                txtName.setTextColor(Color.parseColor("#aaaaaa"));
-                tableMain.setBackgroundResource(Color.parseColor("#00000000"));
-                String name = "", type = ""; //5+알파개 아이템 이름, 종류를 모두 저장하여 한번에 출력할 문자열 변수
-                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.GONE);
-                if (percent(1, 100) <= 10+bonus) { //5개와 별개로 10%확률로 "독수리를 거느린 자" 특급 돌격소총이 드랍됨.
-                    special++; //특급 갯수를 1개 늘린다.
-                    all++; //총 갯수를 1개 늘린다.
-                    setInterface(); //변경된 데이터 값을 UI에 업데이트한다.
-                    txtAll.setText(Integer.toString(all)); //총 갯수에 업데이트한다.
-                    txtSpecial.setText(Integer.toString(special)); //위와 동일한 방식
-                    name += "독수리를 거느린 자\n"; //name 문자열에 "독수리를 거느린 자"를 추가한 후 줄바꿈을 한다.
-                    type += "돌격소총\n"; //위와 동일한 방식
-                    inputData("독수리를 거느린 자", "돌격소총"); //아이템 목록에 아이템 정보를 추가한다.
-                    setSemiInterface("돌격소총", imgType); //돌격소총 종류의 갯수에 1개 늘린다.
-                }
-                for (int i = 0; i < 5; i++) { //아이템이 총 5개가 랜덤으로 나타나므로 5번을 반복하여 name, type에 1줄씩 추가한다.
-                    if (percent(1, 1000) <= 10) { //특급 장비
-                        //txtName.setTextColor(Color.parseColor("#ff3c00"));
-                        special++;
-                        all++;
-                        setInterface();
-                        txtAll.setText(Integer.toString(all));
-                        txtSpecial.setText(Integer.toString(special));
-                        pick = percent(0, il.getSpecialweapon_Length());
-                        if (i != 4) {
-                            name += il.getSpecialweapon(pick)+"\n";
-                            type += il.getSpecialweapon_type(pick)+"\n";
-                        } else {
-                            name += il.getSpecialweapon(pick);
-                            type += il.getSpecialweapon_type(pick);
-                        }
-                        inputData(il.getSpecialweapon(pick), il.getSpecialweapon_type(pick));
-                        setSemiInterface(il.getSpecialweapon_type(pick), imgType);
-                        //txtName.setText(il.getSpecialweapon(pick));
-                        //txtType.setText(il.getSpecialweapon_type(pick));
-                    } else if (percent(1, 1000) <= 20+(bonus*2)) { //네임드 장비
-                        named++;
-                        all++;
-                        setInterface();
-                        txtAll.setText(Integer.toString(all));
-                        txtNamed.setText(Integer.toString(named));
-                        //txtName.setTextColor(Color.parseColor("#c99700"));
-                        if (percent(1, 2) == 1) { //weapon
-                            pick = percent(0, il.getNamedweapon_lite_Length());
-                            if (i != 4) {
-                                name += il.getNamedweapon_lite(pick)+"\n";
-                                type += il.getNamedweapon_lite_type(pick)+"\n";
-                            } else {
-                                name += il.getNamedweapon_lite(pick);
-                                type += il.getNamedweapon_lite_type(pick);
-                            }
-                            setSemiInterface(il.getNamedweapon_lite_type(pick), imgType);
-                            inputData(il.getNamedweapon_lite(pick), il.getNamedweapon_lite_type(pick));
-                            //txtName.setText(il.getNamedweapon_lite(pick));
-                            //txtType.setText(il.getNamedweapon_lite_type(pick));
-                        } else { //sheld
-                            pick = percent(0, il.getNamedsheld_lite_Length());
-                            if (i != 4) {
-                                name += il.getNamedsheld_lite(pick)+"\n";
-                                type += il.getNamedsheld_lite_type(pick)+"\n";
-                            } else {
-                                name += il.getNamedsheld_lite(pick);
-                                type += il.getNamedsheld_lite_type(pick);
-                            }
-                            setSemiInterface(il.getNamedsheld_lite_type(pick), imgType);
-                            inputData(il.getNamedsheld_lite(pick), il.getNamedsheld_lite_type(pick));
-                            //txtName.setText(il.getNamedsheld_lite(pick));
-                            //txtType.setText(il.getNamedsheld_lite_type(pick));
-                        }
-                    } else { //기타 장비
-                        if (percent(1,2) == 1) { //weapon
-                            brand++;
-                            all++;
-                            setInterface();
-                            txtAll.setText(Integer.toString(all));
-                            txtBrand.setText(Integer.toString(brand));
-                            pick = percent(0, il.getWeapontype_Length());
-                            int temp;
-                            switch (pick) {
-                                case 0: //돌격소총
-                                    temp = percent(0, il.getWeaponlist1_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist1(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist1(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist1(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist1(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 1: //소총
-                                    temp = percent(0, il.getWeaponlist2_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist2(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist2(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist2(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist2(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 2: //지정사수소총
-                                    temp = percent(0, il.getWeaponlist3_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist3(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist3(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist3(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist3(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 3: //기관단총
-                                    temp = percent(0, il.getWeaponlist4_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist4(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist4(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist4(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist4(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 4: //경기관총
-                                    temp = percent(0, il.getWeaponlist5_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist5(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist5(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist5(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist5(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 5: //산탄총
-                                    temp = percent(0, il.getWeaponlist6_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist6(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist6(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist6(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist6(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                case 6: //권총
-                                    temp = percent(0, il.getWeaponlist7_Length());
-                                    if (i != 4) {
-                                        name += il.getWeaponlist7(temp)+"\n";
-                                        type += il.getWeapontype(pick)+"\n";
-                                    } else {
-                                        name += il.getWeaponlist7(temp);
-                                        type += il.getWeapontype(pick);
-                                    }
-                                    inputData(il.getWeaponlist7(temp), il.getWeapontype(pick));
-                                    //txtName.setText(il.getWeaponlist7(temp));
-                                    //txtType.setText(il.getWeapontype(pick));
-                                    break;
-                                default:
-                                    txtName.setText("Error");
-                                    txtType.setText("Error");
-                            }
-                            setSemiInterface(il.getWeapontype(pick), imgType);
-                        } else { //sheld
-                            int temp_pick;
-                            pick = percent(0, il.getSheldtype_Length());
-                            if (i != 4) type += il.getSheldtype(pick)+"\n";
-                            else type += il.getSheldtype(pick);
-                            temp_pick = pick;
-                            setSemiInterface(il.getSheldtype(pick), imgType);
-                            //txtType.setText(il.getSheldtype(pick));
-                            pick = percent(1, 100);
-                            if (pick <= 20) { //gear
-                                gear++;
-                                all++;
-                                setInterface();
-                                txtAll.setText(Integer.toString(all));
-                                txtGear.setText(Integer.toString(gear));
-                                pick = percent(0, il.getSheldgear_Length());
-                                if (i != 4) name += il.getSheldgear(pick)+"\n";
-                                else name += il.getSheldgear(pick);
-                                //txtName.setText(il.getSheldgear(pick));
-                                inputData(il.getSheldgear(pick), il.getSheldtype(pick));
-                            } else { //brand
-                                brand++;
-                                all++;
-                                setInterface();
-                                txtAll.setText(Integer.toString(all));
-                                txtBrand.setText(Integer.toString(brand));
-                                pick = percent(0, il.getSheldbrand_Length());
-                                if (i != 4) name += il.getSheldbrand(pick)+"\n";
-                                else name += il.getSheldbrand(pick);
-                                txtName.setText(il.getSheldbrand(pick));
-                                inputData(il.getSheldbrand(pick), il.getSheldtype(temp_pick));
-                            }
-                        }
-                    }
-                }
 
-
-                SpannableString spannableString = new SpannableString(name); //특급, 네임드 아이템 이름을 가졌으면 색을 바꿔줘야하는데 전체부분이 아니라 특급, 네임드에 해당하는 이름만 색을 바꿔줘야하므로 SpannableString으로 객체를 만들어 넣어준다.
-
-                String word; //아이템 목록에서 임시로 아이템 이름을 저장할 변수
-                for (int i = 0; i < il.getSpecialweapon_raid_Length(); i++) { //특급 무기를 비교하여 특급 무기에 해당하는 아이템 이름이 있을 경우 특급색(주황색)으로 변경해준다.
-                    word = il.getSpecialweapon_raid(i); //i번째에 있는 배열 값을 word 문자열에 대입한다.
-                    start = name.indexOf(word); //name 문자열에서 word와 같은 단어 혹은 문장이 있으면 시작부분을 저장한다. ex) "hello my name is ???".indexOf("my") = 7
-                    end = start + word.length(); //찾고자 하는 문자열이 끝나는 부분을 저장한다.
-                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#ff3c00")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); //start가 -1이라면 해당하는 문자열이 없다는 뜻이므로 -1이면 실행하지 않고 -1보다 크게 되면 그 문자열부분만 색을 특급색(주황색)으로 변경한다.
-                }
-                for (int i = 0; i < il.getNamedweapon_lite_Length(); i++) { //위와 동일한 방식
-                    word = il.getNamedweapon_lite(i);
-                    start = name.indexOf(word);
-                    end = start + word.length();
-                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                for (int i = 0; i < il.getNamedsheld_lite_Length(); i++) { //위와 동일한 방식
-                    word = il.getNamedsheld_lite(i);
-                    start = name.indexOf(word);
-                    end = start + word.length();
-                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#c99700")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                for (int i = 0; i < il.getSheldgear_Length(); i++) { //위와 동일한 방식
-                    word = il.getSheldgear(i);
-                    start = name.indexOf(word);
-                    end = start + word.length();
-                    if (start != -1) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-
-                txtName.setText(spannableString); //아이템 이름 텍스트뷰에 변경한 spannablestring을 넣어준다. 그럼 일부 텍스트만 색을 적용이 되어 있을 것이다.
-                txtType.setText(type); //아이템 종류 텍스트 뷰에 업데이트한다.
-
-                if (dialogView.getParent() != null)
-                    ((ViewGroup) dialogView.getParent()).removeView(dialogView);
-                builder.setView(dialogView);
-
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                alertDialog.show();
             }
         });
 

@@ -35,89 +35,156 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="15dp">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="공략 및 정보"
-                    android:textSize="25sp"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtInventory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100/300"
+                        android:textSize="25sp"
+                        android:textColor="#f0f0f0"
+                        android:paddingRight="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Inventory"
+                        android:textSize="25sp"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow
+                        android:layout_marginBottom="10dp">
+                        <Button
+                            android:id="@+id/btnWeapon"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="무기 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenweapon"
+                            android:layout_marginRight="5dp"/>
+                        <Button
+                            android:id="@+id/btnSubWeapon"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="보조 무기 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invensubweapon"
+                            android:layout_marginLeft="5dp"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="10dp">
+                        <Button
+                            android:id="@+id/btnMask"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="마스크 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenmask"
+                            android:layout_marginRight="5dp"/>
+                        <Button
+                            android:id="@+id/btnBackpack"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="백팩 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenbackpack"
+                            android:layout_marginLeft="5dp"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_marginBottom="10dp">
+                        <Button
+                            android:id="@+id/btnVest"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="조끼 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenvest"
+                            android:layout_marginRight="5dp"/>
+                        <Button
+                            android:id="@+id/btnGlove"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="장갑 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenglove"
+                            android:layout_marginLeft="5dp"/>
+                    </TableRow>
+                    <TableRow>
+                        <Button
+                            android:id="@+id/btnHolster"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="권총집 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenholster"
+                            android:layout_marginRight="5dp"/>
+                        <Button
+                            android:id="@+id/btnKneeped"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="130dp"
+                            android:gravity="center"
+                            android:text="무릎보호대 (100)"
+                            android:textSize="22sp"
+                            android:paddingTop="20dp"
+                            android:textColor="#aaaaaa"
+                            android:background="@drawable/buttoncustom"
+                            android:drawableTop="@drawable/invenkneeped"
+                            android:layout_marginLeft="5dp"/>
+                    </TableRow>
+                </TableLayout>
+                <Button
+                    android:id="@+id/btnReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="인벤토리 초기화"
+                    android:background="@drawable/buttoncustom"
+                    android:textSize="18sp"
                     android:padding="10dp"
-                    android:textColor="#aaaaaa"
-                    android:layout_marginBottom="20dp"/>
-
-                <Button
-                    android:id="@+id/btnList1"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="디비전 2 헌터 마스크 공략"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList2"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="[매닝동물원] 히든보스 소환하는 방법"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList3"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="그랜드 워싱턴 호텔 비밀방 여는법"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList4"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="엑조틱 기관단총 촉새 만드는법"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList5"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="루스벨트아일랜드 비밀의방 여는방법 (일명 부엉이방)"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList6"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="뷰포인트박물관 비밀루팅방 여는 방법"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList7"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="항공우주박물관 숨겨진 우주인방"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btnList8"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/buttoncustom"
-                    android:text="미항공우주국 이스터에그 보는법"
-                    android:textColor="#aaaaaa"
-                    android:textSize="18sp" />
-
+                    android:layout_marginTop="20dp"
+                    android:textColor="#f0f0f0"/>
             </LinearLayout>
 
         </ScrollView>
