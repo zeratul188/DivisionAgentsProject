@@ -168,6 +168,18 @@ public class MaxOptionsFMDBAdapter {
         return cursor;
     }
 
+    public Cursor fetchSheldSubData(String content) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"보호장구 부속성"+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor fetchSheldCoreData(String content) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"보호장구 핵심속성"+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
+    }
+
     public OptionItem fetchRandomData(String type) {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

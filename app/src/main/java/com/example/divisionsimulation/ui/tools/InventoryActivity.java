@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
@@ -39,13 +40,17 @@ public class InventoryActivity extends AppCompatActivity {
     private Cursor cursor;
 
     private String[] weapon_type = {"돌격소총", "소총", "지정사수소총", "산탄총", "기관단총", "경기관총"};
-    private boolean weaponed;
+    private boolean weaponed, exotic;
 
     private ExoticFMDBAdapter exoticDBAdapter;
     private NamedFMDBAdapter namedDBAdapter;
     private SheldFMDBAdapter sheldDBAdapter;
     private MaxOptionsFMDBAdapter maxDBAdapter;
     private TalentFMDBAdapter talentDBAdapter;
+    private MaterialDbAdapter materialDbAdapter;
+
+    private int[] material = new int[10];
+    private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
 
     private AlertDialog alertDialog;
 
@@ -62,6 +67,9 @@ public class InventoryActivity extends AppCompatActivity {
         sheldDBAdapter = new SheldFMDBAdapter(this);
         maxDBAdapter = new MaxOptionsFMDBAdapter(this);
         talentDBAdapter = new TalentFMDBAdapter(this);
+        materialDbAdapter = new MaterialDbAdapter(this);
+
+        resetMaterial();
 
         title = getIntent().getStringExtra("type");
         setTitle(title+" 인벤토리");
@@ -111,6 +119,62 @@ public class InventoryActivity extends AppCompatActivity {
                 final Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
                 final Button btnExit = dialogView.findViewById(R.id.btnExit);
 
+                final int index = position;
+                btnDestroy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String str = String.valueOf(txtType.getText());
+                        String normal_str = "", rare_str = "", epic_str = "";
+                        int normal = 0, rare = 0, epic = 0;
+                        int random_select;
+                        if (exotic) {
+                            material[9]++;
+                            if (material[9] >= 20) material[8] = 20;
+                            materialDbAdapter.open();
+                            materialDbAdapter.updateMaterial(material_name[9], material[9]);
+                            materialDbAdapter.close();
+                            Toast.makeText(getApplicationContext(), "특급 부품을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            switch (str) {
+                                case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
+                                    normal = percent(10, 12);
+                                    if (material[0] < 2000) material[0] += normal;
+                                    if (material[0] >= 2000) material[0] = 2000;
+                                    normal_str = material_name[0];
+                                    break;
+                                case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
+                                    normal = percent(10, 12);
+                                    if (material[1] < 2000) material[1] += normal;
+                                    if (material[1] >= 2000) material[1] = 2000;
+                                    normal_str = material_name[1];
+                                    break;
+                            }
+                            random_select = percent(2, 3);
+                            rare = percent(7, 6);
+                            material[random_select] += rare;
+                            if (material[random_select] >= 1500) material[random_select] = 1500;
+                            rare_str = material_name[random_select];
+                            random_select = percent(5, 3);
+                            epic = percent(3, 5);
+                            material[random_select] += epic;
+                            if (material[random_select] >= 1500) material[random_select] = 1500;
+                            epic_str = material_name[random_select];
+                            materialDbAdapter.open();
+                            for (int i = 0; i < material.length; i++) {
+                                materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                            }
+                            materialDbAdapter.close();
+                            Toast.makeText(getApplicationContext(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
+                        }
+                        inventoryDBAdapter.open();
+                        inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
+                        inventoryDBAdapter.close();
+                        addArray();
+                        itemAdapter.notifyDataSetChanged();
+                        alertDialog.dismiss();
+                    }
+                });
+
                 btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -118,7 +182,6 @@ public class InventoryActivity extends AppCompatActivity {
                     }
                 });
 
-                final int index = position;
                 btnDrop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -134,6 +197,10 @@ public class InventoryActivity extends AppCompatActivity {
                 txtName.setText(itemList.get(position).getName());
                 changeColorName(position, txtName);
                 txtType.setText(itemList.get(position).getType());
+
+                exoticDBAdapter.open();
+                exotic = exoticDBAdapter.haveItem(itemList.get(position).getName());
+                exoticDBAdapter.close();
 
                 switch (itemList.get(position).getType()) {
                     case "돌격소총":
@@ -266,7 +333,7 @@ public class InventoryActivity extends AppCompatActivity {
                     namedDBAdapter.close();
                 } else {
                     maxDBAdapter.open();
-                    cursor = maxDBAdapter.fetchData(itemList.get(position).getCore1());
+                    cursor = maxDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
                     max = cursor.getDouble(2);
                             end = cursor.getString(5);
                             maxDBAdapter.close();
@@ -276,7 +343,7 @@ public class InventoryActivity extends AppCompatActivity {
                     progressSMain.setProgress((int)(itemList.get(position).getCore1_value()*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                    setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1());
+                    setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1(), true);
                     namedDBAdapter.open();
                     if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
                         cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
@@ -286,7 +353,7 @@ public class InventoryActivity extends AppCompatActivity {
                         layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                     } else {
                         maxDBAdapter.open();
-                        cursor = maxDBAdapter.fetchData(itemList.get(position).getSub1());
+                        cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
                         max = cursor.getDouble(2);
                             end = cursor.getString(5);
                             maxDBAdapter.close();
@@ -296,7 +363,7 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub1.setProgress((int)(itemList.get(position).getSub1_value()*10));
                         if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        setImageAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1());
+                        setImageAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
                     namedDBAdapter.close();
                     sheldDBAdapter.open();
@@ -304,7 +371,7 @@ public class InventoryActivity extends AppCompatActivity {
                     else {
                         layoutSheldSub2.setVisibility(View.VISIBLE);
                         maxDBAdapter.open();
-                        cursor = maxDBAdapter.fetchData(itemList.get(position).getSub2());
+                        cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub2());
                         max = cursor.getDouble(2);
                             end = cursor.getString(5);
                             maxDBAdapter.close();
@@ -314,7 +381,7 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub2.setProgress((int)(itemList.get(position).getSub2_value()*10));
                         if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        setImageAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2());
+                        setImageAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
                     }
                     sheldDBAdapter.close();
                     switch (title) {
@@ -478,10 +545,11 @@ public class InventoryActivity extends AppCompatActivity {
         namedDBAdapter.close();
     }
 
-    private void setImageAttribute(ImageView imgView, ProgressBar progress, String content) {
+    private void setImageAttribute(ImageView imgView, ProgressBar progress, String content, boolean core) {
         String str;
         maxDBAdapter.open();
-        cursor = maxDBAdapter.fetchData(content);
+        if (core) cursor = maxDBAdapter.fetchSheldCoreData(content);
+        else cursor = maxDBAdapter.fetchSheldSubData(content);
         str = cursor.getString(4);
         maxDBAdapter.close();
         switch (str) {
@@ -498,6 +566,22 @@ public class InventoryActivity extends AppCompatActivity {
                 progress.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
                 break;
         }
+    }
+
+    private int percent(int min, int length) {
+        return (int)(Math.random()*1234567)%length + min;
+    }
+
+    private void resetMaterial() {
+        materialDbAdapter.open();
+        cursor = materialDbAdapter.fetchAllMaterial();
+        cursor.moveToFirst();
+        int index = 0;
+        while (!cursor.isAfterLast()) {
+            material[index] = cursor.getInt(2);
+            cursor.moveToNext();
+        }
+        materialDbAdapter.close();
     }
 
     @Override
