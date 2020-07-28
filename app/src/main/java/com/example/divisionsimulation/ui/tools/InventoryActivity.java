@@ -284,6 +284,16 @@ public class InventoryActivity extends AppCompatActivity {
                     progressWMain1.setProgress((int)(itemList.get(position).getCore1_value()*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                     else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground);
+                    if (itemList.get(position).getName().equals("보조 붐스틱")) {
+                        namedDBAdapter.open();
+                        cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                        txtWMain1.setText(cursor.getString(2));
+                        progressWMain1.setMax(100);
+                        progressWMain1.setProgress(100);
+                        layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        txtWMain1.setTextColor(Color.parseColor("#c99700"));
+                        namedDBAdapter.close();
+                    }
                     if (title.equals("권총")) layoutWeaponMain2.setVisibility(View.GONE);
                     else {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
@@ -557,7 +567,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void setNamedTalent(int position, TextView textView) {
         namedDBAdapter.open();
-        if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent())) textView.setTextColor(Color.parseColor("#c99700"));
+        if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
         else textView.setTextColor(Color.parseColor("#aaaaaa"));
         namedDBAdapter.close();
     }
