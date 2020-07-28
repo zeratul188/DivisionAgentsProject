@@ -115,6 +115,7 @@ public class ShareFragment extends Fragment {
     private SHDDBAdapter shdAdapter;
 
     private int[] typet = new int[13]; //돌격소총, 소총 등 드랍된 아이템 갯수를 저장할 배열 변수 생성
+    private ArrayList<Item> dark_items;
 
     private boolean isBtnDown;
 
@@ -149,6 +150,7 @@ public class ShareFragment extends Fragment {
 
     private boolean openWeapon = false; //드랍된 장비가 무기일 때 사용
     private boolean openSheld = false; //드랍된 장비가 보호장구일 때 사용
+    private boolean taked = false;
 
     private ImageView imgType, imgType2;
 
@@ -187,6 +189,32 @@ public class ShareFragment extends Fragment {
             Toast.makeText(getActivity(), item.getName()+"("+item.getType()+")을 인벤토리에 추가하였습니다.", Toast.LENGTH_SHORT).show();
             alertDialog.dismiss();
         } else Toast.makeText(getActivity(), "인벤토리가 가득찼습니다.", Toast.LENGTH_SHORT).show();
+        inventoryDBAdapter.close();
+    }
+
+    public void darkInputItems(Item item) {
+        inventoryDBAdapter.open();
+        if (inventoryDBAdapter.getCount() < 300) {
+            switch (item.getType()) {
+                case "돌격소총":
+                case "소총":
+                case "지정사수소총":
+                case "기관단총":
+                case "산탄총":
+                case "경기관총":
+                case "권총":
+                    inventoryDBAdapter.insertWeaponData(item.getName(), item.getType(), item.getCore1(), item.getCore2(), item.getSub1(), item.getCore1_value(), item.getCore2_value(), item.getSub1_value(), item.getTalent());
+                    break;
+                case "마스크":
+                case "백팩":
+                case "조끼":
+                case "장갑":
+                case "권총집":
+                case "무릎보호대":
+                    inventoryDBAdapter.insertSheldData(item.getName(), item.getType(), item.getCore1(), item.getSub1(), item.getSub2(), item.getCore1_value(), item.getSub1_value(), item.getSub2_value(), item.getTalent());
+                    break;
+            }
+        }
         inventoryDBAdapter.close();
     }
 
@@ -261,6 +289,8 @@ public class ShareFragment extends Fragment {
                 .setOngoing(false) // 사용자가 직접 못지우게 계속 실행하기.
         ;
 
+        success_extract();
+        taked = false;
         notificationManager.notify(0, buildert.build());
         /*
         위와 동일한 방식
@@ -285,6 +315,8 @@ public class ShareFragment extends Fragment {
         talertDialog.show();
         Looper.loop();
         notificationManager.cancelAll();
+        failed_extract();
+        taked = false;
         /*
         로그 요원에게 이송물을 탈취되었다는 메시지를 올린다.
          */
@@ -595,6 +627,7 @@ public class ShareFragment extends Fragment {
     public void output() {
         activate = false;
         first_darked = true;
+        taked = true;
         darkitem = 0; //다크존 아이템을 초기화한다.
         btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)");
         btnOutput.setText("이송하기 ("+darkitem+"/10)");
@@ -622,6 +655,8 @@ public class ShareFragment extends Fragment {
         pref = getContext().getSharedPreferences("pref", Context.MODE_PRIVATE);
         //pref = MainActivity.mainActivity().getPreferences(Activity.MODE_PRIVATE);
         editor = pref.edit();
+
+        dark_items = new ArrayList<Item>();
 
         materialDbAdapter = new MaterialDbAdapter(getActivity());
         shdAdapter = new SHDDBAdapter(getActivity());
@@ -1164,6 +1199,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //이송 물품 다크존 가방에 담는 버튼
                 if (darkitem < 10) { //다크존 가방에 있는 아이템 갯수가 10개 미만일 경우
+                    dark_items.add(item);
                     darkitem++; //다크존 가방 아이템 수를 1 늘려준다.
                     btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)"); //버튼 텍스트를 업데이트한다.
                     btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일
@@ -1253,6 +1289,11 @@ public class ShareFragment extends Fragment {
                     builder_timer.setPositiveButton("즉시 이송", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) { //즉시 이송을 누르면 작동
+                            taked = false;
+                            for (int i = 0; i < dark_items.size(); i++) {
+                                darkInputItems(dark_items.get(i));
+                            }
+                            dark_items.clear();
                             darkitem = 0; //다크존 아이템을 0으로 초기화
                             btnInput.setText("다크존 가방에 담기 ("+darkitem+"/10)"); //위와 동일한 방식
                             btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
@@ -1279,6 +1320,7 @@ public class ShareFragment extends Fragment {
                     builder_timer.setNeutralButton("이송지점 벗어나기", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) { //이송지점을 벗어날 경우
+                            taked = false;
                             if (darkitem > 0) { //다크존 아이템이 0보다 크면 작동한다. 즉, 이송물을 헬기에 걸기 전을 나타낸다.
                                 Toast.makeText(getActivity(), "이송하지 않고 이송지점에서 벗어났습니다.", Toast.LENGTH_SHORT).show(); //이송지점에서 벗어낫다는 메시지를 토스트로 전달
                                 coming_dz.stopThread();
@@ -1289,8 +1331,16 @@ public class ShareFragment extends Fragment {
                                 스레드들을 종료
                                  */
                             } else {
-                                if (percent(1, 4) == 1) Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났지만 이송에 성공하였습니다.", Toast.LENGTH_SHORT).show(); //25% 확률로 자동으로 이송 성공
-                                else Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났으나 로그 요원에게 이송물을 탈취당했습니다.", Toast.LENGTH_SHORT).show(); //75% 확률로 로그요원들에게 탈취
+                                if (percent(1, 4) == 1) {
+                                    Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났지만 이송에 성공하였습니다.", Toast.LENGTH_SHORT).show(); //25% 확률로 자동으로 이송 성공
+                                    for (int i = 0; i < dark_items.size(); i++) {
+                                        darkInputItems(dark_items.get(i));
+                                    }
+                                    dark_items.clear();
+                                } else {
+                                    Toast.makeText(getActivity(), "이송물은 버려둔 채로 이송지점에서 벗어났으나 로그 요원에게 이송물을 탈취당했습니다.", Toast.LENGTH_SHORT).show(); //75% 확률로 로그요원들에게 탈취
+                                    dark_items.clear();
+                                }
                                 coming_dz.stopThread();
                                 output_dz.stopThread();
                                 output_dz.setRogue(true);
@@ -1332,10 +1382,10 @@ public class ShareFragment extends Fragment {
                     alertDialog_timer.show(); //다이얼로그를 화면에 띄운다.
 
                     coming_dz.setMinute(0); //헬기 도착 전 스레드 분을 0으로 설정
-                    coming_dz.setSecond(40); //헬기 도착 전 스레드 초를 40초로 설정
+                    coming_dz.setSecond(40); //헬기 도착 전 스레드 초를 40초로 설정 //40
 
-                    output_dz.setMinute(1);
-                    output_dz.setSecond(0);
+                    output_dz.setMinute(1); //1
+                    output_dz.setSecond(0); //0
                     //1분 타이머를 설정
 
                     coming_dz.setRoguePercent(3);
@@ -9433,6 +9483,19 @@ public class ShareFragment extends Fragment {
             view.setImageResource(R.drawable.power);
             progress.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
         }
+    }
+
+    public void success_extract() {
+        if (taked) {
+            for (int i = 0; i < dark_items.size(); i++) {
+                darkInputItems(dark_items.get(i));
+            }
+            dark_items.clear();
+        }
+    }
+
+    public void failed_extract() {
+        dark_items.clear();
     }
 
     private boolean sheldTalent(String type) {

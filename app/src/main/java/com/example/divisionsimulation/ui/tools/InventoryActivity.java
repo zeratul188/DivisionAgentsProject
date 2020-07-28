@@ -72,9 +72,9 @@ public class InventoryActivity extends AppCompatActivity {
         resetMaterial();
 
         title = getIntent().getStringExtra("type");
-        setTitle(title+" 인벤토리");
         itemList = new ArrayList<Item>();
         addArray();
+        setTitle(title+" 인벤토리 ("+itemList.size()+")");
         itemAdapter = new ItemAdapter(this, itemList);
         listItem.setAdapter(itemAdapter);
 
@@ -170,6 +170,7 @@ public class InventoryActivity extends AppCompatActivity {
                         inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
                         inventoryDBAdapter.close();
                         addArray();
+                        setTitle(title+" 인벤토리 ("+itemList.size()+")");
                         itemAdapter.notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -189,6 +190,7 @@ public class InventoryActivity extends AppCompatActivity {
                         inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
                         inventoryDBAdapter.close();
                         addArray();
+                        setTitle(title+" 인벤토리 ("+itemList.size()+")");
                         itemAdapter.notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -351,6 +353,21 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub1.setMax(100);
                         progressSSub1.setProgress(100);
                         layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        String asp = cursor.getString(9);
+                        switch (asp) {
+                            case "공격":
+                                imgSSub1.setImageResource(R.drawable.attack);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                                break;
+                            case "방어":
+                                imgSSub1.setImageResource(R.drawable.sheld);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                                break;
+                            case "다용도":
+                                imgSSub1.setImageResource(R.drawable.power);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                                break;
+                        }
                     } else {
                         maxDBAdapter.open();
                         cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
