@@ -2,6 +2,7 @@ package com.example.divisionsimulation.ui.tools;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class ToolsFragment extends Fragment {
     private TextView txtInventory;
     private Button btnWeapon, btnSubWeapon, btnMask, btnBackpack, btnVest, btnGlove, btnHolster, btnKneeped, btnReset;
 
+    private Intent intent;
     private int weapons = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,6 +57,72 @@ public class ToolsFragment extends Fragment {
         inventoryDBAdapter = new InventoryDBAdapter(getActivity());
 
         refresh();
+
+        intent = new Intent(getActivity(), InventoryActivity.class);
+
+        btnWeapon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "무기");
+                startActivity(intent);
+            }
+        });
+
+        btnSubWeapon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "권총");
+                startActivity(intent);
+            }
+        });
+
+        btnMask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "마스크");
+                startActivity(intent);
+            }
+        });
+
+        btnBackpack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "백팩");
+                startActivity(intent);
+            }
+        });
+
+        btnVest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "조끼");
+                startActivity(intent);
+            }
+        });
+
+        btnGlove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "장갑");
+                startActivity(intent);
+            }
+        });
+
+        btnHolster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "권총집");
+                startActivity(intent);
+            }
+        });
+
+        btnKneeped.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("type", "무릎보호대");
+                startActivity(intent);
+            }
+        });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

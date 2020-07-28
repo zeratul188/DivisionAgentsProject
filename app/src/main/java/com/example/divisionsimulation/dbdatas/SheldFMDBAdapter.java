@@ -156,6 +156,13 @@ public class SheldFMDBAdapter {
         return arrayList;
     }
 
+    public boolean haveItem(String name) {
+        Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+" where "+KEY_NAME+"='"+name+"' and "+KEY_TYPE+"='기어세트';", null);
+        int count = 0;
+        if (cursor != null) count = cursor.getCount();
+        return count > 0;
+    }
+
     public Cursor fetchData(String name) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_SUB, KEY_VEST, KEY_BACKPACK}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

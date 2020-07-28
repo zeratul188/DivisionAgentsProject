@@ -215,6 +215,13 @@ public class ExoticFMDBAdapter {
         return count;
     }
 
+    public boolean haveItem(String name) {
+        Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+" where "+KEY_NAME+"='"+name+"';", null);
+        int count = 0;
+        if (cursor != null) count = cursor.getCount();
+        return count > 0;
+    }
+
     public boolean updateData(String undo_name, String name, String type, String coreoption, String suboption1, String suboption2, String core, String sub1, String sub2, String talent, int droped, String ws, String talentcontent) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
