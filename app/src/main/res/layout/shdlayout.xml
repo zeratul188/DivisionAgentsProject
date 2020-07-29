@@ -106,6 +106,12 @@
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용 가능한 포인트 : "
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+            <TextView
                 android:id="@+id/txtPoint1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -305,6 +311,12 @@
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용 가능한 포인트 : "
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+            <TextView
                 android:id="@+id/txtPoint2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -500,6 +512,12 @@
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용 가능한 포인트 : "
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+            <TextView
                 android:id="@+id/txtPoint3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -692,6 +710,12 @@
                 android:layout_height="wrap_content"
                 android:text="기타"
                 android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용 가능한 포인트 : "
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
             <TextView

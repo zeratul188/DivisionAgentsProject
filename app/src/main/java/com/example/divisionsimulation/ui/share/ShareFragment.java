@@ -1527,7 +1527,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -1537,7 +1537,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -2415,7 +2415,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -2425,7 +2425,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -3303,7 +3303,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -3313,7 +3313,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -4190,7 +4190,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -4200,7 +4200,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
                     named++;
@@ -9314,7 +9314,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+(int)sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -9324,7 +9324,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+(int)sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
@@ -13477,7 +13477,6 @@ public class ShareFragment extends Fragment {
             editor.putString("ItemName"+(i+1), item_name[i]);
             editor.putString("ItemType"+(i+1), item_type[i]);
         }
-        for (int i = 0; i < material.length; i++) editor.putInt("material"+(i+1), material[i]);
         editor.putInt("Index", index);
         editor.putInt("ProgressMax", progressType[0].getMax());
         editor.putBoolean("Saved", true);

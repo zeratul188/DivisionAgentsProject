@@ -4,20 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <!--<TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,15 +19,6 @@
             android:orientation="vertical"
             android:layout_marginTop="?attr/actionBarSize"
             android:padding="10dp">
-            <!--<TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="전투 시뮬레이션"
-                android:textSize="40sp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:textColor="#aaaaaa"/>-->
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -53,17 +30,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <!--<TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/layoutcustom"
-                        android:padding="10dp"
-                        android:text="- 소수점 첫째짜리까지만 입력해주세요.\n- 상대는 펄스 적용된 상태\n- 명중률은 0 이상이여야 합니다. 0이면 자동으로 50%로 변경됩니다.\n- 힌트로 나와있는 최소 숫자보다 작을 경우 자동으로 최솟값으로 변경됩니다.\n- 불꽃은 작동한 상태로 들어갑니다. (무자비가 안 터져도 버프 적용)"
-                        android:textSize="18sp"
-                        android:paddingLeft="30dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
-                        android:textColor="#aaaaaa"/>-->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

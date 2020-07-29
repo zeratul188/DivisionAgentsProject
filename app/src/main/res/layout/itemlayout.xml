@@ -442,13 +442,12 @@
                 android:textColor="#f0f0f0"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <ImageView
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:text="Inventory"
-                android:textSize="25sp"
-                android:textColor="#f0f0f0"/>
+                android:adjustViewBounds="true"
+                android:src="@drawable/inven"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
