@@ -607,6 +607,7 @@ public class InventoryActivity extends AppCompatActivity {
         while (!cursor.isAfterLast()) {
             material[index] = cursor.getInt(2);
             cursor.moveToNext();
+            index++;
         }
         materialDbAdapter.close();
     }
