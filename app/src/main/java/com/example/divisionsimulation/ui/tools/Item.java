@@ -1,6 +1,6 @@
 package com.example.divisionsimulation.ui.tools;
 
-public class Item {
+public class Item implements Comparable<Item> {
     private long rowId;
     private String name, type, core1, core2, sub1, sub2, talent;
     private double core1_value, core2_value, sub1_value, sub2_value;
@@ -105,5 +105,10 @@ public class Item {
 
     public void setSub2_value(double sub2_value) {
         this.sub2_value = sub2_value;
+    }
+
+    @Override
+    public int compareTo(Item item) {
+        return this.name.compareTo(item.getName());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.divisionsimulation.ui.tools;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,6 +30,7 @@ import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -75,6 +77,7 @@ public class InventoryActivity extends AppCompatActivity {
         itemList = new ArrayList<Item>();
         addArray();
         setTitle(title+" 인벤토리 ("+itemList.size()+")");
+        Collections.sort(itemList);
         itemAdapter = new ItemAdapter(this, itemList);
         listItem.setAdapter(itemAdapter);
 
@@ -123,56 +126,69 @@ public class InventoryActivity extends AppCompatActivity {
                 btnDestroy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String str = String.valueOf(txtType.getText());
-                        String normal_str = "", rare_str = "", epic_str = "";
-                        int normal = 0, rare = 0, epic = 0;
-                        int random_select;
-                        if (exotic) {
-                            material[9]++;
-                            if (material[9] >= 20) material[8] = 20;
-                            materialDbAdapter.open();
-                            materialDbAdapter.updateMaterial(material_name[9], material[9]);
-                            materialDbAdapter.close();
-                            Toast.makeText(getApplicationContext(), "특급 부품을 획득하였습니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            switch (str) {
-                                case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
-                                    normal = percent(10, 12);
-                                    if (material[0] < 2000) material[0] += normal;
-                                    if (material[0] >= 2000) material[0] = 2000;
-                                    normal_str = material_name[0];
-                                    break;
-                                case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
-                                    normal = percent(10, 12);
-                                    if (material[1] < 2000) material[1] += normal;
-                                    if (material[1] >= 2000) material[1] = 2000;
-                                    normal_str = material_name[1];
-                                    break;
+                        AlertDialog.Builder destroy_builder = new AlertDialog.Builder(InventoryActivity.this, R.style.MyAlertDialogStyle);
+                        destroy_builder.setTitle("분해");
+                        destroy_builder.setMessage(itemList.get(index).getName()+"을 분해하시겠습니까?");
+                        destroy_builder.setPositiveButton("분해", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String str = String.valueOf(txtType.getText());
+                                String normal_str = "", rare_str = "", epic_str = "";
+                                int normal = 0, rare = 0, epic = 0;
+                                int random_select;
+                                if (exotic) {
+                                    material[9]++;
+                                    if (material[9] >= 20) material[8] = 20;
+                                    materialDbAdapter.open();
+                                    materialDbAdapter.updateMaterial(material_name[9], material[9]);
+                                    materialDbAdapter.close();
+                                    Toast.makeText(getApplicationContext(), "특급 부품을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    switch (str) {
+                                        case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
+                                            normal = percent(10, 12);
+                                            if (material[0] < 2000) material[0] += normal;
+                                            if (material[0] >= 2000) material[0] = 2000;
+                                            normal_str = material_name[0];
+                                            break;
+                                        case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
+                                            normal = percent(10, 12);
+                                            if (material[1] < 2000) material[1] += normal;
+                                            if (material[1] >= 2000) material[1] = 2000;
+                                            normal_str = material_name[1];
+                                            break;
+                                    }
+                                    random_select = percent(2, 3);
+                                    rare = percent(7, 6);
+                                    material[random_select] += rare;
+                                    if (material[random_select] >= 1500) material[random_select] = 1500;
+                                    rare_str = material_name[random_select];
+                                    random_select = percent(5, 3);
+                                    epic = percent(3, 5);
+                                    material[random_select] += epic;
+                                    if (material[random_select] >= 1500) material[random_select] = 1500;
+                                    epic_str = material_name[random_select];
+                                    materialDbAdapter.open();
+                                    for (int i = 0; i < material.length; i++) {
+                                        materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                                    }
+                                    materialDbAdapter.close();
+                                    Toast.makeText(getApplicationContext(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
+                                }
+                                inventoryDBAdapter.open();
+                                inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
+                                inventoryDBAdapter.close();
+                                addArray();
+                                setTitle(title+" 인벤토리 ("+itemList.size()+")");
+                                itemAdapter.notifyDataSetChanged();
+                                alertDialog.dismiss();
                             }
-                            random_select = percent(2, 3);
-                            rare = percent(7, 6);
-                            material[random_select] += rare;
-                            if (material[random_select] >= 1500) material[random_select] = 1500;
-                            rare_str = material_name[random_select];
-                            random_select = percent(5, 3);
-                            epic = percent(3, 5);
-                            material[random_select] += epic;
-                            if (material[random_select] >= 1500) material[random_select] = 1500;
-                            epic_str = material_name[random_select];
-                            materialDbAdapter.open();
-                            for (int i = 0; i < material.length; i++) {
-                                materialDbAdapter.updateMaterial(material_name[i], material[i]);
-                            }
-                            materialDbAdapter.close();
-                            Toast.makeText(getApplicationContext(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
-                        }
-                        inventoryDBAdapter.open();
-                        inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
-                        inventoryDBAdapter.close();
-                        addArray();
-                        setTitle(title+" 인벤토리 ("+itemList.size()+")");
-                        itemAdapter.notifyDataSetChanged();
-                        alertDialog.dismiss();
+                        });
+                        destroy_builder.setNegativeButton("취소", null);
+
+                        AlertDialog destroy_alertDialog = destroy_builder.create();
+                        destroy_alertDialog.setCancelable(false);
+                        destroy_alertDialog.show();
                     }
                 });
 
@@ -186,13 +202,26 @@ public class InventoryActivity extends AppCompatActivity {
                 btnDrop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        inventoryDBAdapter.open();
-                        inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
-                        inventoryDBAdapter.close();
-                        addArray();
-                        setTitle(title+" 인벤토리 ("+itemList.size()+")");
-                        itemAdapter.notifyDataSetChanged();
-                        alertDialog.dismiss();
+                        AlertDialog.Builder drop_builder = new AlertDialog.Builder(InventoryActivity.this, R.style.MyAlertDialogStyle);
+                        drop_builder.setTitle("버리기");
+                        drop_builder.setMessage(itemList.get(index).getName()+"을 버리시겠습니까?");
+                        drop_builder.setPositiveButton("버리기", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                inventoryDBAdapter.open();
+                                inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
+                                inventoryDBAdapter.close();
+                                addArray();
+                                setTitle(title+" 인벤토리 ("+itemList.size()+")");
+                                itemAdapter.notifyDataSetChanged();
+                                alertDialog.dismiss();
+                            }
+                        });
+                        drop_builder.setNegativeButton("취소", null);
+
+                        AlertDialog drop_alertDialog = drop_builder.create();
+                        drop_alertDialog.setCancelable(false);
+                        drop_alertDialog.show();
                     }
                 });
 
@@ -432,6 +461,16 @@ public class InventoryActivity extends AppCompatActivity {
                             layoutTalent.setVisibility(View.GONE);
                     }
                 }
+
+                exoticDBAdapter.open();
+                if (exoticDBAdapter.haveItem(itemList.get(position).getName())) {
+                    layoutTalent.setVisibility(View.VISIBLE);
+                    txtWTalent.setText(itemList.get(position).getTalent());
+                    cursor = exoticDBAdapter.fetchData(itemList.get(position).getName());
+                    talent_content = cursor.getString(12);
+                    txtWTalentContent.setText(talent_content);
+                }
+                exoticDBAdapter.close();
 
                 setNamedTalent(position, txtWTalent);
                 setNamed(position, txtWMain2, txtSSub1);
