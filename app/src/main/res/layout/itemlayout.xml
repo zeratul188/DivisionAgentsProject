@@ -2,329 +2,305 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#aa222222">
+    android:background="#00222222">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/tableMain"
+            android:id="@+id/layoutInventory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:background="@drawable/rareitem"
-            android:gravity="center">
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp">
             <ImageView
-                android:id="@+id/imgType"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/wp1custom"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/txtName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="독수리를 거느린 자"
-                    android:textSize="22sp"
-                    android:textColor="#f0f0f0"/>
-                <TextView
-                    android:id="@+id/txtType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="돌격소총"
-                    android:textSize="15sp"
-                    android:textColor="#888888"/>
-            </LinearLayout>
+                android:adjustViewBounds="true"
+                android:src="@drawable/inven"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/txtInventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100/300"
+                android:textSize="25sp"
+                android:textColor="#f0f0f0"/>
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/layoutWeapon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="핵심 속성"
-                android:textSize="20sp"
-                android:background="#20f0f0f0"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="#aaaaaa"/>
+            android:background="#aa222222">
             <LinearLayout
-                android:id="@+id/layoutWeaponMain1"
+                android:id="@+id/tableMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <TextView
-                    android:id="@+id/txtWMain1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="+15% 돌격소총 데미지"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="18sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#aaaaaa"/>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                    android:background="@drawable/gage2"
-                    android:id="@+id/progressWMain1"
-                    android:paddingTop="5dp"
-                    android:progress="100"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="#E45435"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layoutWeaponMain2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <TextView
-                    android:id="@+id/txtWMain2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="+10% 생명력 데미지"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textSize="18sp"
-                    android:textColor="#aaaaaa"/>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                    android:background="@drawable/gage2"
-                    android:id="@+id/progressWMain2"
-                    android:paddingTop="5dp"
-                    android:progress="74"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="#E45435"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="속성"
-                android:textSize="20sp"
-                android:background="#20f0f0f0"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="#aaaaaa"/>
-            <LinearLayout
-                android:id="@+id/layoutWeaponSub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <TextView
-                    android:id="@+id/txtWSub"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="+5% 방어구 대상 데미지"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="18sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#aaaaaa"/>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                    android:background="@drawable/gage2"
-                    android:id="@+id/progressWSub"
-                    android:progress="84"
-                    android:paddingTop="5dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:indeterminateTint="#E45435"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutSheld"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="핵심 속성"
-                android:textSize="20sp"
-                android:background="#20f0f0f0"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="#aaaaaa"/>
-            <LinearLayout
-                android:id="@+id/layoutSheldMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:background="@drawable/rareitem"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/imgType"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/wp1custom"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
-                    <ImageView
-                        android:id="@+id/imgSMain"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/sheld"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="5dp"
-                        android:textAlignment="textEnd"/>
+                    android:paddingLeft="5dp"
+                    android:orientation="vertical">
                     <TextView
-                        android:id="@+id/txtSMain"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:id="@+id/txtName"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+170000 방어구"
-                        android:drawablePadding="10dp"
-                        android:textSize="18sp"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#aaaaaa"/>
+                        android:text="독수리를 거느린 자"
+                        android:textSize="22sp"
+                        android:textColor="#f0f0f0"/>
+                    <TextView
+                        android:id="@+id/txtType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="돌격소총"
+                        android:textSize="15sp"
+                        android:textColor="#888888"/>
                 </LinearLayout>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/sheld_progress"
-                    android:background="@drawable/gage2"
-                    android:id="@+id/progressSMain"
-                    android:paddingTop="5dp"
-                    android:progress="50"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:indeterminateTint="#E45435"/>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="속성"
-                android:textSize="20sp"
-                android:background="#20f0f0f0"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="#aaaaaa"/>
             <LinearLayout
-                android:id="@+id/layoutSheldSub1"
+                android:id="@+id/layoutWeapon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <LinearLayout
+                android:visibility="visible">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:id="@+id/imgSSub1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/power"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="5dp"
-                        android:textAlignment="textEnd"/>
+                    android:text="핵심 속성"
+                    android:textSize="20sp"
+                    android:background="#20f0f0f0"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#aaaaaa"/>
+                <LinearLayout
+                    android:id="@+id/layoutWeaponMain1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
                     <TextView
-                        android:id="@+id/txtSSub1"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:id="@+id/txtWMain1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+10% 스킬 가속"
+                        android:text="+15% 돌격소총 데미지"
                         android:layout_marginBottom="5dp"
                         android:textSize="18sp"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:textColor="#aaaaaa"/>
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                        android:background="@drawable/gage2"
+                        android:id="@+id/progressWMain1"
+                        android:paddingTop="5dp"
+                        android:progress="100"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="#E45435"/>
                 </LinearLayout>
-                <ProgressBar
+                <LinearLayout
+                    android:id="@+id/layoutWeaponMain2"
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progressDrawable="@drawable/power_progress"
-                    android:background="@drawable/gage2"
-                    android:id="@+id/progressSSub1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtWMain2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+10% 생명력 데미지"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp"
+                        android:textColor="#aaaaaa"/>
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                        android:background="@drawable/gage2"
+                        android:id="@+id/progressWMain2"
+                        android:paddingTop="5dp"
+                        android:progress="74"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="#E45435"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="속성"
+                    android:textSize="20sp"
+                    android:background="#20f0f0f0"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:paddingTop="5dp"
-                    android:progress="84"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:indeterminateTint="#E45435"/>
+                    android:paddingBottom="5dp"
+                    android:textColor="#aaaaaa"/>
+                <LinearLayout
+                    android:id="@+id/layoutWeaponSub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtWSub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+5% 방어구 대상 데미지"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#aaaaaa"/>
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                        android:background="@drawable/gage2"
+                        android:id="@+id/progressWSub"
+                        android:progress="84"
+                        android:paddingTop="5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:indeterminateTint="#E45435"/>
+                </LinearLayout>
+
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/layoutSheldSub2"
+                android:id="@+id/layoutSheld"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-                <LinearLayout
-                    android:id="@+id/layoutSSub2"
+                android:visibility="visible">
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="핵심 속성"
+                    android:textSize="20sp"
+                    android:background="#20f0f0f0"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#aaaaaa"/>
+                <LinearLayout
+                    android:id="@+id/layoutSheldMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="5dp">
+                        <ImageView
+                            android:id="@+id/imgSMain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/sheld"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="5dp"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtSMain"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="+170000 방어구"
+                            android:drawablePadding="10dp"
+                            android:textSize="18sp"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#aaaaaa"/>
+                    </LinearLayout>
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/sheld_progress"
+                        android:background="@drawable/gage2"
+                        android:id="@+id/progressSMain"
+                        android:paddingTop="5dp"
+                        android:progress="50"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:indeterminateTint="#E45435"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="속성"
+                    android:textSize="20sp"
+                    android:background="#20f0f0f0"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="#aaaaaa"/>
+                <LinearLayout
+                    android:id="@+id/layoutSheldSub1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <ImageView
-                            android:id="@+id/imgSSub2"
+                            android:id="@+id/imgSSub1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/attack"
+                            android:src="@drawable/power"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
                             android:textAlignment="textEnd"/>
                         <TextView
-                            android:id="@+id/txtSSub2"
+                            android:id="@+id/txtSSub1"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="+6% 치명타 확률"
+                            android:text="+10% 스킬 가속"
                             android:layout_marginBottom="5dp"
                             android:textSize="18sp"
                             android:layout_marginRight="10dp"
@@ -334,68 +310,118 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:progressDrawable="@drawable/attack_progress"
+                        android:progressDrawable="@drawable/power_progress"
                         android:background="@drawable/gage2"
-                        android:id="@+id/progressSSub2"
+                        android:id="@+id/progressSSub1"
                         android:paddingTop="5dp"
-                        android:progress="20"
+                        android:progress="84"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:indeterminateTint="#E45435"/>
-            </LinearLayout>
-
-
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutTalentButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/layoutTalent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="특수효과"
-                    android:textSize="20sp"
-                    android:background="#20f0f0f0"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="#aaaaaa"/>
+                </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/layoutSheldSub2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@drawable/talentbackground"
-                    android:paddingTop="10dp">
-                    <TextView
-                        android:id="@+id/txtWTalent"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+                    <LinearLayout
+                        android:id="@+id/layoutSSub2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="영속성"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/imgSSub2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/attack"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="5dp"
+                                android:textAlignment="textEnd"/>
+                            <TextView
+                                android:id="@+id/txtSSub2"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="+6% 치명타 확률"
+                                android:layout_marginBottom="5dp"
+                                android:textSize="18sp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="#aaaaaa"/>
+                        </LinearLayout>
+                        <ProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/attack_progress"
+                            android:background="@drawable/gage2"
+                            android:id="@+id/progressSSub2"
+                            android:paddingTop="5dp"
+                            android:progress="20"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:indeterminateTint="#E45435"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutTalentButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/layoutTalent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="특수효과"
                         android:textSize="20sp"
+                        android:background="#20f0f0f0"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:textColor="#aaaaaa"/>
-                    <TextView
-                        android:id="@+id/txtWTalentContent"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="적을 명중시키면 5초동안 스킬 대미지가 20% 상승합니다.\n스킬을 사용하거나 적에게 스킬로 피해를 주면 5초동안 무기 대미지가 20% 상승합니다.\n두 효과가 동시에 작동하면 버프가 두 배의 효과로 적용됩니다."
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="18sp"
-                        android:textColor="#aaaaaa"/>
+                        android:orientation="vertical"
+                        android:background="@drawable/talentbackground"
+                        android:paddingTop="10dp">
+                        <TextView
+                            android:id="@+id/txtWTalent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="영속성"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="20sp"
+                            android:textColor="#aaaaaa"/>
+                        <TextView
+                            android:id="@+id/txtWTalentContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="적을 명중시키면 5초동안 스킬 대미지가 20% 상승합니다.\n스킬을 사용하거나 적에게 스킬로 피해를 주면 5초동안 무기 대미지가 20% 상승합니다.\n두 효과가 동시에 작동하면 버프가 두 배의 효과로 적용됩니다."
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="18sp"
+                            android:textColor="#aaaaaa"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -428,27 +454,7 @@
             android:padding="10dp"
             android:visibility="gone"/>
 
-        <LinearLayout
-            android:id="@+id/layoutInventory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/txtInventory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100/300"
-                android:textSize="25sp"
-                android:textColor="#f0f0f0"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"/>
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/inven"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -465,7 +471,7 @@
                 android:padding="10dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttoncustom"/>
+                android:background="@drawable/buttonitemcustom"/>
             <Button
                 android:id="@+id/btnAdd"
                 android:layout_width="0dp"
@@ -477,7 +483,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttoncustom"/>
+                android:background="@drawable/buttonitemcustom"/>
             <Button
                 android:id="@+id/btnDestroy"
                 android:layout_width="0dp"
@@ -488,7 +494,7 @@
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttoncustom"/>
+                android:background="@drawable/buttonitemcustom"/>
         </LinearLayout>
     </LinearLayout>
 

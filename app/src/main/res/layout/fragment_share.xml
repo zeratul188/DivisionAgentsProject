@@ -543,16 +543,21 @@
                             </TableRow>
                         </TableLayout>
 
-                        <TableLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:background="@drawable/layoutcustom"
-                            android:layout_marginBottom="10dp"
-                            android:padding="10dp">
-                            <TableRow>
+                            android:padding="10dp"
+                            android:layout_marginBottom="20dp">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="돌격소총"
                                     android:textSize="18sp"
@@ -564,24 +569,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType1"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType1"
+                                android:paddingTop="5dp"
+                                android:progress="75"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="소총"
                                     android:textSize="18sp"
@@ -593,24 +602,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType2"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType2"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="50"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="지정사수소총"
                                     android:textSize="18sp"
@@ -621,25 +634,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
+                                    android:textAlignment="textEnd"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType3"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType3"
+                                android:paddingTop="5dp"
+                                android:progress="25"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="기관단총"
                                     android:textSize="18sp"
@@ -650,25 +667,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
+                                    android:textAlignment="textEnd"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType4"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType4"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="100"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="경기관총"
                                     android:textSize="18sp"
@@ -680,24 +701,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType5"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType5"
+                                android:paddingTop="5dp"
+                                android:progress="0"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="산탄총"
                                     android:textSize="18sp"
@@ -709,24 +734,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType6"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType6"
+                                android:paddingTop="5dp"
+                                android:progress="10"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="권총"
                                     android:textSize="18sp"
@@ -738,24 +767,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType7"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType7"
+                                android:paddingTop="5dp"
+                                android:progress="90"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="마스크"
                                     android:textSize="18sp"
@@ -766,25 +799,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
+                                    android:textAlignment="textEnd"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType8"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType8"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="80"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="백팩"
                                     android:textSize="18sp"
@@ -795,25 +832,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
+                                    android:textAlignment="textEnd"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType9"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType9"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="70"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="조끼"
                                     android:textSize="18sp"
@@ -825,24 +866,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType10"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType10"
+                                android:paddingTop="5dp"
+                                android:progress="60"
+                                android:layout_marginBottom="10dp"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="장갑"
                                     android:textSize="18sp"
@@ -853,25 +898,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="0"
+                                    android:textAlignment="textEnd"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType11"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType11"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="50"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="권총집"
                                     android:textSize="18sp"
@@ -883,24 +932,28 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType12"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                            <TableRow>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType12"
+                                android:paddingTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:progress="40"
+                                android:indeterminateTint="#E45435"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="0dp"
-                                    android:layout_weight="3"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="무릎 보호대"
                                     android:textSize="18sp"
@@ -912,21 +965,20 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textSize="18sp"
+                                    android:textAlignment="textEnd"
                                     android:textColor="#aaaaaa"/>
-                                <ProgressBar
-                                    android:layout_width="200dp"
-                                    android:layout_height="16dp"
-                                    style="?android:attr/progressBarStyleHorizontal"
-                                    android:progressDrawable="@drawable/progressbar_progressbar_gage"
-                                    android:background="@drawable/gage"
-                                    android:id="@+id/progressType13"
-                                    android:paddingLeft="11dp"
-                                    android:paddingRight="11dp"
-                                    android:paddingBottom="6dp"
-                                    android:paddingTop="3dp"
-                                    android:indeterminateTint="#E45435"/>
-                            </TableRow>
-                        </TableLayout>
+                            </LinearLayout>
+                            <ProgressBar
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:progressDrawable="@drawable/progressbar_progressbar_gage"
+                                android:background="@drawable/gage2"
+                                android:id="@+id/progressType13"
+                                android:paddingTop="5dp"
+                                android:progress="30"
+                                android:indeterminateTint="#E45435"/>
+                        </LinearLayout>
                         <Button
                             android:id="@+id/btnItemList"
                             android:layout_width="match_parent"
@@ -948,7 +1000,6 @@
                             android:textSize="18sp"
                             android:padding="10dp"
                             android:textColor="#aaaaaa"
-                            android:layout_marginBottom="20dp"
                             android:background="@drawable/buttoncustom"
                             android:drawableLeft="@drawable/inven"
                             android:drawablePadding="30dp"

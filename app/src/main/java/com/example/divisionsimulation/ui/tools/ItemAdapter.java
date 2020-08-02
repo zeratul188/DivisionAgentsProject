@@ -119,17 +119,17 @@ public class ItemAdapter extends BaseAdapter {
             cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
             if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
             else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
-            cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
-            if (itemList.get(position).getCore2_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
-            else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
             if (!itemList.get(position).getType().equals("권총")) {
-                imgAttribute[2].setVisibility(View.VISIBLE);
-                cursor = maxDBAdapter.fetchSubData(itemList.get(position).getSub1());
-                if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[2].setBackgroundResource(R.drawable.maxitembackground);
-                else imgAttribute[2].setBackgroundResource(R.drawable.notmaxbackground);
+                imgAttribute[1].setVisibility(View.VISIBLE);
+                cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
+                if (itemList.get(position).getCore2_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
+                else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
             } else {
-                imgAttribute[2].setVisibility(View.GONE);
+                imgAttribute[1].setVisibility(View.GONE);
             }
+            cursor = maxDBAdapter.fetchSubData(itemList.get(position).getSub1());
+            if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[2].setBackgroundResource(R.drawable.maxitembackground);
+            else imgAttribute[2].setBackgroundResource(R.drawable.notmaxbackground);
         } else {
             try {
                 String asp;

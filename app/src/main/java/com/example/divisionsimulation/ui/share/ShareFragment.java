@@ -1441,7 +1441,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -2330,7 +2330,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -3219,7 +3219,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -4107,7 +4107,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -4853,7 +4853,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -5747,7 +5747,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -6641,7 +6641,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -7535,7 +7535,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -10125,7 +10125,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -11020,7 +11020,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -11773,7 +11773,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);
@@ -12668,7 +12668,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 inventoryDBAdapter.open();
-                txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
                 inventoryDBAdapter.close();
                 layoutInventory.setVisibility(View.VISIBLE);
                 btnAdd.setVisibility(View.VISIBLE);

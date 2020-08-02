@@ -168,7 +168,7 @@ public class ToolsFragment extends Fragment {
     private void refresh() {
         weapons = 0;
         inventoryDBAdapter.open();
-        txtInventory.setText("("+inventoryDBAdapter.getCount()+"/300)");
+        txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
         weapons += inventoryDBAdapter.getTypeCount("돌격소총");
         weapons += inventoryDBAdapter.getTypeCount("소총");
         weapons += inventoryDBAdapter.getTypeCount("경기관총");
