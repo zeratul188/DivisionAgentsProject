@@ -2307,6 +2307,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -3195,6 +3196,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4083,6 +4085,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4827,6 +4830,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -5720,6 +5724,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -6613,6 +6618,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -7506,6 +7512,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -8319,6 +8326,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -9210,6 +9218,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -10092,6 +10101,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -10986,6 +10996,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -11739,6 +11750,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -12632,6 +12644,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -13385,6 +13398,7 @@ public class ShareFragment extends Fragment {
                 item.setTalent(item_talent);
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -13403,11 +13417,19 @@ public class ShareFragment extends Fragment {
     } //min~length까지 임의의 숫자를 반환한다.
 
     public void setInterface() { //특급, 네임드, 기어, 브랜드 갯수가 전체에서 몇 %인지 진행도를 통해 보여주므로 진행도를 설정한다.
-        System.out.println("Brand : "+brand+"\nAll : "+all);
         progressBrand.setProgress((int)(((double)brand/(double)all)*10000));
         progressSpecial.setProgress((int)(((double)special/(double)all)*10000));
         progressNamed.setProgress((int)(((double)named/(double)all)*10000));
         progressGear.setProgress((int)(((double)gear/(double)all)*10000));
+        txtAll.setText(Integer.toString(all));
+    }
+
+    private void updateData() {
+        txtSpecial.setText(Integer.toString(special));
+        txtNamed.setText(Integer.toString(named));
+        txtGear.setText(Integer.toString(gear));
+        txtBrand.setText(Integer.toString(brand));
+        all = special + named + gear + brand;
         txtAll.setText(Integer.toString(all));
     }
 

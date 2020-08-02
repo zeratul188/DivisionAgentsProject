@@ -1,6 +1,7 @@
 package com.example.divisionsimulation.ui.tools;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.divisionsimulation.R;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 
@@ -24,6 +27,10 @@ public class ItemAdapter extends BaseAdapter {
     private ExoticFMDBAdapter exoticDBAdapter;
     private NamedFMDBAdapter namedDBAdapter;
     private SheldFMDBAdapter sheldDBAdapter;
+    private MaxOptionsFMDBAdapter maxDBAdapter;
+
+    private Cursor cursor = null;
+    private String[] weapon_type = {"돌격소총", "지정사수소총", "산탄총", "기관단총", "경기관총", "소총", "권총"};
 
     public ItemAdapter(Context context, ArrayList<Item> itemList) {
         this.context = context;
@@ -31,6 +38,7 @@ public class ItemAdapter extends BaseAdapter {
         exoticDBAdapter = new ExoticFMDBAdapter(context);
         namedDBAdapter = new NamedFMDBAdapter(context);
         sheldDBAdapter = new SheldFMDBAdapter(context);
+        maxDBAdapter = new MaxOptionsFMDBAdapter(context);
     }
 
     @Override
@@ -50,7 +58,7 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) convertView = View.inflate(context, R.layout.item, null);
+        if (convertView == null) convertView = View.inflate(context, R.layout.item_tools, null);
 
         ImageView imgType = convertView.findViewById(R.id.imgType);
         TextView txtName = convertView.findViewById(R.id.txtName);
@@ -60,6 +68,148 @@ public class ItemAdapter extends BaseAdapter {
         txtType.setText(itemList.get(position).getType());
 
         LinearLayout tableMain = convertView.findViewById(R.id.tableMain);
+
+        ImageView imgCore = convertView.findViewById(R.id.imgCore);
+        TextView txtCoreName = convertView.findViewById(R.id.txtCoreName);
+        TextView txtCore = convertView.findViewById(R.id.txtCore);
+        ImageView[] imgAttribute = new ImageView[3];
+
+        int resource;
+        for (int i = 0; i < imgAttribute.length; i++) {
+            resource = convertView.getResources().getIdentifier("imgAttribute"+(i+1), "id", context.getPackageName());
+            imgAttribute[i] = convertView.findViewById(resource);
+        }
+
+        maxDBAdapter.open();
+        if (maxDBAdapter.isSheldCore(itemList.get(position).getCore1())) {
+            cursor = maxDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
+            String asp = cursor.getString(4);
+            String end = "";
+            switch (asp) {
+                case "공격":
+                    imgCore.setImageResource(R.drawable.attack);
+                    end = "%";
+                    break;
+                case "방어":
+                    imgCore.setImageResource(R.drawable.sheld);
+                    end = "";
+                    break;
+                case "다용도":
+                    imgCore.setImageResource(R.drawable.power);
+                    end = "";
+                    break;
+            }
+            txtCoreName.setText(itemList.get(position).getCore1());
+            txtCore.setText(Double.toString(itemList.get(position).getCore1_value())+end);
+        } else {
+            imgCore.setImageResource(R.drawable.weaponicon);
+            txtCoreName.setText(itemList.get(position).getCore1());
+            txtCore.setText(Double.toString(itemList.get(position).getCore1_value())+"%");
+        }
+
+        boolean weaponed = false;
+        for (int i = 0; i < weapon_type.length; i++) {
+            if (itemList.get(position).getType().equals(weapon_type[i])) {
+                weaponed = true;
+                break;
+            }
+        }
+        if (weaponed) {
+            for (int i = 0; i < imgAttribute.length; i++) imgAttribute[i].setImageResource(R.drawable.weaponicon);
+            cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+            if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
+            else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
+            cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
+            if (itemList.get(position).getCore2_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
+            else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
+            if (!itemList.get(position).getType().equals("권총")) {
+                imgAttribute[2].setVisibility(View.VISIBLE);
+                cursor = maxDBAdapter.fetchSubData(itemList.get(position).getSub1());
+                if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[2].setBackgroundResource(R.drawable.maxitembackground);
+                else imgAttribute[2].setBackgroundResource(R.drawable.notmaxbackground);
+            } else {
+                imgAttribute[2].setVisibility(View.GONE);
+            }
+        } else {
+            try {
+                String asp;
+                cursor = maxDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
+                asp = cursor.getString(4);
+                switch (asp) {
+                    case "공격":
+                        imgAttribute[0].setImageResource(R.drawable.attack);
+                        break;
+                    case "방어":
+                        imgAttribute[0].setImageResource(R.drawable.sheld);
+                        break;
+                    case "다용도":
+                        imgAttribute[0].setImageResource(R.drawable.power);
+                        break;
+                }
+                if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
+                else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
+                namedDBAdapter.open();
+                if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+                    cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                    asp = cursor.getString(9);
+                    switch (asp) {
+                        case "공격":
+                            imgAttribute[1].setImageResource(R.drawable.attack);
+                            break;
+                        case "방어":
+                            imgAttribute[1].setImageResource(R.drawable.sheld);
+                            break;
+                        case "다용도":
+                            imgAttribute[1].setImageResource(R.drawable.power);
+                            break;
+                    }
+                    imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
+                } else {
+                    cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
+                    asp = cursor.getString(4);
+                    switch (asp) {
+                        case "공격":
+                            imgAttribute[1].setImageResource(R.drawable.attack);
+                            break;
+                        case "방어":
+                            imgAttribute[1].setImageResource(R.drawable.sheld);
+                            break;
+                        case "다용도":
+                            imgAttribute[1].setImageResource(R.drawable.power);
+                            break;
+                    }
+                    if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
+                    else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
+                }
+                namedDBAdapter.close();
+                sheldDBAdapter.open();
+                if (!sheldDBAdapter.haveItem(itemList.get(position).getName())) {
+                    imgAttribute[2].setVisibility(View.VISIBLE);
+                    cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub2());
+                    asp = cursor.getString(4);
+                    switch (asp) {
+                        case "공격":
+                            imgAttribute[2].setImageResource(R.drawable.attack);
+                            break;
+                        case "방어":
+                            imgAttribute[2].setImageResource(R.drawable.sheld);
+                            break;
+                        case "다용도":
+                            imgAttribute[2].setImageResource(R.drawable.power);
+                            break;
+                    }
+                    if (itemList.get(position).getSub2_value() >= cursor.getDouble(2)) imgAttribute[2].setBackgroundResource(R.drawable.maxitembackground);
+                    else imgAttribute[2].setBackgroundResource(R.drawable.notmaxbackground);
+                } else {
+                    imgAttribute[2].setVisibility(View.GONE);
+                }
+                sheldDBAdapter.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                e.printStackTrace();
+            }
+        }
+        maxDBAdapter.close();
 
         changeColorName(position, txtName);
         changeTable(position, tableMain);

@@ -77,7 +77,6 @@ public class InventoryActivity extends AppCompatActivity {
         itemList = new ArrayList<Item>();
         addArray();
         setTitle(title+" 인벤토리 ("+itemList.size()+")");
-        Collections.sort(itemList);
         itemAdapter = new ItemAdapter(this, itemList);
         listItem.setAdapter(itemAdapter);
 
@@ -552,6 +551,7 @@ public class InventoryActivity extends AppCompatActivity {
             }
         }
         inventoryDBAdapter.close();
+        Collections.sort(itemList);
     }
 
     private void changeTable(int position, LinearLayout layout) {
