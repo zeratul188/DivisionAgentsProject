@@ -29,6 +29,7 @@ import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -307,7 +308,7 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                    txtWMain1.setText("+"+itemList.get(position).getCore1_value()+end+" "+itemList.get(position).getCore1());
+                    txtWMain1.setText("+"+formatD(itemList.get(position).getCore1_value())+end+" "+itemList.get(position).getCore1());
                     progressWMain1.setMax((int)(max*10));
                     progressWMain1.setProgress((int)(itemList.get(position).getCore1_value()*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
@@ -339,7 +340,7 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                            txtWMain2.setText("+"+itemList.get(position).getCore2_value()+end+" "+itemList.get(position).getCore2());
+                            txtWMain2.setText("+"+formatD(itemList.get(position).getCore2_value())+end+" "+itemList.get(position).getCore2());
                             progressWMain2.setMax((int)(max*10));
                             progressWMain2.setProgress((int)(itemList.get(position).getCore2_value()*10));
                             if (itemList.get(position).getCore2_value() >= max) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
@@ -353,14 +354,14 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                    txtWSub.setText("+"+itemList.get(position).getSub1_value()+end+" "+itemList.get(position).getSub1());
+                    txtWSub.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
                     progressWSub.setMax((int)(max*10));
                     progressWSub.setProgress((int)(itemList.get(position).getSub1_value()*10));
                     if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground);
                     txtWTalent.setText(itemList.get(position).getTalent());
                     namedDBAdapter.open();
-                    if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent())) {
+                    if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) {
                         String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
                         txtWTalentContent.setText(content);
                     } else {
@@ -378,7 +379,7 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                    txtSMain.setText("+"+itemList.get(position).getCore1_value()+end+" "+itemList.get(position).getCore1());
+                    txtSMain.setText("+"+formatD(itemList.get(position).getCore1_value())+end+" "+itemList.get(position).getCore1());
                     progressSMain.setMax((int)(max*10));
                     progressSMain.setProgress((int)(itemList.get(position).getCore1_value()*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
@@ -413,7 +414,7 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                        txtSSub1.setText("+"+itemList.get(position).getSub1_value()+end+" "+itemList.get(position).getSub1());
+                        txtSSub1.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
                         progressSSub1.setMax((int)(max*10));
                         progressSSub1.setProgress((int)(itemList.get(position).getSub1_value()*10));
                         if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -431,7 +432,7 @@ public class InventoryActivity extends AppCompatActivity {
                             end = cursor.getString(5);
                             maxDBAdapter.close();
                             if (end.equals("-")) end = "";
-                        txtSSub2.setText("+"+itemList.get(position).getSub2_value()+end+" "+itemList.get(position).getSub2());
+                        txtSSub2.setText("+"+formatD(itemList.get(position).getSub2_value())+end+" "+itemList.get(position).getSub2());
                         progressSSub2.setMax((int)(max*10));
                         progressSSub2.setProgress((int)(itemList.get(position).getSub2_value()*10));
                         if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -649,6 +650,11 @@ public class InventoryActivity extends AppCompatActivity {
             index++;
         }
         materialDbAdapter.close();
+    }
+
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 
     @Override

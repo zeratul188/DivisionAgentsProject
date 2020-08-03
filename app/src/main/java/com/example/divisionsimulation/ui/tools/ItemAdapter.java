@@ -19,6 +19,7 @@ import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ItemAdapter extends BaseAdapter {
@@ -72,7 +73,7 @@ public class ItemAdapter extends BaseAdapter {
         namedDBAdapter.open();
         exoticDBAdapter.open();
         sheldDBAdapter.open();
-        if (namedDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
+        if (namedDBAdapter.haveItem(itemList.get(position).getName()) && !namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
         else if (exoticDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#ff3c00"));
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#009900"));
         else txtTalent.setTextColor(Color.parseColor("#f0f0f0"));
@@ -113,11 +114,11 @@ public class ItemAdapter extends BaseAdapter {
                     break;
             }
             txtCoreName.setText(itemList.get(position).getCore1());
-            txtCore.setText(Double.toString(itemList.get(position).getCore1_value())+end);
+            txtCore.setText("+"+formatD(itemList.get(position).getCore1_value())+end);
         } else {
             imgCore.setImageResource(R.drawable.weaponicon);
             txtCoreName.setText(itemList.get(position).getCore1());
-            txtCore.setText(Double.toString(itemList.get(position).getCore1_value())+"%");
+            txtCore.setText("+"+formatD(itemList.get(position).getCore1_value())+"%");
         }
 
         boolean weaponed = false;
@@ -137,7 +138,7 @@ public class ItemAdapter extends BaseAdapter {
                 namedDBAdapter.open();
                 cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
                 txtCoreName.setText("산탄총 데미지");
-                txtCore.setText("16%");
+                txtCore.setText("+16%");
                 txtCoreName.setTextColor(Color.parseColor("#c99700"));
                 namedDBAdapter.close();
                 imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
@@ -291,6 +292,11 @@ public class ItemAdapter extends BaseAdapter {
         sheldDBAdapter.close();
         namedDBAdapter.close();
         exoticDBAdapter.close();
+    }
+
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 
     private void changeColorName(int position, TextView textView) {

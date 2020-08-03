@@ -57,6 +57,7 @@ import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -1559,7 +1560,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -1569,7 +1570,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -1630,7 +1631,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -1650,11 +1651,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -1701,15 +1702,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -1796,7 +1797,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -1824,11 +1825,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -1892,7 +1893,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -1943,7 +1944,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -1974,7 +1975,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -2052,7 +2053,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -2083,7 +2084,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -2113,7 +2114,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -2171,7 +2172,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -2190,10 +2191,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -2254,7 +2255,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -2285,7 +2286,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -2315,7 +2316,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -2448,7 +2449,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -2458,7 +2459,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -2519,7 +2520,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -2539,11 +2540,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -2590,15 +2591,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -2685,7 +2686,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -2713,11 +2714,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -2781,7 +2782,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -2832,7 +2833,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -2863,7 +2864,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -2941,7 +2942,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -2972,7 +2973,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -3002,7 +3003,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -3060,7 +3061,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -3079,10 +3080,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -3143,7 +3144,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -3174,7 +3175,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -3204,7 +3205,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -3337,7 +3338,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -3347,7 +3348,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                     System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -3408,7 +3409,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -3428,11 +3429,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -3479,15 +3480,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -3574,7 +3575,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -3602,11 +3603,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -3670,7 +3671,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -3721,7 +3722,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -3752,7 +3753,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -3830,7 +3831,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -3861,7 +3862,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -3891,7 +3892,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -3949,7 +3950,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -3968,10 +3969,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -4032,7 +4033,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -4063,7 +4064,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -4093,7 +4094,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -4225,7 +4226,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -4235,7 +4236,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
                     named++;
@@ -4319,7 +4320,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -4347,11 +4348,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -4415,7 +4416,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -4466,7 +4467,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -4497,7 +4498,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -4575,7 +4576,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -4606,7 +4607,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -4636,7 +4637,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -4694,7 +4695,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -4713,10 +4714,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -4777,7 +4778,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -4808,7 +4809,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -4838,7 +4839,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -4963,7 +4964,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -4983,11 +4984,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -5047,7 +5048,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -5067,11 +5068,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -5118,15 +5119,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -5213,7 +5214,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -5241,11 +5242,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -5309,7 +5310,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -5360,7 +5361,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -5391,7 +5392,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -5469,7 +5470,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -5500,7 +5501,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -5530,7 +5531,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -5588,7 +5589,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -5607,10 +5608,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -5671,7 +5672,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -5702,7 +5703,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -5732,7 +5733,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -5857,7 +5858,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -5877,11 +5878,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -5941,7 +5942,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -5961,11 +5962,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -6012,15 +6013,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -6107,7 +6108,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -6135,11 +6136,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -6203,7 +6204,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -6254,7 +6255,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -6285,7 +6286,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -6363,7 +6364,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -6394,7 +6395,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -6424,7 +6425,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -6482,7 +6483,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -6501,10 +6502,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -6565,7 +6566,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -6596,7 +6597,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -6626,7 +6627,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -6751,7 +6752,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -6771,11 +6772,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -6835,7 +6836,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -6855,11 +6856,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -6906,15 +6907,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -7001,7 +7002,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -7029,11 +7030,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -7097,7 +7098,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -7148,7 +7149,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -7179,7 +7180,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -7257,7 +7258,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -7288,7 +7289,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -7318,7 +7319,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -7376,7 +7377,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -7395,10 +7396,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -7459,7 +7460,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -7490,7 +7491,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -7520,7 +7521,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -7647,7 +7648,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -7667,11 +7668,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -7718,15 +7719,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -7814,7 +7815,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -7842,11 +7843,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -7911,7 +7912,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -7962,7 +7963,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -7993,7 +7994,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -8071,7 +8072,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -8102,7 +8103,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -8132,7 +8133,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -8190,7 +8191,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -8209,10 +8210,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -8273,7 +8274,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -8304,7 +8305,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -8334,7 +8335,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -8457,7 +8458,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -8477,11 +8478,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if (percent(1, 100) <= 1) { //1
@@ -8541,7 +8542,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -8561,11 +8562,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -8612,15 +8613,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -8707,7 +8708,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -8735,11 +8736,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -8803,7 +8804,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -8854,7 +8855,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -8885,7 +8886,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -8963,7 +8964,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -8994,7 +8995,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -9024,7 +9025,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -9082,7 +9083,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -9101,10 +9102,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -9165,7 +9166,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -9196,7 +9197,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -9226,7 +9227,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -9356,7 +9357,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub1.setMax((int)(max_sub1*10));
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
-                    txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
                     else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
@@ -9366,7 +9367,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSSub2.setMax((int)(max_sub2*10));
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
-                    txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                    txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
@@ -9425,7 +9426,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -9445,11 +9446,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -9496,15 +9497,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -9591,7 +9592,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -9619,11 +9620,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -9687,7 +9688,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -9738,7 +9739,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -9769,7 +9770,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -9847,7 +9848,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -9878,7 +9879,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -9908,7 +9909,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -9966,7 +9967,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -9985,10 +9986,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -10049,7 +10050,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -10080,7 +10081,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -10110,7 +10111,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -10236,7 +10237,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -10256,11 +10257,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //1
@@ -10320,7 +10321,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -10340,11 +10341,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -10391,15 +10392,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -10486,7 +10487,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -10514,11 +10515,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -10582,7 +10583,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -10633,7 +10634,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -10664,7 +10665,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -10742,7 +10743,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -10773,7 +10774,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -10803,7 +10804,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -10861,7 +10862,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -10880,10 +10881,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -10944,7 +10945,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -10975,7 +10976,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -11005,7 +11006,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -11131,7 +11132,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -11151,11 +11152,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -11240,7 +11241,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -11268,11 +11269,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -11336,7 +11337,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -11387,7 +11388,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -11418,7 +11419,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -11496,7 +11497,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -11527,7 +11528,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -11557,7 +11558,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -11615,7 +11616,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -11634,10 +11635,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -11698,7 +11699,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -11729,7 +11730,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -11759,7 +11760,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -11884,7 +11885,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -11904,11 +11905,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //1
@@ -11968,7 +11969,7 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                             progressWMain2.setMax((int)(max_core2*10));
                             progressWMain2.setProgress((int)(core2*10));
                         } else {
@@ -11988,11 +11989,11 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                         progressWMain1.setMax((int)(max_core1*10));
                         progressWMain1.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -12039,15 +12040,15 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                     }
@@ -12134,7 +12135,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -12162,11 +12163,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -12230,7 +12231,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -12281,7 +12282,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -12312,7 +12313,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -12390,7 +12391,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -12421,7 +12422,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -12451,7 +12452,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -12509,7 +12510,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -12528,10 +12529,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -12592,7 +12593,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -12623,7 +12624,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -12653,7 +12654,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -12779,7 +12780,7 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                         progressWMain2.setMax((int)(max_core2*10));
                         progressWMain2.setProgress((int)(core2*10));
                     } else {
@@ -12799,11 +12800,11 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                     progressWMain1.setMax((int)(max_core1*10));
                     progressWMain1.setProgress((int)(core1*10));
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     progressWSub.setMax((int)(max_sub1*10));
                     progressWSub.setProgress((int)(sub1*10));
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -12888,7 +12889,7 @@ public class ShareFragment extends Fragment {
                             } else {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             }
@@ -12916,11 +12917,11 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
                         }
-                        txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*10));
                         progressWSub.setProgress((int)(sub1*10));
                     } else {
@@ -12984,7 +12985,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
                             txtSSub1.setTextColor(Color.parseColor("#c99700"));
                             txtSSub1.setText(item.getTalent());
@@ -13035,7 +13036,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -13066,7 +13067,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
                 } else {
                     if (percent(1, 100) <= 7) {
@@ -13144,7 +13145,7 @@ public class ShareFragment extends Fragment {
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
                         if (tail_core1.equals("-")) tail_core1 = "";
-                        txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
                         OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -13175,7 +13176,7 @@ public class ShareFragment extends Fragment {
                         progressSSub1.setMax((int)(max_sub1*10));
                         progressSSub1.setProgress((int)(sub1*10));
                         if (tail_sub1.equals("-")) tail_sub1 = "";
-                        txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
                         optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                         maxoptionDBAdapter.close();
@@ -13205,7 +13206,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setMax((int)(max_sub2*10));
                         progressSSub2.setProgress((int)(sub2*10));
                         if (tail_sub2.equals("-")) tail_sub2 = "";
-                        txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
                         brand++;
                         all++;
@@ -13263,7 +13264,7 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
-                                txtWMain2.setText("+"+core2+tail_core2+" "+item_core2);
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
                                 progressWMain2.setMax((int)(max_core2*10));
                                 progressWMain2.setProgress((int)(core2*10));
                             } else {
@@ -13282,10 +13283,10 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtWMain1.setText("+"+core1+tail_core1+" "+item_type+" 데미지");
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
                             progressWMain1.setMax((int)(max_core1*10));
                             progressWMain1.setProgress((int)(core1*10));
-                            txtWSub.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             progressWSub.setMax((int)(max_sub1*10));
                             progressWSub.setProgress((int)(sub1*10));
                         } else { //sheld
@@ -13346,7 +13347,7 @@ public class ShareFragment extends Fragment {
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
                             if (tail_core1.equals("-")) tail_core1 = "";
-                            txtSMain.setText("+"+core1+tail_core1+" "+item_core1);
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
@@ -13377,7 +13378,7 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax((int)(max_sub1*10));
                             progressSSub1.setProgress((int)(sub1*10));
                             if (tail_sub1.equals("-")) tail_sub1 = "";
-                            txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
                             optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
                             maxoptionDBAdapter.close();
@@ -13407,7 +13408,7 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setMax((int)(max_sub2*10));
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
-                            txtSSub2.setText("+"+sub2+tail_sub2+" "+item_sub2);
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
@@ -13733,6 +13734,11 @@ public class ShareFragment extends Fragment {
 
     public void failed_extract() {
         dark_items.clear();
+    }
+    
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 
     private boolean sheldTalent(String type) {
