@@ -12,22 +12,33 @@
 
         <include layout="@layout/content_main" />
 
-        <com.google.android.material.appbar.AppBarLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00444444"
-            app:elevation="0dp"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:layout_height="?attr/actionBarSize">
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#00222222"
+                android:layout_height="wrap_content"
+                android:background="#00444444"
                 app:elevation="0dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:theme="@style/AppTheme.AppBarOverlay">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#00222222"
+                    app:elevation="0dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </com.google.android.material.appbar.AppBarLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/division2_logo"/>
+        </FrameLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+
 
 
     </FrameLayout>

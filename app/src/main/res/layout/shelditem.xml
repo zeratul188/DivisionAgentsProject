@@ -120,9 +120,10 @@
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgCore"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
+                    android:adjustViewBounds="true"
                     android:gravity="left"/>
                 <TextView
                     android:id="@+id/txtSplit1"
@@ -135,8 +136,9 @@
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgCore2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/attack"
                     android:visibility="invisible"
                     android:gravity="left"/>
@@ -149,9 +151,10 @@
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgSub"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
+                    android:adjustViewBounds="true"
                     android:gravity="left"/>
                 <TextView
                     android:id="@+id/txtSplit2"
@@ -164,10 +167,11 @@
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgSub2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
                     android:visibility="invisible"
+                    android:adjustViewBounds="true"
                     android:gravity="left"/>
                 <!--<TextView
                     android:id="@+id/txtCore"

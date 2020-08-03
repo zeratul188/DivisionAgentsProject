@@ -70,6 +70,8 @@ public class ShareFragment extends Fragment {
     private int reset_count = 0; //초기화 진행도 변수
     private boolean btnEnd = false; //초기화 완료 변수
 
+    private AlertDialog mission_alertDialog = null;
+
     private AlertDialog.Builder buildera = null;
     private AlertDialog alertDialog = null;
     private View dialogViewa = null;
@@ -147,7 +149,7 @@ public class ShareFragment extends Fragment {
 
     private String[] item_name = new String[50]; //얻었던 아이템을 50개까지 저장
     private String[] item_type = new String[50]; //얻었던 아이템 종류를 50개까지 저장
-    private int index = 0; //아이템 목록에서 새로운 아이템을 추가할 때 추가한 배열 다음에 공간을 지정해주는 역할을 한다.
+    private int index = 0, top = 0; //아이템 목록에서 새로운 아이템을 추가할 때 추가한 배열 다음에 공간을 지정해주는 역할을 한다.
 
     private boolean openWeapon = false; //드랍된 장비가 무기일 때 사용
     private boolean openSheld = false; //드랍된 장비가 보호장구일 때 사용
@@ -662,6 +664,18 @@ public class ShareFragment extends Fragment {
         materialDbAdapter = new MaterialDbAdapter(getActivity());
         shdAdapter = new SHDDBAdapter(getActivity());
 
+        Cursor csr;
+        materialDbAdapter.open();
+        csr = materialDbAdapter.fetchAllMaterial();
+        csr.moveToFirst();
+        int cnt = 0;
+        while (!csr.isAfterLast()) {
+            material[cnt] = csr.getInt(2);
+            csr.moveToNext();
+            cnt++;
+        }
+        materialDbAdapter.close();
+
         exoticDBAdpater = new ExoticFMDBAdapter(getActivity());
         maxoptionDBAdapter = new MaxOptionsFMDBAdapter(getActivity());
         namedDBAdapter = new NamedFMDBAdapter(getActivity());
@@ -669,11 +683,6 @@ public class ShareFragment extends Fragment {
         talentDBAdapter = new TalentFMDBAdapter(getActivity());
         weaponDBAdpater = new WeaponFMDBAdapter(getActivity());
         inventoryDBAdapter = new InventoryDBAdapter(getActivity());
-
-        //editor.clear();
-        //editor.commit();
-
-        for (int i = 0; i < material.length; i++) material[i] = pref.getInt("material"+(i+1), 0);
 
         handler = new Handler(); //핸들러 객체를 생성한다.
 
@@ -712,8 +721,22 @@ public class ShareFragment extends Fragment {
         btnMission.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setExp(102453, 213265, 402154, 675426, 1012645);
-                Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder mission_builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                mission_builder.setTitle("임무 완수");
+                mission_builder.setMessage("임무를 완수하였습니까?");
+                mission_builder.setPositiveButton("임무 완수", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setExp(102453, 213265, 402154, 675426, 1012645);
+                        Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
+                        if (mission_alertDialog != null) mission_alertDialog.dismiss();
+                    }
+                });
+                mission_builder.setNegativeButton("취소", null);
+
+                mission_alertDialog = mission_builder.create();
+                mission_alertDialog.setCancelable(false);
+                mission_alertDialog.show();
             }
         });
 
@@ -799,22 +822,31 @@ public class ShareFragment extends Fragment {
                         bonus = 0; //보너스 드랍 확률
                         option_bonus = 0; //추가 옵션
                         max = 0;
+                        top = 0;
                         break;
                     case R.id.rdoDif2: //어려움
                         bonus = 5;
                         option_bonus = 30;
                         max = 1;
+                        top = 0;
                         break;
                     case R.id.rdoDif3: //매우어려움
                         bonus = 10;
                         option_bonus = 50;
                         max = 3;
+                        top = 0;
                         break;
                     case R.id.rdoDif4: //영웅
-                    case R.id.rdoDif5: //전설
                         bonus = 15;
                         option_bonus = 70;
                         max = 5;
+                        top = 0;
+                        break;
+                    case R.id.rdoDif5: //전설
+                        bonus = 15;
+                        option_bonus = 70;
+                        max = 10;
+                        top = 20;
                         break;
                 }
                 switch (checkedId) {
@@ -1520,7 +1552,7 @@ public class ShareFragment extends Fragment {
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1530,7 +1562,7 @@ public class ShareFragment extends Fragment {
                     txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1577,7 +1609,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1591,7 +1623,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1612,7 +1644,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1651,7 +1683,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1663,7 +1695,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1731,7 +1763,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1749,7 +1781,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1778,7 +1810,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -1851,7 +1883,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -1903,7 +1935,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -1934,7 +1966,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -2011,7 +2043,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -2043,7 +2075,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -2073,7 +2105,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -2114,7 +2146,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2132,7 +2164,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2152,7 +2184,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2213,7 +2245,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -2245,7 +2277,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -2275,7 +2307,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -2409,7 +2441,7 @@ public class ShareFragment extends Fragment {
                     changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2419,7 +2451,7 @@ public class ShareFragment extends Fragment {
                     txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2466,7 +2498,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2480,7 +2512,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2501,7 +2533,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2540,7 +2572,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2552,7 +2584,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2620,7 +2652,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2638,7 +2670,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2667,7 +2699,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -2740,7 +2772,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -2792,7 +2824,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -2823,7 +2855,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -2900,7 +2932,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -2932,7 +2964,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -2962,7 +2994,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3003,7 +3035,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3021,7 +3053,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3041,7 +3073,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3102,7 +3134,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -3134,7 +3166,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3164,7 +3196,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3298,7 +3330,7 @@ public class ShareFragment extends Fragment {
                     changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3308,7 +3340,7 @@ public class ShareFragment extends Fragment {
                     txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3355,7 +3387,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3369,7 +3401,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3390,7 +3422,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3429,7 +3461,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3441,7 +3473,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3509,7 +3541,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3527,7 +3559,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3556,7 +3588,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3629,7 +3661,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -3681,7 +3713,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3712,7 +3744,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3789,7 +3821,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -3821,7 +3853,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -3851,7 +3883,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -3892,7 +3924,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3910,7 +3942,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3930,7 +3962,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -3991,7 +4023,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -4023,7 +4055,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -4053,7 +4085,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -4186,7 +4218,7 @@ public class ShareFragment extends Fragment {
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4196,7 +4228,7 @@ public class ShareFragment extends Fragment {
                     txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4254,7 +4286,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4272,7 +4304,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4301,7 +4333,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4374,7 +4406,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -4426,7 +4458,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -4457,7 +4489,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -4534,7 +4566,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -4566,7 +4598,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -4596,7 +4628,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -4637,7 +4669,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4655,7 +4687,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4675,7 +4707,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -4736,7 +4768,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -4768,7 +4800,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -4798,7 +4830,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -5804,7 +5836,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5818,7 +5850,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5839,7 +5871,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5888,7 +5920,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5902,7 +5934,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5923,7 +5955,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5962,7 +5994,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -5974,7 +6006,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6042,7 +6074,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6060,7 +6092,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6089,7 +6121,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6162,7 +6194,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -6214,7 +6246,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -6245,7 +6277,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -6322,7 +6354,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -6354,7 +6386,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -6384,7 +6416,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -6425,7 +6457,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6443,7 +6475,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6463,7 +6495,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6524,7 +6556,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -6556,7 +6588,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -6586,7 +6618,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -6698,7 +6730,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6712,7 +6744,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6733,7 +6765,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6782,7 +6814,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6796,7 +6828,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6817,7 +6849,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6856,7 +6888,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6868,7 +6900,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6936,7 +6968,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6954,7 +6986,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -6983,7 +7015,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7056,7 +7088,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -7108,7 +7140,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -7139,7 +7171,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -7216,7 +7248,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -7248,7 +7280,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -7278,7 +7310,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -7319,7 +7351,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7337,7 +7369,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7357,7 +7389,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7418,7 +7450,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -7450,7 +7482,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -7480,7 +7512,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -7558,7 +7590,7 @@ public class ShareFragment extends Fragment {
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
-                if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //2
+                if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 200) <= 1) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
@@ -7594,7 +7626,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7608,7 +7640,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7629,7 +7661,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7668,7 +7700,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7680,7 +7712,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7749,7 +7781,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7767,7 +7799,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7796,7 +7828,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -7870,7 +7902,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -7922,7 +7954,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -7953,7 +7985,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -8030,7 +8062,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -8062,7 +8094,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -8092,7 +8124,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -8133,7 +8165,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8151,7 +8183,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8171,7 +8203,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8232,7 +8264,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -8264,7 +8296,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -8294,7 +8326,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -8404,7 +8436,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8418,7 +8450,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8439,7 +8471,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8488,7 +8520,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8502,7 +8534,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8523,7 +8555,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8562,7 +8594,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8574,7 +8606,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8642,7 +8674,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8660,7 +8692,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8689,7 +8721,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -8762,7 +8794,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -8814,7 +8846,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -8845,7 +8877,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -8922,7 +8954,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -8954,7 +8986,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -8984,7 +9016,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -9025,7 +9057,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9043,7 +9075,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9063,7 +9095,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9124,7 +9156,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -9156,7 +9188,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -9186,7 +9218,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -9231,6 +9263,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setExp(0, 0, 15542, 0, 0);
+                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -9316,7 +9349,7 @@ public class ShareFragment extends Fragment {
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9326,7 +9359,7 @@ public class ShareFragment extends Fragment {
                     txtSSub1.setText("+"+sub1+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9371,7 +9404,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9385,7 +9418,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9406,7 +9439,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9445,7 +9478,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9457,7 +9490,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9525,7 +9558,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9543,7 +9576,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9572,7 +9605,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9645,7 +9678,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -9697,7 +9730,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -9728,7 +9761,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -9805,7 +9838,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -9837,7 +9870,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -9867,7 +9900,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -9908,7 +9941,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9926,7 +9959,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -9946,7 +9979,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10007,7 +10040,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -10039,7 +10072,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -10069,7 +10102,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -10182,7 +10215,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10196,7 +10229,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10217,7 +10250,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10266,7 +10299,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10280,7 +10313,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10301,7 +10334,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10340,7 +10373,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10352,7 +10385,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10420,7 +10453,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10438,7 +10471,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10467,7 +10500,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10540,7 +10573,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -10592,7 +10625,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -10623,7 +10656,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -10700,7 +10733,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -10732,7 +10765,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -10762,7 +10795,7 @@ public class ShareFragment extends Fragment {
                             }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -10803,7 +10836,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10821,7 +10854,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10841,7 +10874,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -10902,7 +10935,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -10934,7 +10967,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -10964,7 +10997,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -11077,7 +11110,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11091,7 +11124,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11112,7 +11145,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11174,7 +11207,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11192,7 +11225,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11221,7 +11254,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11294,7 +11327,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -11346,7 +11379,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -11377,7 +11410,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -11454,7 +11487,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -11486,7 +11519,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -11516,7 +11549,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -11557,7 +11590,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11575,7 +11608,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11595,7 +11628,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11656,7 +11689,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -11688,7 +11721,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -11718,7 +11751,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -11830,7 +11863,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11844,7 +11877,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11865,7 +11898,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11914,7 +11947,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11928,7 +11961,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11949,7 +11982,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -11988,7 +12021,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12000,7 +12033,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12068,7 +12101,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12086,7 +12119,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12115,7 +12148,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12188,7 +12221,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -12240,7 +12273,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -12271,7 +12304,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -12348,7 +12381,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -12380,7 +12413,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -12410,7 +12443,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -12451,7 +12484,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12469,7 +12502,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12489,7 +12522,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12550,7 +12583,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -12582,7 +12615,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -12612,7 +12645,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -12725,7 +12758,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12739,7 +12772,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12760,7 +12793,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                     else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12822,7 +12855,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12840,7 +12873,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12869,7 +12902,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                         else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -12942,7 +12975,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -12994,7 +13027,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -13025,7 +13058,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -13102,7 +13135,7 @@ public class ShareFragment extends Fragment {
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
@@ -13134,7 +13167,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -13164,7 +13197,7 @@ public class ShareFragment extends Fragment {
                         }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                         else temp_percent = percent(1, 20) + option_bonus;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
@@ -13205,7 +13238,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -13223,7 +13256,7 @@ public class ShareFragment extends Fragment {
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
                                 if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                                 else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -13243,7 +13276,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
@@ -13304,7 +13337,7 @@ public class ShareFragment extends Fragment {
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
@@ -13336,7 +13369,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -13366,7 +13399,7 @@ public class ShareFragment extends Fragment {
                             }
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30) temp_percent = percent(21, 10) + option_bonus;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
                             else temp_percent = percent(1, 20) + option_bonus;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);

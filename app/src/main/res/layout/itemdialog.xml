@@ -209,8 +209,9 @@
                         android:layout_marginBottom="5dp">
                         <ImageView
                             android:id="@+id/imgSMain"
-                            android:layout_width="wrap_content"
+                            android:layout_width="25dp"
                             android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/sheld"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
@@ -266,9 +267,9 @@
                         android:orientation="horizontal">
                         <ImageView
                             android:id="@+id/imgSSub1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="25dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/power"
+                            android:adjustViewBounds="true"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
                             android:textAlignment="textEnd"/>
@@ -316,8 +317,9 @@
                             android:orientation="horizontal">
                             <ImageView
                                 android:id="@+id/imgSSub2"
-                                android:layout_width="wrap_content"
+                                android:layout_width="25dp"
                                 android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
                                 android:src="@drawable/attack"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="5dp"

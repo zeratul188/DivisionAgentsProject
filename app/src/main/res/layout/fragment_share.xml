@@ -32,22 +32,22 @@
                         android:textSize="20sp"
                         android:textColor="#f0f0f0"
                         android:layout_marginBottom="5dp"/>
-                    <HorizontalScrollView
+                    <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
                             <RadioGroup
                                 android:id="@+id/rgDifficulty"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="20dp"
-                                android:orientation="horizontal">
+                                android:orientation="vertical">
                                 <RadioButton
                                     android:id="@+id/rdoDif1"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="스토리/보통"
                                     android:textSize="18sp"
@@ -59,10 +59,11 @@
                                     android:background="@drawable/radiocustom"
                                     android:paddingLeft="15dp"
                                     android:paddingRight="15dp"
-                                    android:layout_marginRight="10dp"/>
+                                    android:textAlignment="center"
+                                    android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif2"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
@@ -73,10 +74,11 @@
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#f0f0f0"
-                                    android:layout_marginRight="10dp"/>
+                                    android:textAlignment="center"
+                                    android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif3"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
@@ -87,10 +89,11 @@
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#f0f0f0"
-                                    android:layout_marginRight="10dp"/>
+                                    android:textAlignment="center"
+                                    android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif4"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
@@ -101,10 +104,11 @@
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#f0f0f0"
-                                    android:layout_marginRight="10dp"/>
+                                    android:textAlignment="center"
+                                    android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif5"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
@@ -114,10 +118,11 @@
                                     android:drawableLeft="@drawable/difficulty5"
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
+                                    android:textAlignment="center"
                                     android:textColor="#f0f0f0"/>
                             </RadioGroup>
                         </LinearLayout>
-                    </HorizontalScrollView>
+                    </ScrollView>
 
                     <LinearLayout
                         android:layout_width="match_parent"

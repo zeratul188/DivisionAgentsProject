@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         activity = this;
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         Drawable draw = getResources().getDrawable(R.drawable.redwall4);
         //getSupportActionBar().setBackgroundDrawable(draw);
 

@@ -63,9 +63,22 @@ public class ItemAdapter extends BaseAdapter {
         ImageView imgType = convertView.findViewById(R.id.imgType);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtType = convertView.findViewById(R.id.txtType);
+        TextView txtTalent = convertView.findViewById(R.id.txtTalent);
 
         txtName.setText(itemList.get(position).getName());
         txtType.setText(itemList.get(position).getType());
+        txtTalent.setText(itemList.get(position).getTalent());
+
+        namedDBAdapter.open();
+        exoticDBAdapter.open();
+        sheldDBAdapter.open();
+        if (namedDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
+        else if (exoticDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#ff3c00"));
+        else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#009900"));
+        else txtTalent.setTextColor(Color.parseColor("#f0f0f0"));
+        sheldDBAdapter.close();
+        exoticDBAdapter.close();
+        namedDBAdapter.close();
 
         LinearLayout tableMain = convertView.findViewById(R.id.tableMain);
 
@@ -116,9 +129,19 @@ public class ItemAdapter extends BaseAdapter {
         }
         if (weaponed) {
             for (int i = 0; i < imgAttribute.length; i++) imgAttribute[i].setImageResource(R.drawable.weaponicon);
-            cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
-            if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
-            else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
+            if (!itemList.get(position).getName().equals("보조 붐스틱")) {
+                cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+                if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
+                else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
+            } else {
+                namedDBAdapter.open();
+                cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                txtCoreName.setText("산탄총 데미지");
+                txtCore.setText("16%");
+                txtCoreName.setTextColor(Color.parseColor("#c99700"));
+                namedDBAdapter.close();
+                imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
+            }
             if (!itemList.get(position).getType().equals("권총")) {
                 imgAttribute[1].setVisibility(View.VISIBLE);
                 cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());

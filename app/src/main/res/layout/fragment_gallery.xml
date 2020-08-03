@@ -216,7 +216,7 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/exoticlogo"/>
+                                android:src="@drawable/exoticdrop"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
