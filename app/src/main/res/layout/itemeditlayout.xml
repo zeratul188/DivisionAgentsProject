@@ -7,8 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="현재 옵션"
-        android:textColor="#f0f0f0"
+        android:textColor="#aaaaaa"
         android:textSize="17sp"/>
+    <TextView
+        android:id="@+id/txtTalent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="서서히 다가오는 죽음"
+        android:textColor="#f0f0f0"
+        android:textSize="25sp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"/>
     <LinearLayout
         android:id="@+id/layoutWeapon"
         android:layout_width="match_parent"

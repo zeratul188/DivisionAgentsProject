@@ -1678,7 +1678,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -1690,7 +1690,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -2567,7 +2567,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -2579,7 +2579,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -3456,7 +3456,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -3468,7 +3468,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -5989,7 +5989,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -6001,7 +6001,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -6883,7 +6883,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -6895,7 +6895,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -7695,7 +7695,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -7707,7 +7707,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -8589,7 +8589,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -8601,7 +8601,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -9473,7 +9473,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -9485,7 +9485,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -10368,7 +10368,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -10380,7 +10380,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -12016,7 +12016,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
@@ -12028,7 +12028,7 @@ public class ShareFragment extends Fragment {
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchData(item_sub2);
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                         max_sub2 = Double.parseDouble(cursor.getString(2));
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();

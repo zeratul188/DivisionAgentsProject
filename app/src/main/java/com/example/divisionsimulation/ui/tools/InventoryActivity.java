@@ -84,7 +84,7 @@ public class InventoryActivity extends AppCompatActivity {
 
         listItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 View dialogView = getLayoutInflater().inflate(R.layout.itemdialog, null);
 
                 final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
@@ -122,6 +122,13 @@ public class InventoryActivity extends AppCompatActivity {
                 final Button btnDrop = dialogView.findViewById(R.id.btnDrop);
                 final Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
                 final Button btnExit = dialogView.findViewById(R.id.btnExit);
+                final ImageView imgWeaponEdit1 = dialogView.findViewById(R.id.imgWeaponEdit1);
+                final ImageView imgWeaponEdit2 = dialogView.findViewById(R.id.imgWeaponEdit2);
+                final ImageView imgWeaponEdit3 = dialogView.findViewById(R.id.imgWeaponEdit3);
+                final ImageView imgSheldEdit1 = dialogView.findViewById(R.id.imgSheldEdit1);
+                final ImageView imgSheldEdit2 = dialogView.findViewById(R.id.imgSheldEdit2);
+                final ImageView imgSheldEdit3 = dialogView.findViewById(R.id.imgSheldEdit3);
+                final ImageView imgTalentEdit = dialogView.findViewById(R.id.imgTalentEdit);
 
                 final int index = position;
                 btnDestroy.setOnClickListener(new View.OnClickListener() {
@@ -303,6 +310,10 @@ public class InventoryActivity extends AppCompatActivity {
                 Double max;
 
                 if (weaponed) {
+                    if (itemList.get(position).isEdit1()) imgWeaponEdit1.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isEdit2()) imgWeaponEdit2.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isEdit3()) imgWeaponEdit3.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isTalentedit()) imgTalentEdit.setVisibility(View.VISIBLE);
                     maxDBAdapter.open();
                     cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
                     max = cursor.getDouble(2);
@@ -377,6 +388,10 @@ public class InventoryActivity extends AppCompatActivity {
                     }
                     namedDBAdapter.close();
                 } else {
+                    if (itemList.get(position).isEdit1()) imgSheldEdit1.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isEdit2()) imgSheldEdit2.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isEdit3()) imgSheldEdit3.setVisibility(View.VISIBLE);
+                    if (itemList.get(position).isTalentedit()) imgTalentEdit.setVisibility(View.VISIBLE);
                     maxDBAdapter.open();
                     cursor = maxDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
                     max = cursor.getDouble(2);
@@ -481,109 +496,211 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutWeaponMain1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
-                        } else {
-                            intent.putExtra("name", itemList.get(index).getCore1());
-                            intent.putExtra("value", itemList.get(index).getCore1_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "weapon_core1");
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        if (itemList.get(index).getName().equals("보조 붐스틱")) {
+                            Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getCore1());
+                                intent.putExtra("value", itemList.get(index).getCore1_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "weapon_core1");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        inventoryDBAdapter.close();
                     }
                 });
                 layoutWeaponMain2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
-                        } else {
-                            intent.putExtra("name", itemList.get(index).getCore2());
-                            intent.putExtra("value", itemList.get(index).getCore2_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "weapon_core2");
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        namedDBAdapter.open();
+                        if (namedDBAdapter.haveItem(itemList.get(position).getName())) {
+                            if (!itemList.get(index).getName().equals("보조 붐스틱") && namedDBAdapter.haveNoTalentData(itemList.get(index).getName())) {
+                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        namedDBAdapter.close();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getCore2());
+                                intent.putExtra("value", itemList.get(index).getCore2_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "weapon_core2");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        inventoryDBAdapter.close();
                     }
                 });
                 layoutWeaponSub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getSub1());
+                                intent.putExtra("value", itemList.get(index).getSub1_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "weapon_sub");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
                         } else {
-                            intent.putExtra("name", itemList.get(index).getSub1());
-                            intent.putExtra("value", itemList.get(index).getSub1_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "weapon_sub");
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        inventoryDBAdapter.close();
                     }
                 });
                 layoutSheldMain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getCore1());
+                                intent.putExtra("value", itemList.get(index).getCore1_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "sheld_core");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
                         } else {
-                            intent.putExtra("name", itemList.get(index).getCore1());
-                            intent.putExtra("value", itemList.get(index).getCore1_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "sheld_core");
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        inventoryDBAdapter.close();
                     }
                 });
                 layoutSheldSub1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
-                        } else {
-                            intent.putExtra("name", itemList.get(index).getSub1());
-                            intent.putExtra("value", itemList.get(index).getSub1_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "sheld_sub1");
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        namedDBAdapter.open();
+                        if (namedDBAdapter.haveItem(itemList.get(index).getName())) {
+                            if (namedDBAdapter.haveNoTalentData(itemList.get(index).getName())) {
+                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        namedDBAdapter.close();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getSub1());
+                                intent.putExtra("value", itemList.get(index).getSub1_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "sheld_sub1");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        inventoryDBAdapter.close();
                     }
                 });
                 layoutSheldSub2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                        exoticDBAdapter.open();
-                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                            intent.putExtra("exoticed", true);
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                intent.putExtra("exoticed", true);
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getSub2());
+                                intent.putExtra("value", itemList.get(index).getSub2_value());
+                                intent.putExtra("type", itemList.get(index).getType());
+                                intent.putExtra("option_type", "sheld_sub2");
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            intent.putExtra("talented", false);
+                            exoticDBAdapter.close();
+                            startActivity(intent);
                         } else {
-                            intent.putExtra("name", itemList.get(index).getSub2());
-                            intent.putExtra("value", itemList.get(index).getSub2_value());
-                            intent.putExtra("type", itemList.get(index).getType());
-                            intent.putExtra("option_type", "sheld_sub2");
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
-                        intent.putExtra("itemID", itemList.get(index).getRowId());
-                        exoticDBAdapter.close();
-                        startActivity(intent);
+                        inventoryDBAdapter.close();
+                    }
+                });
+                layoutTalentButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        inventoryDBAdapter.open();
+                        namedDBAdapter.open();
+                        if (namedDBAdapter.haveItem(itemList.get(index).getName())) {
+                            if (!namedDBAdapter.haveNoTalentData(itemList.get(index).getName())) {
+                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        namedDBAdapter.close();
+                        if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isTalentedit()) {
+                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                            exoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                intent.putExtra("name", itemList.get(index).getTalent());
+                                intent.putExtra("talented", true);
+                                intent.putExtra("type", itemList.get(index).getType());
+                            }
+                            intent.putExtra("itemID", itemList.get(index).getRowId());
+                            exoticDBAdapter.close();
+
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        inventoryDBAdapter.close();
                     }
                 });
 
@@ -605,6 +722,7 @@ public class InventoryActivity extends AppCompatActivity {
         String name, type, core1, core2, sub1, sub2, talent;
         long rowId;
         double core1_value, core2_value, sub1_value, sub2_value;
+        boolean edit1, edit2, edit3, talentedit;
         itemList.clear();
         inventoryDBAdapter.open();
         if (title.equals("무기")) {
@@ -623,6 +741,10 @@ public class InventoryActivity extends AppCompatActivity {
                     sub1_value = cursor.getDouble(9);
                     sub2_value = cursor.getDouble(10);
                     talent = cursor.getString(11);
+                    edit1 = Boolean.parseBoolean(cursor.getString(12));
+                    edit2 = Boolean.parseBoolean(cursor.getString(13));
+                    edit3 = Boolean.parseBoolean(cursor.getString(14));
+                    talentedit = Boolean.parseBoolean(cursor.getString(15));
                     cursor.moveToNext();
                     Item item = new Item(rowId, name, type);
                     item.setCore1(core1);
@@ -634,6 +756,10 @@ public class InventoryActivity extends AppCompatActivity {
                     item.setSub1_value(sub1_value);
                     item.setSub2_value(sub2_value);
                     item.setTalent(talent);
+                    item.setEdit1(edit1);
+                    item.setEdit2(edit2);
+                    item.setEdit3(edit3);
+                    item.setTalentedit(talentedit);
                     itemList.add(item);
                 }
             }
@@ -652,6 +778,10 @@ public class InventoryActivity extends AppCompatActivity {
                 sub1_value = cursor.getDouble(9);
                 sub2_value = cursor.getDouble(10);
                 talent = cursor.getString(11);
+                edit1 = Boolean.parseBoolean(cursor.getString(12));
+                edit2 = Boolean.parseBoolean(cursor.getString(13));
+                edit3 = Boolean.parseBoolean(cursor.getString(14));
+                talentedit = Boolean.parseBoolean(cursor.getString(15));
                 cursor.moveToNext();
                 Item item = new Item(rowId, name, type);
                 item.setCore1(core1);
@@ -663,6 +793,10 @@ public class InventoryActivity extends AppCompatActivity {
                 item.setSub1_value(sub1_value);
                 item.setSub2_value(sub2_value);
                 item.setTalent(talent);
+                item.setEdit1(edit1);
+                item.setEdit2(edit2);
+                item.setEdit3(edit3);
+                item.setTalentedit(talentedit);
                 itemList.add(item);
             }
         }

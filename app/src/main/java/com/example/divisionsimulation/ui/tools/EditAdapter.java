@@ -10,25 +10,34 @@ import android.widget.TextView;
 
 import com.example.divisionsimulation.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class EditAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<EditItem> editList;
+    private ArrayList<EditItem> editList = null;
+    private ArrayList<String> talentList = null;
+    private boolean talented = false;
 
-    public EditAdapter(Context context, ArrayList<EditItem> editList) {
+    public EditAdapter(Context context, ArrayList<EditItem> editList, ArrayList<String> talentList, boolean talented) {
         this.context = context;
         this.editList = editList;
+        this.talentList = talentList;
+        this.talented = talented;
     }
 
     @Override
     public int getCount() {
-        return editList.size();
+        if (editList != null) return editList.size();
+        if (talentList != null) return talentList.size();
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return editList.get(position);
+        if (editList != null) return editList.get(position);
+        if (talentList != null) return talentList.get(position);
+        return null;
     }
 
     @Override
@@ -45,28 +54,38 @@ public class EditAdapter extends BaseAdapter {
         TextView txtMax = convertView.findViewById(R.id.txtMax);
         LinearLayout layoutNoTalent = convertView.findViewById(R.id.layoutNoTalent);
 
-        if (editList.get(position).getType().equals("특수효과")) {
-            layoutNoTalent.setVisibility(View.GONE);
+        if (talented) {
             imgType.setVisibility(View.GONE);
+            layoutNoTalent.setVisibility(View.GONE);
         }
 
-        switch (editList.get(position).getType()) {
-            case "공격":
-                imgType.setImageResource(R.drawable.attack);
-                break;
-            case "방어":
-                imgType.setImageResource(R.drawable.sheld);
-                break;
-            case "다용도":
-                imgType.setImageResource(R.drawable.power);
-                break;
-            default:
-                imgType.setImageResource(R.drawable.weaponicon);
+        if (editList != null) {
+            txtName.setText(editList.get(position).getName());
+            txtMax.setText(formatD(editList.get(position).getMax()));
+            switch (editList.get(position).getType()) {
+                case "공격":
+                    imgType.setImageResource(R.drawable.attack);
+                    break;
+                case "방어":
+                    imgType.setImageResource(R.drawable.sheld);
+                    break;
+                case "다용도":
+                    imgType.setImageResource(R.drawable.power);
+                    break;
+                default:
+                    imgType.setImageResource(R.drawable.weaponicon);
+            }
         }
 
-        txtName.setText(editList.get(position).getName());
-        txtMax.setText(Double.toString(editList.get(position).getMax()));
+        if (talentList != null) {
+            txtName.setText(talentList.get(position));
+        }
 
         return convertView;
+    }
+
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 }

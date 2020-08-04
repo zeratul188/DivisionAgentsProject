@@ -140,6 +140,8 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.tools.InventoryActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.tools.ItemEditActivity"
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"

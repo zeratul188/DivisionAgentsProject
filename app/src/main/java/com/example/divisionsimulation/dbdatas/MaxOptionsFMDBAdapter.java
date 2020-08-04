@@ -150,6 +150,12 @@ public class MaxOptionsFMDBAdapter {
         return cursor;
     }
 
+    public boolean notWeaponCore(String content) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getCount() > 0;
+    }
+
     public Cursor fetchExoticWeaponData(String content) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"무기 부속성"+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

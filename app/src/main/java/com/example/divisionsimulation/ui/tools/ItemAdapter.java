@@ -83,7 +83,6 @@ public class ItemAdapter extends BaseAdapter {
 
         LinearLayout tableMain = convertView.findViewById(R.id.tableMain);
 
-        ImageView imgCore = convertView.findViewById(R.id.imgCore);
         TextView txtCoreName = convertView.findViewById(R.id.txtCoreName);
         TextView txtCore = convertView.findViewById(R.id.txtCore);
         ImageView[] imgAttribute = new ImageView[3];
@@ -101,22 +100,22 @@ public class ItemAdapter extends BaseAdapter {
             String end = "";
             switch (asp) {
                 case "공격":
-                    imgCore.setImageResource(R.drawable.attack);
+                    imgAttribute[0].setImageResource(R.drawable.attack);
                     end = "%";
                     break;
                 case "방어":
-                    imgCore.setImageResource(R.drawable.sheld);
+                    imgAttribute[0].setImageResource(R.drawable.sheld);
                     end = "";
                     break;
                 case "다용도":
-                    imgCore.setImageResource(R.drawable.power);
+                    imgAttribute[0].setImageResource(R.drawable.power);
                     end = "";
                     break;
             }
             txtCoreName.setText(itemList.get(position).getCore1());
             txtCore.setText("+"+formatD(itemList.get(position).getCore1_value())+end);
         } else {
-            imgCore.setImageResource(R.drawable.weaponicon);
+            imgAttribute[0].setImageResource(R.drawable.weaponicon);
             txtCoreName.setText(itemList.get(position).getCore1());
             txtCore.setText("+"+formatD(itemList.get(position).getCore1_value())+"%");
         }

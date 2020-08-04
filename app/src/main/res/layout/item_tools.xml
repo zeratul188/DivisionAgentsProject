@@ -5,8 +5,7 @@
     android:background="@drawable/rareitem"
     android:id="@+id/tableMain"
     android:paddingTop="10dp"
-    android:gravity="center"
-    android:paddingBottom="10dp">
+    android:gravity="center">
     <ImageView
         android:id="@+id/imgType"
         android:layout_width="60dp"
@@ -69,11 +68,13 @@
                 android:layout_gravity="left"
                 android:gravity="center">
                 <ImageView
-                    android:id="@+id/imgCore"
+                    android:id="@+id/imgAttribute1"
                     android:layout_width="33dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:src="@drawable/attack"
+                    android:background="@drawable/maxitembackground"
+                    android:paddingBottom="5dp"
                     android:layout_marginRight="5dp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -103,22 +104,12 @@
                 android:orientation="horizontal"
                 android:gravity="right|bottom">
                 <ImageView
-                    android:id="@+id/imgAttribute1"
-                    android:layout_width="25dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/weaponicon"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:background="@drawable/notmaxbackground"
-                    android:layout_marginRight="5dp"/>
-                <ImageView
                     android:id="@+id/imgAttribute2"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:src="@drawable/weaponicon"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="10dp"
                     android:paddingTop="5dp"
                     android:background="@drawable/maxitembackground"
                     android:layout_marginRight="5dp"/>
@@ -127,7 +118,7 @@
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="10dp"
                     android:paddingTop="5dp"
                     android:background="@drawable/maxitembackground"
                     android:src="@drawable/weaponicon"/>

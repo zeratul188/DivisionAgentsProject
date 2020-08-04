@@ -74,16 +74,30 @@
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
-                    <TextView
-                        android:id="@+id/txtWMain1"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+15% 돌격소총 데미지"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="18sp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#aaaaaa"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtWMain1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="+15% 돌격소총 데미지"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="18sp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#aaaaaa"/>
+                        <ImageView
+                            android:id="@+id/imgWeaponEdit1"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_marginRight="10dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
                     <ProgressBar
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
@@ -106,16 +120,30 @@
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
-                    <TextView
-                        android:id="@+id/txtWMain2"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+10% 생명력 데미지"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textSize="18sp"
-                        android:textColor="#aaaaaa"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtWMain2"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="+10% 생명력 데미지"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="18sp"
+                            android:textColor="#aaaaaa"/>
+                        <ImageView
+                            android:id="@+id/imgWeaponEdit2"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_marginRight="10dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
                     <ProgressBar
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
@@ -150,16 +178,30 @@
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
-                    <TextView
-                        android:id="@+id/txtWSub"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="+5% 방어구 대상 데미지"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="18sp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:textColor="#aaaaaa"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtWSub"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="+5% 방어구 대상 데미지"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="18sp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#aaaaaa"/>
+                        <ImageView
+                            android:id="@+id/imgWeaponEdit3"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_marginRight="10dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
                     <ProgressBar
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
@@ -226,6 +268,14 @@
                             android:textSize="18sp"
                             android:layout_marginRight="10dp"
                             android:textColor="#aaaaaa"/>
+                        <ImageView
+                            android:id="@+id/imgSheldEdit1"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_marginRight="10dp"
+                            android:visibility="gone"/>
                     </LinearLayout>
                     <ProgressBar
                         android:layout_width="match_parent"
@@ -283,6 +333,14 @@
                             android:textSize="18sp"
                             android:layout_marginRight="10dp"
                             android:textColor="#aaaaaa"/>
+                        <ImageView
+                            android:id="@+id/imgSheldEdit2"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_marginRight="10dp"
+                            android:visibility="gone"/>
                     </LinearLayout>
                     <ProgressBar
                         android:layout_width="match_parent"
@@ -334,6 +392,14 @@
                                 android:textSize="18sp"
                                 android:layout_marginRight="10dp"
                                 android:textColor="#aaaaaa"/>
+                            <ImageView
+                                android:id="@+id/imgSheldEdit3"
+                                android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                                android:src="@drawable/edited_foreground"
+                                android:layout_marginRight="10dp"
+                                android:visibility="gone"/>
                         </LinearLayout>
                         <ProgressBar
                             android:layout_width="match_parent"
@@ -380,16 +446,31 @@
                         android:orientation="vertical"
                         android:background="@drawable/talentbackground"
                         android:paddingTop="10dp">
-                        <TextView
-                            android:id="@+id/txtWTalent"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="영속성"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="20sp"
-                            android:textColor="#aaaaaa"/>
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txtWTalent"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="영속성"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:textSize="20sp"
+                                android:textColor="#aaaaaa"/>
+                            <ImageView
+                                android:id="@+id/imgTalentEdit"
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/edited_foreground"
+                                android:layout_marginRight="10dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone"/>
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/txtWTalentContent"
                             android:layout_width="match_parent"

@@ -180,7 +180,7 @@ public class TalentFMDBAdapter {
         return result;
     }
 
-    public String fetchRandomData(String type) {
+    public String fetchRandomData(String type) throws SQLException{
         Cursor cursor;
         if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_AR+"="+1, null, null, null, null, null);
         else if (type.equals("기관단총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_SR+"="+1, null, null, null, null, null);
@@ -200,6 +200,21 @@ public class TalentFMDBAdapter {
         }
         int index = percent(0, items.size());
         return items.get(index);
+    }
+
+    public Cursor fetchTypeData(String type) throws SQLException {
+        Cursor cursor;
+        if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_AR+"="+1, null, null, null, null, null);
+        else if (type.equals("기관단총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_SR+"="+1, null, null, null, null, null);
+        else if (type.equals("경기관총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_BR+"="+1, null, null, null, null, null);
+        else if (type.equals("소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_RF+"="+1, null, null, null, null, null);
+        else if (type.equals("지정사수소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_MMR+"="+1, null, null, null, null, null);
+        else if (type.equals("산탄총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_SG+"="+1, null, null, null, null, null);
+        else if (type.equals("권총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_PT+"="+1, null, null, null, null, null);
+        else if (type.equals("조끼")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_VEST+"="+1, null, null, null, null, null);
+        else cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK, KEY_TALENTCONTENT}, KEY_BACKPACK+"="+1, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
     }
 
     public int getCount() {

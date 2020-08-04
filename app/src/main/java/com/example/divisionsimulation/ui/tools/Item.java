@@ -4,11 +4,44 @@ public class Item implements Comparable<Item> {
     private long rowId;
     private String name, type, core1, core2, sub1, sub2, talent;
     private double core1_value, core2_value, sub1_value, sub2_value;
+    private boolean edit1, edit2, edit3, talentedit;
 
     public Item(long rowId, String name, String type) {
         this.rowId = rowId;
         this.name = name;
         this.type = type;
+    }
+
+    public boolean isTalentedit() {
+        return talentedit;
+    }
+
+    public void setTalentedit(boolean talentedit) {
+        this.talentedit = talentedit;
+    }
+
+    public boolean isEdit1() {
+        return edit1;
+    }
+
+    public void setEdit1(boolean edit1) {
+        this.edit1 = edit1;
+    }
+
+    public boolean isEdit2() {
+        return edit2;
+    }
+
+    public void setEdit2(boolean edit2) {
+        this.edit2 = edit2;
+    }
+
+    public boolean isEdit3() {
+        return edit3;
+    }
+
+    public void setEdit3(boolean edit3) {
+        this.edit3 = edit3;
     }
 
     public long getRowId() {
