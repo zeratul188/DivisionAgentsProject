@@ -31,11 +31,14 @@ public class InventoryDBAdapter {
     public static final String KEY_SUB1VALUE = "SUB1VALUE";
     public static final String KEY_SUB2VALUE = "SUB2VALUE";
     public static final String KEY_TALENT = "TALENT";
+    public static final String KEY_EDIT1 = "EDIT1";
+    public static final String KEY_EDIT2 = "EDIT2";
+    public static final String KEY_EDIT3 = "EDIT3";
 
     private static final String DATABASE_CREATE = "create table INVENTORY (_id integer primary key, " +
             "NAME text not null, TYPE text not null, CORE1 text, CORE2 text, SUB1 text, SUB2 text, "+
             "CORE1VALUE double, CORE2VALUE double, SUB1VALUE double, SUB2VALUE double, "+
-            "TALENT text not null);";
+            "TALENT text not null, EDIT1 text not null, EDIT2 text not null, EDIT3 text not null);";
 
     private static final String DATABASE_NAME = "DIVISION_INVENTORY";
     private static final String DATABASE_TABLE = "INVENTORY";
@@ -99,6 +102,9 @@ public class InventoryDBAdapter {
         values.put(KEY_SUB1VALUE, sub1_value);
         values.put(KEY_SUB2VALUE, 0.0);
         values.put(KEY_TALENT, talent);
+        values.put(KEY_EDIT1, "false");
+        values.put(KEY_EDIT2, "false");
+        values.put(KEY_EDIT3, "false");
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -115,6 +121,9 @@ public class InventoryDBAdapter {
         values.put(KEY_SUB1VALUE, sub1_value);
         values.put(KEY_SUB2VALUE, sub2_value);
         values.put(KEY_TALENT, talent);
+        values.put(KEY_EDIT1, "false");
+        values.put(KEY_EDIT2, "false");
+        values.put(KEY_EDIT3, "false");
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -153,6 +162,14 @@ public class InventoryDBAdapter {
 
     public boolean updateCore1Data(long rowID, String core1, double core1_value) {
         ContentValues values = new ContentValues();
+        return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
+    }
+
+    public boolean updateEditData(long rowID, boolean edit1, boolean edit2, boolean edit3) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_EDIT1, Boolean.toString(edit1));
+        values.put(KEY_EDIT2, Boolean.toString(edit2));
+        values.put(KEY_EDIT3, Boolean.toString(edit3));
         return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.divisionsimulation.ui.tools;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -322,6 +323,7 @@ public class InventoryActivity extends AppCompatActivity {
                         layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                         txtWMain1.setTextColor(Color.parseColor("#c99700"));
                         namedDBAdapter.close();
+                        layoutWeaponMain1.setEnabled(false);
                     }
                     if (title.equals("권총")) layoutWeaponMain2.setVisibility(View.GONE);
                     else {
@@ -333,6 +335,7 @@ public class InventoryActivity extends AppCompatActivity {
                             progressWMain2.setMax(100);
                             progressWMain2.setProgress(100);
                             layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain2.setEnabled(false);
                         } else {
                             maxDBAdapter.open();
                             cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
@@ -364,6 +367,7 @@ public class InventoryActivity extends AppCompatActivity {
                     if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) {
                         String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
                         txtWTalentContent.setText(content);
+                        layoutTalent.setEnabled(false);
                     } else {
                         talentDBAdapter.open();
                         cursor = talentDBAdapter.fetchData(itemList.get(position).getTalent());
@@ -407,6 +411,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
                                 break;
                         }
+                        layoutSheldSub1.setEnabled(false);
                     } else {
                         maxDBAdapter.open();
                         cursor = maxDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
@@ -469,8 +474,118 @@ public class InventoryActivity extends AppCompatActivity {
                     cursor = exoticDBAdapter.fetchData(itemList.get(position).getName());
                     talent_content = cursor.getString(12);
                     txtWTalentContent.setText(talent_content);
+                    layoutTalent.setEnabled(false);
                 }
                 exoticDBAdapter.close();
+
+                layoutWeaponMain1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getCore1());
+                            intent.putExtra("value", itemList.get(index).getCore1_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "weapon_core1");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
+                layoutWeaponMain2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getCore2());
+                            intent.putExtra("value", itemList.get(index).getCore2_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "weapon_core2");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
+                layoutWeaponSub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getSub1());
+                            intent.putExtra("value", itemList.get(index).getSub1_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "weapon_sub");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
+                layoutSheldMain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getCore1());
+                            intent.putExtra("value", itemList.get(index).getCore1_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "sheld_core");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
+                layoutSheldSub1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getSub1());
+                            intent.putExtra("value", itemList.get(index).getSub1_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "sheld_sub1");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
+                layoutSheldSub2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                        exoticDBAdapter.open();
+                        if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            intent.putExtra("exoticed", true);
+                        } else {
+                            intent.putExtra("name", itemList.get(index).getSub2());
+                            intent.putExtra("value", itemList.get(index).getSub2_value());
+                            intent.putExtra("type", itemList.get(index).getType());
+                            intent.putExtra("option_type", "sheld_sub2");
+                        }
+                        intent.putExtra("itemID", itemList.get(index).getRowId());
+                        exoticDBAdapter.close();
+                        startActivity(intent);
+                    }
+                });
 
                 setNamedTalent(position, txtWTalent);
                 setNamed(position, txtWMain2, txtSSub1);
@@ -655,6 +770,13 @@ public class InventoryActivity extends AppCompatActivity {
     private String formatD(double number) {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(number);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addArray();
+        itemAdapter.notifyDataSetChanged();
     }
 
     @Override

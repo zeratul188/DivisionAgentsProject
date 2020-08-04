@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:background="#222222"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/imgType"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/weaponicon"/>
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비엄폐 대상 데미지"
+        android:layout_marginLeft="10dp"
+        android:textColor="#f0f0f0"
+        android:textSize="18sp"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:id="@+id/layoutNoTalent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(최대치 : "
+            android:textColor="#f0f0f0"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/txtMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:textColor="#f0f0f0"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=")"
+            android:textColor="#f0f0f0"
+            android:textSize="18sp"/>
+    </LinearLayout>
+        
+</LinearLayout>
