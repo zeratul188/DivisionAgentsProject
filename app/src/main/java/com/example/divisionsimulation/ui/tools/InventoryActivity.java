@@ -315,7 +315,7 @@ public class InventoryActivity extends AppCompatActivity {
                     if (itemList.get(position).isEdit3()) imgWeaponEdit3.setVisibility(View.VISIBLE);
                     if (itemList.get(position).isTalentedit()) imgTalentEdit.setVisibility(View.VISIBLE);
                     maxDBAdapter.open();
-                    cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+                    cursor = maxDBAdapter.fetchTypeData("무기");
                     max = cursor.getDouble(2);
                             end = cursor.getString(5);
                             maxDBAdapter.close();
@@ -349,7 +349,7 @@ public class InventoryActivity extends AppCompatActivity {
                             layoutWeaponMain2.setEnabled(false);
                         } else {
                             maxDBAdapter.open();
-                            cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
+                            cursor = maxDBAdapter.fetchTypeData(itemList.get(position).getType());
                            max = cursor.getDouble(2);
                             end = cursor.getString(5);
                             maxDBAdapter.close();

@@ -134,7 +134,7 @@ public class ItemAdapter extends BaseAdapter {
         if (weaponed) {
             for (int i = 0; i < imgAttribute.length; i++) imgAttribute[i].setImageResource(R.drawable.weaponicon);
             if (!itemList.get(position).getName().equals("보조 붐스틱")) {
-                cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+                cursor = maxDBAdapter.fetchTypeData("무기");
                 if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
                 else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
             } else {
@@ -148,7 +148,7 @@ public class ItemAdapter extends BaseAdapter {
             }
             if (!itemList.get(position).getType().equals("권총")) {
                 imgAttribute[1].setVisibility(View.VISIBLE);
-                cursor = maxDBAdapter.fetchData(itemList.get(position).getCore2());
+                cursor = maxDBAdapter.fetchTypeData(itemList.get(position).getType());
                 if (itemList.get(position).getCore2_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
                 else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
             } else {

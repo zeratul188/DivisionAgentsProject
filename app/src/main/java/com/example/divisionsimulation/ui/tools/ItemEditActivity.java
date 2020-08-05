@@ -166,7 +166,7 @@ public class ItemEditActivity extends AppCompatActivity {
                         cursor = maxDBAdapter.fetchSheldSubData(name);
                         break;
                     default:
-                        cursor = maxDBAdapter.fetchData(name);
+                        cursor = maxDBAdapter.fetchTypeData("무기");
                 }
                 end = cursor.getString(5);
                 if (end.equals("-")) end = "";
@@ -338,7 +338,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             sub1 = cursor.getString(5);
                             inventoryDBAdapter.close();
                             maxDBAdapter.open();
-                            cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+                            cursor = maxDBAdapter.fetchTypeData("무기");
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
