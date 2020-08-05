@@ -180,10 +180,22 @@ public class MaxOptionsFMDBAdapter {
         return cursor;
     }
 
+    public boolean isSheldSubData(String content) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"보호장구 부속성"+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getCount() > 0;
+    }
+
     public Cursor fetchSheldCoreData(String content) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"보호장구 핵심속성"+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
+    }
+
+    public boolean isSheldCoreData(String content) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+"보호장구 핵심속성"+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getCount() > 0;
     }
 
     public boolean isSheldCore(String content) throws SQLException {

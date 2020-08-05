@@ -496,13 +496,13 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutWeaponMain1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         if (itemList.get(index).getName().equals("보조 붐스틱")) {
                             Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -526,7 +526,6 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutWeaponMain2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         namedDBAdapter.open();
                         if (namedDBAdapter.haveItem(itemList.get(position).getName())) {
@@ -537,6 +536,7 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -560,9 +560,9 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutWeaponSub.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -586,9 +586,9 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutSheldMain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -612,7 +612,6 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutSheldSub1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         namedDBAdapter.open();
                         if (namedDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -623,6 +622,7 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -646,9 +646,9 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutSheldSub2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -672,7 +672,6 @@ public class InventoryActivity extends AppCompatActivity {
                 layoutTalentButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
                         inventoryDBAdapter.open();
                         namedDBAdapter.open();
                         if (namedDBAdapter.haveItem(itemList.get(index).getName())) {
@@ -681,8 +680,15 @@ public class InventoryActivity extends AppCompatActivity {
                                 return;
                             }
                         }
+                        sheldDBAdapter.open();
+                        if (sheldDBAdapter.haveItem(itemList.get(index).getName())) {
+                            Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        sheldDBAdapter.close();
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isTalentedit()) {
+                            alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
                             if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {

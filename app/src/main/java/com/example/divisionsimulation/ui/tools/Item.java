@@ -12,6 +12,14 @@ public class Item implements Comparable<Item> {
         this.type = type;
     }
 
+    public boolean isEditOR() {
+        if (edit1) return true;
+        if (edit2) return true;
+        if (edit3) return true;
+        if (talentedit) return true;
+        return false;
+    }
+
     public boolean isTalentedit() {
         return talentedit;
     }

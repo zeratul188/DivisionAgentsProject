@@ -2,6 +2,7 @@ package com.example.divisionsimulation.ui.tools;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -147,8 +148,28 @@ public class ItemEditActivity extends AppCompatActivity {
             double max = 0;
             maxDBAdapter.open();
             if (maxDBAdapter.notWeaponCore(name)) {
-                cursor = maxDBAdapter.fetchData(name);
+                switch (option_type) {
+                    case "weapon_core1":
+                        cursor = maxDBAdapter.fetchTypeData("무기");
+                        break;
+                    case "weapon_core2":
+                        cursor = maxDBAdapter.fetchTypeData(type);
+                        break;
+                    case "weapon_sub":
+                        cursor = maxDBAdapter.fetchSubData(name);
+                        break;
+                    case "sheld_core":
+                        cursor = maxDBAdapter.fetchSheldCoreData(name);
+                        break;
+                    case "sheld_sub1":
+                    case "sheld_sub2":
+                        cursor = maxDBAdapter.fetchSheldSubData(name);
+                        break;
+                    default:
+                        cursor = maxDBAdapter.fetchData(name);
+                }
                 end = cursor.getString(5);
+                if (end.equals("-")) end = "";
                 max = cursor.getDouble(2);
             } else {
                 end = "%";
@@ -158,11 +179,12 @@ public class ItemEditActivity extends AppCompatActivity {
             if (weaponed) {
                 layoutWeapon.setVisibility(View.VISIBLE);
                 txtWeaponOption.setText("+"+formatD(value)+end+" "+name);
+
                 progressWeaponOption.setMax((int)(max*10));
                 progressWeaponOption.setProgress((int)(value*10));
             } else {
                 layoutSheld.setVisibility(View.VISIBLE);
-                changeImage(imgSheldOption, name);
+                changeImage(imgSheldOption, name, progressSheldOption);
                 txtSheldOption.setText("+"+formatD(value)+end+" "+name);
                 progressSheldOption.setMax((int)(max*10));
                 progressSheldOption.setProgress((int)(value*10));
@@ -210,10 +232,12 @@ public class ItemEditActivity extends AppCompatActivity {
                     seekBar.setMax((int)(editItems.get(position).getMax()*10));
                     seekBar.setProgress((int)(editItems.get(position).getMax()*10));
 
+                    changeThumb(seekBar, editItems.get(position).getName());
+
                     seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                         @Override
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                            txtValue.setText(Double.toString((double)progress/10));
+                            txtValue.setText(formatD((double)progress/10));
                         }
 
                         @Override
@@ -387,25 +411,102 @@ public class ItemEditActivity extends AppCompatActivity {
         });
     }
 
-    private void changeImage(ImageView imgView, String name) {
+    private void changeThumb(SeekBar seekBar, String name) {
         String str;
         maxDBAdapter.open();
-        cursor = maxDBAdapter.fetchData(name);
-        str = cursor.getString(4);
-        maxDBAdapter.close();
-        switch (str) {
-            case "공격":
-                imgView.setImageResource(R.drawable.attack);
-                break;
-            case "방어":
-                imgView.setImageResource(R.drawable.sheld);
-                break;
-            case "다용도":
-                imgView.setImageResource(R.drawable.power);
-                break;
-            default:
-                imgView.setImageResource(R.drawable.weaponicon);
+        if (maxDBAdapter.isSheldCoreData(name)) {
+            cursor = maxDBAdapter.fetchSheldCoreData(name);
+            str = cursor.getString(4);
+            switch (str) {
+                case "공격":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.attackseeker));
+                    break;
+                case "방어":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.sheldthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.sheldseeker));
+                    break;
+                case "다용도":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.powerthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.powerseeker));
+                    break;
+                default:
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
+            }
+        } else if (maxDBAdapter.isSheldSubData(name)) {
+            cursor = maxDBAdapter.fetchSheldSubData(name);
+            str = cursor.getString(4);
+            switch (str) {
+                case "공격":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.attackseeker));
+                    break;
+                case "방어":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.sheldthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.sheldseeker));
+                    break;
+                case "다용도":
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.powerthumb));
+                    seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.powerseeker));
+                    break;
+                default:
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
+            }
+        } else {
+            seekBar.setThumb(getResources().getDrawable(R.drawable.attack));
+            seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.attackseeker));
         }
+        maxDBAdapter.close();
+    }
+
+    private void changeImage(ImageView imgView, String name, ProgressBar progressBar) {
+        String str;
+        maxDBAdapter.open();
+        if (maxDBAdapter.isSheldCoreData(name)) {
+            cursor = maxDBAdapter.fetchSheldCoreData(name);
+            str = cursor.getString(4);
+            switch (str) {
+                case "공격":
+                    imgView.setImageResource(R.drawable.attack);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                    break;
+                case "방어":
+                    imgView.setImageResource(R.drawable.sheld);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                    break;
+                case "다용도":
+                    imgView.setImageResource(R.drawable.power);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                    break;
+                default:
+                    imgView.setImageResource(R.drawable.weaponicon);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+            }
+        } else if (maxDBAdapter.isSheldSubData(name)) {
+            cursor = maxDBAdapter.fetchSheldSubData(name);
+            str = cursor.getString(4);
+            switch (str) {
+                case "공격":
+                    imgView.setImageResource(R.drawable.attack);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                    break;
+                case "방어":
+                    imgView.setImageResource(R.drawable.sheld);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                    break;
+                case "다용도":
+                    imgView.setImageResource(R.drawable.power);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                    break;
+                default:
+                    imgView.setImageResource(R.drawable.weaponicon);
+                    progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+            }
+        } else {
+            imgView.setImageResource(R.drawable.weaponicon);
+            progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_progressbar_gage));
+        }
+        maxDBAdapter.close();
     }
 
     private String formatD(double number) {

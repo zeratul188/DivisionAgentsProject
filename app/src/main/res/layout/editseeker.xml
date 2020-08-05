@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:progress="50"
-        android:thumb="@drawable/seekerthumb"
-        android:progressTint="#ff0000"/>
+        android:thumb="@drawable/attackthumb"
+        android:progressDrawable="@drawable/attackseeker"/>
 
 </LinearLayout>

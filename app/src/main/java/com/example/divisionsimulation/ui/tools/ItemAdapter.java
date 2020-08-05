@@ -65,6 +65,7 @@ public class ItemAdapter extends BaseAdapter {
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtType = convertView.findViewById(R.id.txtType);
         TextView txtTalent = convertView.findViewById(R.id.txtTalent);
+        ImageView imgEdit = convertView.findViewById(R.id.imgEdit);
 
         txtName.setText(itemList.get(position).getName());
         txtType.setText(itemList.get(position).getType());
@@ -86,6 +87,9 @@ public class ItemAdapter extends BaseAdapter {
         TextView txtCoreName = convertView.findViewById(R.id.txtCoreName);
         TextView txtCore = convertView.findViewById(R.id.txtCore);
         ImageView[] imgAttribute = new ImageView[3];
+
+        if (itemList.get(position).isEditOR()) imgEdit.setVisibility(View.VISIBLE);
+        else imgEdit.setVisibility(View.GONE);
 
         int resource;
         for (int i = 0; i < imgAttribute.length; i++) {
