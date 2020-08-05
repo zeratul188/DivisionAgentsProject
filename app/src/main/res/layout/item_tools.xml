@@ -20,16 +20,6 @@
             android:paddingLeft="10dp"
             android:layout_gravity="top"
             android:src="@drawable/sd6custom"/>
-        <ImageView
-            android:id="@+id/imgEdit"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/edited_foreground"
-            android:layout_gravity="left"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:visibility="gone"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"
@@ -118,6 +108,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="right|bottom">
+                <ImageView
+                    android:id="@+id/imgEdit"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/edited_foreground"
+                    android:layout_gravity="center"
+                    android:visibility="visible"/>
                 <ImageView
                     android:id="@+id/imgAttribute2"
                     android:layout_width="25dp"

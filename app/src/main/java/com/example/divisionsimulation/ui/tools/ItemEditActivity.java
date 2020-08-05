@@ -342,7 +342,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = 100;
+                            if (pick <= 30) temp_percent = 100;
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
@@ -351,7 +351,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = 100;
+                            if (pick <= 30) temp_percent = 100;
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
@@ -360,7 +360,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = 100;
+                            if (pick <= 30) temp_percent = 100;
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
@@ -380,7 +380,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = 100;
+                            if (pick <= 30) temp_percent = 100;
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
@@ -389,7 +389,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             max = cursor.getDouble(2);
                             maxDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 20) temp_percent = 100;
+                            if (pick <= 30) temp_percent = 100;
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub2_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
@@ -453,7 +453,7 @@ public class ItemEditActivity extends AppCompatActivity {
                     seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
             }
         } else {
-            seekBar.setThumb(getResources().getDrawable(R.drawable.attack));
+            seekBar.setThumb(getResources().getDrawable(R.drawable.attackthumb));
             seekBar.setProgressDrawable(getResources().getDrawable(R.drawable.attackseeker));
         }
         maxDBAdapter.close();
