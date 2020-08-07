@@ -130,6 +130,11 @@ public class InventoryActivity extends AppCompatActivity {
                 final ImageView imgSheldEdit3 = dialogView.findViewById(R.id.imgSheldEdit3);
                 final ImageView imgTalentEdit = dialogView.findViewById(R.id.imgTalentEdit);
 
+                final LinearLayout layoutSheldSub3 = dialogView.findViewById(R.id.layoutSheldSub3);
+                final ImageView imgSSub3 = dialogView.findViewById(R.id.imgSSub3);
+                final TextView txtSSub3 = dialogView.findViewById(R.id.txtSSub3);
+                final ProgressBar progressSSub3 = dialogView.findViewById(R.id.progressSSub3);
+
                 final int index = position;
                 btnDestroy.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -407,7 +412,13 @@ public class InventoryActivity extends AppCompatActivity {
                     namedDBAdapter.open();
                     if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
                         cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
-                        txtSSub1.setText(cursor.getString(2));
+                        String result = cursor.getString(2);
+                        if (result.indexOf("\n") > -1) {
+                            String[] split_str = result.split("\n");
+                            txtSSub1.setText(split_str[0]);
+                        } else {
+                            txtSSub1.setText(result);
+                        }
                         progressSSub1.setMax(100);
                         progressSSub1.setProgress(100);
                         layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
@@ -480,6 +491,37 @@ public class InventoryActivity extends AppCompatActivity {
                         default:
                             layoutTalent.setVisibility(View.GONE);
                     }
+                    namedDBAdapter.open();
+                    if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+                        cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                        String result = cursor.getString(2);
+                        if (result.indexOf("\n") > -1) {
+                            layoutSheldSub3.setVisibility(View.VISIBLE);
+                            String[] split_str = result.split("\n");
+                            txtSSub3.setText(split_str[1]);
+                            progressSSub3.setMax(100);
+                            progressSSub3.setProgress(100);
+                            layoutSheldSub3.setBackgroundResource(R.drawable.maxbackground);
+                            String asp = cursor.getString(9);
+                            switch (asp) {
+                                case "공격":
+                                    imgSSub3.setImageResource(R.drawable.attack);
+                                    progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                                    break;
+                                case "방어":
+                                    imgSSub3.setImageResource(R.drawable.sheld);
+                                    progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                                    break;
+                                case "다용도":
+                                    imgSSub3.setImageResource(R.drawable.power);
+                                    progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                                    break;
+                            }
+                        } else {
+                            layoutSheldSub3.setVisibility(View.GONE);
+                        }
+                    }
+                    namedDBAdapter.close();
                 }
 
                 exoticDBAdapter.open();
@@ -843,15 +885,27 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
     private void setNamed(int position, TextView weapon_TextView, TextView sheld_TextView) {
+        String[] split_str;
         namedDBAdapter.open();
         if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
             String str = namedDBAdapter.fetchNoTalentData(itemList.get(position).getName());
-            if (weaponed) {
-                weapon_TextView.setText(str);
-                weapon_TextView.setTextColor(Color.parseColor("#c99700"));
+            if (str.indexOf("\n") > -1) {
+                split_str = str.split("\n");
+                if (weaponed) {
+                    weapon_TextView.setText(split_str[0]);
+                    weapon_TextView.setTextColor(Color.parseColor("#c99700"));
+                } else {
+                    sheld_TextView.setText(split_str[0]);
+                    sheld_TextView.setTextColor(Color.parseColor("#c99700"));
+                }
             } else {
-                sheld_TextView.setText(str);
-                sheld_TextView.setTextColor(Color.parseColor("#c99700"));
+                if (weaponed) {
+                    weapon_TextView.setText(str);
+                    weapon_TextView.setTextColor(Color.parseColor("#c99700"));
+                } else {
+                    sheld_TextView.setText(str);
+                    sheld_TextView.setTextColor(Color.parseColor("#c99700"));
+                }
             }
         } else {
             weapon_TextView.setTextColor(Color.parseColor("#aaaaaa"));

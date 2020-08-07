@@ -226,11 +226,19 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView txtName = seek_view.findViewById(R.id.txtName);
                     final TextView txtValue = seek_view.findViewById(R.id.txtValue);
                     final SeekBar seekBar = seek_view.findViewById(R.id.seekBar);
+                    TextView txtEnd = seek_view.findViewById(R.id.txtEnd);
+
+                    maxDBAdapter.open();
+                    cursor = maxDBAdapter.fetchData(editItems.get(position).getName());
+                    String end = cursor.getString(5);
+                    if (end.equals("-")) end = "";
+                    maxDBAdapter.close();
 
                     txtName.setText(editItems.get(position).getName());
-                    txtValue.setText(Double.toString(editItems.get(position).getMax()));
+                    txtValue.setText(formatD(editItems.get(position).getMax()));
                     seekBar.setMax((int)(editItems.get(position).getMax()*10));
                     seekBar.setProgress((int)(editItems.get(position).getMax()*10));
+                    txtEnd.setText(end);
 
                     changeThumb(seekBar, editItems.get(position).getName());
 

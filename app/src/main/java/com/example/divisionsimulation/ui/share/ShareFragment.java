@@ -783,7 +783,6 @@ public class ShareFragment extends Fragment {
                 commandDBAdapter.close();
 
                 AlertDialog.Builder mission_builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
-                mission_builder.setTitle("임무 완수");
                 mission_builder.setView(dialog_view);
                 mission_builder.setPositiveButton("임무 완수", new DialogInterface.OnClickListener() {
                     @Override

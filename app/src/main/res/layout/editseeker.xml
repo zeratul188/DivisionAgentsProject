@@ -17,15 +17,27 @@
             android:text="비엄폐 대상 데미지"
             android:textSize="18sp"
             android:textColor="#f0f0f0"/>
-        <TextView
-            android:id="@+id/txtValue"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="10"
-            android:textSize="18sp"
-            android:textAlignment="textEnd"
-            android:textColor="#f0f0f0"/>
+            android:orientation="horizontal"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/txtValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+            <TextView
+                android:id="@+id/txtEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"
+                android:textSize="18sp"
+                android:textColor="#f0f0f0"/>
+        </LinearLayout>
     </LinearLayout>
     <SeekBar
         android:id="@+id/seekBar"
