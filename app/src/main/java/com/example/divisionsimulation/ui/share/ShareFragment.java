@@ -2411,7 +2411,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -3313,7 +3313,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -4215,7 +4215,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -4973,7 +4973,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -5880,7 +5880,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -6787,7 +6787,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -7694,7 +7694,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -8521,7 +8521,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -9426,7 +9426,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -10323,7 +10323,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -11231,7 +11231,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -11998,7 +11998,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -12905,7 +12905,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -13672,7 +13672,7 @@ public class ShareFragment extends Fragment {
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
@@ -13790,7 +13790,6 @@ public class ShareFragment extends Fragment {
     private void setSecondaryProgess(String name, ProgressBar progressBar, String option_type, String type) {
         Cursor cursor;
         double max = 0;
-        if (type.equals("권총")) return;
         libraryDBAdapter.open();
         switch (option_type) {
             case "weapon_core1":
