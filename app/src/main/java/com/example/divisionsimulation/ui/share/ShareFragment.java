@@ -2407,15 +2407,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -3305,15 +3309,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4203,15 +4211,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4957,15 +4969,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -5860,15 +5876,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -6763,15 +6783,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -7666,15 +7690,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -8489,15 +8517,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -9390,15 +9422,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -10283,15 +10319,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -11187,15 +11227,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -11950,15 +11994,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -12853,15 +12901,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -13616,15 +13668,19 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                if (layoutWeapon.getVisibility() == View.VISIBLE) {
-                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
-                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
                     setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
                 } else {
                     setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
-                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
                     setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
                 }
+                namedDBAdapter.close();
+
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
