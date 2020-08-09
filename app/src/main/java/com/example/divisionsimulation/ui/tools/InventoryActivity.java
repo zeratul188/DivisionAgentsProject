@@ -52,6 +52,7 @@ public class InventoryActivity extends AppCompatActivity {
     private MaxOptionsFMDBAdapter maxDBAdapter;
     private TalentFMDBAdapter talentDBAdapter;
     private MaterialDbAdapter materialDbAdapter;
+    private LibraryDBAdapter libraryDBAdapter;
 
     private int[] material = new int[10];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
@@ -72,6 +73,7 @@ public class InventoryActivity extends AppCompatActivity {
         maxDBAdapter = new MaxOptionsFMDBAdapter(this);
         talentDBAdapter = new TalentFMDBAdapter(this);
         materialDbAdapter = new MaterialDbAdapter(this);
+        libraryDBAdapter = new LibraryDBAdapter(this);
 
         resetMaterial();
 
@@ -312,7 +314,7 @@ public class InventoryActivity extends AppCompatActivity {
                 changeTable(position, tableMain);
 
                 String end, talent_content;
-                Double max;
+                double max, second_max;
 
                 if (weaponed) {
                     if (itemList.get(position).isEdit1()) imgWeaponEdit1.setVisibility(View.VISIBLE);
@@ -328,6 +330,11 @@ public class InventoryActivity extends AppCompatActivity {
                     txtWMain1.setText("+"+formatD(itemList.get(position).getCore1_value())+end+" "+itemList.get(position).getCore1());
                     progressWMain1.setMax((int)(max*10));
                     progressWMain1.setProgress((int)(itemList.get(position).getCore1_value()*10));
+                    libraryDBAdapter.open();
+                    cursor = libraryDBAdapter.fetchTypeData("무기");
+                    second_max = cursor.getDouble(2);
+                    libraryDBAdapter.close();
+                    progressWMain1.setSecondaryProgress((int)(second_max*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
                     else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground);
                     if (itemList.get(position).getName().equals("보조 붐스틱")) {
@@ -364,6 +371,11 @@ public class InventoryActivity extends AppCompatActivity {
                             progressWMain2.setProgress((int)(itemList.get(position).getCore2_value()*10));
                             if (itemList.get(position).getCore2_value() >= max) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground);
+                            libraryDBAdapter.open();
+                            cursor = libraryDBAdapter.fetchTypeData(itemList.get(position).getType());
+                            second_max = cursor.getDouble(2);
+                            libraryDBAdapter.close();
+                            progressWMain2.setSecondaryProgress((int)(second_max*10));
                         }
                         namedDBAdapter.close();
                     }
@@ -378,6 +390,11 @@ public class InventoryActivity extends AppCompatActivity {
                     progressWSub.setProgress((int)(itemList.get(position).getSub1_value()*10));
                     if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground);
+                    libraryDBAdapter.open();
+                    cursor = libraryDBAdapter.fetchSubData(itemList.get(position).getSub1());
+                    second_max = cursor.getDouble(2);
+                    libraryDBAdapter.close();
+                    progressWSub.setSecondaryProgress((int)(second_max*10));
                     txtWTalent.setText(itemList.get(position).getTalent());
                     namedDBAdapter.open();
                     if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) {
@@ -408,6 +425,11 @@ public class InventoryActivity extends AppCompatActivity {
                     progressSMain.setProgress((int)(itemList.get(position).getCore1_value()*10));
                     if (itemList.get(position).getCore1_value() >= max) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                    libraryDBAdapter.open();
+                    cursor = libraryDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
+                    second_max = cursor.getDouble(2);
+                    libraryDBAdapter.close();
+                    progressSMain.setSecondaryProgress((int)(second_max*10));
                     setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1(), true);
                     namedDBAdapter.open();
                     if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
@@ -450,6 +472,11 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub1.setProgress((int)(itemList.get(position).getSub1_value()*10));
                         if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        libraryDBAdapter.open();
+                        cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
+                        second_max = cursor.getDouble(2);
+                        libraryDBAdapter.close();
+                        progressSSub1.setSecondaryProgress((int)(second_max*10));
                         setImageAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
                     namedDBAdapter.close();
@@ -468,6 +495,11 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub2.setProgress((int)(itemList.get(position).getSub2_value()*10));
                         if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        libraryDBAdapter.open();
+                        cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub2());
+                        second_max = cursor.getDouble(2);
+                        libraryDBAdapter.close();
+                        progressSSub2.setSecondaryProgress((int)(second_max*10));
                         setImageAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
                     }
                     sheldDBAdapter.close();
