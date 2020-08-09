@@ -421,10 +421,9 @@ public class ItemEditActivity extends AppCompatActivity {
                         if (!talented) {
                             double max;
                             libraryDBAdapter.open();
-                            maxDBAdapter.open();
                             switch (option_type) {
                                 case "weapon_core1":
-                                    cursor = maxDBAdapter.fetchTypeData("무기");
+                                    cursor = libraryDBAdapter.fetchTypeData("무기");
                                     max = Double.parseDouble(cursor.getString(2));
                                     if (value > max) libraryDBAdapter.updateTypeData("무기", "무기군 기본 데미지", Double.toString(value));
                                     else {
@@ -433,7 +432,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     }
                                     break;
                                 case "weapon_core2":
-                                    cursor = maxDBAdapter.fetchTypeData(type);
+                                    cursor = libraryDBAdapter.fetchTypeData(type);
                                     max = Double.parseDouble(cursor.getString(2));
                                     if (value > max) libraryDBAdapter.updateTypeData(type, name, Double.toString(value));
                                     else {
@@ -442,7 +441,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     }
                                     break;
                                 case "weapon_sub":
-                                    cursor = maxDBAdapter.fetchSubData(name);
+                                    cursor = libraryDBAdapter.fetchSubData(name);
                                     max = Double.parseDouble(cursor.getString(2));
                                     if (value > max) libraryDBAdapter.updateSubData(name, Double.toString(value));
                                     else {
@@ -451,7 +450,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     }
                                     break;
                                 case "sheld_core":
-                                    cursor = maxDBAdapter.fetchSheldCoreData(name);
+                                    cursor = libraryDBAdapter.fetchSheldCoreData(name);
                                     max = Double.parseDouble(cursor.getString(2));
                                     if (value > max) libraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
                                     else {
@@ -461,7 +460,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     break;
                                 case "sheld_sub1":
                                 case "sheld_sub2":
-                                    cursor = maxDBAdapter.fetchSheldSubData(name);
+                                    cursor = libraryDBAdapter.fetchSheldSubData(name);
                                     max = Double.parseDouble(cursor.getString(2));
                                     if (value > max) libraryDBAdapter.updateSheldSubData(name, Double.toString(value));
                                     else {
@@ -470,7 +469,6 @@ public class ItemEditActivity extends AppCompatActivity {
                                     }
                                     break;
                             }
-                            maxDBAdapter.close();
                             libraryDBAdapter.close();
                         } else {
                             talentLibraryDBAdapter.open();

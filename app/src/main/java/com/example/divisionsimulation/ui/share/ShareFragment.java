@@ -53,6 +53,7 @@ import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
+import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -165,6 +166,7 @@ public class ShareFragment extends Fragment {
     private WeaponFMDBAdapter weaponDBAdpater;
     private InventoryDBAdapter inventoryDBAdapter;
     private CommandDBAdapter commandDBAdapter;
+    private LibraryDBAdapter libraryDBAdapter;
 
     private Item item;
 
@@ -696,6 +698,7 @@ public class ShareFragment extends Fragment {
         talentDBAdapter = new TalentFMDBAdapter(getActivity());
         weaponDBAdpater = new WeaponFMDBAdapter(getActivity());
         inventoryDBAdapter = new InventoryDBAdapter(getActivity());
+        libraryDBAdapter = new LibraryDBAdapter(getActivity());
 
         handler = new Handler(); //핸들러 객체를 생성한다.
 
@@ -1636,7 +1639,6 @@ public class ShareFragment extends Fragment {
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
-                    System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -2405,6 +2407,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -3294,6 +3305,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4183,6 +4203,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -4928,6 +4957,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -5822,6 +5860,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -6716,6 +6763,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -7610,6 +7666,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -8424,6 +8489,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -9316,6 +9390,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -10200,6 +10283,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -11095,6 +11187,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -11849,6 +11950,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -12743,6 +12853,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -13497,6 +13616,15 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
+                if (layoutWeapon.getVisibility() == View.VISIBLE) {
+                    setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
@@ -13601,6 +13729,36 @@ public class ShareFragment extends Fragment {
         editor.putInt("ProgressMax", progressType[0].getMax());
         editor.putBoolean("Saved", true);
         editor.commit();
+    }
+
+    private void setSecondaryProgess(String name, ProgressBar progressBar, String option_type, String type) {
+        Cursor cursor;
+        double max = 0;
+        if (type.equals("권총")) return;
+        libraryDBAdapter.open();
+        switch (option_type) {
+            case "weapon_core1":
+                cursor = libraryDBAdapter.fetchTypeData("무기");
+                break;
+            case "weapon_core2":
+                cursor = libraryDBAdapter.fetchTypeData(type);
+                break;
+            case "weapon_sub":
+                cursor = libraryDBAdapter.fetchSubData(name);
+                break;
+            case "sheld_core":
+                cursor = libraryDBAdapter.fetchSheldCoreData(name);
+                break;
+            case "sheld_sub1":
+            case "sheld_sub2":
+                cursor = libraryDBAdapter.fetchSheldSubData(name);
+                break;
+            default:
+                cursor = libraryDBAdapter.fetchTypeData("무기");
+        }
+        libraryDBAdapter.close();
+        max = Double.parseDouble(cursor.getString(2));
+        progressBar.setSecondaryProgress((int)(max*10));
     }
 
     public void setSemiInterface(String type_name, ImageView view) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.
