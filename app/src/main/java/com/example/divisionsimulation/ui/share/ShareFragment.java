@@ -1265,7 +1265,7 @@ public class ShareFragment extends Fragment {
                     Toast.makeText(getActivity(), "다크존 자원을 획득하였습니다.", Toast.LENGTH_SHORT).show();
                 } else if (exotic) {
                     material[9]++;
-                    if (material[9] >= 20) material[8] = 20;
+                    if (material[9] >= 20) material[9] = 20;
                     materialDbAdapter.open();
                     materialDbAdapter.updateMaterial(material_name[9], material[9]);
                     materialDbAdapter.close();

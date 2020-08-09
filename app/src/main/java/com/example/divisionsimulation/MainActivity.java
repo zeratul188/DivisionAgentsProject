@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         /*AlertDialog.Builder builder = null;
         AlertDialog alertDialog = null;
         View dialogView = null;*/
+        Intent intent;
         switch(item.getItemId())
         {
             case R.id.menu1:
@@ -298,7 +299,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 alertDialog.show();
                 break;
             case R.id.menu2:
-                Intent intent = new Intent(this, SHDActivity.class);
+                intent = new Intent(this, SHDActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.menu3:
+                intent = new Intent(this, LibraryActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menu7:

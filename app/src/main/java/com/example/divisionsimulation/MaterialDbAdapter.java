@@ -14,6 +14,7 @@ public class MaterialDbAdapter {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "NAME";
     public static final String KEY_COUNT = "COUNT";
+    public static final String KEY_MAX = "MAX";
 
     /*public static final String KEY_GUN_PART = "GUN_PART";
     public static final String KEY_FABRIC = "FABRIC";
@@ -25,7 +26,7 @@ public class MaterialDbAdapter {
     public static final String KEY_TITANIUM = "TITANIUM";*/
 
     private static final String DATABASE_CREATE = "create table MATERIAL (_id integer primary key, " +
-            "NAME text not null, COUNT int not null);";
+            "NAME text not null, COUNT int not null, MAX int not null);";
 
     private static final String DATABASE_NAME = "DIVISION_MATERIAL";
     private static final String DATABASE_TABLE = "MATERIAL";
@@ -43,6 +44,7 @@ public class MaterialDbAdapter {
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
+        private int[] material_max = {2000, 2000, 1500, 1500, 1500, 1500, 1500, 1500, 300, 20};
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,6 +62,7 @@ public class MaterialDbAdapter {
                     values[i] = new ContentValues();
                     values[i].put(KEY_NAME, material_name[i]);
                     values[i].put(KEY_COUNT, 0);
+                    values[i].put(KEY_MAX, material_max[i]);
                     db.insert(DATABASE_TABLE, null, values[i]);
                 }
             } catch (Exception e) {
@@ -103,11 +106,11 @@ public class MaterialDbAdapter {
     }
 
     public Cursor fetchAllMaterial() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COUNT}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COUNT, KEY_MAX}, null, null, null, null, null);
     }
 
     public Cursor fetchMaterial(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COUNT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COUNT, KEY_MAX}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }

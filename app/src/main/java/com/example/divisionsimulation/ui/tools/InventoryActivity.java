@@ -78,7 +78,7 @@ public class InventoryActivity extends AppCompatActivity {
         title = getIntent().getStringExtra("type");
         itemList = new ArrayList<Item>();
         addArray();
-        setTitle(title+" 인벤토리 ("+itemList.size()+")");
+        setTitle(title+" ("+itemList.size()+")");
         itemAdapter = new ItemAdapter(this, itemList);
         listItem.setAdapter(itemAdapter);
 
@@ -151,7 +151,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 int random_select;
                                 if (exotic) {
                                     material[9]++;
-                                    if (material[9] >= 20) material[8] = 20;
+                                    if (material[9] >= 20) material[9] = 20;
                                     materialDbAdapter.open();
                                     materialDbAdapter.updateMaterial(material_name[9], material[9]);
                                     materialDbAdapter.close();
@@ -970,6 +970,7 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         addArray();
+        setTitle(title+" 인벤토리 ("+itemList.size()+")");
         itemAdapter.notifyDataSetChanged();
     }
 

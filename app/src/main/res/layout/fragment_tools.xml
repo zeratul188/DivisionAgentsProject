@@ -162,6 +162,16 @@
                     </TableRow>
                 </TableLayout>
                 <Button
+                    android:id="@+id/btnMaterialList"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="재료 확인"
+                    android:background="@drawable/buttoncustom"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#f0f0f0"/>
+                <Button
                     android:id="@+id/btnReset"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -169,7 +179,7 @@
                     android:background="@drawable/buttoncustom"
                     android:textSize="18sp"
                     android:padding="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="#f0f0f0"/>
             </LinearLayout>
 

@@ -16,4 +16,9 @@
         android:orderInCategory="100"
         android:title="목표 타이머"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu3"
+        android:orderInCategory="100"
+        android:title="보정 라이브러리"
+        app:showAsAction="never" />
 </menu>
