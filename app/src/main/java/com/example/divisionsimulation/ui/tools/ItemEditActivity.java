@@ -136,7 +136,7 @@ public class ItemEditActivity extends AppCompatActivity {
                 talentItems.add(cursor.getString(1));
                 cursor.moveToNext();
             }
-            editAdapter = new EditAdapter(this, null, talentItems, true);
+            editAdapter = new EditAdapter(this, null, talentItems, true, option_type, type);
             listView.setAdapter(editAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -244,7 +244,7 @@ public class ItemEditActivity extends AppCompatActivity {
                 cursor.moveToNext();
             }
             libraryDBAdapter.close();
-            editAdapter = new EditAdapter(this, editItems, null, false);
+            editAdapter = new EditAdapter(this, editItems, null, false, option_type, type);
             listView.setAdapter(editAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -419,44 +419,80 @@ public class ItemEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (!talented) {
+                            double max;
                             libraryDBAdapter.open();
+                            maxDBAdapter.open();
                             switch (option_type) {
                                 case "weapon_core1":
-                                    libraryDBAdapter.updateTypeData("무기", "무기군 기본 데미지", Double.toString(value));
+                                    cursor = maxDBAdapter.fetchTypeData("무기");
+                                    max = Double.parseDouble(cursor.getString(2));
+                                    if (value > max) libraryDBAdapter.updateTypeData("무기", "무기군 기본 데미지", Double.toString(value));
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     break;
                                 case "weapon_core2":
-                                    libraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                    cursor = maxDBAdapter.fetchTypeData(type);
+                                    max = Double.parseDouble(cursor.getString(2));
+                                    if (value > max) libraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     break;
                                 case "weapon_sub":
-                                    libraryDBAdapter.updateSubData(name, Double.toString(value));
+                                    cursor = maxDBAdapter.fetchSubData(name);
+                                    max = Double.parseDouble(cursor.getString(2));
+                                    if (value > max) libraryDBAdapter.updateSubData(name, Double.toString(value));
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     break;
                                 case "sheld_core":
-                                    libraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                    cursor = maxDBAdapter.fetchSheldCoreData(name);
+                                    max = Double.parseDouble(cursor.getString(2));
+                                    if (value > max) libraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     break;
                                 case "sheld_sub1":
                                 case "sheld_sub2":
-                                    libraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                    cursor = maxDBAdapter.fetchSheldSubData(name);
+                                    max = Double.parseDouble(cursor.getString(2));
+                                    if (value > max) libraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                    else {
+                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     break;
-                                default:
-                                    libraryDBAdapter.updateTypeData("무기", name, Double.toString(value));
                             }
+                            maxDBAdapter.close();
                             libraryDBAdapter.close();
                         } else {
-                            talentDBAdapter.open();
-                            cursor = talentDBAdapter.fetchData(name);
-                            int ar = cursor.getInt(2);
-                            int sr = cursor.getInt(3);
-                            int br = cursor.getInt(4);
-                            int rf = cursor.getInt(5);
-                            int mmr = cursor.getInt(6);
-                            int sg = cursor.getInt(7);
-                            int pt = cursor.getInt(8);
-                            int vest = cursor.getInt(9);
-                            int backpack = cursor.getInt(10);
-                            talentDBAdapter.close();
                             talentLibraryDBAdapter.open();
-                            talentLibraryDBAdapter.insertData(name, ar, sr, br, rf, mmr, sg, pt, vest, backpack);
-                            talentLibraryDBAdapter.close();
+                            if (talentLibraryDBAdapter.haveTalent(name)) {
+                                Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                talentDBAdapter.open();
+                                cursor = talentDBAdapter.fetchData(name);
+                                int ar = cursor.getInt(2);
+                                int sr = cursor.getInt(3);
+                                int br = cursor.getInt(4);
+                                int rf = cursor.getInt(5);
+                                int mmr = cursor.getInt(6);
+                                int sg = cursor.getInt(7);
+                                int pt = cursor.getInt(8);
+                                int vest = cursor.getInt(9);
+                                int backpack = cursor.getInt(10);
+                                talentDBAdapter.close();
+                                talentLibraryDBAdapter.insertData(name, ar, sr, br, rf, mmr, sg, pt, vest, backpack);
+                                talentLibraryDBAdapter.close();
+                            }
                         }
                         inventoryDBAdapter.open();
                         inventoryDBAdapter.deleteData(rowID);

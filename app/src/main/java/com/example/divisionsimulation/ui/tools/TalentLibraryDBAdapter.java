@@ -113,6 +113,12 @@ public class TalentLibraryDBAdapter {
         return cursor;
     }
 
+    public boolean haveTalent(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getCount() > 0;
+    }
+
     public Cursor fetchTypeData(String type) throws SQLException {
         Cursor cursor;
         if (type.equals("돌격소총")) cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_AR, KEY_SR, KEY_BR, KEY_RF, KEY_MMR, KEY_SG, KEY_PT, KEY_VEST, KEY_BACKPACK}, KEY_AR+"="+1, null, null, null, null, null);

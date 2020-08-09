@@ -194,7 +194,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
                                 inventoryDBAdapter.close();
                                 addArray();
-                                setTitle(title+" 인벤토리 ("+itemList.size()+")");
+                                setTitle(title+" ("+itemList.size()+")");
                                 itemAdapter.notifyDataSetChanged();
                                 alertDialog.dismiss();
                             }
@@ -227,7 +227,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
                                 inventoryDBAdapter.close();
                                 addArray();
-                                setTitle(title+" 인벤토리 ("+itemList.size()+")");
+                                setTitle(title+" ("+itemList.size()+")");
                                 itemAdapter.notifyDataSetChanged();
                                 alertDialog.dismiss();
                             }
@@ -1002,7 +1002,7 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         addArray();
-        setTitle(title+" 인벤토리 ("+itemList.size()+")");
+        setTitle(title+" ("+itemList.size()+")");
         itemAdapter.notifyDataSetChanged();
     }
 
