@@ -706,6 +706,8 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getSub1_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "sheld_sub1");
+                                intent.putExtra("sheld_sub", true);
+                                intent.putExtra("other_name", itemList.get(index).getSub2());
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -732,6 +734,8 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getSub2_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "sheld_sub2");
+                                intent.putExtra("sheld_sub", true);
+                                intent.putExtra("other_name", itemList.get(index).getSub1());
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);

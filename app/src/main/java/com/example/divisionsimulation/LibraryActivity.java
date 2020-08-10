@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,12 +17,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.ui.tools.EditItem;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
+
+import java.util.ArrayList;
 
 public class LibraryActivity extends AppCompatActivity {
     private Button btnReset, btnMax;
     private Cursor cursor;
+    private ListView listView;
+    private RadioGroup rgType, rgWeapon;
+    private RadioButton[] rdoType = new RadioButton[8];
+    private RadioButton[] rdoWeapon = new RadioButton[6];
+
+    private String[] weapon_types = {"돌격소총", "기관단총", "경기관총", "소총", "지정사수소총", "산탄총"};
+
+    private ArrayList<LibraryItem> libraryItems;
+    private ArrayList<String> talentItems;
+    private LibraryAdapter libraryAdapter;
 
     private LibraryDBAdapter libraryDBAdapter;
     private TalentLibraryDBAdapter talentLibraryDBAdapter;
@@ -43,6 +59,142 @@ public class LibraryActivity extends AppCompatActivity {
 
         btnReset = findViewById(R.id.btnReset);
         btnMax = findViewById(R.id.btnMax);
+        listView = findViewById(R.id.listView);
+        rgType = findViewById(R.id.rgType);
+        rgWeapon = findViewById(R.id.rgWeapon);
+
+        int resource;
+        for (int i = 0; i < rdoType.length; i++) {
+            resource = getResources().getIdentifier("rdoType"+(i+1), "id", getPackageName());
+            rdoType[i] = findViewById(resource);
+        }
+        for (int i = 0; i < rdoWeapon.length; i++) {
+            resource = getResources().getIdentifier("rdoWeapon"+(i+1), "id", getPackageName());
+            rdoWeapon[i] = findViewById(resource);
+        }
+
+        libraryItems = new ArrayList<LibraryItem>();
+        talentItems = new ArrayList<String>();
+
+        libraryDBAdapter.open();
+        cursor = libraryDBAdapter.fetchTypeData("무기");
+        while (!cursor.isAfterLast()) {
+            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+            libraryItems.add(item);
+            cursor.moveToNext();
+        }
+        libraryDBAdapter.close();
+
+        libraryAdapter = new LibraryAdapter(this, libraryItems, null, false, "weapon_core1");
+        listView.setAdapter(libraryAdapter);
+
+        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                libraryItems.clear();
+                talentItems.clear();
+                libraryDBAdapter.open();
+                talentDBAdapter.open();
+                rgWeapon.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.rdoType1:
+                        cursor = libraryDBAdapter.fetchTypeData("무기");
+                        while (!cursor.isAfterLast()) {
+                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                            libraryItems.add(item);
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core1");
+                        break;
+                    case R.id.rdoType2:
+                        for (int i = 0; i < weapon_types.length; i++) {
+                            cursor = libraryDBAdapter.fetchTypeData(weapon_types[i]);
+                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                            item.setWeaponType(weapon_types[i]);
+                            libraryItems.add(item);
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core2");
+                        break;
+                    case R.id.rdoType3:
+                        cursor = libraryDBAdapter.fetchSubAllData();
+                        while (!cursor.isAfterLast()) {
+                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                            libraryItems.add(item);
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_sub");
+                        break;
+                    case R.id.rdoType4:
+                        cursor = libraryDBAdapter.fetchSheldCoreAllData();
+                        while (!cursor.isAfterLast()) {
+                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                            libraryItems.add(item);
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_core");
+                        break;
+                    case R.id.rdoType5:
+                        cursor = libraryDBAdapter.fetchSheldSubAllData();
+                        while (!cursor.isAfterLast()) {
+                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                            libraryItems.add(item);
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_sub");
+                        break;
+                    case R.id.rdoType6:
+                        rgWeapon.setVisibility(View.VISIBLE);
+                        cursor = talentDBAdapter.fetchTypeData(weapon_types[0]);
+                        while (!cursor.isAfterLast()) {
+                            talentItems.add(cursor.getString(1));
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        break;
+                    case R.id.rdoType7:
+                        cursor = talentDBAdapter.fetchTypeData("조끼");
+                        while (!cursor.isAfterLast()) {
+                            talentItems.add(cursor.getString(1));
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        break;
+                    case R.id.rdoType8:
+                        cursor = talentDBAdapter.fetchTypeData("백팩");
+                        while (!cursor.isAfterLast()) {
+                            talentItems.add(cursor.getString(1));
+                            cursor.moveToNext();
+                        }
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        break;
+                }
+                listView.setAdapter(libraryAdapter);
+                libraryAdapter.notifyDataSetChanged();
+                talentDBAdapter.close();
+                libraryDBAdapter.close();
+            }
+        });
+
+        rgWeapon.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                talentItems.clear();
+                talentDBAdapter.open();
+                for (int i = 0; i < rdoWeapon.length; i++) {
+                    if (rdoWeapon[i].isChecked()) {
+                        cursor = talentDBAdapter.fetchTypeData(weapon_types[i]);
+                    }
+                }
+                while (!cursor.isAfterLast()) {
+                    talentItems.add(cursor.getString(1));
+                    cursor.moveToNext();
+                }
+                talentDBAdapter.close();
+                libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                listView.setAdapter(libraryAdapter);
+                libraryAdapter.notifyDataSetChanged();
+            }
+        });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

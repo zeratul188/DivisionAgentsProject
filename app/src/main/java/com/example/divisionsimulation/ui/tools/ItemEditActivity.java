@@ -41,8 +41,8 @@ public class ItemEditActivity extends AppCompatActivity {
     private Button btnRessetting, btnCancel, btnEdit;
 
     private EditAdapter editAdapter;
-    private boolean exoticed = false, talented = false, edit_possible = false;
-    private String name, type, option_type;
+    private boolean exoticed = false, talented = false, edit_possible = false, sheld_sub = false;
+    private String name, type, option_type, other_name = "";
     private double value;
     private long rowID;
     private Cursor cursor;
@@ -61,6 +61,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private String[] weaponList = {"돌격소총", "소총", "지정사수소총", "산탄총", "기관단총", "경기관총", "권총"};
     private boolean weaponed = false;
+    private String remove_option = "";
 
     private ArrayList<MaterialItem> materialList;
 
@@ -92,9 +93,14 @@ public class ItemEditActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         type = getIntent().getStringExtra("type");
         rowID = getIntent().getLongExtra("itemID", 9999);
+        sheld_sub = getIntent().getBooleanExtra("sheld_sub", false);
+
         if (!talented) {
             value = getIntent().getDoubleExtra("value", 0);
             option_type = getIntent().getStringExtra("option_type");
+            if (sheld_sub) {
+                other_name = getIntent().getStringExtra("other_name");
+            }
         }
 
         editItems = new ArrayList<EditItem>();
@@ -236,6 +242,12 @@ public class ItemEditActivity extends AppCompatActivity {
                     cursor = libraryDBAdapter.fetchTypeData(type);
                     break;
                 case "weapon_sub":
+                    if (!type.equals("권총")) {
+                        cursor = libraryDBAdapter.fetchTypeData(type);
+                        remove_option = cursor.getString(1);
+                    } else {
+                        remove_option = "";
+                    }
                     cursor = libraryDBAdapter.fetchTypeData("무기 부속성");
                     break;
                 case "sheld_core":
@@ -243,12 +255,15 @@ public class ItemEditActivity extends AppCompatActivity {
                     break;
                 case "sheld_sub1":
                 case "sheld_sub2":
+                    remove_option = other_name;
                     cursor = libraryDBAdapter.fetchTypeData("보호장구 부속성");
                     break;
             }
             while (!cursor.isAfterLast()) {
-                EditItem item = new EditItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
-                editItems.add(item);
+                if (!cursor.getString(1).equals(remove_option)) {
+                    EditItem item = new EditItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    editItems.add(item);
+                }
                 cursor.moveToNext();
             }
             libraryDBAdapter.close();
@@ -754,7 +769,7 @@ public class ItemEditActivity extends AppCompatActivity {
         switch (type) {
             case "마스크":
             case "조끼":
-            case "권총집":
+            case "백팩":
                 return true;
         }
         return false;
@@ -762,7 +777,7 @@ public class ItemEditActivity extends AppCompatActivity {
 
     private boolean isSheldBType(String type) {
         switch (type) {
-            case "백팩":
+            case "권총집":
             case "장갑":
             case "무릎보호대":
                 return true;
