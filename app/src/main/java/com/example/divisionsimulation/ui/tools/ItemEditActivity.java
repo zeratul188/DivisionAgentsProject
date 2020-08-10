@@ -33,8 +33,8 @@ import java.util.ArrayList;
 
 public class ItemEditActivity extends AppCompatActivity {
 
-    private LinearLayout layoutWeapon, layoutSheld;
-    private TextView txtWeaponOption, txtSheldOption, txtTalent;
+    private LinearLayout layoutWeapon, layoutSheld, layoutTalentCount;
+    private TextView txtWeaponOption, txtSheldOption, txtTalent, txtLibraryTalentCount, txtTalentMaxCount;
     private ProgressBar progressWeaponOption, progressSheldOption;
     private ImageView imgSheldOption;
     private ListView listView;
@@ -83,6 +83,9 @@ public class ItemEditActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
         listView = findViewById(R.id.listView);
         txtTalent = findViewById(R.id.txtTalent);
+        layoutTalentCount = findViewById(R.id.layoutTalentCount);
+        txtLibraryTalentCount = findViewById(R.id.txtLibraryTalentCount);
+        txtTalentMaxCount = findViewById(R.id.txtTalentMaxCount);
 
         exoticed = getIntent().getBooleanExtra("exoticed", false);
         talented = getIntent().getBooleanExtra("talented", false);
@@ -126,10 +129,15 @@ public class ItemEditActivity extends AppCompatActivity {
             btnRessetting.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.GONE);
         } else if (talented) {
+            layoutTalentCount.setVisibility(View.VISIBLE);
             txtTalent.setVisibility(View.VISIBLE);
             txtTalent.setText(name);
             listView.setVisibility(View.VISIBLE);
+            talentDBAdapter.open();
+            txtTalentMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(type)));
+            talentDBAdapter.close();
             talentLibraryDBAdapter.open();
+            txtLibraryTalentCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount(type)));
             cursor = talentLibraryDBAdapter.fetchTypeData(type);
             talentLibraryDBAdapter.close();
             while (!cursor.isAfterLast()) {

@@ -221,6 +221,23 @@ public class MaxOptionsFMDBAdapter {
         return optionItems.get(index);
     }
 
+    public ArrayList<OptionItem> fetchOptionItemData(String type) {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<OptionItem> optionItems = new ArrayList<OptionItem>();
+        while (!cursor.isAfterLast()) {
+            String content = cursor.getString(1);
+            Double value = Double.parseDouble(cursor.getString(2));
+            String reter = cursor.getString(5);
+            String option = cursor.getString(4);
+            OptionItem item = new OptionItem(content, value, option, reter);
+            optionItems.add(item);
+            cursor.moveToNext();
+        }
+        int index = percent(0, optionItems.size());
+        return optionItems;
+    }
+
     public int getCount() {
         Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+";", null);
         int count = 0;

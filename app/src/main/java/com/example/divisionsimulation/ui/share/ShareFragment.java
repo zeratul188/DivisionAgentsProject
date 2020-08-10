@@ -1823,10 +1823,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -1871,6 +1868,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -1982,7 +1987,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -2013,7 +2023,15 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        
+                        //OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                        
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -2122,7 +2140,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -2152,11 +2175,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -2206,10 +2234,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -2245,9 +2270,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -2324,7 +2357,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -2354,7 +2392,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -2725,10 +2768,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -2773,6 +2813,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -2884,7 +2932,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -2915,7 +2968,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -3024,7 +3082,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -3054,11 +3117,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                             imgSSub2.setImageResource(R.drawable.attack);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -3108,10 +3176,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -3147,9 +3212,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -3226,7 +3299,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -3256,7 +3334,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -3627,10 +3710,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -3675,6 +3755,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -3786,7 +3874,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -3817,7 +3910,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -3926,7 +4024,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -3956,11 +4059,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                             imgSSub2.setImageResource(R.drawable.attack);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -4010,10 +4118,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -4049,9 +4154,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -4128,7 +4241,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -4158,7 +4276,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -4385,10 +4508,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -4433,6 +4553,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -4544,7 +4672,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -4575,7 +4708,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -4684,7 +4822,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -4714,11 +4857,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -4768,10 +4916,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -4807,9 +4952,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -4886,7 +5039,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -4916,7 +5074,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -5292,10 +5455,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 4+max) temp_percent = 100;
@@ -5340,6 +5500,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -5451,7 +5619,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -5482,7 +5655,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -5591,7 +5769,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -5621,11 +5804,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -5675,10 +5863,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 4+max) temp_percent = 100;
@@ -5714,9 +5899,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 4+max) temp_percent = 100;
@@ -5793,7 +5986,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -5823,7 +6021,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -6199,10 +6402,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -6247,6 +6447,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -6358,7 +6566,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -6389,7 +6602,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -6498,7 +6716,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -6528,11 +6751,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -6582,10 +6810,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -6621,9 +6846,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -6700,7 +6933,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -6730,7 +6968,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -7106,10 +7349,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -7154,6 +7394,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -7265,7 +7513,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -7296,7 +7549,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -7405,7 +7663,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -7435,11 +7698,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -7489,10 +7757,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -7528,9 +7793,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -7607,7 +7880,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -7637,7 +7915,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -7932,10 +8215,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -7980,6 +8260,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -8092,7 +8380,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -8123,7 +8416,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -8232,7 +8530,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -8262,11 +8565,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -8316,10 +8624,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -8355,9 +8660,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -8434,7 +8747,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -8464,7 +8782,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -8838,10 +9161,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -8886,6 +9206,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -8997,7 +9325,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -9028,7 +9361,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -9137,7 +9475,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -9167,11 +9510,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -9221,10 +9569,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -9260,9 +9605,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -9339,7 +9692,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -9369,7 +9727,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -9735,10 +10098,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -9783,6 +10143,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -9894,7 +10262,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -9925,7 +10298,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -10034,7 +10412,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -10064,11 +10447,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -10118,10 +10506,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -10157,9 +10542,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -10236,7 +10629,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -10266,7 +10664,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -10643,10 +11046,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -10691,6 +11091,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -10802,7 +11210,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -10833,7 +11246,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -10942,7 +11360,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -10972,11 +11395,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                                 imgSSub2.setImageResource(R.drawable.attack);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -11026,10 +11454,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -11065,9 +11490,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -11144,7 +11577,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -11174,7 +11612,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -11410,10 +11853,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -11458,6 +11898,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -11569,7 +12017,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -11600,7 +12053,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -11709,7 +12167,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -11739,11 +12202,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                             imgSSub2.setImageResource(R.drawable.attack);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -11793,10 +12261,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -11832,9 +12297,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -11911,7 +12384,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -11941,7 +12419,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -12317,10 +12800,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -12365,6 +12845,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -12476,7 +12964,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -12507,7 +13000,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -12616,7 +13114,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -12646,11 +13149,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                             imgSSub2.setImageResource(R.drawable.attack);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -12700,10 +13208,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -12739,9 +13244,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -12818,7 +13331,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -12848,7 +13366,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
@@ -13084,10 +13607,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                        item_sub1 = option_item.getContent();
-                        max_sub1 = option_item.getValue();
-                        tail_sub1 = option_item.getReter();
+                        
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -13132,6 +13652,14 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -13243,7 +13771,12 @@ public class ShareFragment extends Fragment {
                         } else {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -13274,7 +13807,12 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub2 = optionItem.getContent();
                         max_sub2 = optionItem.getValue();
@@ -13383,7 +13921,12 @@ public class ShareFragment extends Fragment {
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                         maxoptionDBAdapter.open();
-                        OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                         maxoptionDBAdapter.close();
                         item_sub1 = optionItem.getContent();
                         max_sub1 = optionItem.getValue();
@@ -13413,11 +13956,16 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                        optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
-                        maxoptionDBAdapter.close();
-                        item_sub2 = optionItem.getContent();
-                        max_sub2 = optionItem.getValue();
-                        tail_sub2 = optionItem.getReter();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
                             imgSSub2.setImageResource(R.drawable.attack);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
@@ -13467,10 +14015,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            OptionItem option_item = maxoptionDBAdapter.fetchRandomData("무기 부속성");
-                            item_sub1 = option_item.getContent();
-                            max_sub1 = option_item.getValue();
-                            tail_sub1 = option_item.getReter();
+                            
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -13506,9 +14051,17 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
-                            max_sub1 = Double.parseDouble(cursor.getString(2));
-                            tail_sub1 = cursor.getString(5);
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -13585,7 +14138,12 @@ public class ShareFragment extends Fragment {
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
-                            OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -13615,7 +14173,12 @@ public class ShareFragment extends Fragment {
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
-                            optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub2 = optionItem.getContent();
                             max_sub2 = optionItem.getValue();
