@@ -94,7 +94,7 @@ public class LibraryActivity extends AppCompatActivity {
                 libraryItems.clear();
                 talentItems.clear();
                 libraryDBAdapter.open();
-                talentDBAdapter.open();
+                talentLibraryDBAdapter.open();
                 rgWeapon.setVisibility(View.GONE);
                 switch (checkedId) {
                     case R.id.rdoType1:
@@ -144,7 +144,11 @@ public class LibraryActivity extends AppCompatActivity {
                         break;
                     case R.id.rdoType6:
                         rgWeapon.setVisibility(View.VISIBLE);
-                        cursor = talentDBAdapter.fetchTypeData(weapon_types[0]);
+                        talentLibraryDBAdapter.close();
+                        rdoWeapon[0].setChecked(true);
+                        talentItems.clear();
+                        talentLibraryDBAdapter.open();
+                        cursor = talentLibraryDBAdapter.fetchTypeData(weapon_types[0]);
                         while (!cursor.isAfterLast()) {
                             talentItems.add(cursor.getString(1));
                             cursor.moveToNext();
@@ -152,7 +156,7 @@ public class LibraryActivity extends AppCompatActivity {
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
                         break;
                     case R.id.rdoType7:
-                        cursor = talentDBAdapter.fetchTypeData("조끼");
+                        cursor = talentLibraryDBAdapter.fetchTypeData("조끼");
                         while (!cursor.isAfterLast()) {
                             talentItems.add(cursor.getString(1));
                             cursor.moveToNext();
@@ -160,7 +164,7 @@ public class LibraryActivity extends AppCompatActivity {
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
                         break;
                     case R.id.rdoType8:
-                        cursor = talentDBAdapter.fetchTypeData("백팩");
+                        cursor = talentLibraryDBAdapter.fetchTypeData("백팩");
                         while (!cursor.isAfterLast()) {
                             talentItems.add(cursor.getString(1));
                             cursor.moveToNext();
@@ -170,7 +174,7 @@ public class LibraryActivity extends AppCompatActivity {
                 }
                 listView.setAdapter(libraryAdapter);
                 libraryAdapter.notifyDataSetChanged();
-                talentDBAdapter.close();
+                talentLibraryDBAdapter.close();
                 libraryDBAdapter.close();
             }
         });
@@ -179,17 +183,17 @@ public class LibraryActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 talentItems.clear();
-                talentDBAdapter.open();
+                talentLibraryDBAdapter.open();
                 for (int i = 0; i < rdoWeapon.length; i++) {
                     if (rdoWeapon[i].isChecked()) {
-                        cursor = talentDBAdapter.fetchTypeData(weapon_types[i]);
+                        cursor = talentLibraryDBAdapter.fetchTypeData(weapon_types[i]);
                     }
                 }
                 while (!cursor.isAfterLast()) {
                     talentItems.add(cursor.getString(1));
                     cursor.moveToNext();
                 }
-                talentDBAdapter.close();
+                talentLibraryDBAdapter.close();
                 libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
                 listView.setAdapter(libraryAdapter);
                 libraryAdapter.notifyDataSetChanged();
@@ -206,6 +210,8 @@ public class LibraryActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         resetData();
+                        rgRefresh();
+                        libraryAdapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "모든 보정 라이브러리가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -232,9 +238,9 @@ public class LibraryActivity extends AppCompatActivity {
                         cursor = maxOptionsDBAdapter.fetchAllData();
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast()) {
-                            String content = cursor.getString(1);
+                            long rowID = cursor.getLong(0);
                             String max = cursor.getString(2);
-                            libraryDBAdapter.updateContentData(content, max);
+                            libraryDBAdapter.updateIDData(rowID, max);
                             cursor.moveToNext();
                         }
                         libraryDBAdapter.close();
@@ -259,6 +265,8 @@ public class LibraryActivity extends AppCompatActivity {
                         }
                         talentLibraryDBAdapter.close();
                         talentDBAdapter.close();
+                        rgRefresh();
+                        libraryAdapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "모든 보정 옵션을 최대치로 설정하였습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -269,6 +277,93 @@ public class LibraryActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+    }
+
+    private void rgRefresh() {
+        libraryItems.clear();
+        talentItems.clear();
+        libraryDBAdapter.open();
+        talentLibraryDBAdapter.open();
+        switch (rgType.getCheckedRadioButtonId()) {
+            case R.id.rdoType1:
+                cursor = libraryDBAdapter.fetchTypeData("무기");
+                while (!cursor.isAfterLast()) {
+                    LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    libraryItems.add(item);
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType2:
+                for (int i = 0; i < weapon_types.length; i++) {
+                    cursor = libraryDBAdapter.fetchTypeData(weapon_types[i]);
+                    LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    item.setWeaponType(weapon_types[i]);
+                    libraryItems.add(item);
+                }
+                break;
+            case R.id.rdoType3:
+                cursor = libraryDBAdapter.fetchSubAllData();
+                while (!cursor.isAfterLast()) {
+                    LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    libraryItems.add(item);
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType4:
+                cursor = libraryDBAdapter.fetchSheldCoreAllData();
+                while (!cursor.isAfterLast()) {
+                    LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    libraryItems.add(item);
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType5:
+                cursor = libraryDBAdapter.fetchSheldSubAllData();
+                while (!cursor.isAfterLast()) {
+                    LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                    libraryItems.add(item);
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType6:
+                rgWeapon.setVisibility(View.VISIBLE);
+                talentLibraryDBAdapter.close();
+                rdoWeapon[0].setChecked(true);
+                talentItems.clear();
+                talentLibraryDBAdapter.open();
+                cursor = talentLibraryDBAdapter.fetchTypeData(weapon_types[0]);
+                while (!cursor.isAfterLast()) {
+                    talentItems.add(cursor.getString(1));
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType7:
+                cursor = talentLibraryDBAdapter.fetchTypeData("조끼");
+                while (!cursor.isAfterLast()) {
+                    talentItems.add(cursor.getString(1));
+                    cursor.moveToNext();
+                }
+                break;
+            case R.id.rdoType8:
+                cursor = talentLibraryDBAdapter.fetchTypeData("백팩");
+                while (!cursor.isAfterLast()) {
+                    talentItems.add(cursor.getString(1));
+                    cursor.moveToNext();
+                }
+                break;
+        }
+        libraryDBAdapter.close();
+        talentItems.clear();
+        for (int i = 0; i < rdoWeapon.length; i++) {
+            if (rdoWeapon[i].isChecked()) {
+                cursor = talentLibraryDBAdapter.fetchTypeData(weapon_types[i]);
+            }
+        }
+        while (!cursor.isAfterLast()) {
+            talentItems.add(cursor.getString(1));
+            cursor.moveToNext();
+        }
+        talentLibraryDBAdapter.close();
     }
 
     private void resetData() {

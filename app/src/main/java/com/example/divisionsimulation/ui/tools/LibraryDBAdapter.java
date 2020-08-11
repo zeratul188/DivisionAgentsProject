@@ -286,6 +286,12 @@ public class LibraryDBAdapter {
         return sqlDB.update(DATABASE_TABLE, values, KEY_CONTENT+"='"+undo_content+"'", null) > 0;
     }
 
+    public boolean updateIDData(long rowID, String max) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_MAX, max);
+        return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
+    }
+
     public boolean resetAllData() {
         ContentValues values = new ContentValues();
         values.put(KEY_MAX, "0");
