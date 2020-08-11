@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,6 +32,8 @@ public class LibraryActivity extends AppCompatActivity {
     private RadioGroup rgType, rgWeapon;
     private RadioButton[] rdoType = new RadioButton[8];
     private RadioButton[] rdoWeapon = new RadioButton[6];
+    private LinearLayout layoutCount;
+    private TextView txtCount, txtMaxCount;
 
     private String[] weapon_types = {"돌격소총", "기관단총", "경기관총", "소총", "지정사수소총", "산탄총"};
 
@@ -62,6 +66,10 @@ public class LibraryActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         rgType = findViewById(R.id.rgType);
         rgWeapon = findViewById(R.id.rgWeapon);
+
+        layoutCount = findViewById(R.id.layoutCount);
+        txtCount = findViewById(R.id.txtCount);
+        txtMaxCount = findViewById(R.id.txtMaxCount);
 
         int resource;
         for (int i = 0; i < rdoType.length; i++) {
@@ -96,6 +104,7 @@ public class LibraryActivity extends AppCompatActivity {
                 libraryDBAdapter.open();
                 talentLibraryDBAdapter.open();
                 rgWeapon.setVisibility(View.GONE);
+                layoutCount.setVisibility(View.GONE);
                 switch (checkedId) {
                     case R.id.rdoType1:
                         cursor = libraryDBAdapter.fetchTypeData("무기");
@@ -144,6 +153,7 @@ public class LibraryActivity extends AppCompatActivity {
                         break;
                     case R.id.rdoType6:
                         rgWeapon.setVisibility(View.VISIBLE);
+                        layoutCount.setVisibility(View.VISIBLE);
                         talentLibraryDBAdapter.close();
                         rdoWeapon[0].setChecked(true);
                         talentItems.clear();
@@ -154,22 +164,36 @@ public class LibraryActivity extends AppCompatActivity {
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        txtCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount(weapon_types[0])));
+                        talentDBAdapter.open();
+                        txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(weapon_types[0])));
+                        talentDBAdapter.close();
                         break;
                     case R.id.rdoType7:
+                        layoutCount.setVisibility(View.VISIBLE);
                         cursor = talentLibraryDBAdapter.fetchTypeData("조끼");
                         while (!cursor.isAfterLast()) {
                             talentItems.add(cursor.getString(1));
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        txtCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount("조끼")));
+                        talentDBAdapter.open();
+                        txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount("조끼")));
+                        talentDBAdapter.close();
                         break;
                     case R.id.rdoType8:
+                        layoutCount.setVisibility(View.VISIBLE);
                         cursor = talentLibraryDBAdapter.fetchTypeData("백팩");
                         while (!cursor.isAfterLast()) {
                             talentItems.add(cursor.getString(1));
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
+                        txtCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount("백팩")));
+                        talentDBAdapter.open();
+                        txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount("백팩")));
+                        talentDBAdapter.close();
                         break;
                 }
                 listView.setAdapter(libraryAdapter);
@@ -187,6 +211,10 @@ public class LibraryActivity extends AppCompatActivity {
                 for (int i = 0; i < rdoWeapon.length; i++) {
                     if (rdoWeapon[i].isChecked()) {
                         cursor = talentLibraryDBAdapter.fetchTypeData(weapon_types[i]);
+                        txtCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount(weapon_types[i])));
+                        talentDBAdapter.open();
+                        txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(weapon_types[i])));
+                        talentDBAdapter.close();
                     }
                 }
                 while (!cursor.isAfterLast()) {
@@ -213,6 +241,7 @@ public class LibraryActivity extends AppCompatActivity {
                         rgRefresh();
                         libraryAdapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "모든 보정 라이브러리가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
+                        txtCount.setText("0");
                     }
                 });
                 builder.setNegativeButton("취소", null);
@@ -268,6 +297,7 @@ public class LibraryActivity extends AppCompatActivity {
                         rgRefresh();
                         libraryAdapter.notifyDataSetChanged();
                         Toast.makeText(getApplicationContext(), "모든 보정 옵션을 최대치로 설정하였습니다.", Toast.LENGTH_SHORT).show();
+                        txtCount.setText(txtMaxCount.getText());
                     }
                 });
                 builder.setNegativeButton("취소", null);

@@ -155,25 +155,93 @@ public class ItemEditActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
-                    builder.setTitle(talentItems.get(position));
+                    final View talent_view = getLayoutInflater().inflate(R.layout.edittalent, null);
+                    TextView[] txtMaterialName = new TextView[3];
+                    TextView[] txtMaterial = new TextView[3];
+                    TextView txtName = talent_view.findViewById(R.id.txtName);
+                    TextView txtContent = talent_view.findViewById(R.id.txtContent);
+
+                    txtName.setText(talentItems.get(position));
+
                     talentDBAdapter.open();
-                    cursor = talentDBAdapter.fetchData(talentItems.get(position));
-                    String content = cursor.getString(11);
+                    txtContent.setText(talentDBAdapter.findContent(talentItems.get(position)));
                     talentDBAdapter.close();
-                    builder.setMessage(content);
+
+                    int resource;
+                    for (int i = 0; i < txtMaterialName.length; i++) {
+                        resource = talent_view.getResources().getIdentifier("txtMaterialName"+(i+1), "id", getPackageName());
+                        txtMaterialName[i] = talent_view.findViewById(resource);
+                        resource = talent_view.getResources().getIdentifier("txtMaterial"+(i+1), "id", getPackageName());
+                        txtMaterial[i] = talent_view.findViewById(resource);
+                    }
+
+                    // first : 85, second : 61, third : 41
+                    String[] material_limit;
+                    if (isWeapon(type)) {
+                        material_limit = new String[]{"총몸부품", "강철", "탄소섬유"};
+                    } else if (isSheldAType(type)) {
+                        material_limit = new String[]{"보호용 옷감", "세라믹", "전자부품"};
+                    } else {
+                        material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄"};
+                    }
+
+                    edit_possible = true;
+                    int[] count = new int[3];
+                    for (int i = 0; i < material_limit.length; i++) {
+                        materialDbAdapter.open();
+                        cursor = materialDbAdapter.fetchMaterial(material_limit[i]);
+                        count[i] = cursor.getInt(2);
+                        materialDbAdapter.close();
+                        txtMaterialName[i].setText(material_limit[i]);
+                        txtMaterial[i].setText(Integer.toString(count[i]));
+                    }
+
+                    if (count[0] < 85) {
+                        txtMaterial[0].setTextColor(Color.parseColor("#f04d52"));
+                        edit_possible = false;
+                    }
+                    if (count[1] < 61) {
+                        txtMaterial[1].setTextColor(Color.parseColor("#f04d52"));
+                        edit_possible = false;
+                    }
+                    if (count[2] < 41) {
+                        txtMaterial[2].setTextColor(Color.parseColor("#f04d52"));
+                        edit_possible = false;
+                    }
+
+                    final String[] final_material_limit = material_limit;
+                    final int[] final_count = count;
+
+                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
+                    builder.setView(talent_view);
                     System.out.println(rowID);
                     final int index = position;
                     builder.setPositiveButton("보정", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(getApplicationContext(), name+"에서 "+talentItems.get(index)+"로 보정되었습니다.", Toast.LENGTH_SHORT).show();
-                            inventoryDBAdapter.open();
-                            inventoryDBAdapter.updateEditData(rowID, false, false, false, true);
-                            inventoryDBAdapter.updateTalentData(rowID, talentItems.get(index));
-                            inventoryDBAdapter.close();
-                            alertDialog.dismiss();
-                            finish();
+                            if (edit_possible) {
+                                if (name.equals(talentItems.get(position))) {
+                                    Toast.makeText(getApplicationContext(), "바꾸실 특수효과와 변경전 특수효과와 동일합니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    materialDbAdapter.open();
+                                    final_count[0] -= 85;
+                                    final_count[1] -= 61;
+                                    final_count[2] -= 41;
+                                    for (int i = 0; i < final_material_limit.length; i++) {
+                                        materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
+                                    }
+                                    materialDbAdapter.close();
+                                    Toast.makeText(getApplicationContext(), name+"에서 "+talentItems.get(index)+"로 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                                    inventoryDBAdapter.open();
+                                    inventoryDBAdapter.updateEditData(rowID, false, false, false, true);
+                                    inventoryDBAdapter.updateTalentData(rowID, talentItems.get(index));
+                                    inventoryDBAdapter.close();
+                                    alertDialog.dismiss();
+                                    finish();
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                     builder.setNegativeButton("취소", null);
