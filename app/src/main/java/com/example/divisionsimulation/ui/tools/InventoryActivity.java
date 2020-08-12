@@ -147,6 +147,7 @@ public class InventoryActivity extends AppCompatActivity {
                         destroy_builder.setPositiveButton("분해", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                resetMaterial();
                                 String str = String.valueOf(txtType.getText());
                                 String normal_str = "", rare_str = "", epic_str = "";
                                 int normal = 0, rare = 0, epic = 0;

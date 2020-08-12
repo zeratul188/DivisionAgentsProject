@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
-import com.example.divisionsimulation.ui.tools.EditItem;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
 
@@ -197,6 +197,26 @@ public class LibraryActivity extends AppCompatActivity {
                         break;
                 }
                 listView.setAdapter(libraryAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        for (int i = 5; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) {
+                                builder = new AlertDialog.Builder(LibraryActivity.this, R.style.MyAlertDialogStyle);
+                                builder.setTitle(talentItems.get(position));
+                                talentDBAdapter.open();
+                                String content = talentDBAdapter.findContent(talentItems.get(position));
+                                talentDBAdapter.close();
+                                builder.setMessage(content);
+                                builder.setPositiveButton("확인", null);
+
+                                alertDialog = builder.create();
+                                alertDialog.setCancelable(false);
+                                alertDialog.show();
+                            }
+                        }
+                    }
+                });
                 libraryAdapter.notifyDataSetChanged();
                 talentLibraryDBAdapter.close();
                 libraryDBAdapter.close();
@@ -224,6 +244,22 @@ public class LibraryActivity extends AppCompatActivity {
                 talentLibraryDBAdapter.close();
                 libraryAdapter = new LibraryAdapter(LibraryActivity.this, null, talentItems, true, "");
                 listView.setAdapter(libraryAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        builder = new AlertDialog.Builder(LibraryActivity.this, R.style.MyAlertDialogStyle);
+                        builder.setTitle(talentItems.get(position));
+                        talentDBAdapter.open();
+                        String content = talentDBAdapter.findContent(talentItems.get(position));
+                        talentDBAdapter.close();
+                        builder.setMessage(content);
+                        builder.setPositiveButton("확인", null);
+
+                        alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.show();
+                    }
+                });
                 libraryAdapter.notifyDataSetChanged();
             }
         });
