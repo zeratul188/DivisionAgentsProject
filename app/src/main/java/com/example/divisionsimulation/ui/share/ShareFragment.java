@@ -1974,15 +1974,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2001,15 +2001,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2040,15 +2040,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2154,15 +2154,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2189,15 +2189,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2371,15 +2371,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2406,15 +2406,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2919,15 +2919,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2946,15 +2946,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -2982,15 +2982,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -3096,15 +3096,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub1.setImageResource(R.drawable.attack);
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub1.setImageResource(R.drawable.sheld);
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub1.setImageResource(R.drawable.power);
+                            imgSSub1.setImageResource(R.drawable.power_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -3131,15 +3131,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -3313,15 +3313,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -3348,15 +3348,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -3861,15 +3861,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -3888,15 +3888,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -3924,15 +3924,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -4038,15 +4038,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub1.setImageResource(R.drawable.attack);
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub1.setImageResource(R.drawable.sheld);
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub1.setImageResource(R.drawable.power);
+                            imgSSub1.setImageResource(R.drawable.power_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -4073,15 +4073,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -4255,15 +4255,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4290,15 +4290,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4659,15 +4659,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4686,15 +4686,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4722,15 +4722,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4836,15 +4836,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -4871,15 +4871,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5053,15 +5053,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5088,15 +5088,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5606,15 +5606,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5633,15 +5633,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5669,15 +5669,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5783,15 +5783,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -5818,15 +5818,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6000,15 +6000,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6035,15 +6035,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6553,15 +6553,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6580,15 +6580,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6616,15 +6616,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6730,15 +6730,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6765,15 +6765,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6947,15 +6947,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -6982,15 +6982,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7500,15 +7500,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7527,15 +7527,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7563,15 +7563,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7677,15 +7677,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7712,15 +7712,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7894,15 +7894,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -7929,15 +7929,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8367,15 +8367,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8394,15 +8394,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8430,15 +8430,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8544,15 +8544,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8579,15 +8579,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8761,15 +8761,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -8796,15 +8796,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9312,15 +9312,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9339,15 +9339,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9375,15 +9375,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9489,15 +9489,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9524,15 +9524,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9706,15 +9706,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -9741,15 +9741,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10249,15 +10249,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10276,15 +10276,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10312,15 +10312,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10426,15 +10426,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10461,15 +10461,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10643,15 +10643,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -10678,15 +10678,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -11197,15 +11197,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11224,15 +11224,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11260,15 +11260,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11374,15 +11374,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11409,15 +11409,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11591,15 +11591,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -11626,15 +11626,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
                             
                             }
@@ -12004,15 +12004,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -12031,15 +12031,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -12067,15 +12067,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -12181,15 +12181,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub1.setImageResource(R.drawable.attack);
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub1.setImageResource(R.drawable.sheld);
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub1.setImageResource(R.drawable.power);
+                            imgSSub1.setImageResource(R.drawable.power_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -12216,15 +12216,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -12398,15 +12398,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -12433,15 +12433,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -12951,15 +12951,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -12978,15 +12978,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -13014,15 +13014,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -13128,15 +13128,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub1.setImageResource(R.drawable.attack);
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub1.setImageResource(R.drawable.sheld);
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub1.setImageResource(R.drawable.power);
+                            imgSSub1.setImageResource(R.drawable.power_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -13163,15 +13163,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -13345,15 +13345,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -13380,15 +13380,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -13758,15 +13758,15 @@ public class ShareFragment extends Fragment {
                             progressSSub1.setMax(100);
                             progressSSub1.setProgress(100);
                             if (item.getAsp().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (item.getAsp().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -13785,15 +13785,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -13821,15 +13821,15 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -13935,15 +13935,15 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub1.setImageResource(R.drawable.attack);
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub1.setImageResource(R.drawable.sheld);
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub1.setImageResource(R.drawable.power);
+                            imgSSub1.setImageResource(R.drawable.power_sub);
                             progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -13970,15 +13970,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                            imgSSub2.setImageResource(R.drawable.attack);
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                         } else if (optionItem.getOption().equals("방어")) {
-                            imgSSub2.setImageResource(R.drawable.sheld);
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                         } else {
-                            imgSSub2.setImageResource(R.drawable.power);
+                            imgSSub2.setImageResource(R.drawable.power_sub);
                             progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                         }
@@ -14152,15 +14152,15 @@ public class ShareFragment extends Fragment {
                             max_sub1 = optionItem.getValue();
                             tail_sub1 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }
@@ -14187,15 +14187,15 @@ public class ShareFragment extends Fragment {
                             max_sub2 = optionItem.getValue();
                             tail_sub2 = optionItem.getReter();
                             if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack);
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
                             } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld);
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
                             } else {
-                                imgSSub2.setImageResource(R.drawable.power);
+                                imgSSub2.setImageResource(R.drawable.power_sub);
                                 progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
                             }

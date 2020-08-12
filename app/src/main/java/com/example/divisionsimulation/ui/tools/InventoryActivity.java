@@ -448,15 +448,15 @@ public class InventoryActivity extends AppCompatActivity {
                         String asp = cursor.getString(9);
                         switch (asp) {
                             case "공격":
-                                imgSSub1.setImageResource(R.drawable.attack);
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
                                 progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
                                 break;
                             case "방어":
-                                imgSSub1.setImageResource(R.drawable.sheld);
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
                                 progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
                                 break;
                             case "다용도":
-                                imgSSub1.setImageResource(R.drawable.power);
+                                imgSSub1.setImageResource(R.drawable.power_sub);
                                 progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
                                 break;
                         }
@@ -478,7 +478,7 @@ public class InventoryActivity extends AppCompatActivity {
                         second_max = cursor.getDouble(2);
                         libraryDBAdapter.close();
                         progressSSub1.setSecondaryProgress((int)(second_max*10));
-                        setImageAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
+                        setImageSubAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
                     namedDBAdapter.close();
                     sheldDBAdapter.open();
@@ -501,7 +501,7 @@ public class InventoryActivity extends AppCompatActivity {
                         second_max = cursor.getDouble(2);
                         libraryDBAdapter.close();
                         progressSSub2.setSecondaryProgress((int)(second_max*10));
-                        setImageAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
+                        setImageSubAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
                     }
                     sheldDBAdapter.close();
                     switch (title) {
@@ -538,15 +538,15 @@ public class InventoryActivity extends AppCompatActivity {
                             String asp = cursor.getString(9);
                             switch (asp) {
                                 case "공격":
-                                    imgSSub3.setImageResource(R.drawable.attack);
+                                    imgSSub3.setImageResource(R.drawable.attack_sub);
                                     progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
                                     break;
                                 case "방어":
-                                    imgSSub3.setImageResource(R.drawable.sheld);
+                                    imgSSub3.setImageResource(R.drawable.sheld_sub);
                                     progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
                                     break;
                                 case "다용도":
-                                    imgSSub3.setImageResource(R.drawable.power);
+                                    imgSSub3.setImageResource(R.drawable.power_sub);
                                     progressSSub3.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
                                     break;
                             }
@@ -956,6 +956,29 @@ public class InventoryActivity extends AppCompatActivity {
         if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
         else textView.setTextColor(Color.parseColor("#aaaaaa"));
         namedDBAdapter.close();
+    }
+
+    private void setImageSubAttribute(ImageView imgView, ProgressBar progress, String content, boolean core) {
+        String str;
+        maxDBAdapter.open();
+        if (core) cursor = maxDBAdapter.fetchSheldCoreData(content);
+        else cursor = maxDBAdapter.fetchSheldSubData(content);
+        str = cursor.getString(4);
+        maxDBAdapter.close();
+        switch (str) {
+            case "공격":
+                imgView.setImageResource(R.drawable.attack_sub);
+                progress.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                break;
+            case "방어":
+                imgView.setImageResource(R.drawable.sheld_sub);
+                progress.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                break;
+            case "다용도":
+                imgView.setImageResource(R.drawable.power_sub);
+                progress.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                break;
+        }
     }
 
     private void setImageAttribute(ImageView imgView, ProgressBar progress, String content, boolean core) {

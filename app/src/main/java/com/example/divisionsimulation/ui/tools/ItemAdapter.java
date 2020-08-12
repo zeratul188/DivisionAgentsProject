@@ -132,7 +132,10 @@ public class ItemAdapter extends BaseAdapter {
             }
         }
         if (weaponed) {
-            for (int i = 0; i < imgAttribute.length; i++) imgAttribute[i].setImageResource(R.drawable.weaponicon);
+            for (int i = 0; i < imgAttribute.length; i++) {
+                if (i != 2) imgAttribute[i].setImageResource(R.drawable.weaponicon);
+                else imgAttribute[i].setImageResource(R.drawable.weaponsub);
+            }
             if (!itemList.get(position).getName().equals("보조 붐스틱")) {
                 cursor = maxDBAdapter.fetchTypeData("무기");
                 if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
@@ -181,13 +184,13 @@ public class ItemAdapter extends BaseAdapter {
                     asp = cursor.getString(9);
                     switch (asp) {
                         case "공격":
-                            imgAttribute[1].setImageResource(R.drawable.attack);
+                            imgAttribute[1].setImageResource(R.drawable.attack_sub);
                             break;
                         case "방어":
-                            imgAttribute[1].setImageResource(R.drawable.sheld);
+                            imgAttribute[1].setImageResource(R.drawable.sheld_sub);
                             break;
                         case "다용도":
-                            imgAttribute[1].setImageResource(R.drawable.power);
+                            imgAttribute[1].setImageResource(R.drawable.power_sub);
                             break;
                     }
                     imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
@@ -196,13 +199,13 @@ public class ItemAdapter extends BaseAdapter {
                     asp = cursor.getString(4);
                     switch (asp) {
                         case "공격":
-                            imgAttribute[1].setImageResource(R.drawable.attack);
+                            imgAttribute[1].setImageResource(R.drawable.attack_sub);
                             break;
                         case "방어":
-                            imgAttribute[1].setImageResource(R.drawable.sheld);
+                            imgAttribute[1].setImageResource(R.drawable.sheld_sub);
                             break;
                         case "다용도":
-                            imgAttribute[1].setImageResource(R.drawable.power);
+                            imgAttribute[1].setImageResource(R.drawable.power_sub);
                             break;
                     }
                     if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
@@ -216,13 +219,13 @@ public class ItemAdapter extends BaseAdapter {
                     asp = cursor.getString(4);
                     switch (asp) {
                         case "공격":
-                            imgAttribute[2].setImageResource(R.drawable.attack);
+                            imgAttribute[2].setImageResource(R.drawable.attack_sub);
                             break;
                         case "방어":
-                            imgAttribute[2].setImageResource(R.drawable.sheld);
+                            imgAttribute[2].setImageResource(R.drawable.sheld_sub);
                             break;
                         case "다용도":
-                            imgAttribute[2].setImageResource(R.drawable.power);
+                            imgAttribute[2].setImageResource(R.drawable.power_sub);
                             break;
                     }
                     if (itemList.get(position).getSub2_value() >= cursor.getDouble(2)) imgAttribute[2].setBackgroundResource(R.drawable.maxitembackground);
