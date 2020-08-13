@@ -1004,6 +1004,7 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void setImageAttribute(ImageView imgView, ProgressBar progress, String content, boolean core) {
         String str;
+        progress.setVisibility(View.VISIBLE);
         maxDBAdapter.open();
         if (core) cursor = maxDBAdapter.fetchSheldCoreData(content);
         else cursor = maxDBAdapter.fetchSheldSubData(content);
@@ -1020,7 +1021,8 @@ public class InventoryActivity extends AppCompatActivity {
                 break;
             case "다용도":
                 imgView.setImageResource(R.drawable.power);
-                progress.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                //progress.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                progress.setVisibility(View.GONE);
                 break;
         }
     }

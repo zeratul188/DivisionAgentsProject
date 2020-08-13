@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -359,6 +361,7 @@ public class ItemEditActivity extends AppCompatActivity {
             listView.setAdapter(editAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     final View seek_view = getLayoutInflater().inflate(R.layout.editseeker, null);
@@ -440,6 +443,11 @@ public class ItemEditActivity extends AppCompatActivity {
                     txtValue.setText(formatD(editItems.get(position).getMax()));
                     seekBar.setMax((int)(editItems.get(position).getMax()*10));
                     seekBar.setProgress((int)(editItems.get(position).getMax()*10));
+                    if (editItems.get(position).getName().equals("스킬 등급")) {
+                        seekBar.setMax(10);
+                        seekBar.setMin(10);
+                        seekBar.setProgress(10);
+                    }
                     txtEnd.setText(end);
 
                     changeThumb(seekBar, editItems.get(position).getName());

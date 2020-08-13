@@ -1939,15 +1939,16 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
-
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
                             item_core1 = "방어도";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -1955,7 +1956,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -2112,7 +2114,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -2120,7 +2123,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -2128,7 +2132,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -2329,7 +2334,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -2337,7 +2343,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -2345,7 +2352,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -2884,7 +2892,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -2892,7 +2901,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -2900,7 +2910,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -3054,7 +3065,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -3062,7 +3074,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -3070,7 +3083,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -3271,7 +3285,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -3279,7 +3294,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -3287,7 +3303,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -3826,7 +3843,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -3834,7 +3852,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -3842,7 +3861,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -3996,7 +4016,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -4004,7 +4025,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -4012,7 +4034,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -4213,7 +4236,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -4221,7 +4245,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -4229,7 +4254,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -4624,7 +4650,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -4632,7 +4659,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -4640,7 +4668,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -4794,7 +4823,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -4802,7 +4832,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -4810,7 +4841,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -5011,7 +5043,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -5019,7 +5052,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -5027,7 +5061,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -5571,7 +5606,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -5579,7 +5615,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -5587,7 +5624,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -5741,7 +5779,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -5749,7 +5788,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -5757,7 +5797,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -5958,7 +5999,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -5966,7 +6008,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -5974,7 +6017,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -6518,7 +6562,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -6526,7 +6571,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -6534,7 +6580,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -6688,7 +6735,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -6696,7 +6744,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -6704,7 +6753,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -6905,7 +6955,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -6913,7 +6964,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -6921,7 +6973,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -7465,7 +7518,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -7473,7 +7527,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -7481,7 +7536,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -7635,7 +7691,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -7643,7 +7700,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -7651,7 +7709,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -7852,7 +7911,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -7860,7 +7920,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -7868,7 +7929,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -8332,7 +8394,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -8340,7 +8403,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -8348,7 +8412,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -8502,7 +8567,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -8510,7 +8576,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -8518,7 +8585,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -8719,7 +8787,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -8727,7 +8796,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -8735,7 +8805,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -9277,7 +9348,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -9285,7 +9357,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -9293,7 +9366,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -9447,7 +9521,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -9455,7 +9530,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -9463,7 +9539,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -9664,7 +9741,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -9672,7 +9750,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -9680,7 +9759,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -10214,7 +10294,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -10222,7 +10303,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -10230,7 +10312,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -10384,7 +10467,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -10392,7 +10476,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -10400,7 +10485,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -10601,7 +10687,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -10609,7 +10696,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -10617,7 +10705,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -11162,7 +11251,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -11170,7 +11260,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -11178,7 +11269,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -11332,7 +11424,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -11340,7 +11433,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -11348,7 +11442,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -11549,7 +11644,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -11557,7 +11653,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -11565,7 +11662,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -11969,7 +12067,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -11977,7 +12076,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -11985,7 +12085,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -12139,7 +12240,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -12147,7 +12249,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -12155,7 +12258,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -12356,7 +12460,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -12364,7 +12469,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -12372,7 +12478,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -12916,7 +13023,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -12924,7 +13032,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -12932,7 +13041,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -13086,7 +13196,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -13094,7 +13205,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -13102,7 +13214,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -13303,7 +13416,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -13311,7 +13425,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -13319,7 +13434,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
@@ -13723,7 +13839,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -13731,7 +13848,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -13739,7 +13857,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -13893,7 +14012,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -13901,7 +14021,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -13909,7 +14030,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                         maxoptionDBAdapter.close();
@@ -14110,7 +14232,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -14118,7 +14241,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
@@ -14126,7 +14250,8 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.power);
-                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
 
                         }
                             maxoptionDBAdapter.close();
