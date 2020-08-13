@@ -1617,7 +1617,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
@@ -1747,7 +1747,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -1939,7 +1939,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
                         } else if (brandset.equals("방어")) {
                             cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
@@ -1947,7 +1947,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -1967,7 +1967,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -2114,7 +2114,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -2123,7 +2123,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -2143,7 +2143,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -2334,7 +2334,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -2343,7 +2343,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -2363,7 +2363,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -2569,7 +2569,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
@@ -2700,7 +2700,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -2892,7 +2892,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -2901,7 +2901,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -2921,7 +2921,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -3065,7 +3065,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -3074,7 +3074,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -3094,7 +3094,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -3285,7 +3285,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -3294,7 +3294,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -3314,7 +3314,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -3520,7 +3520,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
@@ -3651,7 +3651,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -3843,7 +3843,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -3852,7 +3852,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -3872,7 +3872,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -4016,7 +4016,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -4025,7 +4025,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -4045,7 +4045,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -4236,7 +4236,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -4245,7 +4245,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -4265,7 +4265,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -4470,7 +4470,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
@@ -4650,7 +4650,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -4659,7 +4659,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -4679,7 +4679,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -4823,7 +4823,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -4832,7 +4832,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -4852,7 +4852,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -5043,7 +5043,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -5052,7 +5052,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -5072,7 +5072,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -5414,7 +5414,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -5606,7 +5606,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -5615,7 +5615,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -5635,7 +5635,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -5779,7 +5779,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -5788,7 +5788,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -5808,7 +5808,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -5999,7 +5999,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -6008,7 +6008,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -6028,7 +6028,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -6370,7 +6370,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -6562,7 +6562,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -6571,7 +6571,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -6591,7 +6591,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -6735,7 +6735,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -6744,7 +6744,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -6764,7 +6764,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -6955,7 +6955,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -6964,7 +6964,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -6984,7 +6984,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -7326,7 +7326,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -7518,7 +7518,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -7527,7 +7527,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -7547,7 +7547,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -7691,7 +7691,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -7700,7 +7700,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -7720,7 +7720,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -7911,7 +7911,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -7920,7 +7920,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -7940,7 +7940,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -8200,7 +8200,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -8394,7 +8394,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -8403,7 +8403,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -8423,7 +8423,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -8567,7 +8567,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -8576,7 +8576,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -8596,7 +8596,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -8787,7 +8787,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -8796,7 +8796,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -8816,7 +8816,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -9156,7 +9156,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -9348,7 +9348,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -9357,7 +9357,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -9377,7 +9377,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -9521,7 +9521,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -9530,7 +9530,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -9550,7 +9550,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -9741,7 +9741,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -9750,7 +9750,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -9770,7 +9770,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -9973,7 +9973,7 @@ public class ShareFragment extends Fragment {
                     maxoptionDBAdapter.close();
                     progressSMain.setMax((int)(max_core1*10));
                     core1 = max_core1;
-                    if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
@@ -10102,7 +10102,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -10294,7 +10294,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -10303,7 +10303,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -10323,7 +10323,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -10467,7 +10467,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -10476,7 +10476,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -10496,7 +10496,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -10687,7 +10687,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -10696,7 +10696,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -10716,7 +10716,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -11059,7 +11059,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -11251,7 +11251,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -11260,7 +11260,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -11280,7 +11280,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -11424,7 +11424,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -11433,7 +11433,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -11453,7 +11453,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -11644,7 +11644,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -11653,7 +11653,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -11673,7 +11673,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -12067,7 +12067,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -12076,7 +12076,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -12096,7 +12096,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -12240,7 +12240,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -12249,7 +12249,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -12269,7 +12269,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -12460,7 +12460,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -12469,7 +12469,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -12489,7 +12489,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -12831,7 +12831,7 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         core1 = max_core1; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         maxoptionDBAdapter.open();
                         cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
@@ -13023,7 +13023,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -13032,7 +13032,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -13052,7 +13052,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -13196,7 +13196,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -13205,7 +13205,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -13225,7 +13225,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -13416,7 +13416,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -13425,7 +13425,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -13445,7 +13445,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));
@@ -13839,7 +13839,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -13848,7 +13848,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -13868,7 +13868,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -14012,7 +14012,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -14021,7 +14021,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -14041,7 +14041,7 @@ public class ShareFragment extends Fragment {
                         else temp_percent = percent(1, 20) + option_bonus;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
-                        if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                         progressSMain.setMax((int)(max_core1*10));
                         progressSMain.setProgress((int)(core1*10));
@@ -14232,7 +14232,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.attack);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else if (brandset.equals("방어")) {
@@ -14241,7 +14241,7 @@ public class ShareFragment extends Fragment {
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
                             imgSMain.setImageResource(R.drawable.sheld);
-                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
                             progressSMain.setVisibility(View.VISIBLE);
 
                         } else {
@@ -14261,7 +14261,7 @@ public class ShareFragment extends Fragment {
                             else temp_percent = percent(1, 20) + option_bonus;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
-                            if ((int)Math.floor(core1) >= max_core1) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                             progressSMain.setMax((int)(max_core1*10));
                             progressSMain.setProgress((int)(core1*10));

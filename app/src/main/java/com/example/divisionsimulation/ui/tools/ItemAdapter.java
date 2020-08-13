@@ -176,7 +176,7 @@ public class ItemAdapter extends BaseAdapter {
                         imgAttribute[0].setImageResource(R.drawable.power);
                         break;
                 }
-                if (itemList.get(position).getCore1_value() >= cursor.getDouble(2)) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
+                if (itemList.get(position).getCore1_value() >= cursor.getDouble(2) && !itemList.get(position).getCore1().equals("스킬 등급")) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
                 else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
                 namedDBAdapter.open();
                 if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {

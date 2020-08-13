@@ -424,7 +424,7 @@ public class InventoryActivity extends AppCompatActivity {
                     txtSMain.setText("+"+formatD(itemList.get(position).getCore1_value())+end+" "+itemList.get(position).getCore1());
                     progressSMain.setMax((int)(max*10));
                     progressSMain.setProgress((int)(itemList.get(position).getCore1_value()*10));
-                    if (itemList.get(position).getCore1_value() >= max) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                    if (itemList.get(position).getCore1_value() >= max && !itemList.get(position).getCore1().equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
                     libraryDBAdapter.open();
                     cursor = libraryDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
