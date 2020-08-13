@@ -587,6 +587,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getCore1_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "weapon_core1");
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -621,6 +624,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getCore2_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "weapon_core2");
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -647,6 +653,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getSub1_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "weapon_sub");
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -673,6 +682,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("value", itemList.get(index).getCore1_value());
                                 intent.putExtra("type", itemList.get(index).getType());
                                 intent.putExtra("option_type", "sheld_core");
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -709,6 +721,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("option_type", "sheld_sub1");
                                 intent.putExtra("sheld_sub", true);
                                 intent.putExtra("other_name", itemList.get(index).getSub2());
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -737,6 +752,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("option_type", "sheld_sub2");
                                 intent.putExtra("sheld_sub", true);
                                 intent.putExtra("other_name", itemList.get(index).getSub1());
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
@@ -777,6 +795,9 @@ public class InventoryActivity extends AppCompatActivity {
                                 intent.putExtra("name", itemList.get(index).getTalent());
                                 intent.putExtra("talented", true);
                                 intent.putExtra("type", itemList.get(index).getType());
+                                namedDBAdapter.open();
+                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             exoticDBAdapter.close();

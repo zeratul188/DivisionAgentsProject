@@ -41,7 +41,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private Button btnRessetting, btnCancel, btnEdit;
 
     private EditAdapter editAdapter;
-    private boolean exoticed = false, talented = false, edit_possible = false, sheld_sub = false;
+    private boolean exoticed = false, talented = false, edit_possible = false, sheld_sub = false, darked = false;
     private String name, type, option_type, other_name = "";
     private double value;
     private long rowID;
@@ -94,6 +94,7 @@ public class ItemEditActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("type");
         rowID = getIntent().getLongExtra("itemID", 9999);
         sheld_sub = getIntent().getBooleanExtra("sheld_sub", false);
+        darked = getIntent().getBooleanExtra("darked", false);
 
         if (!talented) {
             value = getIntent().getDoubleExtra("value", 0);
@@ -161,6 +162,9 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView txtName = talent_view.findViewById(R.id.txtName);
                     TextView txtContent = talent_view.findViewById(R.id.txtContent);
 
+                    LinearLayout layoutDark = talent_view.findViewById(R.id.layoutDark);
+                    TextView txtDarkMaterial = talent_view.findViewById(R.id.txtDarkMaterial);
+
                     txtName.setText(talentItems.get(position));
 
                     talentDBAdapter.open();
@@ -187,14 +191,21 @@ public class ItemEditActivity extends AppCompatActivity {
 
                     edit_possible = true;
                     int[] count = new int[3];
+                    materialDbAdapter.open();
                     for (int i = 0; i < material_limit.length; i++) {
-                        materialDbAdapter.open();
                         cursor = materialDbAdapter.fetchMaterial(material_limit[i]);
                         count[i] = cursor.getInt(2);
-                        materialDbAdapter.close();
                         txtMaterialName[i].setText(material_limit[i]);
                         txtMaterial[i].setText(Integer.toString(count[i]));
                     }
+                    int dark_count = 0;
+                    if (darked) {
+                        layoutDark.setVisibility(View.VISIBLE);
+                        cursor = materialDbAdapter.fetchMaterial("다크존 자원");
+                        dark_count = cursor.getInt(2);
+                        txtDarkMaterial.setText(Integer.toString(dark_count));
+                    }
+                    materialDbAdapter.close();
 
                     if (count[0] < 85) {
                         txtMaterial[0].setTextColor(Color.parseColor("#f04d52"));
@@ -208,9 +219,14 @@ public class ItemEditActivity extends AppCompatActivity {
                         txtMaterial[2].setTextColor(Color.parseColor("#f04d52"));
                         edit_possible = false;
                     }
+                    if (darked && dark_count < 5) {
+                        txtDarkMaterial.setTextColor(Color.parseColor("#f04d52"));
+                        edit_possible = false;
+                    }
 
                     final String[] final_material_limit = material_limit;
                     final int[] final_count = count;
+                    final int[] dark_cnt = {dark_count};
 
                     builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
                     builder.setView(talent_view);
@@ -227,6 +243,10 @@ public class ItemEditActivity extends AppCompatActivity {
                                     final_count[0] -= 85;
                                     final_count[1] -= 61;
                                     final_count[2] -= 41;
+                                    if (darked) {
+                                        dark_cnt[0] -= 5;
+                                        materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                    }
                                     for (int i = 0; i < final_material_limit.length; i++) {
                                         materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
                                     }
@@ -351,6 +371,9 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView[] txtMaterialName = new TextView[3];
                     TextView[] txtMaterial = new TextView[3];
 
+                    LinearLayout layoutDark = seek_view.findViewById(R.id.layoutDark);
+                    TextView txtDarkMaterial = seek_view.findViewById(R.id.txtDarkMaterial);
+
                     int resource;
                     for (int i = 0; i < txtMaterialName.length; i++) {
                         resource = seek_view.getResources().getIdentifier("txtMaterialName"+(i+1), "id", getPackageName());
@@ -370,14 +393,21 @@ public class ItemEditActivity extends AppCompatActivity {
 
                     edit_possible = true;
                     int[] count = new int[3];
+                    materialDbAdapter.open();
                     for (int i = 0; i < material_limit.length; i++) {
-                        materialDbAdapter.open();
                         cursor = materialDbAdapter.fetchMaterial(material_limit[i]);
                         count[i] = cursor.getInt(2);
-                        materialDbAdapter.close();
                         txtMaterialName[i].setText(material_limit[i]);
                         txtMaterial[i].setText(Integer.toString(count[i]));
                     }
+                    int dark_count = 0;
+                    if (darked) {
+                        layoutDark.setVisibility(View.VISIBLE);
+                        cursor = materialDbAdapter.fetchMaterial("다크존 자원");
+                        dark_count = cursor.getInt(2);
+                        txtDarkMaterial.setText(Integer.toString(dark_count));
+                    }
+                    materialDbAdapter.close();
 
                     if (count[0] < 85) {
                         txtMaterial[0].setTextColor(Color.parseColor("#f04d52"));
@@ -391,9 +421,14 @@ public class ItemEditActivity extends AppCompatActivity {
                         txtMaterial[2].setTextColor(Color.parseColor("#f04d52"));
                         edit_possible = false;
                     }
+                    if (darked && dark_count < 5) {
+                        txtDarkMaterial.setTextColor(Color.parseColor("#f04d52"));
+                        edit_possible = false;
+                    }
 
                     final String[] final_material_limit = material_limit;
                     final int[] final_count = count;
+                    final int[] dark_cnt = {dark_count};
 
                     maxDBAdapter.open();
                     cursor = maxDBAdapter.fetchData(editItems.get(position).getName());
@@ -441,6 +476,10 @@ public class ItemEditActivity extends AppCompatActivity {
                                     final_count[0] -= 85;
                                     final_count[1] -= 61;
                                     final_count[2] -= 41;
+                                    if (darked) {
+                                        dark_cnt[0] -= 5;
+                                        materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                    }
                                     for (int i = 0; i < final_material_limit.length; i++) {
                                         materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
                                     }

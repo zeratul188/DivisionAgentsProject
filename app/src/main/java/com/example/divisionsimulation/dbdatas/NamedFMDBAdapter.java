@@ -215,6 +215,13 @@ public class NamedFMDBAdapter {
         return count > 0;
     }
 
+    public boolean haveDarkItem(String name) {
+        Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+" where "+KEY_NAME+"='"+name+"' and "+KEY_LITE+" = 0 and "+KEY_DARK+" = 1;", null);
+        int count = 0;
+        if (cursor != null) count = cursor.getCount();
+        return count > 0;
+    }
+
     public NamedItem fetchLiteData_Random(String ws) {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_LITE+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

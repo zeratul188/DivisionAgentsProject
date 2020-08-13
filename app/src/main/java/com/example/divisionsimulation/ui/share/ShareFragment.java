@@ -172,7 +172,10 @@ public class ShareFragment extends Fragment {
 
     public void inputItem(Item item) {
         sheldDBAdapter.open();
-        if (sheldDBAdapter.haveItem(item.getName())) item.setSub2("-");
+        if (sheldDBAdapter.haveItem(item.getName())) {
+            item.setSub2("-");
+            item.setSub2_value(0);
+        }
         sheldDBAdapter.close();
         inventoryDBAdapter.open();
         if (inventoryDBAdapter.getCount() < 300) {
