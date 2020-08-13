@@ -1621,7 +1621,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
-                    changeImageType(item_core1_type, imgSMain, progressSMain);
+                    changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
@@ -1738,7 +1738,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -2573,7 +2573,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
-                    changeImageType(item_core1_type, imgSMain, progressSMain);
+                    changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                     changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                     changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
@@ -2691,7 +2691,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -3524,7 +3524,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
-                    changeImageType(item_core1_type, imgSMain, progressSMain);
+                    changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                     changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                     changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
@@ -3642,7 +3642,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -4474,7 +4474,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
-                    changeImageType(item_core1_type, imgSMain, progressSMain);
+                    changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
@@ -5405,7 +5405,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -6361,7 +6361,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -7317,7 +7317,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -8191,7 +8191,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -9147,7 +9147,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -9977,7 +9977,7 @@ public class ShareFragment extends Fragment {
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     progressSMain.setProgress((int)(core1*10));
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
-                    changeImageType(item_core1_type, imgSMain, progressSMain);
+                    changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
@@ -10093,7 +10093,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -11050,7 +11050,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -12822,7 +12822,7 @@ public class ShareFragment extends Fragment {
                         item_core1_type = cursor.getString(6);
                         item_sub1_type = cursor.getString(7);
                         item_sub2_type = cursor.getString(8);
-                        changeImageType(item_core1_type, imgSMain, progressSMain);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                         maxoptionDBAdapter.open();
@@ -14691,6 +14691,22 @@ public class ShareFragment extends Fragment {
         } else {
             view.setImageResource(R.drawable.power);
             progress.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+        }
+    }
+
+    private void changeImageCoreType(String type, ImageView view, ProgressBar progress) {
+        if (type.equals("공격")) {
+            view.setImageResource(R.drawable.attack);
+            progress.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+            progress.setVisibility(View.VISIBLE);
+        } else if (type.equals("방어")) {
+            view.setImageResource(R.drawable.sheld);
+            progress.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+            progress.setVisibility(View.VISIBLE);
+        } else {
+            view.setImageResource(R.drawable.power);
+            //progress.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+            progress.setVisibility(View.GONE);
         }
     }
 
