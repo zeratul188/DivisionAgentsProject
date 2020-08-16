@@ -100,7 +100,7 @@ public class ShareFragment extends Fragment {
 
     final private int BIG = 1234567; //램덤 함수에 쓰일 고정형 변수
 
-    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList, btnMaterialList, btnDropBox; //라이트존, 다크존, 칠흑의 시간 레이드, 레이드 박스, 초기화, 트루썬 막보, 드래고프, 뉴욕 필드보스, 전설난이도 막보, 세션 박스, 아이템 목록 버튼 객체 생성
+    private Button btnLitezone, btnDarkzone, btnRaid, btnRaidbox, btnReset, btnOutput, btnTruesun, btnDragov, btnNewYork, btnLastBoss, btnBox, btnItemList, btnMaterialList, btnDropBox, btnLitenamed, btnDarkNamed; //라이트존, 다크존, 칠흑의 시간 레이드, 레이드 박스, 초기화, 트루썬 막보, 드래고프, 뉴욕 필드보스, 전설난이도 막보, 세션 박스, 아이템 목록 버튼 객체 생성
     private Button btnIronHorse, btnIronHorseBox, btnKoyotae, btnCleaners;
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll; //특급, 네임드, 기어, 일반, 전체 갯수 텍스트뷰 생성
     private Button btnMission;
@@ -727,6 +727,8 @@ public class ShareFragment extends Fragment {
         btnReset = root.findViewById(R.id.btnReset);
         btnOutput = root.findViewById(R.id.btnOutput);
         btnDropBox = root.findViewById(R.id.btnDropBox);
+        btnLitenamed = root.findViewById(R.id.btnLitenamed);
+        btnDarkNamed = root.findViewById(R.id.btnDarknamed);
 
         btnTruesun = root.findViewById(R.id.btnTruesun);
         btnLastBoss = root.findViewById(R.id.btnLastBoss);
@@ -8099,7 +8101,7 @@ public class ShareFragment extends Fragment {
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
-                if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 200) <= 1) {
+                if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 300) <= 1) {
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
@@ -8240,7 +8242,7 @@ public class ShareFragment extends Fragment {
                         progressSSub2.setProgress((int)(sub2*10));
                     }
                     exoticDBAdpater.close();
-                } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
+                } else if (percent(1, 1000) <= 20+bonus) { //Named Items 네임드 아이템 20+(bonus*4)
                     named++;
                     all++;
                     setInterface();
@@ -8939,21 +8941,23 @@ public class ShareFragment extends Fragment {
             }
         });
 
-        btnDarkzone.setOnClickListener(new View.OnClickListener() {
+        btnLitenamed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
-                setExp(0, 0, 7441, 0, 0);
-                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+            public void onClick(View v) {
+                setExp(1892, 3852, 9082, 16282, 20228);
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
-                darked = true;
+                darked = false;
                 exotic = false;
                 boolean weaponed = true;
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
-                layoutInventory.setVisibility(View.GONE);
-                btnAdd.setVisibility(View.GONE);
+                inventoryDBAdapter.open();
+                txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
+                inventoryDBAdapter.close();
+                layoutInventory.setVisibility(View.VISIBLE);
+                btnAdd.setVisibility(View.VISIBLE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
                 tableMain.setBackgroundResource(R.drawable.rareitem);
@@ -8971,91 +8975,9 @@ public class ShareFragment extends Fragment {
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
-                btnInput.setVisibility(View.VISIBLE);
+                btnInput.setVisibility(View.GONE);
 
-                if (percent(1, 1000) <= 30) { //30
-                    tableMain.setBackgroundResource(R.drawable.exoticitem);
-                    exotic = true;
-                    layoutTalent.setVisibility(View.VISIBLE);
-                    txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
-                    special++; //특급 장비 갯수를 1개 늘린다.
-                    all++; //총 아이템 갯수를 1개 늘린다.
-                    setInterface(); //UI에 변경된 내용을 업데이트한다.
-                    txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
-                    tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
-                    layoutTalentButton.setVisibility(View.GONE);
-                     //버튼의 이름을 "특급"으로 바꾼다.
-                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
-                    item_name = "역병";
-                    exoticDBAdpater.open();
-                    cursor = exoticDBAdpater.fetchData(item_name);
-                    item_type = cursor.getString(2);
-                    item_sub1 = cursor.getString(4);
-                    item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
-                    exoticDBAdpater.close();
-                    txtName.setText(item_name);
-                    txtType.setText(item_type);
-                    item_core1 = item_type+" 데미지";
-                    openWeapon = true;
-                    txtWTalent.setText(item_talent);
-                    maxoptionDBAdapter.open();
-                    cursor = maxoptionDBAdapter.fetchTypeData("무기");
-                    max_core1 = Double.parseDouble(cursor.getString(2));
-                    tail_core1 = cursor.getString(5);
-                    maxoptionDBAdapter.close();
-                    pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                    else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
-                    core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    if (!item_type.equals("권총")) {
-                        maxoptionDBAdapter.open();
-                        cursor = maxoptionDBAdapter.fetchTypeData(item_type);
-                        max_core2 = Double.parseDouble(cursor.getString(2));
-                        tail_core2 = cursor.getString(5);
-                        item_core2 = cursor.getString(1);
-                        maxoptionDBAdapter.close();
-                        pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
-                        core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                        layoutWeaponMain2.setVisibility(View.VISIBLE);
-                        if (tail_core2.equals("-")) tail_core2 = "";
-                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
-                    } else {
-                        layoutWeaponMain2.setVisibility(View.GONE);
-                    }
-                    maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
-                    cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
-                    max_sub1 = Double.parseDouble(cursor.getString(2));
-                    tail_sub1 = cursor.getString(5);
-                    maxoptionDBAdapter.close();
-                    pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                    else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
-                    sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
-                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    if (tail_core1.equals("-")) tail_core1 = "";
-                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
-                    if (tail_sub1.equals("-")) tail_sub1 = "";
-                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
-                } else if (percent(1, 100) <= 1) { //1
+                if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) {
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
                     layoutTalent.setVisibility(View.VISIBLE);
@@ -9067,7 +8989,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
-                     //버튼 텍스트를 바꾼다.
+                    //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
                     long id = exoticDBAdpater.rowidDroped();
@@ -9212,7 +9134,7 @@ public class ShareFragment extends Fragment {
                         openWeapon = true;
                         layoutTalent.setVisibility(View.VISIBLE);
                         namedDBAdapter.open();
-                        NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
+                        NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
                         item_type = item.getType();
@@ -9226,6 +9148,7 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(item.getTalentcontent());
+                            System.out.println("Talent : "+item.getTalentcontent());
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
@@ -9238,7 +9161,7 @@ public class ShareFragment extends Fragment {
                         item_core1 = item.getType()+" 데미지";
                         max_core1 = Double.parseDouble(cursor.getString(2));
                         tail_core1 = cursor.getString(5);
-                        
+
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
@@ -9290,7 +9213,7 @@ public class ShareFragment extends Fragment {
                         int random_value = percent(0, optionItems.size());
                         OptionItem option_item = optionItems.get(random_value);
                         item_sub1 = option_item.getContent();
-                        
+
                         cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -9321,7 +9244,7 @@ public class ShareFragment extends Fragment {
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
-                        NamedItem item = namedDBAdapter.fetchDarkData_Random("보호장구");
+                        NamedItem item = namedDBAdapter.fetchLiteData_Random("보호장구");
                         namedDBAdapter.close();
                         item_name = item.getName();
                         item_type = item.getType();
@@ -9336,6 +9259,7 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(item.getTalentcontent());
+                            System.out.println("Talent : "+item.getTalentcontent());
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -9406,11 +9330,11 @@ public class ShareFragment extends Fragment {
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
                             maxoptionDBAdapter.open();
                             ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
-                        for (int i = 0; i < optionItems.size(); i++) {
-                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
-                        }
-                        int random_value = percent(0, optionItems.size());
-                        OptionItem optionItem = optionItems.get(random_value);
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem optionItem = optionItems.get(random_value);
                             maxoptionDBAdapter.close();
                             item_sub1 = optionItem.getContent();
                             max_sub1 = optionItem.getValue();
@@ -9452,18 +9376,18 @@ public class ShareFragment extends Fragment {
                         max_sub2 = optionItem.getValue();
                         tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
-                            } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
-                            } else {
-                                imgSSub2.setImageResource(R.drawable.power_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                        } else {
+                            imgSSub2.setImageResource(R.drawable.power_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
-                            }
+                        }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
                         else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
@@ -9569,18 +9493,18 @@ public class ShareFragment extends Fragment {
                         max_sub1 = optionItem.getValue();
                         tail_sub1 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub1.setImageResource(R.drawable.attack_sub);
-                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
-                            } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub1.setImageResource(R.drawable.sheld_sub);
-                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
-                            } else {
-                                imgSSub1.setImageResource(R.drawable.power_sub);
-                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                        } else {
+                            imgSSub1.setImageResource(R.drawable.power_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
-                            }
+                        }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
                         else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
@@ -9593,29 +9517,29 @@ public class ShareFragment extends Fragment {
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
-                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
-                            for (int i = 0; i < optionItems.size(); i++) {
-                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
-                            }
-                            random_value = percent(0, optionItems.size());
-                            optionItem = optionItems.get(random_value);
-                            maxoptionDBAdapter.close();
-                            item_sub2 = optionItem.getContent();
-                            max_sub2 = optionItem.getValue();
-                            tail_sub2 = optionItem.getReter();
+                        optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        random_value = percent(0, optionItems.size());
+                        optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub2 = optionItem.getContent();
+                        max_sub2 = optionItem.getValue();
+                        tail_sub2 = optionItem.getReter();
                         if (optionItem.getOption().equals("공격")) {
-                                imgSSub2.setImageResource(R.drawable.attack_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
 
-                            } else if (optionItem.getOption().equals("방어")) {
-                                imgSSub2.setImageResource(R.drawable.sheld_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
 
-                            } else {
-                                imgSSub2.setImageResource(R.drawable.power_sub);
-                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                        } else {
+                            imgSSub2.setImageResource(R.drawable.power_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
 
-                            }
+                        }
                         pick = percent(1, 100);
                         if (pick <= 2+max) temp_percent = 100;
                         else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
@@ -9652,7 +9576,7 @@ public class ShareFragment extends Fragment {
                             item_core1 = item.getType()+" 데미지";
                             max_core1 = Double.parseDouble(cursor.getString(2));
                             tail_core1 = cursor.getString(5);
-                            
+
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
                             if (pick <= 2+max) temp_percent = 100;
@@ -9689,6 +9613,878 @@ public class ShareFragment extends Fragment {
                             }
                             maxoptionDBAdapter.open();
                             ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem option_item = optionItems.get(random_value);
+                            item_sub1 = option_item.getContent();
+
+                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                            max_sub1 = Double.parseDouble(cursor.getString(2));
+                            tail_sub1 = cursor.getString(5);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 2+max) temp_percent = 100;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*10));
+                            progressWMain1.setProgress((int)(core1*10));
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                            progressWSub.setMax((int)(max_sub1*10));
+                            progressWSub.setProgress((int)(sub1*10));
+                        } else { //sheld
+                            openSheld = true;
+                            layoutSheld.setVisibility(View.VISIBLE);
+                            sheldDBAdapter.open();
+                            SheldItem item = sheldDBAdapter.fetchRandomData("브랜드");
+                            sheldDBAdapter.close();
+                            item_name = item.getName();
+                            pick = percent(0, sheld_type.length);
+                            item_type = sheld_type[pick];
+                            txtName.setText(item_name);
+                            txtType.setText(item_type);
+                            if (sheldTalent(item_type)) {
+                                layoutTalent.setVisibility(View.VISIBLE);
+                                talentDBAdapter.open();
+                                item_talent = talentDBAdapter.fetchRandomData(item_type);
+                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                talentDBAdapter.close();
+                                txtWTalent.setText(item_talent);
+                            } else layoutTalent.setVisibility(View.GONE);
+                            String brandset = item.getAsp();
+                            maxoptionDBAdapter.open();
+                            if (brandset.equals("공격")) {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                                item_core1 = "무기 데미지";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.attack);
+                                progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                                progressSMain.setVisibility(View.VISIBLE);
+
+                            } else if (brandset.equals("방어")) {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                                item_core1 = "방어도";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                                progressSMain.setVisibility(View.VISIBLE);
+
+                            } else {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                                item_core1 = "스킬 등급";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.power);
+                                //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                                progressSMain.setVisibility(View.GONE);
+
+                            }
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 2+max) temp_percent = 100;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                            else core1 = max_core1;
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSMain.setMax((int)(max_core1*10));
+                            progressSMain.setProgress((int)(core1*10));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                            txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub1 = optionItem.getContent();
+                            max_sub1 = optionItem.getValue();
+                            tail_sub1 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 2+max) temp_percent = 100;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1.setMax((int)(max_sub1*10));
+                            progressSSub1.setProgress((int)(sub1*10));
+                            if (tail_sub1.equals("-")) tail_sub1 = "";
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                            maxoptionDBAdapter.open();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub2.setImageResource(R.drawable.power_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 2+max) temp_percent = 100;
+                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
+                            else temp_percent = percent(1, 20) + option_bonus;
+                            sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub2.setMax((int)(max_sub2*10));
+                            progressSSub2.setProgress((int)(sub2*10));
+                            if (tail_sub2.equals("-")) tail_sub2 = "";
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+                //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+                builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
+
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
+                namedDBAdapter.close();
+
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+                //다이얼로그를 화면에 띄움
+            }
+        });
+
+        btnDarkzone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(0, 0, 7441, 0, 0);
+                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+                String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+                darked = true;
+                exotic = false;
+                boolean weaponed = true;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+                double max_core1, max_core2, max_sub1, max_sub2;
+                layoutInventory.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.GONE);
+                Cursor cursor;
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                tableMain.setBackgroundResource(R.drawable.rareitem);
+                String temp_option; //옵션 이름
+                tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
+                openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
+                layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
+                layoutWeapon.setVisibility(View.GONE); //무기 옵션 레이아웃을 숨긴다.
+                txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                layoutSheldSub2.setVisibility(View.VISIBLE);
+                btnInput.setVisibility(View.VISIBLE);
+
+                if (percent(1, 300) <= 1) { //1
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
+                    layoutTalent.setVisibility(View.VISIBLE);
+                    txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
+                    special++; //특급 갯수를 1개 늘린다.
+                    all++; //총 갯수를 1개 늘린다.
+                    setInterface(); //UI에 변경된 데이터값을 업데이트한다.
+                    txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
+                    tableMain.setVisibility(View.GONE); //내용을 숨긴다.
+                    layoutTalentButton.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                     //버튼 텍스트를 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
+                    exoticDBAdpater.open();
+                    long id = exoticDBAdpater.rowidDroped();
+                    cursor = exoticDBAdpater.fetchIDData(id);
+                    String ws = cursor.getString(11);
+                    item_name = cursor.getString(1);
+                    item_type = cursor.getString(2);
+                    txtName.setText(item_name);
+                    txtType.setText(item_type);
+                    item_talent = cursor.getString(9);
+                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalent.setText(item_talent);
+                    if (ws.equals("무기")) {
+                        item_core1 = item_type+" 데미지";
+                        item_sub1 = cursor.getString(4);
+                        openWeapon = true;
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (!item_type.equals("권총")) {
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            item_core2 = cursor.getString(1);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            if (tail_core2.equals("-")) tail_core2 = "";
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                            progressWMain2.setMax((int)(max_core2*10));
+                            progressWMain2.setProgress((int)(core2*10));
+                        } else {
+                            layoutWeaponMain2.setVisibility(View.GONE);
+                        }
+                        maxoptionDBAdapter.open();
+                        System.out.println(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                        progressWMain1.setMax((int)(max_core1*10));
+                        progressWMain1.setProgress((int)(core1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*10));
+                        progressWSub.setProgress((int)(sub1*10));
+                    } else {
+                        openSheld = true;
+                        item_core1 = cursor.getString(3);
+                        item_sub1 = cursor.getString(4);
+                        item_sub2 = cursor.getString(5);
+                        item_core1_type = cursor.getString(6);
+                        item_sub1_type = cursor.getString(7);
+                        item_sub2_type = cursor.getString(8);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
+                        changeImageType(item_sub1_type, imgSSub1, progressSSub1);
+                        changeImageType(item_sub2_type, imgSSub2, progressSSub2);
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldCoreData(item_core1);
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        core1 = max_core1; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
+                        max_sub2 = Double.parseDouble(cursor.getString(2));
+                        tail_sub2 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 2+max) temp_percent = 100;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 110) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressSSub1.setMax((int)(max_sub1*10));
+                        progressSSub1.setProgress((int)(sub1*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                    }
+                    exoticDBAdpater.close();
+                } else if (percent(1, 1000) <= 20) { //Named Items 네임드 아이템 20+(bonus*4)
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    layoutTalentButton.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
+                    if (percent(1, 2) == 1) { //weapon
+                        openWeapon = true;
+                        layoutTalent.setVisibility(View.VISIBLE);
+                        namedDBAdapter.open();
+                        NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
+                        namedDBAdapter.close();
+                        item_name = item.getName();
+                        item_type = item.getType();
+
+                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
+
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+                        if (!item.getNoTalent()) {
+                            txtWTalent.setTextColor(Color.parseColor("#c99700"));
+                            item_talent = item.getTalent();
+                            txtWTalent.setText(item_talent);
+                            txtWTalentContent.setText(item.getTalentcontent());
+                        } else {
+                            talentDBAdapter.open();
+                            item_talent = talentDBAdapter.fetchRandomData(item_type);
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                            txtWTalent.setText(item_talent);
+                        }
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                        item_core1 = item.getType()+" 데미지";
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+                        
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (!item_type.equals("권총")) {
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
+                            item_core2 = cursor.getString(1);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            item_core2 = cursor.getString(1);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            if (item.getName().equals("하얀 사신")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            } else {
+                                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*10));
+                                progressWMain2.setProgress((int)(core2*10));
+                            }
+                        } else {
+                            layoutWeaponMain2.setVisibility(View.GONE);
+                        }
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+                        
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (item.getName().equals("보조 붐스틱")) {
+                            txtWMain1.setTextColor(Color.parseColor("#c99700"));
+                            txtWMain1.setText(item.getTalent());
+                            progressWMain1.setMax(100);
+                            progressWMain1.setProgress(100);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*10));
+                            progressWMain1.setProgress((int)(core1*10));
+                        }
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*10));
+                        progressWSub.setProgress((int)(sub1*10));
+                    } else {
+                        openSheld = true;
+                        namedDBAdapter.open();
+                        NamedItem item = namedDBAdapter.fetchDarkData_Random("보호장구");
+                        namedDBAdapter.close();
+                        item_name = item.getName();
+                        item_type = item.getType();
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+
+                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
+
+                        if (sheldTalent(item_type)) {
+                            txtWTalent.setTextColor(Color.parseColor("#c99700"));
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getTalent();
+                            txtWTalent.setText(item_talent);
+                            txtWTalentContent.setText(item.getTalentcontent());
+                        } else layoutTalent.setVisibility(View.GONE);
+                        sheldDBAdapter.open();
+                        cursor = sheldDBAdapter.fetchData(item.getBrand());
+                        String brandset = cursor.getString(3);
+                        sheldDBAdapter.close();
+                        maxoptionDBAdapter.open();
+                        if (brandset.equals("공격")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                            item_core1 = "무기 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.attack);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else if (brandset.equals("방어")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                            item_core1 = "방어도";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.sheld);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                            item_core1 = "스킬 등급";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.power);
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
+
+                        }
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                        else core1 = max_core1;
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        if (item.getNoTalent()) {
+                            txtSSub1.setTextColor(Color.parseColor("#c99700"));
+                            txtSSub1.setText(item.getTalent());
+                            progressSSub1.setMax(100);
+                            progressSSub1.setProgress(100);
+                            if (item.getAsp().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (item.getAsp().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub1 = optionItem.getContent();
+                            max_sub1 = optionItem.getValue();
+                            tail_sub1 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1.setMax((int)(max_sub1*10));
+                            progressSSub1.setProgress((int)(sub1*10));
+                            if (tail_sub1.equals("-")) tail_sub1 = "";
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        }
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub2 = optionItem.getContent();
+                        max_sub2 = optionItem.getValue();
+                        tail_sub2 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub2.setImageResource(R.drawable.power_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                    }
+                } else {
+                    if (percent(1, 100) <= 7) {
+                        openSheld = true;
+                        tableMain.setBackgroundResource(R.drawable.gearitem);
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        layoutSheldSub2.setVisibility(View.GONE);
+                        gear++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtGear.setText(Integer.toString(gear));
+                        txtName.setTextColor(Color.parseColor("#009900"));
+                        sheldDBAdapter.open();
+                        SheldItem item = sheldDBAdapter.fetchRandomData("기어세트");
+                        sheldDBAdapter.close();
+                        item_name = item.getName();
+                        pick = percent(0, sheld_type.length);
+                        item_type = sheld_type[pick];
+                        if (item_type.equals("백팩")) {
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getBackpack();
+                            txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                        } else if (item_type.equals("조끼")) {
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getVest();
+                            txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                        } else {
+                            layoutTalent.setVisibility(View.GONE);
+                        }
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+                        String brandset = item.getAsp();
+                        maxoptionDBAdapter.open();
+                        if (brandset.equals("공격")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                            item_core1 = "무기 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.attack);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else if (brandset.equals("방어")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                            item_core1 = "방어도";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.sheld);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                            item_core1 = "스킬 등급";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.power);
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
+
+                        }
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                        else core1 = max_core1;
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub1 = optionItem.getContent();
+                        max_sub1 = optionItem.getValue();
+                        tail_sub1 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub1.setMax((int)(max_sub1*10));
+                        progressSSub1.setProgress((int)(sub1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        maxoptionDBAdapter.open();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub2.setImageResource(R.drawable.power_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                    } else {
+                        brand++;
+                        all++;
+                        setInterface();
+                        if (percent(1, 2) == 1) { //weapon
+                            openWeapon = true;
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            layoutWeapon.setVisibility(View.VISIBLE);
+                            weaponDBAdpater.open();
+                            WeaponItem item = weaponDBAdpater.fetchRandomData();
+                            weaponDBAdpater.close();
+                            item_name = item.getName();
+                            item_type = item.getType();
+                            txtName.setText(item_name);
+                            txtType.setText(item_type);
+                            talentDBAdapter.open();
+                            item_talent = talentDBAdapter.fetchRandomData(item_type);
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                            txtWTalent.setText(item_talent);
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                            item_core1 = item.getType()+" 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if (!item_type.equals("권총")) {
+                                maxoptionDBAdapter.open();
+                                cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
+                                item_core2 = cursor.getString(1);
+                                max_core2 = Double.parseDouble(cursor.getString(2));
+                                tail_core2 = cursor.getString(5);
+                                cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                                max_core2 = Double.parseDouble(cursor.getString(2));
+                                tail_core2 = cursor.getString(5);
+                                item_core2 = cursor.getString(1);
+                                maxoptionDBAdapter.close();
+                                pick = percent(1, 100);
+                                if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                                core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*10));
+                                progressWMain2.setProgress((int)(core2*10));
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
                         for (int i = 0; i < optionItems.size(); i++) {
                             if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
                         }
@@ -9701,9 +10497,9 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -9765,9 +10561,9 @@ public class ShareFragment extends Fragment {
                         }
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
@@ -9802,9 +10598,9 @@ public class ShareFragment extends Fragment {
 
                             }
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
@@ -9837,9 +10633,962 @@ public class ShareFragment extends Fragment {
 
                             }
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                            sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub2.setMax((int)(max_sub2*10));
+                            progressSSub2.setProgress((int)(sub2*10));
+                            if (tail_sub2.equals("-")) tail_sub2 = "";
+                            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
+                        }
+                    }
+                }
+
+                if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+                    ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+                //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+                builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+                inputData(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+                item.setCore1(item_core1);
+                item.setCore2(item_core2);
+                item.setSub1(item_sub1);
+                item.setSub2(item_sub2);
+                item.setCore1_value(core1);
+                item.setCore2_value(core2);
+                item.setSub1_value(sub1);
+                item.setSub2_value(sub2);
+                item.setTalent(item_talent);
+
+                setSemiInterface(String.valueOf(txtType.getText()), imgType);
+                updateData();
+                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
+                namedDBAdapter.open();
+                if (openWeapon) {
+                    if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+                    setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+                } else {
+                    setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+                    if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+                    setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+                }
+                namedDBAdapter.close();
+
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+            }
+        });
+
+        btnDarkNamed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
+                setExp(0, 0, 14882, 0, 0);
+                if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+                String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+                darked = true;
+                exotic = false;
+                boolean weaponed = true;
+                double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+                double max_core1, max_core2, max_sub1, max_sub2;
+                layoutInventory.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.GONE);
+                Cursor cursor;
+                int pick, temp_percent; //램덤 난수가 저장될 변수
+                tableMain.setBackgroundResource(R.drawable.rareitem);
+                String temp_option; //옵션 이름
+                tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
+                openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
+                layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
+                layoutWeapon.setVisibility(View.GONE); //무기 옵션 레이아웃을 숨긴다.
+                txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+                //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+                txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                layoutSheldSub2.setVisibility(View.VISIBLE);
+                btnInput.setVisibility(View.VISIBLE);
+
+                if (percent(1, 1000) <= 30) { //30
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
+                    layoutTalent.setVisibility(View.VISIBLE);
+                    txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름의 색을 특급색(주황색)으로 바꾼다.
+                    special++; //특급 장비 갯수를 1개 늘린다.
+                    all++; //총 아이템 갯수를 1개 늘린다.
+                    setInterface(); //UI에 변경된 내용을 업데이트한다.
+                    txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
+                    tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
+                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    layoutTalentButton.setVisibility(View.GONE);
+                    //버튼의 이름을 "특급"으로 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
+                    item_name = "역병";
+                    exoticDBAdpater.open();
+                    cursor = exoticDBAdpater.fetchData(item_name);
+                    item_type = cursor.getString(2);
+                    item_sub1 = cursor.getString(4);
+                    item_talent = cursor.getString(9);
+                    txtWTalentContent.setText(cursor.getString(12));
+                    exoticDBAdpater.close();
+                    txtName.setText(item_name);
+                    txtType.setText(item_type);
+                    item_core1 = item_type+" 데미지";
+                    openWeapon = true;
+                    txtWTalent.setText(item_talent);
+                    maxoptionDBAdapter.open();
+                    cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                    max_core1 = Double.parseDouble(cursor.getString(2));
+                    tail_core1 = cursor.getString(5);
+                    maxoptionDBAdapter.close();
+                    pick = percent(1, 100);
+                    if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                    core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                    if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if (!item_type.equals("권총")) {
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                        max_core2 = Double.parseDouble(cursor.getString(2));
+                        tail_core2 = cursor.getString(5);
+                        item_core2 = cursor.getString(1);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
+                        if (tail_core2.equals("-")) tail_core2 = "";
+                        txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                        progressWMain2.setMax((int)(max_core2*10));
+                        progressWMain2.setProgress((int)(core2*10));
+                    } else {
+                        layoutWeaponMain2.setVisibility(View.GONE);
+                    }
+                    maxoptionDBAdapter.open();
+                    System.out.println(item_sub1);
+                    cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
+                    max_sub1 = Double.parseDouble(cursor.getString(2));
+                    tail_sub1 = cursor.getString(5);
+                    maxoptionDBAdapter.close();
+                    pick = percent(1, 100);
+                    if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                    sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                    if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                    if (tail_core1.equals("-")) tail_core1 = "";
+                    txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                    progressWMain1.setMax((int)(max_core1*10));
+                    progressWMain1.setProgress((int)(core1*10));
+                    if (tail_sub1.equals("-")) tail_sub1 = "";
+                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                    progressWSub.setMax((int)(max_sub1*10));
+                    progressWSub.setProgress((int)(sub1*10));
+                } else if (percent(1, 100) <= 1) { //1
+                    tableMain.setBackgroundResource(R.drawable.exoticitem);
+                    exotic = true;
+                    layoutTalent.setVisibility(View.VISIBLE);
+                    txtName.setTextColor(Color.parseColor("#ff3c00")); //장비 이름이 들어가는 텍스트뷰 글자 색상을 특급(주황색)색으로 변경한다.
+                    special++; //특급 갯수를 1개 늘린다.
+                    all++; //총 갯수를 1개 늘린다.
+                    setInterface(); //UI에 변경된 데이터값을 업데이트한다.
+                    txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
+                    tableMain.setVisibility(View.GONE); //내용을 숨긴다.
+                    layoutTalentButton.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    //버튼 텍스트를 바꾼다.
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
+                    exoticDBAdpater.open();
+                    long id = exoticDBAdpater.rowidDroped();
+                    cursor = exoticDBAdpater.fetchIDData(id);
+                    String ws = cursor.getString(11);
+                    item_name = cursor.getString(1);
+                    item_type = cursor.getString(2);
+                    txtName.setText(item_name);
+                    txtType.setText(item_type);
+                    item_talent = cursor.getString(9);
+                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalent.setText(item_talent);
+                    if (ws.equals("무기")) {
+                        item_core1 = item_type+" 데미지";
+                        item_sub1 = cursor.getString(4);
+                        openWeapon = true;
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (!item_type.equals("권총")) {
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            item_core2 = cursor.getString(1);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            if (tail_core2.equals("-")) tail_core2 = "";
+                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                            progressWMain2.setMax((int)(max_core2*10));
+                            progressWMain2.setProgress((int)(core2*10));
+                        } else {
+                            layoutWeaponMain2.setVisibility(View.GONE);
+                        }
+                        maxoptionDBAdapter.open();
+                        System.out.println(item_sub1);
+                        cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                        progressWMain1.setMax((int)(max_core1*10));
+                        progressWMain1.setProgress((int)(core1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*10));
+                        progressWSub.setProgress((int)(sub1*10));
+                    } else {
+                        openSheld = true;
+                        item_core1 = cursor.getString(3);
+                        item_sub1 = cursor.getString(4);
+                        item_sub2 = cursor.getString(5);
+                        item_core1_type = cursor.getString(6);
+                        item_sub1_type = cursor.getString(7);
+                        item_sub2_type = cursor.getString(8);
+                        changeImageCoreType(item_core1_type, imgSMain, progressSMain);
+                        changeImageType(item_sub1_type, imgSSub1, progressSSub1);
+                        changeImageType(item_sub2_type, imgSSub2, progressSSub2);
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldCoreData(item_core1);
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        core1 = max_core1; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
+                        max_sub2 = Double.parseDouble(cursor.getString(2));
+                        tail_sub2 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 2+max) temp_percent = 100;
+                        else if (pick <= 30 + top) temp_percent = percent(21, 110) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressSSub1.setMax((int)(max_sub1*10));
+                        progressSSub1.setProgress((int)(sub1*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                    }
+                    exoticDBAdpater.close();
+                } else if (percent(1, 1000) <= 40) { //Named Items 네임드 아이템 20+(bonus*4)
+                    named++;
+                    all++;
+                    setInterface();
+                    txtAll.setText(Integer.toString(all));
+                    txtNamed.setText(Integer.toString(named));
+                    txtName.setTextColor(Color.parseColor("#c99700"));
+                    tableMain.setVisibility(View.GONE);
+                    layoutTalentButton.setVisibility(View.GONE);
+                    btnChange.setVisibility(View.VISIBLE);
+
+                    btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
+                    if (percent(1, 2) == 1) { //weapon
+                        openWeapon = true;
+                        layoutTalent.setVisibility(View.VISIBLE);
+                        namedDBAdapter.open();
+                        NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
+                        namedDBAdapter.close();
+                        item_name = item.getName();
+                        item_type = item.getType();
+
+                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
+
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+                        if (!item.getNoTalent()) {
+                            txtWTalent.setTextColor(Color.parseColor("#c99700"));
+                            item_talent = item.getTalent();
+                            txtWTalent.setText(item_talent);
+                            txtWTalentContent.setText(item.getTalentcontent());
+                        } else {
+                            talentDBAdapter.open();
+                            item_talent = talentDBAdapter.fetchRandomData(item_type);
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                            txtWTalent.setText(item_talent);
+                        }
+                        maxoptionDBAdapter.open();
+                        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                        item_core1 = item.getType()+" 데미지";
+                        max_core1 = Double.parseDouble(cursor.getString(2));
+                        tail_core1 = cursor.getString(5);
+
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (!item_type.equals("권총")) {
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
+                            item_core2 = cursor.getString(1);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                            max_core2 = Double.parseDouble(cursor.getString(2));
+                            tail_core2 = cursor.getString(5);
+                            item_core2 = cursor.getString(1);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            if (item.getName().equals("하얀 사신")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            } else {
+                                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*10));
+                                progressWMain2.setProgress((int)(core2*10));
+                            }
+                        } else {
+                            layoutWeaponMain2.setVisibility(View.GONE);
+                        }
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem option_item = optionItems.get(random_value);
+                        item_sub1 = option_item.getContent();
+
+                        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                        max_sub1 = Double.parseDouble(cursor.getString(2));
+                        tail_sub1 = cursor.getString(5);
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                        else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                        if (item.getName().equals("보조 붐스틱")) {
+                            txtWMain1.setTextColor(Color.parseColor("#c99700"));
+                            txtWMain1.setText(item.getTalent());
+                            progressWMain1.setMax(100);
+                            progressWMain1.setProgress(100);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*10));
+                            progressWMain1.setProgress((int)(core1*10));
+                        }
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*10));
+                        progressWSub.setProgress((int)(sub1*10));
+                    } else {
+                        openSheld = true;
+                        namedDBAdapter.open();
+                        NamedItem item = namedDBAdapter.fetchDarkData_Random("보호장구");
+                        namedDBAdapter.close();
+                        item_name = item.getName();
+                        item_type = item.getType();
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+
+                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
+
+                        if (sheldTalent(item_type)) {
+                            txtWTalent.setTextColor(Color.parseColor("#c99700"));
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getTalent();
+                            txtWTalent.setText(item_talent);
+                            txtWTalentContent.setText(item.getTalentcontent());
+                        } else layoutTalent.setVisibility(View.GONE);
+                        sheldDBAdapter.open();
+                        cursor = sheldDBAdapter.fetchData(item.getBrand());
+                        String brandset = cursor.getString(3);
+                        sheldDBAdapter.close();
+                        maxoptionDBAdapter.open();
+                        if (brandset.equals("공격")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                            item_core1 = "무기 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.attack);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else if (brandset.equals("방어")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                            item_core1 = "방어도";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.sheld);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                            item_core1 = "스킬 등급";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.power);
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
+
+                        }
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                        else temp_percent = percent(21, 10) + 30;
+                        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                        else core1 = max_core1;
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        if (item.getNoTalent()) {
+                            txtSSub1.setTextColor(Color.parseColor("#c99700"));
+                            txtSSub1.setText(item.getTalent());
+                            progressSSub1.setMax(100);
+                            progressSSub1.setProgress(100);
+                            if (item.getAsp().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (item.getAsp().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub1 = optionItem.getContent();
+                            max_sub1 = optionItem.getValue();
+                            tail_sub1 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1.setMax((int)(max_sub1*10));
+                            progressSSub1.setProgress((int)(sub1*10));
+                            if (tail_sub1.equals("-")) tail_sub1 = "";
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        }
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub2 = optionItem.getContent();
+                        max_sub2 = optionItem.getValue();
+                        tail_sub2 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                        } else {
+                            imgSSub2.setImageResource(R.drawable.power_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                        else temp_percent = percent(21, 10) + 30;
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                    }
+                } else {
+                    if (percent(1, 100) <= 7) {
+                        openSheld = true;
+                        tableMain.setBackgroundResource(R.drawable.gearitem);
+                        layoutSheld.setVisibility(View.VISIBLE);
+                        layoutSheldSub2.setVisibility(View.GONE);
+                        gear++;
+                        all++;
+                        setInterface();
+                        txtAll.setText(Integer.toString(all));
+                        txtGear.setText(Integer.toString(gear));
+                        txtName.setTextColor(Color.parseColor("#009900"));
+                        sheldDBAdapter.open();
+                        SheldItem item = sheldDBAdapter.fetchRandomData("기어세트");
+                        sheldDBAdapter.close();
+                        item_name = item.getName();
+                        pick = percent(0, sheld_type.length);
+                        item_type = sheld_type[pick];
+                        if (item_type.equals("백팩")) {
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getBackpack();
+                            txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                        } else if (item_type.equals("조끼")) {
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            item_talent = item.getVest();
+                            txtWTalent.setText(item_talent);
+                            talentDBAdapter.open();
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                        } else {
+                            layoutTalent.setVisibility(View.GONE);
+                        }
+                        txtName.setText(item_name);
+                        txtType.setText(item_type);
+                        String brandset = item.getAsp();
+                        maxoptionDBAdapter.open();
+                        if (brandset.equals("공격")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                            item_core1 = "무기 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.attack);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else if (brandset.equals("방어")) {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                            item_core1 = "방어도";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.sheld);
+                            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                            progressSMain.setVisibility(View.VISIBLE);
+
+                        } else {
+                            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                            item_core1 = "스킬 등급";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+                            imgSMain.setImageResource(R.drawable.power);
+                            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                            progressSMain.setVisibility(View.GONE);
+
+                        }
+                        maxoptionDBAdapter.close();
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                        else temp_percent = percent(21, 10) + 30;
+                        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                        else core1 = max_core1;
+                        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSMain.setMax((int)(max_core1*10));
+                        progressSMain.setProgress((int)(core1*10));
+                        if (tail_core1.equals("-")) tail_core1 = "";
+                        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                        maxoptionDBAdapter.open();
+                        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        int random_value = percent(0, optionItems.size());
+                        OptionItem optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub1 = optionItem.getContent();
+                        max_sub1 = optionItem.getValue();
+                        tail_sub1 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                            imgSSub1.setImageResource(R.drawable.attack_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub1.setImageResource(R.drawable.sheld_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                        } else {
+                            imgSSub1.setImageResource(R.drawable.power_sub);
+                            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                        else temp_percent = percent(21, 10) + 30;
+                        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub1.setMax((int)(max_sub1*10));
+                        progressSSub1.setProgress((int)(sub1*10));
+                        if (tail_sub1.equals("-")) tail_sub1 = "";
+                        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        maxoptionDBAdapter.open();
+                        optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                        for (int i = 0; i < optionItems.size(); i++) {
+                            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                        }
+                        random_value = percent(0, optionItems.size());
+                        optionItem = optionItems.get(random_value);
+                        maxoptionDBAdapter.close();
+                        item_sub2 = optionItem.getContent();
+                        max_sub2 = optionItem.getValue();
+                        tail_sub2 = optionItem.getReter();
+                        if (optionItem.getOption().equals("공격")) {
+                            imgSSub2.setImageResource(R.drawable.attack_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                        } else if (optionItem.getOption().equals("방어")) {
+                            imgSSub2.setImageResource(R.drawable.sheld_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                        } else {
+                            imgSSub2.setImageResource(R.drawable.power_sub);
+                            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                        }
+                        pick = percent(1, 100);
+                        if (pick <= 15) temp_percent = 100;
+                        else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                        else temp_percent = percent(21, 10) + 30;
+                        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+                        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        progressSSub2.setMax((int)(max_sub2*10));
+                        progressSSub2.setProgress((int)(sub2*10));
+                        if (tail_sub2.equals("-")) tail_sub2 = "";
+                        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+                    } else {
+                        brand++;
+                        all++;
+                        setInterface();
+                        if (percent(1, 2) == 1) { //weapon
+                            openWeapon = true;
+                            layoutTalent.setVisibility(View.VISIBLE);
+                            layoutWeapon.setVisibility(View.VISIBLE);
+                            weaponDBAdpater.open();
+                            WeaponItem item = weaponDBAdpater.fetchRandomData();
+                            weaponDBAdpater.close();
+                            item_name = item.getName();
+                            item_type = item.getType();
+                            txtName.setText(item_name);
+                            txtType.setText(item_type);
+                            talentDBAdapter.open();
+                            item_talent = talentDBAdapter.fetchRandomData(item_type);
+                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            talentDBAdapter.close();
+                            txtWTalent.setText(item_talent);
+                            maxoptionDBAdapter.open();
+                            cursor = maxoptionDBAdapter.fetchTypeData("무기");
+                            item_core1 = item.getType()+" 데미지";
+                            max_core1 = Double.parseDouble(cursor.getString(2));
+                            tail_core1 = cursor.getString(5);
+
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if (!item_type.equals("권총")) {
+                                maxoptionDBAdapter.open();
+                                cursor = maxoptionDBAdapter.fetchTypeData(item.getType());
+                                item_core2 = cursor.getString(1);
+                                max_core2 = Double.parseDouble(cursor.getString(2));
+                                tail_core2 = cursor.getString(5);
+                                cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+                                max_core2 = Double.parseDouble(cursor.getString(2));
+                                tail_core2 = cursor.getString(5);
+                                item_core2 = cursor.getString(1);
+                                maxoptionDBAdapter.close();
+                                pick = percent(1, 100);
+                                if (pick <= 15) temp_percent = 100;
+                                else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                                core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                                if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                                else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*10));
+                                progressWMain2.setProgress((int)(core2*10));
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem option_item = optionItems.get(random_value);
+                            item_sub1 = option_item.getContent();
+
+                            cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+                            max_sub1 = Double.parseDouble(cursor.getString(2));
+                            tail_sub1 = cursor.getString(5);
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                            else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+                            else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*10));
+                            progressWMain1.setProgress((int)(core1*10));
+                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                            progressWSub.setMax((int)(max_sub1*10));
+                            progressWSub.setProgress((int)(sub1*10));
+                        } else { //sheld
+                            openSheld = true;
+                            layoutSheld.setVisibility(View.VISIBLE);
+                            sheldDBAdapter.open();
+                            SheldItem item = sheldDBAdapter.fetchRandomData("브랜드");
+                            sheldDBAdapter.close();
+                            item_name = item.getName();
+                            pick = percent(0, sheld_type.length);
+                            item_type = sheld_type[pick];
+                            txtName.setText(item_name);
+                            txtType.setText(item_type);
+                            if (sheldTalent(item_type)) {
+                                layoutTalent.setVisibility(View.VISIBLE);
+                                talentDBAdapter.open();
+                                item_talent = talentDBAdapter.fetchRandomData(item_type);
+                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                talentDBAdapter.close();
+                                txtWTalent.setText(item_talent);
+                            } else layoutTalent.setVisibility(View.GONE);
+                            String brandset = item.getAsp();
+                            maxoptionDBAdapter.open();
+                            if (brandset.equals("공격")) {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+                                item_core1 = "무기 데미지";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.attack);
+                                progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+                                progressSMain.setVisibility(View.VISIBLE);
+
+                            } else if (brandset.equals("방어")) {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+                                item_core1 = "방어도";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.sheld);
+                                progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+                                progressSMain.setVisibility(View.VISIBLE);
+
+                            } else {
+                                cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+                                item_core1 = "스킬 등급";
+                                max_core1 = Double.parseDouble(cursor.getString(2));
+                                tail_core1 = cursor.getString(5);
+                                imgSMain.setImageResource(R.drawable.power);
+                                //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+                                progressSMain.setVisibility(View.GONE);
+
+                            }
+                            maxoptionDBAdapter.close();
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                            if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+                            else core1 = max_core1;
+                            if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSMain.setMax((int)(max_core1*10));
+                            progressSMain.setProgress((int)(core1*10));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+                            txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+                            maxoptionDBAdapter.open();
+                            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            int random_value = percent(0, optionItems.size());
+                            OptionItem optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub1 = optionItem.getContent();
+                            max_sub1 = optionItem.getValue();
+                            tail_sub1 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
+                            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+                            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                            progressSSub1.setMax((int)(max_sub1*10));
+                            progressSSub1.setProgress((int)(sub1*10));
+                            if (tail_sub1.equals("-")) tail_sub1 = "";
+                            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                            maxoptionDBAdapter.open();
+                            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+                            for (int i = 0; i < optionItems.size(); i++) {
+                                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+                            }
+                            random_value = percent(0, optionItems.size());
+                            optionItem = optionItems.get(random_value);
+                            maxoptionDBAdapter.close();
+                            item_sub2 = optionItem.getContent();
+                            max_sub2 = optionItem.getValue();
+                            tail_sub2 = optionItem.getReter();
+                            if (optionItem.getOption().equals("공격")) {
+                                imgSSub2.setImageResource(R.drawable.attack_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+                            } else if (optionItem.getOption().equals("방어")) {
+                                imgSSub2.setImageResource(R.drawable.sheld_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+                            } else {
+                                imgSSub2.setImageResource(R.drawable.power_sub);
+                                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+                            }
+                            pick = percent(1, 100);
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
@@ -9981,9 +11730,9 @@ public class ShareFragment extends Fragment {
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
                         changeImageType(item_sub2_type, imgSSub2, progressSSub2);
                     pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                    else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                    if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -9991,9 +11740,9 @@ public class ShareFragment extends Fragment {
                     progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
-                    if (pick <= 2+max) temp_percent = 100;
-                    else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                    else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                    if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10036,9 +11785,9 @@ public class ShareFragment extends Fragment {
                         tail_core1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10050,9 +11799,9 @@ public class ShareFragment extends Fragment {
                             item_core2 = cursor.getString(1);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10071,9 +11820,9 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10110,9 +11859,9 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10122,9 +11871,9 @@ public class ShareFragment extends Fragment {
                         tail_sub2 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10187,9 +11936,9 @@ public class ShareFragment extends Fragment {
                         
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10205,9 +11954,9 @@ public class ShareFragment extends Fragment {
                             item_core2 = cursor.getString(1);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10242,9 +11991,9 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                        else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                        if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10318,9 +12067,9 @@ public class ShareFragment extends Fragment {
                         }
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
@@ -10375,9 +12124,9 @@ public class ShareFragment extends Fragment {
 
                             }
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
@@ -10411,9 +12160,9 @@ public class ShareFragment extends Fragment {
 
                             }
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
@@ -10491,9 +12240,9 @@ public class ShareFragment extends Fragment {
                         }
                         maxoptionDBAdapter.close();
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                         if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
@@ -10528,9 +12277,9 @@ public class ShareFragment extends Fragment {
 
                             }
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
@@ -10563,9 +12312,9 @@ public class ShareFragment extends Fragment {
 
                             }
                         pick = percent(1, 100);
-                        if (pick <= 2+max) temp_percent = 100;
-                        else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                        else temp_percent = percent(1, 20) + option_bonus;
+                        if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
@@ -10601,9 +12350,9 @@ public class ShareFragment extends Fragment {
                             
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10619,9 +12368,9 @@ public class ShareFragment extends Fragment {
                                 item_core2 = cursor.getString(1);
                                 maxoptionDBAdapter.close();
                                 pick = percent(1, 100);
-                                if (pick <= 2+max) temp_percent = 100;
-                                else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                                else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                                if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                                 core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                                 if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10647,9 +12396,9 @@ public class ShareFragment extends Fragment {
                         tail_sub1 = cursor.getString(5);
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + option_bonus; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                            if (pick <= 15) temp_percent = 100;
+                    else if (pick <= 40) temp_percent = percent(21, 30) + 50; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                    else temp_percent = percent(21, 10) + 30; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -10711,9 +12460,9 @@ public class ShareFragment extends Fragment {
                         }
                             maxoptionDBAdapter.close();
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
@@ -10748,9 +12497,9 @@ public class ShareFragment extends Fragment {
 
                             }
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
@@ -10783,9 +12532,9 @@ public class ShareFragment extends Fragment {
 
                             }
                             pick = percent(1, 100);
-                            if (pick <= 2+max) temp_percent = 100;
-                            else if (pick <= 30 + top) temp_percent = percent(21, 10) + option_bonus;
-                            else temp_percent = percent(1, 20) + option_bonus;
+                            if (pick <= 15) temp_percent = 100;
+                            else if (pick <= 40) temp_percent = percent(21, 30) + 50;
+                            else temp_percent = percent(21, 10) + 30;
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
@@ -11799,7 +13548,7 @@ public class ShareFragment extends Fragment {
         btnRaidbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //칠흑의 시간 레이드에서 마지막 보스 처치 후 상자 개봉할 경우, 위와 내용은 비슷하나 박스에서는 5개의 아이템이 나온다. 이 부분만 설명함.
-                setExp(0, 0, 0, 121141, 0);
+                setExp(0, 0, 0, 0, 0);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
@@ -13571,7 +15320,7 @@ public class ShareFragment extends Fragment {
         btnIronHorseBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //칠흑의 시간 레이드에서 마지막 보스 처치 후 상자 개봉할 경우, 위와 내용은 비슷하나 박스에서는 5개의 아이템이 나온다. 이 부분만 설명함.
-                setExp(0, 0, 0, 121141, 0);
+                setExp(0, 0, 0, 0, 0);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";

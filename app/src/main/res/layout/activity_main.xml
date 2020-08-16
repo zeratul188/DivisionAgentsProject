@@ -21,11 +21,13 @@
         android:fitsSystemWindows="true"
         android:layout_marginTop="-32dp"
         app:itemTextColor="#f0f0f0"
+        app:itemIconTint="#f0f0f0"
+        app:itemIconPadding="20dp"
         app:itemBackground="@drawable/item_back"
         android:background="@drawable/drawerbackground"
         app:itemTextAppearance="@style/nanumTextView"
         app:headerLayout="@layout/nav_header_main"
         android:theme="@style/drawer_font_size"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

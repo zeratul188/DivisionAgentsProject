@@ -246,7 +246,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     final_count[1] -= 61;
                                     final_count[2] -= 41;
                                     if (darked) {
-                                        dark_cnt[0] -= 5;
+                                        dark_cnt[0] -= 20;
                                         materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
                                     }
                                     for (int i = 0; i < final_material_limit.length; i++) {
@@ -485,7 +485,7 @@ public class ItemEditActivity extends AppCompatActivity {
                                     final_count[1] -= 61;
                                     final_count[2] -= 41;
                                     if (darked) {
-                                        dark_cnt[0] -= 5;
+                                        dark_cnt[0] -= 20;
                                         materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
                                     }
                                     for (int i = 0; i < final_material_limit.length; i++) {

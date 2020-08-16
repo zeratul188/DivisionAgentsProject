@@ -6,22 +6,34 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="전투 시뮬레이션" />
+            android:title="전투 시뮬레이션"
+            android:icon="@drawable/menuicon1"
+            android:iconTint="#f0f0f0"/>
         <item
             android:id="@+id/nav_gallery"
-            android:title="무기 정보" />
+            android:title="무기 정보"
+            android:icon="@drawable/menuicon2"
+            android:iconTint="#f0f0f0"/>
         <item
             android:id="@+id/nav_slideshow"
-            android:title="방어구 정보" />
+            android:title="방어구 정보"
+            android:icon="@drawable/menuicon3"
+            android:iconTint="#f0f0f0" />
         <item
             android:id="@+id/nav_tools"
-            android:title="인벤토리" />
+            android:title="인벤토리"
+            android:icon="@drawable/menuicon4"
+            android:iconTint="#f0f0f0" />
         <item
             android:id="@+id/nav_share"
-            android:title="파밍 시뮬레이션" />
+            android:title="파밍 시뮬레이션"
+            android:icon="@drawable/menuicon5"
+            android:iconTint="#f0f0f0" />
         <item
             android:id="@+id/nav_send"
-            android:title="팩션 정보 및 파일" />
+            android:title="팩션 정보 및 파일"
+            android:icon="@drawable/menuicon6"
+            android:iconTint="#f0f0f0" />
     </group>
 
     <!--<item android:title="Communicate">

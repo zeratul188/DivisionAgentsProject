@@ -163,6 +163,35 @@
                             <TableRow
                                 android:layout_marginBottom="10dp">
                                 <Button
+                                    android:id="@+id/btnLitenamed"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:gravity="center"
+                                    android:text="라이트존 네임드"
+                                    android:textSize="18sp"
+                                    android:paddingTop="20dp"
+                                    android:textColor="#aaaaaa"
+                                    android:background="@drawable/buttoncustom"
+                                    android:drawableTop="@drawable/litenamed"
+                                    android:layout_marginRight="5dp"/>
+                                <Button
+                                    android:id="@+id/btnDarknamed"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:gravity="center"
+                                    android:text="다크존 네임드"
+                                    android:textSize="18sp"
+                                    android:paddingTop="20dp"
+                                    android:textColor="#aaaaaa"
+                                    android:background="@drawable/buttoncustom"
+                                    android:drawableTop="@drawable/darknamed"
+                                    android:layout_marginLeft="5dp"/>
+                            </TableRow>
+                            <TableRow
+                                android:layout_marginBottom="10dp">
+                                <Button
                                     android:id="@+id/btnRaid"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
@@ -255,7 +284,7 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="라이커 보스 처치"
+                                    android:text="라이커 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
@@ -297,7 +326,7 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="클리너 보스 처치"
+                                    android:text="클리너 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
