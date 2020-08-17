@@ -58,6 +58,7 @@
             android:textColor="#f0f0f0"
             android:hint="HH"
             android:background="@drawable/edittext_custom"
+            android:textAlignment="center"
             android:fontFamily="@font/borda"
             android:maxLength="2"
             android:inputType="number"/>
@@ -79,6 +80,7 @@
             android:textColor="#f0f0f0"
             android:maxLength="2"
             android:background="@drawable/edittext_custom"
+            android:textAlignment="center"
             android:fontFamily="@font/borda"
             android:inputType="number"/>
         <TextView
@@ -86,7 +88,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="#aaaaaa"
+            android:textColor="#f0f0f0"
+            android:text="초 : "
             android:textAlignment="textEnd"/>
         <EditText
             android:id="@+id/edtSecond"
@@ -94,6 +97,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="SS"
+            android:textAlignment="center"
             android:textColorHint="#777777"
             android:textColor="#f0f0f0"
             android:maxLength="2"

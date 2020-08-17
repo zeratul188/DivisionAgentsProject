@@ -943,6 +943,7 @@ public class ShareFragment extends Fragment {
                         btnIronHorseBox.setEnabled(true);
                         btnKoyotae.setEnabled(true);
                         btnCleaners.setEnabled(true);
+                        btnDarkNamed.setEnabled(true);
                         break;
                     case R.id.rdoDif5:
                         btnLastBoss.setEnabled(true);
@@ -958,6 +959,7 @@ public class ShareFragment extends Fragment {
                         btnIronHorseBox.setEnabled(false);
                         btnKoyotae.setEnabled(false);
                         btnCleaners.setEnabled(false);
+                        btnDarkNamed.setEnabled(false);
                         break;
                 }
             }

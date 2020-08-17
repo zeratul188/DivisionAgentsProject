@@ -6,7 +6,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/redwall3"
+        android:src="@drawable/simulwall"
         android:scaleType="centerCrop"/>
 
     <LinearLayout
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:src="@drawable/headshot_gray"/>
+                android:src="@drawable/headshot"/>
             <ImageView
                 android:id="@+id/imgtake1"
                 android:layout_width="match_parent"
@@ -91,8 +91,9 @@
                 android:layerType="software"/>
             <ImageView
                 android:id="@+id/imgHittedSheld"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/hittedsheld"
                 android:layout_gravity="center"/>
         </FrameLayout>

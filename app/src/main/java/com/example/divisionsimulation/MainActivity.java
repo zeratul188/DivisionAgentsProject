@@ -106,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         activity = this;
 
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Drawable draw = getResources().getDrawable(R.drawable.redwall4);
@@ -186,10 +189,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 }
             }
         }*/
-
-        Intent intent = new Intent(this, LoadingActivity.class);
-        startActivity(intent);
-
     }
     public void showGuide() {
         toast = Toast.makeText(getApplicationContext(), "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);

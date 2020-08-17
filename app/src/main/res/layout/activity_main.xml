@@ -22,7 +22,7 @@
         android:layout_marginTop="-32dp"
         app:itemTextColor="#f0f0f0"
         app:itemIconTint="#f0f0f0"
-        app:itemIconPadding="20dp"
+        app:itemIconPadding="15dp"
         app:itemBackground="@drawable/item_back"
         android:background="@drawable/drawerbackground"
         app:itemTextAppearance="@style/nanumTextView"
