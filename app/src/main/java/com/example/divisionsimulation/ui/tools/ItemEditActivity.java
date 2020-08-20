@@ -698,15 +698,19 @@ public class ItemEditActivity extends AppCompatActivity {
                             else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
                             else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
                             core1_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
-                            maxDBAdapter.open();
-                            cursor = maxDBAdapter.fetchTypeData(weapon_type);
-                            max = cursor.getDouble(2);
-                            maxDBAdapter.close();
-                            pick = percent(1, 100);
-                            if (pick <= 30) temp_percent = 100;
-                            else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-                            else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
-                            core2_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            if (!weapon_type.equals("권총")) {
+                                maxDBAdapter.open();
+                                cursor = maxDBAdapter.fetchTypeData(weapon_type);
+                                max = cursor.getDouble(2);
+                                maxDBAdapter.close();
+                                pick = percent(1, 100);
+                                if (pick <= 30) temp_percent = 100;
+                                else if (pick <= 60) temp_percent = percent(21, 10) + 70; //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+                                else temp_percent = percent(1, 20) + 50; //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+                                core2_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+                            } else {
+                                core2_value = 0;
+                            }
                             maxDBAdapter.open();
                             cursor = maxDBAdapter.fetchSubData(sub1);
                             max = cursor.getDouble(2);
@@ -718,7 +722,7 @@ public class ItemEditActivity extends AppCompatActivity {
                             sub1_value = Math.floor(((double)max*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                             inventoryDBAdapter.open();
                             inventoryDBAdapter.updateCore1Data(rowID, core1, core1_value);
-                            inventoryDBAdapter.updateCore2Data(rowID, core2, core2_value);
+                            if (!weapon_type.equals("권총")) inventoryDBAdapter.updateCore2Data(rowID, core2, core2_value);
                             inventoryDBAdapter.updateSub1Data(rowID, sub1, sub1_value);
                             inventoryDBAdapter.close();
                         } else {

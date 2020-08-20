@@ -816,6 +816,10 @@ public class ShareFragment extends Fragment {
                         setExp((int)(normal*plus), (int)(hard*plus), (int)(very_hard*plus), (int)(hero*plus), (int)(legend*plus));
                         Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
                         if (mission_alertDialog != null) mission_alertDialog.dismiss();
+                        shdAdapter.open();
+                        int box = shdAdapter.getBoxCount();
+                        shdAdapter.close();
+                        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
                     }
                 });
                 mission_builder.setNegativeButton("취소", null);
@@ -17632,6 +17636,10 @@ public class ShareFragment extends Fragment {
         txtBrand.setText(Integer.toString(brand));
         all = special + named + gear + brand;
         txtAll.setText(Integer.toString(all));
+        shdAdapter.open();
+        int box = shdAdapter.getBoxCount();
+        shdAdapter.close();
+        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
     }
 
     public void startInterface() {
