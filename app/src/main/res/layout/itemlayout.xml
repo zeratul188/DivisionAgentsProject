@@ -16,6 +16,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp">
             <ImageView
+                android:id="@+id/imgInventory"
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -450,7 +451,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/buttonmaincustom"
-            android:text="다크존 가방에 담기 (0/10)"
+            android:text="다크존 가방에 담기"
             android:textColor="#ffffff"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

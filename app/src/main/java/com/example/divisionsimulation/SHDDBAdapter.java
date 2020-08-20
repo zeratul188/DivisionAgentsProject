@@ -27,7 +27,7 @@ public class SHDDBAdapter {
     private SQLiteDatabase sqlDB;
 
     private String[] shd_name = {"SHD 레벨", "EXP", "무기 데미지", "헤드샷 데미지", "치명타 확률", "치명타 데미지", "생명력", "전체 방어도", "폭발물 저항", "상태이상 저항",
-            "스킬 데미지", "스킬 회복", "스킬 지속 시간", "스킬 가속", "명중률", "안정성", "재장전 속도", "탄약 휴대량", "공격", "방어", "다용도", "기타", "다음 속성"};
+            "스킬 데미지", "스킬 회복", "스킬 지속 시간", "스킬 가속", "명중률", "안정성", "재장전 속도", "탄약 휴대량", "공격", "방어", "다용도", "기타", "다음 속성", "숙달상자"};
 
     public SHDDBAdapter(Context mCtx) {
         this.mCtx = mCtx;
@@ -37,7 +37,7 @@ public class SHDDBAdapter {
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         private String[] shd_name = {"SHD 레벨", "EXP", "무기 데미지", "헤드샷 데미지", "치명타 확률", "치명타 데미지", "생명력", "전체 방어도", "폭발물 저항", "상태이상 저항",
-                "스킬 데미지", "스킬 회복", "스킬 지속 시간", "스킬 가속", "명중률", "안정성", "재장전 속도", "탄약 휴대량", "공격", "방어", "다용도", "기타", "다음 속성"};
+                "스킬 데미지", "스킬 회복", "스킬 지속 시간", "스킬 가속", "명중률", "안정성", "재장전 속도", "탄약 휴대량", "공격", "방어", "다용도", "기타", "다음 속성", "숙달상자"};
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -168,10 +168,41 @@ public class SHDDBAdapter {
                     increaseSHD("기타"); break;
             }
             nextOption();
+            increaseBox();
         }
+
         ContentValues values = new ContentValues();
         values.put(KEY_CONTENT, level);
+
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='SHD 레벨'", null) > 0;
+    }
+
+    public boolean increaseBox() {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_CONTENT}, KEY_NAME+"='숙달상자'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int box = cursor.getInt(2);
+        box++;
+        ContentValues values = new ContentValues();
+        values.put(KEY_CONTENT, box);
+        return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='숙달상자'", null) > 0;
+    }
+
+    public boolean downBox() {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_CONTENT}, KEY_NAME+"='숙달상자'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int box = cursor.getInt(2);
+        if (box <= 0) return false;
+        else box--;
+        ContentValues values = new ContentValues();
+        values.put(KEY_CONTENT, box);
+        return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='숙달상자'", null) > 0;
+    }
+
+    public int getBoxCount() {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_CONTENT}, KEY_NAME+"='숙달상자'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int box = cursor.getInt(2);
+        return box;
     }
 
     public boolean deleteSHD(String name) {

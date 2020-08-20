@@ -363,6 +363,51 @@
                                     android:background="@drawable/buttoncustom"
                                     android:drawableTop="@drawable/fm10"/>
                             </TableRow>
+                            <TableRow
+                                android:layout_marginBottom="10dp">
+                                <Button
+                                    android:id="@+id/btnNamed"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:gravity="center"
+                                    android:text="네임드 장비 상자"
+                                    android:textSize="18sp"
+                                    android:paddingTop="20dp"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="5dp"
+                                    android:background="@drawable/buttoncustom"
+                                    android:drawableTop="@drawable/fm8"/>
+                                <Button
+                                    android:id="@+id/btnExotic"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:gravity="center"
+                                    android:text="특급 상자"
+                                    android:textSize="18sp"
+                                    android:paddingTop="20dp"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@drawable/buttoncustom"
+                                    android:drawableTop="@drawable/fm8"/>
+                            </TableRow>
+                            <TableRow
+                                android:layout_marginBottom="10dp">
+                                <Button
+                                    android:id="@+id/btnLevelBox"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:gravity="center"
+                                    android:text="현장 숙달 상자 (0)"
+                                    android:textSize="18sp"
+                                    android:paddingTop="20dp"
+                                    android:textColor="#aaaaaa"
+                                    android:layout_marginRight="5dp"
+                                    android:background="@drawable/buttoncustom"
+                                    android:drawableTop="@drawable/fm8"/>
+                            </TableRow>
                         </TableLayout>
                         <Button
                             android:id="@+id/btnMission"

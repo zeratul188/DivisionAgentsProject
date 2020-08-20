@@ -30,10 +30,11 @@ public class ExoticFMDBAdapter {
     public static final String KEY_DROPED = "DROPED";
     public static final String KEY_WS = "WS";
     public static final String KEY_TALENTCONTENT = "TALENTCONTENT";
+    public static final String KEY_BOX = "BOX";
 
     private static final String DATABASE_CREATE = "create table FARMING_EXOTIC (_id integer primary key, " +
             "NAME text not null, TYPE text not null, COREOPTION text, SUBOPTION1 text, SUBOPTION2 text, " +
-            "CORE text, SUB1 text, SUB2 text, TALENT text not null, DROPED int not null, WS text not null, TALENTCONTENT text);";
+            "CORE text, SUB1 text, SUB2 text, TALENT text not null, DROPED int not null, WS text not null, TALENTCONTENT text, BOX int not null);";
 
     private static final String DATABASE_NAME = "DIVISION_FARMING_EXOTIC";
     private static final String DATABASE_TABLE = "FARMING_EXOTIC";
@@ -103,6 +104,7 @@ public class ExoticFMDBAdapter {
                             int droped = Integer.parseInt(sheet.getCell(nColumnStartIndex+9, nRow).getContents());
                             String ws = sheet.getCell(nColumnStartIndex+10, nRow).getContents();
                             String talentcontent = sheet.getCell(nColumnStartIndex+11, nRow).getContents();
+                            int box = Integer.parseInt(sheet.getCell(nColumnStartIndex+12, nRow).getContents());
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_NAME, name);
@@ -117,6 +119,7 @@ public class ExoticFMDBAdapter {
                             values[nRow].put(KEY_DROPED, droped);
                             values[nRow].put(KEY_WS, ws);
                             values[nRow].put(KEY_TALENTCONTENT, talentcontent);
+                            values[nRow].put(KEY_BOX, box);
 
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
@@ -145,7 +148,7 @@ public class ExoticFMDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String name, String type, String coreoption, String suboption1, String suboption2, String core, String sub1, String sub2, String talent, int droped, String ws, String talentcontent) {
+    public long insertData(String name, String type, String coreoption, String suboption1, String suboption2, String core, String sub1, String sub2, String talent, int droped, String ws, String talentcontent, int box) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TYPE, type);
@@ -159,6 +162,7 @@ public class ExoticFMDBAdapter {
         values.put(KEY_DROPED, droped);
         values.put(KEY_WS, ws);
         values.put(KEY_TALENTCONTENT, talentcontent);
+        values.put(KEY_BOX, box);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -168,17 +172,17 @@ public class ExoticFMDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public ArrayList<String> arrayAllData() {
-        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT}, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<String> arrayList = new ArrayList<String>();
         while (!cursor.isAfterLast()) {
@@ -190,13 +194,26 @@ public class ExoticFMDBAdapter {
     }
 
     public Cursor fetchIDData(long rowid) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT}, KEY_ROWID+"="+rowid, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, KEY_ROWID+"="+rowid, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public long rowidDroped() throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT}, KEY_DROPED+"="+1, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, KEY_DROPED+"="+1, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<String> items = new ArrayList<String>();
+        while (!cursor.isAfterLast()) {
+            items.add(cursor.getString(1));
+            cursor.moveToNext();
+        }
+        Cursor result = fetchData(items.get(random(0, items.size())));
+        if (result != null) result.moveToFirst();
+        return result.getLong(0);
+    }
+
+    public long rowidBox() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_COREOPTION, KEY_SUBOPTION1, KEY_SUBOPTION2, KEY_CORE, KEY_SUB1, KEY_SUB2, KEY_TALENT, KEY_DROPED, KEY_WS, KEY_TALENTCONTENT, KEY_BOX}, KEY_BOX+"="+1, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         ArrayList<String> items = new ArrayList<String>();
         while (!cursor.isAfterLast()) {
@@ -222,7 +239,7 @@ public class ExoticFMDBAdapter {
         return count > 0;
     }
 
-    public boolean updateData(String undo_name, String name, String type, String coreoption, String suboption1, String suboption2, String core, String sub1, String sub2, String talent, int droped, String ws, String talentcontent) {
+    public boolean updateData(String undo_name, String name, String type, String coreoption, String suboption1, String suboption2, String core, String sub1, String sub2, String talent, int droped, String ws, String talentcontent, int box) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TYPE, type);
@@ -236,6 +253,7 @@ public class ExoticFMDBAdapter {
         values.put(KEY_DROPED, droped);
         values.put(KEY_WS, ws);
         values.put(KEY_TALENTCONTENT, talentcontent);
+        values.put(KEY_BOX, box);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
     }
 

@@ -243,6 +243,27 @@ public class NamedFMDBAdapter {
         return namedItems.get(index);
     }
 
+    public NamedItem fetchAllData_Random(String ws) {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_WS+"='"+ws+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        ArrayList<NamedItem> namedItems = new ArrayList<NamedItem>();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            String talent = cursor.getString(2);
+            String type = cursor.getString(3);
+            int noTalent = Integer.parseInt(cursor.getString(6));
+            String brand = cursor.getString(8);
+            String asp = cursor.getString(9);
+            String talentcontent = cursor.getString(10);
+            NamedItem item = new NamedItem(name, talent, type, brand, asp, talentcontent);
+            item.setNoTalent(noTalent);
+            namedItems.add(item);
+            cursor.moveToNext();
+        }
+        int index = percent(0, namedItems.size());
+        return namedItems.get(index);
+    }
+
     public NamedItem fetchDarkData_Random(String ws) {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_LITE, KEY_DARK, KEY_SUB, KEY_WS, KEY_BRAND, KEY_ASP, KEY_TALENTCONTENT}, KEY_DARK+"="+1+" and "+KEY_WS+"='"+ws+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
