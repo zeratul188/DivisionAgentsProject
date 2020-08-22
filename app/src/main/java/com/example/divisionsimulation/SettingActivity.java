@@ -50,6 +50,8 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.settinglayout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setTitle("환경설정");
+
         btnAllReset = findViewById(R.id.btnAllReset);
         btnLibraryReset = findViewById(R.id.btnLibraryReset);
         btnLibraryMax = findViewById(R.id.btnLibraryMax);
@@ -173,7 +175,7 @@ public class SettingActivity extends AppCompatActivity {
                     File sd = Environment.getExternalStorageDirectory();
                     File data = Environment.getDataDirectory();
                     if (sd.canWrite()) {
-                        String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName+".db";
+                        String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
                         String backupDBPath = "inventory_savefile.db";
                         File backupDB = new File(data, currentDBPath);
                         File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
@@ -187,7 +189,7 @@ public class SettingActivity extends AppCompatActivity {
 
                         toast("인벤토리를 불러왔습니다.", false);
                     } else {
-                        toast("권한이 없습니다.", false);
+                        toast("권한이 없습니다. 설정에서 '권한 요청'을 통해 권한을 획득하십시오.", false);
                     }
                 } catch (Exception e) {
                     toast("Export Failed!!", false);
@@ -215,9 +217,9 @@ public class SettingActivity extends AppCompatActivity {
                     File data = Environment.getDataDirectory();
                     if (sd.canWrite()) {
                         File backupDir = new File(sd, backupDirectoryName);
-                        backupDir.mkdir();
-                        String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName+".db";
-                        String backupDBPath = "inventory_savefile.db";
+                        if (!backupDir.exists()) backupDir.mkdir();
+                        String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                        String backupDBPath = "inventory_savefile";
                         File currentDB = new File(data, currentDBPath);
                         File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
 
@@ -230,10 +232,11 @@ public class SettingActivity extends AppCompatActivity {
 
                         toast("현재 인벤토리를 저장하였습니다.", false);
                     } else {
-                        toast("권한이 없습니다.", false);
+                        toast("권한이 없습니다. 설정에서 '권한 요청'을 통해 권한을 획득하십시오.", false);
                     }
                 } catch (Exception e) {
                     toast("Import Failed!!", false);
+                    e.printStackTrace();
                 }
             }
         });
@@ -350,7 +353,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private boolean hasPermissions() {
         int res = 0;
-        String[] permissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] permissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
         for (String perms : permissions) {
             res = checkCallingOrSelfPermission(perms);
@@ -362,7 +365,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void requestPerms() {
-        String[] permissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] permissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(permissions, 0);
         }

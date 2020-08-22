@@ -29,7 +29,7 @@ public class ToolsFragment extends Fragment {
     private MaterialDbAdapter materialDbAdapter;
 
     private TextView txtInventory;
-    private Button btnWeapon, btnSubWeapon, btnMask, btnBackpack, btnVest, btnGlove, btnHolster, btnKneeped, btnReset, btnMaterialList;
+    private Button btnWeapon, btnSubWeapon, btnMask, btnBackpack, btnVest, btnGlove, btnHolster, btnKneeped, btnMaterialList;
 
     private Intent intent;
     private int weapons = 0;
@@ -58,7 +58,6 @@ public class ToolsFragment extends Fragment {
         btnGlove = root.findViewById(R.id.btnGlove);
         btnHolster = root.findViewById(R.id.btnHolster);
         btnKneeped = root.findViewById(R.id.btnKneeped);
-        btnReset = root.findViewById(R.id.btnReset);
         btnMaterialList = root.findViewById(R.id.btnMaterialList);
 
         inventoryDBAdapter = new InventoryDBAdapter(getActivity());
@@ -129,32 +128,6 @@ public class ToolsFragment extends Fragment {
             public void onClick(View v) {
                 intent.putExtra("type", "무릎보호대");
                 startActivity(intent);
-            }
-        });
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
-                builder.setTitle("인벤토리 초기화");
-                inventoryDBAdapter.open();
-                builder.setMessage("인벤토리를 초기화하시겠습니까? ("+inventoryDBAdapter.getCount()+"/300)");
-                inventoryDBAdapter.close();
-                builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        inventoryDBAdapter.open();
-                        inventoryDBAdapter.deleteAllData();
-                        inventoryDBAdapter.close();
-                        Toast.makeText(getActivity(), "인벤토리가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
-                        refresh();
-                    }
-                });
-                builder.setNegativeButton("취소", null);
-
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
             }
         });
         
