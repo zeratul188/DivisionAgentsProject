@@ -30,7 +30,7 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="노력의 산물"
+                    android:text="[Command Title]"
                     android:textColor="#f0f0f0"
                     android:textStyle="bold"
                     android:textSize="20sp"/>
@@ -38,7 +38,7 @@
                     android:id="@+id/txtContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="방어구 키트가 없는 상태로 시작합니다. 시그니처 무기 탄약 막대를 충전하는 방식으로만 방어구 키트를 획득할 수 있습니다."
+                    android:text="[Command Content]"
                     android:textSize="17sp"
                     android:layout_marginTop="5dp"
                     android:textColor="#aaaaaa"/>

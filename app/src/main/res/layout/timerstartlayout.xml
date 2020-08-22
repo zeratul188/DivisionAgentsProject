@@ -17,13 +17,6 @@
             android:textSize="20sp"
             android:textColor="#aaaaaa"/>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="남은 시간 : "
-            android:textSize="15sp"
-            android:textColor="#aaaaaa"
-            android:textAlignment="textEnd"/>
-        <TextView
             android:id="@+id/txtTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

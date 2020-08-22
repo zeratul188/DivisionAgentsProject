@@ -868,16 +868,16 @@ public class ShareFragment extends Fragment {
         progressSpecial.setProgressEndColor(Color.parseColor("#fe6e0e"));
         progressSpecial.setProgressBackgroundColor(Color.parseColor("#888888"));
         progressSpecial.setLineWidth(40);
-        progressNamed.setProgressStartColor(Color.parseColor("#fe6e0e"));
-        progressNamed.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressNamed.setProgressStartColor(Color.parseColor("#B18912"));
+        progressNamed.setProgressEndColor(Color.parseColor("#B18912"));
         progressNamed.setProgressBackgroundColor(Color.parseColor("#888888"));
         progressNamed.setLineWidth(40);
-        progressGear.setProgressStartColor(Color.parseColor("#fe6e0e"));
-        progressGear.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressGear.setProgressStartColor(Color.parseColor("#2BBE2B"));
+        progressGear.setProgressEndColor(Color.parseColor("#2BBE2B"));
         progressGear.setProgressBackgroundColor(Color.parseColor("#888888"));
         progressGear.setLineWidth(40);
-        progressBrand.setProgressStartColor(Color.parseColor("#fe6e0e"));
-        progressBrand.setProgressEndColor(Color.parseColor("#fe6e0e"));
+        progressBrand.setProgressStartColor(Color.parseColor("#E7BC00"));
+        progressBrand.setProgressEndColor(Color.parseColor("#E7BC00"));
         progressBrand.setProgressBackgroundColor(Color.parseColor("#888888"));
         progressBrand.setLineWidth(40);
         /*

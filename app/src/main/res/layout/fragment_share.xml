@@ -466,8 +466,8 @@
                                         android:layout_height="125dp"
                                         app:style="solid_line"
                                         app:progress_stroke_width="2dp"
-                                        app:progress_start_color="#ff6337"
-                                        app:progress_end_color="#ff6337"
+                                        app:progress_start_color="#B18912"
+                                        app:progress_end_color="#B18912"
                                         app:progress_background_color="#444444"
                                         app:progress_text_color="#888888"
                                         app:progress_text_size="30sp"/>
@@ -532,8 +532,8 @@
                                         android:layout_height="125dp"
                                         app:style="solid_line"
                                         app:progress_stroke_width="2dp"
-                                        app:progress_start_color="#ff6337"
-                                        app:progress_end_color="#ff6337"
+                                        app:progress_start_color="#2BBE2B"
+                                        app:progress_end_color="#2BBE2B"
                                         app:progress_background_color="#444444"
                                         app:progress_text_color="#888888"
                                         app:progress_text_size="30sp" />
@@ -550,8 +550,8 @@
                                         android:layout_height="125dp"
                                         app:style="solid_line"
                                         app:progress_stroke_width="2dp"
-                                        app:progress_start_color="#ff6337"
-                                        app:progress_end_color="#ff6337"
+                                        app:progress_start_color="#E7BC00"
+                                        app:progress_end_color="#E7BC00"
                                         app:progress_background_color="#444444"
                                         app:progress_text_color="#888888"
                                         app:progress_text_size="30sp"/>
