@@ -26,7 +26,6 @@ import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
 import java.util.ArrayList;
 
 public class LibraryActivity extends AppCompatActivity {
-    private Button btnReset, btnMax;
     private Cursor cursor;
     private ListView listView;
     private RadioGroup rgType, rgWeapon;
@@ -61,8 +60,6 @@ public class LibraryActivity extends AppCompatActivity {
         talentDBAdapter = new TalentFMDBAdapter(this);
         maxOptionsDBAdapter = new MaxOptionsFMDBAdapter(this);
 
-        btnReset = findViewById(R.id.btnReset);
-        btnMax = findViewById(R.id.btnMax);
         listView = findViewById(R.id.listView);
         rgType = findViewById(R.id.rgType);
         rgWeapon = findViewById(R.id.rgWeapon);
@@ -264,7 +261,7 @@ public class LibraryActivity extends AppCompatActivity {
             }
         });
 
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        /*btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 builder = new AlertDialog.Builder(LibraryActivity.this, R.style.MyAlertDialogStyle);
@@ -342,10 +339,10 @@ public class LibraryActivity extends AppCompatActivity {
                 alertDialog.setCancelable(false);
                 alertDialog.show();
             }
-        });
+        });*/
     }
 
-    private void rgRefresh() {
+    /*private void rgRefresh() {
         libraryItems.clear();
         talentItems.clear();
         libraryDBAdapter.open();
@@ -430,16 +427,16 @@ public class LibraryActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
         talentLibraryDBAdapter.close();
-    }
+    }*/
 
-    private void resetData() {
+    /*private void resetData() {
         libraryDBAdapter.open();
         libraryDBAdapter.resetAllData();
         libraryDBAdapter.close();
         talentLibraryDBAdapter.open();
         talentLibraryDBAdapter.databaseReset();
         talentLibraryDBAdapter.close();
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

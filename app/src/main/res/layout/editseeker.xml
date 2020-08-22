@@ -228,6 +228,7 @@
         android:orientation="horizontal"
         android:layout_marginBottom="10dp"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:visibility="gone">
         <LinearLayout
             android:layout_width="0dp"

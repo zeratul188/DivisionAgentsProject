@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.divisionsimulation"
     android:installLocation="preferExternal">
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -143,6 +145,8 @@
         <activity android:name=".ui.tools.ItemEditActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".LibraryActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".SettingActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".LoadingActivity"

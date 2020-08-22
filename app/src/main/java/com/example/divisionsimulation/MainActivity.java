@@ -1,10 +1,12 @@
 package com.example.divisionsimulation;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -17,8 +19,10 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -115,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         //getSupportActionBar().setBackgroundDrawable(draw);
 
         ShareFragment.context = this;
+
+        /*hasPermissions();
+        requestPerms();*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         final View viewt = getWindow().getDecorView();
@@ -260,42 +267,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         switch(item.getItemId())
         {
             case R.id.menu1:
-                /*builder = new AlertDialog.Builder(this);
-                builder.setTitle("버젼 확인").setMessage("Version 2.2.3\n마지막 수정 일자 : 2020년 4월 3일 16시 46분\n\n변경 사항 : \n- 파밍 시뮬레이션 : 다크존 수치가 이상하게 나왔던 버그 수정\n- 파밍 시뮬레이션 : 아이템 목록에 다크존 네임드 아이템이 색이 적용안되던 버그 수정\n- 파밍 시뮬레이션 : 네임드, 특급 아이템 탤런트 이름 추가");
-                builder.setPositiveButton("확인", null);
-                alertDialog = builder.create();
-                alertDialog.show();*/
-                dialogView = getLayoutInflater().inflate(R.layout.helplayout0, null);
-                final Button btnExit = dialogView.findViewById(R.id.btnExit);
-                final TextView txtVersion = dialogView.findViewById(R.id.txtVersion);
-                btnExit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-                txtVersion.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String str = "";
-                        manager_access_count++;
-                        if (manager_access_count >= 5) {
-                            if (!managered) {
-                                str = "관리자 모드에 진입하셨습니다.";
-                                managered = true;
-                            } else str = "이미 관리자 모드입니다.";
-                            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
-                        } else {
-                            str = "관리자 모드까지 "+(5-manager_access_count)+"단계 남았습니다.";
-                            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
+                intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.menu2:
                 intent = new Intent(this, SHDActivity.class);

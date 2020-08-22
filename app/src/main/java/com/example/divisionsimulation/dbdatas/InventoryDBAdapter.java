@@ -76,6 +76,10 @@ public class InventoryDBAdapter {
         }
     }
 
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
     public InventoryDBAdapter open() throws SQLException {
         myDBHelper = new DatabaseHelper(mCtx);
         sqlDB = myDBHelper.getWritableDatabase();
