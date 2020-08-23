@@ -51,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.settinglayout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle("환경설정");
+        setTitle("설정");
 
         btnAllReset = findViewById(R.id.btnAllReset);
         btnLibraryReset = findViewById(R.id.btnLibraryReset);
@@ -252,7 +252,7 @@ public class SettingActivity extends AppCompatActivity {
             count++;
         }
         materialDbAdapter.close();
-        builder = new AlertDialog.Builder(getApplicationContext(), R.style.MyAlertDialogStyle);
+        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
         builder.setTitle("재료 최대치");
         builder.setMessage("재료를 최대치로 채우시겠습니까?");
 
