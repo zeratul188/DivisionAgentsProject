@@ -75,6 +75,10 @@ public class TalentLibraryDBAdapter {
         return this;
     }
 
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
     public boolean databaseReset() {
         return sqlDB.delete(DATABASE_TABLE, null, null) > 0;
     }

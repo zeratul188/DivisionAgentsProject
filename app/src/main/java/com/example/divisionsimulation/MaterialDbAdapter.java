@@ -85,6 +85,10 @@ public class MaterialDbAdapter {
         return this;
     }
 
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
     public void databaseReset() {
         sqlDB.delete(DATABASE_TABLE, null, null);
     }

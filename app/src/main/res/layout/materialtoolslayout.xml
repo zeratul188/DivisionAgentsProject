@@ -589,35 +589,6 @@
             android:layout_gravity="center"
             android:indeterminateTint="#E45435"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <Button
-                android:id="@+id/btnReset"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
-                android:text="재료 초기화"
-                android:layout_marginRight="5dp"
-                android:textSize="18sp"
-                android:textColor="#aaaaaa"
-                android:padding="15dp"/>
-            <Button
-                android:id="@+id/btnMax"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="@drawable/buttoncustom"
-                android:text="재료 최대치"
-                android:layout_marginLeft="5dp"
-                android:textSize="18sp"
-                android:textColor="#aaaaaa"
-                android:padding="15dp"/>
-        </LinearLayout>
-
         <Button
             android:id="@+id/btnMaterialExit"
             android:layout_width="match_parent"

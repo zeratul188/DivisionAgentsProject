@@ -111,6 +111,10 @@ public class LibraryDBAdapter {
         }
     }
 
+    public String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
     public LibraryDBAdapter open() throws SQLException {
         myDBHelper = new DatabaseHelper(mCtx);
         sqlDB = myDBHelper.getWritableDatabase();
