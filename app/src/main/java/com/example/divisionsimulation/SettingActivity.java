@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,8 @@ import java.nio.channels.FileChannel;
 public class SettingActivity extends AppCompatActivity {
     private Button btnAllReset, btnLibraryReset, btnLibraryMax, btnLevelReset, btnInventoryClear, btnInventorySave, btnInventoryInput;
     private Button btnDeveloper, btnMaterialReset, btnMaterialMax, btnLibrarySave, btnLibraryLoad, btnSHDSave, btnSHDLoad, btnMaterialSave, btnMaterialLoad;
+    private Button btnAllSave, btnAllLoad;
+    private TextView txtWriteRead;
 
     private LibraryDBAdapter libraryDBAdapter;
     private SHDDBAdapter shddbAdapter;
@@ -69,6 +73,11 @@ public class SettingActivity extends AppCompatActivity {
         btnSHDLoad = findViewById(R.id.btnSHDLoad);
         btnMaterialSave = findViewById(R.id.btnMaterialSave);
         btnMaterialLoad = findViewById(R.id.btnMaterialLoad);
+        btnAllSave = findViewById(R.id.btnAllSave);
+        btnAllLoad = findViewById(R.id.btnAllLoad);
+        txtWriteRead = findViewById(R.id.txtWriteRead);
+
+        updatePermissionsUI();
 
         libraryDBAdapter = new LibraryDBAdapter(this);
         shddbAdapter = new SHDDBAdapter(this);
@@ -231,6 +240,26 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 exportMaterial();
+            }
+        });
+
+        btnAllSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                importMaterial();
+                importSHD();
+                importLibrary();
+                importInventory();
+            }
+        });
+
+        btnAllLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exportMaterial();
+                exportSHD();
+                exportInventory();
+                exportLibrary();
             }
         });
 
@@ -872,6 +901,22 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
+    private void updatePermissionsUI() {
+        if (hasPermissions()) {
+            txtWriteRead.setText("허용됨");
+            txtWriteRead.setTextColor(Color.parseColor("#00FF00"));
+        } else {
+            txtWriteRead.setText("거부됨");
+            txtWriteRead.setTextColor(Color.parseColor("#FF0000"));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePermissionsUI();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -891,6 +936,8 @@ public class SettingActivity extends AppCompatActivity {
         if (!allowed) {
             Toast.makeText(getApplicationContext(), "권한이 거부되었습니다.", Toast.LENGTH_SHORT).show();
         }
+
+        updatePermissionsUI();
     }
 
     @Override
