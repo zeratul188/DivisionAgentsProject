@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/layoutcustomnopadding">
         <RadioGroup
             android:id="@+id/rgType"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginRight="5dp">
+            android:orientation="vertical">
             <RadioButton
                 android:id="@+id/rdoType1"
                 android:layout_width="match_parent"
@@ -28,9 +28,8 @@
                 android:checked="true"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType2"
                 android:layout_width="match_parent"
@@ -41,9 +40,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType3"
                 android:layout_width="match_parent"
@@ -54,9 +52,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType4"
                 android:layout_width="match_parent"
@@ -67,9 +64,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType5"
                 android:layout_width="match_parent"
@@ -80,9 +76,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType6"
                 android:layout_width="match_parent"
@@ -93,9 +88,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType7"
                 android:layout_width="match_parent"
@@ -106,9 +100,8 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"/>
+                android:background="@drawable/radiomenuleftcustom"
+                android:textAlignment="center"/>
             <RadioButton
                 android:id="@+id/rdoType8"
                 android:layout_width="match_parent"
@@ -119,99 +112,18 @@
                 android:textColor="#f0f0f0"
                 android:button="@null"
                 android:padding="10dp"
-                android:background="@drawable/radiocustom"
+                android:background="@drawable/radiomenuleftcustom"
                 android:textAlignment="center"/>
         </RadioGroup>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <RadioGroup
-                android:id="@+id/rgWeapon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
-                <RadioButton
-                    android:id="@+id/rdoWeapon1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="AR"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:checked="true"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rdoWeapon2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="SG"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rdoWeapon3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="BG"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rdoWeapon4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="RF"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rdoWeapon5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="MMR"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rdoWeapon6"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="SG"
-                    android:textSize="15sp"
-                    android:textColor="#f0f0f0"
-                    android:button="@null"
-                    android:padding="5dp"
-                    android:background="@drawable/radiocustom"
-                    android:textAlignment="center"/>
-
-            </RadioGroup>
+            android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:orientation="vertical">
                 <LinearLayout
                     android:id="@+id/layoutCount"
@@ -246,8 +158,102 @@
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"/>
+                    android:padding="2dp"/>
             </LinearLayout>
+            <RadioGroup
+                android:id="@+id/rgWeapon"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <RadioButton
+                    android:id="@+id/rdoWeapon1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="돌격소총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:checked="true"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="기관단총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="경기관총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="소총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="지정사수소총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="산탄총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+                <RadioButton
+                    android:id="@+id/rdoWeapon7"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="권총"
+                    android:textSize="15sp"
+                    android:textColor="#f0f0f0"
+                    android:button="@null"
+                    android:padding="5dp"
+                    android:background="@drawable/radiomenuleftcustom"
+                    android:textAlignment="center"/>
+            </RadioGroup>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

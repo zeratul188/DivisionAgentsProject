@@ -20,11 +20,22 @@ public class EditAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<EditItem> editList = null;
     private ArrayList<String> talentList = null;
-    private boolean talented = false;
+    private boolean talented = false, core = false;
     private String option_type, option;
 
     private MaxOptionsFMDBAdapter maxDBAdapter;
     private Cursor cursor;
+
+    public EditAdapter(Context context, ArrayList<EditItem> editList, ArrayList<String> talentList, boolean talented, String option_type, String option, boolean core) {
+        this.context = context;
+        this.editList = editList;
+        this.talentList = talentList;
+        this.talented = talented;
+        this.option_type = option_type;
+        this.option = option;
+        this.core = core;
+        maxDBAdapter = new MaxOptionsFMDBAdapter(context);
+    }
 
     public EditAdapter(Context context, ArrayList<EditItem> editList, ArrayList<String> talentList, boolean talented, String option_type, String option) {
         this.context = context;
@@ -98,19 +109,23 @@ public class EditAdapter extends BaseAdapter {
             maxDBAdapter.close();
             switch (editList.get(position).getType()) {
                 case "공격":
-                    imgType.setImageResource(R.drawable.attack);
+                    if (core) imgType.setImageResource(R.drawable.attack);
+                    else imgType.setImageResource(R.drawable.attack_sub);
                     progressOption.setProgressDrawable(context.getResources().getDrawable(R.drawable.attack_progress));
                     break;
                 case "방어":
-                    imgType.setImageResource(R.drawable.sheld);
+                    if (core) imgType.setImageResource(R.drawable.sheld);
+                    else imgType.setImageResource(R.drawable.sheld_sub);
                     progressOption.setProgressDrawable(context.getResources().getDrawable(R.drawable.sheld_progress));
                     break;
                 case "다용도":
-                    imgType.setImageResource(R.drawable.power);
+                    if (core) imgType.setImageResource(R.drawable.power);
+                    else imgType.setImageResource(R.drawable.power_sub);
                     progressOption.setProgressDrawable(context.getResources().getDrawable(R.drawable.power_progress));
                     break;
                 default:
-                    imgType.setImageResource(R.drawable.weaponicon);
+                    if (core) imgType.setImageResource(R.drawable.weaponicon);
+                    else imgType.setImageResource(R.drawable.weaponsub);
                     progressOption.setProgressDrawable(context.getResources().getDrawable(R.drawable.progressbar_progressbar_gage));
             }
             progressOption.setMax((int)(max*10));

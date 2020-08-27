@@ -62,7 +62,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
     private String[] weaponList = {"돌격소총", "소총", "지정사수소총", "산탄총", "기관단총", "경기관총", "권총"};
-    private boolean weaponed = false;
+    private boolean weaponed = false, core = false;
     private String remove_option = "";
 
     private ArrayList<MaterialItem> materialList;
@@ -327,9 +327,11 @@ public class ItemEditActivity extends AppCompatActivity {
             switch (option_type) {
                 case "weapon_core1":
                     cursor = libraryDBAdapter.fetchTypeData("무기");
+                    core = true;
                     break;
                 case "weapon_core2":
                     cursor = libraryDBAdapter.fetchTypeData(type);
+                    core = true;
                     break;
                 case "weapon_sub":
                     if (!type.equals("권총")) {
@@ -338,15 +340,18 @@ public class ItemEditActivity extends AppCompatActivity {
                     } else {
                         remove_option = "";
                     }
+                    core = false;
                     cursor = libraryDBAdapter.fetchTypeData("무기 부속성");
                     break;
                 case "sheld_core":
                     cursor = libraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                    core = true;
                     break;
                 case "sheld_sub1":
                 case "sheld_sub2":
                     remove_option = other_name;
                     cursor = libraryDBAdapter.fetchTypeData("보호장구 부속성");
+                    core = false;
                     break;
             }
             while (!cursor.isAfterLast()) {
@@ -357,7 +362,7 @@ public class ItemEditActivity extends AppCompatActivity {
                 cursor.moveToNext();
             }
             libraryDBAdapter.close();
-            editAdapter = new EditAdapter(this, editItems, null, false, option_type, type);
+            editAdapter = new EditAdapter(this, editItems, null, false, option_type, type, core);
             listView.setAdapter(editAdapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

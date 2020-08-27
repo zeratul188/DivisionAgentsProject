@@ -30,11 +30,11 @@ public class LibraryActivity extends AppCompatActivity {
     private ListView listView;
     private RadioGroup rgType, rgWeapon;
     private RadioButton[] rdoType = new RadioButton[8];
-    private RadioButton[] rdoWeapon = new RadioButton[6];
+    private RadioButton[] rdoWeapon = new RadioButton[7];
     private LinearLayout layoutCount;
     private TextView txtCount, txtMaxCount;
 
-    private String[] weapon_types = {"돌격소총", "기관단총", "경기관총", "소총", "지정사수소총", "산탄총"};
+    private String[] weapon_types = {"돌격소총", "기관단총", "경기관총", "소총", "지정사수소총", "산탄총", "권총"};
 
     private ArrayList<LibraryItem> libraryItems;
     private ArrayList<String> talentItems;
@@ -90,7 +90,7 @@ public class LibraryActivity extends AppCompatActivity {
         }
         libraryDBAdapter.close();
 
-        libraryAdapter = new LibraryAdapter(this, libraryItems, null, false, "weapon_core1");
+        libraryAdapter = new LibraryAdapter(this, libraryItems, null, false, "weapon_core1", true);
         listView.setAdapter(libraryAdapter);
 
         rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -110,16 +110,18 @@ public class LibraryActivity extends AppCompatActivity {
                             libraryItems.add(item);
                             cursor.moveToNext();
                         }
-                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core1");
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core1", true);
                         break;
                     case R.id.rdoType2:
                         for (int i = 0; i < weapon_types.length; i++) {
-                            cursor = libraryDBAdapter.fetchTypeData(weapon_types[i]);
-                            LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
-                            item.setWeaponType(weapon_types[i]);
-                            libraryItems.add(item);
+                            if (!weapon_types[i].equals("권총")) {
+                                cursor = libraryDBAdapter.fetchTypeData(weapon_types[i]);
+                                LibraryItem item = new LibraryItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
+                                item.setWeaponType(weapon_types[i]);
+                                libraryItems.add(item);
+                            }
                         }
-                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core2");
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core2", true);
                         break;
                     case R.id.rdoType3:
                         cursor = libraryDBAdapter.fetchSubAllData();
@@ -128,7 +130,7 @@ public class LibraryActivity extends AppCompatActivity {
                             libraryItems.add(item);
                             cursor.moveToNext();
                         }
-                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_sub");
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_sub", false);
                         break;
                     case R.id.rdoType4:
                         cursor = libraryDBAdapter.fetchSheldCoreAllData();
@@ -137,7 +139,7 @@ public class LibraryActivity extends AppCompatActivity {
                             libraryItems.add(item);
                             cursor.moveToNext();
                         }
-                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_core");
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_core", true);
                         break;
                     case R.id.rdoType5:
                         cursor = libraryDBAdapter.fetchSheldSubAllData();
@@ -146,7 +148,7 @@ public class LibraryActivity extends AppCompatActivity {
                             libraryItems.add(item);
                             cursor.moveToNext();
                         }
-                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_sub");
+                        libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_sub", false);
                         break;
                     case R.id.rdoType6:
                         rgWeapon.setVisibility(View.VISIBLE);
