@@ -106,6 +106,9 @@ public class ShareFragment extends Fragment {
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll; //특급, 네임드, 기어, 일반, 전체 갯수 텍스트뷰 생성
     private Button btnMission;
 
+    private RadioGroup rgChange;
+    private RadioButton rdoAny, rdoAll;
+
     private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand; //특급, 네임드, 기어, 브랜드의 백분율을 나타낼 진행바 객체 생성
 
     private int special = 0, named = 0, gear = 0, brand = 0, darkitem = 0, all = 0, temp; //특급, 네임드, 기어, 브랜드, 다크존 가방 아이템 갯수, 전체 갯수를 저장할 변수 생성
@@ -122,7 +125,7 @@ public class ShareFragment extends Fragment {
     private boolean[] checks;
     private ArrayList<Item> dark_items;
 
-    private boolean isBtnDown;
+    private boolean isBtnDown, isChange = true;
 
     private Handler handler; //UI 변경시 사용할 핸들러
     private NotificationChannel channel = null; //알림때 필요한 채널
@@ -740,6 +743,44 @@ public class ShareFragment extends Fragment {
         btnNamed = root.findViewById(R.id.btnNamed);
         btnExotic = root.findViewById(R.id.btnExotic);
         btnLevelBox = root.findViewById(R.id.btnLevelBox);
+
+        rgChange = root.findViewById(R.id.rgChange);
+        rdoAny = root.findViewById(R.id.rdoAny);
+        rdoAll = root.findViewById(R.id.rdoAll);
+
+        rgChange.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rdoAny:
+                        isChange = true;
+                        int max = 0;
+                        for (int i = 0; i < typet.length; i++) {
+                            if (typet[i] > 80 && max <= 80){
+                                max = 81;
+                                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
+                            } else if (typet[i] > 60 && max <= 60){
+                                max = 61;
+                                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
+                            } else if (typet[i] > 40 && max <= 40){
+                                max = 41;
+                                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
+                            } else if (typet[i] > 20 && max <= 20){
+                                max = 21;
+                                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
+                            }  else if (max == 0) {
+                                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(20);
+                            }
+                        }
+                        break;
+                    case R.id.rdoAll:
+                        for (int i = 0; i < progressType.length; i++) progressType[i].setMax(all);
+                        isChange = false;
+                        break;
+                }
+                for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
+            }
+        });
 
         shdAdapter.open();
         int box = shdAdapter.getBoxCount();
@@ -17661,37 +17702,23 @@ public class ShareFragment extends Fragment {
         txtGear.setText(Integer.toString(gear));
         txtBrand.setText(Integer.toString(brand));
         for (int i = 0; i < txtTypelist.length; i++) txtTypelist[i].setText(Integer.toString(pref.getInt("typet"+(i+1), 0)));
-        switch (pref.getInt("ProgessMax", 20)) {
-            case 20:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 20){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
-                    }
-                }
-                break;
-            case 40:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 40){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
-                    }
-                }
-                break;
-            case 60:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 60){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
-                    }
-                }
-                break;
-            case 80:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 80){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
-                    }
-                }
-                break;
-                default:
-                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(20);
+        int max = 0;
+        for (int i = 0; i < typet.length; i++) {
+            if (typet[i] > 80 && max <= 80){
+                max = 81;
+                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
+            } else if (typet[i] > 60 && max <= 60){
+                max = 61;
+                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
+            } else if (typet[i] > 40 && max <= 40){
+                max = 41;
+                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
+            } else if (typet[i] > 20 && max <= 20){
+                max = 21;
+                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
+            }  else if (max == 0) {
+                for (int j = 0; j < progressType.length; j++) progressType[j].setMax(20);
+            }
         }
         for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
     }
@@ -17812,35 +17839,27 @@ public class ShareFragment extends Fragment {
                 temp.setImageResource(R.drawable.sd6custom);
                 break;
         }
-        switch (progressType[0].getMax()) {
-            case 20:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 20){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
-                    }
+        if (isChange) {
+            int max = 0;
+            for (int i = 0; i < typet.length; i++) {
+                if (typet[i] > 80 && max <= 80){
+                    max = 81;
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
+                } else if (typet[i] > 60 && max <= 60){
+                    max = 61;
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
+                } else if (typet[i] > 40 && max <= 40){
+                    max = 41;
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
+                } else if (typet[i] > 20 && max <= 20){
+                    max = 21;
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(40);
+                }  else if (max == 0) {
+                    for (int j = 0; j < progressType.length; j++) progressType[j].setMax(20);
                 }
-                break;
-            case 40:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 40){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(60);
-                    }
-                }
-                break;
-            case 60:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 60){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(80);
-                    }
-                }
-                break;
-            case 80:
-                for (int i = 0; i < typet.length; i++) {
-                    if (typet[i] > 80){
-                        for (int j = 0; j < progressType.length; j++) progressType[j].setMax(100);
-                    }
-                }
-                break;
+            }
+        } else {
+            for (int i = 0; i < progressType.length; i++) progressType[i].setMax(all);
         }
         for (int i = 0; i < progressType.length; i++) progressType[i].setProgress(typet[i]);
         setEditor();
