@@ -4,21 +4,32 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#222222">
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/progressReset"
+    android:background="#00222222">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="20dp"
-        android:layout_gravity="center"
-        app:style="solid_line"
-        app:progress_stroke_width="2dp"
-        app:progress_text_size="20sp"
-        app:progress_start_color="#ff6337"
-        app:progress_end_color="#ff6337"
-        app:progress_background_color="#444444"
-        app:progress_text_color="#888888"
-        android:layout_marginLeft="10dp"/>
+        android:layout_height="wrap_content">
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progressReset"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"
+            app:style="solid_line"
+            app:progress_stroke_width="2dp"
+            app:progress_text_size="20sp"
+            app:progress_start_color="#ff6337"
+            app:progress_end_color="#ff6337"
+            app:progress_background_color="#10888888"
+            app:progress_text_color="#00000000"/>
+        <ImageView
+            android:id="@+id/imgWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_warning_black_24dp"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/btnExit"

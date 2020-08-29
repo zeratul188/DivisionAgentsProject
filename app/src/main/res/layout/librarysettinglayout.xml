@@ -24,7 +24,7 @@
                 android:layout_weight="1"
                 android:text="주무기"
                 android:textSize="15sp"
-                android:textColor="#f0f0f0"
+                android:textColor="#FF6337"
                 android:checked="true"
                 android:button="@null"
                 android:padding="10dp"
@@ -174,11 +174,11 @@
                     android:layout_weight="1"
                     android:text="돌격소총"
                     android:textSize="15sp"
-                    android:textColor="#f0f0f0"
+                    android:textColor="#FF6337"
                     android:button="@null"
                     android:padding="5dp"
                     android:checked="true"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon2"
@@ -190,7 +190,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon3"
@@ -202,7 +202,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon4"
@@ -214,7 +214,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon5"
@@ -226,7 +226,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon6"
@@ -238,7 +238,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
                     android:id="@+id/rdoWeapon7"
@@ -250,7 +250,7 @@
                     android:textColor="#f0f0f0"
                     android:button="@null"
                     android:padding="5dp"
-                    android:background="@drawable/radiomenuleftcustom"
+                    android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
             </RadioGroup>
 

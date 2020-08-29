@@ -3,6 +3,7 @@ package com.example.divisionsimulation.ui.home;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -94,8 +96,12 @@ public class HomeFragment extends Fragment implements Serializable {
     private boolean btnEnd = false; //초기화 카운터가 1500(3초)가 되면 초기화되도록 해주는 변수이다.
 
     private CircleProgressBar progressReset = null; //초기화 진행 중 나타나는 원형 프로그레스 바이다.
+    private ImageView imgWarning = null;
 
     private EditText edtWeaponDemage, edtRPM, edtCritical, edtCriticalDemage, edtHeadshot, edtHeadshotDemage, edtEliteDemage, edtSheldDemage, edtHealthDemage, edtReload, edtAmmo, edtNickname, edtAiming; //레이아웃에서 입력받은 값들을 저장시키는 변수이다.
+
+    private int visible_cnt = 0;
+    private boolean isVisible = true;
 
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) { //메시지를 받아 UI 관련 작업을 실행한다.
@@ -190,11 +196,27 @@ public class HomeFragment extends Fragment implements Serializable {
             } else {
                 reset_count += 10; //3초가 지나지 않았으므로 10씩 증가한다. 0.02초마다 반복되므로 3초까지는 1500이기 때문에 10씩 올린다.
                 progressReset.setProgress(reset_count); //원형 프로그레스바도 초기화 카운터로 잡아 진행도도 설정한다.
+                if (isVisible) visibleWarning();
+                else invisibleWarning();
+                visible_cnt += 10;
+                if (visible_cnt > 250) {
+                    visible_cnt = 0;
+                    if (isVisible) isVisible = false;
+                    else isVisible = true;
+                }
             }
             Log.v("LC버튼", "Long클릭" + ct); //임시 로그 메시지 남김
             mHandler.sendEmptyMessageDelayed(0, 20); //0.02초마다 딜레이를 두어 핸들러를 반복시켜 준다.
         }
     };
+
+    private void visibleWarning() {
+        imgWarning.setVisibility(View.VISIBLE);
+    }
+
+    private void invisibleWarning() {
+        imgWarning.setVisibility(View.INVISIBLE);
+    }
 
     /*public void mOnClick (View v){
         reset_count = 0;
@@ -1213,6 +1235,7 @@ public class HomeFragment extends Fragment implements Serializable {
             public void onClick(View v) { //초기화 버튼이 한번 눌렸을 경우 작동한다.
                 dialogView = getLayoutInflater().inflate(R.layout.resetlayout, null);
                 progressReset = dialogView.findViewById(R.id.progressReset);
+                imgWarning = dialogView.findViewById(R.id.imgWarning);
                 progressReset.setMax(1500);
                 progressReset.setProgress(0);
                 reset_count = 0;
@@ -1229,6 +1252,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 builder.setView(dialogView);
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
 
                 alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

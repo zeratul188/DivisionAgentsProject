@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -400,14 +403,14 @@ public class InventoryActivity extends AppCompatActivity {
                     namedDBAdapter.open();
                     if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) {
                         String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
-                        txtWTalentContent.setText(content);
+                        txtWTalentContent.setText(transformString(content));
                         layoutTalent.setEnabled(false);
                     } else {
                         talentDBAdapter.open();
                         cursor = talentDBAdapter.fetchData(itemList.get(position).getTalent());
                         talent_content = cursor.getString(11);
                         talentDBAdapter.close();
-                        txtWTalentContent.setText(talent_content);
+                        txtWTalentContent.setText(transformString(talent_content));
                     }
                     namedDBAdapter.close();
                 } else {
@@ -511,13 +514,13 @@ public class InventoryActivity extends AppCompatActivity {
                             namedDBAdapter.open();
                             if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent())) {
                                 String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
-                                txtWTalentContent.setText(content);
+                                txtWTalentContent.setText(transformString(content));
                             } else {
                                 talentDBAdapter.open();
                                 cursor = talentDBAdapter.fetchData(itemList.get(position).getTalent());
                                 talent_content = cursor.getString(11);
                                 talentDBAdapter.close();
-                                txtWTalentContent.setText(talent_content);
+                                txtWTalentContent.setText(transformString(talent_content));
                             }
                             namedDBAdapter.close();
                             break;
@@ -563,7 +566,7 @@ public class InventoryActivity extends AppCompatActivity {
                     txtWTalent.setText(itemList.get(position).getTalent());
                     cursor = exoticDBAdapter.fetchData(itemList.get(position).getName());
                     talent_content = cursor.getString(12);
-                    txtWTalentContent.setText(talent_content);
+                    txtWTalentContent.setText(transformString(talent_content));
                     layoutTalent.setEnabled(false);
                 }
                 exoticDBAdapter.close();
@@ -1047,6 +1050,46 @@ public class InventoryActivity extends AppCompatActivity {
     private String formatD(double number) {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(number);
+    }
+
+    private SpannableString transformString(String content) {
+        SpannableString spannableString = new SpannableString(content);
+        String word;
+        int start, end;
+        int find_index = 0;
+        String[] changes = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율"};
+        for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
+            find_index = 0;
+            while(true) {
+                word = changes[i]; //찾을 문자열에 새로운 특급 장비 이름을 넣는다. 반복문으로 모든 엑조틱과 비교가 된다.
+                start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
+                find_index = start+1;
+                end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
+                if (start != -1) {
+                    if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
+                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("개")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("명"))) {
+                        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#B18912")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return spannableString;
+    }
+
+    private boolean isFrontNumber(String content, int index) {
+        String result;
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        result = content.substring(index-1, index);
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i].equals(result)) return true;
+        }
+        return false;
     }
 
     @Override

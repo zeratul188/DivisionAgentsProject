@@ -146,6 +146,7 @@ public class ShareFragment extends Fragment {
     private ProgressBar progressTimer = null; //이송 진행률을 진행바로 보여준다.
     //private Button btnNowOutput = null; //가방 이송헬기에 걸 때 사용하는 버튼
     private ProgressBar processOutput = null;
+    private ImageView imgWarning = null;
     private TextView txtTimer = null; //이송 진행률을 숫자로 표현해준다.
 
     private RadioGroup rgDifficulty; //난이도 그룹
@@ -526,6 +527,9 @@ public class ShareFragment extends Fragment {
 
     private boolean material_reset = false;
 
+    private int visible_cnt = 0;
+    private boolean isVisible = true;
+
     Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             if (reset_count >= 1500) btnEnd = true; //리셋카운트가 1500 이상이 되면 작동 (3초 이후)
@@ -575,11 +579,27 @@ public class ShareFragment extends Fragment {
             } else { //아직 리셋카운트로 인해 btnEnd가 참이 되지 않았을 경우 작동
                 reset_count += 10; //10을 늘려준다. (1500까지 3초 걸린다.)
                 progressReset.setProgress(reset_count); //리셋 카운트만큼 진행도를 설정한다.
+                if (isVisible) visibleWarning();
+                else invisibleWarning();
+                visible_cnt += 10;
+                if (visible_cnt > 250) {
+                    visible_cnt = 0;
+                    if (isVisible) isVisible = false;
+                    else isVisible = true;
+                }
             }
             Log.v("LC버튼", "Long클릭"); //로그를 남긴다.
             mHandler.sendEmptyMessageDelayed(0, 20); //핸들러를 0.02초만큼 반복시킨다. (다시 핸들러를 불러오는 방식으로 반복시키는 것이다.)
         }
     };
+
+    private void visibleWarning() {
+        imgWarning.setVisibility(View.VISIBLE);
+    }
+
+    private void invisibleWarning() {
+        imgWarning.setVisibility(View.INVISIBLE);
+    }
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -594,7 +614,8 @@ public class ShareFragment extends Fragment {
 
     private class TouchThread extends Thread {
 
-        int process = 0;
+        int process = 0, visibility = 0;
+        boolean isVisible = true;
 
         @Override
         public void run() {
@@ -753,6 +774,8 @@ public class ShareFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rdoAny:
+                        rdoAny.setTextColor(Color.parseColor("#FF6337"));
+                        rdoAll.setTextColor(Color.parseColor("#F0F0F0"));
                         isChange = true;
                         int max = 0;
                         for (int i = 0; i < typet.length; i++) {
@@ -774,6 +797,8 @@ public class ShareFragment extends Fragment {
                         }
                         break;
                     case R.id.rdoAll:
+                        rdoAll.setTextColor(Color.parseColor("#FF6337"));
+                        rdoAny.setTextColor(Color.parseColor("#F0F0F0"));
                         for (int i = 0; i < progressType.length; i++) progressType[i].setMax(all);
                         isChange = false;
                         break;
@@ -1242,29 +1267,8 @@ public class ShareFragment extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
-                builder.setTitle("초기화");
-                builder.setMessage("재료 모두 초기화 하시겠습니까?");
-
-                builder.setPositiveButton("모두 초기화", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        material_reset = true;
-                        resetDialog();
-                    }
-                });
-                builder.setNegativeButton("재료 제외 초기화", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        material_reset = false;
-                        resetDialog();
-                    }
-                });
-                builder.setNeutralButton("취소", null);
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
+                material_reset = false;
+                resetDialog();
             }
         });
 
@@ -1286,6 +1290,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //위와 동일 (다크존 전용)
                 if (openWeapon) layoutWeapon_dark.setVisibility(View.VISIBLE);
                 else layoutWeapon_dark.setVisibility(View.GONE);
+                if (openSheld) layoutSheld_dark.setVisibility(View.VISIBLE);
                 if (openSheld) layoutSheld_dark.setVisibility(View.VISIBLE);
                 else layoutSheld_dark.setVisibility(View.GONE);
                 tableMain2.setVisibility(View.VISIBLE);
@@ -1655,7 +1660,7 @@ public class ShareFragment extends Fragment {
                     item_sub1_type = cursor.getString(7);
                     item_sub2_type = cursor.getString(8);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -1728,7 +1733,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -1876,11 +1881,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -1986,7 +1991,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -2152,14 +2157,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -2297,7 +2302,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -2382,7 +2387,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -2607,7 +2612,7 @@ public class ShareFragment extends Fragment {
                     item_sub1_type = cursor.getString(7);
                     item_sub2_type = cursor.getString(8);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -2681,7 +2686,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -2829,11 +2834,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -2939,7 +2944,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -3103,14 +3108,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -3248,7 +3253,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -3333,7 +3338,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -3558,7 +3563,7 @@ public class ShareFragment extends Fragment {
                     item_sub1_type = cursor.getString(7);
                     item_sub2_type = cursor.getString(8);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -3632,7 +3637,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -3780,11 +3785,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -3890,7 +3895,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -4054,14 +4059,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -4199,7 +4204,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -4284,7 +4289,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -4508,7 +4513,7 @@ public class ShareFragment extends Fragment {
                     item_sub1_type = cursor.getString(7);
                     item_sub2_type = cursor.getString(8);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -4587,11 +4592,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -4697,7 +4702,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -4861,14 +4866,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -5006,7 +5011,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -5091,7 +5096,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -5311,7 +5316,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -5396,7 +5401,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -5543,11 +5548,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -5653,7 +5658,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -5817,14 +5822,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -5962,7 +5967,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -6047,7 +6052,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -6267,7 +6272,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     item_core1 = item_type+" 데미지";
                     txtName.setText(item_name);
@@ -6352,7 +6357,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -6499,11 +6504,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -6609,7 +6614,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -6773,14 +6778,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -6918,7 +6923,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -7003,7 +7008,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -7223,7 +7228,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -7308,7 +7313,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -7455,11 +7460,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -7565,7 +7570,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -7729,14 +7734,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -7874,7 +7879,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -7959,7 +7964,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -8182,7 +8187,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -8329,12 +8334,12 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                             System.out.println("Talent : "+item.getTalentcontent());
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -8440,7 +8445,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                             System.out.println("Talent : "+item.getTalentcontent());
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
@@ -8605,14 +8610,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -8750,7 +8755,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -8835,7 +8840,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -9058,7 +9063,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -9205,12 +9210,12 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                             System.out.println("Talent : "+item.getTalentcontent());
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -9316,7 +9321,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                             System.out.println("Talent : "+item.getTalentcontent());
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
@@ -9481,14 +9486,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -9626,7 +9631,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -9711,7 +9716,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -9933,7 +9938,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -10080,11 +10085,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -10190,7 +10195,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -10354,14 +10359,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -10499,7 +10504,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -10584,7 +10589,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -10801,7 +10806,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -10886,7 +10891,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -11033,11 +11038,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -11143,7 +11148,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -11307,14 +11312,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -11452,7 +11457,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -11537,7 +11542,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -11759,7 +11764,7 @@ public class ShareFragment extends Fragment {
                     item_sub1_type = cursor.getString(7);
                     item_sub2_type = cursor.getString(8);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -11832,7 +11837,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -11979,11 +11984,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -12089,7 +12094,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -12253,14 +12258,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -12398,7 +12403,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -12483,7 +12488,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -12704,7 +12709,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -12789,7 +12794,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -12936,11 +12941,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -13046,7 +13051,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -13210,14 +13215,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -13355,7 +13360,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -13440,7 +13445,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -13661,7 +13666,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -13752,11 +13757,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -13862,7 +13867,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -14026,14 +14031,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -14171,7 +14176,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -14256,7 +14261,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -14476,7 +14481,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -14561,7 +14566,7 @@ public class ShareFragment extends Fragment {
                     txtName.setText(item_name);
                     txtType.setText(item_type);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     txtWTalent.setText(item_talent);
                     if (ws.equals("무기")) {
                         item_core1 = item_type+" 데미지";
@@ -14708,11 +14713,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -14818,7 +14823,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -14982,14 +14987,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -15127,7 +15132,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -15212,7 +15217,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -15433,7 +15438,7 @@ public class ShareFragment extends Fragment {
                     item_type = cursor.getString(2);
                     item_sub1 = cursor.getString(4);
                     item_talent = cursor.getString(9);
-                    txtWTalentContent.setText(cursor.getString(12));
+                    txtWTalentContent.setText(transformString(cursor.getString(12)));
                     exoticDBAdpater.close();
                     txtName.setText(item_name);
                     txtType.setText(item_type);
@@ -15524,11 +15529,11 @@ public class ShareFragment extends Fragment {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                         }
@@ -15634,7 +15639,7 @@ public class ShareFragment extends Fragment {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
-                            txtWTalentContent.setText(item.getTalentcontent());
+                            txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -15798,14 +15803,14 @@ public class ShareFragment extends Fragment {
                             item_talent = item.getBackpack();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else if (item_type.equals("조끼")) {
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getVest();
                             txtWTalent.setText(item_talent);
                             talentDBAdapter.open();
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                         } else {
                             layoutTalent.setVisibility(View.GONE);
@@ -15943,7 +15948,7 @@ public class ShareFragment extends Fragment {
                             txtType.setText(item_type);
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
-                            txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                            txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                             talentDBAdapter.close();
                             txtWTalent.setText(item_talent);
                             maxoptionDBAdapter.open();
@@ -16028,7 +16033,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             } else layoutTalent.setVisibility(View.GONE);
@@ -16255,12 +16260,12 @@ public class ShareFragment extends Fragment {
                         txtWTalent.setTextColor(Color.parseColor("#c99700"));
                         item_talent = item.getTalent();
                         txtWTalent.setText(item_talent);
-                        txtWTalentContent.setText(item.getTalentcontent());
+                        txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         System.out.println("Talent : "+item.getTalentcontent());
                     } else {
                         talentDBAdapter.open();
                         item_talent = talentDBAdapter.fetchRandomData(item_type);
-                        txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                        txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                         talentDBAdapter.close();
                         txtWTalent.setText(item_talent);
                     }
@@ -16366,7 +16371,7 @@ public class ShareFragment extends Fragment {
                         layoutTalent.setVisibility(View.VISIBLE);
                         item_talent = item.getTalent();
                         txtWTalent.setText(item_talent);
-                        txtWTalentContent.setText(item.getTalentcontent());
+                        txtWTalentContent.setText(transformString(item.getTalentcontent()));
                         System.out.println("Talent : "+item.getTalentcontent());
                     } else layoutTalent.setVisibility(View.GONE);
                     sheldDBAdapter.open();
@@ -16607,7 +16612,7 @@ public class ShareFragment extends Fragment {
                 txtName.setText(item_name);
                 txtType.setText(item_type);
                 item_talent = cursor.getString(9);
-                txtWTalentContent.setText(cursor.getString(12));
+                txtWTalentContent.setText(transformString(cursor.getString(12)));
                 txtWTalent.setText(item_talent);
                 if (ws.equals("무기")) {
                     item_core1 = item_type+" 데미지";
@@ -16832,7 +16837,7 @@ public class ShareFragment extends Fragment {
                         txtName.setText(item_name);
                         txtType.setText(item_type);
                         item_talent = cursor.getString(9);
-                        txtWTalentContent.setText(cursor.getString(12));
+                        txtWTalentContent.setText(transformString(cursor.getString(12)));
                         txtWTalent.setText(item_talent);
                         if (ws.equals("무기")) {
                             item_core1 = item_type+" 데미지";
@@ -16979,12 +16984,12 @@ public class ShareFragment extends Fragment {
                                 txtWTalent.setTextColor(Color.parseColor("#c99700"));
                                 item_talent = item.getTalent();
                                 txtWTalent.setText(item_talent);
-                                txtWTalentContent.setText(item.getTalentcontent());
+                                txtWTalentContent.setText(transformString(item.getTalentcontent()));
                                 System.out.println("Talent : "+item.getTalentcontent());
                             } else {
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                             }
@@ -17090,7 +17095,7 @@ public class ShareFragment extends Fragment {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 item_talent = item.getTalent();
                                 txtWTalent.setText(item_talent);
-                                txtWTalentContent.setText(item.getTalentcontent());
+                                txtWTalentContent.setText(transformString(item.getTalentcontent()));
                                 System.out.println("Talent : "+item.getTalentcontent());
                             } else layoutTalent.setVisibility(View.GONE);
                             sheldDBAdapter.open();
@@ -17255,14 +17260,14 @@ public class ShareFragment extends Fragment {
                                 item_talent = item.getBackpack();
                                 txtWTalent.setText(item_talent);
                                 talentDBAdapter.open();
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                             } else if (item_type.equals("조끼")) {
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 item_talent = item.getVest();
                                 txtWTalent.setText(item_talent);
                                 talentDBAdapter.open();
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                             } else {
                                 layoutTalent.setVisibility(View.GONE);
@@ -17400,7 +17405,7 @@ public class ShareFragment extends Fragment {
                                 txtType.setText(item_type);
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                 talentDBAdapter.close();
                                 txtWTalent.setText(item_talent);
                                 maxoptionDBAdapter.open();
@@ -17485,7 +17490,7 @@ public class ShareFragment extends Fragment {
                                     layoutTalent.setVisibility(View.VISIBLE);
                                     talentDBAdapter.open();
                                     item_talent = talentDBAdapter.fetchRandomData(item_type);
-                                    txtWTalentContent.setText(talentDBAdapter.findContent(item_talent));
+                                    txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
                                     talentDBAdapter.close();
                                     txtWTalent.setText(item_talent);
                                 } else layoutTalent.setVisibility(View.GONE);
@@ -17656,7 +17661,45 @@ public class ShareFragment extends Fragment {
         return root;
     }
 
+    private SpannableString transformString(String content) {
+        SpannableString spannableString = new SpannableString(content);
+        String word;
+        int start, end;
+        int find_index = 0;
+        String[] changes = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율"};
+        for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
+            find_index = 0;
+            while(true) {
+                word = changes[i]; //찾을 문자열에 새로운 특급 장비 이름을 넣는다. 반복문으로 모든 엑조틱과 비교가 된다.
+                start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
+                find_index = start+1;
+                end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
+                if (start != -1) {
+                    if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
+                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("개")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("명"))) {
+                        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#B18912")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return spannableString;
+    }
 
+    private boolean isFrontNumber(String content, int index) {
+        String result;
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        result = content.substring(index-1, index);
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i].equals(result)) return true;
+        }
+        return false;
+    }
 
     public int percent(int min, int length) {
         return (int)(Math.random()*BIG)%length + min;
@@ -17890,6 +17933,7 @@ public class ShareFragment extends Fragment {
     private void resetDialog() {
         dialogViewa = getLayoutInflater().inflate(R.layout.resetlayout, null); //다이얼로그에 추가할 뷰 생성
         progressReset = dialogViewa.findViewById(R.id.progressReset);
+        imgWarning = dialogViewa.findViewById(R.id.imgWarning);
         progressReset.setMax(1500);
         progressReset.setProgress(0);
         reset_count = 0;
@@ -17911,6 +17955,7 @@ public class ShareFragment extends Fragment {
 
         alertDialog = buildera.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
                 /*
                 다이얼로그 생성 및 지우기

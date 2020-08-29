@@ -2,6 +2,7 @@ package com.example.divisionsimulation;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,6 +112,10 @@ public class LibraryActivity extends AppCompatActivity {
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core1", true);
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType2:
                         for (int i = 0; i < weapon_types.length; i++) {
@@ -122,6 +127,10 @@ public class LibraryActivity extends AppCompatActivity {
                             }
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_core2", true);
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType3:
                         cursor = libraryDBAdapter.fetchSubAllData();
@@ -131,6 +140,10 @@ public class LibraryActivity extends AppCompatActivity {
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "weapon_sub", false);
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType4:
                         cursor = libraryDBAdapter.fetchSheldCoreAllData();
@@ -140,6 +153,10 @@ public class LibraryActivity extends AppCompatActivity {
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_core", true);
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType5:
                         cursor = libraryDBAdapter.fetchSheldSubAllData();
@@ -149,6 +166,10 @@ public class LibraryActivity extends AppCompatActivity {
                             cursor.moveToNext();
                         }
                         libraryAdapter = new LibraryAdapter(LibraryActivity.this, libraryItems, null, false, "sheld_sub", false);
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType6:
                         rgWeapon.setVisibility(View.VISIBLE);
@@ -167,6 +188,10 @@ public class LibraryActivity extends AppCompatActivity {
                         talentDBAdapter.open();
                         txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(weapon_types[0])));
                         talentDBAdapter.close();
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType7:
                         layoutCount.setVisibility(View.VISIBLE);
@@ -180,6 +205,10 @@ public class LibraryActivity extends AppCompatActivity {
                         talentDBAdapter.open();
                         txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount("조끼")));
                         talentDBAdapter.close();
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                     case R.id.rdoType8:
                         layoutCount.setVisibility(View.VISIBLE);
@@ -193,6 +222,10 @@ public class LibraryActivity extends AppCompatActivity {
                         talentDBAdapter.open();
                         txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount("백팩")));
                         talentDBAdapter.close();
+                        for (int i = 0; i < rdoType.length; i++) {
+                            if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#FF6337"));
+                            else rdoType[i].setTextColor(Color.parseColor("#F0F0F0"));
+                        }
                         break;
                 }
                 listView.setAdapter(libraryAdapter);
@@ -235,6 +268,8 @@ public class LibraryActivity extends AppCompatActivity {
                         txtMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(weapon_types[i])));
                         talentDBAdapter.close();
                     }
+                    if (rdoWeapon[i].isChecked()) rdoWeapon[i].setTextColor(Color.parseColor("#FF6337"));
+                    else rdoWeapon[i].setTextColor(Color.parseColor("#F0F0F0"));
                 }
                 while (!cursor.isAfterLast()) {
                     talentItems.add(cursor.getString(1));
