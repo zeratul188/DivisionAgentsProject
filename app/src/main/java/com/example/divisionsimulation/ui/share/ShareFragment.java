@@ -17666,7 +17666,7 @@ public class ShareFragment extends Fragment {
         String word;
         int start, end;
         int find_index = 0;
-        String[] changes = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율"};
+        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율"};
         for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
             find_index = 0;
             while(true) {
