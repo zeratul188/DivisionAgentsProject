@@ -1674,7 +1674,6 @@ public class ShareFragment extends Fragment {
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    System.out.println(item_sub2);
                     cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                     max_sub2 = Double.parseDouble(cursor.getString(2));
                     tail_sub2 = cursor.getString(5);
@@ -1775,7 +1774,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -1871,11 +1869,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -1982,11 +1976,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -2505,7 +2495,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -2529,7 +2518,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -2626,7 +2614,6 @@ public class ShareFragment extends Fragment {
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    System.out.println(item_sub2);
                     cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                     max_sub2 = Double.parseDouble(cursor.getString(2));
                     tail_sub2 = cursor.getString(5);
@@ -2662,7 +2649,6 @@ public class ShareFragment extends Fragment {
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
-                    System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -2728,7 +2714,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -2824,11 +2809,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -2935,11 +2916,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -3456,7 +3433,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -3480,7 +3456,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -3577,7 +3552,6 @@ public class ShareFragment extends Fragment {
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    System.out.println(item_sub2);
                     cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                     max_sub2 = Double.parseDouble(cursor.getString(2));
                     tail_sub2 = cursor.getString(5);
@@ -3613,7 +3587,6 @@ public class ShareFragment extends Fragment {
                     progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
-                    System.out.println("SMain Max : "+progressSMain.getMax()+"\nSMain Progress : "+progressSMain.getProgress()+"\nSSub1 Max : "+progressSSub1.getMax()+"\nSSub1 Progress : "+progressSSub1.getProgress()+"\nSSub2 Max : "+progressSSub2.getMax()+"\nSSub2 Progress"+progressSSub2.getProgress());
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -3679,7 +3652,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -3775,11 +3747,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -3886,11 +3854,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -4407,7 +4371,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -4431,7 +4394,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -4527,7 +4489,6 @@ public class ShareFragment extends Fragment {
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    System.out.println(item_sub2);
                     cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                     max_sub2 = Double.parseDouble(cursor.getString(2));
                     tail_sub2 = cursor.getString(5);
@@ -4582,11 +4543,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -4693,11 +4650,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -5214,7 +5167,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -5238,7 +5190,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -5358,7 +5309,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -5442,7 +5392,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -5538,11 +5487,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -5649,11 +5594,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -6170,7 +6111,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -6194,7 +6134,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -6314,7 +6253,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -6398,7 +6336,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -6494,11 +6431,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -6605,11 +6538,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -7126,7 +7055,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -7150,7 +7078,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -7270,7 +7197,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -7354,7 +7280,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -7450,11 +7375,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -7561,11 +7482,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -8082,7 +7999,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -8106,7 +8022,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -8228,7 +8143,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -8324,18 +8238,14 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                            System.out.println("Talent : "+item.getTalentcontent());
+                            
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
@@ -8436,17 +8346,13 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                            System.out.println("Talent : "+item.getTalentcontent());
+                            
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -8958,7 +8864,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -8982,7 +8887,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -9104,7 +9008,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -9200,18 +9103,14 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                            System.out.println("Talent : "+item.getTalentcontent());
+                            
                         } else {
                             talentDBAdapter.open();
                             item_talent = talentDBAdapter.fetchRandomData(item_type);
@@ -9312,17 +9211,13 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
                             txtWTalent.setText(item_talent);
                             txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                            System.out.println("Talent : "+item.getTalentcontent());
+                            
                         } else layoutTalent.setVisibility(View.GONE);
                         sheldDBAdapter.open();
                         cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -9834,7 +9729,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -9858,7 +9752,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -9979,7 +9872,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -10075,11 +9967,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -10186,11 +10074,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -10707,7 +10591,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -10731,7 +10614,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -10848,7 +10730,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -10932,7 +10813,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -11028,11 +10908,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -11139,11 +11015,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -11660,7 +11532,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -11684,7 +11555,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -11778,7 +11648,6 @@ public class ShareFragment extends Fragment {
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
                     if (tail_sub1.equals("-")) tail_sub1 = "";
-                    System.out.println(item_sub2);
                     cursor = maxoptionDBAdapter.fetchSheldSubData(item_sub2);
                     max_sub2 = Double.parseDouble(cursor.getString(2));
                     tail_sub2 = cursor.getString(5);
@@ -11878,7 +11747,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -11974,11 +11842,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchDarkData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -12085,11 +11949,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -12606,7 +12466,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -12630,7 +12489,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -12751,7 +12609,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -12835,7 +12692,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -12931,11 +12787,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -13042,11 +12894,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -13563,7 +13411,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -13587,7 +13434,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -13708,7 +13554,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -13747,11 +13592,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -13858,11 +13699,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -14379,7 +14216,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -14403,7 +14239,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -14523,7 +14358,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -14607,7 +14441,6 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
                         maxoptionDBAdapter.open();
-                        System.out.println(item_sub1);
                         cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                         max_sub1 = Double.parseDouble(cursor.getString(2));
                         tail_sub1 = cursor.getString(5);
@@ -14703,11 +14536,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -14814,11 +14643,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -15335,7 +15160,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -15359,7 +15183,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -15480,7 +15303,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -15519,11 +15341,7 @@ public class ShareFragment extends Fragment {
                         NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                         namedDBAdapter.close();
                         item_name = item.getName();
-                        item_type = item.getType();
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                        txtName.setText(item_name);
+                        item_type = item.getType();txtName.setText(item_name);
                         txtType.setText(item_type);
                         if (!item.getNoTalent()) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
@@ -15630,11 +15448,7 @@ public class ShareFragment extends Fragment {
                         item_name = item.getName();
                         item_type = item.getType();
                         txtName.setText(item_name);
-                        txtType.setText(item_type);
-
-                        System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                        if (sheldTalent(item_type)) {
+                        txtType.setText(item_type);if (sheldTalent(item_type)) {
                             txtWTalent.setTextColor(Color.parseColor("#c99700"));
                             layoutTalent.setVisibility(View.VISIBLE);
                             item_talent = item.getTalent();
@@ -16151,7 +15965,6 @@ public class ShareFragment extends Fragment {
                             progressSSub2.setProgress((int)(sub2*10));
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                         }
                     }
                 }
@@ -16175,7 +15988,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -16250,18 +16062,14 @@ public class ShareFragment extends Fragment {
                     NamedItem item = namedDBAdapter.fetchAllData_Random("무기");
                     namedDBAdapter.close();
                     item_name = item.getName();
-                    item_type = item.getType();
-
-                    System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                    txtName.setText(item_name);
+                    item_type = item.getType();txtName.setText(item_name);
                     txtType.setText(item_type);
                     if (!item.getNoTalent()) {
                         txtWTalent.setTextColor(Color.parseColor("#c99700"));
                         item_talent = item.getTalent();
                         txtWTalent.setText(item_talent);
                         txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                        System.out.println("Talent : "+item.getTalentcontent());
+                        
                     } else {
                         talentDBAdapter.open();
                         item_talent = talentDBAdapter.fetchRandomData(item_type);
@@ -16362,17 +16170,13 @@ public class ShareFragment extends Fragment {
                     item_name = item.getName();
                     item_type = item.getType();
                     txtName.setText(item_name);
-                    txtType.setText(item_type);
-
-                    System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                    if (sheldTalent(item_type)) {
+                    txtType.setText(item_type);if (sheldTalent(item_type)) {
                         txtWTalent.setTextColor(Color.parseColor("#c99700"));
                         layoutTalent.setVisibility(View.VISIBLE);
                         item_talent = item.getTalent();
                         txtWTalent.setText(item_talent);
                         txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                        System.out.println("Talent : "+item.getTalentcontent());
+                        
                     } else layoutTalent.setVisibility(View.GONE);
                     sheldDBAdapter.open();
                     cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -16533,7 +16337,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -16653,7 +16456,6 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
                     maxoptionDBAdapter.open();
-                    System.out.println(item_sub1);
                     cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                     max_sub1 = Double.parseDouble(cursor.getString(2));
                     tail_sub1 = cursor.getString(5);
@@ -16750,7 +16552,6 @@ public class ShareFragment extends Fragment {
 
                 setSemiInterface(String.valueOf(txtType.getText()), imgType);
                 updateData();
-                System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                 namedDBAdapter.open();
                 if (openWeapon) {
                     if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -16878,7 +16679,6 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
                             maxoptionDBAdapter.open();
-                            System.out.println(item_sub1);
                             cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
                             max_sub1 = Double.parseDouble(cursor.getString(2));
                             tail_sub1 = cursor.getString(5);
@@ -16974,18 +16774,14 @@ public class ShareFragment extends Fragment {
                             NamedItem item = namedDBAdapter.fetchLiteData_Random("무기");
                             namedDBAdapter.close();
                             item_name = item.getName();
-                            item_type = item.getType();
-
-                            System.out.println("Name : "+item.getName()+"\nType : "+item.getType());
-
-                            txtName.setText(item_name);
+                            item_type = item.getType();txtName.setText(item_name);
                             txtType.setText(item_type);
                             if (!item.getNoTalent()) {
                                 txtWTalent.setTextColor(Color.parseColor("#c99700"));
                                 item_talent = item.getTalent();
                                 txtWTalent.setText(item_talent);
                                 txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                                System.out.println("Talent : "+item.getTalentcontent());
+                                
                             } else {
                                 talentDBAdapter.open();
                                 item_talent = talentDBAdapter.fetchRandomData(item_type);
@@ -17086,17 +16882,13 @@ public class ShareFragment extends Fragment {
                             item_name = item.getName();
                             item_type = item.getType();
                             txtName.setText(item_name);
-                            txtType.setText(item_type);
-
-                            System.out.println("Name : "+item.getName()+"\nType : "+item.getType()+"\nBrand : "+item.getBrand());
-
-                            if (sheldTalent(item_type)) {
+                            txtType.setText(item_type);if (sheldTalent(item_type)) {
                                 txtWTalent.setTextColor(Color.parseColor("#c99700"));
                                 layoutTalent.setVisibility(View.VISIBLE);
                                 item_talent = item.getTalent();
                                 txtWTalent.setText(item_talent);
                                 txtWTalentContent.setText(transformString(item.getTalentcontent()));
-                                System.out.println("Talent : "+item.getTalentcontent());
+                                
                             } else layoutTalent.setVisibility(View.GONE);
                             sheldDBAdapter.open();
                             cursor = sheldDBAdapter.fetchData(item.getBrand());
@@ -17608,7 +17400,6 @@ public class ShareFragment extends Fragment {
                                 progressSSub2.setProgress((int)(sub2*10));
                                 if (tail_sub2.equals("-")) tail_sub2 = "";
                                 txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                                System.out.println("Main1 : "+core1+"\nSub1 : "+sub1+"\nSub2 : "+sub2);
                             }
                         }
                     }
@@ -17632,7 +17423,6 @@ public class ShareFragment extends Fragment {
 
                     setSemiInterface(String.valueOf(txtType.getText()), imgType);
                     updateData();
-                    System.out.println("Name : "+item.getName()+"\nCore1 : "+item_core1+"\nCore2 : "+item_core2+"\nSub1 : "+item_sub1+"\nSub2 : "+item_sub2);
                     namedDBAdapter.open();
                     if (openWeapon) {
                         if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
@@ -17666,7 +17456,7 @@ public class ShareFragment extends Fragment {
         String word;
         int start, end;
         int find_index = 0;
-        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율"};
+        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
         for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
             find_index = 0;
             while(true) {
@@ -17676,10 +17466,12 @@ public class ShareFragment extends Fragment {
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
                 if (start != -1) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
-                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배")) ||
+                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
                             (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("발")) ||
+                            (isFrontNumber(content, start) && changes[i].equals(".")) ||
                             (isFrontNumber(content, start) && changes[i].equals("명"))) {
                         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#B18912")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
@@ -17692,9 +17484,9 @@ public class ShareFragment extends Fragment {
     }
 
     private boolean isFrontNumber(String content, int index) {
-        String result;
+        String result = "";
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-        result = content.substring(index-1, index);
+        if (index > 0) result = content.substring(index-1, index);
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i].equals(result)) return true;
         }

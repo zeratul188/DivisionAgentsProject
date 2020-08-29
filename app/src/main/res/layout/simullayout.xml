@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:src="@drawable/headshot"/>
+                android:src="@drawable/headshot_gray"/>
             <ImageView
                 android:id="@+id/imgtake1"
                 android:layout_width="match_parent"

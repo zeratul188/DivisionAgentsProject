@@ -471,36 +471,39 @@
                 android:id="@+id/btnExit"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="닫기"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_close_black_24dp"
+                android:background="#00000000"/>
             <Button
                 android:id="@+id/btnAdd"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="획득"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_move_to_inbox_black_24dp"
+                android:background="#00000000"/>
             <Button
                 android:id="@+id/btnDestroy"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="분해"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_gavel_black_24dp"
+                android:background="#00000000"/>
         </LinearLayout>
     </LinearLayout>
 

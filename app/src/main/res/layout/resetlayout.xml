@@ -34,12 +34,13 @@
     <Button
         android:id="@+id/btnExit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:text="취소"
         android:padding="10dp"
         android:textSize="18sp"
         android:textColor="#aaaaaa"
-        android:background="@drawable/buttoncustom"
+        android:drawableTop="@drawable/ic_close_black_24dp"
+        android:background="#00000000"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"/>

@@ -325,7 +325,7 @@
                             android:adjustViewBounds="true"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
-                            android:src="@drawable/power"
+                            android:src="@drawable/power_sub"
                             android:textAlignment="textEnd"/>
                         <TextView
                             android:id="@+id/txtSSub1"
@@ -382,7 +382,7 @@
                                 android:layout_width="25dp"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/attack"
+                                android:src="@drawable/attack_sub"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="5dp"
                                 android:textAlignment="textEnd"/>
@@ -553,36 +553,39 @@
                 android:id="@+id/btnExit"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="닫기"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_close_black_24dp"
+                android:background="#00000000"/>
             <Button
                 android:id="@+id/btnDrop"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="버리기"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_delete_forever_black_24dp"
+                android:background="#00000000"/>
             <Button
                 android:id="@+id/btnDestroy"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:text="분해"
                 android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="#aaaaaa"
-                android:background="@drawable/buttonitemcustom"/>
+                android:drawableTop="@drawable/ic_gavel_black_24dp"
+                android:background="#00000000"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="어플리케이션을 종료하시면 등록된 정보들이 모두 삭제됩니다."
+        android:text="정말로 앱을 종료하시겠습니까?"
         android:gravity="center"
         android:textSize="18sp"
         android:textColor="#aaaaaa"
