@@ -1065,10 +1065,10 @@ public class InventoryActivity extends AppCompatActivity {
                 start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
                 find_index = start+1;
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
-                if (start != -1) {
+                if (start > 0) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
                             (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
-                            (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||
                             (isFrontNumber(content, start) && changes[i].equals("발")) ||
@@ -1085,9 +1085,9 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
     private boolean isFrontNumber(String content, int index) {
-        String result;
+        String result = "";
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-        result = content.substring(index-1, index);
+        if (index > 0) result = content.substring(index-1, index);
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i].equals(result)) return true;
         }

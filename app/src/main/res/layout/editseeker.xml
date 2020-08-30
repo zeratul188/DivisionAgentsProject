@@ -274,5 +274,36 @@
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_close_black_24dp"
+            android:drawablePadding="5dp"
+            android:padding="5dp"
+            android:text="취소"
+            android:textSize="18sp"
+            android:textColor="#f0f0f0"
+            android:background="#00000000"/>
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_gavel_black_24dp"
+            android:drawablePadding="5dp"
+            android:padding="5dp"
+            android:text="보정"
+            android:textSize="18sp"
+            android:textColor="#f0f0f0"
+            android:background="#00000000"/>
+    </LinearLayout>
 
 </LinearLayout>

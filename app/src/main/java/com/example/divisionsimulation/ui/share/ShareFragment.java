@@ -824,6 +824,8 @@ public class ShareFragment extends Fragment {
                 View dialog_view = getActivity().getLayoutInflater().inflate(R.layout.missionlayout, null);
                 String title, content;
                 LinearLayout layoutCommands = dialog_view.findViewById(R.id.layoutCommands);
+                Button btnExit = dialog_view.findViewById(R.id.btnExit);
+                Button btnOK = dialog_view.findViewById(R.id.btnOK);
                 final TextView txtEXP = dialog_view.findViewById(R.id.txtEXP);
                 for (int i = 0; i < checks.length; i++) checks[i] = false;
 
@@ -841,6 +843,31 @@ public class ShareFragment extends Fragment {
                     TextView txtContent = command_view.findViewById(R.id.txtContent);
                     ImageView imgCommand = command_view.findViewById(R.id.imgCommand);
                     final LinearLayout layoutChecked = command_view.findViewById(R.id.layoutChecked);
+
+                    btnOK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int normal = 102453, hard = 213265, very_hard = 402154, hero = 675426, legend = 1349543;
+                            int cnt = 0, bonus = 0;
+                            for (int i = 0; i < checks.length; i++) if (checks[i]) cnt++;
+                            bonus = cnt * 25;
+                            double plus = (double)bonus/100+1;
+                            setExp((int)(normal*plus), (int)(hard*plus), (int)(very_hard*plus), (int)(hero*plus), (int)(legend*plus));
+                            Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
+                            if (mission_alertDialog != null) mission_alertDialog.dismiss();
+                            shdAdapter.open();
+                            int box = shdAdapter.getBoxCount();
+                            shdAdapter.close();
+                            btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+                        }
+                    });
+
+                    btnExit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mission_alertDialog.dismiss();
+                        }
+                    });
 
                     txtTitle.setText(title);
                     txtContent.setText(content);
@@ -871,24 +898,6 @@ public class ShareFragment extends Fragment {
 
                 AlertDialog.Builder mission_builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
                 mission_builder.setView(dialog_view);
-                mission_builder.setPositiveButton("임무 완수", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int normal = 102453, hard = 213265, very_hard = 402154, hero = 675426, legend = 1349543;
-                        int cnt = 0, bonus = 0;
-                        for (int i = 0; i < checks.length; i++) if (checks[i]) cnt++;
-                        bonus = cnt * 25;
-                        double plus = (double)bonus/100+1;
-                        setExp((int)(normal*plus), (int)(hard*plus), (int)(very_hard*plus), (int)(hero*plus), (int)(legend*plus));
-                        Toast.makeText(getActivity(), "임무 완수", Toast.LENGTH_LONG).show();
-                        if (mission_alertDialog != null) mission_alertDialog.dismiss();
-                        shdAdapter.open();
-                        int box = shdAdapter.getBoxCount();
-                        shdAdapter.close();
-                        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
-                    }
-                });
-                mission_builder.setNegativeButton("취소", null);
 
                 mission_alertDialog = mission_builder.create();
                 mission_alertDialog.setCancelable(false);
@@ -17464,10 +17473,10 @@ public class ShareFragment extends Fragment {
                 start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
                 find_index = start+1;
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
-                if (start != -1) {
+                if (start > 0) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
                             (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
-                            (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||
                             (isFrontNumber(content, start) && changes[i].equals("발")) ||

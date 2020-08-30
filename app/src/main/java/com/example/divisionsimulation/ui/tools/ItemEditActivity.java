@@ -166,6 +166,8 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView[] txtMaterial = new TextView[3];
                     TextView txtName = talent_view.findViewById(R.id.txtName);
                     TextView txtContent = talent_view.findViewById(R.id.txtContent);
+                    Button btnOK = talent_view.findViewById(R.id.btnOK);
+                    Button btnExit = talent_view.findViewById(R.id.btnExit);
 
                     LinearLayout layoutDark = talent_view.findViewById(R.id.layoutDark);
                     TextView txtDarkMaterial = talent_view.findViewById(R.id.txtDarkMaterial);
@@ -232,14 +234,11 @@ public class ItemEditActivity extends AppCompatActivity {
                     final String[] final_material_limit = material_limit;
                     final int[] final_count = count;
                     final int[] dark_cnt = {dark_count};
-
-                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
-                    builder.setView(talent_view);
-                    System.out.println(rowID);
                     final int index = position;
-                    builder.setPositiveButton("보정", new DialogInterface.OnClickListener() {
+
+                    btnOK.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(View v) {
                             if (edit_possible) {
                                 if (name.equals(talentItems.get(position))) {
                                     Toast.makeText(getApplicationContext(), "바꾸실 특수효과와 변경전 특수효과와 동일합니다.", Toast.LENGTH_SHORT).show();
@@ -269,7 +268,16 @@ public class ItemEditActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+
+                    btnExit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
+                    builder.setView(talent_view);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
@@ -378,6 +386,8 @@ public class ItemEditActivity extends AppCompatActivity {
                     final TextView txtValue = seek_view.findViewById(R.id.txtValue);
                     final SeekBar seekBar = seek_view.findViewById(R.id.seekBar);
                     TextView txtEnd = seek_view.findViewById(R.id.txtEnd);
+                    Button btnOK = seek_view.findViewById(R.id.btnOK);
+                    Button btnExit = seek_view.findViewById(R.id.btnExit);
 
                     TextView[] txtMaterialName = new TextView[3];
                     TextView[] txtMaterial = new TextView[3];
@@ -477,12 +487,11 @@ public class ItemEditActivity extends AppCompatActivity {
                         }
                     });
 
-                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
-                    builder.setView(seek_view);
                     final int index = position;
-                    builder.setPositiveButton("보정", new DialogInterface.OnClickListener() {
+
+                    btnOK.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(View v) {
                             if (edit_possible) {
                                 if (seekBar.getProgress() == 0) {
                                     Toast.makeText(getApplicationContext(), "보정할 수치가 0입니다.", Toast.LENGTH_SHORT).show();
@@ -539,7 +548,16 @@ public class ItemEditActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    builder.setNegativeButton("취소", null);
+
+                    btnExit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
+                    builder.setView(seek_view);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
@@ -929,10 +947,10 @@ public class ItemEditActivity extends AppCompatActivity {
                 start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
                 find_index = start+1;
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
-                if (start != -1) {
+                if (start > 0) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
                             (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
-                            (isFrontNumber(content, start) && changes[i].equals("번") && changes[i].equals("명")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||
                             (isFrontNumber(content, start) && changes[i].equals("발")) ||
@@ -949,9 +967,9 @@ public class ItemEditActivity extends AppCompatActivity {
     }
 
     private boolean isFrontNumber(String content, int index) {
-        String result;
+        String result = "";
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
-        result = content.substring(index-1, index);
+        if (index > 0) result = content.substring(index-1, index);
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i].equals(result)) return true;
         }
