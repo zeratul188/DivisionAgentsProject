@@ -19,7 +19,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="15">
+                android:layout_weight="1">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -143,7 +143,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm1"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -156,7 +156,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm2"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
@@ -172,7 +172,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/litenamed"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -185,7 +185,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/darknamed"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
@@ -201,7 +201,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm3"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -214,7 +214,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm4"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
@@ -230,7 +230,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/ironhorse"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -243,7 +243,7 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm4"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
@@ -260,7 +260,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm5"/>
                                 <Button
                                     android:id="@+id/btnLastBoss"
@@ -273,7 +273,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm6"/>
                             </TableRow>
                             <TableRow
@@ -289,7 +289,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm7"/>
                                 <Button
                                     android:id="@+id/btnBox"
@@ -302,7 +302,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm8"/>
                             </TableRow>
                             <TableRow
@@ -318,7 +318,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/hya"/>
                                 <Button
                                     android:id="@+id/btnCleaners"
@@ -331,7 +331,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/cleaner"/>
                             </TableRow>
                             <TableRow
@@ -347,7 +347,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm9"/>
                                 <Button
                                     android:id="@+id/btnDropBox"
@@ -360,7 +360,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm10"/>
                             </TableRow>
                             <TableRow
@@ -376,7 +376,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm8"/>
                                 <Button
                                     android:id="@+id/btnExotic"
@@ -389,7 +389,7 @@
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm8"/>
                             </TableRow>
                             <TableRow
@@ -404,21 +404,21 @@
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttoncustom"
+                                    android:background="@drawable/buttonnobackcustom"
                                     android:drawableTop="@drawable/fm8"/>
+                                <Button
+                                    android:id="@+id/btnMission"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="130dp"
+                                    android:text="미션 완료"
+                                    android:drawableTop="@drawable/ic_mission_done_40dp"
+                                    android:textSize="20sp"
+                                    android:padding="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:background="@drawable/buttonnobackcustom"/>
                             </TableRow>
                         </TableLayout>
-                        <Button
-                            android:id="@+id/btnMission"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:text="미션 완료"
-                            android:textSize="20sp"
-                            android:padding="10dp"
-                            android:textColor="#aaaaaa"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/buttoncustom"
-                            android:textAlignment="center"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -1045,50 +1045,53 @@
                                 </RadioGroup>
                             </LinearLayout>
                         </LinearLayout>
-                        <Button
-                            android:id="@+id/btnItemList"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:text="획득 아이템 목록 (최대 50개)"
-                            android:textSize="18sp"
-                            android:padding="10dp"
-                            android:textColor="#aaaaaa"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/buttoncustom"
-                            android:drawableLeft="@drawable/list"
-                            android:drawablePadding="30dp"
-                            android:textAlignment="textStart"/>
-                        <Button
-                            android:id="@+id/btnMaterialList"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:text="재료 확인"
-                            android:textSize="18sp"
-                            android:padding="10dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
-                            android:drawableLeft="@drawable/inven"
-                            android:drawablePadding="30dp"
-                            android:textAlignment="textStart"/>
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btnItemList"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="아이템 목록"
+                                android:textSize="18sp"
+                                android:padding="10dp"
+                                android:textColor="#f0f0f0"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/buttonnobackcustom"
+                                android:drawableTop="@drawable/list"/>
+                            <Button
+                                android:id="@+id/btnMaterialList"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="재료 확인"
+                                android:textSize="18sp"
+                                android:padding="10dp"
+                                android:textColor="#f0f0f0"
+                                android:background="@drawable/buttonnobackcustom"
+                                android:drawableTop="@drawable/inven"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="15dp">
                 <Button
                     android:id="@+id/btnReset"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="초기화"
                     android:textColor="#aaaaaa"
                     android:textSize="18sp"
                     android:padding="10dp"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/buttonnobackcustom"
+                    android:drawableTop="@drawable/ic_refresh_black_40dp"
                     android:layout_marginRight="5dp"/>
                 <Button
                     android:id="@+id/btnOutput"
@@ -1096,11 +1099,11 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="이송하기 (0/10)"
-                    android:drawableLeft="@drawable/output"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:padding="10dp"
-                    android:background="@drawable/buttonmaincustom"
+                    android:background="@drawable/buttonnobackcustom"
+                    android:drawableTop="@drawable/output"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
         </LinearLayout>

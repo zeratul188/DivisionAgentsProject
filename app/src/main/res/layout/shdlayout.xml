@@ -105,18 +105,18 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
-            <TextView
+            20sp<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사용 가능한 포인트 : "
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
             <TextView
                 android:id="@+id/txtPoint1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
         </LinearLayout>
         <TableLayout
@@ -310,18 +310,18 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
-            <TextView
+            20sp<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사용 가능한 포인트 : "
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
             <TextView
                 android:id="@+id/txtPoint2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
         </LinearLayout>
         <TableLayout
@@ -511,18 +511,18 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
-            <TextView
+            20sp<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사용 가능한 포인트 : "
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
             <TextView
                 android:id="@+id/txtPoint3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
         </LinearLayout>
         <TableLayout
@@ -712,18 +712,18 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"
                 android:textColor="#f0f0f0"/>
-            <TextView
+            20sp<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사용 가능한 포인트 : "
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
             <TextView
                 android:id="@+id/txtPoint4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="#f0f0f0"/>
         </LinearLayout>
         <TableLayout
@@ -895,33 +895,18 @@
             </TableRow>
         </TableLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnLevelUP"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnLevelUP"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="레벨업"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:background="@drawable/buttoncustom"
-                android:layout_marginRight="5dp"
-                android:textColor="#f0f0f0"/>
-            <Button
-                android:id="@+id/btnReset"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="레벨 초기화"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:background="@drawable/buttoncustom"
-                android:layout_marginLeft="5dp"
-                android:textColor="#f0f0f0"/>
-        </LinearLayout>
+            android:text="레벨업"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:background="@drawable/buttonnobackcustom"
+            android:drawableTop="@drawable/ic_add_black_40dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="#f0f0f0"/>
 
 
     </LinearLayout>

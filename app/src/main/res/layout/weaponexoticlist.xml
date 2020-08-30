@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:text="고정 개조 부품"
                 android:textColor="#fe6e0e"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtItem"
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:text="[Talent]"
                 android:textColor="#fe6e0e"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtTalentContent"
@@ -198,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:text="획득 방법"
                 android:textColor="#fe6e0e"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtDroped"
@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:text="설명"
                 android:textColor="#fe6e0e"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:id="@+id/txtContent"

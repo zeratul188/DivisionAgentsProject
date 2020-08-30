@@ -18,16 +18,18 @@
 
     <Button
         android:id="@+id/btnExit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="닫기"
+        android:layout_gravity="center"
         android:textSize="18sp"
         android:padding="10dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:textColor="#aaaaaa"
+        android:textColor="#f0f0f0"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/buttoncustom"/>
+        android:drawableTop="@drawable/ic_close_black_24dp"
+        android:background="@drawable/buttonnobackcustom"/>
 
 </LinearLayout>

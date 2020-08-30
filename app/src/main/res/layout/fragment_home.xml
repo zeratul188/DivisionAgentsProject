@@ -23,7 +23,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="10"
+                android:layout_weight="1"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -1270,8 +1270,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="3dp">
 
@@ -1279,11 +1278,12 @@
                     android:id="@+id/btnDPS"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="초기화"
                     android:textSize="18sp"
                     android:textColor="#aaaaaa"
-                    android:background="@drawable/buttoncustom"
+                    android:drawableTop="@drawable/ic_refresh_black_40dp"
+                    android:background="@drawable/buttonnobackcustom"
                     android:layout_marginRight="5dp"/>
                 <Button
                     android:id="@+id/btnDemageSimul"
@@ -1291,9 +1291,10 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:text="데미지 시뮬"
+                    android:drawableTop="@drawable/ic_play_arrow_black_40dp"
                     android:textSize="18sp"
                     android:textColor="#f0f0f0"
-                    android:background="@drawable/buttonmaincustom"
+                    android:background="@drawable/buttonnobackcustom"
                     android:layout_marginLeft="5dp"/>
 
 

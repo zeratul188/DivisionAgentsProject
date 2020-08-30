@@ -44,7 +44,7 @@ public class SHDActivity extends AppCompatActivity {
     private ProgressBar[] progressAnother = new ProgressBar[4];
     private TextView[] txtPoint = new TextView[4];
 
-    private Button btnLevelUp, btnReset;
+    private Button btnLevelUp;
 
     private int[] attack = new int[4];
     private int[] sheld = new int[4];
@@ -83,6 +83,8 @@ public class SHDActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.levelupdialog, null);
 
                 final Spinner spinnerLevel = view.findViewById(R.id.spinnerLevel);
+                Button btnExit = view.findViewById(R.id.btnExit);
+                Button btnLevelUP = view.findViewById(R.id.btnLevelUP);
 
                 String[] items = new String[100];
                 for (int i = 0; i < items.length; i++) items[i] = Integer.toString(i+1);
@@ -101,45 +103,28 @@ public class SHDActivity extends AppCompatActivity {
                     }
                 });
 
-                builder = new AlertDialog.Builder(SHDActivity.this, R.style.MyAlertDialogStyle);
-                builder.setTitle("SHD 레벨 업");
-                builder.setView(view);
-                builder.setPositiveButton("레벨 업", new DialogInterface.OnClickListener() {
+                btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                btnLevelUP.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         shdAdapter.open();
                         shdAdapter.addEXP(700000*add_level);
                         shdAdapter.levelUp();
                         shdAdapter.close();
                         toast("레벨업하였습니다.", false);
                         refreshData();
+                        alertDialog.dismiss();
                     }
                 });
-                builder.setNegativeButton("취소", null);
 
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.show();
-            }
-        });
-        btnReset = findViewById(R.id.btnReset);
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 builder = new AlertDialog.Builder(SHDActivity.this, R.style.MyAlertDialogStyle);
-                builder.setTitle("SHD 초기화");
-                builder.setMessage("SHD 레벨과 포인트 모두 초기화됩니다.");
-                builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        shdAdapter.open();
-                        shdAdapter.resetSHD();
-                        shdAdapter.close();
-                        toast("SHD 레벨이 초기화되었습니다.", false);
-                        refreshData();
-                    }
-                });
-                builder.setNegativeButton("취소", null);
+                builder.setView(view);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);

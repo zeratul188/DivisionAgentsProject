@@ -57,7 +57,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenweapon"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -70,7 +70,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invensubweapon"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
@@ -86,7 +86,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenmask"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -99,7 +99,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenbackpack"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
@@ -115,7 +115,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenvest"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -128,7 +128,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenglove"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
@@ -143,7 +143,7 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenholster"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -156,17 +156,20 @@
                             android:textSize="22sp"
                             android:paddingTop="20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:drawableTop="@drawable/invenkneeped"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
                 </TableLayout>
                 <Button
                     android:id="@+id/btnMaterialList"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="재료 확인"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/buttonnobackcustom"
+                    android:drawableTop="@drawable/ic_business_center_black_40dp"
+                    android:drawablePadding="10dp"
                     android:textSize="18sp"
                     android:padding="10dp"
                     android:layout_marginTop="20dp"

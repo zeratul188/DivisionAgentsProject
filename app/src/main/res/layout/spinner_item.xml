@@ -4,8 +4,5 @@
     android:textSize="20sp" android:fontFamily="@font/borda"
     android:gravity="left"
     android:textColor="#f0f0f0"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp"
+    android:padding="10dp"
     android:background="#222222"/>

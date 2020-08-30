@@ -55,16 +55,33 @@
         android:paddingTop="3dp"
         android:layout_gravity="center"
         android:indeterminateTint="#E45435"/>
-    <!--<Button
-        android:id="@+id/btnNowOutput"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/buttonmaincustom"
-        android:text="다크존 가방 걸기"
-        android:textColor="#ffffff"
-        android:textSize="25sp"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:enabled="false"/>-->
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <Button
+            android:id="@+id/btnRun"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="이송지점에서 벗어나기"
+            android:textSize="17sp"
+            android:textColor="#f0f0f0"
+            android:drawableTop="@drawable/ic_directions_run_black_40dp"
+            android:padding="5dp"
+            android:background="@drawable/buttonnobackcustom"/>
+        <Button
+            android:id="@+id/btnNowOutput"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="즉시 이송"
+            android:textSize="17sp"
+            android:textColor="#f0f0f0"
+            android:drawableTop="@drawable/ic_arrow_upward_black_40dp"
+            android:padding="5dp"
+            android:background="@drawable/buttonnobackcustom"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -45,7 +45,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -67,7 +67,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -92,7 +92,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -114,7 +114,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -139,7 +139,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -161,7 +161,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -186,7 +186,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -208,7 +208,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/buttoncustom"
+                            android:background="@drawable/buttonnobackcustom"
                             android:orientation="vertical"
                             android:gravity="center"
                             android:paddingBottom="20dp"
@@ -226,24 +226,33 @@
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
-                <Button
-                    android:id="@+id/btnMenu1"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="네임드 무기"
-                    android:textSize="18sp"
-                    android:textColor="#aaaaaa"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="10dp"/>
-                <Button
-                    android:id="@+id/btnMenu2"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="특수효과"
-                    android:textSize="18sp"
-                    android:textColor="#aaaaaa"
-                    android:background="@drawable/buttoncustom"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btnMenu1"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/namedlogocustom"
+                        android:text="네임드 무기"
+                        android:textSize="18sp"
+                        android:textColor="#aaaaaa"
+                        android:background="@drawable/buttonnobackcustom"
+                        android:layout_marginBottom="10dp"/>
+                    <Button
+                        android:id="@+id/btnMenu2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="특수효과"
+                        android:drawableTop="@drawable/ic_library_books_black_40dp"
+                        android:textSize="18sp"
+                        android:textColor="#aaaaaa"
+                        android:background="@drawable/buttonnobackcustom"
+                        android:layout_marginBottom="20dp"/>
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -162,7 +162,7 @@
             android:drawablePadding="5dp"
             android:text="취소"
             android:textSize="18sp"
-            android:background="#00000000"
+            android:background="@drawable/buttonnobackcustom"
             android:padding="12dp"
             android:textColor="#f0f0f0"/>
         <Button
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:text="특급 아이템 재조정"
             android:textSize="18sp"
-            android:background="#00000000"
+            android:background="@drawable/buttonnobackcustom"
             android:drawableTop="@drawable/ic_gavel_black_24dp"
             android:drawablePadding="5dp"
             android:padding="12dp"
@@ -187,7 +187,7 @@
             android:drawableTop="@drawable/ic_add_black_40dp"
             android:drawablePadding="5dp"
             android:textSize="18sp"
-            android:background="#00000000"
+            android:background="@drawable/buttonnobackcustom"
             android:padding="12dp"
             android:textColor="#f0f0f0"/>
     </LinearLayout>

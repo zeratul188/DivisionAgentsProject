@@ -1437,16 +1437,10 @@ public class ShareFragment extends Fragment {
                     //btnNowOutput = dialogView_timer.findViewById(R.id.btnNowOutput); //이송헬기에 가방을 걸 버튼이다.
                     processOutput = dialogView_timer.findViewById(R.id.progressOutput);
                     txtTimer = dialogView_timer.findViewById(R.id.txtTimer); //남은 시간을 나타낸다.
-            /*btnNowOutput.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { //가방을 거는 버튼을 눌렀을 경우
-                    darkitem = 0; //다크존 아이템을 초기화한다.
-                    
-                    btnOutput.setText("이송하기 ("+darkitem+"/10)");
-                    Toast.makeText(getActivity(), "헬기에 이송물을 걸었습니다.", Toast.LENGTH_SHORT).show(); //토스트를 통해 이송물을 걸었다는 것을 알려준다.
-                    btnNowOutput.setEnabled(false); //이송물 걸기 버튼을 비활성화시킨다.
-                }
-            });*/
+
+                    Button btnRun = dialogView_timer.findViewById(R.id.btnRun);
+                    Button btnNowOutput = dialogView_timer.findViewById(R.id.btnNowOutput);
+
                     processOutput.setMax(5000);
                     processOutput.setProgress(0);
                     processOutput.setClickable(true);
@@ -1478,18 +1472,16 @@ public class ShareFragment extends Fragment {
                     progressTimer.setMax(10000); //타이머의 최대치를 설정
                     progressTimer.setProgress(0); //타이머의 진행도를 초기화
 
-                    builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle); //타이머 빌더를 생성
-                    builder_timer.setView(dialogView_timer);
-                    builder_timer.setPositiveButton("즉시 이송", new DialogInterface.OnClickListener() {
+                    btnNowOutput.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) { //즉시 이송을 누르면 작동
+                        public void onClick(View v) {
                             taked = false;
                             for (int i = 0; i < dark_items.size(); i++) {
                                 darkInputItems(dark_items.get(i));
                             }
                             dark_items.clear();
                             darkitem = 0; //다크존 아이템을 0으로 초기화
-                             //위와 동일한 방식
+                            //위와 동일한 방식
                             btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
                             Toast.makeText(getActivity(), "즉시 이송시켰습니다.", Toast.LENGTH_SHORT).show(); //즉시 이송 완료 메시지를 토스트로 통해 알려준다.
                             coming_dz.stopThread(); //헬기 오기 전 스레드를 종료
@@ -1509,11 +1501,13 @@ public class ShareFragment extends Fragment {
                                     ;
 
                             notificationManager.notify(0, buildert.build()); //새로운 알림을 띄운다.
+                            alertDialog_timer.dismiss();
                         }
                     });
-                    builder_timer.setNeutralButton("이송지점 벗어나기", new DialogInterface.OnClickListener() {
+
+                    btnRun.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) { //이송지점을 벗어날 경우
+                        public void onClick(View v) {
                             taked = false;
                             if (darkitem > 0) { //다크존 아이템이 0보다 크면 작동한다. 즉, 이송물을 헬기에 걸기 전을 나타낸다.
                                 Toast.makeText(getActivity(), "이송하지 않고 이송지점에서 벗어났습니다.", Toast.LENGTH_SHORT).show(); //이송지점에서 벗어낫다는 메시지를 토스트로 전달
@@ -1555,8 +1549,12 @@ public class ShareFragment extends Fragment {
                                     ;
 
                             notificationManager.notify(0, buildert.build()); //새로운 알림을 띄운다.
+                            alertDialog_timer.dismiss();
                         }
                     });
+
+                    builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle); //타이머 빌더를 생성
+                    builder_timer.setView(dialogView_timer);
                     builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) { //다이얼로그가 꺼지게 될 경우
