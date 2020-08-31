@@ -560,7 +560,7 @@
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
                 android:drawableTop="@drawable/ic_close_black_24dp"
-                android:background="#00000000"/>
+                android:background="@drawable/buttonnobackcustom"/>
             <Button
                 android:id="@+id/btnDrop"
                 android:layout_width="0dp"
@@ -573,7 +573,7 @@
                 android:layout_marginRight="5dp"
                 android:textColor="#aaaaaa"
                 android:drawableTop="@drawable/ic_delete_forever_black_24dp"
-                android:background="#00000000"/>
+                android:background="@drawable/buttonnobackcustom"/>
             <Button
                 android:id="@+id/btnDestroy"
                 android:layout_width="0dp"
@@ -585,7 +585,7 @@
                 android:layout_marginLeft="5dp"
                 android:textColor="#aaaaaa"
                 android:drawableTop="@drawable/ic_gavel_black_24dp"
-                android:background="#00000000"/>
+                android:background="@drawable/buttonnobackcustom"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

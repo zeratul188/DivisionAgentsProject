@@ -4,7 +4,7 @@
     <item android:state_pressed="true">
         <shape>
             <padding android:bottom="4dp" android:left="8dp" android:right="8dp" android:top="4dp" />
-            <solid android:color="#444444"/>
+            <solid android:color="#80555555"/>
         </shape>
     </item>
     <item android:state_enabled="false">

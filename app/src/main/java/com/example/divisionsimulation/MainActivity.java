@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     private NotificationManager notificationManager = null;
     private NotificationChannel channel = null;
 
+    private TimerThread tt = null;
+
     private int hour, minute, second;
 
     public void setTxtInfo(String message) { txtInfo.setText(message); }
@@ -372,6 +374,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             TextView txtResultTarget = dialogView_timer.findViewById(R.id.txtResultTarget);
                             progressTimer = dialogView_timer.findViewById(R.id.progressTimer);
                             txtTimer = dialogView_timer.findViewById(R.id.txtTimer);
+                            Button btnEnd = dialogView_timer.findViewById(R.id.btnEnd);
+                            Button btnReplay = dialogView_timer.findViewById(R.id.btnReplay);
 
                             if (String.valueOf(edtHour.getText()).equals("")) hour = 0;
                             else hour = Integer.parseInt(String.valueOf(edtHour.getText()));
@@ -412,19 +416,30 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 notificationManager.notify(0, buildert.build());
                                 txtResultTarget.setText("'목표'까지 남은 시간");
                             }
-                            final TimerThread tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, txtTimer, progressTimer);
+                            tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, txtTimer, progressTimer);
 
                             progressTimer.setMax(10000);
                             progressTimer.setProgress(0);
 
-                            builder_timer = new AlertDialog.Builder(activity, R.style.MyAlertDialogStyle);
-                            builder_timer.setView(dialogView_timer);
-                            builder_timer.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            btnEnd.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(View v) {
+                                    alertDialog_timer.dismiss();
                                     tt.stopThread();
                                 }
                             });
+
+                            btnReplay.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    tt.stopThread();
+                                    tt = new TimerThread(hour, minute, second, handler, activity, notificationManager, MainActivity.this, txtTimer, progressTimer);
+                                    tt.start();
+                                }
+                            });
+
+                            builder_timer = new AlertDialog.Builder(activity, R.style.MyAlertDialogStyle);
+                            builder_timer.setView(dialogView_timer);
                             builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
                                 public void onDismiss(DialogInterface dialog) {
