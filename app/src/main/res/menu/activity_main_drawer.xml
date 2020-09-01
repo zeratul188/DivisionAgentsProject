@@ -31,7 +31,7 @@
             android:iconTint="#f0f0f0" />
         <item
             android:id="@+id/nav_send"
-            android:title="팩션 정보 및 파일"
+            android:title="제작"
             android:icon="@drawable/menuicon6"
             android:iconTint="#f0f0f0" />
     </group>

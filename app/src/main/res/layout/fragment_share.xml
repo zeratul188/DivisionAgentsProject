@@ -1103,7 +1103,7 @@
                     android:textSize="18sp"
                     android:padding="10dp"
                     android:background="@drawable/buttonnobackcustom"
-                    android:drawableTop="@drawable/output"
+                    android:drawableTop="@drawable/ic_arrow_upward_black_40dp"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
         </LinearLayout>
