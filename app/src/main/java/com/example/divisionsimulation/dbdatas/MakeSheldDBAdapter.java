@@ -152,6 +152,13 @@ public class MakeSheldDBAdapter {
         return count;
     }
 
+    public boolean haveGear(String name) {
+        Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+" where "+KEY_GEAR+"=1;", null);
+        int count = 0;
+        if (cursor != null) count = cursor.getCount();
+        return count > 0;
+    }
+
     public boolean updateData(String undo_name, String name, String type, int gear) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);

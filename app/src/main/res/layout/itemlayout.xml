@@ -468,7 +468,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/fm2custom"
-                android:background="#00000000"
+                android:background="@drawable/buttonnobackcustom"
                 android:text="다크존 가방에 담기"
                 android:textColor="#ffffff"
                 android:textSize="18sp"

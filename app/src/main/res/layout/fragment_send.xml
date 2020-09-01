@@ -17,54 +17,72 @@
             android:orientation="vertical"
             android:layout_marginTop="?attr/actionBarSize"
             android:padding="10dp">
-            <RadioGroup
-                android:id="@+id/rgType"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginBottom="10dp">
-                <RadioButton
-                    android:id="@+id/rdoWeaponType"
+                <RadioGroup
+                    android:id="@+id/rgType"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="5dp">
+                    <RadioButton
+                        android:id="@+id/rdoWeaponType"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/radiocustom"
+                        android:button="@null"
+                        android:text="무기"
+                        android:textSize="18sp"
+                        android:textColor="#f0f0f0"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:checked="true"
+                        android:layout_marginRight="5dp"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheldType"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/radiocustom"
+                        android:button="@null"
+                        android:text="보호장구"
+                        android:textSize="18sp"
+                        android:textColor="#f0f0f0"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+                    <RadioButton
+                        android:id="@+id/rdoExoticType"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/radiocustom"
+                        android:button="@null"
+                        android:text="특급"
+                        android:textSize="18sp"
+                        android:textColor="#f0f0f0"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginLeft="5dp"/>
+                </RadioGroup>
+                <Button
+                    android:id="@+id/btnMaterialList"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/radiocustom"
-                    android:button="@null"
-                    android:text="무기"
+                    android:text="재료"
                     android:textSize="18sp"
                     android:textColor="#f0f0f0"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:checked="true"
-                    android:layout_marginRight="5dp"/>
-                <RadioButton
-                    android:id="@+id/rdoSheldType"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/radiocustom"
-                    android:button="@null"
-                    android:text="보호장구"
-                    android:textSize="18sp"
-                    android:textColor="#f0f0f0"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginRight="5dp"
+                    android:drawableTop="@drawable/inven"
+                    android:background="@drawable/buttonnobackcustom"
                     android:layout_marginLeft="5dp"/>
-                <RadioButton
-                    android:id="@+id/rdoExoticType"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/radiocustom"
-                    android:button="@null"
-                    android:text="특급"
-                    android:textSize="18sp"
-                    android:textColor="#f0f0f0"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginLeft="5dp"/>
-            </RadioGroup>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/layoutWeapon"
                 android:layout_width="match_parent"

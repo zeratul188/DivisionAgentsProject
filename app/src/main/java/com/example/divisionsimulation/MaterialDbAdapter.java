@@ -119,6 +119,12 @@ public class MaterialDbAdapter {
         return cursor;
     }
 
+    public int getMaterial(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_COUNT, KEY_MAX}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getInt(2);
+    }
+
     public int getCount() {
         Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+";", null);
         int count = 0;
