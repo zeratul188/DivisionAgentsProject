@@ -28,6 +28,8 @@ import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
+import com.example.divisionsimulation.dbdatas.MakeExoticDBAdapter;
+import com.example.divisionsimulation.dbdatas.MakeNamedDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
@@ -56,6 +58,8 @@ public class InventoryActivity extends AppCompatActivity {
     private TalentFMDBAdapter talentDBAdapter;
     private MaterialDbAdapter materialDbAdapter;
     private LibraryDBAdapter libraryDBAdapter;
+    private MakeExoticDBAdapter makeExoticDBAdapter;
+    private MakeNamedDBAdapter makeNamedDBAdapter;
 
     private int[] material = new int[10];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
@@ -77,6 +81,8 @@ public class InventoryActivity extends AppCompatActivity {
         talentDBAdapter = new TalentFMDBAdapter(this);
         materialDbAdapter = new MaterialDbAdapter(this);
         libraryDBAdapter = new LibraryDBAdapter(this);
+        makeExoticDBAdapter = new MakeExoticDBAdapter(this);
+        makeNamedDBAdapter = new MakeNamedDBAdapter(this);
 
         resetMaterial();
 
@@ -917,9 +923,13 @@ public class InventoryActivity extends AppCompatActivity {
         exoticDBAdapter.open();
         namedDBAdapter.open();
         sheldDBAdapter.open();
-        if (exoticDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.exoticitem);
+        makeNamedDBAdapter.open();
+        makeExoticDBAdapter.open();
+        if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.exoticitem);
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.gearitem);
         else layout.setBackgroundResource(R.drawable.rareitem);
+        makeExoticDBAdapter.close();
+        makeNamedDBAdapter.close();
         sheldDBAdapter.close();
         namedDBAdapter.close();
         exoticDBAdapter.close();
@@ -929,10 +939,14 @@ public class InventoryActivity extends AppCompatActivity {
         exoticDBAdapter.open();
         namedDBAdapter.open();
         sheldDBAdapter.open();
-        if (exoticDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#ff3c00"));
-        else if (namedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
+        makeNamedDBAdapter.open();
+        makeExoticDBAdapter.open();
+        if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#ff3c00"));
+        else if (namedDBAdapter.haveItem(itemList.get(position).getName()) || makeNamedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#009900"));
         else textView.setTextColor(Color.parseColor("#f0f0f0"));
+        makeExoticDBAdapter.close();
+        makeNamedDBAdapter.close();
         sheldDBAdapter.close();
         namedDBAdapter.close();
         exoticDBAdapter.close();

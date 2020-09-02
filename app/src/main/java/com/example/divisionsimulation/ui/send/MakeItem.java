@@ -1,7 +1,7 @@
 package com.example.divisionsimulation.ui.send;
 
 public class MakeItem {
-    private String name, type;
+    private String name, type, asp = "-";
     private Boolean gear = false;
 
     public MakeItem(String name, String type) {
@@ -31,5 +31,13 @@ public class MakeItem {
 
     public void setGear(Boolean gear) {
         this.gear = gear;
+    }
+
+    public String getAsp() {
+        return asp;
+    }
+
+    public void setAsp(String asp) {
+        this.asp = asp;
     }
 }

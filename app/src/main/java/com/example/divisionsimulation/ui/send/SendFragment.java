@@ -1,10 +1,18 @@
 package com.example.divisionsimulation.ui.send;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +25,27 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
+import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MakeExoticDBAdapter;
 import com.example.divisionsimulation.dbdatas.MakeNamedDBAdapter;
 import com.example.divisionsimulation.dbdatas.MakeSheldDBAdapter;
 import com.example.divisionsimulation.dbdatas.MakeWeaponDBAdapter;
+import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
+import com.example.divisionsimulation.ui.share.Item;
+import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SendFragment extends Fragment {
@@ -51,14 +68,53 @@ public class SendFragment extends Fragment {
     private int[] sheldresource = {R.drawable.rdoeq1custom, R.drawable.rdoeq2custom, R.drawable.rdoeq3custom, R.drawable.rdoeq4custom, R.drawable.rdoeq5custom, R.drawable.rdoeq6custom};
     private int[] weaponresource = {R.drawable.rdowp1custom, R.drawable.rdowp2custom, R.drawable.rdowp3custom, R.drawable.rdowp4custom, R.drawable.rdowp5custom, R.drawable.rdowp6custom, R.drawable.rdowp7custom};
 
+    private int[] material = new int[10];
+    private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
+
     private MakeExoticDBAdapter makeExoticDBAdapter;
     private MakeNamedDBAdapter makeNamedDBAdapter;
     private MakeSheldDBAdapter makeSheldDBAdapter;
     private MakeWeaponDBAdapter makeWeaponDBAdapter;
     private MaterialDbAdapter materialDbAdapter;
+    private InventoryDBAdapter inventoryDBAdapter;
+    private MaxOptionsFMDBAdapter maxoptionDBAdapter;
+    private LibraryDBAdapter libraryDBAdapter;
+    private NamedFMDBAdapter namedDBAdapter;
+    private SheldFMDBAdapter sheldDBAdapter;
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
+
+    private boolean btnEnd, openSheld = false, openWeapon = false;
+    private int reset_count = 0;
+    private CircleProgressBar progressMake;
+    private int check_index = 0;
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if (reset_count >= 1500) btnEnd = true; //리셋카운트가 1500 이상이 되면 작동 (3초 이후)
+            if (btnEnd) { //btnEnd가 참이 될 경우 작동한다.
+                alertDialog.dismiss(); //다이얼로그를 닫는다.
+                makeExoticDBAdapter.open();
+                if (makeExoticDBAdapter.haveItem(makeItems.get(check_index).getName())) {
+                    if (isWeapon(makeItems.get(check_index).getType())) {
+                        makeWeaponExotic(check_index);
+                    } else {
+                        Toast.makeText(getActivity(), "제작 완료", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "제작 완료", Toast.LENGTH_SHORT).show();
+                }
+                makeExoticDBAdapter.close();
+                mHandler.removeMessages(0); //현재 핸들러를 종료시킨다.
+            } else { //아직 리셋카운트로 인해 btnEnd가 참이 되지 않았을 경우 작동
+                reset_count += 10; //10을 늘려준다. (1500까지 3초 걸린다.)
+                progressMake.setProgress(reset_count); //리셋 카운트만큼 진행도를 설정한다.
+            }
+            Log.v("LC버튼", "Long클릭"); //로그를 남긴다.
+            mHandler.sendEmptyMessageDelayed(0, 20); //핸들러를 0.02초만큼 반복시킨다. (다시 핸들러를 불러오는 방식으로 반복시키는 것이다.)
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +134,11 @@ public class SendFragment extends Fragment {
         makeSheldDBAdapter = new MakeSheldDBAdapter(getActivity());
         makeWeaponDBAdapter = new MakeWeaponDBAdapter(getActivity());
         materialDbAdapter = new MaterialDbAdapter(getActivity());
+        inventoryDBAdapter = new InventoryDBAdapter(getActivity());
+        maxoptionDBAdapter = new MaxOptionsFMDBAdapter(getActivity());
+        libraryDBAdapter = new LibraryDBAdapter(getActivity());
+        namedDBAdapter = new NamedFMDBAdapter(getActivity());
+        sheldDBAdapter = new SheldFMDBAdapter(getActivity());
         makeItems = new ArrayList<MakeItem>();
 
         listWeapon = root.findViewById(R.id.listWeapon);
@@ -197,7 +258,9 @@ public class SendFragment extends Fragment {
                         makeNamedDBAdapter.close();
                         while (!cursor.isAfterLast()) {
                             String name = cursor.getString(1);
+                            String asp = cursor.getString(4);
                             MakeItem item = new MakeItem(name, sheldtypes[i]);
+                            item.setAsp(asp);
                             makeItems.add(item);
                             cursor.moveToNext();
                         }
@@ -207,9 +270,11 @@ public class SendFragment extends Fragment {
                         while (!cursor.isAfterLast()) {
                             String name = cursor.getString(1);
                             int gear = cursor.getInt(3);
+                            String asp = cursor.getString(4);
                             boolean isGear = false;
                             if (gear == 1) isGear = true;
                             MakeItem item = new MakeItem(name, sheldtypes[i]);
+                            item.setAsp(asp);
                             item.setGear(isGear);
                             makeItems.add(item);
                             cursor.moveToNext();
@@ -292,10 +357,63 @@ public class SendFragment extends Fragment {
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
 
+                final int index = position;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
+                        check_index = index;
+
+                        View makingView = getLayoutInflater().inflate(R.layout.makingdialog, null);
+
+                        ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
+                        progressMake = makingView.findViewById(R.id.progressMake);
+                        Button btnExit = makingView.findViewById(R.id.btnExit);
+
+                        if (isTypeWeapon(makeItems.get(index).getType())) {
+                            imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
+                        } else {
+                            imgIcon.setImageResource(setSheldImageResource(makeItems.get(index).getType()));
+                        }
+
+                        reset_count = 0;
+                        btnEnd = false;
+                        progressMake.setMax(1500);
+                        progressMake.setProgress(0);
+
+                        btnExit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
+
+                        imgIcon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
+                            }
+                        });
+
+                        builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(makingView);
+
+                        alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        alertDialog.show();
+
+                        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
                     }
                 });
 
@@ -327,6 +445,9 @@ public class SendFragment extends Fragment {
                 Button btnExit = dialogView.findViewById(R.id.btnExit);
                 Button btnMake = dialogView.findViewById(R.id.btnMake);
                 ImageView imgType = dialogView.findViewById(R.id.imgType);
+                LinearLayout layoutCore = dialogView.findViewById(R.id.layoutCore);
+                ImageView imgCore = dialogView.findViewById(R.id.imgCore);
+                TextView txtCore = dialogView.findViewById(R.id.txtCore);
 
                 btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -379,12 +500,77 @@ public class SendFragment extends Fragment {
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
 
+                final int index = position;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
+                        check_index = index;
+
+                        View makingView = getLayoutInflater().inflate(R.layout.makingdialog, null);
+
+                        ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
+                        progressMake = makingView.findViewById(R.id.progressMake);
+                        Button btnExit = makingView.findViewById(R.id.btnExit);
+
+                        if (isTypeWeapon(makeItems.get(index).getType())) {
+                            imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
+                        } else {
+                            imgIcon.setImageResource(setSheldImageResource(makeItems.get(index).getType()));
+                        }
+
+                        reset_count = 0;
+                        btnEnd = false;
+                        progressMake.setMax(1500);
+                        progressMake.setProgress(0);
+
+                        btnExit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
+
+                        imgIcon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
+                            }
+                        });
+
+                        builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(makingView);
+
+                        alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        alertDialog.show();
+
+                        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
                     }
                 });
+
+                layoutCore.setVisibility(View.VISIBLE);
+                if (makeItems.get(position).getAsp().equals("공격")) {
+                    imgCore.setImageResource(R.drawable.attack);
+                    txtCore.setText("무기 데미지");
+                } else if (makeItems.get(position).getAsp().equals("방어")) {
+                    imgCore.setImageResource(R.drawable.sheld);
+                    txtCore.setText("방어도");
+                } else {
+                    imgCore.setImageResource(R.drawable.power);
+                    txtCore.setText("스킬 등급");
+                }
 
                 builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
                 builder.setView(dialogView);
@@ -418,6 +604,9 @@ public class SendFragment extends Fragment {
                 Button btnExit = dialogView.findViewById(R.id.btnExit);
                 Button btnMake = dialogView.findViewById(R.id.btnMake);
                 ImageView imgType = dialogView.findViewById(R.id.imgType);
+                LinearLayout layoutCore = dialogView.findViewById(R.id.layoutCore);
+                ImageView imgCore = dialogView.findViewById(R.id.imgCore);
+                TextView txtCore = dialogView.findViewById(R.id.txtCore);
 
                 btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -474,10 +663,77 @@ public class SendFragment extends Fragment {
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
 
+                if (!isWeapon(makeItems.get(position).getType())) {
+                    layoutCore.setVisibility(View.VISIBLE);
+                    if (makeItems.get(position).getAsp().equals("공격")) {
+                        imgCore.setImageResource(R.drawable.attack);
+                        txtCore.setText("무기 데미지");
+                    } else if (makeItems.get(position).getAsp().equals("방어")) {
+                        imgCore.setImageResource(R.drawable.sheld);
+                        txtCore.setText("방어도");
+                    } else {
+                        imgCore.setImageResource(R.drawable.power);
+                        txtCore.setText("스킬 등급");
+                    }
+                }
+
+                final int index = position;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         alertDialog.dismiss();
+                        check_index = index;
+
+                        View makingView = getLayoutInflater().inflate(R.layout.makingdialog, null);
+
+                        ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
+                        progressMake = makingView.findViewById(R.id.progressMake);
+                        Button btnExit = makingView.findViewById(R.id.btnExit);
+
+                        if (isTypeWeapon(makeItems.get(index).getType())) {
+                            imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
+                        } else {
+                            imgIcon.setImageResource(setSheldImageResource(makeItems.get(index).getType()));
+                        }
+
+                        reset_count = 0;
+                        btnEnd = false;
+                        progressMake.setMax(1500);
+                        progressMake.setProgress(0);
+
+                        btnExit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
+
+                        imgIcon.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
+                            }
+                        });
+
+                        builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(makingView);
+
+                        alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        alertDialog.show();
+
+                        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                reset_count = 0;
+                                progressMake.setProgress(0);
+                                mHandler.removeMessages(0);
+                            }
+                        });
                     }
                 });
 
@@ -577,6 +833,263 @@ public class SendFragment extends Fragment {
 
         return root;
     }
+    
+    private void makeWeaponExotic(int index) {
+        String item_name, item_type, item_talent = "";
+        String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+        String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+        double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+        double max_core1, max_core2, max_sub1, max_sub2;
+        openWeapon = true;
+        openSheld = false;
+        View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
+
+        TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
+        TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
+        Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
+        LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+
+        Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
+        Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd);
+        ImageView imgType = dialogView.findViewById(R.id.imgType);
+
+        TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
+        TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2); //두번째 무기 핵심속성
+        TextView txtWSub = dialogView.findViewById(R.id.txtWSub); //무기 속성
+        ProgressBar progressWMain1 = dialogView.findViewById(R.id.progressWMain1); //첫번째 무기 핵심속성 진행도
+        ProgressBar progressWMain2 = dialogView.findViewById(R.id.progressWMain2); //두번재 무기 핵심속성 진행도
+        ProgressBar progressWSub = dialogView.findViewById(R.id.progressWSub); //무기 속성 진행도
+        TextView txtWTalent = dialogView.findViewById(R.id.txtWTalent); //무기 탤런트
+
+        TextView txtSMain = dialogView.findViewById(R.id.txtSMain); //보호장구 핵심속성
+        TextView txtSSub1 = dialogView.findViewById(R.id.txtSSub1); //첫번째 보호장구 속성
+        TextView txtSSub2 = dialogView.findViewById(R.id.txtSSub2); //두번째 보호장구 속성
+        ProgressBar progressSMain = dialogView.findViewById(R.id.progressSMain); //보호장구 핵심속성 진행도
+        ProgressBar progressSSub1 = dialogView.findViewById(R.id.progressSSub1); //첫번째 보호장구 속성 진행도
+        ProgressBar progressSSub2 = dialogView.findViewById(R.id.progressSSub2); //두번째 보호장구 속성 진행도
+        ImageView imgSMain = dialogView.findViewById(R.id.imgSMain); //보호장구 핵심속성 타입 이미지
+        ImageView imgSSub1 = dialogView.findViewById(R.id.imgSSub1); //첫번재 보호장구 속성 타입 이미지
+        ImageView imgSSub2 = dialogView.findViewById(R.id.imgSSub2); //두번째 보호장구 속성 타입 이미지
+        LinearLayout layoutTalent = dialogView.findViewById(R.id.layoutTalent);
+        LinearLayout layoutTalentButton = dialogView.findViewById(R.id.layoutTalentButton);
+
+        LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon); //무기 속성 레이아웃
+        LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld); //보호장구 속성 레이아웃
+        LinearLayout layoutSSub2 = dialogView.findViewById(R.id.layoutSSub2);
+
+        TextView txtInventory = dialogView.findViewById(R.id.txtInventory);
+        ImageView imgInventory = dialogView.findViewById(R.id.imgInventory);
+        LinearLayout layoutInventory = dialogView.findViewById(R.id.layoutInventory);
+
+        TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
+
+        LinearLayout layoutWeaponMain1 = dialogView.findViewById(R.id.layoutWeaponMain1);
+        LinearLayout layoutWeaponMain2 = dialogView.findViewById(R.id.layoutWeaponMain2);
+        LinearLayout layoutWeaponSub = dialogView.findViewById(R.id.layoutWeaponSub);
+        LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
+        LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
+        LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+
+        inventoryDBAdapter.open();
+        txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
+        inventoryDBAdapter.close();
+        imgInventory.setImageResource(R.drawable.inven);
+        btnAdd.setVisibility(View.VISIBLE);
+        Cursor cursor;
+        int pick, temp_percent; //램덤 난수가 저장될 변수
+        tableMain.setBackgroundResource(R.drawable.rareitem);
+        String temp_option; //옵션 이름
+        tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+        btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+        layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
+        layoutWeapon.setVisibility(View.VISIBLE); //무기 옵션 레이아웃을 숨긴다.
+        txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+        layoutSheldSub2.setVisibility(View.VISIBLE);
+
+        tableMain.setBackgroundResource(R.drawable.exoticitem);
+        layoutTalent.setVisibility(View.VISIBLE);
+        txtName.setTextColor(Color.parseColor("#ff3c00"));
+        item_name = makeItems.get(index).getName();
+        item_type = makeItems.get(index).getType();
+        makeExoticDBAdapter.open();
+        cursor = makeExoticDBAdapter.fetchData(makeItems.get(index).getName());
+        item_sub1 = cursor.getString(4);
+        item_sub1_type = cursor.getString(7);
+        item_talent = cursor.getString(10);
+        txtWTalentContent.setText(transformString(cursor.getString(11)));
+        makeExoticDBAdapter.close();
+        txtName.setText(item_name);
+        txtType.setText(item_type);
+        item_core1 = item_type+" 데미지";
+        txtWTalent.setText(item_talent);
+        maxoptionDBAdapter.open();
+        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+        max_core1 = Double.parseDouble(cursor.getString(2));
+        tail_core1 = cursor.getString(5);
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(1, 60); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+        if (!item_type.equals("권총")) {
+            maxoptionDBAdapter.open();
+            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+            max_core2 = Double.parseDouble(cursor.getString(2));
+            tail_core2 = cursor.getString(5);
+            item_core2 = cursor.getString(1);
+            maxoptionDBAdapter.close();
+            pick = percent(1, 100);
+            if (pick <= 20) temp_percent = 100;
+            else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+            else temp_percent = percent(1, 60); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+            layoutWeaponMain2.setVisibility(View.VISIBLE);
+            if (tail_core2.equals("-")) tail_core2 = "";
+            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+            progressWMain2.setMax((int)(max_core2*10));
+            progressWMain2.setProgress((int)(core2*10));
+        } else {
+            layoutWeaponMain2.setVisibility(View.GONE);
+        }
+        maxoptionDBAdapter.open();
+        cursor = maxoptionDBAdapter.fetchExoticWeaponData(item_sub1);
+        max_sub1 = Double.parseDouble(cursor.getString(2));
+        tail_sub1 = cursor.getString(5);
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(1, 60); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+        if (tail_core1.equals("-")) tail_core1 = "";
+        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+        progressWMain1.setMax((int)(max_core1*10));
+        progressWMain1.setProgress((int)(core1*10));
+        if (tail_sub1.equals("-")) tail_sub1 = "";
+        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+        progressWSub.setMax((int)(max_sub1*10));
+        progressWSub.setProgress((int)(sub1*10));
+
+        if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+            ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+        //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+        builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+        Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+        item.setCore1(item_core1);
+        item.setCore2(item_core2);
+        item.setSub1(item_sub1);
+        item.setSub2(item_sub2);
+        item.setCore1_value(core1);
+        item.setCore2_value(core2);
+        item.setSub1_value(sub1);
+        item.setSub2_value(sub2);
+        item.setTalent(item_talent);
+
+        namedDBAdapter.open();
+        if (openWeapon) {
+            if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+            setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+        } else {
+            setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+            setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+        }
+        namedDBAdapter.close();
+
+        alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnDestroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                materialDbAdapter.open();
+                Cursor cursor = materialDbAdapter.fetchAllMaterial();
+                cursor.moveToFirst();
+                int count = 0;
+                while (!cursor.isAfterLast()) {
+                    material[count] = cursor.getInt(2);
+                    cursor.moveToNext();
+                    count++;
+                }
+                materialDbAdapter.close();
+                material[9]++;
+                if (material[9] >= 20) material[9] = 20;
+                materialDbAdapter.open();
+                materialDbAdapter.updateMaterial(material_name[9], material[9]);
+                materialDbAdapter.close();
+                Toast.makeText(getActivity(), "특급 부품을 획득하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Item final_item = item;
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputItem(final_item);
+            }
+        });
+
+
+    }
+
+    private void inputItem(Item item) {
+        sheldDBAdapter.open();
+        if (sheldDBAdapter.haveItem(item.getName())) {
+            item.setSub2("-");
+            item.setSub2_value(0);
+        }
+        sheldDBAdapter.close();
+        inventoryDBAdapter.open();
+        if (inventoryDBAdapter.getCount() < 300) {
+            switch (item.getType()) {
+                case "돌격소총":
+                case "소총":
+                case "지정사수소총":
+                case "기관단총":
+                case "산탄총":
+                case "경기관총":
+                case "권총":
+                    inventoryDBAdapter.insertWeaponData(item.getName(), item.getType(), item.getCore1(), item.getCore2(), item.getSub1(), item.getCore1_value(), item.getCore2_value(), item.getSub1_value(), item.getTalent());
+                    break;
+                case "마스크":
+                case "백팩":
+                case "조끼":
+                case "장갑":
+                case "권총집":
+                case "무릎보호대":
+                    inventoryDBAdapter.insertSheldData(item.getName(), item.getType(), item.getCore1(), item.getSub1(), item.getSub2(), item.getCore1_value(), item.getSub1_value(), item.getSub2_value(), item.getTalent());
+                    break;
+            }
+            Toast.makeText(getActivity(), item.getName()+"("+item.getType()+")을 인벤토리에 추가하였습니다.", Toast.LENGTH_SHORT).show();
+            alertDialog.dismiss();
+        } else Toast.makeText(getActivity(), "인벤토리가 가득찼습니다.", Toast.LENGTH_SHORT).show();
+        inventoryDBAdapter.close();
+    }
 
     private boolean isTypeWeapon(String type) {
         for (int i = 0; i < weapontypes.length; i++) if (type.equals(weapontypes[i])) return true;
@@ -639,7 +1152,9 @@ public class SendFragment extends Fragment {
         makeNamedDBAdapter.close();
         while (!cursor.isAfterLast()) {
             String name = cursor.getString(1);
+            String asp = cursor.getString(4);
             MakeItem item = new MakeItem(name, sheldtypes[0]);
+            item.setAsp(asp);
             makeItems.add(item);
             cursor.moveToNext();
         }
@@ -649,15 +1164,88 @@ public class SendFragment extends Fragment {
         while (!cursor.isAfterLast()) {
             String name = cursor.getString(1);
             int gear = cursor.getInt(3);
+            String asp = cursor.getString(4);
             boolean isGear = false;
             if (gear == 1) isGear = true;
             MakeItem item = new MakeItem(name, sheldtypes[0]);
+            item.setAsp(asp);
             item.setGear(isGear);
             makeItems.add(item);
             cursor.moveToNext();
         }
         makeAdapter = new MakeAdapter(getActivity(), makeItems, false);
         listSheld.setAdapter(makeAdapter);
+    }
+
+    private SpannableString transformString(String content) {
+        SpannableString spannableString = new SpannableString(content);
+        String word;
+        int start, end;
+        int find_index = 0;
+        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
+        for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
+            find_index = 0;
+            while(true) {
+                word = changes[i]; //찾을 문자열에 새로운 특급 장비 이름을 넣는다. 반복문으로 모든 엑조틱과 비교가 된다.
+                start = content.indexOf(word, find_index); //찾을 문자열과 같은 문자열을 찾게되면 시작 번호를 알려줘 start 변수에 대입한다.
+                find_index = start+1;
+                end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
+                if (start > 0) {
+                    if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
+                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("번")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("개")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("배")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("발")) ||
+                            (isFrontNumber(content, start) && changes[i].equals(".")) ||
+                            (isFrontNumber(content, start) && changes[i].equals("명"))) {
+                        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#B18912")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return spannableString;
+    }
+
+    private boolean isFrontNumber(String content, int index) {
+        String result = "";
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+        if (index > 0) result = content.substring(index-1, index);
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i].equals(result)) return true;
+        }
+        return false;
+    }
+
+    private void setSecondaryProgess(String name, ProgressBar progressBar, String option_type, String type) {
+        Cursor cursor;
+        double max = 0;
+        libraryDBAdapter.open();
+        switch (option_type) {
+            case "weapon_core1":
+                cursor = libraryDBAdapter.fetchTypeData("무기");
+                break;
+            case "weapon_core2":
+                cursor = libraryDBAdapter.fetchTypeData(type);
+                break;
+            case "weapon_sub":
+                cursor = libraryDBAdapter.fetchSubData(name);
+                break;
+            case "sheld_core":
+                cursor = libraryDBAdapter.fetchSheldCoreData(name);
+                break;
+            case "sheld_sub1":
+            case "sheld_sub2":
+                cursor = libraryDBAdapter.fetchSheldSubData(name);
+                break;
+            default:
+                cursor = libraryDBAdapter.fetchTypeData("무기");
+        }
+        libraryDBAdapter.close();
+        max = Double.parseDouble(cursor.getString(2));
+        progressBar.setSecondaryProgress((int)(max*10));
     }
 
     private void weaponInterface() {
@@ -682,5 +1270,14 @@ public class SendFragment extends Fragment {
         }
         makeAdapter = new MakeAdapter(getActivity(), makeItems, false);
         listWeapon.setAdapter(makeAdapter);
+    }
+
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
+    }
+
+    public int percent(int min, int length) {
+        return (int)(Math.random()*1234567)%length + min;
     }
 }

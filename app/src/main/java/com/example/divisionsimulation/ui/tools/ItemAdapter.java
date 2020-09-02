@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.divisionsimulation.R;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.MakeExoticDBAdapter;
+import com.example.divisionsimulation.dbdatas.MakeNamedDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
@@ -29,6 +31,8 @@ public class ItemAdapter extends BaseAdapter {
     private NamedFMDBAdapter namedDBAdapter;
     private SheldFMDBAdapter sheldDBAdapter;
     private MaxOptionsFMDBAdapter maxDBAdapter;
+    private MakeExoticDBAdapter makeExoticDBAdapter;
+    private MakeNamedDBAdapter makeNamedDBAdapter;
 
     private Cursor cursor = null;
     private String[] weapon_type = {"돌격소총", "지정사수소총", "산탄총", "기관단총", "경기관총", "소총", "권총"};
@@ -40,6 +44,8 @@ public class ItemAdapter extends BaseAdapter {
         namedDBAdapter = new NamedFMDBAdapter(context);
         sheldDBAdapter = new SheldFMDBAdapter(context);
         maxDBAdapter = new MaxOptionsFMDBAdapter(context);
+        makeExoticDBAdapter = new MakeExoticDBAdapter(context);
+        makeNamedDBAdapter = new MakeNamedDBAdapter(context);
     }
 
     @Override
@@ -74,10 +80,14 @@ public class ItemAdapter extends BaseAdapter {
         namedDBAdapter.open();
         exoticDBAdapter.open();
         sheldDBAdapter.open();
+        makeNamedDBAdapter.open();
+        makeExoticDBAdapter.open();
         if (namedDBAdapter.haveItem(itemList.get(position).getName()) && !namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
-        else if (exoticDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#ff3c00"));
+        else if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#ff3c00"));
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#009900"));
         else txtTalent.setTextColor(Color.parseColor("#f0f0f0"));
+        makeExoticDBAdapter.close();
+        makeNamedDBAdapter.close();
         sheldDBAdapter.close();
         exoticDBAdapter.close();
         namedDBAdapter.close();
@@ -292,9 +302,11 @@ public class ItemAdapter extends BaseAdapter {
         exoticDBAdapter.open();
         namedDBAdapter.open();
         sheldDBAdapter.open();
-        if (exoticDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.exoticitem);
+        makeExoticDBAdapter.open();
+        if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.exoticitem);
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) layout.setBackgroundResource(R.drawable.gearitem);
         else layout.setBackgroundResource(R.drawable.rareitem);
+        makeExoticDBAdapter.close();
         sheldDBAdapter.close();
         namedDBAdapter.close();
         exoticDBAdapter.close();
@@ -309,10 +321,14 @@ public class ItemAdapter extends BaseAdapter {
         exoticDBAdapter.open();
         namedDBAdapter.open();
         sheldDBAdapter.open();
-        if (exoticDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#ff3c00"));
-        else if (namedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
+        makeExoticDBAdapter.open();
+        makeNamedDBAdapter.open();
+        if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#ff3c00"));
+        else if (namedDBAdapter.haveItem(itemList.get(position).getName()) || makeNamedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#009900"));
         else textView.setTextColor(Color.parseColor("#f0f0f0"));
+        makeNamedDBAdapter.close();
+        makeExoticDBAdapter.close();
         sheldDBAdapter.close();
         namedDBAdapter.close();
         exoticDBAdapter.close();

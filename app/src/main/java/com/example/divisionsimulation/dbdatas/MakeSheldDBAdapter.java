@@ -20,9 +20,10 @@ public class MakeSheldDBAdapter {
     public static final String KEY_NAME = "NAME";
     public static final String KEY_TYPE = "TYPE";
     public static final String KEY_GEAR = "GEAR";
+    public static final String KEY_ASP = "ASP";
 
     private static final String DATABASE_CREATE = "create table MAKE_SHELD (_id integer primary key, " +
-            "NAME text not null, TYPE text not null, GEAR integer not null);";
+            "NAME text not null, TYPE text not null, GEAR integer not null, ASP text not null);";
 
     private static final String DATABASE_NAME = "DIVISION_MAKE_SHELD";
     private static final String DATABASE_TABLE = "MAKE_SHELD";
@@ -72,7 +73,7 @@ public class MakeSheldDBAdapter {
                 if (workbook != null) {
                     sheet = workbook.getSheet(0);
                     if (sheet != null) {
-                        int nMaxColumn = 3;
+                        int nMaxColumn = 4;
                         int nRowStartIndex = 0;
                         int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                         int nColumnStartIndex = 0;
@@ -83,11 +84,13 @@ public class MakeSheldDBAdapter {
                             String name = sheet.getCell(nColumnStartIndex, nRow).getContents();
                             String type = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
                             int gear= Integer.parseInt(sheet.getCell(nColumnStartIndex+2, nRow).getContents());
+                            String asp = sheet.getCell(nColumnStartIndex+3, nRow).getContents();
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_NAME, name);
                             values[nRow].put(KEY_TYPE, type);
                             values[nRow].put(KEY_GEAR, gear);
+                            values[nRow].put(KEY_ASP, asp);
 
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
@@ -116,11 +119,12 @@ public class MakeSheldDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String name, String type, int gear) {
+    public long insertData(String name, String type, int gear, String asp) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TYPE, type);
         values.put(KEY_GEAR, gear);
+        values.put(KEY_ASP, asp);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -130,17 +134,17 @@ public class MakeSheldDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR, KEY_ASP}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR, KEY_ASP}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public Cursor fetchTypeData(String type) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_GEAR, KEY_ASP}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -159,11 +163,12 @@ public class MakeSheldDBAdapter {
         return count > 0;
     }
 
-    public boolean updateData(String undo_name, String name, String type, int gear) {
+    public boolean updateData(String undo_name, String name, String type, int gear, String asp) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TYPE, type);
         values.put(KEY_GEAR, gear);
+        values.put(KEY_ASP, asp);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
     }
 }
