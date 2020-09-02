@@ -145,6 +145,12 @@ public class MakeNamedDBAdapter {
         return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, null, null, null, null, null);
     }
 
+    public String fetchTalentData(String talent) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_TALENT+"='"+talent+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getString(6);
+    }
+
     public Cursor fetchData(String name) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
@@ -169,6 +175,13 @@ public class MakeNamedDBAdapter {
         int count = 0;
         if (cursor != null) count = cursor.getCount();
         return count > 0;
+    }
+
+    public boolean noTalent(String name) {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        if (cursor.getInt(5) == 1) return true;
+        else return false;
     }
 
     public boolean updateData(String undo_name, String name, String talent, String type, String asp, int notalent, String talentcontent) {

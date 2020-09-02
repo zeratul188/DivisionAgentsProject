@@ -255,7 +255,9 @@ public class InventoryActivity extends AppCompatActivity {
                 txtType.setText(itemList.get(position).getType());
 
                 exoticDBAdapter.open();
-                exotic = exoticDBAdapter.haveItem(itemList.get(position).getName());
+                makeExoticDBAdapter.open();
+                exotic = exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName());
+                makeExoticDBAdapter.close();
                 exoticDBAdapter.close();
 
                 switch (itemList.get(position).getType()) {
@@ -407,8 +409,13 @@ public class InventoryActivity extends AppCompatActivity {
                     progressWSub.setSecondaryProgress((int)(second_max*10));
                     txtWTalent.setText(itemList.get(position).getTalent());
                     namedDBAdapter.open();
+                    makeNamedDBAdapter.open();
                     if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) {
                         String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
+                        txtWTalentContent.setText(transformString(content));
+                        layoutTalent.setEnabled(false);
+                    } else if (makeNamedDBAdapter.haveItem(itemList.get(position).getName())) {
+                        String content = makeNamedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
                         txtWTalentContent.setText(transformString(content));
                         layoutTalent.setEnabled(false);
                     } else {
@@ -418,6 +425,7 @@ public class InventoryActivity extends AppCompatActivity {
                         talentDBAdapter.close();
                         txtWTalentContent.setText(transformString(talent_content));
                     }
+                    makeNamedDBAdapter.close();
                     namedDBAdapter.close();
                 } else {
                     if (itemList.get(position).isEdit1()) imgSheldEdit1.setVisibility(View.VISIBLE);
@@ -589,7 +597,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getCore1());
@@ -602,6 +611,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -626,7 +636,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getCore2());
@@ -639,6 +650,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -655,7 +667,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getSub1());
@@ -668,6 +681,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -684,7 +698,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getCore1());
@@ -697,6 +712,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -721,7 +737,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getSub1());
@@ -736,6 +753,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -752,7 +770,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 intent.putExtra("exoticed", true);
                             } else {
                                 intent.putExtra("name", itemList.get(index).getSub2());
@@ -767,6 +786,7 @@ public class InventoryActivity extends AppCompatActivity {
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
                             intent.putExtra("talented", false);
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
                             startActivity(intent);
                         } else {
@@ -797,7 +817,8 @@ public class InventoryActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
                             exoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                 Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
@@ -809,6 +830,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 namedDBAdapter.close();
                             }
                             intent.putExtra("itemID", itemList.get(index).getRowId());
+                            makeExoticDBAdapter.close();
                             exoticDBAdapter.close();
 
                             startActivity(intent);
@@ -991,8 +1013,11 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void setNamedTalent(int position, TextView textView) {
         namedDBAdapter.open();
+        makeNamedDBAdapter.open();
         if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent()) && namedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
+        else if (makeNamedDBAdapter.haveItem(itemList.get(position).getName())) textView.setTextColor(Color.parseColor("#c99700"));
         else textView.setTextColor(Color.parseColor("#aaaaaa"));
+        makeNamedDBAdapter.close();
         namedDBAdapter.close();
     }
 
