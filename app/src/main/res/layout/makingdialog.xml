@@ -17,8 +17,8 @@
             app:style="solid_line"
             app:progress_stroke_width="2dp"
             app:progress_text_size="20sp"
-            app:progress_start_color="#FF6666"
-            app:progress_end_color="#FF6666"
+            app:progress_start_color="#fe6e0e"
+            app:progress_end_color="#fe6e0e"
             app:progress_background_color="#10888888"
             app:progress_text_color="#00000000"/>
         <ImageView
@@ -32,6 +32,7 @@
     </FrameLayout>
     <!-- ff6337 -->
     <TextView
+        android:id="@+id/txtMaking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

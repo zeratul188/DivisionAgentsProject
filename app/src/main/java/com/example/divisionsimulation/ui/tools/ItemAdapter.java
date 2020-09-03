@@ -83,6 +83,7 @@ public class ItemAdapter extends BaseAdapter {
         makeNamedDBAdapter.open();
         makeExoticDBAdapter.open();
         if (namedDBAdapter.haveItem(itemList.get(position).getName()) && !namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
+        else if (makeNamedDBAdapter.haveItem(itemList.get(position).getName()) && !makeNamedDBAdapter.haveNoTalentData(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#c99700"));
         else if (exoticDBAdapter.haveItem(itemList.get(position).getName()) || makeExoticDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#ff3c00"));
         else if (sheldDBAdapter.haveItem(itemList.get(position).getName())) txtTalent.setTextColor(Color.parseColor("#009900"));
         else txtTalent.setTextColor(Color.parseColor("#f0f0f0"));
@@ -189,9 +190,25 @@ public class ItemAdapter extends BaseAdapter {
                 if (itemList.get(position).getCore1_value() >= cursor.getDouble(2) && !itemList.get(position).getCore1().equals("스킬 등급")) imgAttribute[0].setBackgroundResource(R.drawable.maxitembackground);
                 else imgAttribute[0].setBackgroundResource(R.drawable.notmaxbackground);
                 namedDBAdapter.open();
+                makeNamedDBAdapter.open();
                 if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
                     cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
                     asp = cursor.getString(9);
+                    switch (asp) {
+                        case "공격":
+                            imgAttribute[1].setImageResource(R.drawable.attack_sub);
+                            break;
+                        case "방어":
+                            imgAttribute[1].setImageResource(R.drawable.sheld_sub);
+                            break;
+                        case "다용도":
+                            imgAttribute[1].setImageResource(R.drawable.power_sub);
+                            break;
+                    }
+                    imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
+                } else if (makeNamedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+                    cursor = makeNamedDBAdapter.fetchData(itemList.get(position).getName());
+                    asp = cursor.getString(4);
                     switch (asp) {
                         case "공격":
                             imgAttribute[1].setImageResource(R.drawable.attack_sub);
@@ -221,6 +238,7 @@ public class ItemAdapter extends BaseAdapter {
                     if (itemList.get(position).getSub1_value() >= cursor.getDouble(2)) imgAttribute[1].setBackgroundResource(R.drawable.maxitembackground);
                     else imgAttribute[1].setBackgroundResource(R.drawable.notmaxbackground);
                 }
+                makeNamedDBAdapter.close();
                 namedDBAdapter.close();
                 sheldDBAdapter.open();
                 if (!sheldDBAdapter.haveItem(itemList.get(position).getName())) {

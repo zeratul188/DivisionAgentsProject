@@ -20,12 +20,13 @@ public class MakeNamedDBAdapter {
     public static final String KEY_NAME = "NAME";
     public static final String KEY_TALENT = "TALENT";
     public static final String KEY_TYPE = "TYPE";
-    public static final String KEY_ASP = "asp";
+    public static final String KEY_ASP = "ASP";
     public static final String KEY_NOTALENT = "NOTALENT";
     public static final String KEY_TALENTCONTENT = "TALENTCONTENT";
+    public static final String KEY_BRAND = "BRAND";
 
     private static final String DATABASE_CREATE = "create table MAKE_NAMED (_id integer primary key, " +
-            "NAME text not null, TALENT text not null, TYPE text not null, ASP text not null, NOTALENT integer not null, TALENTCONTENT text);";
+            "NAME text not null, TALENT text not null, TYPE text not null, ASP text not null, NOTALENT integer not null, TALENTCONTENT text, BRAND text not null);";
 
     private static final String DATABASE_NAME = "DIVISION_MAKE_NAMED";
     private static final String DATABASE_TABLE = "MAKE_NAMED";
@@ -75,7 +76,7 @@ public class MakeNamedDBAdapter {
                 if (workbook != null) {
                     sheet = workbook.getSheet(0);
                     if (sheet != null) {
-                        int nMaxColumn = 6;
+                        int nMaxColumn = 7;
                         int nRowStartIndex = 0;
                         int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
                         int nColumnStartIndex = 0;
@@ -89,6 +90,7 @@ public class MakeNamedDBAdapter {
                             String asp = sheet.getCell(nColumnStartIndex+3, nRow).getContents();
                             int notalent = Integer.parseInt(sheet.getCell(nColumnStartIndex+4, nRow).getContents());
                             String talentcontent = sheet.getCell(nColumnStartIndex+5, nRow).getContents();
+                            String brand = sheet.getCell(nColumnStartIndex+6, nRow).getContents();
 
                             values[nRow] = new ContentValues();
                             values[nRow].put(KEY_NAME, name);
@@ -97,6 +99,7 @@ public class MakeNamedDBAdapter {
                             values[nRow].put(KEY_ASP, asp);
                             values[nRow].put(KEY_NOTALENT, notalent);
                             values[nRow].put(KEY_TALENTCONTENT, talentcontent);
+                            values[nRow].put(KEY_BRAND, brand);
 
                             db.insert(DATABASE_TABLE, null, values[nRow]);
                         }
@@ -125,7 +128,7 @@ public class MakeNamedDBAdapter {
         myDBHelper.close();
     }
 
-    public long insertData(String name, String talent, String type, String asp, int notalent, String talentcontent) {
+    public long insertData(String name, String talent, String type, String asp, int notalent, String talentcontent, String brand) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TALENT, talent);
@@ -133,6 +136,7 @@ public class MakeNamedDBAdapter {
         values.put(KEY_ASP, asp);
         values.put(KEY_NOTALENT, notalent);
         values.put(KEY_TALENTCONTENT, talentcontent);
+        values.put(KEY_BRAND, brand);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -142,23 +146,36 @@ public class MakeNamedDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, null, null, null, null, null);
+    }
+
+    public boolean haveNoTalentData(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_NAME+"='"+name+"' and "+KEY_NOTALENT+"=1", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int count = cursor.getCount();
+        return count > 0;
+    }
+
+    public String fetchNoTalentData(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_NAME+"='"+name+"' and "+KEY_NOTALENT+"=1", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getString(2);
     }
 
     public String fetchTalentData(String talent) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_TALENT+"='"+talent+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_TALENT+"='"+talent+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor.getString(6);
     }
 
     public Cursor fetchData(String name) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public Cursor fetchTypeData(String type) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -170,6 +187,13 @@ public class MakeNamedDBAdapter {
         return count;
     }
 
+    public boolean haveTalentData(String talent) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_TALENT+"='"+talent+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int count = cursor.getCount();
+        return count > 0;
+    }
+
     public boolean haveItem(String name) {
         Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+" where "+KEY_NAME+"='"+name+"';", null);
         int count = 0;
@@ -178,13 +202,13 @@ public class MakeNamedDBAdapter {
     }
 
     public boolean noTalent(String name) {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TALENT, KEY_TYPE, KEY_ASP, KEY_NOTALENT, KEY_TALENTCONTENT, KEY_BRAND}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         if (cursor.getInt(5) == 1) return true;
         else return false;
     }
 
-    public boolean updateData(String undo_name, String name, String talent, String type, String asp, int notalent, String talentcontent) {
+    public boolean updateData(String undo_name, String name, String talent, String type, String asp, int notalent, String talentcontent, String brand) {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, name);
         values.put(KEY_TALENT, talent);
@@ -192,6 +216,7 @@ public class MakeNamedDBAdapter {
         values.put(KEY_ASP, asp);
         values.put(KEY_NOTALENT, notalent);
         values.put(KEY_TALENTCONTENT, talentcontent);
+        values.put(KEY_BRAND, brand);
         return sqlDB.update(DATABASE_TABLE, values, KEY_NAME+"='"+undo_name+"'", null) > 0;
     }
 }

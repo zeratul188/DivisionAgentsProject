@@ -144,6 +144,18 @@ public class SheldFMDBAdapter {
         return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_SUB, KEY_VEST, KEY_BACKPACK}, null, null, null, null, null);
     }
 
+    public String getVestTalent(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_SUB, KEY_VEST, KEY_BACKPACK}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getString(4);
+    }
+
+    public String getBackpackTalent(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_SUB, KEY_VEST, KEY_BACKPACK}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor.getString(5);
+    }
+
     public ArrayList<String> arrayGearData(String type) {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_SUB, KEY_VEST, KEY_BACKPACK}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

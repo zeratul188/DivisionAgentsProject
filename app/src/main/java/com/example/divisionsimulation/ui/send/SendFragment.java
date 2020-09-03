@@ -43,6 +43,7 @@ import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
 import com.example.divisionsimulation.ui.share.Item;
 import com.example.divisionsimulation.ui.share.OptionItem;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
@@ -72,6 +73,9 @@ public class SendFragment extends Fragment {
 
     private int[] material = new int[10];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
+    private int[] now_material = new int[4];
+    private int[] need_material;
+    private String[] material_limit;
 
     private MakeExoticDBAdapter makeExoticDBAdapter;
     private MakeNamedDBAdapter makeNamedDBAdapter;
@@ -84,6 +88,7 @@ public class SendFragment extends Fragment {
     private NamedFMDBAdapter namedDBAdapter;
     private SheldFMDBAdapter sheldDBAdapter;
     private TalentFMDBAdapter talentDBAdapter;
+    private WeaponFMDBAdapter weaponDBAdpater;
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
@@ -98,6 +103,13 @@ public class SendFragment extends Fragment {
             if (reset_count >= 1500) btnEnd = true; //리셋카운트가 1500 이상이 되면 작동 (3초 이후)
             if (btnEnd) { //btnEnd가 참이 될 경우 작동한다.
                 alertDialog.dismiss(); //다이얼로그를 닫는다.
+                materialDbAdapter.open();
+                for (int i = 0; i < need_material.length; i++) {
+                    now_material[i] = materialDbAdapter.getMaterial(material_limit[i]);
+                    now_material[i] -= need_material[i];
+                    materialDbAdapter.updateMaterial(material_limit[i], now_material[i]);
+                }
+                materialDbAdapter.close();
                 makeExoticDBAdapter.open();
                 makeNamedDBAdapter.open();
                 if (makeExoticDBAdapter.haveItem(makeItems.get(check_index).getName())) {
@@ -110,10 +122,14 @@ public class SendFragment extends Fragment {
                     if (isWeapon(makeItems.get(check_index).getType())) {
                         makeWeaponNamed(check_index);
                     } else {
-
+                        makeSheldNamed(check_index);
                     }
                 } else {
-                    Toast.makeText(getActivity(), "제작 완료", Toast.LENGTH_SHORT).show();
+                    if (isWeapon(makeItems.get(check_index).getType())) {
+                        makeWeapon(check_index);
+                    } else {
+                        makeSheld(check_index);
+                    }
                 }
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
@@ -152,6 +168,7 @@ public class SendFragment extends Fragment {
         sheldDBAdapter = new SheldFMDBAdapter(getActivity());
         talentDBAdapter = new TalentFMDBAdapter(getActivity());
         makeItems = new ArrayList<MakeItem>();
+        weaponDBAdpater = new WeaponFMDBAdapter(getActivity());
 
         listWeapon = root.findViewById(R.id.listWeapon);
         listSheld = root.findViewById(R.id.listSheld);
@@ -301,6 +318,8 @@ public class SendFragment extends Fragment {
         listWeapon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean possible = true;
+
                 View dialogView = getLayoutInflater().inflate(R.layout.makedialog, null);
 
                 TextView txtName = dialogView.findViewById(R.id.txtName);
@@ -317,6 +336,9 @@ public class SendFragment extends Fragment {
                 Button btnExit = dialogView.findViewById(R.id.btnExit);
                 Button btnMake = dialogView.findViewById(R.id.btnMake);
                 ImageView imgType = dialogView.findViewById(R.id.imgType);
+                LinearLayout layoutCore = dialogView.findViewById(R.id.layoutCore);
+                LinearLayout layoutOption = dialogView.findViewById(R.id.layoutOption);
+                TextView txtTalent = dialogView.findViewById(R.id.txtTalent);
 
                 btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -324,8 +346,6 @@ public class SendFragment extends Fragment {
                         alertDialog.dismiss();
                     }
                 });
-
-                String[] material_limit;
                 if (isWeapon(makeItems.get(position).getType())) {
                     material_limit = new String[]{"총몸부품", "강철", "탄소섬유"};
                 } else if (isSheldAType(makeItems.get(position).getType())) {
@@ -333,7 +353,16 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄"};
                 }
-                int[] need_material = {60, 36, 36};
+                need_material = new int[]{60, 36, 36};
+
+                makeNamedDBAdapter.open();
+                if (makeNamedDBAdapter.haveItem(makeItems.get(position).getName())) {
+                    layoutCore.setVisibility(View.VISIBLE);
+                    layoutOption.setVisibility(View.GONE);
+                    cursor = makeNamedDBAdapter.fetchData(makeItems.get(position).getName());
+                    txtTalent.setText(cursor.getString(2));
+                }
+                makeNamedDBAdapter.close();
 
                 txtName.setText(makeItems.get(position).getName());
                 txtType.setText(makeItems.get(position).getType());
@@ -343,17 +372,34 @@ public class SendFragment extends Fragment {
                     imgType.setImageResource(setSheldImageResource(makeItems.get(position).getType()));
                 }
 
+                materialDbAdapter.open();
+                for (int i = 0; i < need_material.length; i++) {
+                    now_material[i] = materialDbAdapter.getMaterial(material_limit[i]);
+                }
+                materialDbAdapter.close();
+
                 txtNormal.setText(material_limit[0]);
                 txtRare.setText(material_limit[1]);
                 txtEpic.setText(material_limit[2]);
-                materialDbAdapter.open();
-                txtNowNormal.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[0])));
-                txtNowRare.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[1])));
-                txtNowEpic.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[2])));
-                materialDbAdapter.close();
+                txtNowNormal.setText(Integer.toString(now_material[0]));
+                txtNowRare.setText(Integer.toString(now_material[1]));
+                txtNowEpic.setText(Integer.toString(now_material[2]));
                 txtNeedNormal.setText(Integer.toString(need_material[0]));
                 txtNeedRare.setText(Integer.toString(need_material[1]));
                 txtNeedEpic.setText(Integer.toString(need_material[2]));
+
+                if (need_material[0] > now_material[0]) {
+                    txtNowNormal.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[1] > now_material[1]) {
+                    txtNowRare.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[2] > now_material[2]) {
+                    txtNowEpic.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
 
                 makeExoticDBAdapter.open();
                 makeNamedDBAdapter.open();
@@ -370,9 +416,14 @@ public class SendFragment extends Fragment {
                 makeExoticDBAdapter.close();
 
                 final int index = position;
+                final boolean final_possible = possible;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (!final_possible) {
+                            Toast.makeText(getActivity(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         alertDialog.dismiss();
                         check_index = index;
                         making = false;
@@ -382,6 +433,7 @@ public class SendFragment extends Fragment {
                         ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
+                        final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
@@ -409,6 +461,7 @@ public class SendFragment extends Fragment {
                             public void onClick(View v) {
                                 if (!making) {
                                     making = true;
+                                    txtMaking.setText("제작 중...");
                                     mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
                                 }
                             }
@@ -445,6 +498,8 @@ public class SendFragment extends Fragment {
         listSheld.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean possible = true;
+
                 View dialogView = getLayoutInflater().inflate(R.layout.makedialog, null);
 
                 TextView txtName = dialogView.findViewById(R.id.txtName);
@@ -464,6 +519,10 @@ public class SendFragment extends Fragment {
                 LinearLayout layoutCore = dialogView.findViewById(R.id.layoutCore);
                 ImageView imgCore = dialogView.findViewById(R.id.imgCore);
                 TextView txtCore = dialogView.findViewById(R.id.txtCore);
+                LinearLayout layoutTalent = dialogView.findViewById(R.id.layoutTalent);
+                TextView txtInfo = dialogView.findViewById(R.id.txtInfo);
+                TextView txtTalent = dialogView.findViewById(R.id.txtTalent);
+                ImageView imgTalent = dialogView.findViewById(R.id.imgTalent);
 
                 btnExit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -471,8 +530,6 @@ public class SendFragment extends Fragment {
                         alertDialog.dismiss();
                     }
                 });
-
-                String[] material_limit;
                 if (isWeapon(makeItems.get(position).getType())) {
                     material_limit = new String[]{"총몸부품", "강철", "탄소섬유"};
                 } else if (isSheldAType(makeItems.get(position).getType())) {
@@ -480,7 +537,7 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄"};
                 }
-                int[] need_material = {60, 36, 36};
+                need_material = new int[]{60, 36, 36};
 
                 txtName.setText(makeItems.get(position).getName());
                 txtType.setText(makeItems.get(position).getType());
@@ -490,17 +547,57 @@ public class SendFragment extends Fragment {
                     imgType.setImageResource(setSheldImageResource(makeItems.get(position).getType()));
                 }
 
+                layoutCore.setVisibility(View.VISIBLE);
+                makeNamedDBAdapter.open();
+                if (makeNamedDBAdapter.haveItem(makeItems.get(position).getName())) {
+                    if (makeNamedDBAdapter.noTalent(makeItems.get(position).getName())) {
+                        txtInfo.setText("속성");
+                        imgTalent.setVisibility(View.VISIBLE);
+                        cursor = makeNamedDBAdapter.fetchData(makeItems.get(position).getName());
+                        String asp = cursor.getString(4);
+                        if (asp.equals("공격")) {
+                            imgTalent.setImageResource(R.drawable.attack);
+                        } else if (asp.equals("방어")) {
+                            imgTalent.setImageResource(R.drawable.sheld);
+                        } else {
+                            imgTalent.setImageResource(R.drawable.power);
+                        }
+                    }
+                    cursor = makeNamedDBAdapter.fetchData(makeItems.get(position).getName());
+                    txtTalent.setText(cursor.getString(2));
+                } else {
+                    layoutTalent.setVisibility(View.GONE);
+                }
+                makeNamedDBAdapter.close();
+
+                materialDbAdapter.open();
+                for (int i = 0; i < need_material.length; i++) {
+                    now_material[i] = materialDbAdapter.getMaterial(material_limit[i]);
+                }
+                materialDbAdapter.close();
+
                 txtNormal.setText(material_limit[0]);
                 txtRare.setText(material_limit[1]);
                 txtEpic.setText(material_limit[2]);
-                materialDbAdapter.open();
-                txtNowNormal.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[0])));
-                txtNowRare.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[1])));
-                txtNowEpic.setText(Integer.toString(materialDbAdapter.getMaterial(material_limit[2])));
-                materialDbAdapter.close();
+                txtNowNormal.setText(Integer.toString(now_material[0]));
+                txtNowRare.setText(Integer.toString(now_material[1]));
+                txtNowEpic.setText(Integer.toString(now_material[2]));
                 txtNeedNormal.setText(Integer.toString(need_material[0]));
                 txtNeedRare.setText(Integer.toString(need_material[1]));
                 txtNeedEpic.setText(Integer.toString(need_material[2]));
+
+                if (need_material[0] > now_material[0]) {
+                    txtNowNormal.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[1] > now_material[1]) {
+                    txtNowRare.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[2] > now_material[2]) {
+                    txtNowEpic.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
 
                 makeExoticDBAdapter.open();
                 makeNamedDBAdapter.open();
@@ -517,9 +614,14 @@ public class SendFragment extends Fragment {
                 makeExoticDBAdapter.close();
 
                 final int index = position;
+                final boolean final_possible = possible;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (!final_possible) {
+                            Toast.makeText(getActivity(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         alertDialog.dismiss();
                         check_index = index;
                         making = false;
@@ -529,6 +631,7 @@ public class SendFragment extends Fragment {
                         ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
+                        final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
@@ -556,6 +659,7 @@ public class SendFragment extends Fragment {
                             public void onClick(View v) {
                                 if (!making) {
                                     making = true;
+                                    txtMaking.setText("제작 중...");
                                     mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
                                 }
                             }
@@ -580,7 +684,6 @@ public class SendFragment extends Fragment {
                     }
                 });
 
-                layoutCore.setVisibility(View.VISIBLE);
                 if (makeItems.get(position).getAsp().equals("공격")) {
                     imgCore.setImageResource(R.drawable.attack);
                     txtCore.setText("무기 데미지");
@@ -604,6 +707,8 @@ public class SendFragment extends Fragment {
         listExotic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean possible = true;
+
                 View dialogView = getLayoutInflater().inflate(R.layout.makedialog, null);
 
                 TextView txtName = dialogView.findViewById(R.id.txtName);
@@ -634,8 +739,6 @@ public class SendFragment extends Fragment {
                         alertDialog.dismiss();
                     }
                 });
-
-                String[] material_limit;
                 if (isWeapon(makeItems.get(position).getType())) {
                     material_limit = new String[]{"총몸부품", "강철", "탄소섬유", "특급 부품"};
                 } else if (isSheldAType(makeItems.get(position).getType())) {
@@ -643,7 +746,7 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄", "특급 부품"};
                 }
-                int[] need_material = {60, 36, 36, 2};
+                need_material = new int[]{60, 36, 36, 4};
 
                 txtName.setText(makeItems.get(position).getName());
                 txtType.setText(makeItems.get(position).getType());
@@ -651,6 +754,41 @@ public class SendFragment extends Fragment {
                     imgType.setImageResource(setWeaponImageResource(makeItems.get(position).getType()));
                 } else {
                     imgType.setImageResource(setSheldImageResource(makeItems.get(position).getType()));
+                }
+
+                materialDbAdapter.open();
+                for (int i = 0; i < need_material.length; i++) {
+                    now_material[i] = materialDbAdapter.getMaterial(material_limit[i]);
+                }
+                materialDbAdapter.close();
+
+                txtNormal.setText(material_limit[0]);
+                txtRare.setText(material_limit[1]);
+                txtEpic.setText(material_limit[2]);
+                txtExotic.setText(material_limit[3]);
+                txtNowNormal.setText(Integer.toString(now_material[0]));
+                txtNowRare.setText(Integer.toString(now_material[1]));
+                txtNowEpic.setText(Integer.toString(now_material[2]));
+                txtNowExotic.setText(Integer.toString(now_material[3]));
+                txtNeedNormal.setText(Integer.toString(need_material[0]));
+                txtNeedRare.setText(Integer.toString(need_material[1]));
+                txtNeedEpic.setText(Integer.toString(need_material[2]));
+
+                if (need_material[0] > now_material[0]) {
+                    txtNowNormal.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[1] > now_material[1]) {
+                    txtNowRare.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[2] > now_material[2]) {
+                    txtNowEpic.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
+                }
+                if (need_material[3] > now_material[3]) {
+                    txtNowExotic.setTextColor(Color.parseColor("#FF0000"));
+                    possible = false;
                 }
 
                 layoutExotic.setVisibility(View.VISIBLE);
@@ -683,7 +821,7 @@ public class SendFragment extends Fragment {
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
 
-                if (!isWeapon(makeItems.get(position).getType())) {
+                /*if (!isWeapon(makeItems.get(position).getType())) {
                     layoutCore.setVisibility(View.VISIBLE);
                     if (makeItems.get(position).getAsp().equals("공격")) {
                         imgCore.setImageResource(R.drawable.attack);
@@ -695,12 +833,17 @@ public class SendFragment extends Fragment {
                         imgCore.setImageResource(R.drawable.power);
                         txtCore.setText("스킬 등급");
                     }
-                }
+                }*/
 
                 final int index = position;
+                final boolean final_possible = possible;
                 btnMake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (!final_possible) {
+                            Toast.makeText(getActivity(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         alertDialog.dismiss();
                         check_index = index;
                         making = false;
@@ -710,6 +853,7 @@ public class SendFragment extends Fragment {
                         ImageView imgIcon = makingView.findViewById(R.id.imgIcon);
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
+                        final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
@@ -737,6 +881,7 @@ public class SendFragment extends Fragment {
                             public void onClick(View v) {
                                 if (!making) {
                                     making = true;
+                                    txtMaking.setText("제작 중...");
                                     mHandler.sendEmptyMessageDelayed(0, 20); //0.02초 딜레이를 주고 핸들러 메시지를 보내 작업한다.
                                 }
                             }
@@ -858,6 +1003,954 @@ public class SendFragment extends Fragment {
         return root;
     }
 
+    private void makeSheldNamed(int index) {
+        String item_name, item_type, item_talent = "";
+        String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+        String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+        double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+        double max_core1, max_core2, max_sub1, max_sub2;
+        String brand = "";
+        openWeapon = false;
+        openSheld = true;
+        View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
+        TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
+        TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
+        Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
+        LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+
+        Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
+        Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd);
+        ImageView imgType = dialogView.findViewById(R.id.imgType);
+
+        TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
+        TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2); //두번째 무기 핵심속성
+        TextView txtWSub = dialogView.findViewById(R.id.txtWSub); //무기 속성
+        ProgressBar progressWMain1 = dialogView.findViewById(R.id.progressWMain1); //첫번째 무기 핵심속성 진행도
+        ProgressBar progressWMain2 = dialogView.findViewById(R.id.progressWMain2); //두번재 무기 핵심속성 진행도
+        ProgressBar progressWSub = dialogView.findViewById(R.id.progressWSub); //무기 속성 진행도
+        TextView txtWTalent = dialogView.findViewById(R.id.txtWTalent); //무기 탤런트
+
+        TextView txtSMain = dialogView.findViewById(R.id.txtSMain); //보호장구 핵심속성
+        TextView txtSSub1 = dialogView.findViewById(R.id.txtSSub1); //첫번째 보호장구 속성
+        TextView txtSSub2 = dialogView.findViewById(R.id.txtSSub2); //두번째 보호장구 속성
+        ProgressBar progressSMain = dialogView.findViewById(R.id.progressSMain); //보호장구 핵심속성 진행도
+        ProgressBar progressSSub1 = dialogView.findViewById(R.id.progressSSub1); //첫번째 보호장구 속성 진행도
+        ProgressBar progressSSub2 = dialogView.findViewById(R.id.progressSSub2); //두번째 보호장구 속성 진행도
+        ImageView imgSMain = dialogView.findViewById(R.id.imgSMain); //보호장구 핵심속성 타입 이미지
+        ImageView imgSSub1 = dialogView.findViewById(R.id.imgSSub1); //첫번재 보호장구 속성 타입 이미지
+        ImageView imgSSub2 = dialogView.findViewById(R.id.imgSSub2); //두번째 보호장구 속성 타입 이미지
+        LinearLayout layoutTalent = dialogView.findViewById(R.id.layoutTalent);
+        LinearLayout layoutTalentButton = dialogView.findViewById(R.id.layoutTalentButton);
+
+        LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon); //무기 속성 레이아웃
+        LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld); //보호장구 속성 레이아웃
+        LinearLayout layoutSSub2 = dialogView.findViewById(R.id.layoutSSub2);
+
+        TextView txtInventory = dialogView.findViewById(R.id.txtInventory);
+        ImageView imgInventory = dialogView.findViewById(R.id.imgInventory);
+        LinearLayout layoutInventory = dialogView.findViewById(R.id.layoutInventory);
+
+        TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
+
+        LinearLayout layoutWeaponMain1 = dialogView.findViewById(R.id.layoutWeaponMain1);
+        LinearLayout layoutWeaponMain2 = dialogView.findViewById(R.id.layoutWeaponMain2);
+        LinearLayout layoutWeaponSub = dialogView.findViewById(R.id.layoutWeaponSub);
+        LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
+        LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
+        LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+
+        inventoryDBAdapter.open();
+        txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
+        inventoryDBAdapter.close();
+        imgInventory.setImageResource(R.drawable.inven);
+        btnAdd.setVisibility(View.VISIBLE);
+        Cursor cursor;
+        int pick, temp_percent; //램덤 난수가 저장될 변수
+        tableMain.setBackgroundResource(R.drawable.rareitem);
+        String temp_option; //옵션 이름
+        tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+        btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+        layoutSheld.setVisibility(View.VISIBLE); //보호장구 옵션 레이아웃을 숨긴다.
+        layoutWeapon.setVisibility(View.GONE); //무기 옵션 레이아웃을 숨긴다.
+        txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+        layoutSheldSub2.setVisibility(View.VISIBLE);
+
+        txtName.setTextColor(Color.parseColor("#c99700"));
+        item_name = makeItems.get(index).getName();
+        item_type = makeItems.get(index).getType();
+        txtName.setText(item_name);
+        txtType.setText(item_type);
+        if (sheldTalent(item_type)) {
+            txtWTalent.setTextColor(Color.parseColor("#c99700"));
+            layoutTalent.setVisibility(View.VISIBLE);
+            makeNamedDBAdapter.open();
+            cursor = makeNamedDBAdapter.fetchData(makeItems.get(index).getName());
+            item_talent = cursor.getString(2);
+            txtWTalent.setText(item_talent);
+            txtWTalentContent.setText(transformString(cursor.getString(6)));
+            makeNamedDBAdapter.close();
+        } else layoutTalent.setVisibility(View.GONE);
+        makeNamedDBAdapter.open();
+        cursor = makeNamedDBAdapter.fetchData(makeItems.get(index).getName());
+        brand = cursor.getString(7);
+        String brandset = "";
+        makeNamedDBAdapter.close();
+        sheldDBAdapter.open();
+        cursor = sheldDBAdapter.fetchData(brand);
+        brandset = cursor.getString(3);
+        sheldDBAdapter.close();
+        maxoptionDBAdapter.open();
+        if (brandset.equals("공격")) {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+            item_core1 = "무기 데미지";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.attack);
+            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+            progressSMain.setVisibility(View.VISIBLE);
+        } else if (brandset.equals("방어")) {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+            item_core1 = "방어도";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.sheld);
+            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+            progressSMain.setVisibility(View.VISIBLE);
+        } else {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+            item_core1 = "스킬 등급";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.power);
+            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+            progressSMain.setVisibility(View.GONE);
+        }
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+        else core1 = max_core1;
+        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+        progressSMain.setMax((int)(max_core1*10));
+        progressSMain.setProgress((int)(core1*10));
+        if (tail_core1.equals("-")) tail_core1 = "";
+        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+        makeNamedDBAdapter.open();
+        if (makeNamedDBAdapter.noTalent(makeItems.get(index).getName())) {
+            cursor = makeNamedDBAdapter.fetchData(makeItems.get(index).getName());
+            txtSSub1.setTextColor(Color.parseColor("#c99700"));
+            txtSSub1.setText(cursor.getString(2));
+            String asp = cursor.getString(4);
+            progressSSub1.setMax(100);
+            progressSSub1.setProgress(100);
+            if (asp.equals("공격")) {
+                imgSSub1.setImageResource(R.drawable.attack_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+            } else if (asp.equals("방어")) {
+                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+            } else {
+                imgSSub1.setImageResource(R.drawable.power_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+            }
+            layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+        } else {
+            txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+            maxoptionDBAdapter.open();
+            ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+            for (int i = 0; i < optionItems.size(); i++) {
+                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+            }
+            int random_value = percent(0, optionItems.size());
+            OptionItem optionItem = optionItems.get(random_value);
+            maxoptionDBAdapter.close();
+            item_sub1 = optionItem.getContent();
+            max_sub1 = optionItem.getValue();
+            tail_sub1 = optionItem.getReter();
+            if (optionItem.getOption().equals("공격")) {
+                imgSSub1.setImageResource(R.drawable.attack_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+            } else if (optionItem.getOption().equals("방어")) {
+                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+            } else {
+                imgSSub1.setImageResource(R.drawable.power_sub);
+                progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+            }
+            pick = percent(1, 100);
+            if (pick <= 20) temp_percent = 100;
+            else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+            else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+            sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+            if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+            else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+            progressSSub1.setMax((int)(max_sub1*10));
+            progressSSub1.setProgress((int)(sub1*10));
+            if (tail_sub1.equals("-")) tail_sub1 = "";
+            txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+        }
+        maxoptionDBAdapter.open();
+        makeNamedDBAdapter.close();
+
+        //OptionItem optionItem = maxoptionDBAdapter.fetchRandomData("보호장구 부속성");
+        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+        for (int i = 0; i < optionItems.size(); i++) {
+            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+        }
+        int random_value = percent(0, optionItems.size());
+        OptionItem optionItem = optionItems.get(random_value);
+
+        maxoptionDBAdapter.close();
+        item_sub2 = optionItem.getContent();
+        max_sub2 = optionItem.getValue();
+        tail_sub2 = optionItem.getReter();
+        if (optionItem.getOption().equals("공격")) {
+            imgSSub2.setImageResource(R.drawable.attack_sub);
+            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+        } else if (optionItem.getOption().equals("방어")) {
+            imgSSub2.setImageResource(R.drawable.sheld_sub);
+            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+        } else {
+            imgSSub2.setImageResource(R.drawable.power_sub);
+            progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+        }
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+        if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+        progressSSub2.setMax((int)(max_sub2*10));
+        progressSSub2.setProgress((int)(sub2*10));
+        if (tail_sub2.equals("-")) tail_sub2 = "";
+        txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+        setSemiInterface(String.valueOf(txtType.getText()), imgType);
+
+        if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+            ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+        //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+        builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+        Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+        item.setCore1(item_core1);
+        item.setCore2(item_core2);
+        item.setSub1(item_sub1);
+        item.setSub2(item_sub2);
+        item.setCore1_value(core1);
+        item.setCore2_value(core2);
+        item.setSub1_value(sub1);
+        item.setSub2_value(sub2);
+        item.setTalent(item_talent);
+
+        makeNamedDBAdapter.open();
+        if (openWeapon) {
+            if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+            if (!makeNamedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+            setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+        } else {
+            setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+            if (!makeNamedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+            setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+        }
+        makeNamedDBAdapter.close();
+
+        alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        final int final_index = index;
+        btnDestroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                materialDbAdapter.open();
+                Cursor cursor = materialDbAdapter.fetchAllMaterial();
+                cursor.moveToFirst();
+                int count = 0;
+                while (!cursor.isAfterLast()) {
+                    material[count] = cursor.getInt(2);
+                    cursor.moveToNext();
+                    count++;
+                }
+                materialDbAdapter.close();
+
+                String str = String.valueOf(makeItems.get(final_index).getType());
+                String normal_str = "", rare_str = "", epic_str = "";
+                int normal = 0, rare = 0, epic = 0;
+                int random_select;
+
+                switch (str) {
+                    case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
+                        normal = percent(10, 12);
+                        if (material[0] < 2000) material[0] += normal;
+                        if (material[0] >= 2000) material[0] = 2000;
+                        normal_str = material_name[0];
+                        break;
+                    case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
+                        normal = percent(10, 12);
+                        if (material[1] < 2000) material[1] += normal;
+                        if (material[1] >= 2000) material[1] = 2000;
+                        normal_str = material_name[1];
+                        break;
+                }
+                random_select = percent(2, 3);
+                rare = percent(7, 6);
+                material[random_select] += rare;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                rare_str = material_name[random_select];
+                random_select = percent(5, 3);
+                epic = percent(3, 5);
+                material[random_select] += epic;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                epic_str = material_name[random_select];
+                materialDbAdapter.open();
+                for (int i = 0; i < material.length; i++) {
+                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                }
+                materialDbAdapter.close();
+                Toast.makeText(getActivity(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Item final_item = item;
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputItem(final_item);
+            }
+        });
+    }
+
+    private boolean sheldTalent(String type) {
+        switch (type) {
+            case "마스크": case "장갑": case "권총집": case "무릎보호대":
+                return false;
+            case "조끼": case "백팩":
+                return true;
+        }
+        return true;
+    }
+
+    private void makeSheld(int index) {
+        String item_name, item_type, item_talent = "";
+        String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+        String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+        double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+        double max_core1, max_core2, max_sub1, max_sub2;
+        openWeapon = false;
+        openSheld = true;
+        View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
+        TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
+        TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
+        Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
+        LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+
+        Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
+        Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd);
+        ImageView imgType = dialogView.findViewById(R.id.imgType);
+
+        TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
+        TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2); //두번째 무기 핵심속성
+        TextView txtWSub = dialogView.findViewById(R.id.txtWSub); //무기 속성
+        ProgressBar progressWMain1 = dialogView.findViewById(R.id.progressWMain1); //첫번째 무기 핵심속성 진행도
+        ProgressBar progressWMain2 = dialogView.findViewById(R.id.progressWMain2); //두번재 무기 핵심속성 진행도
+        ProgressBar progressWSub = dialogView.findViewById(R.id.progressWSub); //무기 속성 진행도
+        TextView txtWTalent = dialogView.findViewById(R.id.txtWTalent); //무기 탤런트
+
+        TextView txtSMain = dialogView.findViewById(R.id.txtSMain); //보호장구 핵심속성
+        TextView txtSSub1 = dialogView.findViewById(R.id.txtSSub1); //첫번째 보호장구 속성
+        TextView txtSSub2 = dialogView.findViewById(R.id.txtSSub2); //두번째 보호장구 속성
+        ProgressBar progressSMain = dialogView.findViewById(R.id.progressSMain); //보호장구 핵심속성 진행도
+        ProgressBar progressSSub1 = dialogView.findViewById(R.id.progressSSub1); //첫번째 보호장구 속성 진행도
+        ProgressBar progressSSub2 = dialogView.findViewById(R.id.progressSSub2); //두번째 보호장구 속성 진행도
+        ImageView imgSMain = dialogView.findViewById(R.id.imgSMain); //보호장구 핵심속성 타입 이미지
+        ImageView imgSSub1 = dialogView.findViewById(R.id.imgSSub1); //첫번재 보호장구 속성 타입 이미지
+        ImageView imgSSub2 = dialogView.findViewById(R.id.imgSSub2); //두번째 보호장구 속성 타입 이미지
+        LinearLayout layoutTalent = dialogView.findViewById(R.id.layoutTalent);
+        LinearLayout layoutTalentButton = dialogView.findViewById(R.id.layoutTalentButton);
+
+        LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon); //무기 속성 레이아웃
+        LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld); //보호장구 속성 레이아웃
+        LinearLayout layoutSSub2 = dialogView.findViewById(R.id.layoutSSub2);
+
+        TextView txtInventory = dialogView.findViewById(R.id.txtInventory);
+        ImageView imgInventory = dialogView.findViewById(R.id.imgInventory);
+        LinearLayout layoutInventory = dialogView.findViewById(R.id.layoutInventory);
+
+        TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
+
+        LinearLayout layoutWeaponMain1 = dialogView.findViewById(R.id.layoutWeaponMain1);
+        LinearLayout layoutWeaponMain2 = dialogView.findViewById(R.id.layoutWeaponMain2);
+        LinearLayout layoutWeaponSub = dialogView.findViewById(R.id.layoutWeaponSub);
+        LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
+        LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
+        LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+
+        inventoryDBAdapter.open();
+        txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
+        inventoryDBAdapter.close();
+        imgInventory.setImageResource(R.drawable.inven);
+        btnAdd.setVisibility(View.VISIBLE);
+        Cursor cursor;
+        int pick, temp_percent; //램덤 난수가 저장될 변수
+        tableMain.setBackgroundResource(R.drawable.rareitem);
+        String temp_option; //옵션 이름
+        tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+        btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+        layoutSheld.setVisibility(View.VISIBLE); //보호장구 옵션 레이아웃을 숨긴다.
+        layoutWeapon.setVisibility(View.GONE); //무기 옵션 레이아웃을 숨긴다.
+        txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+        layoutSheldSub2.setVisibility(View.VISIBLE);
+
+        item_name = makeItems.get(index).getName();
+        item_type = makeItems.get(index).getType();
+        txtName.setText(item_name);
+        txtType.setText(item_type);
+        if (sheldTalent(item_type)) {
+            layoutTalent.setVisibility(View.VISIBLE);
+            if (makeItems.get(index).getGear()) {
+                if (item_type.equals("백팩")) {
+                    sheldDBAdapter.open();
+                    item_talent = sheldDBAdapter.getBackpackTalent(makeItems.get(index).getName());
+                    sheldDBAdapter.close();
+                    txtWTalent.setText(item_talent);
+                    talentDBAdapter.open();
+                    txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
+                    talentDBAdapter.close();
+                } else if (item_type.equals("조끼")) {
+                    sheldDBAdapter.open();
+                    item_talent = sheldDBAdapter.getVestTalent(makeItems.get(index).getName());
+                    sheldDBAdapter.close();
+                    txtWTalent.setText(item_talent);
+                    talentDBAdapter.open();
+                    txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
+                    talentDBAdapter.close();
+                } else {
+                    layoutTalent.setVisibility(View.GONE);
+                }
+            } else {
+                talentDBAdapter.open();
+                item_talent = talentDBAdapter.fetchRandomData(item_type);
+                txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
+                talentDBAdapter.close();
+                txtWTalent.setText(item_talent);
+            }
+        } else layoutTalent.setVisibility(View.GONE);
+        String brandset = makeItems.get(index).getAsp();
+        maxoptionDBAdapter.open();
+        if (brandset.equals("공격")) {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("무기 데미지");
+            item_core1 = "무기 데미지";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.attack);
+            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+            progressSMain.setVisibility(View.VISIBLE);
+
+        } else if (brandset.equals("방어")) {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("방어도");
+            item_core1 = "방어도";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.sheld);
+            progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+            progressSMain.setVisibility(View.VISIBLE);
+
+        } else {
+            cursor = maxoptionDBAdapter.fetchSheldCoreData("스킬 등급");
+            item_core1 = "스킬 등급";
+            max_core1 = Double.parseDouble(cursor.getString(2));
+            tail_core1 = cursor.getString(5);
+            imgSMain.setImageResource(R.drawable.power);
+            //progressSMain.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+            progressSMain.setVisibility(View.GONE);
+
+        }
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        if (!brandset.equals("다용도")) core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0;
+        else core1 = max_core1;
+        if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
+        else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+        progressSMain.setMax((int)(max_core1*10));
+        progressSMain.setProgress((int)(core1*10));
+        if (tail_core1.equals("-")) tail_core1 = "";
+        txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
+        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+        maxoptionDBAdapter.open();
+        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+        for (int i = 0; i < optionItems.size(); i++) {
+            if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+        }
+        int random_value = percent(0, optionItems.size());
+        OptionItem optionItem = optionItems.get(random_value);
+        maxoptionDBAdapter.close();
+        item_sub1 = optionItem.getContent();
+        max_sub1 = optionItem.getValue();
+        tail_sub1 = optionItem.getReter();
+        if (optionItem.getOption().equals("공격")) {
+            imgSSub1.setImageResource(R.drawable.attack_sub);
+            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+        } else if (optionItem.getOption().equals("방어")) {
+            imgSSub1.setImageResource(R.drawable.sheld_sub);
+            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+        } else {
+            imgSSub1.setImageResource(R.drawable.power_sub);
+            progressSSub1.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+        }
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
+        if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+        progressSSub1.setMax((int)(max_sub1*10));
+        progressSSub1.setProgress((int)(sub1*10));
+        if (tail_sub1.equals("-")) tail_sub1 = "";
+        txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+        if (!makeItems.get(index).getGear()) {
+            maxoptionDBAdapter.open();
+            optionItems = maxoptionDBAdapter.fetchOptionItemData("보호장구 부속성");
+            for (int i = 0; i < optionItems.size(); i++) {
+                if (optionItems.get(i).getContent().equals(item_sub1)) optionItems.remove(i);
+            }
+            random_value = percent(0, optionItems.size());
+            optionItem = optionItems.get(random_value);
+            maxoptionDBAdapter.close();
+            item_sub2 = optionItem.getContent();
+            max_sub2 = optionItem.getValue();
+            tail_sub2 = optionItem.getReter();
+            if (optionItem.getOption().equals("공격")) {
+                imgSSub2.setImageResource(R.drawable.attack_sub);
+                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.attack_progress));
+
+            } else if (optionItem.getOption().equals("방어")) {
+                imgSSub2.setImageResource(R.drawable.sheld_sub);
+                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.sheld_progress));
+
+            } else {
+                imgSSub2.setImageResource(R.drawable.power_sub);
+                progressSSub2.setProgressDrawable(getActivity().getResources().getDrawable(R.drawable.power_progress));
+
+            }
+            pick = percent(1, 100);
+            if (pick <= 20) temp_percent = 100;
+            else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+            else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+            sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
+            if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
+            else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+            progressSSub2.setMax((int)(max_sub2*10));
+            progressSSub2.setProgress((int)(sub2*10));
+            if (tail_sub2.equals("-")) tail_sub2 = "";
+            txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
+        } else {
+            layoutSheldSub2.setVisibility(View.GONE);
+            tableMain.setBackgroundResource(R.drawable.gearitem);
+            txtName.setTextColor(Color.parseColor("#009900"));
+        }
+        setSemiInterface(String.valueOf(txtType.getText()), imgType);
+
+        if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+            ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+        //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+        builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+        Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+        item.setCore1(item_core1);
+        item.setCore2(item_core2);
+        item.setSub1(item_sub1);
+        item.setSub2(item_sub2);
+        item.setCore1_value(core1);
+        item.setCore2_value(core2);
+        item.setSub1_value(sub1);
+        item.setSub2_value(sub2);
+        item.setTalent(item_talent);
+
+        namedDBAdapter.open();
+        if (openWeapon) {
+            if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+            setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+        } else {
+            setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+            if (!makeItems.get(index).getGear()) setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+        }
+        namedDBAdapter.close();
+
+        alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        final int final_index = index;
+        btnDestroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                materialDbAdapter.open();
+                Cursor cursor = materialDbAdapter.fetchAllMaterial();
+                cursor.moveToFirst();
+                int count = 0;
+                while (!cursor.isAfterLast()) {
+                    material[count] = cursor.getInt(2);
+                    cursor.moveToNext();
+                    count++;
+                }
+                materialDbAdapter.close();
+
+                String str = String.valueOf(makeItems.get(final_index).getType());
+                String normal_str = "", rare_str = "", epic_str = "";
+                int normal = 0, rare = 0, epic = 0;
+                int random_select;
+
+                switch (str) {
+                    case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
+                        normal = percent(10, 12);
+                        if (material[0] < 2000) material[0] += normal;
+                        if (material[0] >= 2000) material[0] = 2000;
+                        normal_str = material_name[0];
+                        break;
+                    case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
+                        normal = percent(10, 12);
+                        if (material[1] < 2000) material[1] += normal;
+                        if (material[1] >= 2000) material[1] = 2000;
+                        normal_str = material_name[1];
+                        break;
+                }
+                random_select = percent(2, 3);
+                rare = percent(7, 6);
+                material[random_select] += rare;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                rare_str = material_name[random_select];
+                random_select = percent(5, 3);
+                epic = percent(3, 5);
+                material[random_select] += epic;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                epic_str = material_name[random_select];
+                materialDbAdapter.open();
+                for (int i = 0; i < material.length; i++) {
+                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                }
+                materialDbAdapter.close();
+                Toast.makeText(getActivity(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Item final_item = item;
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputItem(final_item);
+            }
+        });
+    }
+
+    private void makeWeapon(int index) {
+        String item_name, item_type, item_talent = "";
+        String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+        String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+        double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
+        double max_core1, max_core2, max_sub1, max_sub2;
+        openWeapon = true;
+        openSheld = false;
+        View dialogView = getLayoutInflater().inflate(R.layout.itemlayout, null); //아이템 드랍할때마다 보여줄 뷰이다.
+        TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
+        TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
+        Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
+        LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+
+        Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
+        Button btnDestroy = dialogView.findViewById(R.id.btnDestroy);
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd);
+        ImageView imgType = dialogView.findViewById(R.id.imgType);
+
+        TextView txtWMain1 = dialogView.findViewById(R.id.txtWMain1); //첫번째 무기 핵심속성
+        TextView txtWMain2 = dialogView.findViewById(R.id.txtWMain2); //두번째 무기 핵심속성
+        TextView txtWSub = dialogView.findViewById(R.id.txtWSub); //무기 속성
+        ProgressBar progressWMain1 = dialogView.findViewById(R.id.progressWMain1); //첫번째 무기 핵심속성 진행도
+        ProgressBar progressWMain2 = dialogView.findViewById(R.id.progressWMain2); //두번재 무기 핵심속성 진행도
+        ProgressBar progressWSub = dialogView.findViewById(R.id.progressWSub); //무기 속성 진행도
+        TextView txtWTalent = dialogView.findViewById(R.id.txtWTalent); //무기 탤런트
+
+        TextView txtSMain = dialogView.findViewById(R.id.txtSMain); //보호장구 핵심속성
+        TextView txtSSub1 = dialogView.findViewById(R.id.txtSSub1); //첫번째 보호장구 속성
+        TextView txtSSub2 = dialogView.findViewById(R.id.txtSSub2); //두번째 보호장구 속성
+        ProgressBar progressSMain = dialogView.findViewById(R.id.progressSMain); //보호장구 핵심속성 진행도
+        ProgressBar progressSSub1 = dialogView.findViewById(R.id.progressSSub1); //첫번째 보호장구 속성 진행도
+        ProgressBar progressSSub2 = dialogView.findViewById(R.id.progressSSub2); //두번째 보호장구 속성 진행도
+        ImageView imgSMain = dialogView.findViewById(R.id.imgSMain); //보호장구 핵심속성 타입 이미지
+        ImageView imgSSub1 = dialogView.findViewById(R.id.imgSSub1); //첫번재 보호장구 속성 타입 이미지
+        ImageView imgSSub2 = dialogView.findViewById(R.id.imgSSub2); //두번째 보호장구 속성 타입 이미지
+        LinearLayout layoutTalent = dialogView.findViewById(R.id.layoutTalent);
+        LinearLayout layoutTalentButton = dialogView.findViewById(R.id.layoutTalentButton);
+
+        LinearLayout layoutWeapon = dialogView.findViewById(R.id.layoutWeapon); //무기 속성 레이아웃
+        LinearLayout layoutSheld = dialogView.findViewById(R.id.layoutSheld); //보호장구 속성 레이아웃
+        LinearLayout layoutSSub2 = dialogView.findViewById(R.id.layoutSSub2);
+
+        TextView txtInventory = dialogView.findViewById(R.id.txtInventory);
+        ImageView imgInventory = dialogView.findViewById(R.id.imgInventory);
+        LinearLayout layoutInventory = dialogView.findViewById(R.id.layoutInventory);
+
+        TextView txtWTalentContent = dialogView.findViewById(R.id.txtWTalentContent);
+
+        LinearLayout layoutWeaponMain1 = dialogView.findViewById(R.id.layoutWeaponMain1);
+        LinearLayout layoutWeaponMain2 = dialogView.findViewById(R.id.layoutWeaponMain2);
+        LinearLayout layoutWeaponSub = dialogView.findViewById(R.id.layoutWeaponSub);
+        LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
+        LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
+        LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+
+        inventoryDBAdapter.open();
+        txtInventory.setText(inventoryDBAdapter.getCount()+"/300");
+        inventoryDBAdapter.close();
+        imgInventory.setImageResource(R.drawable.inven);
+        btnAdd.setVisibility(View.VISIBLE);
+        Cursor cursor;
+        int pick, temp_percent; //램덤 난수가 저장될 변수
+        tableMain.setBackgroundResource(R.drawable.rareitem);
+        String temp_option; //옵션 이름
+        tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
+        btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+        layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
+        layoutWeapon.setVisibility(View.VISIBLE); //무기 옵션 레이아웃을 숨긴다.
+        txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
+        //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
+        txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+        txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+        layoutSheldSub2.setVisibility(View.VISIBLE);
+
+        item_name = makeItems.get(index).getName();
+        item_type = makeItems.get(index).getType();
+        txtName.setText(item_name);
+        txtType.setText(item_type);
+        talentDBAdapter.open();
+        item_talent = talentDBAdapter.fetchRandomData(item_type);
+        txtWTalentContent.setText(transformString(talentDBAdapter.findContent(item_talent)));
+        talentDBAdapter.close();
+        txtWTalent.setText(item_talent);
+        maxoptionDBAdapter.open();
+        cursor = maxoptionDBAdapter.fetchTypeData("무기");
+        item_core1 = makeItems.get(index).getType()+" 데미지";
+        max_core1 = Double.parseDouble(cursor.getString(2));
+        tail_core1 = cursor.getString(5);
+
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+        if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+        else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+        if (!item_type.equals("권총")) {
+            maxoptionDBAdapter.open();
+            cursor = maxoptionDBAdapter.fetchTypeData(makeItems.get(index).getType());
+            item_core2 = cursor.getString(1);
+            max_core2 = Double.parseDouble(cursor.getString(2));
+            tail_core2 = cursor.getString(5);
+            cursor = maxoptionDBAdapter.fetchTypeData(item_type);
+            max_core2 = Double.parseDouble(cursor.getString(2));
+            tail_core2 = cursor.getString(5);
+            item_core2 = cursor.getString(1);
+            maxoptionDBAdapter.close();
+            pick = percent(1, 100);
+            if (pick <= 20) temp_percent = 100;
+            else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+            else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+            core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+            if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+            layoutWeaponMain2.setVisibility(View.VISIBLE);
+            if (tail_core2.equals("-")) tail_core2 = "";
+            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+            progressWMain2.setMax((int)(max_core2*10));
+            progressWMain2.setProgress((int)(core2*10));
+        } else {
+            layoutWeaponMain2.setVisibility(View.GONE);
+        }
+        maxoptionDBAdapter.open();
+        ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
+        for (int i = 0; i < optionItems.size(); i++) {
+            if (optionItems.get(i).getContent().equals(item_core2)) optionItems.remove(i);
+        }
+        int random_value = percent(0, optionItems.size());
+        OptionItem option_item = optionItems.get(random_value);
+        item_sub1 = option_item.getContent();
+
+        cursor = maxoptionDBAdapter.fetchSubData(item_sub1);
+        max_sub1 = Double.parseDouble(cursor.getString(2));
+        tail_sub1 = cursor.getString(5);
+        maxoptionDBAdapter.close();
+        pick = percent(1, 100);
+        if (pick <= 20) temp_percent = 100;
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
+        if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
+        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
+        if (tail_core1.equals("-")) tail_core1 = "";
+        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+        progressWMain1.setMax((int)(max_core1*10));
+        progressWMain1.setProgress((int)(core1*10));
+        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+        progressWSub.setMax((int)(max_sub1*10));
+        progressWSub.setProgress((int)(sub1*10));
+
+        if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
+            ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
+        //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
+        builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+
+        Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
+        item.setCore1(item_core1);
+        item.setCore2(item_core2);
+        item.setSub1(item_sub1);
+        item.setSub2(item_sub2);
+        item.setCore1_value(core1);
+        item.setCore2_value(core2);
+        item.setSub1_value(sub1);
+        item.setSub2_value(sub2);
+        item.setTalent(item_talent);
+
+        namedDBAdapter.open();
+        if (openWeapon) {
+            if (!item.getName().equals("보조 붐스틱")) setSecondaryProgess(item_core1, progressWMain1, "weapon_core1", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName()) && !item.getType().equals("권총")) setSecondaryProgess(item_core2, progressWMain2, "weapon_core2", item_type);
+            setSecondaryProgess(item_sub1, progressWSub, "weapon_sub", item_type);
+        } else {
+            setSecondaryProgess(item_core1, progressSMain, "sheld_core", item_type);
+            if (!namedDBAdapter.haveNoTalentData(item.getName())) setSecondaryProgess(item_sub1, progressSSub1, "sheld_sub1", item_type);
+            setSecondaryProgess(item_sub2, progressSSub2, "sheld_sub2", item_type);
+        }
+        namedDBAdapter.close();
+
+        alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        final int final_index = index;
+        btnDestroy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                materialDbAdapter.open();
+                Cursor cursor = materialDbAdapter.fetchAllMaterial();
+                cursor.moveToFirst();
+                int count = 0;
+                while (!cursor.isAfterLast()) {
+                    material[count] = cursor.getInt(2);
+                    cursor.moveToNext();
+                    count++;
+                }
+                materialDbAdapter.close();
+
+                String str = String.valueOf(makeItems.get(final_index).getType());
+                String normal_str = "", rare_str = "", epic_str = "";
+                int normal = 0, rare = 0, epic = 0;
+                int random_select;
+
+                switch (str) {
+                    case "돌격소총": case "소총": case "지정사수소총": case "기관단총": case "경기관총": case "산탄총": case "권총":
+                        normal = percent(10, 12);
+                        if (material[0] < 2000) material[0] += normal;
+                        if (material[0] >= 2000) material[0] = 2000;
+                        normal_str = material_name[0];
+                        break;
+                    case "마스크": case "조끼": case "백팩": case "장갑": case "권총집": case "무릎보호대":
+                        normal = percent(10, 12);
+                        if (material[1] < 2000) material[1] += normal;
+                        if (material[1] >= 2000) material[1] = 2000;
+                        normal_str = material_name[1];
+                        break;
+                }
+                random_select = percent(2, 3);
+                rare = percent(7, 6);
+                material[random_select] += rare;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                rare_str = material_name[random_select];
+                random_select = percent(5, 3);
+                epic = percent(3, 5);
+                material[random_select] += epic;
+                if (material[random_select] >= 1500) material[random_select] = 1500;
+                epic_str = material_name[random_select];
+                materialDbAdapter.open();
+                for (int i = 0; i < material.length; i++) {
+                    materialDbAdapter.updateMaterial(material_name[i], material[i]);
+                }
+                materialDbAdapter.close();
+                Toast.makeText(getActivity(), normal_str+" +"+normal+", "+rare_str+" +"+rare+", "+epic_str+" +"+epic, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Item final_item = item;
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputItem(final_item);
+            }
+        });
+    }
+
     private void makeWeaponNamed(int index) {
         String item_name, item_type, item_talent = "";
         String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
@@ -963,8 +2056,8 @@ public class SendFragment extends Fragment {
         maxoptionDBAdapter.close();
         pick = percent(1, 100);
         if (pick <= 20) temp_percent = 100;
-        else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-        else temp_percent = percent(41, 20); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
         core1 = Math.floor(((double)max_core1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
         if ((int)Math.floor(core1) >= max_core1) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
         else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -981,8 +2074,8 @@ public class SendFragment extends Fragment {
             maxoptionDBAdapter.close();
             pick = percent(1, 100);
             if (pick <= 20) temp_percent = 100;
-            else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-            else temp_percent = percent(41, 20); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+            else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+            else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
             core2 = Math.floor(((double)max_core2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
             if ((int)Math.floor(core2) >= max_core2) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -1010,8 +2103,8 @@ public class SendFragment extends Fragment {
         maxoptionDBAdapter.close();
         pick = percent(1, 100);
         if (pick <= 20) temp_percent = 100;
-        else if (pick <= 60) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
-        else temp_percent = percent(41, 20); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
+        else if (pick <= 40) temp_percent = percent(60, 41); //20% 확률로 좋은 옵션이 나온다. (보너스를 제외한 21~30%)
+        else temp_percent = percent(21, 40); //80%확률로 일반적인 옵션이 나온다. (보너스를 제외한 1~20%)
         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
         if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
@@ -1023,6 +2116,7 @@ public class SendFragment extends Fragment {
         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
         progressWSub.setMax((int)(max_sub1*10));
         progressWSub.setProgress((int)(sub1*10));
+        setSemiInterface(String.valueOf(txtType.getText()), imgType);
 
         if (dialogView.getParent() != null) //다이얼로그에 들어가는 뷰의 부모가 비어있지 않다면 작동
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.

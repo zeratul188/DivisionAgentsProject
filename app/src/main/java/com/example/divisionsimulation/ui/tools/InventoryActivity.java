@@ -450,6 +450,7 @@ public class InventoryActivity extends AppCompatActivity {
                     progressSMain.setSecondaryProgress((int)(second_max*10));
                     setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1(), true);
                     namedDBAdapter.open();
+                    makeNamedDBAdapter.open();
                     if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
                         cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
                         String result = cursor.getString(2);
@@ -463,6 +464,34 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub1.setProgress(100);
                         layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         String asp = cursor.getString(9);
+                        switch (asp) {
+                            case "공격":
+                                imgSSub1.setImageResource(R.drawable.attack_sub);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.attack_progress));
+                                break;
+                            case "방어":
+                                imgSSub1.setImageResource(R.drawable.sheld_sub);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.sheld_progress));
+                                break;
+                            case "다용도":
+                                imgSSub1.setImageResource(R.drawable.power_sub);
+                                progressSSub1.setProgressDrawable(getResources().getDrawable(R.drawable.power_progress));
+                                break;
+                        }
+                        layoutSheldSub1.setEnabled(false);
+                    } else if (makeNamedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+                        cursor = makeNamedDBAdapter.fetchData(itemList.get(position).getName());
+                        String result = cursor.getString(2);
+                        if (result.indexOf("\n") > -1) {
+                            String[] split_str = result.split("\n");
+                            txtSSub1.setText(split_str[0]);
+                        } else {
+                            txtSSub1.setText(result);
+                        }
+                        progressSSub1.setMax(100);
+                        progressSSub1.setProgress(100);
+                        layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        String asp = cursor.getString(4);
                         switch (asp) {
                             case "공격":
                                 imgSSub1.setImageResource(R.drawable.attack_sub);
@@ -497,6 +526,7 @@ public class InventoryActivity extends AppCompatActivity {
                         progressSSub1.setSecondaryProgress((int)(second_max*10));
                         setImageSubAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
+                    makeNamedDBAdapter.close();
                     namedDBAdapter.close();
                     sheldDBAdapter.open();
                     if (sheldDBAdapter.haveItem(itemList.get(position).getName())) layoutSheldSub2.setVisibility(View.GONE);
@@ -526,8 +556,12 @@ public class InventoryActivity extends AppCompatActivity {
                         case "백팩":
                             txtWTalent.setText(itemList.get(position).getTalent());
                             namedDBAdapter.open();
+                            makeNamedDBAdapter.open();
                             if (namedDBAdapter.haveTalentData(itemList.get(position).getTalent())) {
                                 String content = namedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
+                                txtWTalentContent.setText(transformString(content));
+                            } else if (makeNamedDBAdapter.haveTalentData(itemList.get(position).getTalent())) {
+                                String content = makeNamedDBAdapter.fetchTalentData(itemList.get(position).getTalent());
                                 txtWTalentContent.setText(transformString(content));
                             } else {
                                 talentDBAdapter.open();
@@ -536,6 +570,7 @@ public class InventoryActivity extends AppCompatActivity {
                                 talentDBAdapter.close();
                                 txtWTalentContent.setText(transformString(talent_content));
                             }
+                            makeNamedDBAdapter.close();
                             namedDBAdapter.close();
                             break;
                         default:
@@ -984,8 +1019,29 @@ public class InventoryActivity extends AppCompatActivity {
     private void setNamed(int position, TextView weapon_TextView, TextView sheld_TextView) {
         String[] split_str;
         namedDBAdapter.open();
+        makeNamedDBAdapter.open();
         if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
             String str = namedDBAdapter.fetchNoTalentData(itemList.get(position).getName());
+            if (str.indexOf("\n") > -1) {
+                split_str = str.split("\n");
+                if (weaponed) {
+                    weapon_TextView.setText(split_str[0]);
+                    weapon_TextView.setTextColor(Color.parseColor("#c99700"));
+                } else {
+                    sheld_TextView.setText(split_str[0]);
+                    sheld_TextView.setTextColor(Color.parseColor("#c99700"));
+                }
+            } else {
+                if (weaponed) {
+                    weapon_TextView.setText(str);
+                    weapon_TextView.setTextColor(Color.parseColor("#c99700"));
+                } else {
+                    sheld_TextView.setText(str);
+                    sheld_TextView.setTextColor(Color.parseColor("#c99700"));
+                }
+            }
+        } else if (makeNamedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+            String str = makeNamedDBAdapter.fetchNoTalentData(itemList.get(position).getName());
             if (str.indexOf("\n") > -1) {
                 split_str = str.split("\n");
                 if (weaponed) {
@@ -1008,6 +1064,7 @@ public class InventoryActivity extends AppCompatActivity {
             weapon_TextView.setTextColor(Color.parseColor("#aaaaaa"));
             sheld_TextView.setTextColor(Color.parseColor("#aaaaaa"));
         }
+        makeNamedDBAdapter.close();
         namedDBAdapter.close();
     }
 
