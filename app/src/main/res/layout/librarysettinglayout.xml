@@ -176,7 +176,8 @@
                     android:textSize="15sp"
                     android:textColor="#FF6337"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp1custom"
+                    android:paddingTop="20dp"
                     android:checked="true"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
@@ -189,7 +190,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp3custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
@@ -201,7 +203,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp4custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
@@ -213,7 +216,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp2custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
@@ -225,7 +229,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp5custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
@@ -237,7 +242,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp6custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
                 <RadioButton
@@ -249,7 +255,8 @@
                     android:textSize="15sp"
                     android:textColor="#f0f0f0"
                     android:button="@null"
-                    android:padding="5dp"
+                    android:drawableTop="@drawable/rdowp7custom"
+                    android:paddingTop="20dp"
                     android:background="@drawable/radiomenurightcustom"
                     android:textAlignment="center"/>
             </RadioGroup>

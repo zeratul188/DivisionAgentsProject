@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -207,11 +209,12 @@ public class ToolsFragment extends Fragment {
                 progressExotic.setMax(20);
                 progressExotic.setProgress(material[9]);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });

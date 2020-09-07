@@ -2,6 +2,8 @@ package com.example.divisionsimulation;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,11 +125,12 @@ public class SHDActivity extends AppCompatActivity {
                     }
                 });
 
-                builder = new AlertDialog.Builder(SHDActivity.this, R.style.MyAlertDialogStyle);
+                builder = new AlertDialog.Builder(SHDActivity.this);
                 builder.setView(view);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });

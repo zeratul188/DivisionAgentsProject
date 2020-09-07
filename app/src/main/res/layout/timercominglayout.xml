@@ -1,65 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:background="#222222"
-    android:paddingTop="15dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-        <TextView
-            android:id="@+id/txtInfo"
-            android:layout_width="0dp"
-            android:layout_weight="3"
+        android:orientation="vertical"
+        android:background="#00222222"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="헬기 도착까지 남은 시간"
-            android:textSize="18sp"
-            android:textColor="#aaaaaa"/>
-        <TextView
-            android:id="@+id/txtTimer"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textSize="18sp"
-            android:textAlignment="textEnd"
-            android:textColor="#f0f0f0"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/txtInfo"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="헬기 도착까지 남은 시간"
+                android:textSize="18sp"
+                android:textColor="#aaaaaa"/>
+            <TextView
+                android:id="@+id/txtTimer"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="18sp"
+                android:textAlignment="textEnd"
+                android:textColor="#f0f0f0"/>
 
+        </LinearLayout>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progressbar_progressbar_gage"
+            android:background="@drawable/gage2"
+            android:id="@+id/progressTimer"
+            android:paddingTop="5dp"
+            android:progress="100"
+            android:layout_marginBottom="10dp"
+            android:indeterminateTint="#E45435"/>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progressbar_progressbar_output"
+            android:background="@drawable/darkbackpack"
+            android:id="@+id/progressOutput"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="3dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="#E45435"/>
     </LinearLayout>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_gage"
-        android:background="@drawable/gage2"
-        android:id="@+id/progressTimer"
-        android:paddingTop="5dp"
-        android:progress="100"
-        android:layout_marginBottom="10dp"
-        android:indeterminateTint="#E45435"/>
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progressbar_progressbar_output"
-        android:background="@drawable/darkbackpack"
-        android:id="@+id/progressOutput"
-        android:paddingLeft="11dp"
-        android:paddingRight="11dp"
-        android:paddingBottom="6dp"
-        android:paddingTop="3dp"
-        android:layout_gravity="center"
-        android:indeterminateTint="#E45435"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
         <Button
             android:id="@+id/btnRun"
             android:layout_width="0dp"

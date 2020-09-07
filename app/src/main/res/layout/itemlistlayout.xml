@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#222222" android:orientation="vertical">
+     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@drawable/dialoglayoutcustom"
             android:padding="10dp">
         </LinearLayout>
     </ScrollView>
@@ -27,8 +28,6 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:textColor="#f0f0f0"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:drawableTop="@drawable/ic_close_black_24dp"
         android:background="@drawable/buttonnobackcustom"/>
 

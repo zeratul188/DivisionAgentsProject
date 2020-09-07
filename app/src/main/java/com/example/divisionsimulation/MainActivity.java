@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -247,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         });
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
 
         et.start();
@@ -438,7 +440,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                                 }
                             });
 
-                            builder_timer = new AlertDialog.Builder(activity, R.style.MyAlertDialogStyle);
+                            builder_timer = new AlertDialog.Builder(activity);
                             builder_timer.setView(dialogView_timer);
                             builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
@@ -449,6 +451,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                             });
                             alertDialog_timer = builder_timer.create();
                             alertDialog_timer.setCancelable(false);
+                            alertDialog_timer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             alertDialog_timer.show();
 
                             tt.start();
@@ -465,6 +468,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
                 break;
         }

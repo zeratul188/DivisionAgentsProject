@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#aa222222">
+            android:background="@drawable/dialoglayoutcustom">
             <LinearLayout
                 android:id="@+id/tableMain"
                 android:layout_width="match_parent"

@@ -486,11 +486,12 @@ public class SendFragment extends Fragment {
                     }
                 });
 
-                builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -695,11 +696,12 @@ public class SendFragment extends Fragment {
                     txtCore.setText("스킬 등급");
                 }
 
-                builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -906,11 +908,12 @@ public class SendFragment extends Fragment {
                     }
                 });
 
-                builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -991,11 +994,12 @@ public class SendFragment extends Fragment {
                 progressExotic.setMax(20);
                 progressExotic.setProgress(material[9]);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(dialogView);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });

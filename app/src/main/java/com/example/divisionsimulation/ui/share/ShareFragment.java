@@ -896,11 +896,12 @@ public class ShareFragment extends Fragment {
                 }
                 commandDBAdapter.close();
 
-                AlertDialog.Builder mission_builder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
+                AlertDialog.Builder mission_builder = new AlertDialog.Builder(getActivity());
                 mission_builder.setView(dialog_view);
 
                 mission_alertDialog = mission_builder.create();
                 mission_alertDialog.setCancelable(false);
+                mission_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 mission_alertDialog.show();
             }
         });
@@ -1186,6 +1187,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog_list = builder_list.create();
                 alertDialog_list.setCancelable(false);
+                alertDialog_list.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog_list.show();
                 /*
                 다이얼로그 생성 및 띄우기
@@ -1269,6 +1271,7 @@ public class ShareFragment extends Fragment {
 
                 alertDialog_list = builder_list.create();
                 alertDialog_list.setCancelable(false);
+                alertDialog_list.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog_list.show();
             }
         });
