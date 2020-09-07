@@ -11,6 +11,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -276,11 +277,13 @@ public class ItemEditActivity extends AppCompatActivity {
                         }
                     });
 
-                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
+                    builder = new AlertDialog.Builder(ItemEditActivity.this);
                     builder.setView(talent_view);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
                     alertDialog.show();
                 }
             });
@@ -556,11 +559,12 @@ public class ItemEditActivity extends AppCompatActivity {
                         }
                     });
 
-                    builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
+                    builder = new AlertDialog.Builder(ItemEditActivity.this);
                     builder.setView(seek_view);
 
                     alertDialog = builder.create();
                     alertDialog.setCancelable(false);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     alertDialog.show();
                 }
             });

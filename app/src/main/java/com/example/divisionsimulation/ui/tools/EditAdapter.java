@@ -73,6 +73,7 @@ public class EditAdapter extends BaseAdapter {
         ImageView imgType = convertView.findViewById(R.id.imgType);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtMax = convertView.findViewById(R.id.txtMax);
+        TextView txtEnd = convertView.findViewById(R.id.txtEnd);
         LinearLayout layoutNoTalent = convertView.findViewById(R.id.layoutNoTalent);
         ProgressBar progressOption = convertView.findViewById(R.id.progressOption);
         LinearLayout layoutMain = convertView.findViewById(R.id.layoutMain);
@@ -106,6 +107,9 @@ public class EditAdapter extends BaseAdapter {
                     break;
             }
             double max = Double.parseDouble(cursor.getString(2));
+            String end = cursor.getString(5);
+            if (!end.equals("-")) txtEnd.setText(end);
+            else txtEnd.setText("");
             maxDBAdapter.close();
             switch (editList.get(position).getType()) {
                 case "공격":

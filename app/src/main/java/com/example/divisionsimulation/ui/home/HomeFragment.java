@@ -1623,10 +1623,10 @@ public class HomeFragment extends Fragment implements Serializable {
                                 boolean elite_true, pvp_true, cluch_true; //체크 박스로 인해 작동 여부를 저장하는 변수이다.
                                 double coefficient = 1; //기본 계수를 결정한다. 1로 초기화한다.
                                 if (chkPVP.isChecked()) { //PVP 여부를 적용시키면 작동한다.
-                                    if (rdoPVP[0].isChecked()) coefficient = 0.68;
-                                    else if (rdoPVP[1].isChecked()) coefficient = 0.66;
-                                    else if (rdoPVP[2].isChecked() || rdoPVP[3].isChecked() || rdoPVP[5].isChecked() || rdoPVP[6].isChecked()) coefficient = 0.55;
-                                    else coefficient = 0.6;
+                                    if (rdoPVP[0].isChecked()) coefficient = 0.34;
+                                    else if (rdoPVP[1].isChecked()) coefficient = 0.33;
+                                    else if (rdoPVP[2].isChecked() || rdoPVP[3].isChecked() || rdoPVP[5].isChecked() || rdoPVP[6].isChecked()) coefficient = 0.27;
+                                    else coefficient = 0.3;
                                 }
                                 //각 무기의 종류에 맞게 계수를 적용시킨다.
                                 if (chkElite.isChecked() && !chkPVP.isChecked()) elite_true = true; //정예 대상이 적용되어 있다면 작동한다.
@@ -1796,6 +1796,7 @@ public class HomeFragment extends Fragment implements Serializable {
                             }
                         });
                         alertDialog.setCancelable(false); //다이얼로그 바깥 영역, 뒤로 가기를 눌러도 닫히지 않게 한다.
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         alertDialog.show(); //다이얼로그를 화면에 보여준다.
                     }
                 }
