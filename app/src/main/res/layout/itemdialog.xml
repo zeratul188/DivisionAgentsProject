@@ -561,23 +561,23 @@
             android:gravity="center">
             <Button
                 android:id="@+id/btnDrop"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/dialogimagebutton"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:background="@drawable/subbutton"
                 android:layout_gravity="center"
                 android:text="버리기"
-                android:textColor="#f0f0f0"
-                android:layout_marginRight="30dp"
+                android:textColor="#aaaaaa"
+                android:layout_marginRight="5dp"
                 android:textSize="18sp"/>
             <Button
                 android:id="@+id/btnDestroy"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/dialogimagebutton"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:background="@drawable/mainbutton"
                 android:layout_gravity="center"
                 android:text="분해"
-                android:textColor="#f0f0f0"
-                android:layout_marginLeft="30dp"
+                android:textColor="#fe6e0e"
+                android:layout_marginLeft="5dp"
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>

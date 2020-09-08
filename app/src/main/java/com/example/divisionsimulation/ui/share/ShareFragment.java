@@ -1556,7 +1556,7 @@ public class ShareFragment extends Fragment {
                         }
                     });
 
-                    builder_timer = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle); //타이머 빌더를 생성
+                    builder_timer = new AlertDialog.Builder(getActivity()); //타이머 빌더를 생성
                     builder_timer.setView(dialogView_timer);
                     builder_timer.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
@@ -1574,6 +1574,7 @@ public class ShareFragment extends Fragment {
                     });
                     alertDialog_timer = builder_timer.create(); //다이얼로그 객체 생성
                     alertDialog_timer.setCancelable(false); //바깥영역 또는 뒤로가기 버튼을 눌러도 꺼지지 않게 해준다.
+                    alertDialog_timer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     alertDialog_timer.show(); //다이얼로그를 화면에 띄운다.
 
                     coming_dz.setMinute(0); //헬기 도착 전 스레드 분을 0으로 설정

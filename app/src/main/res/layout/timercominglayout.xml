@@ -66,23 +66,23 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/btnRun"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/dialogimagebutton"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/subbutton"
             android:layout_gravity="center"
-            android:text="벗어\n나기"
-            android:textColor="#f0f0f0"
-            android:layout_marginRight="30dp"
+            android:text="벗어나기"
+            android:textColor="#aaaaaa"
+            android:layout_marginRight="5dp"
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btnNowOutput"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/dialogimagebutton"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/mainbuttonhub"
             android:layout_gravity="center"
-            android:text="즉시\n이송"
-            android:textColor="#f0f0f0"
-            android:layout_marginLeft="30dp"
+            android:text="즉시 이송"
+            android:textColor="#fe6e0e"
+            android:layout_marginLeft="5dp"
             android:textSize="18sp"/>
     </LinearLayout>
 

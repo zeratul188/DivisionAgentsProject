@@ -297,12 +297,12 @@
     </LinearLayout>
     <Button
         android:id="@+id/btnMake"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/dialogimagebutton"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:background="@drawable/mainbuttonhub"
         android:layout_gravity="center"
         android:text="제작"
-        android:textColor="#f0f0f0"
+        android:textColor="#fe6e0e"
         android:layout_margin="10dp"
         android:textSize="18sp"/>
 </LinearLayout>

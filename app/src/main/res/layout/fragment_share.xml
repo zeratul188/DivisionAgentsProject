@@ -1080,30 +1080,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
                 <Button
                     android:id="@+id/btnReset"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/subbutton"
                     android:text="초기화"
                     android:textColor="#aaaaaa"
                     android:textSize="18sp"
                     android:padding="10dp"
-                    android:background="@drawable/buttonnobackcustom"
-                    android:drawableTop="@drawable/ic_refresh_black_40dp"
                     android:layout_marginRight="5dp"/>
                 <Button
                     android:id="@+id/btnOutput"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/mainbutton"
                     android:text="이송하기 (0/10)"
-                    android:textColor="#ffffff"
+                    android:textColor="#fe6e0e"
                     android:textSize="18sp"
                     android:padding="10dp"
-                    android:background="@drawable/buttonnobackcustom"
-                    android:drawableTop="@drawable/ic_arrow_upward_black_40dp"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
         </LinearLayout>

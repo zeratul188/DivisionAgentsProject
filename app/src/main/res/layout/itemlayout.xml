@@ -470,34 +470,34 @@
             android:padding="10dp">
             <Button
                 android:id="@+id/btnInput"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/dialogimagebutton"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:background="@drawable/mainbuttonhub"
                 android:layout_gravity="center"
-                android:text="다크존\n가방"
-                android:textColor="#f0f0f0"
+                android:text="다크존 가방 담기"
+                android:textColor="#fe6e0e"
                 android:textSize="18sp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="5dp"
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/dialogimagebutton"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:background="@drawable/mainbuttonhub"
                 android:layout_gravity="center"
                 android:text="획득"
-                android:textColor="#f0f0f0"
-                android:layout_marginRight="30dp"
+                android:textColor="#fe6e0e"
+                android:layout_marginRight="5dp"
                 android:textSize="18sp"/>
             <Button
                 android:id="@+id/btnDestroy"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/dialogimagebutton"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
+                android:background="@drawable/subbuttonhub"
                 android:layout_gravity="center"
                 android:text="분해"
-                android:textColor="#f0f0f0"
-                android:layout_marginLeft="30dp"
+                android:textColor="#aaaaaa"
+                android:layout_marginLeft="5dp"
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>

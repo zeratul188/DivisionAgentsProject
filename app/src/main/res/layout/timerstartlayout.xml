@@ -51,23 +51,23 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/btnEnd"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/dialogimagebutton"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/subbutton"
             android:layout_gravity="center"
             android:text="종료"
-            android:textColor="#f0f0f0"
-            android:layout_marginRight="30dp"
+            android:textColor="#aaaaaa"
+            android:layout_marginRight="5dp"
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btnReplay"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/dialogimagebutton"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/mainbuttonhub"
             android:layout_gravity="center"
-            android:text="다시\n시작"
-            android:textColor="#f0f0f0"
-            android:layout_marginLeft="30dp"
+            android:text="다시 시작"
+            android:textColor="#fe6e0e"
+            android:layout_marginLeft="5dp"
             android:textSize="18sp"/>
     </LinearLayout>
 </LinearLayout>
