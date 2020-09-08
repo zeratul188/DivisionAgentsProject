@@ -25,26 +25,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginTop="20dp">
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonnobackcustom"
-            android:drawableTop="@drawable/ic_close_black_24dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/dialogimagebutton"
+            android:layout_gravity="center"
             android:text="취소"
-            android:textColor="#aaaaaa"
+            android:textColor="#f0f0f0"
+            android:layout_marginRight="30dp"
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btnPlay"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonnobackcustom"
-            android:drawableTop="@drawable/ic_exit_to_app_black_40dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/dialogimagebutton"
+            android:layout_gravity="center"
             android:text="종료"
             android:textColor="#f0f0f0"
+            android:layout_marginLeft="30dp"
             android:textSize="18sp"/>
     </LinearLayout>
 

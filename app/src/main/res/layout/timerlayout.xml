@@ -2,7 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <Button
+        android:id="@+id/btnTimerCancel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#00000000"
+        android:layout_gravity="right"
+        android:drawableTop="@drawable/ic_close_black_24dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,36 +117,15 @@
                 android:inputType="number"/>
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btnTimerCancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonnobackcustom"
-            android:drawableTop="@drawable/ic_close_black_24dp"
-            android:padding="5dp"
-            android:text="취소"
-            android:textColor="#aaaaaa"
-            android:textSize="18sp"
-            android:layout_marginRight="5dp"/>
-        <Button
-            android:id="@+id/btnTimerPlay"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonnobackcustom"
-            android:drawableTop="@drawable/ic_play_arrow_black_40dp"
-            android:padding="5dp"
-            android:text="실행"
-            android:textColor="#f0f0f0"
-            android:textSize="18sp"
-            android:layout_marginLeft="5dp"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnTimerPlay"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/dialogimagebutton"
+        android:layout_gravity="center"
+        android:text="실행"
+        android:textColor="#f0f0f0"
+        android:layout_margin="10dp"
+        android:textSize="18sp"/>
 
 </LinearLayout>

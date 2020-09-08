@@ -892,7 +892,7 @@ class DemageSimulThread extends Thread implements Serializable {
                 //SimulActivity.txtHealth.setText("0");
                 sa.setTxtHealth("0");
                 //SimulActivity.btnExit.setText("뒤로 가기");
-                sa.setBtnExitText("뒤로 가기");
+                sa.setBtnExitText("뒤로\n가기");
             }
         });
         tt.setStop(true); //방어도, 생명력이 전부 소진되어 적이 퇴치되었으므로 타이머 스레드를 정지시킨다.
