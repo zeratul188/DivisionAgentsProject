@@ -98,104 +98,113 @@
                 </TableRow>
             </TableLayout>
 
-            <TableLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp">
-                <TableRow>
+                android:background="@drawable/layoutcustomnopadding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="재장전 속도 : "
-                        android:textSize="15sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/txtReloadTime"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="재장전 속도 : "
+                            android:textSize="15sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/txtReloadTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="#aaa"
+                                android:textSize="18sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="초"
+                                android:textColor="#aaa"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="발사방식 : "
+                            android:textSize="15sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtFireMethod"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="-"
                             android:textColor="#aaa"
                             android:textSize="18sp"/>
+
+                    </TableRow>
+                    <TableRow>
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="초"
+                            android:text="장착 가능 모드 : "
+                            android:textSize="15sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtMode"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="-"
                             android:textColor="#aaa"
                             android:textSize="18sp"/>
-                    </LinearLayout>
-                </TableRow>
-                <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="발사방식 : "
-                        android:textSize="15sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtFireMethod"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="#aaa"
-                        android:textSize="18sp"/>
+                    </TableRow>
+                    <TableRow>
 
-                </TableRow>
-                <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="바리에이션 : "
+                            android:textSize="15sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtVariation"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#aaa"
+                            android:textSize="18sp"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="장착 가능 모드 : "
-                        android:textSize="15sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtMode"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="#aaa"
-                        android:textSize="18sp"/>
+                    </TableRow>
 
-                </TableRow>
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="바리에이션 : "
-                        android:textSize="15sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtVariation"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="#aaa"
-                        android:textSize="18sp"/>
-
-                </TableRow>
-
-            </TableLayout>
+                </TableLayout>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -204,15 +213,24 @@
                 android:textColor="#aaa"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtContent"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#aaa"/>
+                android:background="@drawable/layoutcustomnopadding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#aaa"/>
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>

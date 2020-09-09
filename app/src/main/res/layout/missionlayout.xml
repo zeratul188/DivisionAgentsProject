@@ -9,68 +9,77 @@
         android:background="#00000000"
         android:layout_gravity="right"
         android:drawableTop="@drawable/ic_close_black_24dp"/>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@drawable/dialoglayoutcustom"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="지령 선택"
-            android:textColor="#f0f0f0"
-            android:textSize="20sp"
-            android:layout_marginBottom="5dp"/>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
-                android:id="@+id/layoutCommands"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp"/>
-        </ScrollView>
-        <LinearLayout
+        android:background="@drawable/dialoglayoutcustom">
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="#008800"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"/>
-            <TextView
-                android:id="@+id/txtEXP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="% EXP"
-                android:textSize="20sp"
-                android:textColor="#f0f0f0"/>
-        </LinearLayout>
-        <TextView
+            android:src="@drawable/dialogbackground"
+            android:layout_gravity="right"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="임무를 완수하시겠습니까?"
-            android:textSize="17sp"
-            android:textColor="#aaaaaa"
-            android:layout_marginBottom="10dp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="지령 선택"
+                android:textColor="#f0f0f0"
+                android:textSize="20sp"
+                android:layout_marginBottom="5dp"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/layoutCommands"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"/>
+            </ScrollView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="#008800"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:textColor="#f0f0f0"/>
+                <TextView
+                    android:id="@+id/txtEXP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20sp"
+                    android:textColor="#f0f0f0"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="% EXP"
+                    android:textSize="20sp"
+                    android:textColor="#f0f0f0"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="임무를 완수하시겠습니까?"
+                android:textSize="17sp"
+                android:textColor="#aaaaaa"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </FrameLayout>
     <Button
         android:id="@+id/btnOK"
         android:layout_width="200dp"

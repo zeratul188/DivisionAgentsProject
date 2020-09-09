@@ -40,79 +40,88 @@
                     android:textColor="#fe6e0e"/>
             </LinearLayout>
 
-            <TableLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:padding="10dp"
-                android:background="@drawable/layoutcustom">
-                <TableRow>
+                android:background="@drawable/layoutcustomnopadding"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="기본 방어도 : "
-                        android:textColor="#aaaaaa"
-                        android:textSize="18sp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="기본 방어도 : "
+                            android:textColor="#aaaaaa"
+                            android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/txtSheld"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="[Default Sheld]"
-                        android:textSize="18sp"
-                        android:textColor="#f0f0f0"/>
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="주 속성 : "
-                        android:gravity="right"
-                        android:textColor="#aaaaaa"
-                        android:textSize="18sp"/>
-                    <TextView
-                        android:id="@+id/txtCore"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="[Core Option]"
-                        android:textSize="18sp"
-                        android:textColor="#f0f0f0"/>
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="부 속성 1 : "
-                        android:gravity="right"
-                        android:textColor="#aaaaaa"
-                        android:textSize="18sp"/>
-                    <TextView
-                        android:id="@+id/txtSub1"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="[Sub Option 1]"
-                        android:textSize="18sp"
-                        android:textColor="#f0f0f0"/>
-                </TableRow>
-                <TableRow>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="부 속성 2 : "
-                        android:gravity="right"
-                        android:textColor="#aaaaaa"
-                        android:textSize="18sp"/>
-                    <TextView
-                        android:id="@+id/txtSub2"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="[Sub Option 2]"
-                        android:textSize="18sp"
-                        android:textColor="#f0f0f0"/>
-                </TableRow>
-            </TableLayout>
+                        <TextView
+                            android:id="@+id/txtSheld"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:text="[Default Sheld]"
+                            android:textSize="18sp"
+                            android:textColor="#f0f0f0"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="주 속성 : "
+                            android:gravity="right"
+                            android:textColor="#aaaaaa"
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/txtCore"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:text="[Core Option]"
+                            android:textSize="18sp"
+                            android:textColor="#f0f0f0"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="부 속성 1 : "
+                            android:gravity="right"
+                            android:textColor="#aaaaaa"
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/txtSub1"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:text="[Sub Option 1]"
+                            android:textSize="18sp"
+                            android:textColor="#f0f0f0"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="부 속성 2 : "
+                            android:gravity="right"
+                            android:textColor="#aaaaaa"
+                            android:textSize="18sp"/>
+                        <TextView
+                            android:id="@+id/txtSub2"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:text="[Sub Option 2]"
+                            android:textSize="18sp"
+                            android:textColor="#f0f0f0"/>
+                    </TableRow>
+                </TableLayout>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -128,16 +137,25 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtTalentContent"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"
-                android:layout_marginBottom="20dp"/>
+                android:background="@drawable/layoutcustomnopadding"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtTalentContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -146,16 +164,25 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtLocation"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"
-                android:layout_marginBottom="20dp"/>
+                android:background="@drawable/layoutcustomnopadding"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -164,15 +191,24 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtContent"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"/>
+                android:background="@drawable/layoutcustomnopadding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
         </LinearLayout>
 
     </ScrollView>

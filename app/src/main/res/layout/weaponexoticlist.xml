@@ -81,74 +81,83 @@
                 </TableRow>
             </TableLayout>
 
-            <TableLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp">
+                android:background="@drawable/layoutcustom">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
-                <TableRow>
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="고정 부 속성 : "
-                        android:textSize="18sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtOption"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="#f0f0f0"
-                        android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="고정 부 속성 : "
+                            android:textSize="18sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtOption"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#f0f0f0"
+                            android:textSize="18sp"/>
 
-                </TableRow>
-                <TableRow>
+                    </TableRow>
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="재장전 시간 : "
-                        android:textSize="18sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtReloadTime"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#f0f0f0"
-                        android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="재장전 시간 : "
+                            android:textSize="18sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtReloadTime"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="#f0f0f0"
+                            android:textSize="18sp"/>
 
-                </TableRow>
-                <TableRow>
+                    </TableRow>
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="발사방식 : "
-                        android:textSize="18sp"
-                        android:textColor="#aaa"
-                        android:textAlignment="textEnd"/>
-                    <TextView
-                        android:id="@+id/txtFireMethod"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="#f0f0f0"
-                        android:textSize="18sp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="발사방식 : "
+                            android:textSize="18sp"
+                            android:textColor="#aaa"
+                            android:textAlignment="textEnd"/>
+                        <TextView
+                            android:id="@+id/txtFireMethod"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="#f0f0f0"
+                            android:textSize="18sp"/>
 
-                </TableRow>
-            </TableLayout>
+                    </TableRow>
+                </TableLayout>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -157,16 +166,25 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtItem"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/layoutcustomnopadding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -182,16 +200,25 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtTalentContent"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtTalentContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -200,16 +227,25 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtDroped"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"
-                android:layout_marginBottom="20dp"/>
+                android:background="@drawable/layoutcustomnopadding"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtDroped"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -218,15 +254,24 @@
                 android:textColor="#fe6e0e"
                 android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:id="@+id/txtContent"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/layoutcustom"
-                android:padding="10dp"
-                android:text="-"
-                android:textSize="18sp"
-                android:textColor="#f0f0f0"/>
+                android:background="@drawable/layoutcustomnopadding">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dialogbackground"
+                    android:layout_gravity="right"/>
+                <TextView
+                    android:id="@+id/txtContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="#f0f0f0"/>
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>
