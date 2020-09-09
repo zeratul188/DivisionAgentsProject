@@ -218,16 +218,6 @@
                         android:dividerHeight="5dp"
                         android:padding="5dp"/>
                 </LinearLayout>
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/layoutcustomnopadding">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dialogbackground"
-                    android:layout_gravity="right"/>
                 <LinearLayout
                     android:id="@+id/layoutSheld"
                     android:layout_width="match_parent"
@@ -333,16 +323,6 @@
                         android:dividerHeight="5dp"
                         android:padding="5dp"/>
                 </LinearLayout>
-            </FrameLayout>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/layoutcustomnopadding">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dialogbackground"
-                    android:layout_gravity="right"/>
                 <LinearLayout
                     android:id="@+id/layoutExotic"
                     android:layout_width="match_parent"
