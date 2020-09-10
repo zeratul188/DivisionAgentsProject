@@ -1,12 +1,17 @@
 package com.example.divisionsimulation.ui.gallery;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,12 +19,25 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.divisionsimulation.R;
 
+import java.util.ArrayList;
+
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 
-    private LinearLayout[] btnWeapon = new LinearLayout[8];
-    private Button[] btnMenu = new Button[2];
+    private RadioGroup rgWeapon;
+    private RadioButton[] rdoWeapon = new RadioButton[8];
+    private ListView listView;
+    private Button btnNamed, btnTalent;
+
+    private WeaponAdapter weaponAdapter;
+    private ArrayList<WeaponItem> weaponItems;
+    private WeaponDbAdapter weaponDbAdapter;
+    private WeaponExoticDbAdapter weaponExoticDbAdapter;
+
+    private String[] types = {"돌격소총", "소총", "기관단총", "경기관총", "지정사수소총", "산탄총", "권총"};
+    private Cursor cursor = null;
+    private boolean exoticed = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -27,89 +45,103 @@ public class GalleryFragment extends Fragment {
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        int temp;
-        for (int i = 0; i < btnWeapon.length; i++) {
-            temp = root.getResources().getIdentifier("btnWeapon"+(i+1), "id", getActivity().getPackageName()); //btnWeapon? 아이디를 temp 변수에 저장
-            btnWeapon[i] = root.findViewById(temp); //btnWeapon에 배열마다 아이디가 temp인 뷰를 찾아서 넣는다.
-        }
-        for (int i = 0; i < btnMenu.length; i++) {
-            temp = root.getResources().getIdentifier("btnMenu"+(i+1), "id", getActivity().getPackageName());
-            btnMenu[i] = root.findViewById(temp);
+        rgWeapon = root.findViewById(R.id.rgWeapon);
+        listView = root.findViewById(R.id.listView);
+        btnNamed = root.findViewById(R.id.btnNamed);
+        btnTalent = root.findViewById(R.id.btnTalent);
+
+        int resource;
+        for (int i = 0; i < rdoWeapon.length; i++) {
+            resource = root.getResources().getIdentifier("rdoWeapon"+(i+1), "id", getActivity().getPackageName());
+            rdoWeapon[i] = root.findViewById(resource);
         }
 
-        btnWeapon[0].setOnClickListener(new View.OnClickListener() {
+        weaponItems = new ArrayList<WeaponItem>();
+        weaponDbAdapter = new WeaponDbAdapter(getActivity());
+        weaponExoticDbAdapter = new WeaponExoticDbAdapter(getActivity());
+
+        weaponDbAdapter.open();
+        cursor = weaponDbAdapter.fetchTypeWeapon(types[0]);
+        weaponDbAdapter.close();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            String type = cursor.getString(9);
+            WeaponItem item = new WeaponItem(name, type);
+            weaponItems.add(item);
+            cursor.moveToNext();
+        }
+        weaponAdapter = new WeaponAdapter(getActivity(), weaponItems, false);
+        listView.setAdapter(weaponAdapter);
+
+        rgWeapon.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) { //각 버튼마다 다른 화면을 출력하기 위해서 이벤트 처리
-                Intent intent = new Intent(getActivity(), WeaponActivity.class); //intent에 현재 화면에 Weapon1Activity를 새로운 화면에 출력시키는 변수다.
-                intent.putExtra("Type", "돌격소총");
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                weaponItems.clear();
+                for (int i = 0; i < rdoWeapon.length; i++) {
+                    if (rdoWeapon[i].isChecked()) {
+                        rdoWeapon[i].setTextColor(Color.parseColor("#FF6337"));
+                        if (i == 7) {
+                            exoticed = true;
+                            weaponExoticDbAdapter.open();
+                            cursor = weaponExoticDbAdapter.fetchAllWeapon();
+                            if (cursor != null) cursor.moveToFirst();
+                            weaponExoticDbAdapter.close();
+                            while (!cursor.isAfterLast()) {
+                                String name = cursor.getString(1);
+                                String type = cursor.getString(12);
+                                WeaponItem item = new WeaponItem(name, type);
+                                weaponItems.add(item);
+                                cursor.moveToNext();
+                            }
+                            weaponAdapter = new WeaponAdapter(getActivity(), weaponItems, true);
+                            listView.setAdapter(weaponAdapter);
+                        } else {
+                            exoticed = false;
+                            weaponDbAdapter.open();
+                            cursor = weaponDbAdapter.fetchTypeWeapon(types[i]);
+                            weaponDbAdapter.close();
+                            while (!cursor.isAfterLast()) {
+                                String name = cursor.getString(1);
+                                String type = cursor.getString(9);
+                                WeaponItem item = new WeaponItem(name, type);
+                                weaponItems.add(item);
+                                cursor.moveToNext();
+                            }
+                            weaponAdapter = new WeaponAdapter(getActivity(), weaponItems, false);
+                            listView.setAdapter(weaponAdapter);
+                        }
+                    } else {
+                        rdoWeapon[i].setTextColor(Color.parseColor("#F0F0F0"));
+                    }
+                }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                if (exoticed) {
+                    intent = new Intent(getActivity(), WeaponExoticListActivity.class); //intent에 현재 화면에 Weapon1Activity를 새로운 화면에 출력시키는 변수다.
+                } else {
+                    intent = new Intent(getActivity(), WeaponListActivity.class); //intent에 현재 화면에 Weapon1Activity를 새로운 화면에 출력시키는 변수다.
+                }
+                intent.putExtra("Name", weaponItems.get(position).getName());
                 startActivity(intent); //intent 액티비티를 시작시킨다.
             }
         });
-        btnWeapon[1].setOnClickListener(new View.OnClickListener() {
+
+        btnNamed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "소총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "지정사수소총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[3].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "기관단총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[4].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "경기관총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[5].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "산탄총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[6].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), WeaponActivity.class);
-                intent.putExtra("Type", "권총");
-                startActivity(intent);
-            }
-        });
-        btnWeapon[7].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
-                Intent intent = new Intent(getActivity(), Weapon8Activity.class);
-                startActivity(intent);
-            }
-        });
-        btnMenu[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //위와 동일
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Weapon9Activity.class);
                 startActivity(intent);
             }
         });
-        btnMenu[1].setOnClickListener(new View.OnClickListener() {
+
+        btnTalent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { //위와 동일
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Weapon10Activity.class);
                 startActivity(intent);
             }

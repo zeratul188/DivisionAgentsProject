@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="[Name]"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textColor="#f0f0f0"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"/>
@@ -54,13 +54,13 @@
                             android:layout_weight="2"
                             android:text="1 Set + :"
                             android:gravity="right"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtFirst"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#f0f0f0"
                             android:text="[First Set Option]"/>
                     </TableRow>
@@ -71,13 +71,13 @@
                             android:layout_weight="2"
                             android:text="2 Set + :"
                             android:gravity="right"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtSecond"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#f0f0f0"
                             android:text="[Second Set Option]"/>
                     </TableRow>
@@ -88,13 +88,13 @@
                             android:layout_weight="2"
                             android:text="3 Set + :"
                             android:gravity="right"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#aaaaaa"/>
                         <TextView
                             android:id="@+id/txtThird"
                             android:layout_width="0dp"
                             android:layout_weight="5"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="#f0f0f0"
                             android:text="[First Set Option]"/>
                     </TableRow>
@@ -115,13 +115,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="주속성 : "
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"
                     android:layout_gravity="center"
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgCore"
-                    android:layout_width="24dp"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
                     android:adjustViewBounds="true"
@@ -131,13 +131,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=", "
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"
                     android:visibility="invisible"
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgCore2"
-                    android:layout_width="24dp"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:src="@drawable/attack"
@@ -147,13 +147,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="개조부품 : "
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"
                     android:layout_gravity="center"
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgSub"
-                    android:layout_width="24dp"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
                     android:adjustViewBounds="true"
@@ -164,12 +164,12 @@
                     android:layout_height="wrap_content"
                     android:text=", "
                     android:visibility="invisible"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"
                     android:gravity="right"/>
                 <ImageView
                     android:id="@+id/imgSub2"
-                    android:layout_width="24dp"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/attack"
                     android:visibility="invisible"
@@ -181,7 +181,7 @@
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text="[Core]"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"/>-->
             </LinearLayout>
         </LinearLayout>
@@ -209,7 +209,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:textColor="#f0f0f0"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:text="[Vest Options]"/>
             </LinearLayout>
             <LinearLayout
@@ -230,7 +230,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:textColor="#f0f0f0"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:text="[Backpack Options]"/>
             </LinearLayout>
         </LinearLayout>

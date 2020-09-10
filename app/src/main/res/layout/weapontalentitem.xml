@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="[Talent Name]"
             android:textColor="#fdae13"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:layout_marginBottom="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,51 +31,51 @@
                 android:id="@+id/imgType1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp1custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp1custom"/>
             <ImageView
                 android:id="@+id/imgType2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp4custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp4custom"/>
             <ImageView
                 android:id="@+id/imgType3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp5custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp5custom"/>
             <ImageView
                 android:id="@+id/imgType4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp2custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp2custom"/>
             <ImageView
                 android:id="@+id/imgType5"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp3custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp3custom"/>
             <ImageView
                 android:id="@+id/imgType6"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp6custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp6custom"/>
             <ImageView
                 android:id="@+id/imgType7"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:src="@drawable/wp7custom"/>
+                android:layout_height="40dp"
+                android:src="@drawable/rdowp7custom"/>
         </LinearLayout>
         <TextView
             android:id="@+id/txtContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="[Named Talent Content]"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="#f0f0f0"
             android:layout_marginTop="10dp"/>
     </LinearLayout>

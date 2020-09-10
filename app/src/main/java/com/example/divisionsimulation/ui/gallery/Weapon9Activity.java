@@ -66,7 +66,8 @@ public class Weapon9Activity extends AppCompatActivity {
                 txtWeapon.setText(weapon);
                 txtLocation.setText(location);
                 txtTalent.setText(talent);
-                txtContent.setText(content);
+                if (content.equals("-")) txtContent.setVisibility(View.GONE);
+                else txtContent.setText(content);
 
                 mainLayout.addView(view);
             }

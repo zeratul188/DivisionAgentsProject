@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -1062,7 +1063,7 @@ public class ShareFragment extends Fragment {
         final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
         final TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
         final Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
-        final LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+        final FrameLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
         //final ImageView[] imgOption = new ImageView[3];
         //final TableRow trOption = dialogView.findViewById(R.id.trOption);
         final Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\

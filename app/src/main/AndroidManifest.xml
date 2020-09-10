@@ -31,8 +31,6 @@
         <activity android:name=".ui.home.SimulActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".ui.gallery.Weapon8Activity"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.Weapon9Activity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.Weapon10Activity"
@@ -46,8 +44,6 @@
         <activity android:name=".ui.slideshow.SheldExoticListActivity"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".ui.gallery.WeaponActivity"
-            android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.WeaponListActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.gallery.WeaponExoticListActivity"

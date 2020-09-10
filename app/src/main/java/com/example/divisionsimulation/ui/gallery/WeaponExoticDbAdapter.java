@@ -7,6 +7,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.io.InputStream;
+
+import jxl.Sheet;
+import jxl.Workbook;
 
 import static android.content.ContentValues.TAG;
 
@@ -45,14 +51,17 @@ public class WeaponExoticDbAdapter {
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
+        Context mCtx = null;
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            mCtx = context;
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
+            copyExcelDataToDatabase(db);
         }
 
         @Override
@@ -61,6 +70,67 @@ public class WeaponExoticDbAdapter {
                     + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS EXOTICWEAPON");
             onCreate(db);
+        }
+
+        private void copyExcelDataToDatabase(SQLiteDatabase db) {
+            Log.w("ExcelToDatabase", "copyExcelDataToDatabase()");
+
+            Workbook workbook = null;
+            Sheet sheet = null;
+
+            try {
+                InputStream is = mCtx.getResources().getAssets().open("weaponexotic.xls");
+                workbook = Workbook.getWorkbook(is);
+
+                if (workbook != null) {
+                    sheet = workbook.getSheet(0);
+                    if (sheet != null) {
+                        int nMaxColumn = 12;
+                        int nRowStartIndex = 0;
+                        int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
+                        int nColumnStartIndex = 0;
+                        int nColumnEndIndex = sheet.getRow(1).length - 1;
+                        ContentValues[] values = new ContentValues[nRowEndIndex+1];
+
+                        for (int nRow = nRowStartIndex; nRow <= nRowEndIndex; nRow++) {
+                            String name = sheet.getCell(nColumnStartIndex, nRow).getContents();
+                            String option = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
+                            String rpm = sheet.getCell(nColumnStartIndex+2, nRow).getContents();
+                            String reloadtime = sheet.getCell(nColumnStartIndex+3, nRow).getContents();
+                            String mag = sheet.getCell(nColumnStartIndex+4, nRow).getContents();
+                            String firemethod = sheet.getCell(nColumnStartIndex+5, nRow).getContents();
+                            String item = sheet.getCell(nColumnStartIndex+6, nRow).getContents();
+                            String talent = sheet.getCell(nColumnStartIndex+7, nRow).getContents();
+                            String talentcontent = sheet.getCell(nColumnStartIndex+8, nRow).getContents();
+                            String droped = sheet.getCell(nColumnStartIndex+9, nRow).getContents();
+                            String content = sheet.getCell(nColumnStartIndex+10, nRow).getContents();
+                            String type = sheet.getCell(nColumnStartIndex+11, nRow).getContents();
+
+                            values[nRow] = new ContentValues();
+                            values[nRow].put(KEY_NAME, name);
+                            values[nRow].put(KEY_OPTION, option);
+                            values[nRow].put(KEY_RPM, rpm);
+                            values[nRow].put(KEY_RELOADTIME, reloadtime);
+                            values[nRow].put(KEY_MAG, mag);
+                            values[nRow].put(KEY_FIREMETHOD, firemethod);
+                            values[nRow].put(KEY_ITEM, item);
+                            values[nRow].put(KEY_TALENT, talent);
+                            values[nRow].put(KEY_TALENTCONTENT, talentcontent);
+                            values[nRow].put(KEY_DROPED, droped);
+                            values[nRow].put(KEY_CONTENT, content);
+                            values[nRow].put(KEY_TYPE, type);
+
+                            db.insert(DATABASE_TABLE, null, values[nRow]);
+                        }
+
+                        //Toast.makeText(getApplicationContext(), "불러오기 성공", Toast.LENGTH_SHORT).show();
+                    } else System.out.println("Sheet is null!!!");
+                } else System.out.println("WorkBook is null!!!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (workbook != null) workbook.close();
+            }
         }
     }
 

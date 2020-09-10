@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,47 +27,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btnSheldoption1"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="네임드 보호장구"
-                        android:textSize="18sp"
-                        android:textColor="#aaaaaa"
-                        android:drawableTop="@drawable/namedlogocustom"
-                        android:drawablePadding="5dp"
-                        android:background="@drawable/buttonnobackcustom"
-                        android:layout_marginBottom="10dp"/>
-                    <Button
-                        android:id="@+id/btnTalent"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="특수 효과"
-                        android:textSize="18sp"
-                        android:textColor="#aaaaaa"
-                        android:drawableTop="@drawable/ic_library_books_black_40dp"
-                        android:drawablePadding="5dp"
-                        android:background="@drawable/buttonnobackcustom"
-                        android:layout_marginBottom="10dp"/>
-                    <Button
-                        android:id="@+id/btnSheldoption2"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="특수 장비"
-                        android:textSize="18sp"
-                        android:textColor="#aaaaaa"
-                        android:drawableTop="@drawable/exoticdropcustom"
-                        android:drawablePadding="5dp"
-                        android:background="@drawable/buttonnobackcustom"
-                        android:layout_marginBottom="20dp"/>
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnSheldoption1"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/mainbuttonhub"
+                    android:layout_gravity="center"
+                    android:text="네임드 보호장구"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#fe6e0e"/>
+                <Button
+                    android:id="@+id/btnTalent"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/mainbuttonhub"
+                    android:layout_gravity="center"
+                    android:text="특수 효과"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#fe6e0e"/>
+                <Button
+                    android:id="@+id/btnSheldoption2"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/mainbuttonhub"
+                    android:layout_gravity="center"
+                    android:text="특수 장비"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="#fe6e0e"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

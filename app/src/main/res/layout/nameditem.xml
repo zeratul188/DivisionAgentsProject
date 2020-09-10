@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="[Named Name]"
             android:textColor="#fdae13"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:layout_marginBottom="5dp"/>
 
         <TableLayout
@@ -31,7 +31,7 @@
             <TableRow>
                 <TextView
                     android:text="기반 무기 : "
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#cdcdcd"
                     android:gravity="right"/>
                 <TextView
@@ -39,13 +39,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="[Weapon Name]"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"/>
             </TableRow>
             <TableRow>
                 <TextView
                     android:text="획득처 : "
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#cdcdcd"
                     android:gravity="right"/>
                 <TextView
@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="[Weapon Location]"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="#f0f0f0"/>
             </TableRow>
         </TableLayout>
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:text="[Named Talent]"
             android:textColor="#aafdae13"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"/>
         <TextView
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="[Named Talent Content]"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="#f0f0f0"
             android:layout_marginLeft="15dp"/>
     </LinearLayout>
