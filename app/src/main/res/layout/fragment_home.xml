@@ -458,7 +458,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="확장팩 이전 특수효과"
                                 android:textSize="18sp"
-                                android:buttonTint="#fe6e0e"
+                                android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                 android:textColor="#aaaaaa"/>
                             <LinearLayout
                                 android:id="@+id/layoutUndo"
@@ -473,7 +475,9 @@
                                     android:layout_height="wrap_content"
                                     android:text="광분 여부 (잃은 방어도 20% 마다 무기 데미지 10% 증가)"
                                     android:textSize="18sp"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioGroup
                                     android:id="@+id/rgCrazy"
@@ -488,7 +492,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 0 (dmg +0%, 방어도 80% 초과)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -496,7 +502,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 1(무기 데미지 +10%, 방어도 60% 초과 80% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -504,7 +512,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 2(무기 데미지 +20%, 방어도 40% 초과 60% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -512,7 +522,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 3(무기 데미지 +30%, 방어도 20% 초과 40% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -520,7 +532,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 4(무기 데미지 +40%, 방어도 0% 초과 20% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -528,7 +542,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 5(무기 데미지 +50%, 방어도 0%)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </RadioGroup>
@@ -537,7 +553,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="감시병 여부 (펄스 강조된 데미지 20% 증가)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -545,7 +563,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="불꽃 여부 (폭발물 데미지가 들어갈 경우 무기 데미지 +20%)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -553,7 +573,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="무자비 수납(5% 확률로 무기데미지 +100% 증가된 폭발탄)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -561,7 +583,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="집념 효과 여부(무기 데미지 +35%)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -569,7 +593,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="빠른손 여부 (치명타 적중 시 재장전 시간 5% 감소)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -577,7 +603,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="부메랑 여부 (치명타 적중 후 50% 확률로 다음 탄 데미지가 무기 데미지의 100% 증가)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -585,7 +613,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="중압감 여부 (방어도 10% 잃을 때마다 치명타 데미지 5% 증가)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioGroup
@@ -601,7 +631,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 0 (치명타 데미지 +0%, 방어도 90% 초과)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -609,7 +641,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 1 (치명타 데미지 +5%, 방어도 80% 초과 90% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -617,7 +651,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 2 (치명타 데미지 +10%, 방어도 70% 초과 80% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -625,7 +661,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 3 (치명타 데미지 +15%, 방어도 60% 초과 70% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -633,7 +671,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 4 (치명타 데미지 +20%, 방어도 50% 초과 60% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -641,7 +681,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 5 (치명타 데미지 25%, 방어도 40% 초과 50% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -649,7 +691,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 6 (치명타 데미지 +30%, 방어도 30% 초과 40% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -657,7 +701,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 7 (치명타 데미지 +35%, 방어도 20% 초과 30% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -665,7 +711,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 8 (치명타 데미지 +40%, 방어도 10% 초과 20% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -673,7 +721,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 9 (치명타 데미지 +45%, 방어도 0% 초과 10% 이하)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                     <RadioButton
@@ -681,7 +731,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Revel 10 (치명타 데미지 +50%, 방어도 0%)"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textSize="18sp"
                                         android:textColor="#aaaaaa"/>
                                 </RadioGroup>
@@ -690,7 +742,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="카멜레온 여부"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -736,7 +790,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="완벽한 근접전의 대가 (+무기 데미지 50%)"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                             </LinearLayout>
@@ -747,7 +803,10 @@
                                 android:layout_height="wrap_content"
                                 android:text="확장팩 특수효과"
                                 android:textSize="18sp"
-                                android:buttonTint="#fe6e0e"
+                                android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
+                                android:layout_marginTop="5dp"
                                 android:textColor="#aaaaaa"/>
                             <LinearLayout
                                 android:id="@+id/layoutAfter"
@@ -767,7 +826,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="집중"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -799,7 +860,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="유리 대포"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -825,7 +888,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="공감의 결의"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <Spinner
@@ -840,7 +905,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="경계 태세"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -853,7 +920,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="위협 전술"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -874,7 +943,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="절멸"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -882,7 +953,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="사악함"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -890,7 +963,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="동지애"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -898,7 +973,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="태연자약"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -911,7 +988,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="무적의 부대"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <Spinner
@@ -931,7 +1010,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="팔방미인"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <Spinner
@@ -946,7 +1027,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="경계"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -954,7 +1037,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="킬러"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -967,7 +1052,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="새디스트 / 맹인 / 점화"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -993,7 +1080,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="낙천주의자"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1019,7 +1108,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="앙심"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1045,7 +1136,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="레인저"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1085,7 +1178,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="소총수"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1111,7 +1206,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="뜻밖의 행운"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1132,7 +1229,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="연속 타격"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -1140,7 +1239,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="불안정"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -1153,7 +1254,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="압도적인 화력"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1179,7 +1282,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="동기화"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <CheckBox
@@ -1212,7 +1317,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="죽음의 귀부인 - 안도의 호흡"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -1220,7 +1327,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="사마귀 - 등잔 밑"
-                                    android:buttonTint="#fe6e0e"
+                                    android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -1233,7 +1342,9 @@
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:text="코요태 마스크"
-                                        android:buttonTint="#fe6e0e"
+                                        android:button="@drawable/checkboxhub"
+                                android:layout_marginBottom="5dp"
+                                android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"/>
                                     <LinearLayout
