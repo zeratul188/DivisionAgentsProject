@@ -46,18 +46,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TableRow
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="20dp">
                         <Button
                             android:id="@+id/btnWeapon"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="무기 (100)"
-                            android:textSize="22sp"
+                            android:text="무기\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenweapon"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -66,27 +67,29 @@
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="보조 무기 (100)"
-                            android:textSize="22sp"
+                            android:text="보조 무기\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invensubweapon"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
                     <TableRow
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="20dp">
                         <Button
                             android:id="@+id/btnMask"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="마스크 (100)"
-                            android:textSize="22sp"
+                            android:text="마스크\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenmask"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -95,27 +98,29 @@
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="백팩 (100)"
-                            android:textSize="22sp"
+                            android:text="백팩\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenbackpack"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
                     <TableRow
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="20dp">
                         <Button
                             android:id="@+id/btnVest"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="조끼 (100)"
-                            android:textSize="22sp"
+                            android:text="조끼\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenvest"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -124,11 +129,12 @@
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="장갑 (100)"
-                            android:textSize="22sp"
+                            android:text="장갑\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenglove"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>
@@ -139,11 +145,12 @@
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="권총집 (100)"
-                            android:textSize="22sp"
+                            android:text="권총집\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenholster"
                             android:layout_marginRight="5dp"/>
                         <Button
@@ -152,11 +159,12 @@
                             android:layout_weight="1"
                             android:layout_height="130dp"
                             android:gravity="center"
-                            android:text="무릎보호대 (100)"
-                            android:textSize="22sp"
+                            android:text="무릎보호대\n(100)"
+                            android:textSize="18sp"
                             android:paddingTop="20dp"
+                            android:drawablePadding="-20dp"
                             android:textColor="#aaaaaa"
-                            android:background="@drawable/buttonnobackcustom"
+                            android:background="@drawable/itembuttoncustom"
                             android:drawableTop="@drawable/invenkneeped"
                             android:layout_marginLeft="5dp"/>
                     </TableRow>

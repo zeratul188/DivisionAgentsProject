@@ -47,7 +47,7 @@
                 android:drawableTop="@drawable/ic_close_black_24dp"/>
         </LinearLayout>
         <FrameLayout
-            android:id="@+id/tableMain"
+            android:id="@+id/layoutFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/dialoglayoutcustom">
@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
+                    android:id="@+id/tableMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

@@ -57,7 +57,7 @@ public class SendFragment extends Fragment {
 
     private ListView listWeapon, listSheld, listExotic;
     private RadioGroup rgWeapon, rgSheld, rgType;
-    //private RadioButton rdoWeaponType, rdoSheldType, rdoExoticType;
+    private RadioButton rdoWeaponType, rdoSheldType, rdoExoticType;
     private RadioButton[] rdoWeapon = new RadioButton[7];
     private RadioButton[] rdoSheld = new RadioButton[6];
     private LinearLayout layoutWeapon, layoutSheld, layoutExotic;
@@ -180,6 +180,9 @@ public class SendFragment extends Fragment {
         layoutSheld = root.findViewById(R.id.layoutSheld);
         layoutExotic = root.findViewById(R.id.layoutExotic);
         btnMaterialList = root.findViewById(R.id.btnMaterialList);
+        rdoWeaponType = root.findViewById(R.id.rdoWeaponType);
+        rdoSheldType = root.findViewById(R.id.rdoSheldType);
+        rdoExoticType = root.findViewById(R.id.rdoExoticType);
 
         int resource;
         for (int i = 0; i < rdoWeapon.length; i++) {
@@ -198,6 +201,9 @@ public class SendFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rdoWeaponType:
+                        rdoWeaponType.setTextColor(Color.parseColor("#fe6e0e"));
+                        rdoExoticType.setTextColor(Color.parseColor("#aaaaaa"));
+                        rdoSheldType.setTextColor(Color.parseColor("#aaaaaa"));
                         layoutWeapon.setVisibility(View.VISIBLE);
                         layoutSheld.setVisibility(View.GONE);
                         layoutExotic.setVisibility(View.GONE);
@@ -205,6 +211,9 @@ public class SendFragment extends Fragment {
                         weaponInterface();
                         break;
                     case R.id.rdoSheldType:
+                        rdoWeaponType.setTextColor(Color.parseColor("#aaaaaa"));
+                        rdoExoticType.setTextColor(Color.parseColor("#aaaaaa"));
+                        rdoSheldType.setTextColor(Color.parseColor("#fe6e0e"));
                         layoutWeapon.setVisibility(View.GONE);
                         layoutSheld.setVisibility(View.VISIBLE);
                         layoutExotic.setVisibility(View.GONE);
@@ -212,6 +221,9 @@ public class SendFragment extends Fragment {
                         sheldInterface();
                         break;
                     case R.id.rdoExoticType:
+                        rdoWeaponType.setTextColor(Color.parseColor("#aaaaaa"));
+                        rdoExoticType.setTextColor(Color.parseColor("#fe6e0e"));
+                        rdoSheldType.setTextColor(Color.parseColor("#aaaaaa"));
                         layoutWeapon.setVisibility(View.GONE);
                         layoutSheld.setVisibility(View.GONE);
                         layoutExotic.setVisibility(View.VISIBLE);

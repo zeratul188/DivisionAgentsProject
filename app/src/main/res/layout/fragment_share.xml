@@ -48,78 +48,78 @@
                                 <RadioButton
                                     android:id="@+id/rdoDif1"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="50dp"
                                     android:text="스토리/보통"
                                     android:textSize="18sp"
-                                    android:drawableLeft="@drawable/difficulty1"
+                                    android:drawableLeft="@drawable/diff1custom"
                                     android:drawablePadding="10dp"
-                                    android:textColor="#f0f0f0"
+                                    android:textColor="#fe6e0e"
                                     android:checked="true"
                                     android:button="@null"
-                                    android:background="@drawable/radiocustom"
-                                    android:paddingLeft="15dp"
-                                    android:paddingRight="15dp"
+                                    android:background="@drawable/radiolongimagecustom"
+                                    android:paddingLeft="70dp"
+                                    android:paddingRight="70dp"
                                     android:textAlignment="center"
                                     android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif2"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="50dp"
                                     android:button="@null"
-                                    android:background="@drawable/radiocustom"
-                                    android:paddingLeft="15dp"
-                                    android:paddingRight="15dp"
+                                    android:background="@drawable/radiolongimagecustom"
+                                    android:paddingLeft="70dp"
+                                    android:paddingRight="70dp"
                                     android:text="어려움"
-                                    android:drawableLeft="@drawable/difficulty2"
+                                    android:drawableLeft="@drawable/diff2custom"
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
-                                    android:textColor="#f0f0f0"
+                                    android:textColor="#aaaaaa"
                                     android:textAlignment="center"
                                     android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif3"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="50dp"
                                     android:button="@null"
-                                    android:background="@drawable/radiocustom"
-                                    android:paddingLeft="15dp"
-                                    android:paddingRight="15dp"
+                                    android:background="@drawable/radiolongimagecustom"
+                                    android:paddingLeft="70dp"
+                                    android:paddingRight="70dp"
                                     android:text="매우 어려움"
-                                    android:drawableLeft="@drawable/difficulty3"
+                                    android:drawableLeft="@drawable/diff3custom"
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
-                                    android:textColor="#f0f0f0"
+                                    android:textColor="#aaaaaa"
                                     android:textAlignment="center"
                                     android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif4"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="50dp"
                                     android:button="@null"
-                                    android:background="@drawable/radiocustom"
-                                    android:paddingLeft="15dp"
-                                    android:paddingRight="15dp"
+                                    android:background="@drawable/radiolongimagecustom"
+                                    android:paddingLeft="70dp"
+                                    android:paddingRight="70dp"
                                     android:text="영웅"
-                                    android:drawableLeft="@drawable/difficulty4"
+                                    android:drawableLeft="@drawable/diff4custom"
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
-                                    android:textColor="#f0f0f0"
+                                    android:textColor="#aaaaaa"
                                     android:textAlignment="center"
                                     android:layout_marginBottom="10dp"/>
                                 <RadioButton
                                     android:id="@+id/rdoDif5"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="50dp"
                                     android:button="@null"
-                                    android:background="@drawable/radiocustom"
-                                    android:paddingLeft="15dp"
-                                    android:paddingRight="15dp"
+                                    android:background="@drawable/radiolongimagecustom"
+                                    android:paddingLeft="70dp"
+                                    android:paddingRight="70dp"
                                     android:text="전설"
-                                    android:drawableLeft="@drawable/difficulty5"
+                                    android:drawableLeft="@drawable/diff5custom"
                                     android:drawablePadding="10dp"
                                     android:textSize="18sp"
                                     android:textAlignment="center"
-                                    android:textColor="#f0f0f0"/>
+                                    android:textColor="#aaaaaa"/>
                             </RadioGroup>
                         </LinearLayout>
                     </ScrollView>
@@ -132,7 +132,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnLitezone"
                                     android:layout_width="0dp"
@@ -142,8 +142,9 @@
                                     android:text="라이트존"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm1"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -155,24 +156,26 @@
                                     android:text="다크존"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm2"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnLitenamed"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="라이트존 네임드"
+                                    android:text="라이트존\n네임드"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/litenamed"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -181,27 +184,29 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="다크존 네임드"
+                                    android:text="다크존\n네임드"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/darknamed"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnRaid"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="칠흑의 시간"
+                                    android:text="칠흑의\n시간"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm3"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -210,16 +215,17 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="칠흑의 시간 박스"
+                                    android:text="칠흑의 시간\n박스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm4"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnIronHorse"
                                     android:layout_width="0dp"
@@ -229,8 +235,9 @@
                                     android:text="철마 작전"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/ironhorse"
                                     android:layout_marginRight="5dp"/>
                                 <Button
@@ -242,13 +249,14 @@
                                     android:text="철마 작전 박스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm4"
                                     android:layout_marginLeft="5dp"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnTruesun"
                                     android:layout_width="0dp"
@@ -258,9 +266,10 @@
                                     android:text="트루썬 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm5"/>
                                 <Button
                                     android:id="@+id/btnLastBoss"
@@ -268,16 +277,17 @@
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="전설 난이도 보스"
+                                    android:text="전설 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm6"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnDragov"
                                     android:layout_width="0dp"
@@ -287,9 +297,10 @@
                                     android:text="라이커 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm7"/>
                                 <Button
                                     android:id="@+id/btnBox"
@@ -300,13 +311,14 @@
                                     android:text="팩션 상자"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm8"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnKoyotae"
                                     android:layout_width="0dp"
@@ -316,9 +328,10 @@
                                     android:text="코요태 처치"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/hya"/>
                                 <Button
                                     android:id="@+id/btnCleaners"
@@ -329,25 +342,27 @@
                                     android:text="클리너 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/cleaner"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnNewYork"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="뉴욕 필드 보스"
+                                    android:text="뉴욕 보스"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm9"/>
                                 <Button
                                     android:id="@+id/btnDropBox"
@@ -358,25 +373,27 @@
                                     android:text="다크존 보급품"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm10"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnNamed"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="네임드 장비 상자"
+                                    android:text="네임드 상자"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginRight="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm8"/>
                                 <Button
                                     android:id="@+id/btnExotic"
@@ -387,24 +404,26 @@
                                     android:text="특급 상자"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
                                     android:layout_marginLeft="5dp"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm8"/>
                             </TableRow>
                             <TableRow
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="20dp">
                                 <Button
                                     android:id="@+id/btnLevelBox"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="130dp"
                                     android:gravity="center"
-                                    android:text="현장 숙달 상자 (0)"
+                                    android:text="현장 숙달 상자\n(0)"
                                     android:textSize="18sp"
                                     android:paddingTop="20dp"
+                                    android:drawablePadding="-20dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"
+                                    android:background="@drawable/itembuttoncustom"
                                     android:drawableTop="@drawable/fm8"/>
                                 <Button
                                     android:id="@+id/btnMission"
@@ -413,10 +432,11 @@
                                     android:layout_height="130dp"
                                     android:text="미션 완료"
                                     android:drawableTop="@drawable/ic_mission_done_40dp"
+                                    android:paddingTop="20dp"
+                                    android:drawablePadding="-30dp"
                                     android:textSize="20sp"
-                                    android:padding="10dp"
                                     android:textColor="#aaaaaa"
-                                    android:background="@drawable/buttonnobackcustom"/>
+                                    android:background="@drawable/itembuttoncustom"/>
                             </TableRow>
                         </TableLayout>
                         <LinearLayout
@@ -1062,24 +1082,26 @@
                                 android:id="@+id/btnItemList"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="130dp"
                                 android:text="아이템 목록"
                                 android:textSize="18sp"
-                                android:padding="10dp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
                                 android:textColor="#f0f0f0"
                                 android:layout_marginBottom="10dp"
-                                android:background="@drawable/buttonnobackcustom"
+                                android:background="@drawable/itembuttoncustom"
                                 android:drawableTop="@drawable/list"/>
                             <Button
                                 android:id="@+id/btnMaterialList"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
-                                android:layout_height="wrap_content"
+                                android:layout_height="130dp"
                                 android:text="재료 확인"
                                 android:textSize="18sp"
-                                android:padding="10dp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
                                 android:textColor="#f0f0f0"
-                                android:background="@drawable/buttonnobackcustom"
+                                android:background="@drawable/itembuttoncustom"
                                 android:drawableTop="@drawable/inven"/>
                         </LinearLayout>
                     </LinearLayout>

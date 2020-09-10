@@ -244,14 +244,14 @@ public class ToolsFragment extends Fragment {
         weapons += inventoryDBAdapter.getTypeCount("기관단총");
         weapons += inventoryDBAdapter.getTypeCount("산탄총");
         weapons += inventoryDBAdapter.getTypeCount("지정사수소총");
-        btnWeapon.setText("무기 ("+weapons+")");
-        btnSubWeapon.setText("보조 무기 ("+inventoryDBAdapter.getTypeCount("권총")+")");
-        btnMask.setText("마스크 ("+inventoryDBAdapter.getTypeCount("마스크")+")");
-        btnBackpack.setText("백팩 ("+inventoryDBAdapter.getTypeCount("백팩")+")");
-        btnVest.setText("조끼 ("+inventoryDBAdapter.getTypeCount("조끼")+")");
-        btnGlove.setText("장갑 ("+inventoryDBAdapter.getTypeCount("장갑")+")");
-        btnHolster.setText("권총집 ("+inventoryDBAdapter.getTypeCount("권총집")+")");
-        btnKneeped.setText("무릎보호대 ("+inventoryDBAdapter.getTypeCount("무릎보호대")+")");
+        btnWeapon.setText("무기 \n("+weapons+")");
+        btnSubWeapon.setText("보조 무기 \n("+inventoryDBAdapter.getTypeCount("권총")+")");
+        btnMask.setText("마스크 \n("+inventoryDBAdapter.getTypeCount("마스크")+")");
+        btnBackpack.setText("백팩 \n("+inventoryDBAdapter.getTypeCount("백팩")+")");
+        btnVest.setText("조끼 \n("+inventoryDBAdapter.getTypeCount("조끼")+")");
+        btnGlove.setText("장갑 \n("+inventoryDBAdapter.getTypeCount("장갑")+")");
+        btnHolster.setText("권총집 \n("+inventoryDBAdapter.getTypeCount("권총집")+")");
+        btnKneeped.setText("무릎보호대 \n("+inventoryDBAdapter.getTypeCount("무릎보호대")+")");
         inventoryDBAdapter.close();
     }
 }

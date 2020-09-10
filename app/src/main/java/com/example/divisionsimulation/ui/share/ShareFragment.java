@@ -811,7 +811,7 @@ public class ShareFragment extends Fragment {
         shdAdapter.open();
         int box = shdAdapter.getBoxCount();
         shdAdapter.close();
-        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+        btnLevelBox.setText("현장 숙달 상자\n("+box+")");
 
         btnIronHorse = root.findViewById(R.id.btnIronHorse);
         btnIronHorseBox = root.findViewById(R.id.btnIronHorseBox);
@@ -859,7 +859,7 @@ public class ShareFragment extends Fragment {
                             shdAdapter.open();
                             int box = shdAdapter.getBoxCount();
                             shdAdapter.close();
-                            btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+                            btnLevelBox.setText("현장 숙달 상자\n("+box+")");
                         }
                     });
 
@@ -984,6 +984,13 @@ public class ShareFragment extends Fragment {
         rgDifficulty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) { //난이도를 선택할 때마다 작동
+                for (int i = 0; i < rdoDiff.length; i++) {
+                    if (rdoDiff[i].isChecked()) {
+                        rdoDiff[i].setTextColor(Color.parseColor("#fe6e0e"));
+                    } else {
+                        rdoDiff[i].setTextColor(Color.parseColor("#aaaaaa"));
+                    }
+                }
                 switch (checkedId) {
                     case R.id.rdoDif1: //스토리/보통
                         bonus = 0; //보너스 드랍 확률
@@ -1035,6 +1042,7 @@ public class ShareFragment extends Fragment {
                         btnKoyotae.setEnabled(true);
                         btnCleaners.setEnabled(true);
                         btnDarkNamed.setEnabled(true);
+                        btnLitenamed.setEnabled(true);
                         break;
                     case R.id.rdoDif5:
                         btnLastBoss.setEnabled(true);
@@ -1051,6 +1059,7 @@ public class ShareFragment extends Fragment {
                         btnKoyotae.setEnabled(false);
                         btnCleaners.setEnabled(false);
                         btnDarkNamed.setEnabled(false);
+                        btnLitenamed.setEnabled(false);
                         break;
                 }
             }
@@ -1063,7 +1072,8 @@ public class ShareFragment extends Fragment {
         final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
         final TextView txtType = dialogView.findViewById(R.id.txtType); //장비 종류
         final Button btnChange = dialogView.findViewById(R.id.btnChange); //특급, 네임드일 경우 내용을 바로 보여주지 않고 이 버튼으로 누르면 보여주도록 해준다.
-        final FrameLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+        final LinearLayout tableMain = dialogView.findViewById(R.id.tableMain); //내용이 들어있는 테이블 레이아웃
+        final FrameLayout layoutFrame = dialogView.findViewById(R.id.layoutFrame);
         //final ImageView[] imgOption = new ImageView[3];
         //final TableRow trOption = dialogView.findViewById(R.id.trOption);
         final Button btnExit = dialogView.findViewById(R.id.btnExit); //닫기 버튼\
@@ -1293,7 +1303,8 @@ public class ShareFragment extends Fragment {
                 if (openSheld) layoutSheld.setVisibility(View.VISIBLE); //드랍된 장비가 보호장구일 경우 보호장구 레이아웃을 보여준다.
                 else layoutSheld.setVisibility(View.GONE); //드랍된 장비가 보호장구가 아닐 경우 보호장구 레이아웃을 숨긴다.
                 tableMain.setVisibility(View.VISIBLE); //아이템 정보를 공개한다.
-                btnChange.setVisibility(View.GONE); //버튼은 보이지 않게 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE);
                 layoutTalentButton.setVisibility(View.VISIBLE);
             }
         });
@@ -1633,7 +1644,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -1657,7 +1669,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -1732,7 +1745,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -1872,6 +1886,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -2573,7 +2588,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -2597,7 +2613,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -2672,7 +2689,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -2812,6 +2830,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -3511,7 +3530,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -3535,7 +3555,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -3610,7 +3631,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -3750,6 +3772,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -4448,7 +4471,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -4472,7 +4496,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -4546,6 +4571,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -5245,7 +5271,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -5269,7 +5296,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -5351,7 +5379,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -5490,6 +5519,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -6189,7 +6219,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -6213,7 +6244,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -6295,7 +6327,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -6434,6 +6467,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -7133,7 +7167,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -7157,7 +7192,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -7239,7 +7275,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -7378,6 +7415,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -8077,7 +8115,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -8102,7 +8141,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -8241,6 +8281,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -8942,7 +8983,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -8967,7 +9009,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -9106,6 +9149,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -9806,7 +9850,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -9831,7 +9876,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -9970,6 +10016,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -10666,7 +10713,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -10690,7 +10738,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -10772,7 +10821,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -10911,6 +10961,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -11607,7 +11658,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -11631,7 +11683,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -11706,7 +11759,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -11845,6 +11899,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -12545,7 +12600,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -12569,7 +12625,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                      //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -12651,7 +12708,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                      //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -12790,6 +12848,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
                     
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -13490,7 +13549,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -13514,7 +13574,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -13595,6 +13656,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -14294,7 +14356,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -14318,7 +14381,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -14400,7 +14464,8 @@ public class ShareFragment extends Fragment {
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                     layoutTalentButton.setVisibility(View.GONE);
-                    btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                     //버튼 텍스트를 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                     exoticDBAdpater.open();
@@ -14539,6 +14604,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -15239,7 +15305,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -15263,7 +15330,8 @@ public class ShareFragment extends Fragment {
                     setInterface(); //UI에 변경된 내용을 업데이트한다.
                     txtSpecial.setText(Integer.toString(special)); //특급 갯수 텍스트뷰에 변경된 특급 갯수를 업데이트한다.
                     tableMain.setVisibility(View.GONE); //아이템 내용 레이아웃은 숨긴다.
-                    btnChange.setVisibility(View.VISIBLE); //아이템 보기 버튼을 보이게 한다.
+                    btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //아이템 보기 버튼을 보이게 한다.
                     layoutTalentButton.setVisibility(View.GONE);
                     //버튼의 이름을 "특급"으로 바꾼다.
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼의 배경을 바꾼다. 주황색 계열로 바꾸게 된다.
@@ -15344,6 +15412,7 @@ public class ShareFragment extends Fragment {
                     tableMain.setVisibility(View.GONE);
                     layoutTalentButton.setVisibility(View.GONE);
                     btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                     btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                     if (percent(1, 2) == 1) { //weapon
@@ -16042,7 +16111,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -16065,6 +16135,7 @@ public class ShareFragment extends Fragment {
                 tableMain.setVisibility(View.GONE);
                 layoutTalentButton.setVisibility(View.GONE);
                 btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                 btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                 if (percent(1, 2) == 1) { //weapon
@@ -16392,7 +16463,8 @@ public class ShareFragment extends Fragment {
                 tableMain.setBackgroundResource(R.drawable.rareitem);
                 String temp_option; //옵션 이름
                 tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                 openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                 openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                 layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -16415,7 +16487,8 @@ public class ShareFragment extends Fragment {
                 txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                 tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                 layoutTalentButton.setVisibility(View.GONE);
-                btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                 //버튼 텍스트를 바꾼다.
                 btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                 exoticDBAdpater.open();
@@ -16594,7 +16667,7 @@ public class ShareFragment extends Fragment {
                 if (box > 0) {
                     shdAdapter.downBox();
                     box--;
-                    btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+                    btnLevelBox.setText("현장 숙달 상자\n("+box+")");
                     String item_name, item_type, item_talent = "";
                     String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                     String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -16613,7 +16686,8 @@ public class ShareFragment extends Fragment {
                     tableMain.setBackgroundResource(R.drawable.rareitem);
                     String temp_option; //옵션 이름
                     tableMain.setVisibility(View.VISIBLE); //옵션 내용은 보이게 한다.
-                    btnChange.setVisibility(View.GONE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
+                    btnChange.setVisibility(View.GONE);
+                    layoutFrame.setVisibility(View.VISIBLE); //특급, 네임드일 경우 나타나는 버튼은 숨긴다.
                     openSheld = false; //드랍된 장비가 보호장구일 경우 true가 된다.
                     openWeapon = false; //드랍된 장비가 무기였을 경우 true가 된다.
                     layoutSheld.setVisibility(View.GONE); //보호장구 옵션 레이아웃을 숨긴다.
@@ -16638,7 +16712,8 @@ public class ShareFragment extends Fragment {
                         txtSpecial.setText(Integer.toString(special)); //특급 갯수를 업데이트한다.
                         tableMain.setVisibility(View.GONE); //내용을 숨긴다.
                         layoutTalentButton.setVisibility(View.GONE);
-                        btnChange.setVisibility(View.VISIBLE); //특급, 네임드 버튼을 보이게 한다.
+                        btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE); //특급, 네임드 버튼을 보이게 한다.
                         //버튼 텍스트를 바꾼다.
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.exoticdrop)); //버튼 배경을 주황색 계열로 바꾼다.
                         exoticDBAdpater.open();
@@ -16777,6 +16852,7 @@ public class ShareFragment extends Fragment {
                         tableMain.setVisibility(View.GONE);
                         layoutTalentButton.setVisibility(View.GONE);
                         btnChange.setVisibility(View.VISIBLE);
+                    layoutFrame.setVisibility(View.GONE);
 
                         btnChange.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.namedlogo));
                         if (percent(1, 2) == 1) { //weapon
@@ -17527,7 +17603,7 @@ public class ShareFragment extends Fragment {
         shdAdapter.open();
         int box = shdAdapter.getBoxCount();
         shdAdapter.close();
-        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+        btnLevelBox.setText("현장 숙달 상자\n("+box+")");
     }
 
     public void startInterface() {
@@ -17845,6 +17921,6 @@ public class ShareFragment extends Fragment {
         shdAdapter.open();
         int box = shdAdapter.getBoxCount();
         shdAdapter.close();
-        btnLevelBox.setText("현장 숙달 상자 ("+box+")");
+        btnLevelBox.setText("현장 숙달 상자\n("+box+")");
     }
 }
