@@ -2,19 +2,29 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_checked="true">
-        <shape>
+        <layer-list>
+            <item
+                android:drawable="@drawable/selectmenu"
+                android:right="10dp"/>
+        </layer-list>
+        <!--<shape>
             <padding android:left="10dp" android:right="10dp"/>
             <gradient
                 android:angle="0"
                 android:startColor="#aafe6e0e"
                 android:centerColor="#40fe6e0e"
                 android:endColor="#00fe6e0e"/>
-        </shape>
+        </shape>-->
     </item>
 
     <item android:state_checked="false">
-        <shape>
+        <layer-list>
+            <item
+                android:drawable="@drawable/unselectmenu"
+                android:right="10dp"/>
+        </layer-list>
+        <!--<shape>
             <solid android:color="#00ffffff"/>
-        </shape>
+        </shape>-->
     </item>
 </selector>

@@ -1548,19 +1548,35 @@ public class HomeFragment extends Fragment implements Serializable {
 
                         if (chkNamed.isChecked()) {
                             rdoType[2].setChecked(true);
+                            rdoType[2].setTextColor(Color.parseColor("#fe6e0e"));
                             for (int i = 0; i < rdoType.length-1; i++) {
                                 rdoType[i].setEnabled(false);
-                                rdoType[i].setTextColor(Color.parseColor("#444444"));
-                            }
-                        } else {
-                            for (int i = 0; i < rdoType.length-1; i++) {
-                                rdoType[i].setEnabled(true);
-                                rdoType[i].setTextColor(Color.parseColor("#f0f0f0"));
+                                rdoType[i].setTextColor(Color.parseColor("#FF7777"));
                             }
                         }
 
                         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); //다이얼로그를 띄우는 객체이다.
                         builder.setView(dialogView); //다이얼로그 빌더에 dialogView를 넣어 다이얼로그를 보여줄 때 해당 뷰를 보여주게 해준다.
+
+                        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                for (int i = 0; i < rdoType.length; i++) {
+                                    if (rdoType[i].isChecked()) rdoType[i].setTextColor(Color.parseColor("#fe6e0e"));
+                                    else rdoType[i].setTextColor(Color.parseColor("#aaaaaa"));
+                                }
+                            }
+                        });
+
+                        rgPVP.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                for (int i = 0; i < rdoPVP.length; i++) {
+                                    if (rdoPVP[i].isChecked()) rdoPVP[i].setTextColor(Color.parseColor("#fe6e0e"));
+                                    else rdoPVP[i].setTextColor(Color.parseColor("#aaaaaa"));
+                                }
+                            }
+                        });
 
                         edtCluchCritical.addTextChangedListener(new TextWatcher() {
                             @Override
@@ -1596,15 +1612,25 @@ public class HomeFragment extends Fragment implements Serializable {
                             }
                         });
 
+                        chkElite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) chkElite.setTextColor(Color.parseColor("#fe6e0e"));
+                                else chkElite.setTextColor(Color.parseColor("#aaaaaa"));
+                            }
+                        });
+
                         chkPVP.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (chkPVP.isChecked()) {
-                                    chkCluch.setTextColor(Color.parseColor("#f0f0f0"));
+                                    chkCluch.setTextColor(Color.parseColor("#aaaaaa"));
+                                    chkPVP.setTextColor(Color.parseColor("#fe6e0e"));
                                     chkCluch.setEnabled(true);
                                     layoutPVP.setVisibility(View.VISIBLE);
                                 } else {
-                                    chkCluch.setTextColor(Color.parseColor("#444444"));
+                                    chkCluch.setTextColor(Color.parseColor("#FF7777"));
+                                    chkPVP.setTextColor(Color.parseColor("#aaaaaa"));
                                     layoutPVP.setVisibility(View.GONE);
                                     rdoPVP[0].setChecked(true);
                                     if (chkCluch.isChecked()) {

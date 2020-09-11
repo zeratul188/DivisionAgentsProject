@@ -841,6 +841,14 @@ public class InventoryActivity extends AppCompatActivity {
                                 return;
                             }
                         }
+                        makeNamedDBAdapter.open();
+                        if (makeNamedDBAdapter.haveItem(itemList.get(index).getName())) {
+                            if (!makeNamedDBAdapter.haveNoTalentData(itemList.get(index).getName())) {
+                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        makeNamedDBAdapter.close();
                         sheldDBAdapter.open();
                         if (sheldDBAdapter.haveItem(itemList.get(index).getName())) {
                             Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
@@ -1154,6 +1162,7 @@ public class InventoryActivity extends AppCompatActivity {
         int start, end;
         int find_index = 0;
         String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
+        String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
             find_index = 0;
             while(true) {
@@ -1177,6 +1186,12 @@ public class InventoryActivity extends AppCompatActivity {
                 }
             }
         }
+        for (int i = 0; i < numbers.length; i++) {
+            word = numbers[i]; //찾을 문자열에 새로운 특급 장비 이름을 넣는다. 반복문으로 모든 엑조틱과 비교가 된다.
+            start = content.indexOf(word);
+            end = start + word.length();
+            if (start == 0) spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#B18912")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return spannableString;
     }
 
@@ -1184,6 +1199,7 @@ public class InventoryActivity extends AppCompatActivity {
         String result = "";
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         if (index > 0) result = content.substring(index-1, index);
+        else return false;
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i].equals(result)) return true;
         }

@@ -134,8 +134,7 @@
                             android:text="9999999"
                             android:singleLine="true"
                             android:textColor="#bcbcbc"
-                            android:fontFamily="@font/brickshapersfont"
-                            android:textSize="32sp"/>
+                            android:textSize="20sp"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -155,9 +154,8 @@
                             android:layout_height="wrap_content"
                             android:text="9999999"
                             android:singleLine="true"
-                            android:fontFamily="@font/brickshapersfont"
                             android:textColor="#bcbcbc"
-                            android:textSize="32sp"/>
+                            android:textSize="20sp"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -209,8 +207,7 @@
                                 android:text="9999"
                                 android:textColor="#f0f0f0"
                                 android:singleLine="true"
-                                android:fontFamily="@font/brickshapersfont"
-                                android:textSize="32sp"
+                                android:textSize="20sp"
                                 android:layout_gravity="right"
                                 android:layout_marginRight="10dp"/>
                         </LinearLayout>
@@ -277,8 +274,7 @@
                             android:text="9999"
                             android:textColor="#f0f0f0"
                             android:singleLine="true"
-                            android:fontFamily="@font/brickshapersfont"
-                            android:textSize="24sp"/>
+                            android:textSize="16sp"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -326,8 +322,7 @@
                             android:text="0"
                             android:singleLine="true"
                             android:textColor="#f0f0f0"
-                            android:fontFamily="@font/brickshapersfont"
-                            android:textSize="24sp"/>
+                            android:textSize="16sp"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -382,7 +377,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -399,7 +393,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -416,7 +409,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -433,7 +425,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -450,7 +441,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -467,7 +457,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -484,7 +473,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -501,7 +489,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -518,7 +505,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -535,7 +521,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
                 <View
@@ -552,7 +537,6 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="#f0f0f0"
-                    android:fontFamily="@font/korea_font"
                     android:textSize="15sp"
                     android:singleLine="true"/>
             </LinearLayout>
