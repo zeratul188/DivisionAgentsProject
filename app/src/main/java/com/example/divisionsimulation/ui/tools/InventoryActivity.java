@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -140,6 +141,7 @@ public class InventoryActivity extends AppCompatActivity {
                 final ImageView imgSheldEdit2 = dialogView.findViewById(R.id.imgSheldEdit2);
                 final ImageView imgSheldEdit3 = dialogView.findViewById(R.id.imgSheldEdit3);
                 final ImageView imgTalentEdit = dialogView.findViewById(R.id.imgTalentEdit);
+                final ImageView imgFavorite = dialogView.findViewById(R.id.imgFavorite);
 
                 final LinearLayout layoutSheldSub3 = dialogView.findViewById(R.id.layoutSheldSub3);
                 final ImageView imgSSub3 = dialogView.findViewById(R.id.imgSSub3);
@@ -327,6 +329,46 @@ public class InventoryActivity extends AppCompatActivity {
 
                 String end, talent_content;
                 double max, second_max;
+
+                if (itemList.get(position).getFavorite() == 1) {
+                    imgFavorite.setImageResource(R.drawable.ic_star_black_40dp);
+                    btnDestroy.setEnabled(false);
+                    btnDrop.setEnabled(false);
+                    btnDestroy.setTextColor(Color.parseColor("#FF7777"));
+                    btnDrop.setTextColor(Color.parseColor("#FF7777"));
+                } else {
+                    imgFavorite.setImageResource(R.drawable.ic_star_border_black_40dp);
+                    btnDestroy.setEnabled(true);
+                    btnDrop.setEnabled(true);
+                    btnDestroy.setTextColor(Color.parseColor("#FE6E0E"));
+                    btnDrop.setTextColor(Color.parseColor("#AAAAAA"));
+                }
+
+                imgFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inventoryDBAdapter.open();
+                        if (inventoryDBAdapter.isFavorite(itemList.get(position).getRowId())) {
+                            inventoryDBAdapter.updateFavoriteData(itemList.get(position).getRowId(), false);
+                            imgFavorite.setImageResource(R.drawable.ic_star_border_black_40dp);
+                            itemList.get(index).setFavorite(0);
+                            btnDestroy.setEnabled(true);
+                            btnDrop.setEnabled(true);
+                            btnDestroy.setTextColor(Color.parseColor("#FE6E0E"));
+                            btnDrop.setTextColor(Color.parseColor("#AAAAAA"));
+                        } else {
+                            inventoryDBAdapter.updateFavoriteData(itemList.get(position).getRowId(), true);
+                            imgFavorite.setImageResource(R.drawable.ic_star_black_40dp);
+                            itemList.get(index).setFavorite(1);
+                            btnDestroy.setEnabled(false);
+                            btnDrop.setEnabled(false);
+                            btnDestroy.setTextColor(Color.parseColor("#FF7777"));
+                            btnDrop.setTextColor(Color.parseColor("#FF7777"));
+                        }
+                        inventoryDBAdapter.close();
+                        itemAdapter.notifyDataSetChanged();
+                    }
+                });
 
                 if (weaponed) {
                     if (itemList.get(position).isEdit1()) imgWeaponEdit1.setVisibility(View.VISIBLE);
@@ -892,6 +934,12 @@ public class InventoryActivity extends AppCompatActivity {
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        itemAdapter.notifyDataSetChanged();
+                    }
+                });
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
@@ -903,6 +951,7 @@ public class InventoryActivity extends AppCompatActivity {
         long rowId;
         double core1_value, core2_value, sub1_value, sub2_value;
         boolean edit1, edit2, edit3, talentedit;
+        int favorite;
         itemList.clear();
         inventoryDBAdapter.open();
         if (title.equals("무기")) {
@@ -925,6 +974,7 @@ public class InventoryActivity extends AppCompatActivity {
                     edit2 = Boolean.parseBoolean(cursor.getString(13));
                     edit3 = Boolean.parseBoolean(cursor.getString(14));
                     talentedit = Boolean.parseBoolean(cursor.getString(15));
+                    favorite = cursor.getInt(16);
                     cursor.moveToNext();
                     Item item = new Item(rowId, name, type);
                     item.setCore1(core1);
@@ -940,6 +990,7 @@ public class InventoryActivity extends AppCompatActivity {
                     item.setEdit2(edit2);
                     item.setEdit3(edit3);
                     item.setTalentedit(talentedit);
+                    item.setFavorite(favorite);
                     itemList.add(item);
                 }
             }
@@ -962,6 +1013,7 @@ public class InventoryActivity extends AppCompatActivity {
                 edit2 = Boolean.parseBoolean(cursor.getString(13));
                 edit3 = Boolean.parseBoolean(cursor.getString(14));
                 talentedit = Boolean.parseBoolean(cursor.getString(15));
+                favorite = cursor.getInt(16);
                 cursor.moveToNext();
                 Item item = new Item(rowId, name, type);
                 item.setCore1(core1);
@@ -977,6 +1029,7 @@ public class InventoryActivity extends AppCompatActivity {
                 item.setEdit2(edit2);
                 item.setEdit3(edit3);
                 item.setTalentedit(talentedit);
+                item.setFavorite(favorite);
                 itemList.add(item);
             }
         }

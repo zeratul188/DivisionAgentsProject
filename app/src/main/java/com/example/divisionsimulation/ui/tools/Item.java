@@ -5,6 +5,7 @@ public class Item implements Comparable<Item> {
     private String name, type, core1, core2, sub1, sub2, talent;
     private double core1_value, core2_value, sub1_value, sub2_value;
     private boolean edit1, edit2, edit3, talentedit;
+    private int favorite;
 
     public Item(long rowId, String name, String type) {
         this.rowId = rowId;
@@ -18,6 +19,14 @@ public class Item implements Comparable<Item> {
         if (edit3) return true;
         if (talentedit) return true;
         return false;
+    }
+
+    public int getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
     }
 
     public boolean isTalentedit() {

@@ -35,11 +35,12 @@ public class InventoryDBAdapter {
     public static final String KEY_EDIT2 = "EDIT2";
     public static final String KEY_EDIT3 = "EDIT3";
     public static final String KEY_TALENTEDIT = "TALENTEDIT";
+    public static final String KEY_FAVORITE = "FAVORITE";
 
     private static final String DATABASE_CREATE = "create table INVENTORY (_id integer primary key, " +
             "NAME text not null, TYPE text not null, CORE1 text, CORE2 text, SUB1 text, SUB2 text, "+
             "CORE1VALUE double, CORE2VALUE double, SUB1VALUE double, SUB2VALUE double, "+
-            "TALENT text not null, EDIT1 text not null, EDIT2 text not null, EDIT3 text not null, TALENTEDIT text not null);";
+            "TALENT text not null, EDIT1 text not null, EDIT2 text not null, EDIT3 text not null, TALENTEDIT text not null, FAVORITE integer not null DEFAULT 0);";
 
     private static final String DATABASE_NAME = "DIVISION_INVENTORY";
     private static final String DATABASE_TABLE = "INVENTORY";
@@ -111,6 +112,7 @@ public class InventoryDBAdapter {
         values.put(KEY_EDIT2, "false");
         values.put(KEY_EDIT3, "false");
         values.put(KEY_TALENTEDIT, "false");
+        values.put(KEY_FAVORITE, 0);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -131,6 +133,7 @@ public class InventoryDBAdapter {
         values.put(KEY_EDIT2, "false");
         values.put(KEY_EDIT3, "false");
         values.put(KEY_TALENTEDIT, "false");
+        values.put(KEY_FAVORITE, 0);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -144,17 +147,17 @@ public class InventoryDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String type) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public Cursor fetchIDData(long rowID) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -174,7 +177,7 @@ public class InventoryDBAdapter {
     }
 
     public boolean isEdited(long rowID) {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         boolean[] edited = new boolean[4];
         for (int i = 0; i < edited.length; i++) {
@@ -182,6 +185,14 @@ public class InventoryDBAdapter {
             if (edited[i]) return true;
         }
         return false;
+    }
+
+    public boolean isFavorite(long rowID) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        int result = cursor.getInt(16);
+        if (result == 1) return true;
+        else return false;
     }
 
     public boolean updateCore1Data(long rowID, String core1, double core1_value) {
@@ -215,6 +226,15 @@ public class InventoryDBAdapter {
     public boolean updateTalentData(long rowID, String talent) {
         ContentValues values = new ContentValues();
         values.put(KEY_TALENT, talent);
+        return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
+    }
+
+    public boolean updateFavoriteData(long rowID, boolean isFavorite) {
+        int favorite;
+        if (isFavorite) favorite = 1;
+        else favorite = 0;
+        ContentValues values = new ContentValues();
+        values.put(KEY_FAVORITE, favorite);
         return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
     }
 
