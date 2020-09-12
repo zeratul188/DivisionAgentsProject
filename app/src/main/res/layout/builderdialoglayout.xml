@@ -5,21 +5,14 @@
     android:background="#00222222">
 
     <TextView
+        android:id="@+id/txtContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="정말로 앱을 종료하시겠습니까?"
+        android:text="[Content]"
         android:gravity="center"
         android:textSize="18sp"
         android:textColor="#aaaaaa"
         android:layout_marginBottom="5dp"/>
-    <TextView
-        android:id="@+id/txtInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="10초 뒤에 자동으로 종료됩니다."
-        android:textSize="18sp"
-        android:textColor="#aaa"
-        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,12 +31,12 @@
             android:layout_marginRight="5dp"
             android:textSize="18sp"/>
         <Button
-            android:id="@+id/btnPlay"
+            android:id="@+id/btnOK"
             android:layout_width="180dp"
             android:layout_height="45dp"
             android:background="@drawable/mainbuttonhub"
             android:layout_gravity="center"
-            android:text="종료"
+            android:text="확인"
             android:textColor="#fe6e0e"
             android:layout_marginLeft="5dp"
             android:textSize="18sp"/>

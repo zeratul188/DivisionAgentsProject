@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -95,12 +96,19 @@ public class SettingActivity extends AppCompatActivity {
         btnAllReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-                builder.setTitle("모두 초기화");
-                builder.setMessage("보정 라이브러리, 인벤토리, SHD, 재료를 모두 초기화하시겠습니까?");
-                builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                TextView txtContent = view.findViewById(R.id.txtContent);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                Button btnOK = view.findViewById(R.id.btnOK);
+
+                btnOK.setText("초기화");
+                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 초기화하시겠습니까?");
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
                         resetData();
                         materialDbAdapter.open();
                         final int[] material = new int[materialDbAdapter.getCount()];
@@ -130,10 +138,20 @@ public class SettingActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "모든 데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
-                builder.setNegativeButton("취소", null);
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setView(view);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -246,20 +264,82 @@ public class SettingActivity extends AppCompatActivity {
         btnAllSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                importMaterial();
-                importSHD();
-                importLibrary();
-                importInventory();
+                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                TextView txtContent = view.findViewById(R.id.txtContent);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                Button btnOK = view.findViewById(R.id.btnOK);
+
+                btnOK.setText("저장");
+                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 저장하시겠습니까?");
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        importMaterialData();
+                        importSHDData();
+                        importLibraryData();
+                        importInventoryData();
+                        Toast.makeText(getApplicationContext(), "모든 데이터를 저장하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setView(view);
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
             }
         });
 
         btnAllLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exportMaterial();
-                exportSHD();
-                exportInventory();
-                exportLibrary();
+                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                TextView txtContent = view.findViewById(R.id.txtContent);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                Button btnOK = view.findViewById(R.id.btnOK);
+
+                btnOK.setText("불러오기");
+                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 불러오시겠습니까?");
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        exportMaterialData();
+                        exportSHDData();
+                        exportInventoryData();
+                        exportLibraryData();
+                        Toast.makeText(getApplicationContext(), "모든 데이터를 불러왔습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setView(view);
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
             }
         });
 
@@ -281,34 +361,43 @@ public class SettingActivity extends AppCompatActivity {
             count++;
         }
         materialDbAdapter.close();
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("재료 최대치");
-        builder.setMessage("재료를 최대치로 채우시겠습니까?");
 
-        builder.setPositiveButton("모든 재료 채우기", new DialogInterface.OnClickListener() {
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("채우기");
+        txtContent.setText("재료를 최대치로 채우시겠습니까?");
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 materialDbAdapter.open();
                 for (int i = 0; i < material.length; i++) {
                     material[i] = material_max[i];
                     materialDbAdapter.updateMaterial(material_name[i], material[i]);
                 }
                 materialDbAdapter.close();
+                Toast.makeText(getApplicationContext(), "모든 재료를 채웠습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("특급 부품만 채우기", new DialogInterface.OnClickListener() {
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                materialDbAdapter.open();
-                material[9] = material_max[9];
-                materialDbAdapter.updateMaterial(material_name[9], material[9]);
-                materialDbAdapter.close();
+            public void onClick(View v) {
+                alertDialog.dismiss();
             }
         });
-        builder.setNeutralButton("취소", null);
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 
@@ -328,12 +417,20 @@ public class SettingActivity extends AppCompatActivity {
             count++;
         }
         materialDbAdapter.close();
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("재료 초기화");
-        builder.setMessage("모든 재료를 초기화하시겠습니까?");
-        builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("초기화");
+        txtContent.setText("모든 재료를 초기화하시겠습니까?");
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 materialDbAdapter.open();
                 for (int i = 0; i < material.length; i++) {
                     material[i] = 0;
@@ -341,436 +438,629 @@ public class SettingActivity extends AppCompatActivity {
                 }
                 materialDbAdapter.close();
                 Toast.makeText(getApplicationContext(), "모든 재료를 초기화하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 alertDialog.dismiss();
             }
         });
-        builder.setNegativeButton("취소", null);
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 
     private void inventoryClear() {
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("인벤토리 초기화");
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("초기화");
         inventoryDBAdapter.open();
-        builder.setMessage("인벤토리를 초기화하시겠습니까? ("+inventoryDBAdapter.getCount()+"/300)");
+        txtContent.setText("인벤토리를 초기화하시겠습니까? ("+inventoryDBAdapter.getCount()+"/300)");
         inventoryDBAdapter.close();
-        builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 inventoryDBAdapter.open();
                 inventoryDBAdapter.deleteAllData();
                 inventoryDBAdapter.close();
                 Toast.makeText(getApplicationContext(), "인벤토리가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("취소", null);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
+    }
+
+    private void exportInventoryData() {
+        String databaseName = inventoryDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "inventory_savefile";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
+        }
     }
 
     private void exportInventory() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("인벤토리 불러오기");
-            builder.setMessage("인벤토리를 불러오시겠습니까?");
-            builder.setPositiveButton("불러오기", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("불러오기");
+            txtContent.setText("인벤토리를 불러오시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = inventoryDBAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "inventory_savefile";
-                            File backupDB = new File(data, currentDBPath);
-                            File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("인벤토리를 불러왔습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("저장된 파일이 없습니다.", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    exportInventoryData();
+                    toast("인벤토리를 불러왔습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void importInventoryData() {
+        String databaseName = inventoryDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                File backupDir = new File(sd, backupDirectoryName);
+                if (!backupDir.exists()) backupDir.mkdir();
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "inventory_savefile";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
         }
     }
 
     private void importInventory() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("인벤토리 저장");
-            builder.setMessage("인벤토리를 저장하시겠습니까?");
-            builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("저장");
+            txtContent.setText("인벤토리를 저장하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = inventoryDBAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            File backupDir = new File(sd, backupDirectoryName);
-                            if (!backupDir.exists()) backupDir.mkdir();
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "inventory_savefile";
-                            File currentDB = new File(data, currentDBPath);
-                            File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("현재 인벤토리를 저장하였습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("Import Failed!!", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    importInventoryData();
+                    toast("현재 인벤토리를 저장하였습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void exportSHDData() {
+        String databaseName = shddbAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "shd_savefile";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
         }
     }
 
     private void exportSHD() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("SHD 불러오기");
-            builder.setMessage("SHD를 불러오시겠습니까?");
-            builder.setPositiveButton("불러오기", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("불러오기");
+            txtContent.setText("SHD를 불러오시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = shddbAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "shd_savefile";
-                            File backupDB = new File(data, currentDBPath);
-                            File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("SHD를 불러왔습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("저장된 파일이 없습니다.", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    exportSHDData();
+                    toast("SHD를 불러왔습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void importSHDData() {
+        String databaseName = shddbAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                File backupDir = new File(sd, backupDirectoryName);
+                if (!backupDir.exists()) backupDir.mkdir();
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "shd_savefile";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
         }
     }
 
     private void importSHD() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("SHD 저장");
-            builder.setMessage("SHD를 저장하시겠습니까?");
-            builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("저장");
+            txtContent.setText("SHD를 저장하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = shddbAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            File backupDir = new File(sd, backupDirectoryName);
-                            if (!backupDir.exists()) backupDir.mkdir();
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "shd_savefile";
-                            File currentDB = new File(data, currentDBPath);
-                            File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("현재 SHD를 저장하였습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("Import Failed!!", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    importSHDData();
+                    toast("현재 SHD를 저장하였습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void exportMaterialData() {
+        String databaseName = materialDbAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "material_savefile";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
         }
     }
 
     private void exportMaterial() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("재료 불러오기");
-            builder.setMessage("재료를 불러오시겠습니까?");
-            builder.setPositiveButton("불러오기", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("불러오기");
+            txtContent.setText("재료를 불러오시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = materialDbAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "material_savefile";
-                            File backupDB = new File(data, currentDBPath);
-                            File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("재료를 불러왔습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("저장된 파일이 없습니다.", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    exportMaterialData();
+                    toast("재료를 불러왔습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void importMaterialData() {
+        String databaseName = materialDbAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                File backupDir = new File(sd, backupDirectoryName);
+                if (!backupDir.exists()) backupDir.mkdir();
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "material_savefile";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
         }
     }
 
     private void importMaterial() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("재료 저장");
-            builder.setMessage("재료를 저장하시겠습니까?");
-            builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("저장");
+            txtContent.setText("재료를 저장하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = materialDbAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            File backupDir = new File(sd, backupDirectoryName);
-                            if (!backupDir.exists()) backupDir.mkdir();
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "material_savefile";
-                            File currentDB = new File(data, currentDBPath);
-                            File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("현재 재료를 저장하였습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("Import Failed!!", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    importMaterialData();
+                    toast("현재 재료를 저장하였습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
+        }
+    }
+
+    private void exportLibraryData() {
+        String databaseName = libraryDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "library_savefile";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+                databaseName = talentLibraryDBAdapter.getDatabaseName();
+
+                currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                backupDBPath = "talent_library_savefile";
+                backupDB = new File(data, currentDBPath);
+                currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                src = new FileInputStream(currentDB).getChannel();
+                dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
         }
     }
 
     private void exportLibrary() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("보정 라이브러리 불러오기");
-            builder.setMessage("보정 라이브러리를 불러오시겠습니까?");
-            builder.setPositiveButton("불러오기", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("불러오기");
+            txtContent.setText("보정 라이브러리를 불러오시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = libraryDBAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "library_savefile";
-                            File backupDB = new File(data, currentDBPath);
-                            File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            databaseName = talentLibraryDBAdapter.getDatabaseName();
-
-                            currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            backupDBPath = "talent_library_savefile";
-                            backupDB = new File(data, currentDBPath);
-                            currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            src = new FileInputStream(currentDB).getChannel();
-                            dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("보정 라이브러리를 불러왔습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("저장된 파일이 없습니다.", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    exportLibraryData();
+                    toast("보정 라이브러리를 불러왔습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
         }
     }
 
+    private void importLibraryData() {
+        String databaseName = libraryDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                File backupDir = new File(sd, backupDirectoryName);
+                if (!backupDir.exists()) backupDir.mkdir();
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "library_savefile";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+                databaseName = talentLibraryDBAdapter.getDatabaseName();
+
+                currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                backupDBPath = "talent_library_savefile";
+                currentDB = new File(data, currentDBPath);
+                backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                src = new FileInputStream(currentDB).getChannel();
+                dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
+        }
+    }
+
     private void importLibrary() {
         if (hasPermissions()) {
-            builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-            builder.setTitle("보정 라이브러리 저장");
-            builder.setMessage("보정 라이브러리를 저장하시겠습니까?");
-            builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("저장");
+            txtContent.setText("보정 라이브러리를 저장하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String databaseName = libraryDBAdapter.getDatabaseName();
-                    String backupDirectoryName = "Division2Databases";
-                    try {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File data = Environment.getDataDirectory();
-                        if (sd.canWrite()) {
-                            File backupDir = new File(sd, backupDirectoryName);
-                            if (!backupDir.exists()) backupDir.mkdir();
-                            String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            String backupDBPath = "library_savefile";
-                            File currentDB = new File(data, currentDBPath);
-                            File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            FileChannel src = new FileInputStream(currentDB).getChannel();
-                            FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            databaseName = talentLibraryDBAdapter.getDatabaseName();
-
-                            currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                            backupDBPath = "talent_library_savefile";
-                            currentDB = new File(data, currentDBPath);
-                            backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                            src = new FileInputStream(currentDB).getChannel();
-                            dst = new FileOutputStream(backupDB).getChannel();
-
-                            dst.transferFrom(src, 0, src.size());
-                            src.close();
-                            dst.close();
-
-                            toast("현재 보정 라이브러리를 저장하였습니다.", false);
-                        } else {
-                            toast("권한 오류", false);
-                        }
-                    } catch (Exception e) {
-                        toast("Import Failed!!", false);
-                        e.printStackTrace();
-                    }
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    importLibraryData();
+                    toast("현재 보정 라이브러리를 저장하였습니다.", false);
                 }
             });
-            builder.setNegativeButton("취소", null);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
 
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
         } else {
             requestPerms();
@@ -785,32 +1075,56 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void shdReset() {
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("SHD 초기화");
-        builder.setMessage("SHD 레벨과 포인트 모두 초기화됩니다.");
-        builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("초기화");
+        txtContent.setText("SHD 레벨과 포인트 모두 초기화됩니다.");
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 shddbAdapter.open();
                 shddbAdapter.resetSHD();
                 shddbAdapter.close();
                 toast("SHD 레벨이 초기화되었습니다.", false);
             }
         });
-        builder.setNegativeButton("취소", null);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 
     private void libraryMax() {
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("보정 라이브러리 최대치 설정");
-        builder.setMessage("보정 라이브러리 옵션을 모두 최대치로 설정합니까?");
-        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("설정");
+        txtContent.setText("보정 라이브러리 옵션을 모두 최대치로 설정합니까?");
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 resetData();
                 maxOptionsDBAdapter.open();
                 libraryDBAdapter.open();
@@ -847,28 +1161,55 @@ public class SettingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "모든 보정 옵션을 최대치로 설정하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("취소", null);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 
     private void libraryReset() {
-        builder = new AlertDialog.Builder(SettingActivity.this, R.style.MyAlertDialogStyle);
-        builder.setTitle("보정 라이브러리 초기화");
-        builder.setMessage("보정 라이브러리를 모두 초기화하시겠습니까?");
-        builder.setPositiveButton("초기화", new DialogInterface.OnClickListener() {
+        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+        TextView txtContent = view.findViewById(R.id.txtContent);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        Button btnOK = view.findViewById(R.id.btnOK);
+
+        btnOK.setText("초기화");
+        txtContent.setText("보정 라이브러리를 모두 초기화하시겠습니까?");
+
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                alertDialog.dismiss();
                 resetData();
                 Toast.makeText(getApplicationContext(), "모든 보정 라이브러리가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("취소", null);
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        builder = new AlertDialog.Builder(SettingActivity.this);
+        builder.setView(view);
 
         alertDialog = builder.create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 

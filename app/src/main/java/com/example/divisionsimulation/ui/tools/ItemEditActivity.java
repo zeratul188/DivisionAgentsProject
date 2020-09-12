@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
+import com.example.divisionsimulation.SettingActivity;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
@@ -244,25 +245,78 @@ public class ItemEditActivity extends AppCompatActivity {
                                 if (name.equals(talentItems.get(position))) {
                                     Toast.makeText(getApplicationContext(), "바꾸실 특수효과와 변경전 특수효과와 동일합니다.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    materialDbAdapter.open();
-                                    final_count[0] -= 85;
-                                    final_count[1] -= 61;
-                                    final_count[2] -= 41;
-                                    if (darked) {
-                                        dark_cnt[0] -= 20;
-                                        materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
-                                    }
-                                    for (int i = 0; i < final_material_limit.length; i++) {
-                                        materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
-                                    }
-                                    materialDbAdapter.close();
-                                    Toast.makeText(getApplicationContext(), name+"에서 "+talentItems.get(index)+"로 보정되었습니다.", Toast.LENGTH_SHORT).show();
-                                    inventoryDBAdapter.open();
-                                    inventoryDBAdapter.updateEditData(rowID, false, false, false, true);
-                                    inventoryDBAdapter.updateTalentData(rowID, talentItems.get(index));
-                                    inventoryDBAdapter.close();
                                     alertDialog.dismiss();
-                                    finish();
+                                    inventoryDBAdapter.open();
+                                    if (inventoryDBAdapter.isFavorite(rowID)) {
+                                        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                                        TextView txtContent = view.findViewById(R.id.txtContent);
+                                        Button btnCancel = view.findViewById(R.id.btnCancel);
+                                        Button btnOK = view.findViewById(R.id.btnOK);
+
+                                        btnOK.setText("불러오기");
+                                        txtContent.setText("보정 라이브러리를 불러오시겠습니까?");
+
+                                        btnOK.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                materialDbAdapter.open();
+                                                final_count[0] -= 85;
+                                                final_count[1] -= 61;
+                                                final_count[2] -= 41;
+                                                if (darked) {
+                                                    dark_cnt[0] -= 20;
+                                                    materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                                }
+                                                for (int i = 0; i < final_material_limit.length; i++) {
+                                                    materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
+                                                }
+                                                materialDbAdapter.close();
+                                                Toast.makeText(getApplicationContext(), name+"에서 "+talentItems.get(index)+"로 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                                                inventoryDBAdapter.open();
+                                                inventoryDBAdapter.updateEditData(rowID, false, false, false, true);
+                                                inventoryDBAdapter.updateTalentData(rowID, talentItems.get(index));
+                                                inventoryDBAdapter.close();
+                                                alertDialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+
+                                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                alertDialog.dismiss();
+                                            }
+                                        });
+
+                                        builder = new AlertDialog.Builder(ItemEditActivity.this);
+                                        builder.setView(view);
+
+                                        alertDialog = builder.create();
+                                        alertDialog.setCancelable(false);
+                                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                        alertDialog.show();
+                                    } else {
+                                        materialDbAdapter.open();
+                                        final_count[0] -= 85;
+                                        final_count[1] -= 61;
+                                        final_count[2] -= 41;
+                                        if (darked) {
+                                            dark_cnt[0] -= 20;
+                                            materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                        }
+                                        for (int i = 0; i < final_material_limit.length; i++) {
+                                            materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
+                                        }
+                                        materialDbAdapter.close();
+                                        Toast.makeText(getApplicationContext(), name+"에서 "+talentItems.get(index)+"로 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                                        inventoryDBAdapter.open();
+                                        inventoryDBAdapter.updateEditData(rowID, false, false, false, true);
+                                        inventoryDBAdapter.updateTalentData(rowID, talentItems.get(index));
+                                        inventoryDBAdapter.close();
+                                        finish();
+                                    }
+                                    inventoryDBAdapter.close();
                                 }
                             } else {
                                 Toast.makeText(getApplicationContext(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
@@ -496,56 +550,140 @@ public class ItemEditActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (edit_possible) {
-                                if (seekBar.getProgress() == 0) {
-                                    Toast.makeText(getApplicationContext(), "보정할 수치가 0입니다.", Toast.LENGTH_SHORT).show();
-                                    return;
-                                } else {
-                                    materialDbAdapter.open();
-                                    final_count[0] -= 85;
-                                    final_count[1] -= 61;
-                                    final_count[2] -= 41;
-                                    if (darked) {
-                                        dark_cnt[0] -= 20;
-                                        materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
-                                    }
-                                    for (int i = 0; i < final_material_limit.length; i++) {
-                                        materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
-                                    }
-                                    materialDbAdapter.close();
-                                }
-
-                                Toast.makeText(getApplicationContext(), name+"에서 "+editItems.get(index).getName()+"으로 보정되었습니다.", Toast.LENGTH_SHORT).show();
-                                inventoryDBAdapter.open();
-                                switch (option_type) {
-                                    case "weapon_core1":
-                                        inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
-                                        inventoryDBAdapter.updateCore1Data(rowID, type+" 데미지", (double)seekBar.getProgress()/10);
-                                        break;
-                                    case "sheld_core":
-                                        inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
-                                        inventoryDBAdapter.updateCore1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
-                                        break;
-                                    case "weapon_core2":
-                                        inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
-                                        inventoryDBAdapter.updateCore2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
-                                        break;
-                                    case "weapon_sub":
-                                        inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
-                                        inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
-                                        break;
-                                    case "sheld_sub1":
-                                        inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
-                                        inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
-                                        break;
-                                    case "sheld_sub2":
-                                        inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
-                                        inventoryDBAdapter.updateSub2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
-                                        break;
-                                }
-
-                                inventoryDBAdapter.close();
                                 alertDialog.dismiss();
-                                finish();
+                                inventoryDBAdapter.open();
+                                if (inventoryDBAdapter.isFavorite(rowID)) {
+                                    View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                                    TextView txtContent = view.findViewById(R.id.txtContent);
+                                    Button btnCancel = view.findViewById(R.id.btnCancel);
+                                    Button btnOK = view.findViewById(R.id.btnOK);
+
+                                    txtContent.setText("즐겨찾기로 지정된 아이템입니다. 정말로 보정하시겠습니까?");
+                                    btnOK.setText("보정");
+
+                                    btnOK.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (seekBar.getProgress() == 0) {
+                                                Toast.makeText(getApplicationContext(), "보정할 수치가 0입니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            } else {
+                                                materialDbAdapter.open();
+                                                final_count[0] -= 85;
+                                                final_count[1] -= 61;
+                                                final_count[2] -= 41;
+                                                if (darked) {
+                                                    dark_cnt[0] -= 20;
+                                                    materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                                }
+                                                for (int i = 0; i < final_material_limit.length; i++) {
+                                                    materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
+                                                }
+                                                materialDbAdapter.close();
+                                            }
+
+                                            Toast.makeText(getApplicationContext(), name+"에서 "+editItems.get(index).getName()+"으로 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                                            inventoryDBAdapter.open();
+                                            switch (option_type) {
+                                                case "weapon_core1":
+                                                    inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
+                                                    inventoryDBAdapter.updateCore1Data(rowID, type+" 데미지", (double)seekBar.getProgress()/10);
+                                                    break;
+                                                case "sheld_core":
+                                                    inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
+                                                    inventoryDBAdapter.updateCore1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                                    break;
+                                                case "weapon_core2":
+                                                    inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
+                                                    inventoryDBAdapter.updateCore2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                                    break;
+                                                case "weapon_sub":
+                                                    inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
+                                                    inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                                    break;
+                                                case "sheld_sub1":
+                                                    inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
+                                                    inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                                    break;
+                                                case "sheld_sub2":
+                                                    inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
+                                                    inventoryDBAdapter.updateSub2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                                    break;
+                                            }
+
+                                            inventoryDBAdapter.close();
+                                            alertDialog.dismiss();
+                                            finish();
+                                        }
+                                    });
+
+                                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            alertDialog.dismiss();
+                                        }
+                                    });
+
+                                    builder = new AlertDialog.Builder(ItemEditActivity.this);
+                                    builder.setView(view);
+
+                                    alertDialog = builder.create();
+                                    alertDialog.setCancelable(false);
+                                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    alertDialog.show();
+                                } else {
+                                    if (seekBar.getProgress() == 0) {
+                                        Toast.makeText(getApplicationContext(), "보정할 수치가 0입니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        materialDbAdapter.open();
+                                        final_count[0] -= 85;
+                                        final_count[1] -= 61;
+                                        final_count[2] -= 41;
+                                        if (darked) {
+                                            dark_cnt[0] -= 20;
+                                            materialDbAdapter.updateMaterial("다크존 자원", dark_cnt[0]);
+                                        }
+                                        for (int i = 0; i < final_material_limit.length; i++) {
+                                            materialDbAdapter.updateMaterial(final_material_limit[i], final_count[i]);
+                                        }
+                                        materialDbAdapter.close();
+                                    }
+
+                                    Toast.makeText(getApplicationContext(), name+"에서 "+editItems.get(index).getName()+"으로 보정되었습니다.", Toast.LENGTH_SHORT).show();
+                                    inventoryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
+                                            inventoryDBAdapter.updateCore1Data(rowID, type+" 데미지", (double)seekBar.getProgress()/10);
+                                            break;
+                                        case "sheld_core":
+                                            inventoryDBAdapter.updateEditData(rowID, true, false, false, false);
+                                            inventoryDBAdapter.updateCore1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                            break;
+                                        case "weapon_core2":
+                                            inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
+                                            inventoryDBAdapter.updateCore2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                            break;
+                                        case "weapon_sub":
+                                            inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
+                                            inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                            break;
+                                        case "sheld_sub1":
+                                            inventoryDBAdapter.updateEditData(rowID, false, true, false, false);
+                                            inventoryDBAdapter.updateSub1Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                            break;
+                                        case "sheld_sub2":
+                                            inventoryDBAdapter.updateEditData(rowID, false, false, true, false);
+                                            inventoryDBAdapter.updateSub2Data(rowID, editItems.get(index).getName(), (double)seekBar.getProgress()/10);
+                                            break;
+                                    }
+
+                                    inventoryDBAdapter.close();
+                                    finish();
+                                }
+                                inventoryDBAdapter.close();
                             } else {
                                 Toast.makeText(getApplicationContext(), "재료가 부족합니다.", Toast.LENGTH_SHORT).show();
                             }
@@ -580,12 +718,19 @@ public class ItemEditActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
-                builder.setTitle("보정 라이브러리 추가");
-                builder.setMessage(name+"을(를) 보정 라이브러리에 추가합니까?");
-                builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
+                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                TextView txtContent = view.findViewById(R.id.txtContent);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                Button btnOK = view.findViewById(R.id.btnOK);
+
+                btnOK.setText("추가");
+                txtContent.setText(name+"을(를) 보정 라이브러리에 추가합니까?");
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
                         if (!talented) {
                             double max;
                             libraryDBAdapter.open();
@@ -667,10 +812,20 @@ public class ItemEditActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                builder.setNegativeButton("취소", null);
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(ItemEditActivity.this);
+                builder.setView(view);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
