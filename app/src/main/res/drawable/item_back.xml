@@ -4,8 +4,7 @@
     <item android:state_checked="true">
         <layer-list>
             <item
-                android:drawable="@drawable/selectmenu"
-                android:right="10dp"/>
+                android:drawable="@drawable/selectmenu"/>
         </layer-list>
         <!--<shape>
             <padding android:left="10dp" android:right="10dp"/>
@@ -20,8 +19,7 @@
     <item android:state_checked="false">
         <layer-list>
             <item
-                android:drawable="@drawable/unselectmenu"
-                android:right="10dp"/>
+                android:drawable="@drawable/unselectmenu"/>
         </layer-list>
         <!--<shape>
             <solid android:color="#00ffffff"/>

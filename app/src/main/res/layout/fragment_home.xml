@@ -56,7 +56,7 @@
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
-                                    android:text="이름"
+                                    android:text="적 NPC 이름"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                             </TableRow>
@@ -96,14 +96,14 @@
                                     android:layout_height="wrap_content"
                                     android:text="무기 데미지"
                                     android:textSize="18sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:textColor="#FF5555"/>
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="RPM"
                                     android:textSize="18sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:textColor="#FF5555"/>
                             </TableRow>
                             <TableRow android:layout_marginBottom="10dp">
                                 <LinearLayout
@@ -380,14 +380,14 @@
                                     android:layout_height="wrap_content"
                                     android:text="탄수"
                                     android:textSize="18sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:textColor="#FF5555"/>
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:text="명중률"
                                     android:textSize="18sp"
-                                    android:textColor="#aaaaaa"/>
+                                    android:textColor="#FF5555"/>
                             </TableRow>
                             <TableRow android:layout_marginBottom="10dp">
                                 <LinearLayout

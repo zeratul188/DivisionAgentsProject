@@ -46,7 +46,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layoutcustom">
+                    android:padding="5dp">
                     <TableRow>
                         <TextView
                             android:id="@+id/txtFirstInfo"

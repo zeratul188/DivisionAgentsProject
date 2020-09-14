@@ -66,6 +66,7 @@ public class InventoryActivity extends AppCompatActivity {
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
 
     private AlertDialog alertDialog;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,12 +153,19 @@ public class InventoryActivity extends AppCompatActivity {
                 btnDestroy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder destroy_builder = new AlertDialog.Builder(InventoryActivity.this, R.style.MyAlertDialogStyle);
-                        destroy_builder.setTitle("분해");
-                        destroy_builder.setMessage(itemList.get(index).getName()+"을 분해하시겠습니까?");
-                        destroy_builder.setPositiveButton("분해", new DialogInterface.OnClickListener() {
+                        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                        TextView txtContent = view.findViewById(R.id.txtContent);
+                        Button btnCancel = view.findViewById(R.id.btnCancel);
+                        Button btnOK = view.findViewById(R.id.btnOK);
+
+                        btnOK.setText("분해");
+                        txtContent.setText(itemList.get(index).getName()+"("+itemList.get(index).getType()+")을(를) 분해하시겠습니까?");
+
+                        btnOK.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(View v) {
+                                dialog.dismiss();
                                 resetMaterial();
                                 String str = String.valueOf(txtType.getText());
                                 String normal_str = "", rare_str = "", epic_str = "";
@@ -211,11 +219,21 @@ public class InventoryActivity extends AppCompatActivity {
                                 alertDialog.dismiss();
                             }
                         });
-                        destroy_builder.setNegativeButton("취소", null);
 
-                        AlertDialog destroy_alertDialog = destroy_builder.create();
-                        destroy_alertDialog.setCancelable(false);
-                        destroy_alertDialog.show();
+                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                        dialog_builder.setView(view);
+
+                        dialog = dialog_builder.create();
+                        dialog.setCancelable(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
                     }
                 });
 
@@ -229,12 +247,19 @@ public class InventoryActivity extends AppCompatActivity {
                 btnDrop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder drop_builder = new AlertDialog.Builder(InventoryActivity.this, R.style.MyAlertDialogStyle);
-                        drop_builder.setTitle("버리기");
-                        drop_builder.setMessage(itemList.get(index).getName()+"을 버리시겠습니까?");
-                        drop_builder.setPositiveButton("버리기", new DialogInterface.OnClickListener() {
+                        View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                        TextView txtContent = view.findViewById(R.id.txtContent);
+                        Button btnCancel = view.findViewById(R.id.btnCancel);
+                        Button btnOK = view.findViewById(R.id.btnOK);
+
+                        btnOK.setText("버리기");
+                        txtContent.setText(itemList.get(index).getName()+"("+itemList.get(index).getType()+")을(를) 버리시겠습니까?");
+
+                        btnOK.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(View v) {
+                                dialog.dismiss();
                                 inventoryDBAdapter.open();
                                 inventoryDBAdapter.deleteData(itemList.get(index).getRowId());
                                 inventoryDBAdapter.close();
@@ -244,11 +269,21 @@ public class InventoryActivity extends AppCompatActivity {
                                 alertDialog.dismiss();
                             }
                         });
-                        drop_builder.setNegativeButton("취소", null);
 
-                        AlertDialog drop_alertDialog = drop_builder.create();
-                        drop_alertDialog.setCancelable(false);
-                        drop_alertDialog.show();
+                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                        dialog_builder.setView(view);
+
+                        dialog = dialog_builder.create();
+                        dialog.setCancelable(false);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
                     }
                 });
 
@@ -389,15 +424,15 @@ public class InventoryActivity extends AppCompatActivity {
                     second_max = cursor.getDouble(2);
                     libraryDBAdapter.close();
                     progressWMain1.setSecondaryProgress((int)(second_max*10));
-                    if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
-                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackground);
+                    if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                    else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                     if (itemList.get(position).getName().equals("보조 붐스틱")) {
                         namedDBAdapter.open();
                         cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
                         txtWMain1.setText(cursor.getString(2));
                         progressWMain1.setMax(100);
                         progressWMain1.setProgress(100);
-                        layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                         txtWMain1.setTextColor(Color.parseColor("#c99700"));
                         namedDBAdapter.close();
                         layoutWeaponMain1.setEnabled(false);
@@ -411,7 +446,7 @@ public class InventoryActivity extends AppCompatActivity {
                             txtWMain2.setText(cursor.getString(2));
                             progressWMain2.setMax(100);
                             progressWMain2.setProgress(100);
-                            layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackgroundcustom);
                             layoutWeaponMain2.setEnabled(false);
                         } else {
                             maxDBAdapter.open();
@@ -423,8 +458,8 @@ public class InventoryActivity extends AppCompatActivity {
                             txtWMain2.setText("+"+formatD(itemList.get(position).getCore2_value())+end+" "+itemList.get(position).getCore2());
                             progressWMain2.setMax((int)(max*10));
                             progressWMain2.setProgress((int)(itemList.get(position).getCore2_value()*10));
-                            if (itemList.get(position).getCore2_value() >= max) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
-                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground);
+                            if (itemList.get(position).getCore2_value() >= max) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                            else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                             libraryDBAdapter.open();
                             cursor = libraryDBAdapter.fetchTypeData(itemList.get(position).getType());
                             second_max = cursor.getDouble(2);
@@ -442,8 +477,8 @@ public class InventoryActivity extends AppCompatActivity {
                     txtWSub.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
                     progressWSub.setMax((int)(max*10));
                     progressWSub.setProgress((int)(itemList.get(position).getSub1_value()*10));
-                    if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
-                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground);
+                    if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                     libraryDBAdapter.open();
                     cursor = libraryDBAdapter.fetchSubData(itemList.get(position).getSub1());
                     second_max = cursor.getDouble(2);
@@ -483,8 +518,8 @@ public class InventoryActivity extends AppCompatActivity {
                     txtSMain.setText("+"+formatD(itemList.get(position).getCore1_value())+end+" "+itemList.get(position).getCore1());
                     progressSMain.setMax((int)(max*10));
                     progressSMain.setProgress((int)(itemList.get(position).getCore1_value()*10));
-                    if (itemList.get(position).getCore1_value() >= max && !itemList.get(position).getCore1().equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
-                    else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
+                    if (itemList.get(position).getCore1_value() >= max && !itemList.get(position).getCore1().equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                    else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                     libraryDBAdapter.open();
                     cursor = libraryDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
                     second_max = cursor.getDouble(2);
@@ -504,7 +539,7 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         progressSSub1.setMax(100);
                         progressSSub1.setProgress(100);
-                        layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        layoutSheldSub1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                         String asp = cursor.getString(9);
                         switch (asp) {
                             case "공격":
@@ -532,7 +567,7 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         progressSSub1.setMax(100);
                         progressSSub1.setProgress(100);
-                        layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
+                        layoutSheldSub1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                         String asp = cursor.getString(4);
                         switch (asp) {
                             case "공격":
@@ -559,8 +594,8 @@ public class InventoryActivity extends AppCompatActivity {
                         txtSSub1.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
                         progressSSub1.setMax((int)(max*10));
                         progressSSub1.setProgress((int)(itemList.get(position).getSub1_value()*10));
-                        if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
-                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
+                        if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                        else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                         libraryDBAdapter.open();
                         cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
                         second_max = cursor.getDouble(2);
@@ -583,8 +618,8 @@ public class InventoryActivity extends AppCompatActivity {
                         txtSSub2.setText("+"+formatD(itemList.get(position).getSub2_value())+end+" "+itemList.get(position).getSub2());
                         progressSSub2.setMax((int)(max*10));
                         progressSSub2.setProgress((int)(itemList.get(position).getSub2_value()*10));
-                        if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
-                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
+                        if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                        else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                         libraryDBAdapter.open();
                         cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub2());
                         second_max = cursor.getDouble(2);
@@ -628,7 +663,7 @@ public class InventoryActivity extends AppCompatActivity {
                             txtSSub3.setText(split_str[1]);
                             progressSSub3.setMax(100);
                             progressSSub3.setProgress(100);
-                            layoutSheldSub3.setBackgroundResource(R.drawable.maxbackground);
+                            layoutSheldSub3.setBackgroundResource(R.drawable.maxbackgroundcustom);
                             String asp = cursor.getString(9);
                             switch (asp) {
                                 case "공격":
@@ -671,26 +706,56 @@ public class InventoryActivity extends AppCompatActivity {
                             return;
                         }
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getCore1());
-                                intent.putExtra("value", itemList.get(index).getCore1_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "weapon_core1");
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    alertDialog.dismiss();
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getCore1());
+                                        intent.putExtra("value", itemList.get(index).getCore1_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "weapon_core1");
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -710,26 +775,56 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getCore2());
-                                intent.putExtra("value", itemList.get(index).getCore2_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "weapon_core2");
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getCore2()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getCore2());
+                                        intent.putExtra("value", itemList.get(index).getCore2_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "weapon_core2");
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -741,26 +836,56 @@ public class InventoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getSub1());
-                                intent.putExtra("value", itemList.get(index).getSub1_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "weapon_sub");
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getSub1());
+                                        intent.putExtra("value", itemList.get(index).getSub1_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "weapon_sub");
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -772,26 +897,56 @@ public class InventoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit1()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getCore1());
-                                intent.putExtra("value", itemList.get(index).getCore1_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "sheld_core");
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getCore1());
+                                        intent.putExtra("value", itemList.get(index).getCore1_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "sheld_core");
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -811,28 +966,58 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit2()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getSub1());
-                                intent.putExtra("value", itemList.get(index).getSub1_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "sheld_sub1");
-                                intent.putExtra("sheld_sub", true);
-                                intent.putExtra("other_name", itemList.get(index).getSub2());
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getSub1());
+                                        intent.putExtra("value", itemList.get(index).getSub1_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "sheld_sub1");
+                                        intent.putExtra("sheld_sub", true);
+                                        intent.putExtra("other_name", itemList.get(index).getSub2());
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -844,28 +1029,58 @@ public class InventoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         inventoryDBAdapter.open();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isEdit3()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                intent.putExtra("exoticed", true);
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getSub2());
-                                intent.putExtra("value", itemList.get(index).getSub2_value());
-                                intent.putExtra("type", itemList.get(index).getType());
-                                intent.putExtra("option_type", "sheld_sub2");
-                                intent.putExtra("sheld_sub", true);
-                                intent.putExtra("other_name", itemList.get(index).getSub1());
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            intent.putExtra("talented", false);
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
-                            startActivity(intent);
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getSub2()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        intent.putExtra("exoticed", true);
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getSub2());
+                                        intent.putExtra("value", itemList.get(index).getSub2_value());
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        intent.putExtra("option_type", "sheld_sub2");
+                                        intent.putExtra("sheld_sub", true);
+                                        intent.putExtra("other_name", itemList.get(index).getSub1());
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("talented", false);
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -899,26 +1114,55 @@ public class InventoryActivity extends AppCompatActivity {
                         sheldDBAdapter.close();
                         namedDBAdapter.close();
                         if (!inventoryDBAdapter.isEdited(itemList.get(index).getRowId()) || itemList.get(index).isTalentedit()) {
-                            alertDialog.dismiss();
-                            Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
-                            exoticDBAdapter.open();
-                            makeExoticDBAdapter.open();
-                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
-                                Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                                return;
-                            } else {
-                                intent.putExtra("name", itemList.get(index).getTalent());
-                                intent.putExtra("talented", true);
-                                intent.putExtra("type", itemList.get(index).getType());
-                                namedDBAdapter.open();
-                                intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
-                                namedDBAdapter.close();
-                            }
-                            intent.putExtra("itemID", itemList.get(index).getRowId());
-                            makeExoticDBAdapter.close();
-                            exoticDBAdapter.close();
+                            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
 
-                            startActivity(intent);
+                            TextView txtContent = view.findViewById(R.id.txtContent);
+                            Button btnCancel = view.findViewById(R.id.btnCancel);
+                            Button btnOK = view.findViewById(R.id.btnOK);
+
+                            btnOK.setText("보정");
+                            txtContent.setText(itemList.get(index).getTalent()+"을(를) 보정하시겠습니까?");
+
+                            btnOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                    alertDialog.dismiss();
+                                    Intent intent = new Intent(InventoryActivity.this, ItemEditActivity.class);
+                                    exoticDBAdapter.open();
+                                    makeExoticDBAdapter.open();
+                                    if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                        Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        intent.putExtra("name", itemList.get(index).getTalent());
+                                        intent.putExtra("talented", true);
+                                        intent.putExtra("type", itemList.get(index).getType());
+                                        namedDBAdapter.open();
+                                        intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
+                                        namedDBAdapter.close();
+                                    }
+                                    intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    makeExoticDBAdapter.close();
+                                    exoticDBAdapter.close();
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnCancel.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog.Builder dialog_builder = new AlertDialog.Builder(InventoryActivity.this);
+                            dialog_builder.setView(view);
+
+                            dialog = dialog_builder.create();
+                            dialog.setCancelable(false);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
                         } else {
                             Toast.makeText(getApplicationContext(), "이미 보정되었습니다.", Toast.LENGTH_SHORT).show();
                         }

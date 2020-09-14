@@ -10,13 +10,13 @@
     <item android:state_enabled="false">
         <shape>
             <padding android:bottom="4dp" android:left="2dp" android:right="2dp" android:top="4dp" />
-            <solid android:color="#80222222" />
+            <solid android:color="#80444444" />
         </shape>
     </item>
     <item android:state_pressed="false">
         <shape>
             <padding android:bottom="4dp" android:left="2dp" android:right="2dp" android:top="4dp" />
-            <solid android:color="#60222222" />
+            <solid android:color="#60444444" />
         </shape>
     </item>
 
