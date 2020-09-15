@@ -45,19 +45,26 @@
             android:progress="100"
             android:layout_marginBottom="10dp"
             android:indeterminateTint="#E45435"/>
-        <ProgressBar
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/progressbar_progressbar_output"
-            android:background="@drawable/darkbackpack"
-            android:id="@+id/progressOutput"
-            android:paddingLeft="11dp"
-            android:paddingRight="11dp"
-            android:paddingBottom="6dp"
-            android:paddingTop="3dp"
-            android:layout_gravity="center"
-            android:indeterminateTint="#E45435"/>
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_progressbar_output"
+                android:id="@+id/progressOutput"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:indeterminateTint="#E45435"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="다크존 가방에 담기"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#f0f0f0"/>
+        </FrameLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

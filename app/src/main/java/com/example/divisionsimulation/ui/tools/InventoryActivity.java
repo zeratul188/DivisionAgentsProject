@@ -712,8 +712,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -781,8 +790,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getCore2()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getCore2()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -842,8 +860,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -903,8 +930,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getCore1()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -972,8 +1008,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getSub1()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -1035,8 +1080,17 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getSub2()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                txtContent.setText(itemList.get(index).getName()+"을(를) 재조정하시겠습니까?");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getSub2()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -1120,8 +1174,19 @@ public class InventoryActivity extends AppCompatActivity {
                             Button btnCancel = view.findViewById(R.id.btnCancel);
                             Button btnOK = view.findViewById(R.id.btnOK);
 
-                            btnOK.setText("보정");
-                            txtContent.setText(itemList.get(index).getTalent()+"을(를) 보정하시겠습니까?");
+                            exoticDBAdapter.open();
+                            makeExoticDBAdapter.open();
+                            if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
+                                btnOK.setText("재조정");
+                                btnOK.setEnabled(false);
+                                btnOK.setTextColor(Color.parseColor("#FF7777"));
+                                txtContent.setText("특급 아이템은 탤런트를 보정하실 수 없습니다.");
+                            } else {
+                                btnOK.setText("보정");
+                                txtContent.setText(itemList.get(index).getTalent()+"을(를) 보정하시겠습니까?");
+                            }
+                            makeExoticDBAdapter.close();
+                            exoticDBAdapter.close();
 
                             btnOK.setOnClickListener(new View.OnClickListener() {
                                 @Override

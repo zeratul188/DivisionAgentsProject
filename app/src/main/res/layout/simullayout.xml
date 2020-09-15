@@ -132,6 +132,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="9999999"
+                            android:fontFamily="@font/borda"
                             android:singleLine="true"
                             android:textColor="#bcbcbc"
                             android:textSize="20sp"/>
@@ -153,6 +154,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="9999999"
+                            android:fontFamily="@font/borda"
                             android:singleLine="true"
                             android:textColor="#bcbcbc"
                             android:textSize="20sp"/>
@@ -205,6 +207,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="9999"
+                                android:fontFamily="@font/borda"
                                 android:textColor="#f0f0f0"
                                 android:singleLine="true"
                                 android:textSize="20sp"
@@ -263,6 +266,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="사용한 탄수 : "
+                            android:fontFamily="@font/borda"
                             android:textSize="15sp"
                             android:textColor="#AAAAAA"
                             android:textAlignment="textEnd"/>
@@ -272,6 +276,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="9999"
+                            android:fontFamily="@font/borda"
                             android:textColor="#f0f0f0"
                             android:singleLine="true"
                             android:textSize="16sp"/>
@@ -287,6 +292,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="시간 : "
+                            android:fontFamily="@font/borda"
                             android:textSize="15sp"
                             android:textColor="#AAAAAA"
                             android:textAlignment="textEnd"/>
@@ -296,6 +302,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="0초"
+                            android:fontFamily="@font/borda"
                             android:singleLine="true"
                             android:textColor="#f0f0f0"
                             android:textSize="15sp"/>
@@ -311,6 +318,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="누적 데미지 : "
+                            android:fontFamily="@font/borda"
                             android:textSize="15sp"
                             android:textColor="#aaaaaa"
                             android:textAlignment="textEnd"/>
@@ -320,6 +328,7 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:fontFamily="@font/borda"
                             android:singleLine="true"
                             android:textColor="#f0f0f0"
                             android:textSize="16sp"/>
@@ -367,6 +376,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="데미지 로그"
+                    android:fontFamily="@font/borda"
                     android:textColor="#aaaaaa"
                     android:textSize="15sp"
                     android:gravity="center"
@@ -374,168 +384,110 @@
                 <TextView
                     android:id="@+id/txtListDemage1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage6"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage7"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage8"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage9"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage10"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#40ffffff"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"/>
                 <TextView
                     android:id="@+id/txtListDemage11"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:text="0"
+                    android:fontFamily="@font/borda"
                     android:textColor="#f0f0f0"
                     android:textSize="15sp"
                     android:singleLine="true"/>

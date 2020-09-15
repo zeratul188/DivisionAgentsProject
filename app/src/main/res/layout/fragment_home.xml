@@ -434,6 +434,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="- 붉은 칸은 필수 항목입니다."
+                        android:layout_marginTop="3dp"
+                        android:textSize="13sp"
+                        android:textColor="#FF5555"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="특수효과"
                         android:textColor="#aaaaaa"
                         android:textSize="20sp"

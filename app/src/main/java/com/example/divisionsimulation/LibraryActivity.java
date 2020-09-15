@@ -1,11 +1,14 @@
 package com.example.divisionsimulation;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.ui.tools.InventoryActivity;
+import com.example.divisionsimulation.ui.tools.ItemEditActivity;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
 
@@ -234,16 +239,32 @@ public class LibraryActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         for (int i = 5; i < rdoType.length; i++) {
                             if (rdoType[i].isChecked()) {
-                                builder = new AlertDialog.Builder(LibraryActivity.this, R.style.MyAlertDialogStyle);
-                                builder.setTitle(talentItems.get(position));
+                                View talentview = getLayoutInflater().inflate(R.layout.talentdialog, null);
+
+                                TextView txtName = talentview.findViewById(R.id.txtName);
+                                TextView txtContent = talentview.findViewById(R.id.txtContent);
+                                Button btnOK = talentview.findViewById(R.id.btnOK);
+
                                 talentDBAdapter.open();
                                 String content = talentDBAdapter.findContent(talentItems.get(position));
                                 talentDBAdapter.close();
-                                builder.setMessage(content);
-                                builder.setPositiveButton("확인", null);
 
-                                alertDialog = builder.create();
+                                txtName.setText(talentItems.get(position));
+                                txtContent.setText(content);
+
+                                btnOK.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+
+                                AlertDialog.Builder dialog_builder = new AlertDialog.Builder(LibraryActivity.this);
+                                dialog_builder.setView(talentview);
+
+                                alertDialog = dialog_builder.create();
                                 alertDialog.setCancelable(false);
+                                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                 alertDialog.show();
                             }
                         }
@@ -281,16 +302,32 @@ public class LibraryActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        builder = new AlertDialog.Builder(LibraryActivity.this, R.style.MyAlertDialogStyle);
-                        builder.setTitle(talentItems.get(position));
+                        View talentview = getLayoutInflater().inflate(R.layout.talentdialog, null);
+
+                        TextView txtName = talentview.findViewById(R.id.txtName);
+                        TextView txtContent = talentview.findViewById(R.id.txtContent);
+                        Button btnOK = talentview.findViewById(R.id.btnOK);
+
                         talentDBAdapter.open();
                         String content = talentDBAdapter.findContent(talentItems.get(position));
                         talentDBAdapter.close();
-                        builder.setMessage(content);
-                        builder.setPositiveButton("확인", null);
 
-                        alertDialog = builder.create();
+                        txtName.setText(talentItems.get(position));
+                        txtContent.setText(content);
+
+                        btnOK.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
+                        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(LibraryActivity.this);
+                        dialog_builder.setView(talentview);
+
+                        alertDialog = dialog_builder.create();
                         alertDialog.setCancelable(false);
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         alertDialog.show();
                     }
                 });
