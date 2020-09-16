@@ -734,16 +734,17 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getCore1());
                                         intent.putExtra("value", itemList.get(index).getCore1_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "weapon_core1");
                                         namedDBAdapter.open();
                                         intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
                                         namedDBAdapter.close();
                                     }
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
                                     exoticDBAdapter.close();
@@ -812,16 +813,17 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getCore2());
                                         intent.putExtra("value", itemList.get(index).getCore2_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "weapon_core2");
                                         namedDBAdapter.open();
                                         intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
                                         namedDBAdapter.close();
                                     }
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
                                     exoticDBAdapter.close();
@@ -882,16 +884,17 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getSub1());
                                         intent.putExtra("value", itemList.get(index).getSub1_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "weapon_sub");
                                         namedDBAdapter.open();
                                         intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
                                         namedDBAdapter.close();
                                     }
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
                                     exoticDBAdapter.close();
@@ -952,16 +955,17 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getCore1());
                                         intent.putExtra("value", itemList.get(index).getCore1_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "sheld_core");
                                         namedDBAdapter.open();
                                         intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
                                         namedDBAdapter.close();
                                     }
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
                                     exoticDBAdapter.close();
@@ -1030,10 +1034,10 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getSub1());
                                         intent.putExtra("value", itemList.get(index).getSub1_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "sheld_sub1");
                                         intent.putExtra("sheld_sub", true);
                                         intent.putExtra("other_name", itemList.get(index).getSub2());
@@ -1042,6 +1046,7 @@ public class InventoryActivity extends AppCompatActivity {
                                         namedDBAdapter.close();
                                     }
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
                                     exoticDBAdapter.close();
@@ -1102,10 +1107,10 @@ public class InventoryActivity extends AppCompatActivity {
                                     makeExoticDBAdapter.open();
                                     if (exoticDBAdapter.haveItem(itemList.get(index).getName()) || makeExoticDBAdapter.haveItem(itemList.get(index).getName())) {
                                         intent.putExtra("exoticed", true);
+                                        intent.putExtra("exoticname", itemList.get(index).getName());
                                     } else {
                                         intent.putExtra("name", itemList.get(index).getSub2());
                                         intent.putExtra("value", itemList.get(index).getSub2_value());
-                                        intent.putExtra("type", itemList.get(index).getType());
                                         intent.putExtra("option_type", "sheld_sub2");
                                         intent.putExtra("sheld_sub", true);
                                         intent.putExtra("other_name", itemList.get(index).getSub1());
@@ -1113,6 +1118,7 @@ public class InventoryActivity extends AppCompatActivity {
                                         intent.putExtra("darked", namedDBAdapter.haveDarkItem(itemList.get(index).getName()));
                                         namedDBAdapter.close();
                                     }
+                                    intent.putExtra("type", itemList.get(index).getType());
                                     intent.putExtra("itemID", itemList.get(index).getRowId());
                                     intent.putExtra("talented", false);
                                     makeExoticDBAdapter.close();
@@ -1523,7 +1529,7 @@ public class InventoryActivity extends AppCompatActivity {
         String word;
         int start, end;
         int find_index = 0;
-        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
+        String[] changes = {"+", "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
             find_index = 0;
@@ -1534,7 +1540,7 @@ public class InventoryActivity extends AppCompatActivity {
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
                 if (start > 0) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
-                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
+                            (!changes[i].equals("초") && !changes[i].equals("번") && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
                             (isFrontNumber(content, start) && changes[i].equals("번")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||

@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:paddingRight="10dp"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:paddingLeft="10dp"
             android:orientation="vertical">
             <TextView

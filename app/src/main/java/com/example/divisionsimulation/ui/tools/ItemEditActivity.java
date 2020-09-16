@@ -40,16 +40,16 @@ import java.util.ArrayList;
 
 public class ItemEditActivity extends AppCompatActivity {
 
-    private LinearLayout layoutWeapon, layoutSheld, layoutTalentCount;
-    private TextView txtWeaponOption, txtSheldOption, txtTalent, txtLibraryTalentCount, txtTalentMaxCount;
+    private LinearLayout layoutWeapon, layoutSheld, layoutTalentCount, layoutExotic;
+    private TextView txtWeaponOption, txtSheldOption, txtTalent, txtLibraryTalentCount, txtTalentMaxCount, txtName, txtType, txtMenu;
     private ProgressBar progressWeaponOption, progressSheldOption;
-    private ImageView imgSheldOption;
+    private ImageView imgSheldOption, imgType;
     private ListView listView;
     private Button btnRessetting, btnCancel, btnEdit;
 
     private EditAdapter editAdapter;
     private boolean exoticed = false, talented = false, edit_possible = false, sheld_sub = false, darked = false;
-    private String name, type, option_type, other_name = "";
+    private String name, type, option_type, other_name = "", exoticname = "";
     private double value;
     private long rowID;
     private Cursor cursor;
@@ -95,6 +95,12 @@ public class ItemEditActivity extends AppCompatActivity {
         txtLibraryTalentCount = findViewById(R.id.txtLibraryTalentCount);
         txtTalentMaxCount = findViewById(R.id.txtTalentMaxCount);
 
+        layoutExotic = findViewById(R.id.layoutExotic);
+        txtName = findViewById(R.id.txtName);
+        txtType = findViewById(R.id.txtType);
+        txtMenu = findViewById(R.id.txtMenu);
+        imgType = findViewById(R.id.imgType);
+
         exoticed = getIntent().getBooleanExtra("exoticed", false);
         talented = getIntent().getBooleanExtra("talented", false);
         name = getIntent().getStringExtra("name");
@@ -102,6 +108,7 @@ public class ItemEditActivity extends AppCompatActivity {
         rowID = getIntent().getLongExtra("itemID", 9999);
         sheld_sub = getIntent().getBooleanExtra("sheld_sub", false);
         darked = getIntent().getBooleanExtra("darked", false);
+        exoticname = getIntent().getStringExtra("exoticname");
 
         if (!talented) {
             value = getIntent().getDoubleExtra("value", 0);
@@ -139,9 +146,54 @@ public class ItemEditActivity extends AppCompatActivity {
         materialDbAdapter.close();
 
         if (exoticed) {
+            txtMenu.setText("특급 아이템 정보");
             listView.setVisibility(View.INVISIBLE);
             btnRessetting.setVisibility(View.VISIBLE);
             btnEdit.setVisibility(View.GONE);
+            layoutExotic.setVisibility(View.VISIBLE);
+            txtName.setText(exoticname);
+            txtType.setText(type);
+            switch (type) {
+                case "돌격소총":
+                    imgType.setImageResource(R.drawable.wp1custom);
+                    break;
+                case "소총":
+                    imgType.setImageResource(R.drawable.wp2custom);
+                    break;
+                case "지정사수소총":
+                    imgType.setImageResource(R.drawable.wp3custom);
+                    break;
+                case "기관단총":
+                    imgType.setImageResource(R.drawable.wp4custom);
+                    break;
+                case "경기관총":
+                    imgType.setImageResource(R.drawable.wp5custom);
+                    break;
+                case "산탄총":
+                    imgType.setImageResource(R.drawable.wp6custom);
+                    break;
+                case "권총":
+                    imgType.setImageResource(R.drawable.wp7custom);
+                    break;
+                case "마스크":
+                    imgType.setImageResource(R.drawable.sd1custom);
+                    break;
+                case "조끼":
+                    imgType.setImageResource(R.drawable.sd2custom);
+                    break;
+                case "권총집":
+                    imgType.setImageResource(R.drawable.sd3custom);
+                    break;
+                case "백팩":
+                    imgType.setImageResource(R.drawable.sd4custom);
+                    break;
+                case "장갑":
+                    imgType.setImageResource(R.drawable.sd5custom);
+                    break;
+                case "무릎보호대":
+                    imgType.setImageResource(R.drawable.sd6custom);
+                    break;
+            }
         } else if (talented) {
             layoutTalentCount.setVisibility(View.VISIBLE);
             txtTalent.setVisibility(View.VISIBLE);
@@ -833,13 +885,68 @@ public class ItemEditActivity extends AppCompatActivity {
         btnRessetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder = new AlertDialog.Builder(ItemEditActivity.this, R.style.MyAlertDialogStyle);
-                builder.setTitle("특급 재조정");
+                View view = getLayoutInflater().inflate(R.layout.exoticbuilddialog, null);
                 final MaterialItem exoticItem = materialList.get(9);
-                builder.setMessage("재조정 하시겠습니까?\n"+exoticItem.getName()+" : "+exoticItem.getCount()+"/"+1);
-                builder.setPositiveButton("재조정", new DialogInterface.OnClickListener() {
+
+                Button btnCancel = view.findViewById(R.id.btnExit);
+                Button btnBuild = view.findViewById(R.id.btnBuild);
+                ImageView imgType = view.findViewById(R.id.imgType);
+                TextView txtName = view.findViewById(R.id.txtName);
+                TextView txtType = view.findViewById(R.id.txtType);
+                TextView txtNowExotic = view.findViewById(R.id.txtNowExotic);
+
+                txtName.setText(exoticname);
+                txtType.setText(type);
+                txtNowExotic.setText(Integer.toString(exoticItem.getCount()));
+                if (exoticItem.getCount() < 1) txtNowExotic.setTextColor(Color.parseColor("#FF0000"));
+                else txtNowExotic.setTextColor(Color.parseColor("#F0F0F0"));
+
+                switch (type) {
+                    case "돌격소총":
+                        imgType.setImageResource(R.drawable.wp1custom);
+                        break;
+                    case "소총":
+                        imgType.setImageResource(R.drawable.wp2custom);
+                        break;
+                    case "지정사수소총":
+                        imgType.setImageResource(R.drawable.wp3custom);
+                        break;
+                    case "기관단총":
+                        imgType.setImageResource(R.drawable.wp4custom);
+                        break;
+                    case "경기관총":
+                        imgType.setImageResource(R.drawable.wp5custom);
+                        break;
+                    case "산탄총":
+                        imgType.setImageResource(R.drawable.wp6custom);
+                        break;
+                    case "권총":
+                        imgType.setImageResource(R.drawable.wp7custom);
+                        break;
+                    case "마스크":
+                        imgType.setImageResource(R.drawable.sd1custom);
+                        break;
+                    case "조끼":
+                        imgType.setImageResource(R.drawable.sd2custom);
+                        break;
+                    case "권총집":
+                        imgType.setImageResource(R.drawable.sd3custom);
+                        break;
+                    case "백팩":
+                        imgType.setImageResource(R.drawable.sd4custom);
+                        break;
+                    case "장갑":
+                        imgType.setImageResource(R.drawable.sd5custom);
+                        break;
+                    case "무릎보호대":
+                        imgType.setImageResource(R.drawable.sd6custom);
+                        break;
+                }
+
+                btnBuild.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
                         if (exoticItem.getCount() <= 0) {
                             Toast.makeText(getApplicationContext(), "특급 부품이 부족합니다.", Toast.LENGTH_SHORT).show();
                             return;
@@ -851,7 +958,6 @@ public class ItemEditActivity extends AppCompatActivity {
                             materialDbAdapter.updateMaterial(exoticItem.getName(), exoticItem.getCount());
                             materialDbAdapter.close();
                         }
-
 
                         double max;
                         String core1, core2, sub1, sub2, temp, weapon_type;
@@ -943,10 +1049,20 @@ public class ItemEditActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                builder.setNegativeButton("취소", null);
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(ItemEditActivity.this);
+                builder.setView(view);
 
                 alertDialog = builder.create();
                 alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 alertDialog.show();
             }
         });
@@ -1098,7 +1214,7 @@ public class ItemEditActivity extends AppCompatActivity {
         String word;
         int start, end;
         int find_index = 0;
-        String[] changes = {"+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
+        String[] changes = {"+", "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "m", "초", "번", "개", "명", "배", "배율", "발", "."};
         String[] numbers = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         for (int i = 0; i < changes.length; i++) { //뉴욕의 지배자 확장팩 출시 후 등장한 엑조틱 장비들을 특급 색으로 변경해준다.
             find_index = 0;
@@ -1109,7 +1225,7 @@ public class ItemEditActivity extends AppCompatActivity {
                 end = start + word.length(); //시작번호로부터 찾을 문자열의 길이를 추가해 끝번호를 찾는다.
                 if (start > 0) {
                     if ((isFrontNumber(content, start) && changes[i].equals("초")) ||
-                            (!changes[i].equals("초") && !changes[i].equals('번') && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
+                            (!changes[i].equals("초") && !changes[i].equals("번") && !changes[i].equals("개") && !changes[i].equals("명") && !changes[i].equals("배") && !changes[i].equals("발") && !changes[i].equals(".")) ||
                             (isFrontNumber(content, start) && changes[i].equals("번")) ||
                             (isFrontNumber(content, start) && changes[i].equals("개")) ||
                             (isFrontNumber(content, start) && changes[i].equals("배")) ||

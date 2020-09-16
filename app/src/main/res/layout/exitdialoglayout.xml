@@ -10,7 +10,7 @@
         android:text="정말로 앱을 종료하시겠습니까?"
         android:gravity="center"
         android:textSize="18sp"
-        android:textColor="#aaaaaa"
+        android:textColor="#f0f0f0"
         android:layout_marginBottom="5dp"/>
     <TextView
         android:id="@+id/txtInfo"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="10초 뒤에 자동으로 종료됩니다."
         android:textSize="18sp"
-        android:textColor="#aaa"
+        android:textColor="#f0f0f0"
         android:gravity="center"/>
 
     <LinearLayout

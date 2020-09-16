@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="제작하기 위해서 상단 아이콘을 클릭하십시오."
-        android:textColor="#aaaaaa"
+        android:textColor="#f0f0f0"
         android:textSize="16sp"
         android:layout_marginBottom="10dp"/>
     <Button

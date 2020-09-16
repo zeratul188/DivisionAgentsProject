@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="10dp" android:gravity="center"
+    android:background="#00222222">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[SHD Name]"
+        android:textSize="20sp"
+        android:textColor="#FF6337"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/txtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[SHD Content]"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#f0f0f0"
+        android:layout_marginBottom="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
+        <Button
+            android:id="@+id/btnAll"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/mainbuttonhub"
+            android:layout_gravity="center"
+            android:text="모두 사용"
+            android:textColor="#FF6337"
+            android:layout_marginRight="5dp"
+            android:textSize="18sp"/>
+        <Button
+            android:id="@+id/btnOnce"
+            android:layout_width="180dp"
+            android:layout_height="45dp"
+            android:background="@drawable/mainbuttonhub"
+            android:layout_gravity="center"
+            android:text="사용"
+            android:textColor="#FF6337"
+            android:layout_marginLeft="5dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:background="@drawable/subbuttonhub"
+        android:layout_gravity="center"
+        android:text="취소"
+        android:textColor="#aaaaaa"
+        android:layout_marginLeft="5dp"
+        android:textSize="18sp"/>
+
+</LinearLayout>

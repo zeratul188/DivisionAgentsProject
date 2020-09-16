@@ -34,10 +34,9 @@
                         android:layout_height="60dp"
                         android:text="2000"
                         android:textColor="#f0f0f0"
-                        android:textSize="50sp"
+                        android:textSize="35sp"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
-                        android:fontFamily="@font/brickshapers"
                         android:textStyle="bold"/>
                     <TextView
                         android:layout_width="0dp"
@@ -55,11 +54,10 @@
                     android:layout_height="wrap_content"
                     android:text="350000/700000"
                     android:textColor="#aaaaaa"
-                    android:fontFamily="@font/brickshapers"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textAlignment="textEnd"
-                    android:textSize="30sp"/>
+                    android:textSize="20sp"/>
                 <ProgressBar
                     android:id="@+id/progressEXP"
                     android:layout_width="match_parent"
