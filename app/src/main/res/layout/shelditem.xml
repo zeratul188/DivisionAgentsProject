@@ -28,6 +28,7 @@
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/eq3"/>
             <LinearLayout
                 android:layout_width="0dp"
@@ -43,6 +44,12 @@
                     android:textColor="#f0f0f0"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#aaaaaa"
+                    android:textSize="10sp"
+                    android:text="세트효과"/>
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -203,14 +210,25 @@
                     android:src="@drawable/vests"
                     android:adjustViewBounds="true"
                     android:layout_marginRight="20dp"/>
-                <TextView
-                    android:id="@+id/txtVest"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textColor="#f0f0f0"
-                    android:textSize="16sp"
-                    android:text="[Vest Options]"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaaaaa"
+                        android:textSize="10sp"
+                        android:text="조끼 특수효과"/>
+                    <TextView
+                        android:id="@+id/txtVest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#f0f0f0"
+                        android:textSize="16sp"
+                        android:text="[Vest Options]"/>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -224,14 +242,25 @@
                     android:src="@drawable/backpack"
                     android:adjustViewBounds="true"
                     android:layout_marginRight="20dp"/>
-                <TextView
-                    android:id="@+id/txtBackpack"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textColor="#f0f0f0"
-                    android:textSize="16sp"
-                    android:text="[Backpack Options]"/>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaaaaa"
+                        android:textSize="10sp"
+                        android:text="백팩 특수효과"/>
+                    <TextView
+                        android:id="@+id/txtBackpack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#f0f0f0"
+                        android:textSize="16sp"
+                        android:text="[Backpack Options]"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -39,7 +39,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="닌자바이크 메신져 무릎 보호대"
+                android:text="[Item Name]"
                 android:textSize="22sp"
                 android:textColor="#f0f0f0"/>
             <LinearLayout
@@ -51,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="돌격소총"
+                    android:text="[Type]"
                     android:textSize="15sp"
                     android:textColor="#aaaaaa"/>
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="서서히 다가오는 죽음"
+                    android:text="[Talent]"
                     android:textSize="15sp"
                     android:textAlignment="textEnd"
                     android:textColor="#f0f0f0"/>
@@ -87,6 +87,7 @@
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
                         android:src="@drawable/attack"
+                        android:padding="1dp"
                         android:background="@drawable/maxitembackground"
                         android:layout_marginRight="5dp"/>
                     <LinearLayout
@@ -97,7 +98,7 @@
                             android:id="@+id/txtCoreName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="무기 데미지"
+                            android:text="[Core Option]"
                             android:textColor="#f0f0f0"
                             android:textSize="15sp"/>
                         <TextView

@@ -40,8 +40,7 @@
             android:background="@drawable/gage2"
             android:id="@+id/progressTimer"
             android:paddingTop="5dp"
-            android:indeterminateTint="#E45435"
-            android:layout_marginBottom="10dp"/>
+            android:indeterminateTint="#E45435"/>
     </LinearLayout>
 
     <LinearLayout

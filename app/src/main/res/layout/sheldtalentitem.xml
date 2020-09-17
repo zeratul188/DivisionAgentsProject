@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/vests"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="5dp"/>
         </LinearLayout>
         <TextView
             android:id="@+id/txtContent"

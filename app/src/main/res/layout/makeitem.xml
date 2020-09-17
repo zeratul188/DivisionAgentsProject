@@ -22,8 +22,9 @@
             android:id="@+id/imgWeaponType"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="2dp"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
             android:src="@drawable/rdowp1custom"/>
