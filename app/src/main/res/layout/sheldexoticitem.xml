@@ -20,14 +20,17 @@
             android:id="@+id/imgWeaponType"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:layout_gravity="center"
             android:src="@drawable/mask"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="#80f0f0f0"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"/>
         <TextView
             android:id="@+id/txtName"
