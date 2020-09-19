@@ -147,6 +147,15 @@
                             android:layout_marginRight="10dp"
                             android:layout_gravity="center"
                             android:indeterminateTint="#E45435"/>
+                        <SeekBar
+                            android:id="@+id/seekWMain1"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:thumb="@drawable/ic_second_40dp"
+                            android:progress="75"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                            android:progressDrawable="@null"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/layoutWeaponMain2"
@@ -179,6 +188,15 @@
                             android:layout_marginRight="10dp"
                             android:layout_gravity="center"
                             android:indeterminateTint="#E45435"/>
+                        <SeekBar
+                            android:id="@+id/seekWMain2"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:thumb="@drawable/ic_second_40dp"
+                            android:progress="100"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                            android:progressDrawable="@null"/>
                     </LinearLayout>
 
                     <TextView
@@ -223,6 +241,15 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:indeterminateTint="#E45435"/>
+                        <SeekBar
+                            android:id="@+id/seekWSub"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:thumb="@drawable/ic_second_40dp"
+                            android:progress="75"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                            android:progressDrawable="@null"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -291,6 +318,15 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:indeterminateTint="#E45435"/>
+                        <SeekBar
+                            android:id="@+id/seekSMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:thumb="@drawable/ic_second_40dp"
+                            android:progress="75"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                            android:progressDrawable="@null"/>
                     </LinearLayout>
 
                     <TextView
@@ -349,6 +385,15 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:indeterminateTint="#E45435"/>
+                        <SeekBar
+                            android:id="@+id/seekSSub1"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:thumb="@drawable/ic_second_40dp"
+                            android:progress="75"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                            android:progressDrawable="@null"/>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/layoutSheldSub2"
@@ -400,6 +445,15 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
                                 android:indeterminateTint="#E45435"/>
+                            <SeekBar
+                                android:id="@+id/seekSSub2"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:thumb="@drawable/ic_second_40dp"
+                            android:progress="75"
+                            android:layout_marginLeft="-5dp"
+                            android:layout_marginRight="-5dp"
+                                android:progressDrawable="@null"/>
                         </LinearLayout>
 
 
