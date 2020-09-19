@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +30,14 @@ import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 public class SettingActivity extends AppCompatActivity {
     private Button btnAllReset, btnLibraryReset, btnLibraryMax, btnLevelReset, btnInventoryClear, btnInventorySave, btnInventoryInput;
     private Button btnDeveloper, btnMaterialReset, btnMaterialMax, btnLibrarySave, btnLibraryLoad, btnSHDSave, btnSHDLoad, btnMaterialSave, btnMaterialLoad;
     private Button btnAllSave, btnAllLoad;
-    private TextView txtWriteRead;
+    private TextView txtWriteRead, txtDeveloper;
 
     private LibraryDBAdapter libraryDBAdapter;
     private SHDDBAdapter shddbAdapter;
@@ -77,8 +79,18 @@ public class SettingActivity extends AppCompatActivity {
         btnAllSave = findViewById(R.id.btnAllSave);
         btnAllLoad = findViewById(R.id.btnAllLoad);
         txtWriteRead = findViewById(R.id.txtWriteRead);
+        txtDeveloper = findViewById(R.id.txtDeveloper);
 
         updatePermissionsUI();
+        if (loadMode()) {
+            btnDeveloper.setText("관리자 모드 비활성화");
+            txtDeveloper.setTextColor(Color.parseColor("#00FF00"));
+            txtDeveloper.setText("활성화");
+        } else {
+            btnDeveloper.setText("관리자 모드 활성화");
+            txtDeveloper.setTextColor(Color.parseColor("#FF0000"));
+            txtDeveloper.setText("비활성화");
+        }
 
         libraryDBAdapter = new LibraryDBAdapter(this);
         shddbAdapter = new SHDDBAdapter(this);
@@ -201,7 +213,59 @@ public class SettingActivity extends AppCompatActivity {
         btnDeveloper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast("차후 개발될 예정", false);
+                View view = getLayoutInflater().inflate(R.layout.developerpassword, null);
+
+                Button btnExit = view.findViewById(R.id.btnExit);
+                Button btnLogin = view.findViewById(R.id.btnLogin);
+                TextView txtInfo = view.findViewById(R.id.txtInfo);
+                final EditText edtPassword = view.findViewById(R.id.edtPassword);
+
+                if (loadMode()) {
+                    edtPassword.setVisibility(View.GONE);
+                    btnLogin.setText("비활성화");
+                    txtInfo.setText("관리자 모드를 비활성화하시겠습니까?");
+                }
+
+                btnLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (String.valueOf(edtPassword.getText()).equals("6725") || loadMode()) {
+                            alertDialog.dismiss();
+                            if (loadMode()) {
+                                saveMode(false);
+                                btnDeveloper.setText("관리자 모드 활성화");
+                                txtDeveloper.setTextColor(Color.parseColor("#FF0000"));
+                                txtDeveloper.setText("비활성화");
+                                Toast.makeText(getApplicationContext(), "관리자 모드를 비활성화하였습니다.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                saveMode(true);
+                                btnDeveloper.setText("관리자 모드 비활성화");
+                                txtDeveloper.setTextColor(Color.parseColor("#00FF00"));
+                                txtDeveloper.setText("활성화");
+                                Toast.makeText(getApplicationContext(), "관리자 모드를 활성화하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            edtPassword.setText("");
+                            Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setView(view);
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
             }
         });
 
@@ -1279,6 +1343,51 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         updatePermissionsUI();
+    }
+
+    private void saveMode(boolean mode) {
+        FileOutputStream fos = null;
+        String data = Boolean.toString(mode);
+        try {
+            fos = openFileOutput("developer_mode.txt", MODE_PRIVATE);
+            fos.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            toast(String.valueOf(e), false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            toast(String.valueOf(e), false);
+        } finally {
+            try {
+                if (fos != null) fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                toast(String.valueOf(e), false);
+            }
+        }
+    }
+
+    private boolean loadMode() {
+        boolean result = false;
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput("developer_mode.txt");
+            byte[] data = new byte[fis.available()];
+            while(fis.read(data) != -1) {}
+            result = Boolean.parseBoolean(new String(data));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fis != null) fis.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                toast(String.valueOf(e), false);
+            }
+        }
+        return result;
     }
 
     @Override
