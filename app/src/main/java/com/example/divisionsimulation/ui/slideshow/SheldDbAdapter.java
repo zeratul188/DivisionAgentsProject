@@ -104,6 +104,12 @@ public class SheldDbAdapter {
         return cursor;
     }
 
+    public Cursor fetchName(String name) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_FIRST, KEY_SECOND, KEY_THIRD, KEY_CORE, KEY_SUB, KEY_TYPE, KEY_VEST, KEY_BACKPACK, KEY_IMAGE}, KEY_NAME+"='"+name+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
+    }
+
     public int getCount() {
         Cursor cursor = sqlDB.rawQuery("select * from "+DATABASE_TABLE+";", null);
         int count = 0;

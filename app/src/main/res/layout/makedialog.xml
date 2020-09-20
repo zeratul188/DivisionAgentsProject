@@ -302,6 +302,78 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutSet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#20f0f0f0"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1세트 : "
+                        android:textSize="17sp"
+                        android:textColor="#aaaaaa"/>
+                    <TextView
+                        android:id="@+id/txtFirstSet"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="[First Set Attribute]"
+                        android:textSize="17sp"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2세트 : "
+                        android:textSize="17sp"
+                        android:textColor="#aaaaaa"/>
+                    <TextView
+                        android:id="@+id/txtSecondSet"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="[Second Set Attribute]"
+                        android:textSize="17sp"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3세트 : "
+                        android:textSize="17sp"
+                        android:textColor="#aaaaaa"/>
+                    <TextView
+                        android:id="@+id/txtThirdSet"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="[Third Set Attribute]"
+                        android:textSize="17sp"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
     <Button

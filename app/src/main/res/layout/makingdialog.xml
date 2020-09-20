@@ -8,9 +8,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="185dp"
+            android:layout_height="185dp"
+            android:src="@drawable/ui_button"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
         <com.dinuscxj.progressbar.CircleProgressBar
             android:id="@+id/progressMake"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_margin="20dp"
             android:layout_gravity="center"
@@ -21,7 +27,7 @@
             app:progress_text_size="20sp"
             app:progress_start_color="#fe6e0e"
             app:progress_end_color="#fe6e0e"
-            app:progress_background_color="#10888888"
+            app:progress_background_color="#80888888"
             app:progress_text_color="#00000000"/>
         <ImageView
             android:id="@+id/imgIcon"

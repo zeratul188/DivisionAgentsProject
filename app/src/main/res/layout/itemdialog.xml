@@ -146,7 +146,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:thumb="@drawable/ic_second_40dp"
-                            android:progress="75"
+                            android:progress="100"
                             android:layout_marginLeft="-5dp"
                             android:layout_marginRight="-5dp"
                             android:progressDrawable="@null"/>
@@ -202,7 +202,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:thumb="@drawable/ic_second_40dp"
-                            android:progress="75"
+                            android:progress="100"
                             android:layout_marginLeft="-5dp"
                             android:layout_marginRight="-5dp"
                             android:progressDrawable="@null"/>
@@ -269,7 +269,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:thumb="@drawable/ic_second_40dp"
-                            android:progress="75"
+                            android:progress="100"
                             android:layout_marginLeft="-5dp"
                             android:layout_marginRight="-5dp"
                             android:progressDrawable="@null"/>
@@ -355,7 +355,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:thumb="@drawable/ic_second_40dp"
-                            android:progress="75"
+                            android:progress="100"
                             android:layout_marginLeft="-5dp"
                             android:layout_marginRight="-5dp"
                             android:progressDrawable="@null"/>
@@ -430,7 +430,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:thumb="@drawable/ic_second_40dp"
-                            android:progress="75"
+                            android:progress="100"
                             android:layout_marginLeft="-5dp"
                             android:layout_marginRight="-5dp"
                             android:progressDrawable="@null"/>
@@ -498,7 +498,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
                                 android:thumb="@drawable/ic_second_40dp"
-                                android:progress="75"
+                                android:progress="100"
                                 android:layout_marginLeft="-5dp"
                                 android:layout_marginRight="-5dp"
                                 android:progressDrawable="@null"/>
