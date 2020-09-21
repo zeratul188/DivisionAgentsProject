@@ -433,7 +433,7 @@ public class SendFragment extends Fragment {
                 } else if (makeItems.get(position).getGear()) {
                     txtName.setTextColor(Color.parseColor("#2BBE2B"));
                 } else {
-                    txtName.setTextColor(Color.parseColor("#AAAAAA"));
+                    txtName.setTextColor(Color.parseColor("#F0F0F0"));
                 }
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
@@ -457,6 +457,24 @@ public class SendFragment extends Fragment {
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
                         final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
+                        TextView txtName = makingView.findViewById(R.id.txtName);
+                        TextView txtType = makingView.findViewById(R.id.txtType);
+                        
+                        txtName.setText(makeItems.get(index).getName());
+                        txtType.setText(makeItems.get(index).getType());
+                        makeExoticDBAdapter.open();
+                        makeNamedDBAdapter.open();
+                        if (makeNamedDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#B18912"));
+                        } else if (makeExoticDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#fe6e0e"));
+                        } else if (makeItems.get(index).getGear()) {
+                            txtName.setTextColor(Color.parseColor("#2BBE2B"));
+                        } else {
+                            txtName.setTextColor(Color.parseColor("#F0F0F0"));
+                        }
+                        makeNamedDBAdapter.close();
+                        makeExoticDBAdapter.close();
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
@@ -647,7 +665,7 @@ public class SendFragment extends Fragment {
                 } else if (makeItems.get(position).getGear()) {
                     txtName.setTextColor(Color.parseColor("#2BBE2B"));
                 } else {
-                    txtName.setTextColor(Color.parseColor("#AAAAAA"));
+                    txtName.setTextColor(Color.parseColor("#F0F0F0"));
                 }
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
@@ -671,6 +689,24 @@ public class SendFragment extends Fragment {
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
                         final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
+                        TextView txtName = makingView.findViewById(R.id.txtName);
+                        TextView txtType = makingView.findViewById(R.id.txtType);
+                        
+                        txtName.setText(makeItems.get(index).getName());
+                        txtType.setText(makeItems.get(index).getType());
+                        makeExoticDBAdapter.open();
+                        makeNamedDBAdapter.open();
+                        if (makeNamedDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#B18912"));
+                        } else if (makeExoticDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#fe6e0e"));
+                        } else if (makeItems.get(index).getGear()) {
+                            txtName.setTextColor(Color.parseColor("#2BBE2B"));
+                        } else {
+                            txtName.setTextColor(Color.parseColor("#F0F0F0"));
+                        }
+                        makeNamedDBAdapter.close();
+                        makeExoticDBAdapter.close();
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));
@@ -856,7 +892,7 @@ public class SendFragment extends Fragment {
                 } else if (makeItems.get(position).getGear()) {
                     txtName.setTextColor(Color.parseColor("#2BBE2B"));
                 } else {
-                    txtName.setTextColor(Color.parseColor("#AAAAAA"));
+                    txtName.setTextColor(Color.parseColor("#F0F0F0"));
                 }
                 makeNamedDBAdapter.close();
                 makeExoticDBAdapter.close();
@@ -894,6 +930,24 @@ public class SendFragment extends Fragment {
                         progressMake = makingView.findViewById(R.id.progressMake);
                         Button btnExit = makingView.findViewById(R.id.btnExit);
                         final TextView txtMaking = makingView.findViewById(R.id.txtMaking);
+                        TextView txtName = makingView.findViewById(R.id.txtName);
+                        TextView txtType = makingView.findViewById(R.id.txtType);
+                        
+                        txtName.setText(makeItems.get(index).getName());
+                        txtType.setText(makeItems.get(index).getType());
+                        makeExoticDBAdapter.open();
+                        makeNamedDBAdapter.open();
+                        if (makeNamedDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#B18912"));
+                        } else if (makeExoticDBAdapter.haveItem(makeItems.get(index).getName())) {
+                            txtName.setTextColor(Color.parseColor("#fe6e0e"));
+                        } else if (makeItems.get(index).getGear()) {
+                            txtName.setTextColor(Color.parseColor("#2BBE2B"));
+                        } else {
+                            txtName.setTextColor(Color.parseColor("#F0F0F0"));
+                        }
+                        makeNamedDBAdapter.close();
+                        makeExoticDBAdapter.close();
 
                         if (isTypeWeapon(makeItems.get(index).getType())) {
                             imgIcon.setImageResource(setWeaponImageResource(makeItems.get(index).getType()));

@@ -75,7 +75,7 @@ public class MakeAdapter extends BaseAdapter {
         } else if (makeItems.get(position).getGear()) {
             txtName.setTextColor(Color.parseColor("#2BBE2B"));
         } else {
-            txtName.setTextColor(Color.parseColor("#AAAAAA"));
+            txtName.setTextColor(Color.parseColor("#F0F0F0"));
         }
         makeNamedDBAdapter.close();
 
