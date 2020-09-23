@@ -40,6 +40,7 @@ import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -1370,7 +1371,37 @@ public class InventoryActivity extends AppCompatActivity {
             }
         }
         inventoryDBAdapter.close();
-        Collections.sort(itemList);
+        Comparator<Item> sortComparator = new Comparator<Item>() {
+            @Override
+            public int compare(Item item1, Item item2) {
+                int ret;
+                int type1, type2;
+
+                exoticDBAdapter.open();
+                makeExoticDBAdapter.open();
+                sheldDBAdapter.open();
+                if (exoticDBAdapter.haveItem(item1.getName()) || makeExoticDBAdapter.haveItem(item1.getName())) type1 = 0;
+                else if (sheldDBAdapter.haveItem(item1.getName())) type1 = 1;
+                else type1 = 2;
+                if (exoticDBAdapter.haveItem(item2.getName()) || makeExoticDBAdapter.haveItem(item2.getName())) type2 = 0;
+                else if (sheldDBAdapter.haveItem(item2.getName())) type2 = 1;
+                else type2 = 2;
+                sheldDBAdapter.close();
+                makeExoticDBAdapter.close();
+                exoticDBAdapter.close();
+
+                if (type1 < type2) {
+                    ret = -1;
+                } else if (type1 == type2) {
+                    ret = item1.getName().compareTo(item2.getName());
+                } else {
+                    ret = 1;
+                }
+
+                return ret;
+            }
+        };
+        Collections.sort(itemList, sortComparator);
     }
 
     private void changeTable(int position, LinearLayout layout) {
