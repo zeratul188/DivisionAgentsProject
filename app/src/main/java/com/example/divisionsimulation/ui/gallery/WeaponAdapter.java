@@ -59,7 +59,7 @@ public class WeaponAdapter extends BaseAdapter {
         if (exoticed) {
             txtName.setTextColor(Color.parseColor("#fe6e0e"));
         } else {
-            txtName.setTextColor(Color.parseColor("#AAAAAA"));
+            txtName.setTextColor(Color.parseColor("#F0F0F0"));
         }
 
         return convertView;
