@@ -1393,7 +1393,11 @@ public class InventoryActivity extends AppCompatActivity {
                 if (type1 < type2) {
                     ret = -1;
                 } else if (type1 == type2) {
-                    ret = item1.getName().compareTo(item2.getName());
+                    if (item1.getType().compareTo(item2.getType()) == 0) {
+                        ret = item1.getName().compareTo(item2.getName());
+                    } else {
+                        ret = item1.getType().compareTo(item2.getType());
+                    }
                 } else {
                     ret = 1;
                 }
