@@ -1,7 +1,6 @@
 package com.example.divisionsimulation;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -12,7 +11,6 @@ import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.ui.home.LoadoutDBAdapter;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
 
@@ -35,9 +34,9 @@ import java.nio.channels.FileChannel;
 
 public class SettingActivity extends AppCompatActivity {
     private Button btnAllReset, btnLibraryReset, btnLibraryMax, btnLevelReset, btnInventoryClear, btnInventorySave, btnInventoryInput;
-    private Button btnDeveloper, btnMaterialReset, btnMaterialMax, btnLibrarySave, btnLibraryLoad, btnSHDSave, btnSHDLoad, btnMaterialSave, btnMaterialLoad;
-    private Button btnAllSave, btnAllLoad;
-    private TextView txtWriteRead, txtDeveloper;
+    private Button btnMaterialReset, btnMaterialMax, btnLibrarySave, btnLibraryLoad, btnSHDSave, btnSHDLoad, btnMaterialSave, btnMaterialLoad;
+    private Button btnAllSave, btnAllLoad, btnLoadoutDelete, btnLoadoutSave, btnLoadoutLoad;
+    private TextView txtWriteRead;
 
     private LibraryDBAdapter libraryDBAdapter;
     private SHDDBAdapter shddbAdapter;
@@ -46,6 +45,7 @@ public class SettingActivity extends AppCompatActivity {
     private MaxOptionsFMDBAdapter maxOptionsDBAdapter;
     private TalentFMDBAdapter talentDBAdapter;
     private MaterialDbAdapter materialDbAdapter;
+    private LoadoutDBAdapter loadoutDBAdapter;
 
     private Cursor cursor;
 
@@ -67,7 +67,6 @@ public class SettingActivity extends AppCompatActivity {
         btnInventoryClear = findViewById(R.id.btnInventoryClear);
         btnInventorySave = findViewById(R.id.btnInventorySave);
         btnInventoryInput = findViewById(R.id.btnInventoryInput);
-        btnDeveloper = findViewById(R.id.btnDeveloper);
         btnMaterialReset = findViewById(R.id.btnMaterialReset);
         btnMaterialMax = findViewById(R.id.btnMaterialMax);
         btnLibrarySave = findViewById(R.id.btnLibrarySave);
@@ -79,18 +78,11 @@ public class SettingActivity extends AppCompatActivity {
         btnAllSave = findViewById(R.id.btnAllSave);
         btnAllLoad = findViewById(R.id.btnAllLoad);
         txtWriteRead = findViewById(R.id.txtWriteRead);
-        txtDeveloper = findViewById(R.id.txtDeveloper);
+        btnLoadoutDelete = findViewById(R.id.btnLoadoutDelete);
+        btnLoadoutSave = findViewById(R.id.btnLoadoutSave);
+        btnLoadoutLoad = findViewById(R.id.btnLoadoutLoad);
 
         updatePermissionsUI();
-        if (loadMode()) {
-            btnDeveloper.setText("관리자 모드 비활성화");
-            txtDeveloper.setTextColor(Color.parseColor("#00FF00"));
-            txtDeveloper.setText("활성화");
-        } else {
-            btnDeveloper.setText("관리자 모드 활성화");
-            txtDeveloper.setTextColor(Color.parseColor("#FF0000"));
-            txtDeveloper.setText("비활성화");
-        }
 
         libraryDBAdapter = new LibraryDBAdapter(this);
         shddbAdapter = new SHDDBAdapter(this);
@@ -99,6 +91,7 @@ public class SettingActivity extends AppCompatActivity {
         maxOptionsDBAdapter = new MaxOptionsFMDBAdapter(this);
         talentDBAdapter = new TalentFMDBAdapter(this);
         materialDbAdapter = new MaterialDbAdapter(this);
+        loadoutDBAdapter = new LoadoutDBAdapter(this);
 
         String state = Environment.getExternalStorageState();
         if (!state.equals(Environment.MEDIA_MOUNTED)) {
@@ -147,6 +140,9 @@ public class SettingActivity extends AppCompatActivity {
                         shddbAdapter.open();
                         shddbAdapter.resetSHD();
                         shddbAdapter.close();
+                        loadoutDBAdapter.open();
+                        loadoutDBAdapter.deleteAllData();
+                        loadoutDBAdapter.close();
                         Toast.makeText(getApplicationContext(), "모든 데이터가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -210,65 +206,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        btnDeveloper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = getLayoutInflater().inflate(R.layout.developerpassword, null);
-
-                Button btnExit = view.findViewById(R.id.btnExit);
-                Button btnLogin = view.findViewById(R.id.btnLogin);
-                TextView txtInfo = view.findViewById(R.id.txtInfo);
-                final EditText edtPassword = view.findViewById(R.id.edtPassword);
-
-                if (loadMode()) {
-                    edtPassword.setVisibility(View.GONE);
-                    btnLogin.setText("비활성화");
-                    txtInfo.setText("관리자 모드를 비활성화하시겠습니까?");
-                }
-
-                btnLogin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (String.valueOf(edtPassword.getText()).equals("6725") || loadMode()) {
-                            alertDialog.dismiss();
-                            if (loadMode()) {
-                                saveMode(false);
-                                btnDeveloper.setText("관리자 모드 활성화");
-                                txtDeveloper.setTextColor(Color.parseColor("#FF0000"));
-                                txtDeveloper.setText("비활성화");
-                                Toast.makeText(getApplicationContext(), "관리자 모드를 비활성화하였습니다.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                saveMode(true);
-                                btnDeveloper.setText("관리자 모드 비활성화");
-                                txtDeveloper.setTextColor(Color.parseColor("#00FF00"));
-                                txtDeveloper.setText("활성화");
-                                Toast.makeText(getApplicationContext(), "관리자 모드를 활성화하였습니다.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            edtPassword.setText("");
-                            Toast.makeText(getApplicationContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                btnExit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
-
-                builder = new AlertDialog.Builder(SettingActivity.this);
-                builder.setView(view);
-
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                alertDialog.show();
-            }
-        });
-
         btnMaterialReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -325,85 +262,116 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        btnLoadoutSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveLoadout();
+            }
+        });
+
+        btnLoadoutLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadLoadout();
+            }
+        });
+
+        btnLoadoutDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteLoadout();
+            }
+        });
+
         btnAllSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+                if (hasPermissions()) {
+                    View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
 
-                TextView txtContent = view.findViewById(R.id.txtContent);
-                Button btnCancel = view.findViewById(R.id.btnCancel);
-                Button btnOK = view.findViewById(R.id.btnOK);
+                    TextView txtContent = view.findViewById(R.id.txtContent);
+                    Button btnCancel = view.findViewById(R.id.btnCancel);
+                    Button btnOK = view.findViewById(R.id.btnOK);
 
-                btnOK.setText("저장");
-                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 저장하시겠습니까?");
+                    btnOK.setText("저장");
+                    txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 저장하시겠습니까?");
 
-                btnOK.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                        importMaterialData();
-                        importSHDData();
-                        importLibraryData();
-                        importInventoryData();
-                        Toast.makeText(getApplicationContext(), "모든 데이터를 저장하였습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    btnOK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            importMaterialData();
+                            importSHDData();
+                            importLibraryData();
+                            importInventoryData();
+                            saveLoadoutData();
+                            Toast.makeText(getApplicationContext(), "모든 데이터를 저장하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
 
-                builder = new AlertDialog.Builder(SettingActivity.this);
-                builder.setView(view);
+                    builder = new AlertDialog.Builder(SettingActivity.this);
+                    builder.setView(view);
 
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                alertDialog.show();
+                    alertDialog = builder.create();
+                    alertDialog.setCancelable(false);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
+                } else {
+                    requestPerms();
+                }
             }
         });
 
         btnAllLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+                if (hasPermissions()) {
+                    View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
 
-                TextView txtContent = view.findViewById(R.id.txtContent);
-                Button btnCancel = view.findViewById(R.id.btnCancel);
-                Button btnOK = view.findViewById(R.id.btnOK);
+                    TextView txtContent = view.findViewById(R.id.txtContent);
+                    Button btnCancel = view.findViewById(R.id.btnCancel);
+                    Button btnOK = view.findViewById(R.id.btnOK);
 
-                btnOK.setText("불러오기");
-                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 불러오시겠습니까?");
+                    btnOK.setText("불러오기");
+                    txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 불러오시겠습니까?");
 
-                btnOK.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                        exportMaterialData();
-                        exportSHDData();
-                        exportInventoryData();
-                        exportLibraryData();
-                        Toast.makeText(getApplicationContext(), "모든 데이터를 불러왔습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    btnOK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            exportMaterialData();
+                            exportSHDData();
+                            exportInventoryData();
+                            exportLibraryData();
+                            loadLoadoutData();
+                            Toast.makeText(getApplicationContext(), "모든 데이터를 불러왔습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alertDialog.dismiss();
-                    }
-                });
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
 
-                builder = new AlertDialog.Builder(SettingActivity.this);
-                builder.setView(view);
+                    builder = new AlertDialog.Builder(SettingActivity.this);
+                    builder.setView(view);
 
-                alertDialog = builder.create();
-                alertDialog.setCancelable(false);
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                alertDialog.show();
+                    alertDialog = builder.create();
+                    alertDialog.setCancelable(false);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
+                } else {
+                    requestPerms();
+                }
             }
         });
 
@@ -1131,6 +1099,182 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
+    private void deleteLoadout() {
+        if (hasPermissions()) {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("삭제");
+            txtContent.setText("로드아웃을 모두 삭제하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    loadoutDBAdapter.open();
+                    loadoutDBAdapter.deleteAllData();
+                    loadoutDBAdapter.close();
+                    toast("모든 로드아웃을 삭제하였습니다.", false);
+                }
+            });
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
+
+            alertDialog = builder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+        } else {
+            requestPerms();
+        }
+    }
+
+    private void saveLoadout() {
+        if (hasPermissions()) {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("저장");
+            txtContent.setText("로드아웃을 외부에 저장하시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    saveLoadoutData();
+                    toast("로드아웃을 저장하였습니다.", false);
+                }
+            });
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
+
+            alertDialog = builder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+        } else {
+            requestPerms();
+        }
+    }
+
+    private void saveLoadoutData() {
+        String databaseName = loadoutDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                File backupDir = new File(sd, backupDirectoryName);
+                if (!backupDir.exists()) backupDir.mkdir();
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "loadout_savefile";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
+        }
+    }
+
+    private void loadLoadout() {
+        if (hasPermissions()) {
+            View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+            TextView txtContent = view.findViewById(R.id.txtContent);
+            Button btnCancel = view.findViewById(R.id.btnCancel);
+            Button btnOK = view.findViewById(R.id.btnOK);
+
+            btnOK.setText("불러오기");
+            txtContent.setText("로드아웃을 외부에서 불러오시겠습니까?");
+
+            btnOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                    loadLoadoutData();
+                    toast("로드아웃을 불러왔습니다.", false);
+                }
+            });
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            builder = new AlertDialog.Builder(SettingActivity.this);
+            builder.setView(view);
+
+            alertDialog = builder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.show();
+        } else {
+            requestPerms();
+        }
+    }
+
+    private void loadLoadoutData() {
+        String databaseName = loadoutDBAdapter.getDatabaseName();
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
+                String backupDBPath = "loadout_savefile";
+                File backupDB = new File(data, currentDBPath);
+                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
+        }
+    }
+
     private void toast(String message, boolean longer) {
         int length;
         if (longer) length = Toast.LENGTH_LONG;
@@ -1343,51 +1487,6 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         updatePermissionsUI();
-    }
-
-    private void saveMode(boolean mode) {
-        FileOutputStream fos = null;
-        String data = Boolean.toString(mode);
-        try {
-            fos = openFileOutput("developer_mode.txt", MODE_PRIVATE);
-            fos.write(data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-            toast(String.valueOf(e), false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            toast(String.valueOf(e), false);
-        } finally {
-            try {
-                if (fos != null) fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                toast(String.valueOf(e), false);
-            }
-        }
-    }
-
-    private boolean loadMode() {
-        boolean result = false;
-        FileInputStream fis = null;
-        try {
-            fis = openFileInput("developer_mode.txt");
-            byte[] data = new byte[fis.available()];
-            while(fis.read(data) != -1) {}
-            result = Boolean.parseBoolean(new String(data));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fis != null) fis.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                toast(String.valueOf(e), false);
-            }
-        }
-        return result;
     }
 
     @Override

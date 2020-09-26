@@ -2,6 +2,7 @@ package com.example.divisionsimulation.ui.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,9 +22,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,11 +36,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.divisionsimulation.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements Serializable {
+
+    private final int LOADOUT_MAX = 20;
 
     private AlertDialog.Builder builder = null;
     private AlertDialog alertDialog = null;
@@ -76,6 +84,10 @@ public class HomeFragment extends Fragment implements Serializable {
     private ArrayList<CheckBox> vestTalents;
     private ArrayList<CheckBox> backpackTalents;
     private ArrayList<CheckBox> weaponTalents;
+
+    private LoadoutDBAdapter loadoutDBAdapter;
+    private ArrayList<Loadout> loadoutList;
+    private Cursor cursor;
 
     private LinearLayout layoutCamel; //카멜레온 여부 체크 시 기타 버프 옵션이 나타나기 위한 레이아웃이다.
 
@@ -237,6 +249,289 @@ public class HomeFragment extends Fragment implements Serializable {
         vestTalents = new ArrayList<CheckBox>();
         backpackTalents = new ArrayList<CheckBox>();
         weaponTalents = new ArrayList<CheckBox>();
+
+        loadoutDBAdapter = new LoadoutDBAdapter(getActivity());
+        loadoutList = new ArrayList<Loadout>();
+
+        FloatingActionButton fab = root.findViewById(R.id.btnLoadout);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View dialog_view = getActivity().getLayoutInflater().inflate(R.layout.loadoutlayout, null);
+
+                Button btnExit = dialog_view.findViewById(R.id.btnExit);
+                ListView listView = dialog_view.findViewById(R.id.listView);
+                final Button btnAdd = dialog_view.findViewById(R.id.btnAdd);
+
+                loadoutDBAdapter.open();
+                if (loadoutDBAdapter.getCount() >= LOADOUT_MAX) {
+                    btnAdd.setVisibility(View.GONE);
+                }
+                loadoutList.clear();
+                if (loadoutDBAdapter.getCount() != 0) {
+                    cursor = loadoutDBAdapter.fetchAllData();
+                    while (!cursor.isAfterLast()) {
+                        long rowID = cursor.getLong(0);
+                        double weapondemage = cursor.getDouble(1);
+                        double rpm = cursor.getDouble(2);
+                        double critical = cursor.getDouble(3);
+                        double critical_demage = cursor.getDouble(4);
+                        double headshot = cursor.getDouble(5);
+                        double headshot_demage = cursor.getDouble(6);
+                        double nohide = cursor.getDouble(7);
+                        double armor = cursor.getDouble(8);
+                        double health = cursor.getDouble(9);
+                        double reload = cursor.getDouble(10);
+                        double ammo = cursor.getDouble(11);
+                        double aim = cursor.getDouble(12);
+                        String make = cursor.getString(13);
+                        Loadout loadout = new Loadout(rowID, weapondemage, rpm, ammo, aim, make);
+                        loadout.setCritical(critical);
+                        loadout.setCritical_demage(critical_demage);
+                        loadout.setHeadshot(headshot);
+                        loadout.setHeadshot_demage(headshot_demage);
+                        loadout.setNohide(nohide);
+                        loadout.setArmor(armor);
+                        loadout.setHealth(health);
+                        loadout.setReload(reload);
+                        loadoutList.add(loadout);
+                        cursor.moveToNext();
+                    }
+                }
+                loadoutDBAdapter.close();
+
+                final LoadoutAdapter loadoutAdapter = new LoadoutAdapter(getActivity(), loadoutList);
+                listView.setAdapter(loadoutAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                        alertDialog.dismiss();
+                        View dialog_view = getActivity().getLayoutInflater().inflate(R.layout.loadoutdialog, null);
+
+                        TextView txtTitle = dialog_view.findViewById(R.id.txtTitle);
+                        TextView txtDate = dialog_view.findViewById(R.id.txtDate);
+                        Button btnApply = dialog_view.findViewById(R.id.btnApply);
+                        Button btnInput = dialog_view.findViewById(R.id.btnInput);
+                        Button btnDelete = dialog_view.findViewById(R.id.btnDelete);
+                        Button btnCancel = dialog_view.findViewById(R.id.btnCancel);
+
+                        txtTitle.setText("로드아웃 "+(position+1));
+                        txtDate.setText(loadoutList.get(position).getMake());
+
+                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
+                        btnApply.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                edtWeaponDemage.setText(formatD(loadoutList.get(position).getWeapondemage()));
+                                edtRPM.setText(formatD(loadoutList.get(position).getRpm()));
+                                edtCritical.setText(formatD(loadoutList.get(position).getCritical()));
+                                edtCriticalDemage.setText(formatD(loadoutList.get(position).getCritical_demage()));
+                                edtHeadshot.setText(formatD(loadoutList.get(position).getHeadshot()));
+                                edtHeadshotDemage.setText(formatD(loadoutList.get(position).getHeadshot_demage()));
+                                edtEliteDemage.setText(formatD(loadoutList.get(position).getNohide()));
+                                edtSheldDemage.setText(formatD(loadoutList.get(position).getArmor()));
+                                edtHealthDemage.setText(formatD(loadoutList.get(position).getHealth()));
+                                edtReload.setText(formatD(loadoutList.get(position).getReload()));
+                                edtAmmo.setText(formatD(loadoutList.get(position).getAmmo()));
+                                edtAiming.setText(formatD(loadoutList.get(position).getAim()));
+                                Toast.makeText(getActivity(), "로드아웃을 적용했습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        final int index = position;
+                        btnInput.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("") || String.valueOf(edtAiming.getText()).equals("")) {
+                                    Toast.makeText(getActivity(), "필수값은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                double weapondemage = Double.parseDouble(String.valueOf(edtWeaponDemage.getText()));
+                                double rpm = Double.parseDouble(String.valueOf(edtRPM.getText()));
+                                double ammo = Double.parseDouble(String.valueOf(edtAmmo.getText()));
+                                double aim = Double.parseDouble(String.valueOf(edtAiming.getText()));
+                                double critical, critical_demage, headshot, headshot_demage, nohide, armor, health, reload;
+                                if (!String.valueOf(edtCritical.getText()).equals("")) {
+                                    critical = Double.parseDouble(String.valueOf(edtCritical.getText()));
+                                } else {
+                                    critical = 0;
+                                }
+                                if (!String.valueOf(edtCriticalDemage.getText()).equals("")) {
+                                    critical_demage = Double.parseDouble(String.valueOf(edtCriticalDemage.getText()));
+                                } else {
+                                    critical_demage = 25;
+                                }
+                                if (!String.valueOf(edtHeadshot.getText()).equals("")) {
+                                    headshot = Double.parseDouble(String.valueOf(edtHeadshot.getText()));
+                                } else {
+                                    headshot = 0;
+                                }
+                                if (!String.valueOf(edtHealthDemage.getText()).equals("")) {
+                                    headshot_demage = Double.parseDouble(String.valueOf(edtHeadshotDemage.getText()));
+                                } else {
+                                    headshot_demage = 50;
+                                }
+                                if (!String.valueOf(edtEliteDemage.getText()).equals("")) {
+                                    nohide = Double.parseDouble(String.valueOf(edtEliteDemage.getText()));
+                                } else {
+                                    nohide = 0;
+                                }
+                                if (!String.valueOf(edtSheldDemage.getText()).equals("")) {
+                                    armor = Double.parseDouble(String.valueOf(edtSheldDemage.getText()));
+                                } else {
+                                    armor = 0;
+                                }
+                                if (!String.valueOf(edtHealthDemage.getText()).equals("")) {
+                                    health = Double.parseDouble(String.valueOf(edtHealthDemage.getText()));
+                                } else {
+                                    health = 0;
+                                }
+                                if (!String.valueOf(edtReload.getText()).equals("")) {
+                                    reload = Double.parseDouble(String.valueOf(edtReload.getText()));
+                                } else {
+                                    reload = 0;
+                                }
+
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String make = format.format(System.currentTimeMillis());
+
+                                loadoutDBAdapter.open();
+                                loadoutDBAdapter.updateData(loadoutList.get(index).getRowID(), weapondemage, rpm, critical, critical_demage, headshot, headshot_demage, nohide, armor, health, reload, ammo, aim, make);
+                                loadoutDBAdapter.close();
+
+                                Toast.makeText(getActivity(), "로드아웃을 덮어씌웠습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        btnDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                                loadoutDBAdapter.open();
+                                loadoutDBAdapter.deleteData(loadoutList.get(index).getRowID());
+                                loadoutDBAdapter.close();
+                                loadoutList.remove(index);
+                                loadoutAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                        builder = new AlertDialog.Builder(getActivity());
+                        builder.setView(dialog_view);
+
+                        alertDialog = builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        alertDialog.show();
+                    }
+                });
+
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (String.valueOf(edtWeaponDemage.getText()).equals("") || String.valueOf(edtRPM.getText()).equals("") || String.valueOf(edtAmmo.getText()).equals("") || String.valueOf(edtAiming.getText()).equals("")) {
+                            Toast.makeText(getActivity(), "필수값은 입력해야 합니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        double weapondemage = Double.parseDouble(String.valueOf(edtWeaponDemage.getText()));
+                        double rpm = Double.parseDouble(String.valueOf(edtRPM.getText()));
+                        double ammo = Double.parseDouble(String.valueOf(edtAmmo.getText()));
+                        double aim = Double.parseDouble(String.valueOf(edtAiming.getText()));
+                        double critical, critical_demage, headshot, headshot_demage, nohide, armor, health, reload;
+                        if (!String.valueOf(edtCritical.getText()).equals("")) {
+                            critical = Double.parseDouble(String.valueOf(edtCritical.getText()));
+                        } else {
+                            critical = 0;
+                        }
+                        if (!String.valueOf(edtCriticalDemage.getText()).equals("")) {
+                            critical_demage = Double.parseDouble(String.valueOf(edtCriticalDemage.getText()));
+                        } else {
+                            critical_demage = 25;
+                        }
+                        if (!String.valueOf(edtHeadshot.getText()).equals("")) {
+                            headshot = Double.parseDouble(String.valueOf(edtHeadshot.getText()));
+                        } else {
+                            headshot = 0;
+                        }
+                        if (!String.valueOf(edtHealthDemage.getText()).equals("")) {
+                            headshot_demage = Double.parseDouble(String.valueOf(edtHeadshotDemage.getText()));
+                        } else {
+                            headshot_demage = 50;
+                        }
+                        if (!String.valueOf(edtEliteDemage.getText()).equals("")) {
+                            nohide = Double.parseDouble(String.valueOf(edtEliteDemage.getText()));
+                        } else {
+                            nohide = 0;
+                        }
+                        if (!String.valueOf(edtSheldDemage.getText()).equals("")) {
+                            armor = Double.parseDouble(String.valueOf(edtSheldDemage.getText()));
+                        } else {
+                            armor = 0;
+                        }
+                        if (!String.valueOf(edtHealthDemage.getText()).equals("")) {
+                            health = Double.parseDouble(String.valueOf(edtHealthDemage.getText()));
+                        } else {
+                            health = 0;
+                        }
+                        if (!String.valueOf(edtReload.getText()).equals("")) {
+                            reload = Double.parseDouble(String.valueOf(edtReload.getText()));
+                        } else {
+                            reload = 0;
+                        }
+
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String make = format.format(System.currentTimeMillis());
+
+                        loadoutDBAdapter.open();
+                        loadoutDBAdapter.insertData(weapondemage, rpm, critical, critical_demage, headshot, headshot_demage, nohide, armor, health, reload, ammo, aim, make);
+                        long rowID = loadoutDBAdapter.getRowID(make);
+                        loadoutDBAdapter.close();
+
+                        Loadout loadout = new Loadout(rowID, weapondemage, rpm, ammo, aim, make);
+                        loadout.setCritical(critical);
+                        loadout.setCritical_demage(critical_demage);
+                        loadout.setHeadshot(headshot);
+                        loadout.setHeadshot_demage(headshot_demage);
+                        loadout.setNohide(nohide);
+                        loadout.setArmor(armor);
+                        loadout.setHealth(health);
+                        loadout.setReload(reload);
+                        loadoutList.add(loadout);
+
+                        loadoutAdapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "로드아웃을 추가하였습니다.", Toast.LENGTH_SHORT).show();
+
+                        loadoutDBAdapter.open();
+                        if (loadoutDBAdapter.getCount() >= LOADOUT_MAX) {
+                            btnAdd.setVisibility(View.GONE);
+                        }
+                        loadoutDBAdapter.close();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(getActivity());
+                builder.setView(dialog_view);
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+            }
+        });
 
         edtWeaponDemage = root.findViewById(R.id.edtWeaponDemage);
         edtRPM = root.findViewById(R.id.edtRPM);
@@ -1884,6 +2179,11 @@ public class HomeFragment extends Fragment implements Serializable {
                 }
             }
         }
+    }
+
+    private String formatD(double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
 
 }
