@@ -195,7 +195,6 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_gravity="center"
-                            android:secondaryProgress="100"
                             android:indeterminateTint="#E45435"/>
                         <SeekBar
                             android:id="@+id/seekWMain2"
@@ -348,7 +347,6 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:secondaryProgress="100"
                             android:indeterminateTint="#E45435"/>
                         <SeekBar
                             android:id="@+id/seekSMain"

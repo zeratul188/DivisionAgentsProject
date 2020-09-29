@@ -463,10 +463,12 @@
                             <CheckBox
                                 android:id="@+id/chkUndo"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:text="확장팩 이전 특수효과"
                                 android:textSize="18sp"
-                                android:button="@drawable/checkboxhub"
+                                android:gravity="center"
+                                android:button="@null"
+                                android:background="@drawable/radiolongimagecustom"
                                 android:layout_marginBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:textColor="#aaaaaa"/>
@@ -475,7 +477,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:paddingLeft="20dp"
                                 android:visibility="gone">
                                 <CheckBox
                                     android:id="@+id/chkCrazy"
@@ -483,9 +484,10 @@
                                     android:layout_height="wrap_content"
                                     android:text="광분 여부 (잃은 방어도 20% 마다 무기 데미지 10% 증가)"
                                     android:textSize="18sp"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioGroup
                                     android:id="@+id/rgCrazy"
@@ -561,9 +563,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="감시병 여부 (펄스 강조된 데미지 20% 증가)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -571,9 +574,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="불꽃 여부 (폭발물 데미지가 들어갈 경우 무기 데미지 +20%)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -581,9 +585,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="무자비 수납(5% 확률로 무기데미지 +100% 증가된 폭발탄)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -591,9 +596,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="집념 효과 여부(무기 데미지 +35%)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -601,9 +607,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="빠른손 여부 (치명타 적중 시 재장전 시간 5% 감소)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -611,9 +618,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="부메랑 여부 (치명타 적중 후 50% 확률로 다음 탄 데미지가 무기 데미지의 100% 증가)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <CheckBox
@@ -621,9 +629,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="중압감 여부 (방어도 10% 잃을 때마다 치명타 데미지 5% 증가)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textSize="18sp"
                                     android:textColor="#aaaaaa"/>
                                 <RadioGroup
@@ -750,9 +759,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="카멜레온 여부"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
@@ -798,9 +808,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="완벽한 근접전의 대가 (+무기 데미지 50%)"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                             </LinearLayout>
@@ -808,10 +819,12 @@
                             <CheckBox
                                 android:id="@+id/chkAfter"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:text="확장팩 특수효과"
                                 android:textSize="18sp"
-                                android:button="@drawable/checkboxhub"
+                                android:gravity="center"
+                                android:button="@null"
+                                android:background="@drawable/radiolongimagecustom"
                                 android:layout_marginBottom="5dp"
                                 android:paddingLeft="10dp"
                                 android:layout_marginTop="5dp"
@@ -821,139 +834,145 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:paddingLeft="20dp"
                                 android:visibility="gone">
-
+                                <CheckBox
+                                    android:id="@+id/chkFocus"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="집중"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkFocus"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="집중"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectFocus"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                     <Spinner
                                         android:id="@+id/spinnerFocus"
                                         android:background="@drawable/spinnercustom"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="invisible"/>
+                                        android:layout_width="150dp"
+                                        android:layout_height="40dp"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkScrifice"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="유리 대포"
+                                    android:gravity="center"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkScrifice"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="유리 대포"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectScrifice"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkSympathy"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="공감의 결의"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:layout_marginBottom="5dp"
+                                    android:gravity="center"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkSympathy"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="공감의 결의"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <Spinner
                                         android:id="@+id/spinnerSympathy"
                                         android:background="@drawable/spinnercustom"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="invisible"/>
+                                        android:layout_width="150dp"
+                                        android:layout_height="40dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_marginTop="5dp"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
                                 <CheckBox
                                     android:id="@+id/chkOverwatch"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="경계 태세"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkIntimidate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="위협 전술"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkIntimidate"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="위협 전술"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectIntimidate"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
                                 <CheckBox
                                     android:id="@+id/chkObel"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="절멸"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -961,9 +980,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="사악함"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -971,9 +991,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="동지애"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -981,63 +1002,67 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="태연자약"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkUnstoppable"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="무적의 부대"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkUnstoppable"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="무적의 부대"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <Spinner
                                         android:id="@+id/spinnerUnstoppable"
                                         android:background="@drawable/spinnercustom"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="invisible"/>
+                                        android:layout_width="150dp"
+                                        android:layout_height="40dp"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkVersatile"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="팔방미인"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkVersatile"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="팔방미인"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <Spinner
                                         android:id="@+id/spinnerVersatile"
                                         android:background="@drawable/spinnercustom"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="invisible"/>
+                                        android:layout_width="150dp"
+                                        android:layout_height="40dp"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
                                 <CheckBox
                                     android:id="@+id/chkVigilance"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="경계"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -1045,122 +1070,127 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="킬러"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkSadist"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="새디스트 / 맹인 / 점화"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkSadist"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="새디스트 / 맹인 / 점화"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectSadist"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkOptimist"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="낙천주의자"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkOptimist"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="낙천주의자"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectOptimist"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkVindictive"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="앙심"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkVindictive"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="앙심"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectVindictive"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkRanger"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="레인저"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkRanger"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="레인저"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectRanger"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                     <EditText
                                         android:id="@+id/edtRanger"
                                         android:layout_width="100dp"
@@ -1173,73 +1203,76 @@
                                         android:layout_marginRight="10dp"
                                         android:background="@drawable/edittext_custom"
                                         android:fontFamily="@font/borda"
-                                        android:visibility="invisible"
+                                        android:visibility="gone"
                                         android:textSize="15sp"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkRifleman"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="소총수"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkRifleman"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="소총수"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectRifleman"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkLuckyShot"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="뜻밖의 행운"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkLuckyShot"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="뜻밖의 행운"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectLuckyShot"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
                                 <CheckBox
                                     android:id="@+id/chkPummel"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="연속 타격"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -1247,87 +1280,90 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="불안정"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkOverwhelm"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="압도적인 화력"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkOverwhelm"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="압도적인 화력"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectOverwhelm"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
+                                <CheckBox
+                                    android:id="@+id/chkSync"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="동기화"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
-                                    <CheckBox
-                                        android:id="@+id/chkSync"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:text="동기화"
-                                        android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
-                                        android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
                                     <CheckBox
                                         android:id="@+id/chkDoubleSync"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="2개 효과 동시 작동"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
                                         android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                     <CheckBox
                                         android:id="@+id/chkPerfectSync"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="완벽한"
-                                        android:button="@null"
-                                        android:background="@drawable/radiocustom"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
                                         android:gravity="center"
                                         android:textColor="#aaaaaa"
                                         android:textSize="18sp"
-                                        android:layout_marginRight="10dp"
-                                        android:visibility="invisible"/>
+                                        android:visibility="gone"/>
                                 </LinearLayout>
                                 <CheckBox
                                     android:id="@+id/chkLady"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="죽음의 귀부인 - 안도의 호흡"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <CheckBox
@@ -1335,66 +1371,60 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="사마귀 - 등잔 밑"
-                                    android:button="@drawable/checkboxhub"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
                                 android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                    android:textColor="#aaaaaa"
+                                    android:textSize="18sp"/>
+                                <CheckBox
+                                    android:id="@+id/chkKoyotae"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="코요태 마스크"
+                                    android:button="@null"
+                                    android:background="@drawable/radiocustom"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="5dp"
                                     android:textColor="#aaaaaa"
                                     android:textSize="18sp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:gravity="center"
+                                    android:orientation="vertical">
                                     <CheckBox
-                                        android:id="@+id/chkKoyotae"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
+                                        android:id="@+id/chkKoyotae15down"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="코요태 마스크"
+                                        android:text="15m 이하"
                                         android:button="@drawable/checkboxhub"
-                                android:layout_marginBottom="5dp"
-                                android:paddingLeft="10dp"
+                                        android:paddingLeft="10dp"
                                         android:textColor="#aaaaaa"
-                                        android:textSize="18sp"/>
-                                    <LinearLayout
-                                        android:layout_width="120dp"
+                                        android:textSize="18sp"
+                                        android:layout_marginBottom="5dp"
+                                        android:visibility="gone"/>
+                                    <CheckBox
+                                        android:id="@+id/chkKoyotae15to25"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:orientation="vertical">
-                                        <CheckBox
-                                            android:id="@+id/chkKoyotae15down"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="15m 이하"
-                                            android:button="@null"
-                                            android:background="@drawable/radiocustom"
-                                            android:gravity="center"
-                                            android:textColor="#aaaaaa"
-                                            android:textSize="18sp"
-                                            android:layout_marginBottom="5dp"
-                                            android:visibility="invisible"/>
-                                        <CheckBox
-                                            android:id="@+id/chkKoyotae15to25"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="15m ~ 25m"
-                                            android:button="@null"
-                                            android:background="@drawable/radiocustom"
-                                            android:gravity="center"
-                                            android:textColor="#aaaaaa"
-                                            android:textSize="18sp"
-                                            android:layout_marginBottom="5dp"
-                                            android:visibility="invisible"/>
-                                        <CheckBox
-                                            android:id="@+id/chkKoyotae25up"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="25m 이상"
-                                            android:button="@null"
-                                            android:background="@drawable/radiocustom"
-                                            android:gravity="center"
-                                            android:textColor="#aaaaaa"
-                                            android:textSize="18sp"
-                                            android:visibility="invisible"/>
-                                    </LinearLayout>
+                                        android:text="15m ~ 25m"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
+                                        android:textColor="#aaaaaa"
+                                        android:textSize="18sp"
+                                        android:layout_marginBottom="5dp"
+                                        android:visibility="gone"/>
+                                    <CheckBox
+                                        android:id="@+id/chkKoyotae25up"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="25m 이상"
+                                        android:button="@drawable/checkboxhub"
+                                        android:paddingLeft="10dp"
+                                        android:textColor="#aaaaaa"
+                                        android:textSize="18sp"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
 
                             </LinearLayout>

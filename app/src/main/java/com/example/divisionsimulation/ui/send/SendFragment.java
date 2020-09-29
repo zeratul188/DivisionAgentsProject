@@ -376,7 +376,7 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄"};
                 }
-                need_material = new int[]{60, 36, 36};
+                need_material = new int[]{60, 36, 26};
 
                 makeNamedDBAdapter.open();
                 if (makeNamedDBAdapter.haveItem(makeItems.get(position).getName())) {
@@ -584,7 +584,7 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄"};
                 }
-                need_material = new int[]{60, 36, 36};
+                need_material = new int[]{60, 36, 26};
 
                 txtName.setText(makeItems.get(position).getName());
                 txtType.setText(makeItems.get(position).getType());
@@ -822,7 +822,7 @@ public class SendFragment extends Fragment {
                 } else {
                     material_limit = new String[]{"보호용 옷감", "폴리카보네이트", "티타늄", "특급 부품"};
                 }
-                need_material = new int[]{60, 36, 36, 4};
+                need_material = new int[]{60, 36, 26, 2};
 
                 txtName.setText(makeItems.get(position).getName());
                 txtType.setText(makeItems.get(position).getType());

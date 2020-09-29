@@ -158,12 +158,12 @@ public class HomeFragment extends Fragment implements Serializable {
                 chkPerfectFocus.setChecked(false);
                 layoutUndo.setVisibility(View.GONE);
                 layoutAfter.setVisibility(View.GONE);
-                chkPerfectFocus.setVisibility(View.INVISIBLE);
-                spinnerFocus.setVisibility(View.INVISIBLE);
+                chkPerfectFocus.setVisibility(View.GONE);
+                spinnerFocus.setVisibility(View.GONE);
                 spinnerFocus.setSelection(0);
                 chkScrifice.setChecked(false);
                 chkPerfectScrifice.setChecked(false);
-                chkPerfectScrifice.setVisibility(View.INVISIBLE);
+                chkPerfectScrifice.setVisibility(View.GONE);
 
                 /*chkPush.setTextColor(Color.parseColor("#aaaaaa"));
                 chkPush.setEnabled(true);
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 reset_count += 10; //3초가 지나지 않았으므로 10씩 증가한다. 0.02초마다 반복되므로 3초까지는 1500이기 때문에 10씩 올린다.
                 progressReset.setProgress(reset_count); //원형 프로그레스바도 초기화 카운터로 잡아 진행도도 설정한다.
                 if (isVisible) visibleWarning();
-                else invisibleWarning();
+                else GONEWarning();
                 visible_cnt += 10;
                 if (visible_cnt > 250) {
                     visible_cnt = 0;
@@ -226,8 +226,8 @@ public class HomeFragment extends Fragment implements Serializable {
         imgWarning.setVisibility(View.VISIBLE);
     }
 
-    private void invisibleWarning() {
-        imgWarning.setVisibility(View.INVISIBLE);
+    private void GONEWarning() {
+        imgWarning.setVisibility(View.GONE);
     }
 
     /*public void mOnClick (View v){
@@ -670,9 +670,9 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkKoyotae_15to25.setVisibility(View.VISIBLE);
                     chkKoyotae_25up.setVisibility(View.VISIBLE);
                 } else {
-                    chkKoyotae_15down.setVisibility(View.INVISIBLE);
-                    chkKoyotae_15to25.setVisibility(View.INVISIBLE);
-                    chkKoyotae_25up.setVisibility(View.INVISIBLE);
+                    chkKoyotae_15down.setVisibility(View.GONE);
+                    chkKoyotae_15to25.setVisibility(View.GONE);
+                    chkKoyotae_25up.setVisibility(View.GONE);
                     chkKoyotae_15down.setChecked(false);
                     chkKoyotae_15to25.setChecked(false);
                     chkKoyotae_25up.setChecked(false);
@@ -688,8 +688,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkDoubleSync.setVisibility(View.VISIBLE);
                     sync = 15;
                 } else {
-                    chkPerfectSync.setVisibility(View.INVISIBLE);
-                    chkDoubleSync.setVisibility(View.INVISIBLE);
+                    chkPerfectSync.setVisibility(View.GONE);
+                    chkDoubleSync.setVisibility(View.GONE);
                     chkPerfectSync.setChecked(false);
                     chkDoubleSync.setChecked(false);
                     sync = 0;
@@ -712,7 +712,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectOverwhelm.setVisibility(View.VISIBLE);
                     overwhelm = 10;
                 } else {
-                    chkPerfectOverwhelm.setVisibility(View.INVISIBLE);
+                    chkPerfectOverwhelm.setVisibility(View.GONE);
                     chkPerfectOverwhelm.setChecked(false);
                     overwhelm = 0;
                 }
@@ -747,7 +747,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkPerfectLuckyShot.setVisibility(View.VISIBLE);
                 } else {
-                    chkPerfectLuckyShot.setVisibility(View.INVISIBLE);
+                    chkPerfectLuckyShot.setVisibility(View.GONE);
                     chkPerfectLuckyShot.setChecked(false);
                 }
                 weaponActivate(buttonView);
@@ -760,7 +760,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkPerfectRifleman.setVisibility(View.VISIBLE);
                 } else {
-                    chkPerfectRifleman.setVisibility(View.INVISIBLE);
+                    chkPerfectRifleman.setVisibility(View.GONE);
                     chkPerfectRifleman.setChecked(false);
                 }
                 weaponActivate(buttonView);
@@ -774,9 +774,9 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectRanger.setVisibility(View.VISIBLE);
                     edtRanger.setVisibility(View.VISIBLE);
                 } else {
-                    chkPerfectRanger.setVisibility(View.INVISIBLE);
+                    chkPerfectRanger.setVisibility(View.GONE);
                     chkPerfectRanger.setChecked(false);
-                    edtRanger.setVisibility(View.INVISIBLE);
+                    edtRanger.setVisibility(View.GONE);
                     edtRanger.setText("");
                 }
                 weaponActivate(buttonView);
@@ -811,7 +811,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectVindictive.setVisibility(View.VISIBLE);
                     vindictive = 15;
                 } else {
-                    chkPerfectVindictive.setVisibility(View.INVISIBLE);
+                    chkPerfectVindictive.setVisibility(View.GONE);
                     chkPerfectVindictive.setChecked(false);
                     vindictive = 0;
                 }
@@ -833,7 +833,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectSadist.setVisibility(View.VISIBLE);
                     sadist = 20;
                 } else {
-                    chkPerfectSadist.setVisibility(View.INVISIBLE);
+                    chkPerfectSadist.setVisibility(View.GONE);
                     chkPerfectSadist.setChecked(false);
                     sadist = 0;
                 }
@@ -854,7 +854,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     chkPerfectOptimist.setVisibility(View.VISIBLE);
                 } else {
-                    chkPerfectOptimist.setVisibility(View.INVISIBLE);
+                    chkPerfectOptimist.setVisibility(View.GONE);
                     chkPerfectOptimist.setChecked(false);
                 }
                 weaponActivate(buttonView);
@@ -925,7 +925,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectIntimidate.setVisibility(View.VISIBLE);
                     intimidate = 35;
                 } else {
-                    chkPerfectIntimidate.setVisibility(View.INVISIBLE);
+                    chkPerfectIntimidate.setVisibility(View.GONE);
                     chkPerfectIntimidate.setChecked(false);
                     intimidate = 0;
                 }
@@ -973,7 +973,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     spinnerVersatile.setVisibility(View.VISIBLE);
                 } else {
-                    spinnerVersatile.setVisibility(View.INVISIBLE);
+                    spinnerVersatile.setVisibility(View.GONE);
                     spinnerVersatile.setSelection(0);
                 }
                 backpackActivate(buttonView);
@@ -1004,7 +1004,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 if (isChecked) {
                     spinnerUnstoppable.setVisibility(View.VISIBLE);
                 } else {
-                    spinnerUnstoppable.setVisibility(View.INVISIBLE);
+                    spinnerUnstoppable.setVisibility(View.GONE);
                     spinnerUnstoppable.setSelection(0);
                 }
                 backpackActivate(buttonView);
@@ -1032,7 +1032,7 @@ public class HomeFragment extends Fragment implements Serializable {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) spinnerSympathy.setVisibility(View.VISIBLE);
-                else spinnerSympathy.setVisibility(View.INVISIBLE);
+                else spinnerSympathy.setVisibility(View.GONE);
                 spinnerSympathy.setSelection(0);
             }
         });
@@ -1044,7 +1044,7 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectScrifice.setVisibility(View.VISIBLE);
                     scrifice = 20;
                 } else {
-                    chkPerfectScrifice.setVisibility(View.INVISIBLE);
+                    chkPerfectScrifice.setVisibility(View.GONE);
                     chkPerfectScrifice.setChecked(false);
                     scrifice = 0;
                 }
@@ -1087,8 +1087,8 @@ public class HomeFragment extends Fragment implements Serializable {
                     chkPerfectFocus.setVisibility(View.VISIBLE);
                     spinnerFocus.setVisibility(View.VISIBLE);
                 } else {
-                    chkPerfectFocus.setVisibility(View.INVISIBLE);
-                    spinnerFocus.setVisibility(View.INVISIBLE);
+                    chkPerfectFocus.setVisibility(View.GONE);
+                    spinnerFocus.setVisibility(View.GONE);
                     chkPerfectFocus.setChecked(false);
                     spinnerFocus.setSelection(0);
                 }
