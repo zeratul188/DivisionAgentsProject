@@ -27,134 +27,146 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/sd6custom"/>
         </LinearLayout>
-        <LinearLayout
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingLeft="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/txtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="[Item Name]"
-                android:textSize="22sp"
-                android:textColor="#f0f0f0"/>
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/txtType"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="[Type]"
-                    android:textSize="15sp"
-                    android:textColor="#aaaaaa"/>
-                <TextView
-                    android:id="@+id/txtTalent"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="[Talent]"
-                    android:textSize="15sp"
-                    android:textAlignment="textEnd"
+                    android:text="[Item Name]"
+                    android:textSize="22sp"
                     android:textColor="#f0f0f0"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#50f0f0f0"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="bottom">
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtType"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="[Type]"
+                        android:textSize="15sp"
+                        android:textColor="#aaaaaa"/>
+                    <TextView
+                        android:id="@+id/txtTalent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="[Talent]"
+                        android:textSize="15sp"
+                        android:textAlignment="textEnd"
+                        android:textColor="#f0f0f0"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#50f0f0f0"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center">
-                    <ImageView
-                        android:id="@+id/imgAttribute1"
-                        android:layout_width="33dp"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/attack"
-                        android:padding="1dp"
-                        android:background="@drawable/maxitembackground"
-                        android:layout_marginRight="5dp"/>
+                    android:gravity="bottom">
                     <LinearLayout
                         android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/imgAttribute1"
+                            android:layout_width="33dp"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/attack"
+                            android:padding="1dp"
+                            android:background="@drawable/maxitembackground"
+                            android:layout_marginRight="5dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/txtCoreName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="[Core Option]"
+                                android:textColor="#f0f0f0"
+                                android:textSize="15sp"/>
+                            <TextView
+                                android:id="@+id/txtCore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+15%"
+                                android:textColor="#fe6e0e"
+                                android:textStyle="bold"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/txtCoreName"
-                            android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="right|bottom">
+                        <ImageView
+                            android:id="@+id/imgFavorite"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:text="[Core Option]"
-                            android:textColor="#f0f0f0"
-                            android:textSize="15sp"/>
-                        <TextView
-                            android:id="@+id/txtCore"
-                            android:layout_width="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_star_black_40dp"
+                            android:padding="3dp"
+                            android:layout_gravity="center"
+                            android:visibility="visible"/>
+                        <ImageView
+                            android:id="@+id/imgEdit"
+                            android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:text="+15%"
-                            android:textColor="#fe6e0e"
-                            android:textStyle="bold"
-                            android:textSize="18sp"/>
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/edited_foreground"
+                            android:layout_gravity="center"
+                            android:visibility="visible"/>
+                        <ImageView
+                            android:id="@+id/imgAttribute2"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/weaponsub"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="5dp"
+                            android:background="@drawable/maxitembackground"
+                            android:layout_marginRight="5dp"/>
+                        <ImageView
+                            android:id="@+id/imgAttribute3"
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="5dp"
+                            android:background="@drawable/maxitembackground"
+                            android:src="@drawable/weaponsub"/>
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="right|bottom">
-                    <ImageView
-                        android:id="@+id/imgFavorite"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/ic_star_black_40dp"
-                        android:padding="3dp"
-                        android:layout_gravity="center"
-                        android:visibility="visible"/>
-                    <ImageView
-                        android:id="@+id/imgEdit"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/edited_foreground"
-                        android:layout_gravity="center"
-                        android:visibility="visible"/>
-                    <ImageView
-                        android:id="@+id/imgAttribute2"
-                        android:layout_width="25dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/weaponsub"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="5dp"
-                        android:background="@drawable/maxitembackground"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:id="@+id/imgAttribute3"
-                        android:layout_width="25dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="5dp"
-                        android:background="@drawable/maxitembackground"
-                        android:src="@drawable/weaponsub"/>
-                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/imgNew"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_new_40dp"
+                android:layout_marginRight="5dp"
+                android:visibility="gone"
+                android:layout_gravity="right"/>
+        </FrameLayout>
     </LinearLayout>
 </FrameLayout>

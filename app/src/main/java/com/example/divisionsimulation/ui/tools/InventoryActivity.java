@@ -100,6 +100,14 @@ public class InventoryActivity extends AppCompatActivity {
         listItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                if (itemList.get(position).getNew_item() > 0) {
+                    inventoryDBAdapter.open();
+                    inventoryDBAdapter.showData(itemList.get(position).getRowId());
+                    inventoryDBAdapter.close();
+                    itemList.get(position).setNew_item(0);
+                    itemAdapter.notifyDataSetChanged();
+                }
+
                 View dialogView = getLayoutInflater().inflate(R.layout.itemdialog, null);
 
                 final TextView txtName = dialogView.findViewById(R.id.txtName); //장비 이름
@@ -1288,7 +1296,7 @@ public class InventoryActivity extends AppCompatActivity {
         long rowId;
         double core1_value, core2_value, sub1_value, sub2_value;
         boolean edit1, edit2, edit3, talentedit;
-        int favorite;
+        int favorite, new_item;
         itemList.clear();
         inventoryDBAdapter.open();
         if (title.equals("무기")) {
@@ -1312,6 +1320,7 @@ public class InventoryActivity extends AppCompatActivity {
                     edit3 = Boolean.parseBoolean(cursor.getString(14));
                     talentedit = Boolean.parseBoolean(cursor.getString(15));
                     favorite = cursor.getInt(16);
+                    new_item = cursor.getInt(17);
                     cursor.moveToNext();
                     Item item = new Item(rowId, name, type);
                     item.setCore1(core1);
@@ -1328,6 +1337,7 @@ public class InventoryActivity extends AppCompatActivity {
                     item.setEdit3(edit3);
                     item.setTalentedit(talentedit);
                     item.setFavorite(favorite);
+                    item.setNew_item(new_item);
                     itemList.add(item);
                 }
             }
@@ -1351,6 +1361,7 @@ public class InventoryActivity extends AppCompatActivity {
                 edit3 = Boolean.parseBoolean(cursor.getString(14));
                 talentedit = Boolean.parseBoolean(cursor.getString(15));
                 favorite = cursor.getInt(16);
+                new_item = cursor.getInt(17);
                 cursor.moveToNext();
                 Item item = new Item(rowId, name, type);
                 item.setCore1(core1);
@@ -1367,6 +1378,7 @@ public class InventoryActivity extends AppCompatActivity {
                 item.setEdit3(edit3);
                 item.setTalentedit(talentedit);
                 item.setFavorite(favorite);
+                item.setNew_item(new_item);
                 itemList.add(item);
             }
         }

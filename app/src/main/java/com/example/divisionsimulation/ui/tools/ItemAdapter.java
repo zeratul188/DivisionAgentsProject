@@ -73,10 +73,14 @@ public class ItemAdapter extends BaseAdapter {
         TextView txtTalent = convertView.findViewById(R.id.txtTalent);
         ImageView imgEdit = convertView.findViewById(R.id.imgEdit);
         ImageView imgFavorite = convertView.findViewById(R.id.imgFavorite);
+        ImageView imgNew = convertView.findViewById(R.id.imgNew);
 
         txtName.setText(itemList.get(position).getName());
         txtType.setText(itemList.get(position).getType());
         txtTalent.setText(itemList.get(position).getTalent());
+
+        if (itemList.get(position).getNew_item() > 0) imgNew.setVisibility(View.VISIBLE);
+        else imgNew.setVisibility(View.GONE);
 
         if (itemList.get(position).getFavorite() == 1) {
             imgFavorite.setVisibility(View.VISIBLE);

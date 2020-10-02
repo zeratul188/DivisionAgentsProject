@@ -47,126 +47,222 @@
                     android:layout_height="wrap_content">
                     <TableRow
                         android:layout_marginBottom="20dp">
-                        <Button
-                            android:id="@+id/btnWeapon"
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="무기\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenweapon"
-                            android:layout_marginRight="5dp"/>
-                        <Button
-                            android:id="@+id/btnSubWeapon"
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnWeapon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="무기\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenweapon"
+                                android:layout_marginRight="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgWeapon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="보조 무기\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invensubweapon"
-                            android:layout_marginLeft="5dp"/>
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnSubWeapon"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="보조 무기\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invensubweapon"
+                                android:layout_marginLeft="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgSubWeapon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
                     </TableRow>
                     <TableRow
                         android:layout_marginBottom="20dp">
-                        <Button
-                            android:id="@+id/btnMask"
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="마스크\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenmask"
-                            android:layout_marginRight="5dp"/>
-                        <Button
-                            android:id="@+id/btnBackpack"
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnMask"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="마스크\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenmask"
+                                android:layout_marginRight="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgMask"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="백팩\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenbackpack"
-                            android:layout_marginLeft="5dp"/>
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnBackpack"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="백팩\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenbackpack"
+                                android:layout_marginLeft="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgBackpack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
                     </TableRow>
                     <TableRow
                         android:layout_marginBottom="20dp">
-                        <Button
-                            android:id="@+id/btnVest"
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="조끼\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenvest"
-                            android:layout_marginRight="5dp"/>
-                        <Button
-                            android:id="@+id/btnGlove"
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnVest"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="조끼\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenvest"
+                                android:layout_marginRight="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgVest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="장갑\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenglove"
-                            android:layout_marginLeft="5dp"/>
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnGlove"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="장갑\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenglove"
+                                android:layout_marginLeft="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgGlove"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
                     </TableRow>
                     <TableRow>
-                        <Button
-                            android:id="@+id/btnHolster"
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="권총집\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenholster"
-                            android:layout_marginRight="5dp"/>
-                        <Button
-                            android:id="@+id/btnKneeped"
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnHolster"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="권총집\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenholster"
+                                android:layout_marginRight="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgHolster"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
+                        <FrameLayout
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="130dp"
-                            android:gravity="center"
-                            android:text="무릎보호대\n(100)"
-                            android:textSize="18sp"
-                            android:paddingTop="20dp"
-                            android:drawablePadding="-20dp"
-                            android:textColor="#aaaaaa"
-                            android:background="@drawable/itembuttoncustom"
-                            android:drawableTop="@drawable/invenkneeped"
-                            android:layout_marginLeft="5dp"/>
+                            android:layout_height="130dp">
+                            <Button
+                                android:id="@+id/btnKneeped"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="무릎보호대\n(100)"
+                                android:textSize="18sp"
+                                android:paddingTop="20dp"
+                                android:drawablePadding="-20dp"
+                                android:textColor="#aaaaaa"
+                                android:background="@drawable/itembuttoncustom"
+                                android:drawableTop="@drawable/invenkneeped"
+                                android:layout_marginLeft="5dp"/>
+                            <ImageView
+                                android:id="@+id/imgKneeped"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_new_40dp"
+                                android:layout_marginRight="20dp"
+                                android:visibility="gone"
+                                android:layout_gravity="right"/>
+                        </FrameLayout>
                     </TableRow>
                 </TableLayout>
                 <Button

@@ -5,7 +5,7 @@ public class Item implements Comparable<Item> {
     private String name, type, core1, core2, sub1, sub2, talent;
     private double core1_value, core2_value, sub1_value, sub2_value;
     private boolean edit1, edit2, edit3, talentedit;
-    private int favorite;
+    private int favorite, new_item;
 
     public Item(long rowId, String name, String type) {
         this.rowId = rowId;
@@ -155,6 +155,14 @@ public class Item implements Comparable<Item> {
 
     public void setSub2_value(double sub2_value) {
         this.sub2_value = sub2_value;
+    }
+
+    public int getNew_item() {
+        return new_item;
+    }
+
+    public void setNew_item(int new_item) {
+        this.new_item = new_item;
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class ToolsFragment extends Fragment {
 
     private TextView txtInventory;
     private Button btnWeapon, btnSubWeapon, btnMask, btnBackpack, btnVest, btnGlove, btnHolster, btnKneeped, btnMaterialList;
+    private ImageView imgWeapon, imgSubWeapon, imgMask, imgBackpack, imgVest, imgGlove, imgHolster, imgKneeped;
 
     private Intent intent;
     private int weapons = 0;
@@ -62,8 +64,28 @@ public class ToolsFragment extends Fragment {
         btnKneeped = root.findViewById(R.id.btnKneeped);
         btnMaterialList = root.findViewById(R.id.btnMaterialList);
 
+        imgWeapon = root.findViewById(R.id.imgWeapon);
+        imgSubWeapon = root.findViewById(R.id.imgSubWeapon);
+        imgMask = root.findViewById(R.id.imgMask);
+        imgBackpack = root.findViewById(R.id.imgBackpack);
+        imgVest = root.findViewById(R.id.imgVest);
+        imgGlove = root.findViewById(R.id.imgGlove);
+        imgHolster = root.findViewById(R.id.imgHolster);
+        imgKneeped = root.findViewById(R.id.imgKneeped);
+
         inventoryDBAdapter = new InventoryDBAdapter(getActivity());
         materialDbAdapter = new MaterialDbAdapter(getActivity());
+
+        inventoryDBAdapter.open();
+        if (inventoryDBAdapter.isNewWeapon()) imgWeapon.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewSubWeapon()) imgSubWeapon.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewMask()) imgMask.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewBackpack()) imgBackpack.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewVest()) imgVest.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewGlove()) imgGlove.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewHolster()) imgHolster.setVisibility(View.VISIBLE);
+        if (inventoryDBAdapter.isNewKneeped()) imgKneeped.setVisibility(View.VISIBLE);
+        inventoryDBAdapter.close();
 
         refresh();
 
@@ -252,6 +274,23 @@ public class ToolsFragment extends Fragment {
         btnGlove.setText("장갑 \n("+inventoryDBAdapter.getTypeCount("장갑")+")");
         btnHolster.setText("권총집 \n("+inventoryDBAdapter.getTypeCount("권총집")+")");
         btnKneeped.setText("무릎보호대 \n("+inventoryDBAdapter.getTypeCount("무릎보호대")+")");
+        if (inventoryDBAdapter.isNewWeapon()) imgWeapon.setVisibility(View.VISIBLE);
+        else imgWeapon.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewSubWeapon()) imgSubWeapon.setVisibility(View.VISIBLE);
+        else imgSubWeapon.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewMask()) imgMask.setVisibility(View.VISIBLE);
+        else imgMask.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewBackpack()) imgBackpack.setVisibility(View.VISIBLE);
+        else imgBackpack.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewVest()) imgVest.setVisibility(View.VISIBLE);
+        else imgVest.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewGlove()) imgGlove.setVisibility(View.VISIBLE);
+        else imgGlove.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewHolster()) imgHolster.setVisibility(View.VISIBLE);
+        else imgHolster.setVisibility(View.GONE);
+        if (inventoryDBAdapter.isNewKneeped()) imgKneeped.setVisibility(View.VISIBLE);
+        else imgKneeped.setVisibility(View.GONE);
         inventoryDBAdapter.close();
+
     }
 }

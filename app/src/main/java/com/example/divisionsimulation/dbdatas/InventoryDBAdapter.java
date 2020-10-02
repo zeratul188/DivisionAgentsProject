@@ -36,11 +36,14 @@ public class InventoryDBAdapter {
     public static final String KEY_EDIT3 = "EDIT3";
     public static final String KEY_TALENTEDIT = "TALENTEDIT";
     public static final String KEY_FAVORITE = "FAVORITE";
+    public static final String KEY_NEW = "NEW";
+
+    private String[] weapon_type = {"돌격소총", "소총", "지정사수소총", "산탄총", "기관단총", "경기관총"};
 
     private static final String DATABASE_CREATE = "create table INVENTORY (_id integer primary key, " +
             "NAME text not null, TYPE text not null, CORE1 text, CORE2 text, SUB1 text, SUB2 text, "+
             "CORE1VALUE double, CORE2VALUE double, SUB1VALUE double, SUB2VALUE double, "+
-            "TALENT text not null, EDIT1 text not null, EDIT2 text not null, EDIT3 text not null, TALENTEDIT text not null, FAVORITE integer not null DEFAULT 0);";
+            "TALENT text not null, EDIT1 text not null, EDIT2 text not null, EDIT3 text not null, TALENTEDIT text not null, FAVORITE integer not null DEFAULT 0, NEW integer not null DEFAULT 0);";
 
     private static final String DATABASE_NAME = "DIVISION_INVENTORY";
     private static final String DATABASE_TABLE = "INVENTORY";
@@ -113,6 +116,7 @@ public class InventoryDBAdapter {
         values.put(KEY_EDIT3, "false");
         values.put(KEY_TALENTEDIT, "false");
         values.put(KEY_FAVORITE, 0);
+        values.put(KEY_NEW, 1);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -134,6 +138,7 @@ public class InventoryDBAdapter {
         values.put(KEY_EDIT3, "false");
         values.put(KEY_TALENTEDIT, "false");
         values.put(KEY_FAVORITE, 0);
+        values.put(KEY_NEW, 1);
         return sqlDB.insert(DATABASE_TABLE, null, values);
     }
 
@@ -147,17 +152,17 @@ public class InventoryDBAdapter {
     }
 
     public Cursor fetchAllData() {
-        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, null, null, null, null, null);
+        return sqlDB.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, null, null, null, null, null);
     }
 
     public Cursor fetchData(String type) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
 
     public Cursor fetchIDData(long rowID) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_ROWID+"="+rowID, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         return cursor;
     }
@@ -177,7 +182,7 @@ public class InventoryDBAdapter {
     }
 
     public boolean isEdited(long rowID) {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_ROWID+"="+rowID, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         boolean[] edited = new boolean[4];
         for (int i = 0; i < edited.length; i++) {
@@ -188,7 +193,7 @@ public class InventoryDBAdapter {
     }
 
     public boolean isFavorite(long rowID) throws SQLException {
-        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE}, KEY_ROWID+"="+rowID, null, null, null, null, null);
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_ROWID+"="+rowID, null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();
         int result = cursor.getInt(16);
         if (result == 1) return true;
@@ -244,6 +249,63 @@ public class InventoryDBAdapter {
         values.put(KEY_EDIT2, Boolean.toString(edit2));
         values.put(KEY_EDIT3, Boolean.toString(edit3));
         values.put(KEY_TALENTEDIT, Boolean.toString(talentedit));
+        return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
+    }
+
+    public boolean isNewWeapon() throws SQLException {
+        Cursor cursor = null;
+        for (int i = 0; i < weapon_type.length; i++) {
+            cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='"+weapon_type[i]+"' and "+KEY_NEW+"="+1, null, null, null, null, null);
+            if (cursor.getCount() > 0) return true;
+        }
+        return false;
+    }
+
+    public boolean isNewSubWeapon() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='권총' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewMask() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='마스크' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewBackpack() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='백팩' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewVest() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='조끼' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewGlove() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='장갑' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewHolster() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='권총집' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean isNewKneeped() throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_TYPE, KEY_CORE1, KEY_CORE2, KEY_SUB1, KEY_SUB2, KEY_CORE1VALUE, KEY_CORE2VALUE, KEY_SUB1VALUE, KEY_SUB2VALUE, KEY_TALENT, KEY_EDIT1, KEY_EDIT2, KEY_EDIT3, KEY_TALENTEDIT, KEY_FAVORITE, KEY_NEW}, KEY_TYPE+"='무릎보호대' and "+KEY_NEW+"="+1, null, null, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+    public boolean showData(long rowID) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_NEW, 0);
         return sqlDB.update(DATABASE_TABLE, values, KEY_ROWID+"="+rowID, null) > 0;
     }
 }

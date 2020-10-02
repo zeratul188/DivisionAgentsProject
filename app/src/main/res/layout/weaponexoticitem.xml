@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="경찰용 M4"
+            android:text="[Exotic Name]"
             android:textSize="20sp"
             android:textColor="#fe6e0e"
             android:layout_gravity="center"
