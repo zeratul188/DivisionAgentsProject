@@ -447,6 +447,8 @@ public class InventoryActivity extends AppCompatActivity {
                     second_max = cursor.getDouble(2);
                     libraryDBAdapter.close();
                     seekWMain1.setProgress((int)(second_max*10));
+                    if (seekWMain1.getProgress() >= seekWMain1.getMax()) seekWMain1.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                    else seekWMain1.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                     if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                     else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                     if (itemList.get(position).getName().equals("보조 붐스틱")) {
@@ -489,6 +491,8 @@ public class InventoryActivity extends AppCompatActivity {
                             second_max = cursor.getDouble(2);
                             libraryDBAdapter.close();
                             seekWMain2.setProgress((int)(second_max*10));
+                            if (seekWMain2.getProgress() >= seekWMain2.getMax()) seekWMain2.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                            else seekWMain2.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                         }
                         namedDBAdapter.close();
                     }
@@ -509,6 +513,8 @@ public class InventoryActivity extends AppCompatActivity {
                     second_max = cursor.getDouble(2);
                     libraryDBAdapter.close();
                     seekWSub.setProgress((int)(second_max*10));
+                    if (seekWSub.getProgress() >= seekWSub.getMax()) seekWSub.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                    else seekWSub.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                     txtWTalent.setText(itemList.get(position).getTalent());
                     namedDBAdapter.open();
                     makeNamedDBAdapter.open();
@@ -551,6 +557,8 @@ public class InventoryActivity extends AppCompatActivity {
                     second_max = cursor.getDouble(2);
                     libraryDBAdapter.close();
                     seekSMain.setProgress((int)(second_max*10));
+                    if (seekSMain.getProgress() >= seekSMain.getMax()) seekSMain.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                    else seekSMain.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                     setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1(), true);
                     if (itemList.get(position).getCore1().equals("스킬 등급")) seekSMain.setVisibility(View.GONE);
                     else seekSMain.setVisibility(View.VISIBLE);
@@ -630,6 +638,8 @@ public class InventoryActivity extends AppCompatActivity {
                         second_max = cursor.getDouble(2);
                         libraryDBAdapter.close();
                         seekSSub1.setProgress((int)(second_max*10));
+                        if (seekSSub1.getProgress() >= seekSSub1.getMax()) seekSSub1.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                        else seekSSub1.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                         setImageSubAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
                     makeNamedDBAdapter.close();
@@ -655,6 +665,8 @@ public class InventoryActivity extends AppCompatActivity {
                         second_max = cursor.getDouble(2);
                         libraryDBAdapter.close();
                         seekSSub2.setProgress((int)(second_max*10));
+                        if (seekSSub2.getProgress() >= seekSSub2.getMax()) seekSSub2.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+                        else seekSSub2.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
                         setImageSubAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
                     }
                     sheldDBAdapter.close();

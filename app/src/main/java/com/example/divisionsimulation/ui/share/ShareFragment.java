@@ -18259,6 +18259,8 @@ public class ShareFragment extends Fragment {
         libraryDBAdapter.close();
         max = Double.parseDouble(cursor.getString(2));
         seekbar.setProgress((int)(max*10));
+        if (seekbar.getProgress() >= seekbar.getMax()) seekbar.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+        else seekbar.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
     }
 
     public void setSemiInterface(String type_name, ImageView view) { //무기 종류에 따라 갯수를 표시한다. 진행도 또한 설정한다.

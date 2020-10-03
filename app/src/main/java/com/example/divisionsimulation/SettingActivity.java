@@ -108,7 +108,7 @@ public class SettingActivity extends AppCompatActivity {
                 Button btnOK = view.findViewById(R.id.btnOK);
 
                 btnOK.setText("초기화");
-                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료를 모두 초기화하시겠습니까?");
+                txtContent.setText("보정 라이브러리, 인벤토리, SHD, 재료, 로드아웃을 모두 초기화하시겠습니까?");
 
                 btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
