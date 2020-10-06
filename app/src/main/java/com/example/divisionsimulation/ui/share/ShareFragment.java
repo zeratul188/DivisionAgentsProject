@@ -55,6 +55,7 @@ import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
+import com.example.divisionsimulation.thread.ItemAnimationThread;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 
 import java.text.DecimalFormat;
@@ -76,6 +77,8 @@ public class ShareFragment extends Fragment {
     private AlertDialog.Builder buildera = null;
     private AlertDialog alertDialog = null;
     private View dialogViewa = null;
+    
+    private ItemAnimationThread[] animationThread = new ItemAnimationThread[4];
     /*
     다이얼로그 생성시 필요한 객체 생성
      */
@@ -1718,12 +1721,13 @@ public class ShareFragment extends Fragment {
                     tail_sub2 = cursor.getString(5);
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     maxoptionDBAdapter.close();
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
                     core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSMain.setProgress((int)(core1*10));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
@@ -1735,9 +1739,10 @@ public class ShareFragment extends Fragment {
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start(); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
@@ -1746,9 +1751,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start(); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -1811,9 +1817,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -1831,14 +1838,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -1884,19 +1893,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -1976,9 +1988,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -2013,14 +2026,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -2080,9 +2095,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -2137,9 +2153,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -2177,9 +2194,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -2262,9 +2280,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -2299,9 +2318,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -2335,9 +2355,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -2395,9 +2416,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -2423,13 +2445,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -2491,9 +2515,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -2528,9 +2553,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -2564,9 +2590,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -2695,12 +2722,13 @@ public class ShareFragment extends Fragment {
                     tail_sub2 = cursor.getString(5);
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     maxoptionDBAdapter.close();
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
                     core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSMain.setProgress((int)(core1*10));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                     changeImageType(item_sub1_type, imgSSub1, progressSSub1);
@@ -2712,9 +2740,10 @@ public class ShareFragment extends Fragment {
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start(); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
@@ -2723,9 +2752,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start(); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -2788,9 +2818,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -2808,14 +2839,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -2861,19 +2894,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -2953,9 +2989,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -2990,14 +3027,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -3058,9 +3097,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -3115,9 +3155,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -3152,9 +3193,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -3237,9 +3279,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -3274,9 +3317,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -3310,9 +3354,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -3370,9 +3415,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -3398,13 +3444,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -3466,9 +3514,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -3503,9 +3552,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -3539,9 +3589,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -3670,12 +3721,13 @@ public class ShareFragment extends Fragment {
                     tail_sub2 = cursor.getString(5);
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     maxoptionDBAdapter.close();
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
                     core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSMain.setProgress((int)(core1*10));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                     changeImageType(item_sub1_type, imgSSub1, progressSSub1);
@@ -3687,9 +3739,10 @@ public class ShareFragment extends Fragment {
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start(); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
@@ -3698,9 +3751,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start(); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -3763,9 +3817,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -3783,14 +3838,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -3836,19 +3893,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -3928,9 +3988,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -3965,14 +4026,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -4033,9 +4096,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -4090,9 +4154,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -4127,9 +4192,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -4212,9 +4278,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -4249,9 +4316,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -4285,9 +4353,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -4345,9 +4414,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -4373,13 +4443,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -4441,9 +4513,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -4478,9 +4551,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -4514,9 +4588,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -4644,12 +4719,13 @@ public class ShareFragment extends Fragment {
                     tail_sub2 = cursor.getString(5);
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     maxoptionDBAdapter.close();
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
                     core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSMain.setProgress((int)(core1*10));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
@@ -4661,9 +4737,10 @@ public class ShareFragment extends Fragment {
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start(); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 2+max) temp_percent = 100;
@@ -4672,9 +4749,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start(); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -4754,9 +4832,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -4791,14 +4870,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -4859,9 +4940,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -4916,9 +4998,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -4953,9 +5036,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -5038,9 +5122,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5075,9 +5160,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -5111,9 +5197,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -5171,9 +5258,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -5199,13 +5287,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -5267,9 +5357,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -5304,9 +5395,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -5340,9 +5432,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -5483,9 +5576,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -5503,14 +5597,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -5570,9 +5666,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -5590,14 +5687,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -5643,19 +5742,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -5735,9 +5837,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -5772,14 +5875,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -5840,9 +5945,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -5897,9 +6003,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -5934,9 +6041,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -6019,9 +6127,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6056,9 +6165,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -6092,9 +6202,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -6152,9 +6263,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -6180,13 +6292,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -6248,9 +6362,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -6285,9 +6400,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -6321,9 +6437,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -6464,9 +6581,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -6484,14 +6602,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -6551,9 +6671,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -6571,14 +6692,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -6624,19 +6747,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -6716,9 +6842,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -6753,14 +6880,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -6821,9 +6950,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -6878,9 +7008,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -6915,9 +7046,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -7000,9 +7132,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -7037,9 +7170,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -7073,9 +7207,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -7133,9 +7268,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -7161,13 +7297,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -7229,9 +7367,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -7266,9 +7405,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -7302,9 +7442,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -7445,9 +7586,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -7465,14 +7607,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -7532,9 +7676,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -7552,14 +7697,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -7605,19 +7752,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -7697,9 +7847,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -7734,14 +7885,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -7802,9 +7955,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -7859,9 +8013,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -7896,9 +8051,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -7981,9 +8137,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -8018,9 +8175,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -8054,9 +8212,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -8114,9 +8273,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -8142,13 +8302,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -8210,9 +8372,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -8247,9 +8410,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -8283,9 +8447,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -8428,9 +8593,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -8448,14 +8614,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -8501,19 +8669,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+bonus) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -8594,9 +8765,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -8631,14 +8803,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -8700,9 +8874,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -8757,9 +8932,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -8794,9 +8970,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -8879,9 +9056,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -8916,9 +9094,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -8952,9 +9131,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -9012,9 +9192,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -9040,13 +9221,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -9108,9 +9291,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -9145,9 +9329,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -9181,9 +9366,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -9326,9 +9512,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -9346,14 +9533,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -9399,19 +9588,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -9492,9 +9684,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -9529,14 +9722,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -9598,9 +9793,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -9655,9 +9851,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -9692,9 +9889,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -9777,9 +9975,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -9814,9 +10013,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -9850,9 +10050,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -9910,9 +10111,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -9938,13 +10140,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -10006,9 +10210,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -10043,9 +10248,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -10079,9 +10285,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -10223,9 +10430,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -10243,14 +10451,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -10296,19 +10506,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -10388,9 +10601,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -10425,14 +10639,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -10493,9 +10709,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -10550,9 +10767,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -10587,9 +10805,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -10672,9 +10891,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -10709,9 +10929,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -10745,9 +10966,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -10805,9 +11027,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -10833,13 +11056,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -10901,9 +11126,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -10938,9 +11164,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -10974,9 +11201,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -11114,9 +11342,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -11134,14 +11363,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if (percent(1, 100) <= 1) { //1
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -11201,9 +11432,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -11221,14 +11453,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -11274,19 +11508,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 40) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -11366,9 +11603,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -11403,14 +11641,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -11471,9 +11711,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -11528,9 +11769,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -11565,9 +11807,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -11650,9 +11893,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -11687,9 +11931,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -11723,9 +11968,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -11783,9 +12029,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -11811,13 +12058,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -11879,9 +12128,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -11916,9 +12166,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -11952,9 +12203,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -12080,12 +12332,13 @@ public class ShareFragment extends Fragment {
                     tail_sub2 = cursor.getString(5);
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     maxoptionDBAdapter.close();
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
                     core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSMain.setProgress((int)(core1*10));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     txtSMain.setText("+"+(int)core1+tail_core1+" "+item_core1);
                     changeImageCoreType(item_core1_type, imgSMain, progressSMain);
                         changeImageType(item_sub1_type, imgSSub1, progressSSub1);
@@ -12097,9 +12350,10 @@ public class ShareFragment extends Fragment {
                     sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10)); //속성1의 진행도 설정
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start(); //속성1의 진행도 설정
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     pick = percent(1, 100);
                     if (pick <= 15) temp_percent = 100;
@@ -12108,9 +12362,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0; //현재 옵션 수치를 설정
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10)); //속성1의 진행도 설정
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start(); //속성1의 진행도 설정
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     txtWTalent.setText(item_talent);
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 2) { //2
@@ -12172,9 +12427,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -12192,14 +12448,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -12245,19 +12503,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -12337,9 +12598,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -12374,14 +12636,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -12442,9 +12706,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -12499,9 +12764,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -12536,9 +12802,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -12621,9 +12888,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -12658,9 +12926,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -12694,9 +12963,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -12754,9 +13024,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -12782,13 +13053,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -12850,9 +13123,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -12887,9 +13161,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -12923,9 +13198,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -13067,9 +13343,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -13087,14 +13364,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //1
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -13154,9 +13433,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -13174,14 +13454,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -13227,19 +13509,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -13319,9 +13604,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -13356,14 +13642,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -13424,9 +13712,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -13481,9 +13770,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -13518,9 +13808,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -13603,9 +13894,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -13640,9 +13932,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -13676,9 +13969,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -13736,9 +14030,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -13764,13 +14059,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -13832,9 +14129,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -13869,9 +14167,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -13905,9 +14204,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -14049,9 +14349,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -14069,14 +14370,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
                     named++;
                     all++;
@@ -14154,9 +14457,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -14191,14 +14495,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -14259,9 +14565,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -14316,9 +14623,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -14353,9 +14661,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -14438,9 +14747,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -14475,9 +14785,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -14511,9 +14822,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -14571,9 +14883,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -14599,13 +14912,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -14667,9 +14982,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -14704,9 +15020,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -14740,9 +15057,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -14883,9 +15201,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -14903,14 +15222,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if ((rdoDiff[3].isChecked() || rdoDiff[4].isChecked()) && percent(1, 100) <= 1) { //1
                     tableMain.setBackgroundResource(R.drawable.exoticitem);
                     exotic = true;
@@ -14970,9 +15291,10 @@ public class ShareFragment extends Fragment {
                             layoutWeaponMain2.setVisibility(View.VISIBLE);
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
                         }
@@ -14990,14 +15312,16 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         item_core1 = cursor.getString(3);
@@ -15043,19 +15367,22 @@ public class ShareFragment extends Fragment {
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     }
                     exoticDBAdpater.close();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -15135,9 +15462,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -15172,14 +15500,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -15240,9 +15570,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -15297,9 +15628,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -15334,9 +15666,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -15419,9 +15752,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -15456,9 +15790,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -15492,9 +15827,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -15552,9 +15888,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -15580,13 +15917,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -15648,9 +15987,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -15685,9 +16025,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -15721,9 +16062,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -15865,9 +16207,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -15885,14 +16228,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else if (percent(1, 1000) <= 20+(bonus*4)) { //Named Items 네임드 아이템 20+(bonus*4)
                     named++;
                     all++;
@@ -15970,9 +16315,10 @@ public class ShareFragment extends Fragment {
                                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             }
                         } else {
                             layoutWeaponMain2.setVisibility(View.GONE);
@@ -16007,14 +16353,16 @@ public class ShareFragment extends Fragment {
                             txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                         }
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                        progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                        progressWSub.setProgress((int)(sub1*10));
+                        progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                     } else {
                         openSheld = true;
                         namedDBAdapter.open();
@@ -16075,9 +16423,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         if (item.getNoTalent()) {
@@ -16132,9 +16481,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         }
@@ -16169,9 +16519,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     }
@@ -16254,9 +16605,10 @@ public class ShareFragment extends Fragment {
                         else core1 = max_core1;
                         if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                        progressSMain.setProgress((int)(core1*10));
+                        progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                         txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -16291,9 +16643,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         maxoptionDBAdapter.open();
@@ -16327,9 +16680,10 @@ public class ShareFragment extends Fragment {
                         sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                        progressSSub2.setProgress((int)(sub2*10));
+                        progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                        animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         if (tail_sub2.equals("-")) tail_sub2 = "";
                         txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                     } else {
@@ -16387,9 +16741,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -16415,13 +16770,15 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else { //sheld
                             openSheld = true;
                             layoutSheld.setVisibility(View.VISIBLE);
@@ -16483,9 +16840,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -16520,9 +16878,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -16556,9 +16915,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -16718,9 +17078,10 @@ public class ShareFragment extends Fragment {
                             txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                             if (tail_core2.equals("-")) tail_core2 = "";
                             txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                            progressWMain2.setProgress((int)(core2*10));
+                            progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                         }
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
@@ -16755,14 +17116,16 @@ public class ShareFragment extends Fragment {
                         txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                         if (tail_core1.equals("-")) tail_core1 = "";
                         txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                        progressWMain1.setProgress((int)(core1*10));
+                        progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     }
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else {
                     openSheld = true;
                     namedDBAdapter.open();
@@ -16824,9 +17187,10 @@ public class ShareFragment extends Fragment {
                     else core1 = max_core1;
                     if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                    progressSMain.setProgress((int)(core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                     if (item.getNoTalent()) {
@@ -16881,9 +17245,10 @@ public class ShareFragment extends Fragment {
                         sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                         if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                        progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                        progressSSub1.setProgress((int)(sub1*10));
+                        progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                        animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                         if (tail_sub1.equals("-")) tail_sub1 = "";
                         txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                     }
@@ -16918,9 +17283,10 @@ public class ShareFragment extends Fragment {
                     sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                     if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10));
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                 }
@@ -17059,9 +17425,10 @@ public class ShareFragment extends Fragment {
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (tail_core2.equals("-")) tail_core2 = "";
                         txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                        progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                        progressWMain2.setProgress((int)(core2*10));
+                        progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                        animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                     } else {
                         layoutWeaponMain2.setVisibility(View.GONE);
                     }
@@ -17079,14 +17446,16 @@ public class ShareFragment extends Fragment {
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                    progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                    progressWMain1.setProgress((int)(core1*10));
+                    progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                    progressWSub.setProgress((int)(sub1*10));
+                    progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                 } else {
                     openSheld = true;
                     item_core1 = cursor.getString(3);
@@ -17132,19 +17501,22 @@ public class ShareFragment extends Fragment {
                     else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (tail_core1.equals("-")) tail_core1 = "";
                     txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                    progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                    progressSMain.setProgress((int)(core1*10));
+                    progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                    animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                     if (tail_sub1.equals("-")) tail_sub1 = "";
                     txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                    progressSSub1.setProgress((int)(sub1*10));
+                    progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                    animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                     if (tail_sub2.equals("-")) tail_sub2 = "";
                     txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                    progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                    progressSSub2.setProgress((int)(sub2*10));
+                    progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                    animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                 }
                 exoticDBAdpater.close();
 
@@ -17290,9 +17662,10 @@ public class ShareFragment extends Fragment {
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (tail_core2.equals("-")) tail_core2 = "";
                                 txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                progressWMain2.setProgress((int)(core2*10));
+                                progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
                             }
@@ -17310,14 +17683,16 @@ public class ShareFragment extends Fragment {
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                            progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                            progressWMain1.setProgress((int)(core1*10));
+                            progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else {
                             openSheld = true;
                             item_core1 = cursor.getString(3);
@@ -17363,19 +17738,22 @@ public class ShareFragment extends Fragment {
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                         }
                         exoticDBAdpater.close();
                     } else if (percent(1, 1000) <= 20+bonus) { //Named Items 네임드 아이템 20+(bonus*4)
@@ -17456,9 +17834,10 @@ public class ShareFragment extends Fragment {
                                     txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                                     if (tail_core2.equals("-")) tail_core2 = "";
                                     txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                    progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                    progressWMain2.setProgress((int)(core2*10));
+                                    progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                    animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                                 }
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
@@ -17493,14 +17872,16 @@ public class ShareFragment extends Fragment {
                                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                                 if (tail_core1.equals("-")) tail_core1 = "";
                                 txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                                progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                                progressWMain1.setProgress((int)(core1*10));
+                                progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                                animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                             }
                             txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                            progressWSub.setProgress((int)(sub1*10));
+                            progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                         } else {
                             openSheld = true;
                             namedDBAdapter.open();
@@ -17562,9 +17943,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             if (item.getNoTalent()) {
@@ -17619,9 +18001,10 @@ public class ShareFragment extends Fragment {
                                 sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                                 else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                                progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                                progressSSub1.setProgress((int)(sub1*10));
+                                progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                                animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                                 if (tail_sub1.equals("-")) tail_sub1 = "";
                                 txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             }
@@ -17656,9 +18039,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         }
@@ -17741,9 +18125,10 @@ public class ShareFragment extends Fragment {
                             else core1 = max_core1;
                             if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                            progressSMain.setProgress((int)(core1*10));
+                            progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                            animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                             if (tail_core1.equals("-")) tail_core1 = "";
                             txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                             txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -17778,9 +18163,10 @@ public class ShareFragment extends Fragment {
                             sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                            progressSSub1.setProgress((int)(sub1*10));
+                            progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                            animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                             if (tail_sub1.equals("-")) tail_sub1 = "";
                             txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                             maxoptionDBAdapter.open();
@@ -17814,9 +18200,10 @@ public class ShareFragment extends Fragment {
                             sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                             if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                             else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                            progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                            progressSSub2.setProgress((int)(sub2*10));
+                            progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                            animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                             if (tail_sub2.equals("-")) tail_sub2 = "";
                             txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                         } else {
@@ -17874,9 +18261,10 @@ public class ShareFragment extends Fragment {
                                     layoutWeaponMain2.setVisibility(View.VISIBLE);
                                     if (tail_core2.equals("-")) tail_core2 = "";
                                     txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                    progressWMain2.setMax((int)(max_core2*10));
-                        seekWMain2.setMax((int)(max_core2*10));
-                                    progressWMain2.setProgress((int)(core2*10));
+                                    progressWMain2.setMax((int)(max_core2*100));
+                        seekWMain2.setMax((int)(max_core2*100));
+                                    animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                    animationThread[1].start();
                                 } else {
                                     layoutWeaponMain2.setVisibility(View.GONE);
                                 }
@@ -17902,13 +18290,15 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 if (tail_core1.equals("-")) tail_core1 = "";
                                 txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                                progressWMain1.setMax((int)(max_core1*10));
-                        seekWMain1.setMax((int)(max_core1*10));
-                                progressWMain1.setProgress((int)(core1*10));
+                                progressWMain1.setMax((int)(max_core1*100));
+                        seekWMain1.setMax((int)(max_core1*100));
+                                animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                    animationThread[0].start();
                                 txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                                progressWSub.setMax((int)(max_sub1*10));
-                        seekWSub.setMax((int)(max_sub1*10));
-                                progressWSub.setProgress((int)(sub1*10));
+                                progressWSub.setMax((int)(max_sub1*100));
+                        seekWSub.setMax((int)(max_sub1*100));
+                                animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
+                    animationThread[2].start();
                             } else { //sheld
                                 openSheld = true;
                                 layoutSheld.setVisibility(View.VISIBLE);
@@ -17970,9 +18360,10 @@ public class ShareFragment extends Fragment {
                                 else core1 = max_core1;
                                 if ((int)Math.floor(core1) >= max_core1 && !item_core1.equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackground);
                                 else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackground);
-                                progressSMain.setMax((int)(max_core1*10));
-                        seekSMain.setMax((int)(max_core1*10));
-                                progressSMain.setProgress((int)(core1*10));
+                                progressSMain.setMax((int)(max_core1*100));
+                        seekSMain.setMax((int)(max_core1*100));
+                                animationThread[0] = new ItemAnimationThread(progressSMain, core1, handler);
+                    animationThread[0].start();
                                 if (tail_core1.equals("-")) tail_core1 = "";
                                 txtSMain.setText("+"+formatD(core1)+tail_core1+" "+item_core1);
                                 txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
@@ -18007,9 +18398,10 @@ public class ShareFragment extends Fragment {
                                 sub1 = Math.floor(((double)max_sub1*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(sub1) >= max_sub1) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackground);
                                 else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackground);
-                                progressSSub1.setMax((int)(max_sub1*10));
-                        seekSSub1.setMax((int)(max_sub1*10));
-                                progressSSub1.setProgress((int)(sub1*10));
+                                progressSSub1.setMax((int)(max_sub1*100));
+                        seekSSub1.setMax((int)(max_sub1*100));
+                                animationThread[2] = new ItemAnimationThread(progressSSub1, sub1, handler);
+                    animationThread[2].start();
                                 if (tail_sub1.equals("-")) tail_sub1 = "";
                                 txtSSub1.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                                 maxoptionDBAdapter.open();
@@ -18043,9 +18435,10 @@ public class ShareFragment extends Fragment {
                                 sub2 = Math.floor(((double)max_sub2*((double)temp_percent/100))*10.0)/10.0;
                                 if ((int)Math.floor(sub2) >= max_sub2) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackground);
                                 else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackground);
-                                progressSSub2.setMax((int)(max_sub2*10));
-                        seekSSub2.setMax((int)(max_sub2*10));
-                                progressSSub2.setProgress((int)(sub2*10));
+                                progressSSub2.setMax((int)(max_sub2*100));
+                        seekSSub2.setMax((int)(max_sub2*100));
+                                animationThread[3] = new ItemAnimationThread(progressSSub2, sub2, handler);
+                    animationThread[3].start();
                                 if (tail_sub2.equals("-")) tail_sub2 = "";
                                 txtSSub2.setText("+"+formatD(sub2)+tail_sub2+" "+item_sub2);
                             }
@@ -18258,7 +18651,7 @@ public class ShareFragment extends Fragment {
         }
         libraryDBAdapter.close();
         max = Double.parseDouble(cursor.getString(2));
-        seekbar.setProgress((int)(max*10));
+        seekbar.setProgress((int)(max*100));
         if (seekbar.getProgress() >= seekbar.getMax()) seekbar.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
         else seekbar.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
     }
