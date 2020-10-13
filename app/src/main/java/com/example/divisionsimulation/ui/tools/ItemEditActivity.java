@@ -306,8 +306,8 @@ public class ItemEditActivity extends AppCompatActivity {
                                         Button btnCancel = view.findViewById(R.id.btnCancel);
                                         Button btnOK = view.findViewById(R.id.btnOK);
 
-                                        btnOK.setText("불러오기");
-                                        txtContent.setText("보정 라이브러리를 불러오시겠습니까?");
+                                        btnOK.setText("보정");
+                                        txtContent.setText("즐겨찾기로 지정된 아이템입니다. 정말로 보정하시겠습니까?");
 
                                         btnOK.setOnClickListener(new View.OnClickListener() {
                                             @Override
