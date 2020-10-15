@@ -36,6 +36,28 @@ import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.GloveLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.HolsterLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.KneepedLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.MaskLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestTalentDBAdapter;
 import com.example.divisionsimulation.thread.ItemAnimationThread;
 
 import java.text.DecimalFormat;
@@ -67,6 +89,31 @@ public class InventoryActivity extends AppCompatActivity {
     private MakeExoticDBAdapter makeExoticDBAdapter;
     private MakeNamedDBAdapter makeNamedDBAdapter;
 
+    private ARLibraryDBAdapter arLibraryDBAdapter;
+    private BRLibraryDBAdapter brLibraryDBAdapter;
+    private MMRLibraryDBAdapter mmrLibraryDBAdapter;
+    private PTLibraryDBAdapter ptLibraryDBAdapter;
+    private RFLibraryDBAdapter rfLibraryDBAdapter;
+    private SGLibraryDBAdapter sgLibraryDBAdapter;
+    private SRLibraryDBAdapter srLibraryDBAdapter;
+
+    private MaskLibraryDBAdapter maskLibraryDBAdapter;
+    private VestLibraryDBAdapter vestLibraryDBAdapter;
+    private HolsterLibraryDBAdapter holsterLibraryDBAdapter;
+    private BackpackLibraryDBAdapter backpackLibraryDBAdapter;
+    private GloveLibraryDBAdapter gloveLibraryDBAdapter;
+    private KneepedLibraryDBAdapter kneepedLibraryDBAdapter;
+
+    private ARTalentDBAdapter arTalentDBAdapter;
+    private BRTalentDBAdapter brTalentDBAdapter;
+    private MMRTalentDBAdapter mmrTalentDBAdapter;
+    private PTTalentDBAdapter ptTalentDBAdapter;
+    private RFTalentDBAdapter rfTalentDBAdapter;
+    private SGTalentDBAdapter sgTalentDBAdapter;
+    private SRTalentDBAdapter srTalentDBAdapter;
+    private VestTalentDBAdapter vestTalentDBAdapter;
+    private BackpackTalentDBAdapter backpackTalentDBAdapter;
+
     private int[] material = new int[10];
     private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
 
@@ -91,6 +138,31 @@ public class InventoryActivity extends AppCompatActivity {
         libraryDBAdapter = new LibraryDBAdapter(this);
         makeExoticDBAdapter = new MakeExoticDBAdapter(this);
         makeNamedDBAdapter = new MakeNamedDBAdapter(this);
+
+        arLibraryDBAdapter = new ARLibraryDBAdapter(this);
+        brLibraryDBAdapter = new BRLibraryDBAdapter(this);
+        mmrLibraryDBAdapter = new MMRLibraryDBAdapter(this);
+        ptLibraryDBAdapter = new PTLibraryDBAdapter(this);
+        rfLibraryDBAdapter = new RFLibraryDBAdapter(this);
+        sgLibraryDBAdapter = new SGLibraryDBAdapter(this);
+        srLibraryDBAdapter = new SRLibraryDBAdapter(this);
+
+        maskLibraryDBAdapter = new MaskLibraryDBAdapter(this);
+        vestLibraryDBAdapter = new VestLibraryDBAdapter(this);
+        holsterLibraryDBAdapter = new HolsterLibraryDBAdapter(this);
+        backpackLibraryDBAdapter = new BackpackLibraryDBAdapter(this);
+        gloveLibraryDBAdapter = new GloveLibraryDBAdapter(this);
+        kneepedLibraryDBAdapter = new KneepedLibraryDBAdapter(this);
+
+        arTalentDBAdapter = new ARTalentDBAdapter(this);
+        brTalentDBAdapter = new BRTalentDBAdapter(this);
+        mmrTalentDBAdapter = new MMRTalentDBAdapter(this);
+        ptTalentDBAdapter = new PTTalentDBAdapter(this);
+        rfTalentDBAdapter = new RFTalentDBAdapter(this);
+        sgTalentDBAdapter = new SGTalentDBAdapter(this);
+        srTalentDBAdapter = new SRTalentDBAdapter(this);
+        vestTalentDBAdapter = new VestTalentDBAdapter(this);
+        backpackTalentDBAdapter = new BackpackTalentDBAdapter(this);
 
         resetMaterial();
 
@@ -447,13 +519,9 @@ public class InventoryActivity extends AppCompatActivity {
                     seekWMain1.setMax((int)(max*100));
                     animationThread[0] = new ItemAnimationThread(progressWMain1, itemList.get(position).getCore1_value(), handler);
                     animationThread[0].start();
-                    libraryDBAdapter.open();
-                    cursor = libraryDBAdapter.fetchTypeData("무기");
-                    second_max = cursor.getDouble(2);
-                    libraryDBAdapter.close();
-                    seekWMain1.setProgress((int)(second_max*100));
-                    if (seekWMain1.getProgress() >= seekWMain1.getMax()) seekWMain1.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                    else seekWMain1.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                    setSecondaryProgess(itemList.get(position).getCore1(), seekWMain1, "weapon_core1", itemList.get(position).getType());
+
                     if (itemList.get(position).getCore1_value() >= max) layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                     else layoutWeaponMain1.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
                     if (itemList.get(position).getName().equals("보조 붐스틱")) {
@@ -492,13 +560,9 @@ public class InventoryActivity extends AppCompatActivity {
                             animationThread[1].start();
                             if (itemList.get(position).getCore2_value() >= max) layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackgroundcustom);
                             else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
-                            libraryDBAdapter.open();
-                            cursor = libraryDBAdapter.fetchTypeData(itemList.get(position).getType());
-                            second_max = cursor.getDouble(2);
-                            libraryDBAdapter.close();
-                            seekWMain2.setProgress((int)(second_max*100));
-                            if (seekWMain2.getProgress() >= seekWMain2.getMax()) seekWMain2.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                            else seekWMain2.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                            setSecondaryProgess(itemList.get(position).getCore2(), seekWMain2, "weapon_core2", itemList.get(position).getType());
+
                         }
                         namedDBAdapter.close();
                     }
@@ -515,13 +579,9 @@ public class InventoryActivity extends AppCompatActivity {
                     animationThread[2].start();
                     if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackgroundcustom);
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
-                    libraryDBAdapter.open();
-                    cursor = libraryDBAdapter.fetchSubData(itemList.get(position).getSub1());
-                    second_max = cursor.getDouble(2);
-                    libraryDBAdapter.close();
-                    seekWSub.setProgress((int)(second_max*100));
-                    if (seekWSub.getProgress() >= seekWSub.getMax()) seekWSub.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                    else seekWSub.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                    setSecondaryProgess(itemList.get(position).getSub1(), seekWSub, "weapon_sub", itemList.get(position).getType());
+
                     txtWTalent.setText(itemList.get(position).getTalent());
                     namedDBAdapter.open();
                     makeNamedDBAdapter.open();
@@ -560,13 +620,9 @@ public class InventoryActivity extends AppCompatActivity {
                     animationThread[0].start();
                     if (itemList.get(position).getCore1_value() >= max && !itemList.get(position).getCore1().equals("스킬 등급")) layoutSheldMain.setBackgroundResource(R.drawable.maxbackgroundcustom);
                     else layoutSheldMain.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
-                    libraryDBAdapter.open();
-                    cursor = libraryDBAdapter.fetchSheldCoreData(itemList.get(position).getCore1());
-                    second_max = cursor.getDouble(2);
-                    libraryDBAdapter.close();
-                    seekSMain.setProgress((int)(second_max*100));
-                    if (seekSMain.getProgress() >= seekSMain.getMax()) seekSMain.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                    else seekSMain.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                    setSecondaryProgess(itemList.get(position).getCore1(), seekSMain, "sheld_core", itemList.get(position).getType());
+
                     setImageAttribute(imgSMain, progressSMain, itemList.get(position).getCore1(), true);
                     if (itemList.get(position).getCore1().equals("스킬 등급")) seekSMain.setVisibility(View.GONE);
                     else seekSMain.setVisibility(View.VISIBLE);
@@ -644,13 +700,8 @@ public class InventoryActivity extends AppCompatActivity {
                         animationThread[2].start();
                         if (itemList.get(position).getSub1_value() >= max) layoutSheldSub1.setBackgroundResource(R.drawable.maxbackgroundcustom);
                         else layoutSheldSub1.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
-                        libraryDBAdapter.open();
-                        cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub1());
-                        second_max = cursor.getDouble(2);
-                        libraryDBAdapter.close();
-                        seekSSub1.setProgress((int)(second_max*100));
-                        if (seekSSub1.getProgress() >= seekSSub1.getMax()) seekSSub1.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                        else seekSSub1.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                        setSecondaryProgess(itemList.get(position).getSub1(), seekSSub1, "sheld_sub1", itemList.get(position).getType());
                         setImageSubAttribute(imgSSub1, progressSSub1, itemList.get(position).getSub1(), false);
                     }
                     makeNamedDBAdapter.close();
@@ -672,13 +723,8 @@ public class InventoryActivity extends AppCompatActivity {
                         animationThread[3].start();
                         if (itemList.get(position).getSub2_value() >= max) layoutSheldSub2.setBackgroundResource(R.drawable.maxbackgroundcustom);
                         else layoutSheldSub2.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
-                        libraryDBAdapter.open();
-                        cursor = libraryDBAdapter.fetchSheldSubData(itemList.get(position).getSub2());
-                        second_max = cursor.getDouble(2);
-                        libraryDBAdapter.close();
-                        seekSSub2.setProgress((int)(second_max*100));
-                        if (seekSSub2.getProgress() >= seekSSub2.getMax()) seekSSub2.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
-                        else seekSSub2.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+
+                        setSecondaryProgess(itemList.get(position).getSub2(), seekSSub2, "sheld_sub2", itemList.get(position).getType());
                         setImageSubAttribute(imgSSub2, progressSSub2, itemList.get(position).getSub2(), false);
                     }
                     sheldDBAdapter.close();
@@ -1665,6 +1711,198 @@ public class InventoryActivity extends AppCompatActivity {
             if (numbers[i].equals(result)) return true;
         }
         return false;
+    }
+
+    private void setSecondaryProgess(String name, SeekBar seekbar, String option_type, String type) {
+        Cursor cursor = null;
+        double max = 0;
+        switch (option_type) {
+            case "weapon_core1":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchTypeData("무기");
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchTypeData("무기");
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchTypeData("무기");
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchTypeData("무기");
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchTypeData("무기");
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchTypeData("무기");
+                        brLibraryDBAdapter.close();
+                        break;
+                    case "권총":
+                        ptLibraryDBAdapter.open();
+                        cursor = ptLibraryDBAdapter.fetchTypeData("무기");
+                        ptLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "weapon_core2":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchTypeData(type);
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchTypeData(type);
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchTypeData(type);
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchTypeData(type);
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchTypeData(type);
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchTypeData(type);
+                        brLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "weapon_sub":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchSubData(name);
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchSubData(name);
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchSubData(name);
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchSubData(name);
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchSubData(name);
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchSubData(name);
+                        brLibraryDBAdapter.close();
+                        break;
+                    case "권총":
+                        ptLibraryDBAdapter.open();
+                        cursor = ptLibraryDBAdapter.fetchSubData(name);
+                        ptLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "sheld_core":
+                switch (type) {
+                    case "조끼":
+                        vestLibraryDBAdapter.open();
+                        cursor = vestLibraryDBAdapter.fetchSheldCoreData(name);
+                        vestLibraryDBAdapter.close();
+                        break;
+                    case "마스크":
+                        maskLibraryDBAdapter.open();
+                        cursor = maskLibraryDBAdapter.fetchSheldCoreData(name);
+                        maskLibraryDBAdapter.close();
+                        break;
+                    case "권총집":
+                        holsterLibraryDBAdapter.open();
+                        cursor = holsterLibraryDBAdapter.fetchSheldCoreData(name);
+                        holsterLibraryDBAdapter.close();
+                        break;
+                    case "백팩":
+                        backpackLibraryDBAdapter.open();
+                        cursor = backpackLibraryDBAdapter.fetchSheldCoreData(name);
+                        backpackLibraryDBAdapter.close();
+                        break;
+                    case "장갑":
+                        gloveLibraryDBAdapter.open();
+                        cursor = gloveLibraryDBAdapter.fetchSheldCoreData(name);
+                        gloveLibraryDBAdapter.close();
+                        break;
+                    case "무릎보호대":
+                        kneepedLibraryDBAdapter.open();
+                        cursor = kneepedLibraryDBAdapter.fetchSheldCoreData(name);
+                        kneepedLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "sheld_sub1":
+            case "sheld_sub2":
+                switch (type) {
+                    case "조끼":
+                        vestLibraryDBAdapter.open();
+                        cursor = vestLibraryDBAdapter.fetchSheldSubData(name);
+                        vestLibraryDBAdapter.close();
+                        break;
+                    case "마스크":
+                        maskLibraryDBAdapter.open();
+                        cursor = maskLibraryDBAdapter.fetchSheldSubData(name);
+                        maskLibraryDBAdapter.close();
+                        break;
+                    case "권총집":
+                        holsterLibraryDBAdapter.open();
+                        cursor = holsterLibraryDBAdapter.fetchSheldSubData(name);
+                        holsterLibraryDBAdapter.close();
+                        break;
+                    case "백팩":
+                        backpackLibraryDBAdapter.open();
+                        cursor = backpackLibraryDBAdapter.fetchSheldSubData(name);
+                        backpackLibraryDBAdapter.close();
+                        break;
+                    case "장갑":
+                        gloveLibraryDBAdapter.open();
+                        cursor = gloveLibraryDBAdapter.fetchSheldSubData(name);
+                        gloveLibraryDBAdapter.close();
+                        break;
+                    case "무릎보호대":
+                        kneepedLibraryDBAdapter.open();
+                        cursor = kneepedLibraryDBAdapter.fetchSheldSubData(name);
+                        kneepedLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+        }
+        if (cursor != null) max = Double.parseDouble(cursor.getString(2));
+        seekbar.setProgress((int)(max*100));
+        if (seekbar.getProgress() >= seekbar.getMax()) seekbar.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
+        else seekbar.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
     }
 
     @Override

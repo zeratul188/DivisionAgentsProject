@@ -169,6 +169,93 @@
                         android:padding="2dp"/>
                 </LinearLayout>
                 <RadioGroup
+                    android:id="@+id/rgSheld"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <RadioButton
+                        android:id="@+id/rdoSheld1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="마스크"
+                        android:textSize="15sp"
+                        android:textColor="#FF6337"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq1custom"
+                        android:paddingTop="20dp"
+                        android:checked="true"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheld2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="조끼"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq2custom"
+                        android:paddingTop="20dp"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheld3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="권총집"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq3custom"
+                        android:paddingTop="20dp"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheld4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="백팩"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq4custom"
+                        android:paddingTop="20dp"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheld5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="장갑"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq5custom"
+                        android:paddingTop="20dp"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                    <RadioButton
+                        android:id="@+id/rdoSheld6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="무릎보호대"
+                        android:textSize="15sp"
+                        android:textColor="#f0f0f0"
+                        android:button="@null"
+                        android:drawableTop="@drawable/rdoeq6custom"
+                        android:paddingTop="20dp"
+                        android:background="@drawable/radiomenurightcustom"
+                        android:textAlignment="center"/>
+                </RadioGroup>
+                <RadioGroup
                     android:id="@+id/rgWeapon"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -268,7 +355,6 @@
                         android:background="@drawable/radiomenurightcustom"
                         android:textAlignment="center"/>
                 </RadioGroup>
-
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

@@ -22,6 +22,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.GloveLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.HolsterLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.KneepedLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.MaskLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestTalentDBAdapter;
 import com.example.divisionsimulation.ui.home.LoadoutDBAdapter;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 import com.example.divisionsimulation.ui.tools.TalentLibraryDBAdapter;
@@ -46,6 +68,31 @@ public class SettingActivity extends AppCompatActivity {
     private TalentFMDBAdapter talentDBAdapter;
     private MaterialDbAdapter materialDbAdapter;
     private LoadoutDBAdapter loadoutDBAdapter;
+
+    private ARLibraryDBAdapter arLibraryDBAdapter;
+    private BRLibraryDBAdapter brLibraryDBAdapter;
+    private MMRLibraryDBAdapter mmrLibraryDBAdapter;
+    private PTLibraryDBAdapter ptLibraryDBAdapter;
+    private RFLibraryDBAdapter rfLibraryDBAdapter;
+    private SGLibraryDBAdapter sgLibraryDBAdapter;
+    private SRLibraryDBAdapter srLibraryDBAdapter;
+
+    private MaskLibraryDBAdapter maskLibraryDBAdapter;
+    private VestLibraryDBAdapter vestLibraryDBAdapter;
+    private HolsterLibraryDBAdapter holsterLibraryDBAdapter;
+    private BackpackLibraryDBAdapter backpackLibraryDBAdapter;
+    private GloveLibraryDBAdapter gloveLibraryDBAdapter;
+    private KneepedLibraryDBAdapter kneepedLibraryDBAdapter;
+
+    private ARTalentDBAdapter arTalentDBAdapter;
+    private BRTalentDBAdapter brTalentDBAdapter;
+    private MMRTalentDBAdapter mmrTalentDBAdapter;
+    private PTTalentDBAdapter ptTalentDBAdapter;
+    private RFTalentDBAdapter rfTalentDBAdapter;
+    private SGTalentDBAdapter sgTalentDBAdapter;
+    private SRTalentDBAdapter srTalentDBAdapter;
+    private VestTalentDBAdapter vestTalentDBAdapter;
+    private BackpackTalentDBAdapter backpackTalentDBAdapter;
 
     private Cursor cursor;
 
@@ -92,6 +139,31 @@ public class SettingActivity extends AppCompatActivity {
         talentDBAdapter = new TalentFMDBAdapter(this);
         materialDbAdapter = new MaterialDbAdapter(this);
         loadoutDBAdapter = new LoadoutDBAdapter(this);
+
+        arLibraryDBAdapter = new ARLibraryDBAdapter(this);
+        brLibraryDBAdapter = new BRLibraryDBAdapter(this);
+        mmrLibraryDBAdapter = new MMRLibraryDBAdapter(this);
+        ptLibraryDBAdapter = new PTLibraryDBAdapter(this);
+        rfLibraryDBAdapter = new RFLibraryDBAdapter(this);
+        sgLibraryDBAdapter = new SGLibraryDBAdapter(this);
+        srLibraryDBAdapter = new SRLibraryDBAdapter(this);
+
+        maskLibraryDBAdapter = new MaskLibraryDBAdapter(this);
+        vestLibraryDBAdapter = new VestLibraryDBAdapter(this);
+        holsterLibraryDBAdapter = new HolsterLibraryDBAdapter(this);
+        backpackLibraryDBAdapter = new BackpackLibraryDBAdapter(this);
+        gloveLibraryDBAdapter = new GloveLibraryDBAdapter(this);
+        kneepedLibraryDBAdapter = new KneepedLibraryDBAdapter(this);
+
+        arTalentDBAdapter = new ARTalentDBAdapter(this);
+        brTalentDBAdapter = new BRTalentDBAdapter(this);
+        mmrTalentDBAdapter = new MMRTalentDBAdapter(this);
+        ptTalentDBAdapter = new PTTalentDBAdapter(this);
+        rfTalentDBAdapter = new RFTalentDBAdapter(this);
+        sgTalentDBAdapter = new SGTalentDBAdapter(this);
+        srTalentDBAdapter = new SRTalentDBAdapter(this);
+        vestTalentDBAdapter = new VestTalentDBAdapter(this);
+        backpackTalentDBAdapter = new BackpackTalentDBAdapter(this);
 
         String state = Environment.getExternalStorageState();
         if (!state.equals(Environment.MEDIA_MOUNTED)) {
@@ -1422,12 +1494,72 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void resetData() {
-        libraryDBAdapter.open();
-        libraryDBAdapter.resetAllData();
-        libraryDBAdapter.close();
-        talentLibraryDBAdapter.open();
-        talentLibraryDBAdapter.databaseReset();
-        talentLibraryDBAdapter.close();
+        arLibraryDBAdapter.open();
+        arLibraryDBAdapter.resetAllData();
+        arLibraryDBAdapter.close();
+        brLibraryDBAdapter.open();
+        brLibraryDBAdapter.resetAllData();
+        brLibraryDBAdapter.close();
+        mmrLibraryDBAdapter.open();
+        mmrLibraryDBAdapter.resetAllData();
+        mmrLibraryDBAdapter.close();
+        ptLibraryDBAdapter.open();
+        ptLibraryDBAdapter.resetAllData();
+        ptLibraryDBAdapter.close();
+        rfLibraryDBAdapter.open();
+        rfLibraryDBAdapter.resetAllData();
+        rfLibraryDBAdapter.close();
+        sgLibraryDBAdapter.open();
+        sgLibraryDBAdapter.resetAllData();
+        sgLibraryDBAdapter.close();
+        srLibraryDBAdapter.open();
+        srLibraryDBAdapter.resetAllData();
+        srLibraryDBAdapter.close();
+        maskLibraryDBAdapter.open();
+        maskLibraryDBAdapter.resetAllData();
+        maskLibraryDBAdapter.close();
+        vestLibraryDBAdapter.open();
+        vestLibraryDBAdapter.resetAllData();
+        vestLibraryDBAdapter.close();
+        holsterLibraryDBAdapter.open();
+        holsterLibraryDBAdapter.resetAllData();
+        holsterLibraryDBAdapter.close();
+        backpackLibraryDBAdapter.open();
+        backpackLibraryDBAdapter.resetAllData();
+        backpackLibraryDBAdapter.close();
+        gloveLibraryDBAdapter.open();
+        gloveLibraryDBAdapter.resetAllData();
+        gloveLibraryDBAdapter.close();
+        kneepedLibraryDBAdapter.open();
+        kneepedLibraryDBAdapter.resetAllData();
+        kneepedLibraryDBAdapter.close();
+        arTalentDBAdapter.open();
+        arTalentDBAdapter.resetAllData();
+        arTalentDBAdapter.close();
+        brTalentDBAdapter.open();
+        brTalentDBAdapter.resetAllData();
+        brTalentDBAdapter.close();
+        mmrTalentDBAdapter.open();
+        mmrTalentDBAdapter.resetAllData();
+        mmrTalentDBAdapter.close();
+        ptTalentDBAdapter.open();
+        ptTalentDBAdapter.resetAllData();
+        ptTalentDBAdapter.close();
+        rfTalentDBAdapter.open();
+        rfTalentDBAdapter.resetAllData();
+        rfTalentDBAdapter.close();
+        sgTalentDBAdapter.open();
+        sgTalentDBAdapter.resetAllData();
+        sgTalentDBAdapter.close();
+        srTalentDBAdapter.open();
+        srTalentDBAdapter.resetAllData();
+        srTalentDBAdapter.close();
+        vestTalentDBAdapter.open();
+        vestTalentDBAdapter.resetAllData();
+        vestTalentDBAdapter.close();
+        backpackTalentDBAdapter.open();
+        backpackTalentDBAdapter.resetAllData();
+        backpackTalentDBAdapter.close();
     }
 
     private boolean hasPermissions() {

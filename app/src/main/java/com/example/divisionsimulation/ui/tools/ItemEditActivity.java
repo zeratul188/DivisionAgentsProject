@@ -1,6 +1,5 @@
 package com.example.divisionsimulation.ui.tools;
 
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,11 +28,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.divisionsimulation.MaterialDbAdapter;
 import com.example.divisionsimulation.R;
-import com.example.divisionsimulation.SettingActivity;
 import com.example.divisionsimulation.dbdatas.ExoticFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.InventoryDBAdapter;
 import com.example.divisionsimulation.dbdatas.MaxOptionsFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.GloveLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.HolsterLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.KneepedLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.MaskLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestTalentDBAdapter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -63,6 +83,31 @@ public class ItemEditActivity extends AppCompatActivity {
     private MaterialDbAdapter materialDbAdapter;
     private LibraryDBAdapter libraryDBAdapter;
     private TalentLibraryDBAdapter talentLibraryDBAdapter;
+    
+    private ARLibraryDBAdapter arLibraryDBAdapter;
+    private BRLibraryDBAdapter brLibraryDBAdapter;
+    private MMRLibraryDBAdapter mmrLibraryDBAdapter;
+    private PTLibraryDBAdapter ptLibraryDBAdapter;
+    private RFLibraryDBAdapter rfLibraryDBAdapter;
+    private SGLibraryDBAdapter sgLibraryDBAdapter;
+    private SRLibraryDBAdapter srLibraryDBAdapter;
+    
+    private MaskLibraryDBAdapter maskLibraryDBAdapter;
+    private VestLibraryDBAdapter vestLibraryDBAdapter;
+    private HolsterLibraryDBAdapter holsterLibraryDBAdapter;
+    private BackpackLibraryDBAdapter backpackLibraryDBAdapter;
+    private GloveLibraryDBAdapter gloveLibraryDBAdapter;
+    private KneepedLibraryDBAdapter kneepedLibraryDBAdapter;
+
+    private ARTalentDBAdapter arTalentDBAdapter;
+    private BRTalentDBAdapter brTalentDBAdapter;
+    private MMRTalentDBAdapter mmrTalentDBAdapter;
+    private PTTalentDBAdapter ptTalentDBAdapter;
+    private RFTalentDBAdapter rfTalentDBAdapter;
+    private SGTalentDBAdapter sgTalentDBAdapter;
+    private SRTalentDBAdapter srTalentDBAdapter;
+    private VestTalentDBAdapter vestTalentDBAdapter;
+    private BackpackTalentDBAdapter backpackTalentDBAdapter;
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
@@ -127,6 +172,31 @@ public class ItemEditActivity extends AppCompatActivity {
         materialDbAdapter = new MaterialDbAdapter(this);
         libraryDBAdapter = new LibraryDBAdapter(this);
         talentLibraryDBAdapter = new TalentLibraryDBAdapter(this);
+
+        arLibraryDBAdapter = new ARLibraryDBAdapter(this);
+        brLibraryDBAdapter = new BRLibraryDBAdapter(this);
+        mmrLibraryDBAdapter = new MMRLibraryDBAdapter(this);
+        ptLibraryDBAdapter = new PTLibraryDBAdapter(this);
+        rfLibraryDBAdapter = new RFLibraryDBAdapter(this);
+        sgLibraryDBAdapter = new SGLibraryDBAdapter(this);
+        srLibraryDBAdapter = new SRLibraryDBAdapter(this);
+
+        maskLibraryDBAdapter = new MaskLibraryDBAdapter(this);
+        vestLibraryDBAdapter = new VestLibraryDBAdapter(this);
+        holsterLibraryDBAdapter = new HolsterLibraryDBAdapter(this);
+        backpackLibraryDBAdapter = new BackpackLibraryDBAdapter(this);
+        gloveLibraryDBAdapter = new GloveLibraryDBAdapter(this);
+        kneepedLibraryDBAdapter = new KneepedLibraryDBAdapter(this);
+
+        arTalentDBAdapter = new ARTalentDBAdapter(this);
+        brTalentDBAdapter = new BRTalentDBAdapter(this);
+        mmrTalentDBAdapter = new MMRTalentDBAdapter(this);
+        ptTalentDBAdapter = new PTTalentDBAdapter(this);
+        rfTalentDBAdapter = new RFTalentDBAdapter(this);
+        sgTalentDBAdapter = new SGTalentDBAdapter(this);
+        srTalentDBAdapter = new SRTalentDBAdapter(this);
+        vestTalentDBAdapter = new VestTalentDBAdapter(this);
+        backpackTalentDBAdapter = new BackpackTalentDBAdapter(this);
 
         materialList = new ArrayList<MaterialItem>();
 
@@ -199,13 +269,65 @@ public class ItemEditActivity extends AppCompatActivity {
             txtTalent.setVisibility(View.VISIBLE);
             txtTalent.setText(name);
             listView.setVisibility(View.VISIBLE);
+            switch (type) {
+                case "돌격소총":
+                    arTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(arTalentDBAdapter.getHaveCount()));
+                    cursor = arTalentDBAdapter.fetchHaveData();
+                    arTalentDBAdapter.close();
+                    break;
+                case "기관단총":
+                    srTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(srTalentDBAdapter.getHaveCount()));
+                    cursor = srTalentDBAdapter.fetchHaveData();
+                    srTalentDBAdapter.close();
+                    break;
+                case "경기관총":
+                    brTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(brTalentDBAdapter.getHaveCount()));
+                    cursor = brTalentDBAdapter.fetchHaveData();
+                    brTalentDBAdapter.close();
+                    break;
+                case "지정사수소총":
+                    mmrTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(mmrTalentDBAdapter.getHaveCount()));
+                    cursor = mmrTalentDBAdapter.fetchHaveData();
+                    mmrTalentDBAdapter.close();
+                    break;
+                case "소총":
+                    rfTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(rfTalentDBAdapter.getHaveCount()));
+                    cursor = rfTalentDBAdapter.fetchHaveData();
+                    rfTalentDBAdapter.close();
+                    break;
+                case "산탄총":
+                    sgTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(sgTalentDBAdapter.getHaveCount()));
+                    cursor = sgTalentDBAdapter.fetchHaveData();
+                    sgTalentDBAdapter.close();
+                    break;
+                case "권총":
+                    ptTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(ptTalentDBAdapter.getHaveCount()));
+                    cursor = ptTalentDBAdapter.fetchHaveData();
+                    ptTalentDBAdapter.close();
+                    break;
+                case "조끼":
+                    vestTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(vestTalentDBAdapter.getHaveCount()));
+                    cursor = vestTalentDBAdapter.fetchHaveData();
+                    vestTalentDBAdapter.close();
+                    break;
+                case "백팩":
+                    backpackTalentDBAdapter.open();
+                    txtLibraryTalentCount.setText(Integer.toString(backpackTalentDBAdapter.getHaveCount()));
+                    cursor = backpackTalentDBAdapter.fetchHaveData();
+                    backpackTalentDBAdapter.close();
+                    break;
+            }
             talentDBAdapter.open();
             txtTalentMaxCount.setText(Integer.toString(talentDBAdapter.getTypeCount(type)));
             talentDBAdapter.close();
-            talentLibraryDBAdapter.open();
-            txtLibraryTalentCount.setText(Integer.toString(talentLibraryDBAdapter.getTypeCount(type)));
-            cursor = talentLibraryDBAdapter.fetchTypeData(type);
-            talentLibraryDBAdapter.close();
             while (!cursor.isAfterLast()) {
                 talentItems.add(cursor.getString(1));
                 cursor.moveToNext();
@@ -443,37 +565,263 @@ public class ItemEditActivity extends AppCompatActivity {
                 progressSheldOption.setProgress((int)(value*10));
             }
             listView.setVisibility(View.VISIBLE);
-            libraryDBAdapter.open();
-            switch (option_type) {
+            switch (type) {
+                case "돌격소총":
+                    arLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = arLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = arLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = arLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = arLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    arLibraryDBAdapter.close();
+                    break;
+                case "기관단총":
+                    srLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = srLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = srLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = srLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = srLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    srLibraryDBAdapter.close();
+                    break;
+                case "경기관총":
+                    brLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = brLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = brLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = brLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = brLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    brLibraryDBAdapter.close();
+                    break;
+                case "지정사수소총":
+                    mmrLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = mmrLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = mmrLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = mmrLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = mmrLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    mmrLibraryDBAdapter.close();
+                    break;
+                case "소총":
+                    rfLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = rfLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = rfLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = rfLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = rfLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    rfLibraryDBAdapter.close();
+                    break;
+                case "권총":
+                    ptLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = ptLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = ptLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = ptLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    ptLibraryDBAdapter.close();
+                    break;
+                case "산탄총":
+                    sgLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "weapon_core1":
+                            cursor = sgLibraryDBAdapter.fetchTypeData("무기");
+                            core = true;
+                            break;
+                        case "weapon_core2":
+                            cursor = sgLibraryDBAdapter.fetchTypeData(type);
+                            core = true;
+                            break;
+                        case "weapon_sub":
+                            cursor = sgLibraryDBAdapter.fetchTypeData(type);
+                            core = false;
+                            cursor = sgLibraryDBAdapter.fetchTypeData("무기 부속성");
+                            break;
+                    }
+                    sgLibraryDBAdapter.close();
+                    break;
+                case "조끼":
+                    vestLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = vestLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = vestLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    vestLibraryDBAdapter.close();
+                    break;
+                case "권총집":
+                    holsterLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = holsterLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = holsterLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    holsterLibraryDBAdapter.close();
+                    break;
+                case "마스크":
+                    maskLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = maskLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = maskLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    maskLibraryDBAdapter.close();
+                    break;
+                case "장갑":
+                    gloveLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = gloveLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = gloveLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    gloveLibraryDBAdapter.close();
+                    break;
+                case "무릎보호대":
+                    kneepedLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = kneepedLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = kneepedLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    kneepedLibraryDBAdapter.close();
+                    break;
+                case "백팩":
+                    backpackLibraryDBAdapter.open();
+                    switch (option_type) {
+                        case "sheld_core":
+                            cursor = backpackLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                            core = true;
+                            break;
+                        case "sheld_sub1":
+                        case "sheld_sub2":
+                            remove_option = other_name;
+                            cursor = backpackLibraryDBAdapter.fetchTypeData("보호장구 부속성");
+                            core = false;
+                            break;
+                    }
+                    backpackLibraryDBAdapter.close();
+                    break;
+            }
+            /*switch (option_type) {
                 case "weapon_core1":
-                    cursor = libraryDBAdapter.fetchTypeData("무기");
+                    cursor = arLibraryDBAdapter.fetchTypeData("무기");
                     core = true;
                     break;
                 case "weapon_core2":
-                    cursor = libraryDBAdapter.fetchTypeData(type);
+                    cursor = arLibraryDBAdapter.fetchTypeData(type);
                     core = true;
                     break;
                 case "weapon_sub":
                     if (!type.equals("권총")) {
-                        cursor = libraryDBAdapter.fetchTypeData(type);
+                        cursor = arLibraryDBAdapter.fetchTypeData(type);
                         remove_option = cursor.getString(1);
                     } else {
                         remove_option = "";
                     }
                     core = false;
-                    cursor = libraryDBAdapter.fetchTypeData("무기 부속성");
+                    cursor = arLibraryDBAdapter.fetchTypeData("무기 부속성");
                     break;
                 case "sheld_core":
-                    cursor = libraryDBAdapter.fetchTypeData("보호장구 핵심속성");
+                    cursor = arLibraryDBAdapter.fetchTypeData("보호장구 핵심속성");
                     core = true;
                     break;
                 case "sheld_sub1":
                 case "sheld_sub2":
                     remove_option = other_name;
-                    cursor = libraryDBAdapter.fetchTypeData("보호장구 부속성");
+                    cursor = arLibraryDBAdapter.fetchTypeData("보호장구 부속성");
                     core = false;
                     break;
-            }
+            }*/
             while (!cursor.isAfterLast()) {
                 if (!cursor.getString(1).equals(remove_option)) {
                     EditItem item = new EditItem(cursor.getString(1), cursor.getString(4), cursor.getDouble(2));
@@ -481,7 +829,6 @@ public class ItemEditActivity extends AppCompatActivity {
                 }
                 cursor.moveToNext();
             }
-            libraryDBAdapter.close();
             editAdapter = new EditAdapter(this, editItems, null, false, option_type, type, core);
             listView.setAdapter(editAdapter);
 
@@ -561,7 +908,9 @@ public class ItemEditActivity extends AppCompatActivity {
                     final int[] dark_cnt = {dark_count};
 
                     maxDBAdapter.open();
-                    cursor = maxDBAdapter.fetchData(editItems.get(position).getName());
+                    String str;
+                    if (option_type.equals("weapon_core1")) cursor = maxDBAdapter.fetchData("무기군 기본 데미지");
+                    else cursor = maxDBAdapter.fetchData(editItems.get(position).getName());
                     String end = cursor.getString(5);
                     if (end.equals("-")) end = "";
                     maxDBAdapter.close();
@@ -785,76 +1134,492 @@ public class ItemEditActivity extends AppCompatActivity {
                         alertDialog.dismiss();
                         if (!talented) {
                             double max;
-                            libraryDBAdapter.open();
-                            switch (option_type) {
-                                case "weapon_core1":
-                                    cursor = libraryDBAdapter.fetchTypeData("무기");
-                                    max = Double.parseDouble(cursor.getString(2));
-                                    if (value > max) libraryDBAdapter.updateTypeData("무기", "무기군 기본 데미지", Double.toString(value));
-                                    else {
-                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
+                            switch (type) {
+                                case "돌격소총":
+                                    arLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = arLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                arLibraryDBAdapter.updateTypeData("무기", "돌격소총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = arLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                arLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = arLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                arLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
                                     }
+                                    arLibraryDBAdapter.close();
                                     break;
-                                case "weapon_core2":
-                                    cursor = libraryDBAdapter.fetchTypeData(type);
-                                    max = Double.parseDouble(cursor.getString(2));
-                                    if (value > max) libraryDBAdapter.updateTypeData(type, name, Double.toString(value));
-                                    else {
-                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
+                                case "기관단총":
+                                    srLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = srLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                srLibraryDBAdapter.updateTypeData("무기", "기관단총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = srLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                srLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = srLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                srLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
                                     }
+                                    srLibraryDBAdapter.close();
                                     break;
-                                case "weapon_sub":
-                                    cursor = libraryDBAdapter.fetchSubData(name);
-                                    max = Double.parseDouble(cursor.getString(2));
-                                    if (value > max) libraryDBAdapter.updateSubData(name, Double.toString(value));
-                                    else {
-                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
+                                case "경기관총":
+                                    brLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = brLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                brLibraryDBAdapter.updateTypeData("무기", "경기관총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = brLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                brLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = brLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                brLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
                                     }
+                                    brLibraryDBAdapter.close();
                                     break;
-                                case "sheld_core":
-                                    cursor = libraryDBAdapter.fetchSheldCoreData(name);
-                                    max = Double.parseDouble(cursor.getString(2));
-                                    if (value > max) libraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
-                                    else {
-                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
+                                case "지정사수소총":
+                                    mmrLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = mmrLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                mmrLibraryDBAdapter.updateTypeData("무기", "지정사수소총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = mmrLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                mmrLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = mmrLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                mmrLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
                                     }
+                                    mmrLibraryDBAdapter.close();
                                     break;
-                                case "sheld_sub1":
-                                case "sheld_sub2":
-                                    cursor = libraryDBAdapter.fetchSheldSubData(name);
-                                    max = Double.parseDouble(cursor.getString(2));
-                                    if (value > max) libraryDBAdapter.updateSheldSubData(name, Double.toString(value));
-                                    else {
-                                        Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
-                                        return;
+                                case "소총":
+                                    rfLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = rfLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                rfLibraryDBAdapter.updateTypeData("무기", "소총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = rfLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                rfLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = rfLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                rfLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
                                     }
+                                    rfLibraryDBAdapter.close();
+                                    break;
+                                case "권총":
+                                    ptLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = ptLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                ptLibraryDBAdapter.updateTypeData("무기", "권총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = ptLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                ptLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    ptLibraryDBAdapter.close();
+                                    break;
+                                case "산탄총":
+                                    sgLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "weapon_core1":
+                                            cursor = sgLibraryDBAdapter.fetchTypeData("무기");
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                sgLibraryDBAdapter.updateTypeData("무기", "산탄총 데미지", Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_core2":
+                                            cursor = sgLibraryDBAdapter.fetchTypeData(type);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                sgLibraryDBAdapter.updateTypeData(type, name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "weapon_sub":
+                                            cursor = sgLibraryDBAdapter.fetchSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max)
+                                                sgLibraryDBAdapter.updateSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    sgLibraryDBAdapter.close();
+                                    break;
+                                case "조끼":
+                                    vestLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = vestLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) vestLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = vestLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) vestLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    vestLibraryDBAdapter.close();
+                                    break;
+                                case "권총집":
+                                    holsterLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = holsterLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) holsterLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = holsterLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) holsterLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    holsterLibraryDBAdapter.close();
+                                    break;
+                                case "마스크":
+                                    maskLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = maskLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) maskLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = maskLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) maskLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    maskLibraryDBAdapter.close();
+                                    break;
+                                case "장갑":
+                                    gloveLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = gloveLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) gloveLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = gloveLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) gloveLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    gloveLibraryDBAdapter.close();
+                                    break;
+                                case "무릎보호대":
+                                    kneepedLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = kneepedLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) kneepedLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = kneepedLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) kneepedLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    kneepedLibraryDBAdapter.close();
+                                    break;
+                                case "백팩":
+                                    backpackLibraryDBAdapter.open();
+                                    switch (option_type) {
+                                        case "sheld_core":
+                                            cursor = backpackLibraryDBAdapter.fetchSheldCoreData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) backpackLibraryDBAdapter.updateSheldCoreData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                        case "sheld_sub1":
+                                        case "sheld_sub2":
+                                            cursor = backpackLibraryDBAdapter.fetchSheldSubData(name);
+                                            max = Double.parseDouble(cursor.getString(2));
+                                            if (value > max) backpackLibraryDBAdapter.updateSheldSubData(name, Double.toString(value));
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "이미 더 높은 옵션으로 저장되어 있습니다.", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            break;
+                                    }
+                                    backpackLibraryDBAdapter.close();
                                     break;
                             }
-                            libraryDBAdapter.close();
                         } else {
-                            talentLibraryDBAdapter.open();
-                            if (talentLibraryDBAdapter.haveTalent(name)) {
-                                Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
-                                return;
-                            } else {
-                                talentDBAdapter.open();
-                                cursor = talentDBAdapter.fetchData(name);
-                                int ar = cursor.getInt(2);
-                                int sr = cursor.getInt(3);
-                                int br = cursor.getInt(4);
-                                int rf = cursor.getInt(5);
-                                int mmr = cursor.getInt(6);
-                                int sg = cursor.getInt(7);
-                                int pt = cursor.getInt(8);
-                                int vest = cursor.getInt(9);
-                                int backpack = cursor.getInt(10);
-                                talentDBAdapter.close();
-                                talentLibraryDBAdapter.insertData(name, ar, sr, br, rf, mmr, sg, pt, vest, backpack);
-                                talentLibraryDBAdapter.close();
+                            switch (type) {
+                                case "돌격소총":
+                                    arTalentDBAdapter.open();
+                                    if (arTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        arTalentDBAdapter.saveTalent(name);
+                                    }
+                                    arTalentDBAdapter.close();
+                                    break;
+                                case "기관단총":
+                                    srTalentDBAdapter.open();
+                                    if (srTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        srTalentDBAdapter.saveTalent(name);
+                                    }
+                                    srTalentDBAdapter.close();
+                                    break;
+                                case "경기관총":
+                                    brTalentDBAdapter.open();
+                                    if (brTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        brTalentDBAdapter.saveTalent(name);
+                                    }
+                                    brTalentDBAdapter.close();
+                                    break;
+                                case "지정사수소총":
+                                    mmrTalentDBAdapter.open();
+                                    if (mmrTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        mmrTalentDBAdapter.saveTalent(name);
+                                    }
+                                    mmrTalentDBAdapter.close();
+                                    break;
+                                case "소총":
+                                    rfTalentDBAdapter.open();
+                                    if (rfTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        rfTalentDBAdapter.saveTalent(name);
+                                    }
+                                    rfTalentDBAdapter.close();
+                                    break;
+                                case "권총":
+                                    ptTalentDBAdapter.open();
+                                    if (ptTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        ptTalentDBAdapter.saveTalent(name);
+                                    }
+                                    ptTalentDBAdapter.close();
+                                    break;
+                                case "산탄총":
+                                    sgTalentDBAdapter.open();
+                                    if (sgTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        sgTalentDBAdapter.saveTalent(name);
+                                    }
+                                    sgTalentDBAdapter.close();
+                                    break;
+                                case "조끼":
+                                    vestTalentDBAdapter.open();
+                                    if (vestTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        vestTalentDBAdapter.saveTalent(name);
+                                    }
+                                    vestTalentDBAdapter.close();
+                                    break;
+                                case "백팩":
+                                    backpackTalentDBAdapter.open();
+                                    if (backpackTalentDBAdapter.haveTalent(name)) {
+                                        Toast.makeText(getApplicationContext(), "이미 라이브러리에 존재합니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    } else {
+                                        backpackTalentDBAdapter.saveTalent(name);
+                                    }
+                                    backpackTalentDBAdapter.close();
+                                    break;
                             }
                         }
                         inventoryDBAdapter.open();

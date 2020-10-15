@@ -55,6 +55,28 @@ import com.example.divisionsimulation.dbdatas.NamedFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.SheldFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.TalentFMDBAdapter;
 import com.example.divisionsimulation.dbdatas.WeaponFMDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.ARTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.BackpackTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.GloveLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.HolsterLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.KneepedLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.MMRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.MaskLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.PTTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.RFTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SGTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.SRTalentDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestLibraryDBAdapter;
+import com.example.divisionsimulation.librarydatas.VestTalentDBAdapter;
 import com.example.divisionsimulation.thread.ItemAnimationThread;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
 
@@ -77,6 +99,31 @@ public class ShareFragment extends Fragment {
     private AlertDialog.Builder buildera = null;
     private AlertDialog alertDialog = null;
     private View dialogViewa = null;
+
+    private ARLibraryDBAdapter arLibraryDBAdapter;
+    private BRLibraryDBAdapter brLibraryDBAdapter;
+    private MMRLibraryDBAdapter mmrLibraryDBAdapter;
+    private PTLibraryDBAdapter ptLibraryDBAdapter;
+    private RFLibraryDBAdapter rfLibraryDBAdapter;
+    private SGLibraryDBAdapter sgLibraryDBAdapter;
+    private SRLibraryDBAdapter srLibraryDBAdapter;
+
+    private MaskLibraryDBAdapter maskLibraryDBAdapter;
+    private VestLibraryDBAdapter vestLibraryDBAdapter;
+    private HolsterLibraryDBAdapter holsterLibraryDBAdapter;
+    private BackpackLibraryDBAdapter backpackLibraryDBAdapter;
+    private GloveLibraryDBAdapter gloveLibraryDBAdapter;
+    private KneepedLibraryDBAdapter kneepedLibraryDBAdapter;
+
+    private ARTalentDBAdapter arTalentDBAdapter;
+    private BRTalentDBAdapter brTalentDBAdapter;
+    private MMRTalentDBAdapter mmrTalentDBAdapter;
+    private PTTalentDBAdapter ptTalentDBAdapter;
+    private RFTalentDBAdapter rfTalentDBAdapter;
+    private SGTalentDBAdapter sgTalentDBAdapter;
+    private SRTalentDBAdapter srTalentDBAdapter;
+    private VestTalentDBAdapter vestTalentDBAdapter;
+    private BackpackTalentDBAdapter backpackTalentDBAdapter;
     
     private ItemAnimationThread[] animationThread = new ItemAnimationThread[4];
     /*
@@ -714,6 +761,31 @@ public class ShareFragment extends Fragment {
         }
 
         checks = new boolean[command_resources.length];
+
+        arLibraryDBAdapter = new ARLibraryDBAdapter(getActivity());
+        brLibraryDBAdapter = new BRLibraryDBAdapter(getActivity());
+        mmrLibraryDBAdapter = new MMRLibraryDBAdapter(getActivity());
+        ptLibraryDBAdapter = new PTLibraryDBAdapter(getActivity());
+        rfLibraryDBAdapter = new RFLibraryDBAdapter(getActivity());
+        sgLibraryDBAdapter = new SGLibraryDBAdapter(getActivity());
+        srLibraryDBAdapter = new SRLibraryDBAdapter(getActivity());
+
+        maskLibraryDBAdapter = new MaskLibraryDBAdapter(getActivity());
+        vestLibraryDBAdapter = new VestLibraryDBAdapter(getActivity());
+        holsterLibraryDBAdapter = new HolsterLibraryDBAdapter(getActivity());
+        backpackLibraryDBAdapter = new BackpackLibraryDBAdapter(getActivity());
+        gloveLibraryDBAdapter = new GloveLibraryDBAdapter(getActivity());
+        kneepedLibraryDBAdapter = new KneepedLibraryDBAdapter(getActivity());
+
+        arTalentDBAdapter = new ARTalentDBAdapter(getActivity());
+        brTalentDBAdapter = new BRTalentDBAdapter(getActivity());
+        mmrTalentDBAdapter = new MMRTalentDBAdapter(getActivity());
+        ptTalentDBAdapter = new PTTalentDBAdapter(getActivity());
+        rfTalentDBAdapter = new RFTalentDBAdapter(getActivity());
+        sgTalentDBAdapter = new SGTalentDBAdapter(getActivity());
+        srTalentDBAdapter = new SRTalentDBAdapter(getActivity());
+        vestTalentDBAdapter = new VestTalentDBAdapter(getActivity());
+        backpackTalentDBAdapter = new BackpackTalentDBAdapter(getActivity());
 
         Cursor csr;
         materialDbAdapter.open();
@@ -18626,9 +18698,9 @@ public class ShareFragment extends Fragment {
     }
 
     private void setSecondaryProgess(String name, SeekBar seekbar, String option_type, String type) {
-        Cursor cursor;
+        Cursor cursor = null;
         double max = 0;
-        libraryDBAdapter.open();
+        /*libraryDBAdapter.open();
         switch (option_type) {
             case "weapon_core1":
                 cursor = libraryDBAdapter.fetchTypeData("무기");
@@ -18649,8 +18721,191 @@ public class ShareFragment extends Fragment {
             default:
                 cursor = libraryDBAdapter.fetchTypeData("무기");
         }
-        libraryDBAdapter.close();
-        max = Double.parseDouble(cursor.getString(2));
+        libraryDBAdapter.close();*/
+        switch (option_type) {
+            case "weapon_core1":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchTypeData("무기");
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchTypeData("무기");
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchTypeData("무기");
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchTypeData("무기");
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchTypeData("무기");
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchTypeData("무기");
+                        brLibraryDBAdapter.close();
+                        break;
+                    case "권총":
+                        ptLibraryDBAdapter.open();
+                        cursor = ptLibraryDBAdapter.fetchTypeData("무기");
+                        ptLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "weapon_core2":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchTypeData(type);
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchTypeData(type);
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchTypeData(type);
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchTypeData(type);
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchTypeData(type);
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchTypeData(type);
+                        brLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "weapon_sub":
+                switch (type) {
+                    case "돌격소총":
+                        arLibraryDBAdapter.open();
+                        cursor = arLibraryDBAdapter.fetchSubData(name);
+                        arLibraryDBAdapter.close();
+                        break;
+                    case "소총":
+                        rfLibraryDBAdapter.open();
+                        cursor = rfLibraryDBAdapter.fetchSubData(name);
+                        rfLibraryDBAdapter.close();
+                        break;
+                    case "산탄총":
+                        sgLibraryDBAdapter.open();
+                        cursor = sgLibraryDBAdapter.fetchSubData(name);
+                        sgLibraryDBAdapter.close();
+                        break;
+                    case "지정사수소총":
+                        mmrLibraryDBAdapter.open();
+                        cursor = mmrLibraryDBAdapter.fetchSubData(name);
+                        mmrLibraryDBAdapter.close();
+                        break;
+                    case "기관단총":
+                        srLibraryDBAdapter.open();
+                        cursor = srLibraryDBAdapter.fetchSubData(name);
+                        srLibraryDBAdapter.close();
+                        break;
+                    case "경기관총":
+                        brLibraryDBAdapter.open();
+                        cursor = brLibraryDBAdapter.fetchSubData(name);
+                        brLibraryDBAdapter.close();
+                        break;
+                    case "권총":
+                        ptLibraryDBAdapter.open();
+                        cursor = ptLibraryDBAdapter.fetchSubData(name);
+                        ptLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "sheld_core":
+                switch (type) {
+                    case "조끼":
+                        vestLibraryDBAdapter.open();
+                        cursor = vestLibraryDBAdapter.fetchSheldCoreData(name);
+                        vestLibraryDBAdapter.close();
+                        break;
+                    case "마스크":
+                        maskLibraryDBAdapter.open();
+                        cursor = maskLibraryDBAdapter.fetchSheldCoreData(name);
+                        maskLibraryDBAdapter.close();
+                        break;
+                    case "권총집":
+                        holsterLibraryDBAdapter.open();
+                        cursor = holsterLibraryDBAdapter.fetchSheldCoreData(name);
+                        holsterLibraryDBAdapter.close();
+                        break;
+                    case "백팩":
+                        backpackLibraryDBAdapter.open();
+                        cursor = backpackLibraryDBAdapter.fetchSheldCoreData(name);
+                        backpackLibraryDBAdapter.close();
+                        break;
+                    case "장갑":
+                        gloveLibraryDBAdapter.open();
+                        cursor = gloveLibraryDBAdapter.fetchSheldCoreData(name);
+                        gloveLibraryDBAdapter.close();
+                        break;
+                    case "무릎보호대":
+                        kneepedLibraryDBAdapter.open();
+                        cursor = kneepedLibraryDBAdapter.fetchSheldCoreData(name);
+                        kneepedLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+            case "sheld_sub1":
+            case "sheld_sub2":
+                switch (type) {
+                    case "조끼":
+                        vestLibraryDBAdapter.open();
+                        cursor = vestLibraryDBAdapter.fetchSheldSubData(name);
+                        vestLibraryDBAdapter.close();
+                        break;
+                    case "마스크":
+                        maskLibraryDBAdapter.open();
+                        cursor = maskLibraryDBAdapter.fetchSheldSubData(name);
+                        maskLibraryDBAdapter.close();
+                        break;
+                    case "권총집":
+                        holsterLibraryDBAdapter.open();
+                        cursor = holsterLibraryDBAdapter.fetchSheldSubData(name);
+                        holsterLibraryDBAdapter.close();
+                        break;
+                    case "백팩":
+                        backpackLibraryDBAdapter.open();
+                        cursor = backpackLibraryDBAdapter.fetchSheldSubData(name);
+                        backpackLibraryDBAdapter.close();
+                        break;
+                    case "장갑":
+                        gloveLibraryDBAdapter.open();
+                        cursor = gloveLibraryDBAdapter.fetchSheldSubData(name);
+                        gloveLibraryDBAdapter.close();
+                        break;
+                    case "무릎보호대":
+                        kneepedLibraryDBAdapter.open();
+                        cursor = kneepedLibraryDBAdapter.fetchSheldSubData(name);
+                        kneepedLibraryDBAdapter.close();
+                        break;
+                }
+                break;
+        }
+        if (cursor != null) max = Double.parseDouble(cursor.getString(2));
         seekbar.setProgress((int)(max*100));
         if (seekbar.getProgress() >= seekbar.getMax()) seekbar.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
         else seekbar.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
