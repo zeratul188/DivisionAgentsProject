@@ -176,6 +176,7 @@ public class ShareFragment extends Fragment {
     private int[] command_resources;
     private boolean[] checks;
     private ArrayList<Item> dark_items;
+    private AlertDialog shd_dialog = null;
 
     private boolean isBtnDown, isChange = true;
 
@@ -924,7 +925,7 @@ public class ShareFragment extends Fragment {
                     btnOK.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int normal = 102453, hard = 213265, very_hard = 402154, hero = 675426, legend = 1349543;
+                            int normal = 51225, hard = 106632, very_hard = 201077, hero = 337713, legend = 674771;
                             int cnt = 0, bonus = 0;
                             for (int i = 0; i < checks.length; i++) if (checks[i]) cnt++;
                             bonus = cnt * 25;
@@ -19009,7 +19010,26 @@ public class ShareFragment extends Fragment {
     private void addExp(int exp) {
         shdAdapter.open();
         shdAdapter.addEXP(exp);
-        shdAdapter.levelUp();
+        if (shdAdapter.levelUp()) {
+            View shdView = getLayoutInflater().inflate(R.layout.shddialoglayout, null);
+            
+            Button btnOK = shdView.findViewById(R.id.btnOK);
+            
+            btnOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shd_dialog.dismiss();
+                }
+            });
+            
+            AlertDialog.Builder shd_builder = new AlertDialog.Builder(getActivity());
+            shd_builder.setView(shdView);
+            
+            shd_dialog = shd_builder.create();
+            shd_dialog.setCancelable(false);
+            shd_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            shd_dialog.show();
+        }
         shdAdapter.close();
     }
 

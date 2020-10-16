@@ -302,6 +302,46 @@ public class MMRLibraryDBAdapter {
         return sqlDB.update(DATABASE_TABLE, values, null, null) > 0;
     }
 
+    public boolean updateOption(String content, String max) {
+        ContentValues values = new ContentValues();
+        values.put(KEY_MAX, max);
+        return sqlDB.update(DATABASE_TABLE, values, KEY_CONTENT+"='"+content+"'", null) > 0;
+    }
+
+    public void makeFull() {
+        Workbook workbook = null;
+        Sheet sheet = null;
+
+        try {
+            InputStream is = mCtx.getResources().getAssets().open("farming_MMRmaxoptions.xls");
+            workbook = Workbook.getWorkbook(is);
+
+            if (workbook != null) {
+                sheet = workbook.getSheet(0);
+                if (sheet != null) {
+                    int nMaxColumn = 5;
+                    int nRowStartIndex = 0;
+                    int nRowEndIndex = sheet.getColumn(nMaxColumn-1).length - 1;
+                    int nColumnStartIndex = 0;
+                    int nColumnEndIndex = sheet.getRow(1).length - 1;
+                    ContentValues[] values = new ContentValues[nRowEndIndex+1];
+
+                    for (int nRow = nRowStartIndex; nRow <= nRowEndIndex; nRow++) {
+                        String content = sheet.getCell(nColumnStartIndex, nRow).getContents();
+                        String max = sheet.getCell(nColumnStartIndex+1, nRow).getContents();
+
+                        updateOption(content, max);
+                    }
+                    //Toast.makeText(getApplicationContext(), "불러오기 성공", Toast.LENGTH_SHORT).show();
+                } else System.out.println("Sheet is null!!!");
+            } else System.out.println("WorkBook is null!!!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (workbook != null) workbook.close();
+        }
+    }
+
     public int percent(int min, int length) {
         return (int)(Math.random()*12345678)%length+min;
     }

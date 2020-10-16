@@ -374,7 +374,15 @@ public class SettingActivity extends AppCompatActivity {
                             alertDialog.dismiss();
                             importMaterialData();
                             importSHDData();
-                            importLibraryData();
+                            String[] file_names = {"arLibrary", "brLibrary", "srLibrary", "sgLibrary", "ptLibrary", "rfLibrary", "mmrLibrary", "maskLibrary", "vestLibrary", "holsterLibrary", "backpackLibrary", "gloveLibrary", "kneepedLibrary", "arTalent",
+                                    "brTalent", "mmrTalent", "srTalent", "sgTalent", "rfTalent", "ptTalent", "vestTalent", "backpackTalent"};
+                            String[] database_names = {arLibraryDBAdapter.getDatabaseName(), brLibraryDBAdapter.getDatabaseName(), srLibraryDBAdapter.getDatabaseName(), sgLibraryDBAdapter.getDatabaseName(), ptLibraryDBAdapter.getDatabaseName(), rfLibraryDBAdapter.getDatabaseName(),
+                                    mmrLibraryDBAdapter.getDatabaseName(), maskLibraryDBAdapter.getDatabaseName(), vestLibraryDBAdapter.getDatabaseName(), holsterLibraryDBAdapter.getDatabaseName(), backpackLibraryDBAdapter.getDatabaseName(), gloveLibraryDBAdapter.getDatabaseName(),
+                                    kneepedLibraryDBAdapter.getDatabaseName(), arTalentDBAdapter.getDatabaseName(), brTalentDBAdapter.getDatabaseName(), mmrTalentDBAdapter.getDatabaseName(), srTalentDBAdapter.getDatabaseName(), sgTalentDBAdapter.getDatabaseName(), rfTalentDBAdapter.getDatabaseName(), ptTalentDBAdapter.getDatabaseName(),
+                                    vestTalentDBAdapter.getDatabaseName(), backpackTalentDBAdapter.getDatabaseName()};
+                            if (file_names.length == database_names.length) {
+                                saveFiles(file_names, database_names);
+                            }
                             importInventoryData();
                             saveLoadoutData();
                             Toast.makeText(getApplicationContext(), "모든 데이터를 저장하였습니다.", Toast.LENGTH_SHORT).show();
@@ -421,7 +429,15 @@ public class SettingActivity extends AppCompatActivity {
                             exportMaterialData();
                             exportSHDData();
                             exportInventoryData();
-                            exportLibraryData();
+                            String[] file_names = {"arLibrary", "brLibrary", "srLibrary", "sgLibrary", "ptLibrary", "rfLibrary", "mmrLibrary", "maskLibrary", "vestLibrary", "holsterLibrary", "backpackLibrary", "gloveLibrary", "kneepedLibrary", "arTalent",
+                                    "brTalent", "mmrTalent", "srTalent", "sgTalent", "rfTalent", "ptTalent", "vestTalent", "backpackTalent"};
+                            String[] database_names = {arLibraryDBAdapter.getDatabaseName(), brLibraryDBAdapter.getDatabaseName(), srLibraryDBAdapter.getDatabaseName(), sgLibraryDBAdapter.getDatabaseName(), ptLibraryDBAdapter.getDatabaseName(), rfLibraryDBAdapter.getDatabaseName(),
+                                    mmrLibraryDBAdapter.getDatabaseName(), maskLibraryDBAdapter.getDatabaseName(), vestLibraryDBAdapter.getDatabaseName(), holsterLibraryDBAdapter.getDatabaseName(), backpackLibraryDBAdapter.getDatabaseName(), gloveLibraryDBAdapter.getDatabaseName(),
+                                    kneepedLibraryDBAdapter.getDatabaseName(), arTalentDBAdapter.getDatabaseName(), brTalentDBAdapter.getDatabaseName(), mmrTalentDBAdapter.getDatabaseName(), srTalentDBAdapter.getDatabaseName(), sgTalentDBAdapter.getDatabaseName(), rfTalentDBAdapter.getDatabaseName(), ptTalentDBAdapter.getDatabaseName(),
+                                    vestTalentDBAdapter.getDatabaseName(), backpackTalentDBAdapter.getDatabaseName()};
+                            if (file_names.length == database_names.length) {
+                                loadFiles(file_names, database_names);
+                            }
                             loadLoadoutData();
                             Toast.makeText(getApplicationContext(), "모든 데이터를 불러왔습니다.", Toast.LENGTH_SHORT).show();
                         }
@@ -1007,48 +1023,6 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void exportLibraryData() {
-        String databaseName = libraryDBAdapter.getDatabaseName();
-        String backupDirectoryName = "Division2Databases";
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-            if (sd.canWrite()) {
-                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                String backupDBPath = "library_savefile";
-                File backupDB = new File(data, currentDBPath);
-                File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-
-                databaseName = talentLibraryDBAdapter.getDatabaseName();
-
-                currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                backupDBPath = "talent_library_savefile";
-                backupDB = new File(data, currentDBPath);
-                currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                src = new FileInputStream(currentDB).getChannel();
-                dst = new FileOutputStream(backupDB).getChannel();
-
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-
-            } else {
-                toast("권한 오류", false);
-            }
-        } catch (Exception e) {
-            toast("저장된 파일이 없습니다.", false);
-            e.printStackTrace();
-        }
-    }
-
     private void exportLibrary() {
         if (hasPermissions()) {
             View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
@@ -1064,7 +1038,15 @@ public class SettingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    exportLibraryData();
+                    String[] file_names = {"arLibrary", "brLibrary", "srLibrary", "sgLibrary", "ptLibrary", "rfLibrary", "mmrLibrary", "maskLibrary", "vestLibrary", "holsterLibrary", "backpackLibrary", "gloveLibrary", "kneepedLibrary", "arTalent",
+                            "brTalent", "mmrTalent", "srTalent", "sgTalent", "rfTalent", "ptTalent", "vestTalent", "backpackTalent"};
+                    String[] database_names = {arLibraryDBAdapter.getDatabaseName(), brLibraryDBAdapter.getDatabaseName(), srLibraryDBAdapter.getDatabaseName(), sgLibraryDBAdapter.getDatabaseName(), ptLibraryDBAdapter.getDatabaseName(), rfLibraryDBAdapter.getDatabaseName(),
+                                    mmrLibraryDBAdapter.getDatabaseName(), maskLibraryDBAdapter.getDatabaseName(), vestLibraryDBAdapter.getDatabaseName(), holsterLibraryDBAdapter.getDatabaseName(), backpackLibraryDBAdapter.getDatabaseName(), gloveLibraryDBAdapter.getDatabaseName(),
+                                    kneepedLibraryDBAdapter.getDatabaseName(), arTalentDBAdapter.getDatabaseName(), brTalentDBAdapter.getDatabaseName(), mmrTalentDBAdapter.getDatabaseName(), srTalentDBAdapter.getDatabaseName(), sgTalentDBAdapter.getDatabaseName(), rfTalentDBAdapter.getDatabaseName(), ptTalentDBAdapter.getDatabaseName(),
+                                    vestTalentDBAdapter.getDatabaseName(), backpackTalentDBAdapter.getDatabaseName()};
+                    if (file_names.length == database_names.length) {
+                        loadFiles(file_names, database_names);
+                    }
                     toast("보정 라이브러리를 불러왔습니다.", false);
                 }
             });
@@ -1088,50 +1070,6 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void importLibraryData() {
-        String databaseName = libraryDBAdapter.getDatabaseName();
-        String backupDirectoryName = "Division2Databases";
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-            if (sd.canWrite()) {
-                File backupDir = new File(sd, backupDirectoryName);
-                if (!backupDir.exists()) backupDir.mkdir();
-                String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                String backupDBPath = "library_savefile";
-                File currentDB = new File(data, currentDBPath);
-                File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-
-                databaseName = talentLibraryDBAdapter.getDatabaseName();
-
-                currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseName;
-                backupDBPath = "talent_library_savefile";
-                currentDB = new File(data, currentDBPath);
-                backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
-
-                src = new FileInputStream(currentDB).getChannel();
-                dst = new FileOutputStream(backupDB).getChannel();
-
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-
-            } else {
-                toast("권한 오류", false);
-            }
-        } catch (Exception e) {
-            toast("Import Failed!!", false);
-            e.printStackTrace();
-        }
-    }
-
     private void importLibrary() {
         if (hasPermissions()) {
             View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
@@ -1147,7 +1085,15 @@ public class SettingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    importLibraryData();
+                    String[] file_names = {"arLibrary", "brLibrary", "srLibrary", "sgLibrary", "ptLibrary", "rfLibrary", "mmrLibrary", "maskLibrary", "vestLibrary", "holsterLibrary", "backpackLibrary", "gloveLibrary", "kneepedLibrary", "arTalent",
+                            "brTalent", "mmrTalent", "srTalent", "sgTalent", "rfTalent", "ptTalent", "vestTalent", "backpackTalent"};
+                    String[] database_names = {arLibraryDBAdapter.getDatabaseName(), brLibraryDBAdapter.getDatabaseName(), srLibraryDBAdapter.getDatabaseName(), sgLibraryDBAdapter.getDatabaseName(), ptLibraryDBAdapter.getDatabaseName(), rfLibraryDBAdapter.getDatabaseName(),
+                                    mmrLibraryDBAdapter.getDatabaseName(), maskLibraryDBAdapter.getDatabaseName(), vestLibraryDBAdapter.getDatabaseName(), holsterLibraryDBAdapter.getDatabaseName(), backpackLibraryDBAdapter.getDatabaseName(), gloveLibraryDBAdapter.getDatabaseName(),
+                                    kneepedLibraryDBAdapter.getDatabaseName(), arTalentDBAdapter.getDatabaseName(), brTalentDBAdapter.getDatabaseName(), mmrTalentDBAdapter.getDatabaseName(), srTalentDBAdapter.getDatabaseName(), sgTalentDBAdapter.getDatabaseName(), rfTalentDBAdapter.getDatabaseName(), ptTalentDBAdapter.getDatabaseName(),
+                                    vestTalentDBAdapter.getDatabaseName(), backpackTalentDBAdapter.getDatabaseName()};
+                    if (file_names.length == database_names.length) {
+                        saveFiles(file_names, database_names);
+                    }
                     toast("현재 보정 라이브러리를 저장하였습니다.", false);
                 }
             });
@@ -1347,6 +1293,65 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
+    private void saveFiles(String[] file_name, String[] databaseNames) {
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                for (int i = 0; i < file_name.length; i++) {
+                    System.out.println("Saves"+i);
+                    File backupDir = new File(sd, backupDirectoryName);
+                    if (!backupDir.exists()) backupDir.mkdir();
+                    String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseNames[i];
+                    String backupDBPath = file_name[i];
+                    File currentDB = new File(data, currentDBPath);
+                    File backupDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                }
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("Import Failed!!", false);
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFiles(String[] file_name, String[] databaseNames) {
+        String backupDirectoryName = "Division2Databases";
+        try {
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                for (int i = 0; i < file_name.length; i++) {
+                    String currentDBPath = "//data//" + getPackageName()+ "//databases//" + databaseNames[i];
+                    String backupDBPath = file_name[i];
+                    File backupDB = new File(data, currentDBPath);
+                    File currentDB = new File(sd, backupDirectoryName+"/"+backupDBPath);
+
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                }
+            } else {
+                toast("권한 오류", false);
+            }
+        } catch (Exception e) {
+            toast("저장된 파일이 없습니다.", false);
+            e.printStackTrace();
+        }
+    }
+
     private void toast(String message, boolean longer) {
         int length;
         if (longer) length = Toast.LENGTH_LONG;
@@ -1406,38 +1411,72 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 alertDialog.dismiss();
                 resetData();
-                maxOptionsDBAdapter.open();
-                libraryDBAdapter.open();
-                cursor = maxOptionsDBAdapter.fetchAllData();
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    long rowID = cursor.getLong(0);
-                    String max = cursor.getString(2);
-                    libraryDBAdapter.updateIDData(rowID, max);
-                    cursor.moveToNext();
-                }
-                libraryDBAdapter.close();
-                maxOptionsDBAdapter.close();
-                talentDBAdapter.open();
-                talentLibraryDBAdapter.open();
-                cursor = talentDBAdapter.fetchAllData();
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    String name = cursor.getString(1);
-                    int ar = cursor.getInt(2);
-                    int sr = cursor.getInt(3);
-                    int br = cursor.getInt(4);
-                    int rf = cursor.getInt(5);
-                    int mmr = cursor.getInt(6);
-                    int sg = cursor.getInt(7);
-                    int pt = cursor.getInt(8);
-                    int vest = cursor.getInt(9);
-                    int backpack = cursor.getInt(10);
-                    talentLibraryDBAdapter.insertData(name, ar, sr, br, rf, mmr, sg, pt, vest, backpack);
-                    cursor.moveToNext();
-                }
-                talentLibraryDBAdapter.close();
-                talentDBAdapter.close();
+                arLibraryDBAdapter.open();
+                arLibraryDBAdapter.makeFull();
+                arLibraryDBAdapter.close();
+                rfLibraryDBAdapter.open();
+                rfLibraryDBAdapter.makeFull();
+                rfLibraryDBAdapter.close();
+                brLibraryDBAdapter.open();
+                brLibraryDBAdapter.makeFull();
+                brLibraryDBAdapter.close();
+                srLibraryDBAdapter.open();
+                srLibraryDBAdapter.makeFull();
+                srLibraryDBAdapter.close();
+                sgLibraryDBAdapter.open();
+                sgLibraryDBAdapter.makeFull();
+                sgLibraryDBAdapter.close();
+                ptLibraryDBAdapter.open();
+                ptLibraryDBAdapter.makeFull();
+                ptLibraryDBAdapter.close();
+                mmrLibraryDBAdapter.open();
+                mmrLibraryDBAdapter.makeFull();
+                mmrLibraryDBAdapter.close();
+                maskLibraryDBAdapter.open();
+                maskLibraryDBAdapter.makeFull();
+                maskLibraryDBAdapter.close();
+                vestLibraryDBAdapter.open();
+                vestLibraryDBAdapter.makeFull();
+                vestLibraryDBAdapter.close();
+                holsterLibraryDBAdapter.open();
+                holsterLibraryDBAdapter.makeFull();
+                holsterLibraryDBAdapter.close();
+                backpackLibraryDBAdapter.open();
+                backpackLibraryDBAdapter.makeFull();
+                backpackLibraryDBAdapter.close();
+                gloveLibraryDBAdapter.open();
+                gloveLibraryDBAdapter.makeFull();
+                gloveLibraryDBAdapter.close();
+                kneepedLibraryDBAdapter.open();
+                kneepedLibraryDBAdapter.makeFull();
+                kneepedLibraryDBAdapter.close();
+                arTalentDBAdapter.open();
+                arTalentDBAdapter.fullTalent();
+                arTalentDBAdapter.close();
+                rfTalentDBAdapter.open();
+                rfTalentDBAdapter.fullTalent();
+                rfTalentDBAdapter.close();
+                brTalentDBAdapter.open();
+                brTalentDBAdapter.fullTalent();
+                brTalentDBAdapter.close();
+                srTalentDBAdapter.open();
+                srTalentDBAdapter.fullTalent();
+                srTalentDBAdapter.close();
+                sgTalentDBAdapter.open();
+                sgTalentDBAdapter.fullTalent();
+                sgTalentDBAdapter.close();
+                ptTalentDBAdapter.open();
+                ptTalentDBAdapter.fullTalent();
+                ptTalentDBAdapter.close();
+                mmrTalentDBAdapter.open();
+                mmrTalentDBAdapter.fullTalent();
+                mmrTalentDBAdapter.close();
+                vestTalentDBAdapter.open();
+                vestTalentDBAdapter.fullTalent();
+                vestTalentDBAdapter.close();
+                backpackTalentDBAdapter.open();
+                backpackTalentDBAdapter.fullTalent();
+                backpackTalentDBAdapter.close();
                 Toast.makeText(getApplicationContext(), "모든 보정 옵션을 최대치로 설정하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });

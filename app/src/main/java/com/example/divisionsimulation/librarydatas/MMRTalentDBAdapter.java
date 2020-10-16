@@ -184,6 +184,12 @@ public class MMRTalentDBAdapter {
         return sqlDB.update(DATABASE_TABLE, values, null, null) > 0;
     }
 
+    public boolean fullTalent() throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(KEY_HAVE, 1);
+        return sqlDB.update(DATABASE_TABLE, values, null, null) > 0;
+    }
+
     public boolean saveTalent(String name) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(KEY_HAVE, 1);
