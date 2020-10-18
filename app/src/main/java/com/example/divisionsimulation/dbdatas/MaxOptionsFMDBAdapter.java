@@ -162,6 +162,12 @@ public class MaxOptionsFMDBAdapter {
         return cursor;
     }
 
+    public Cursor fetchSearchData(String content, String type) throws SQLException {
+        Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_CONTENT+"='"+content+"' and "+KEY_TYPE+"='"+type+"'", null, null, null, null, null);
+        if (cursor != null) cursor.moveToFirst();
+        return cursor;
+    }
+
     public Cursor fetchTypeData(String type) throws SQLException {
         Cursor cursor = sqlDB.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_CONTENT, KEY_MAX, KEY_TYPE, KEY_ATTRIBUTE, KEY_TAIL}, KEY_TYPE+"='"+type+"'", null, null, null, null, null);
         if (cursor != null) cursor.moveToFirst();

@@ -4,6 +4,7 @@ public class Item {
     private String name, type, core1, core2, sub1, sub2;
     private double core1_value, core2_value, sub1_value, sub2_value;
     private String talent;
+    private boolean isWeapon = false, isSheld = false;
 
     public Item(String name, String type) {
         this.name = name;
@@ -96,5 +97,21 @@ public class Item {
 
     public void setTalent(String talent) {
         this.talent = talent;
+    }
+
+    public boolean isWeapon() {
+        return isWeapon;
+    }
+
+    public void setWeapon(boolean weapon) {
+        isWeapon = weapon;
+    }
+
+    public boolean isSheld() {
+        return isSheld;
+    }
+
+    public void setSheld(boolean sheld) {
+        isSheld = sheld;
     }
 }

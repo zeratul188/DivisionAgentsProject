@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -79,6 +80,7 @@ import com.example.divisionsimulation.librarydatas.VestLibraryDBAdapter;
 import com.example.divisionsimulation.librarydatas.VestTalentDBAdapter;
 import com.example.divisionsimulation.thread.ItemAnimationThread;
 import com.example.divisionsimulation.ui.tools.LibraryDBAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -97,7 +99,7 @@ public class ShareFragment extends Fragment {
     private AlertDialog mission_alertDialog = null;
 
     private AlertDialog.Builder buildera = null;
-    private AlertDialog alertDialog = null;
+    private AlertDialog alertDialog = null, darkzone_alertDialog = null;
     private View dialogViewa = null;
 
     private ARLibraryDBAdapter arLibraryDBAdapter;
@@ -370,7 +372,7 @@ public class ShareFragment extends Fragment {
     public void deleteDZitem() { //로그 요원에게 이송물을 탈취당하거나 이송을 완료하거나 초기화하였을 경우 작동한다. 다크존 아이템을 초기화시킬 때 사용한다.
         darkitem = 0; //현재 저장된 다크존 아이템 갯수를 초기화한다.
         
-        btnOutput.setText("이송하기 ("+darkitem+"/10)");
+        btnOutput.setText("이송하기 ("+dark_items.size()+"/10)");
         /*
         버튼에 있는 다크존 아이템 목록을 초기화한 상태로 업데이트한다.
          */
@@ -615,7 +617,8 @@ public class ShareFragment extends Fragment {
                 }
                 for (int i = 0; i < progressType.length; i++) progressType[i].setMax(20); //모든 종류 진행도 최대치 20으로 설정
                  //다크존 이송 갯수 초기화
-                btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
+                btnOutput.setText("이송하기 ("+dark_items.size()+"/10)"); //위와 동일한 방식
+                dark_items.clear();
                 btnEnd = false; //초기화 완료 조건 초기화
                 if (material_reset) {
                     materialDbAdapter.open();
@@ -720,7 +723,7 @@ public class ShareFragment extends Fragment {
         taked = true;
         darkitem = 0; //다크존 아이템을 초기화한다.
         
-        btnOutput.setText("이송하기 ("+darkitem+"/10)");
+        btnOutput.setText("이송하기 ("+dark_items.size()+"/10)");
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -846,6 +849,43 @@ public class ShareFragment extends Fragment {
         rgChange = root.findViewById(R.id.rgChange);
         rdoAny = root.findViewById(R.id.rdoAny);
         rdoAll = root.findViewById(R.id.rdoAll);
+
+        FloatingActionButton fab = root.findViewById(R.id.fabDarkzonBackpack);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.darkzonelayout, null);
+
+                TextView txtDarkzone = dialogView.findViewById(R.id.txtDarkzone);
+                Button btnExit = dialogView.findViewById(R.id.btnExit);
+                ListView listView = dialogView.findViewById(R.id.listView);
+                TextView txtEmpty = dialogView.findViewById(R.id.txtEmpty);
+
+                txtDarkzone.setText(dark_items.size()+"/10");
+                if (dark_items.size() == 0) {
+                    listView.setVisibility(View.GONE);
+                    txtEmpty.setVisibility(View.VISIBLE);
+                }
+                
+                DarkzoneAdapter darkzoneAdapter = new DarkzoneAdapter(context, dark_items, txtEmpty, btnOutput, txtDarkzone);
+                listView.setAdapter(darkzoneAdapter);
+                
+                btnExit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        darkzone_alertDialog.dismiss();
+                    }
+                });
+                
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setView(dialogView);
+                
+                darkzone_alertDialog = builder.create();
+                darkzone_alertDialog.setCancelable(false);
+                darkzone_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                darkzone_alertDialog.show();
+            }
+        });
 
         rgChange.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -1436,10 +1476,8 @@ public class ShareFragment extends Fragment {
                 int random_select;
                 if (darked) {
                     if (first_darked) {
-                        if (darkitem < 10) {
-                            darkitem++; //다크존 가방 아이템 수를 1 늘려준다.
-                             //버튼 텍스트를 업데이트한다.
-                            btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일
+                        if (dark_items.size() < 10) {
+                            btnOutput.setText("이송하기 ("+dark_items.size()+"/10)"); //위와 동일
                             first_darked = false;
                         } else {
                             Toast.makeText(getActivity(), "다크존 가방이 가득찼습니다.", Toast.LENGTH_SHORT).show();
@@ -1498,11 +1536,9 @@ public class ShareFragment extends Fragment {
         btnInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //이송 물품 다크존 가방에 담는 버튼
-                if (darkitem < 10) { //다크존 가방에 있는 아이템 갯수가 10개 미만일 경우
+                if (dark_items.size() < 10) { //다크존 가방에 있는 아이템 갯수가 10개 미만일 경우
                     dark_items.add(item);
-                    darkitem++; //다크존 가방 아이템 수를 1 늘려준다.
-                     //버튼 텍스트를 업데이트한다.
-                    btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일
+                    btnOutput.setText("이송하기 ("+dark_items.size()+"/10)"); //위와 동일
                     alertDialog.dismiss(); //다크존 다이얼로그를 닫는다.
                 } else { //다크존 가방에 있는 아이템 갯수가 10개 이상을 경우
                     AlertDialog.Builder tbuilder = new AlertDialog.Builder(getActivity(), R.style.MyAlertDialogStyle);
@@ -1520,7 +1556,7 @@ public class ShareFragment extends Fragment {
         btnOutput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (darkitem != 0) { //다크존 아이템이 하나도 없을 경우
+                if (dark_items.size() != 0) { //다크존 아이템이 하나도 없을 경우
                     notificationManager.cancelAll(); //현재 앱에 관련된 모든 알림 제거
 
                     NotificationCompat.Builder buildert = new NotificationCompat.Builder(context, NOTIFICATION_ID) //알림을 설정한다.
@@ -1588,7 +1624,7 @@ public class ShareFragment extends Fragment {
                             dark_items.clear();
                             darkitem = 0; //다크존 아이템을 0으로 초기화
                             //위와 동일한 방식
-                            btnOutput.setText("이송하기 ("+darkitem+"/10)"); //위와 동일한 방식
+                            btnOutput.setText("이송하기 ("+dark_items.size()+"/10)"); //위와 동일한 방식
                             Toast.makeText(getActivity(), "즉시 이송시켰습니다.", Toast.LENGTH_SHORT).show(); //즉시 이송 완료 메시지를 토스트로 통해 알려준다.
                             coming_dz.stopThread(); //헬기 오기 전 스레드를 종료
                             output_dz.stopThread(); //헬기 도착 후 스레드를 종료
@@ -1615,7 +1651,7 @@ public class ShareFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             taked = false;
-                            if (darkitem > 0) { //다크존 아이템이 0보다 크면 작동한다. 즉, 이송물을 헬기에 걸기 전을 나타낸다.
+                            if (dark_items.size()  > 0) { //다크존 아이템이 0보다 크면 작동한다. 즉, 이송물을 헬기에 걸기 전을 나타낸다.
                                 Toast.makeText(getActivity(), "이송하지 않고 이송지점에서 벗어났습니다.", Toast.LENGTH_SHORT).show(); //이송지점에서 벗어낫다는 메시지를 토스트로 전달
                                 coming_dz.stopThread();
                                 output_dz.stopThread();
@@ -10432,7 +10468,7 @@ public class ShareFragment extends Fragment {
                 double core1 = 0, core2 = 0, sub1 = 0, sub2 = 0;
                 double max_core1, max_core2, max_sub1, max_sub2;
                 imgInventory.setImageResource(R.drawable.fm2);
-                txtInventory.setText(darkitem+"/10");
+                txtInventory.setText(dark_items.size()+"/10");
                 btnAdd.setVisibility(View.GONE);
                 Cursor cursor;
                 int pick, temp_percent; //램덤 난수가 저장될 변수
@@ -18665,7 +18701,6 @@ public class ShareFragment extends Fragment {
         named = pref.getInt("Named", 0);
         gear = pref.getInt("Gear", 0);
         brand = pref.getInt("Brand", 0);
-        darkitem = pref.getInt("DarkItem", 0);
         all = pref.getInt("All", 0);
         index = pref.getInt("Index", 0);
         for (int i = 0; i < typet.length; i++) typet[i] = pref.getInt("typet"+(i+1), 0);
@@ -18705,7 +18740,6 @@ public class ShareFragment extends Fragment {
         editor.putInt("Named", named);
         editor.putInt("Gear", gear);
         editor.putInt("Brand", brand);
-        editor.putInt("Darkitem", darkitem);
         editor.putInt("All", all);
         for (int i = 0; i < typet.length; i++) editor.putInt("typet"+(i+1), typet[i]);
         for (int i = 0; i < item_name.length; i++) {
