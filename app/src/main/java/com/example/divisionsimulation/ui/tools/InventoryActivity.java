@@ -235,6 +235,7 @@ public class InventoryActivity extends AppCompatActivity {
                 final SeekBar seekSMain = dialogView.findViewById(R.id.seekSMain);
                 final SeekBar seekSSub1 = dialogView.findViewById(R.id.seekSSub1);
                 final SeekBar seekSSub2 = dialogView.findViewById(R.id.seekSSub2);
+                final LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
                 seekWMain1.setEnabled(false);
                 seekWMain2.setEnabled(false);
                 seekWSub.setEnabled(false);
@@ -1345,6 +1346,8 @@ public class InventoryActivity extends AppCompatActivity {
                 setNamedTalent(position, txtWTalent);
                 setNamed(position, txtWMain2, txtSSub1);
 
+                haveTelantLibrary(layoutTalentContent, String.valueOf(txtWTalent.getText()), String.valueOf(txtType.getText()));
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(InventoryActivity.this);
                 builder.setView(dialogView);
 
@@ -1903,6 +1906,65 @@ public class InventoryActivity extends AppCompatActivity {
         seekbar.setProgress((int)(max*100));
         if (seekbar.getProgress() >= seekbar.getMax()) seekbar.setThumb(getResources().getDrawable(R.drawable.ic_max_second_40dp));
         else seekbar.setThumb(getResources().getDrawable(R.drawable.ic_second_40dp));
+    }
+
+    private void haveTelantLibrary(LinearLayout layout, String talent, String type) {
+        switch (type) {
+            case "돌격소총":
+                arTalentDBAdapter.open();
+                if (arTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                arTalentDBAdapter.close();
+                break;
+            case "소총":
+                rfTalentDBAdapter.open();
+                if (rfTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                rfTalentDBAdapter.close();
+                break;
+            case "기관단총":
+                srTalentDBAdapter.open();
+                if (srTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                srTalentDBAdapter.close();
+                break;
+            case "경기관총":
+                brTalentDBAdapter.open();
+                if (brTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                brTalentDBAdapter.close();
+                break;
+            case "지정사수소총":
+                mmrTalentDBAdapter.open();
+                if (mmrTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                mmrTalentDBAdapter.close();
+                break;
+            case "산탄총":
+                sgTalentDBAdapter.open();
+                if (sgTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                sgTalentDBAdapter.close();
+                break;
+            case "권총":
+                ptTalentDBAdapter.open();
+                if (ptTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                ptTalentDBAdapter.close();
+                break;
+            case "조끼":
+                vestTalentDBAdapter.open();
+                if (vestTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                vestTalentDBAdapter.close();
+                break;
+            case "백팩":
+                backpackTalentDBAdapter.open();
+                if (backpackTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackgroundcustom);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                backpackTalentDBAdapter.close();
+                break;
+        }
     }
 
     @Override

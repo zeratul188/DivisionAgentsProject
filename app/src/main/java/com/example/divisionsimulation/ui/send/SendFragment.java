@@ -1231,6 +1231,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -1440,6 +1441,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -1604,6 +1606,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -1805,6 +1808,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -1959,6 +1963,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -2081,6 +2086,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -2235,6 +2241,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -2370,6 +2377,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -2524,6 +2532,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -2633,6 +2642,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -2757,6 +2767,7 @@ public class SendFragment extends Fragment {
         LinearLayout layoutSheldMain = dialogView.findViewById(R.id.layoutSheldMain);
         LinearLayout layoutSheldSub1 = dialogView.findViewById(R.id.layoutSheldSub1);
         LinearLayout layoutSheldSub2 = dialogView.findViewById(R.id.layoutSheldSub2);
+        LinearLayout layoutTalentContent = dialogView.findViewById(R.id.layoutTalentContent);
 
         SeekBar seekWMain1 = dialogView.findViewById(R.id.seekWMain1);
         SeekBar seekWMain2 = dialogView.findViewById(R.id.seekWMain2);
@@ -2874,6 +2885,7 @@ public class SendFragment extends Fragment {
             ((ViewGroup) dialogView.getParent()).removeView(dialogView); //다이얼뷰의 부모의 그룹에서 다이얼뷰를 제거한다.
         //(!!!매우 중요!!!)위 작업을 하지 않는다면 다이얼로그를 띄우고 한번 더 띄울 때 에러가 생기게 된다. 그러므로 다시 동일한 뷰를 띄울 때는 제거하고 다시 생성해서 올리는 방식으로 사용해야 한다.
         builder.setView(dialogView); //빌더에 다이얼 뷰를 설정
+        haveTelantLibrary(layoutTalentContent, item_talent, String.valueOf(txtType.getText()));
 
         Item item = new Item(String.valueOf(txtName.getText()), String.valueOf(txtType.getText()));
         item.setCore1(item_core1);
@@ -3472,6 +3484,65 @@ public class SendFragment extends Fragment {
             Toast.makeText(getActivity(), "불러오기 오류", Toast.LENGTH_SHORT).show();
         } finally {
             if (workbook != null) workbook.close();
+        }
+    }
+
+    private void haveTelantLibrary(LinearLayout layout, String talent, String type) {
+        switch (type) {
+            case "돌격소총":
+                arTalentDBAdapter.open();
+                if (arTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                arTalentDBAdapter.close();
+                break;
+            case "소총":
+                rfTalentDBAdapter.open();
+                if (rfTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                rfTalentDBAdapter.close();
+                break;
+            case "기관단총":
+                srTalentDBAdapter.open();
+                if (srTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                srTalentDBAdapter.close();
+                break;
+            case "경기관총":
+                brTalentDBAdapter.open();
+                if (brTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                brTalentDBAdapter.close();
+                break;
+            case "지정사수소총":
+                mmrTalentDBAdapter.open();
+                if (mmrTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                mmrTalentDBAdapter.close();
+                break;
+            case "산탄총":
+                sgTalentDBAdapter.open();
+                if (sgTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                sgTalentDBAdapter.close();
+                break;
+            case "권총":
+                ptTalentDBAdapter.open();
+                if (ptTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                ptTalentDBAdapter.close();
+                break;
+            case "조끼":
+                vestTalentDBAdapter.open();
+                if (vestTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                vestTalentDBAdapter.close();
+                break;
+            case "백팩":
+                backpackTalentDBAdapter.open();
+                if (backpackTalentDBAdapter.haveTalent(talent)) layout.setBackgroundResource(R.drawable.talentbackground);
+                else layout.setBackgroundResource(R.drawable.notalentbackground);
+                backpackTalentDBAdapter.close();
+                break;
         }
     }
 
