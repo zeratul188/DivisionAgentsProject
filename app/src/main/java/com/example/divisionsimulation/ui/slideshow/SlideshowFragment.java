@@ -31,7 +31,7 @@ public class SlideshowFragment extends Fragment {
     private SheldDbAdapter sheldAdapter;
     private LinearLayout mainLayout;
     
-    private int[] images = new int[32];
+    private int[] images = new int[34];
 
     private SlideshowViewModel slideshowViewModel;
     private Button[] btnSheldoption = new Button[2];

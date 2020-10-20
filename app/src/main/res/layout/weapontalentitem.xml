@@ -38,13 +38,13 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="40dp"
-                android:src="@drawable/rdowp4custom"/>
+                android:src="@drawable/rdowp3custom"/>
             <ImageView
                 android:id="@+id/imgType3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="40dp"
-                android:src="@drawable/rdowp5custom"/>
+                android:src="@drawable/rdowp4custom"/>
             <ImageView
                 android:id="@+id/imgType4"
                 android:layout_width="0dp"
@@ -56,7 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="40dp"
-                android:src="@drawable/rdowp3custom"/>
+                android:src="@drawable/rdowp5custom"/>
             <ImageView
                 android:id="@+id/imgType6"
                 android:layout_width="0dp"
