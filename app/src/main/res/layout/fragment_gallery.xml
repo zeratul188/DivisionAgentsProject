@@ -380,7 +380,8 @@
                 android:layout_marginTop="10dp">
                 <Button
                     android:id="@+id/btnNamed"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/mainbuttonhub"
                     android:text="네임드 무기"
@@ -389,7 +390,8 @@
                     android:textColor="#fe6e0e"/>
                 <Button
                     android:id="@+id/btnTalent"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/mainbuttonhub"
                     android:text="특수효과"

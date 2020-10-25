@@ -1116,7 +1116,8 @@
                 android:gravity="center">
                 <Button
                     android:id="@+id/btnReset"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/subbuttonhub"
                     android:text="초기화"
@@ -1126,7 +1127,8 @@
                     android:layout_marginRight="5dp"/>
                 <Button
                     android:id="@+id/btnOutput"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/mainbuttonhub"
                     android:text="이송하기 (0/10)"

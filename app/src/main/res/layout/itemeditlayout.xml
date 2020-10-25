@@ -205,7 +205,8 @@
             android:gravity="center">
             <Button
                 android:id="@+id/btnCancel"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="45dp"
                 android:background="@drawable/subbuttonhub"
                 android:drawablePadding="5dp"
@@ -216,7 +217,8 @@
                 android:textColor="#aaaaaa"/>
             <Button
                 android:id="@+id/btnResetting"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="45dp"
                 android:background="@drawable/mainbuttonhub"
                 android:text="재조정"
@@ -227,7 +229,8 @@
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/btnEdit"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="45dp"
                 android:background="@drawable/mainbuttonhub"
                 android:text="라이브러리 추가"

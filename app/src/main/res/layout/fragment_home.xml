@@ -1445,7 +1445,8 @@
 
                 <Button
                     android:id="@+id/btnDPS"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/subbuttonhub"
                     android:text="초기화"
@@ -1454,7 +1455,8 @@
                     android:layout_marginRight="5dp"/>
                 <Button
                     android:id="@+id/btnDemageSimul"
-                    android:layout_width="180dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="45dp"
                     android:background="@drawable/mainbuttonhub"
                     android:text="데미지 시뮬"

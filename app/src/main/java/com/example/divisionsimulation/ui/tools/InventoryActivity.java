@@ -536,18 +536,35 @@ public class InventoryActivity extends AppCompatActivity {
                         namedDBAdapter.close();
                         layoutWeaponMain1.setEnabled(false);
                     }
-                    if (title.equals("권총")) layoutWeaponMain2.setVisibility(View.GONE);
-                    else {
-                        layoutWeaponMain2.setVisibility(View.VISIBLE);
-                        namedDBAdapter.open();
-                        if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+                    if (title.equals("권총")) {
+                        if (itemList.get(position).getName().equals("맞춤형 TDI \"Kard\"")) {
+                            layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            namedDBAdapter.open();
                             cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
                             txtWMain2.setText(cursor.getString(2));
                             progressWMain2.setMax(100);
                             progressWMain2.setProgress(100);
                             layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                            txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                            namedDBAdapter.close();
                             layoutWeaponMain2.setEnabled(false);
                         } else {
+                            layoutWeaponMain2.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        layoutWeaponMain2.setVisibility(View.VISIBLE);
+                        namedDBAdapter.open();
+                        if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName()) && !itemList.get(position).getName().equals("밀대")) {
+                            cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                            txtWMain2.setText(cursor.getString(2));
+                            progressWMain2.setMax(100);
+                            progressWMain2.setProgress(100);
+                            txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                            layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                            layoutWeaponMain2.setEnabled(false);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                             maxDBAdapter.open();
                             cursor = maxDBAdapter.fetchTypeData(itemList.get(position).getType());
                            max = cursor.getDouble(2);
@@ -567,19 +584,32 @@ public class InventoryActivity extends AppCompatActivity {
                         }
                         namedDBAdapter.close();
                     }
-                    maxDBAdapter.open();
-                    cursor = maxDBAdapter.fetchSubData(itemList.get(position).getSub1());
-                    max = cursor.getDouble(2);
-                            end = cursor.getString(5);
-                            maxDBAdapter.close();
-                            if (end.equals("-")) end = "";
-                    txtWSub.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
-                    progressWSub.setMax((int)(max*100));
-                    seekWSub.setMax((int)(max*100));
-                    animationThread[2] = new ItemAnimationThread(progressWSub, itemList.get(position).getSub1_value(), handler);
-                    animationThread[2].start();
-                    if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackgroundcustom);
-                    else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
+                    if (itemList.get(position).getName().equals("밀대")) {
+                        namedDBAdapter.open();
+                        cursor = namedDBAdapter.fetchData(itemList.get(position).getName());
+                        txtWSub.setText(cursor.getString(2));
+                        progressWSub.setMax(100);
+                        progressWSub.setProgress(100);
+                        layoutWeaponSub.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                        layoutWeaponSub.setEnabled(false);
+                        namedDBAdapter.close();
+                        txtWSub.setTextColor(Color.parseColor("#c99700"));
+                    } else {
+                        txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        maxDBAdapter.open();
+                        cursor = maxDBAdapter.fetchSubData(itemList.get(position).getSub1());
+                        max = cursor.getDouble(2);
+                        end = cursor.getString(5);
+                        maxDBAdapter.close();
+                        if (end.equals("-")) end = "";
+                        txtWSub.setText("+"+formatD(itemList.get(position).getSub1_value())+end+" "+itemList.get(position).getSub1());
+                        progressWSub.setMax((int)(max*100));
+                        seekWSub.setMax((int)(max*100));
+                        animationThread[2] = new ItemAnimationThread(progressWSub, itemList.get(position).getSub1_value(), handler);
+                        animationThread[2].start();
+                        if (itemList.get(position).getSub1_value() >= max) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackgroundcustom);
+                        else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackgroundcustom);
+                    }
 
                     setSecondaryProgess(itemList.get(position).getSub1(), seekWSub, "weapon_sub", itemList.get(position).getType());
 
@@ -879,7 +909,7 @@ public class InventoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         inventoryDBAdapter.open();
                         namedDBAdapter.open();
-                        if (namedDBAdapter.haveItem(itemList.get(position).getName())) {
+                        if (namedDBAdapter.haveItem(itemList.get(position).getName()) && !itemList.get(position).getName().equals("밀대")) {
                             if (!itemList.get(index).getName().equals("보조 붐스틱") && namedDBAdapter.haveNoTalentData(itemList.get(index).getName())) {
                                 Toast.makeText(getApplicationContext(), "이 옵션은 보정할 수 없습니다.", Toast.LENGTH_SHORT).show();
                                 return;
@@ -1538,7 +1568,7 @@ public class InventoryActivity extends AppCompatActivity {
         String[] split_str;
         namedDBAdapter.open();
         makeNamedDBAdapter.open();
-        if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName())) {
+        if (namedDBAdapter.haveNoTalentData(itemList.get(position).getName()) && !itemList.get(position).getName().equals("밀대")) {
             String str = namedDBAdapter.fetchNoTalentData(itemList.get(position).getName());
             if (str.indexOf("\n") > -1) {
                 split_str = str.split("\n");

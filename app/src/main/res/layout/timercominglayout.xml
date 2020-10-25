@@ -73,7 +73,8 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/btnRun"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="45dp"
             android:background="@drawable/subbutton"
             android:layout_gravity="center"
@@ -83,7 +84,8 @@
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btnNowOutput"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="45dp"
             android:background="@drawable/mainbuttonhub"
             android:layout_gravity="center"

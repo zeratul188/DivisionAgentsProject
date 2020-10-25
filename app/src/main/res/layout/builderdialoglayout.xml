@@ -22,7 +22,8 @@
         android:layout_marginTop="20dp">
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="45dp"
             android:background="@drawable/subbuttonhub"
             android:layout_gravity="center"
@@ -32,7 +33,8 @@
             android:textSize="18sp"/>
         <Button
             android:id="@+id/btnOK"
-            android:layout_width="180dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="45dp"
             android:background="@drawable/mainbuttonhub"
             android:layout_gravity="center"

@@ -29,7 +29,7 @@
                     android:orientation="vertical"/>
                 <Button
                     android:id="@+id/btnSheldoption1"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:background="@drawable/mainbuttonhub"
                     android:layout_gravity="center"
@@ -40,7 +40,7 @@
                     android:textColor="#fe6e0e"/>
                 <Button
                     android:id="@+id/btnTalent"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:background="@drawable/mainbuttonhub"
                     android:layout_gravity="center"
@@ -51,7 +51,7 @@
                     android:textColor="#fe6e0e"/>
                 <Button
                     android:id="@+id/btnSheldoption2"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:background="@drawable/mainbuttonhub"
                     android:layout_gravity="center"

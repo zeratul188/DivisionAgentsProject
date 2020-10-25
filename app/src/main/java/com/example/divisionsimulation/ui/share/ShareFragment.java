@@ -1783,6 +1783,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -2104,7 +2105,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -2144,6 +2154,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -2785,6 +2804,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -3106,7 +3126,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -3146,6 +3175,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -3785,6 +3823,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -4106,7 +4145,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -4146,6 +4194,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -4784,6 +4841,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -4951,7 +5009,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -4991,6 +5058,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -5630,6 +5706,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -5957,7 +6034,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -5997,6 +6083,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -6636,6 +6731,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -6963,7 +7059,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -7003,6 +7108,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -7642,6 +7756,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -7969,7 +8084,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -8009,6 +8133,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -8648,6 +8781,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -8888,7 +9022,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -8928,6 +9071,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -9568,6 +9720,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -9808,7 +9961,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -9848,6 +10010,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -10487,6 +10658,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.VISIBLE);
 
@@ -10726,7 +10898,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -10766,6 +10947,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -11402,6 +11592,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.VISIBLE);
 
@@ -11729,7 +11920,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -11769,6 +11969,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -12405,6 +12614,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.VISIBLE);
 
@@ -12725,7 +12935,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -12765,6 +12984,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -13405,6 +13633,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -13732,7 +13961,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -13772,6 +14010,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -14412,6 +14659,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -14586,7 +14834,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -14626,6 +14883,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -15265,6 +15531,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -15592,7 +15859,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -15632,6 +15908,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -16272,6 +16557,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -16446,7 +16732,16 @@ public class ShareFragment extends Fragment {
                     animationThread[1].start();
                             }
                         } else {
-                            layoutWeaponMain2.setVisibility(View.GONE);
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                         }
                         maxoptionDBAdapter.open();
                         ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -16486,6 +16781,15 @@ public class ShareFragment extends Fragment {
                         txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
                         progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                         animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                     } else {
@@ -17124,6 +17428,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
 
@@ -17195,22 +17500,31 @@ public class ShareFragment extends Fragment {
                         else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                         layoutWeaponMain2.setVisibility(View.VISIBLE);
                         if (item.getName().equals("하얀 사신")) {
-                            txtWMain2.setTextColor(Color.parseColor("#c99700"));
-                            txtWMain2.setText(item.getTalent());
-                            progressWMain2.setMax(100);
-                            progressWMain2.setProgress(100);
-                            layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
-                        } else {
-                            txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
-                            if (tail_core2.equals("-")) tail_core2 = "";
-                            txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                            progressWMain2.setMax((int)(max_core2*100));
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            } else {
+                                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*100));
                         seekWMain2.setMax((int)(max_core2*100));
-                            animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
                     animationThread[1].start();
-                        }
-                    } else {
-                        layoutWeaponMain2.setVisibility(View.GONE);
+                            }
+                        } else {
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                     }
                     maxoptionDBAdapter.open();
                     ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -17233,23 +17547,32 @@ public class ShareFragment extends Fragment {
                     if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                     else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                     if (item.getName().equals("보조 붐스틱")) {
-                        txtWMain1.setTextColor(Color.parseColor("#c99700"));
-                        txtWMain1.setText(item.getTalent());
-                        progressWMain1.setMax(100);
-                        progressWMain1.setProgress(100);
-                        layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
-                    } else {
-                        txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
-                        if (tail_core1.equals("-")) tail_core1 = "";
-                        txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                        progressWMain1.setMax((int)(max_core1*100));
+                            txtWMain1.setTextColor(Color.parseColor("#c99700"));
+                            txtWMain1.setText(item.getTalent());
+                            progressWMain1.setMax(100);
+                            progressWMain1.setProgress(100);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*100));
                         seekWMain1.setMax((int)(max_core1*100));
-                        animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
                     animationThread[0].start();
-                    }
-                    txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                    progressWSub.setMax((int)(max_sub1*100));
+                        }
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                     animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                 } else {
@@ -17492,6 +17815,7 @@ public class ShareFragment extends Fragment {
                 txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
                 txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                 layoutSheldSub2.setVisibility(View.VISIBLE);
                 btnInput.setVisibility(View.GONE);
                 tableMain.setBackgroundResource(R.drawable.exoticitem);
@@ -17725,9 +18049,10 @@ public class ShareFragment extends Fragment {
                     txtName.setTextColor(Color.parseColor("#aaaaaa")); //장비이름의 색을 흰색으로 바꾼다. (완전 흰색이 아닌 조금 어두운 흰색)
                     //for (int i = 0; i < 3; i++) imgOption[i].setVisibility(View.VISIBLE);
                     txtSSub1.setTextColor(Color.parseColor("#aaaaaa"));
-                    txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
-                    txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
-                    txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWTalent.setTextColor(Color.parseColor("#aaaaaa"));
+                txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
                     layoutSheldSub2.setVisibility(View.VISIBLE);
                     btnInput.setVisibility(View.GONE);
 
@@ -17953,22 +18278,31 @@ public class ShareFragment extends Fragment {
                                 else layoutWeaponMain2.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                                 layoutWeaponMain2.setVisibility(View.VISIBLE);
                                 if (item.getName().equals("하얀 사신")) {
-                                    txtWMain2.setTextColor(Color.parseColor("#c99700"));
-                                    txtWMain2.setText(item.getTalent());
-                                    progressWMain2.setMax(100);
-                                    progressWMain2.setProgress(100);
-                                    layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
-                                } else {
-                                    txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
-                                    if (tail_core2.equals("-")) tail_core2 = "";
-                                    txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
-                                    progressWMain2.setMax((int)(max_core2*100));
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                            } else {
+                                txtWMain2.setTextColor(Color.parseColor("#aaaaaa"));
+                                if (tail_core2.equals("-")) tail_core2 = "";
+                                txtWMain2.setText("+"+formatD(core2)+tail_core2+" "+item_core2);
+                                progressWMain2.setMax((int)(max_core2*100));
                         seekWMain2.setMax((int)(max_core2*100));
-                                    animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
+                                animationThread[1] = new ItemAnimationThread(progressWMain2, core2, handler);
                     animationThread[1].start();
-                                }
+                            }
+                        } else {
+                            if (item.getName().equals("맞춤형 TDI \"Kard\"")) {
+                                txtWMain2.setTextColor(Color.parseColor("#c99700"));
+                                txtWMain2.setText(item.getTalent());
+                                progressWMain2.setMax(100);
+                                progressWMain2.setProgress(100);
+                                layoutWeaponMain2.setBackgroundResource(R.drawable.maxbackground);
+                                layoutWeaponMain2.setVisibility(View.VISIBLE);
                             } else {
                                 layoutWeaponMain2.setVisibility(View.GONE);
+                            }
                             }
                             maxoptionDBAdapter.open();
                             ArrayList<OptionItem> optionItems = maxoptionDBAdapter.fetchOptionItemData("무기 부속성");
@@ -17991,23 +18325,32 @@ public class ShareFragment extends Fragment {
                             if ((int)Math.floor(sub1) >= max_sub1) layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground); //옵션 수치가 최대치보다 크거나 같을 경우 글자색을 주황색으로 변경한다.
                             else layoutWeaponSub.setBackgroundResource(R.drawable.notmaxbackground); //옵션 수치가 최대치보다 작을 경우 글자색을 기본색(흰색)으로 변경한다.
                             if (item.getName().equals("보조 붐스틱")) {
-                                txtWMain1.setTextColor(Color.parseColor("#c99700"));
-                                txtWMain1.setText(item.getTalent());
-                                progressWMain1.setMax(100);
-                                progressWMain1.setProgress(100);
-                                layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
-                            } else {
-                                txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
-                                if (tail_core1.equals("-")) tail_core1 = "";
-                                txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
-                                progressWMain1.setMax((int)(max_core1*100));
+                            txtWMain1.setTextColor(Color.parseColor("#c99700"));
+                            txtWMain1.setText(item.getTalent());
+                            progressWMain1.setMax(100);
+                            progressWMain1.setProgress(100);
+                            layoutWeaponMain1.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWMain1.setTextColor(Color.parseColor("#aaaaaa"));
+                            if (tail_core1.equals("-")) tail_core1 = "";
+                            txtWMain1.setText("+"+formatD(core1)+tail_core1+" "+item_type+" 데미지");
+                            progressWMain1.setMax((int)(max_core1*100));
                         seekWMain1.setMax((int)(max_core1*100));
-                                animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
+                            animationThread[0] = new ItemAnimationThread(progressWMain1, core1, handler);
                     animationThread[0].start();
-                            }
-                            txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
-                            progressWSub.setMax((int)(max_sub1*100));
+                        }
+                        txtWSub.setText("+"+formatD(sub1)+tail_sub1+" "+item_sub1);
+                        progressWSub.setMax((int)(max_sub1*100));
                         seekWSub.setMax((int)(max_sub1*100));
+                        if (item.getName().equals("밀대")) {
+                            txtWSub.setTextColor(Color.parseColor("#c99700"));
+                            txtWSub.setText(item.getTalent());
+                            progressWSub.setMax(100);
+                            progressWSub.setProgress(100);
+                            layoutWeaponSub.setBackgroundResource(R.drawable.maxbackground);
+                        } else {
+                            txtWSub.setTextColor(Color.parseColor("#aaaaaa"));
+                        }
                             animationThread[2] = new ItemAnimationThread(progressWSub, sub1, handler);
                     animationThread[2].start();
                         } else {

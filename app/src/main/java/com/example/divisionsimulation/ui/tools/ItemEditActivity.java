@@ -344,11 +344,15 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView txtContent = talent_view.findViewById(R.id.txtContent);
                     Button btnOK = talent_view.findViewById(R.id.btnOK);
                     Button btnExit = talent_view.findViewById(R.id.btnExit);
+                    TextView txtUndo = talent_view.findViewById(R.id.txtUndo);
+                    TextView txtNext = talent_view.findViewById(R.id.txtNext);
 
                     LinearLayout layoutDark = talent_view.findViewById(R.id.layoutDark);
                     TextView txtDarkMaterial = talent_view.findViewById(R.id.txtDarkMaterial);
 
                     txtName.setText(talentItems.get(position));
+                    txtUndo.setText(name);
+                    txtNext.setText(talentItems.get(position));
 
                     talentDBAdapter.open();
                     txtContent.setText(transformString(talentDBAdapter.findContent(talentItems.get(position))));
@@ -844,6 +848,8 @@ public class ItemEditActivity extends AppCompatActivity {
                     TextView txtEnd = seek_view.findViewById(R.id.txtEnd);
                     Button btnOK = seek_view.findViewById(R.id.btnOK);
                     Button btnExit = seek_view.findViewById(R.id.btnExit);
+                    TextView txtUndo = seek_view.findViewById(R.id.txtUndo);
+                    TextView txtNext = seek_view.findViewById(R.id.txtNext);
 
                     TextView[] txtMaterialName = new TextView[3];
                     TextView[] txtMaterial = new TextView[3];
@@ -925,6 +931,9 @@ public class ItemEditActivity extends AppCompatActivity {
                         seekBar.setProgress(10);
                     }
                     txtEnd.setText(end);
+
+                    txtUndo.setText(name);
+                    txtNext.setText(editItems.get(position).getName());
 
                     changeThumb(seekBar, editItems.get(position).getName());
 
