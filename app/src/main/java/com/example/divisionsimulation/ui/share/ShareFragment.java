@@ -160,8 +160,10 @@ public class ShareFragment extends Fragment {
     private TextView txtSpecial, txtNamed, txtGear, txtBrand, txtAll; //특급, 네임드, 기어, 일반, 전체 갯수 텍스트뷰 생성
     private Button btnMission;
 
-    private RadioGroup rgChange;
+    private RadioGroup rgChange, rgFaction;
     private RadioButton rdoAny, rdoAll;
+
+    private RadioButton[] rdoFaction = new RadioButton[7];
 
     private CircleProgressBar progressSpecial, progressNamed, progressGear, progressBrand; //특급, 네임드, 기어, 브랜드의 백분율을 나타낼 진행바 객체 생성
 
@@ -849,6 +851,12 @@ public class ShareFragment extends Fragment {
         rgChange = root.findViewById(R.id.rgChange);
         rdoAny = root.findViewById(R.id.rdoAny);
         rdoAll = root.findViewById(R.id.rdoAll);
+        rgFaction = root.findViewById(R.id.rgFaction);
+
+        for (int i = 0; i < rdoFaction.length; i++) {
+            int resource = root.getResources().getIdentifier("rdoFaction"+(i+1), "id", getActivity().getPackageName());
+            rdoFaction[i] = root.findViewById(resource);
+        }
 
         FloatingActionButton fab = root.findViewById(R.id.fabDarkzonBackpack);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -1753,6 +1761,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //트루썬 마지막 보스 처치할 경우
                 setExp(25846, 40326, 85542, 101141, 0);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -2774,6 +2783,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //트루썬 마지막 보스 처치할 경우
                 setExp(25846, 40326, 85542, 101141, 0);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -3793,6 +3803,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //트루썬 마지막 보스 처치할 경우
                 setExp(25846, 40326, 85542, 101141, 0);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -5676,6 +5687,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //전설난이도에서 마지막 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 0, 0, 250000);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -6701,6 +6713,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //월 스트리트 미션에서 마지막 보스 제임스 드래고프를 처치했을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(25846, 40326, 85542, 101141, 0);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -7726,6 +7739,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //뉴욕에서 필드 보스를 잡았을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(17846, 34326, 67542, 81141, 0);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -8751,6 +8765,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) { //라이트존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(946, 1926, 4542, 8141, 10114);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -9690,6 +9705,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 setExp(1892, 3852, 9082, 16282, 20228);
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -10630,6 +10646,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 7441, 0, 0);
                 if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -11565,6 +11582,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //다크존에서 적을 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 14882, 0, 0);
                 if (!rdoDiff[2].isChecked()) rdoDiff[2].toggle();
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -13603,6 +13621,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //칠흑의 시간 레이드에서 네임드 보스를 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 0, 121141, 0);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -15501,6 +15520,7 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) { //칠흑의 시간 레이드에서 네임드 보스를 죽였을 경우, 위와 내용이 비슷하므로 설명 생략
                 setExp(0, 0, 0, 121141, 0);
                 if (!rdoDiff[3].isChecked()) rdoDiff[3].toggle();
+                takeMaterial();
                 String item_name, item_type, item_talent = "";
                 String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
                 String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
@@ -18022,9 +18042,9 @@ public class ShareFragment extends Fragment {
                     shdAdapter.downBox();
                     box--;
                     btnLevelBox.setText("현장 숙달 상자\n("+box+")");
-                    String item_name, item_type, item_talent = "";
-                    String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
-                    String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
+                String item_name, item_type, item_talent = "";
+                String item_core1 = "", item_core2 = "", item_sub1 = "", item_sub2 = "", tail_core1 = "", tail_core2 = "", tail_sub1 = "", tail_sub2 = "";
+                String item_core1_type, item_core2_type, item_sub1_type, item_sub2_type;
                     darked = false;
                     exotic = false;
                     boolean weaponed = true;
@@ -19606,6 +19626,106 @@ public class ShareFragment extends Fragment {
                 else layout.setBackgroundResource(R.drawable.notalentbackground);
                 backpackTalentDBAdapter.close();
                 break;
+        }
+    }
+
+    //private String[] material_name = {"총몸부품", "보호용 옷감", "강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄", "다크존 자원", "특급 부품"};
+    //                                      0           1           2        3            4             5           6         7           8             9
+    private void takeMaterial() {
+        String result = "";
+        Cursor csr;
+        int plus = 0;
+        materialDbAdapter.open();
+        csr = materialDbAdapter.fetchAllMaterial();
+        csr.moveToFirst();
+        int cnt = 0;
+        while (!csr.isAfterLast()) {
+            material[cnt] = csr.getInt(2);
+            csr.moveToNext();
+            cnt++;
+        }
+        materialDbAdapter.close();
+        int taked = percent(1, 3);
+        if (taked == 1) {
+            int choice = percent(0, 2);
+            switch (rgFaction.getCheckedRadioButtonId()) {
+                case R.id.rdoFaction2:
+                case R.id.rdoFaction6:
+                    if (choice != 0) {
+                        plus = percent(10, 8);
+                        material[2] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[2], material[2]);
+                        materialDbAdapter.close();
+                        result += material_name[2]+"+"+plus;
+                    } else {
+                        plus = percent(8, 8);
+                        material[6] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[6], material[6]);
+                        materialDbAdapter.close();
+                        result += material_name[6]+"+"+plus;
+                    }
+                    break;
+                case R.id.rdoFaction3:
+                case R.id.rdoFaction7:
+                    if (choice != 0) {
+                        plus = percent(10, 8);
+                        material[3] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[3], material[3]);
+                        materialDbAdapter.close();
+                        result += material_name[3]+"+"+plus;
+                    } else {
+                        plus = percent(8, 8);
+                        material[5] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[5], material[5]);
+                        materialDbAdapter.close();
+                        result += material_name[5]+"+"+plus;
+                    }
+                    break;
+                case R.id.rdoFaction4:
+                    if (choice != 0) {
+                        plus = percent(10, 8);
+                        material[4] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[4], material[4]);
+                        materialDbAdapter.close();
+                        result += material_name[4]+"+"+plus;
+                    } else {
+                        plus = percent(8, 8);
+                        material[7] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[7], material[7]);
+                        materialDbAdapter.close();
+                        result += material_name[7]+"+"+plus;
+                    }
+                    break;
+                case R.id.rdoFaction5:
+                    if (choice != 0) {
+                        plus = percent(10, 8);
+                        int type = percent(2, 3);
+                        material[type] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[type], material[type]);
+                        materialDbAdapter.close();
+                        result += material_name[type]+"+"+plus;
+                    } else {
+                        plus = percent(8, 8);
+                        int type = percent(5, 3);
+                        material[type] += plus;
+                        materialDbAdapter.open();
+                        materialDbAdapter.updateMaterial(material_name[type], material[type]);
+                        materialDbAdapter.close();
+                        result += material_name[type]+"+"+plus;
+                    }
+                    break;
+            }
+            if (rgFaction.getCheckedRadioButtonId() != R.id.rdoFaction1) {
+                result += "를 획득하셨습니다.";
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
