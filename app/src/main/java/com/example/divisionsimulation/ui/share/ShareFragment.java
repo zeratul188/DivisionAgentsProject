@@ -19645,7 +19645,7 @@ public class ShareFragment extends Fragment {
             cnt++;
         }
         materialDbAdapter.close();
-        int taked = percent(1, 3);
+        int taked = percent(1, 2);
         if (taked == 1) {
             int choice = percent(0, 2);
             switch (rgFaction.getCheckedRadioButtonId()) {
@@ -19654,6 +19654,7 @@ public class ShareFragment extends Fragment {
                     if (choice != 0) {
                         plus = percent(10, 8);
                         material[2] += plus;
+                        if (material[2] > 1500) material[2] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[2], material[2]);
                         materialDbAdapter.close();
@@ -19661,6 +19662,7 @@ public class ShareFragment extends Fragment {
                     } else {
                         plus = percent(8, 8);
                         material[6] += plus;
+                        if (material[6] > 1500) material[6] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[6], material[6]);
                         materialDbAdapter.close();
@@ -19672,6 +19674,7 @@ public class ShareFragment extends Fragment {
                     if (choice != 0) {
                         plus = percent(10, 8);
                         material[3] += plus;
+                        if (material[3] > 1500) material[3] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[3], material[3]);
                         materialDbAdapter.close();
@@ -19679,6 +19682,7 @@ public class ShareFragment extends Fragment {
                     } else {
                         plus = percent(8, 8);
                         material[5] += plus;
+                        if (material[5] > 1500) material[5] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[5], material[5]);
                         materialDbAdapter.close();
@@ -19689,6 +19693,7 @@ public class ShareFragment extends Fragment {
                     if (choice != 0) {
                         plus = percent(10, 8);
                         material[4] += plus;
+                        if (material[4] > 1500) material[4] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[4], material[4]);
                         materialDbAdapter.close();
@@ -19707,6 +19712,7 @@ public class ShareFragment extends Fragment {
                         plus = percent(10, 8);
                         int type = percent(2, 3);
                         material[type] += plus;
+                        if (material[type] > 1500) material[type] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[type], material[type]);
                         materialDbAdapter.close();
@@ -19715,6 +19721,7 @@ public class ShareFragment extends Fragment {
                         plus = percent(8, 8);
                         int type = percent(5, 3);
                         material[type] += plus;
+                        if (material[type] > 1500) material[type] = 1500;
                         materialDbAdapter.open();
                         materialDbAdapter.updateMaterial(material_name[type], material[type]);
                         materialDbAdapter.close();

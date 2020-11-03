@@ -57,7 +57,7 @@ import java.nio.channels.FileChannel;
 public class SettingActivity extends AppCompatActivity {
     private Button btnAllReset, btnLibraryReset, btnLibraryMax, btnLevelReset, btnInventoryClear, btnInventorySave, btnInventoryInput;
     private Button btnMaterialReset, btnMaterialMax, btnLibrarySave, btnLibraryLoad, btnSHDSave, btnSHDLoad, btnMaterialSave, btnMaterialLoad;
-    private Button btnAllSave, btnAllLoad, btnLoadoutDelete, btnLoadoutSave, btnLoadoutLoad;
+    private Button btnAllSave, btnAllLoad, btnLoadoutDelete, btnLoadoutSave, btnLoadoutLoad, btnBoxClear;
     private TextView txtWriteRead;
 
     private LibraryDBAdapter libraryDBAdapter;
@@ -128,6 +128,7 @@ public class SettingActivity extends AppCompatActivity {
         btnLoadoutDelete = findViewById(R.id.btnLoadoutDelete);
         btnLoadoutSave = findViewById(R.id.btnLoadoutSave);
         btnLoadoutLoad = findViewById(R.id.btnLoadoutLoad);
+        btnBoxClear = findViewById(R.id.btnBoxClear);
 
         updatePermissionsUI();
 
@@ -169,6 +170,46 @@ public class SettingActivity extends AppCompatActivity {
         if (!state.equals(Environment.MEDIA_MOUNTED)) {
             toast("외부 저장 매체 사용 불가능", false);
         }
+
+        btnBoxClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                TextView txtContent = view.findViewById(R.id.txtContent);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                Button btnOK = view.findViewById(R.id.btnOK);
+
+                btnOK.setText("삭제");
+                txtContent.setText("현장 숙달 상자를 삭제하시겠습니까?");
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        shddbAdapter.open();
+                        shddbAdapter.updateSHD("숙달상자", 0);
+                        shddbAdapter.close();
+                        Toast.makeText(getApplicationContext(), "현장숙달상자가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setView(view);
+
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                alertDialog.show();
+            }
+        });
 
         btnAllReset.setOnClickListener(new View.OnClickListener() {
             @Override

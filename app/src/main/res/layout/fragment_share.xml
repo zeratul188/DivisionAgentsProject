@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
+            android:padding="10dp"
             android:orientation="vertical">
             <ScrollView
                 android:layout_width="match_parent"
@@ -151,6 +152,9 @@
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
+                                    android:text="없음"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:layout_marginRight="10dp"
                                     android:checked="true"
                                     android:gravity="center"/>
@@ -162,6 +166,9 @@
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
+                                    android:text="하이에나"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:layout_marginRight="10dp"
                                     android:gravity="center"/>
                                 <RadioButton
@@ -172,6 +179,9 @@
                                     android:button="@null"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
+                                    android:text="아웃캐스트"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:layout_marginRight="10dp"
                                     android:gravity="center"/>
                                 <RadioButton
@@ -180,6 +190,9 @@
                                     android:layout_height="wrap_content"
                                     android:drawableTop="@drawable/truesuncustom"
                                     android:button="@null"
+                                    android:text="트루썬"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
                                     android:layout_marginRight="10dp"
@@ -190,6 +203,9 @@
                                     android:layout_height="wrap_content"
                                     android:drawableTop="@drawable/blacktuskcustom"
                                     android:button="@null"
+                                    android:text="블랙터스크"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
                                     android:layout_marginRight="10dp"
@@ -200,6 +216,9 @@
                                     android:layout_height="wrap_content"
                                     android:drawableTop="@drawable/rikerscustom"
                                     android:button="@null"
+                                    android:text="라이커"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
                                     android:layout_marginRight="10dp"
@@ -210,6 +229,9 @@
                                     android:layout_height="wrap_content"
                                     android:drawableTop="@drawable/cleanerscustom"
                                     android:button="@null"
+                                    android:text="클리너"
+                                    android:textColor="#f0f0f0"
+                                    android:textSize="12sp"
                                     android:background="@drawable/radiocustom"
                                     android:padding="10dp"
                                     android:gravity="center"/>
@@ -1239,7 +1261,7 @@
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginTop="@dimen/fab_margin"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="80dp"
             android:backgroundTint="#A3440A"
             app:fabSize="normal"
             android:src="@drawable/ic_inbox_black_24dp"/>

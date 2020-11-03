@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SHDActivity extends AppCompatActivity {
     private SHDDBAdapter shdAdapter;
+    private MaterialDbAdapter materialDbAdapter;
 
     private static final int ARRAY_LENGTH = 4;
 
@@ -44,7 +45,11 @@ public class SHDActivity extends AppCompatActivity {
     private ProgressBar[] progressSheld = new ProgressBar[4];
     private ProgressBar[] progressPower = new ProgressBar[4];
     private ProgressBar[] progressAnother = new ProgressBar[4];
-    private TextView[] txtPoint = new TextView[4];
+    private TextView[] txtPoint = new TextView[5];
+
+    private Button[] btnMaterial = new Button[6];
+    private TextView[] txtMaterial = new TextView[6];
+    private String[] material_names = {"강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄"};
 
     private Button btnLevelUp;
 
@@ -71,6 +76,7 @@ public class SHDActivity extends AppCompatActivity {
         setTitle("SHD 레벨");
 
         shdAdapter = new SHDDBAdapter(this);
+        materialDbAdapter = new MaterialDbAdapter(this);
 
         txtSHDLevel = findViewById(R.id.txtSHDLevel);
         txtEXP = findViewById(R.id.txtEXP);
@@ -136,6 +142,84 @@ public class SHDActivity extends AppCompatActivity {
         });
 
         int resource;
+        materialDbAdapter.open();
+        for (int i = 0; i < btnMaterial.length; i++) {
+            resource = getResources().getIdentifier("btnMaterial"+(i+1), "id", getPackageName());
+            btnMaterial[i] = findViewById(resource);
+            resource = getResources().getIdentifier("txtMaterial"+(i+1), "id", getPackageName());
+            txtMaterial[i] = findViewById(resource);
+            txtMaterial[i].setText(Integer.toString(materialDbAdapter.getMaterial(material_names[i])));
+            if (materialDbAdapter.getMaterial(material_names[i]) >= 1500) {
+                txtMaterial[i].setTextColor(Color.parseColor("#FF0000"));
+            } else {
+                txtMaterial[i].setTextColor(Color.parseColor("#F0F0F0"));
+            }
+            final int index = i;
+            btnMaterial[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    View view = getLayoutInflater().inflate(R.layout.builderdialoglayout, null);
+
+                    TextView txtContent = view.findViewById(R.id.txtContent);
+                    Button btnCancel = view.findViewById(R.id.btnCancel);
+                    Button btnOK = view.findViewById(R.id.btnOK);
+
+                    btnOK.setText("선택");
+                    txtContent.setText(material_names[index]+" 재료를 선택하시겠습니까?");
+
+                    btnOK.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                            materialDbAdapter.open();
+                            int material_count = materialDbAdapter.getMaterial(material_names[index]);
+                            if (material_count >= 1500) {
+                                toast("이미 재료가 가득찼습니다.", false);
+                                return;
+                            }
+                            shdAdapter.open();
+                            if (shdAdapter.usePoint("아이템")) {
+                                if (index >= 0 && index < 3) material_count += 50;
+                                else material_count += 30;
+                                if (material_count > 1500) material_count = 1500;
+                                materialDbAdapter.updateMaterial(material_names[index], material_count);
+                                txtMaterial[index].setText(Integer.toString(materialDbAdapter.getMaterial(material_names[index])));
+                                if (materialDbAdapter.getMaterial(material_names[index]) >= 1500) {
+                                    txtMaterial[index].setTextColor(Color.parseColor("#FF0000"));
+                                } else {
+                                    txtMaterial[index].setTextColor(Color.parseColor("#F0F0F0"));
+                                }
+                                materialDbAdapter.close();
+                                toast(material_names[index]+"를 선택하셨습니다.", false);
+                            } else {
+                                toast("사용가능한 포인트가 없습니다.", false);
+                            }
+                            Cursor cursor = shdAdapter.fetchSHD("아이템");
+                            int item_point = cursor.getInt(2);
+                            txtPoint[4].setText(Integer.toString(item_point));
+                            shdAdapter.close();
+                        }
+                    });
+
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    builder = new AlertDialog.Builder(SHDActivity.this);
+                    builder.setView(view);
+
+                    alertDialog = builder.create();
+                    alertDialog.setCancelable(false);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
+                }
+            });
+        }
+        materialDbAdapter.close();
+        txtPoint[4] = findViewById(R.id.txtPoint5);
         for (int i = 0; i < ARRAY_LENGTH; i++) {
             resource = getResources().getIdentifier("layoutAttack"+(i+1), "id", getPackageName());
             layoutAttack[i] = findViewById(resource);
@@ -467,7 +551,8 @@ public class SHDActivity extends AppCompatActivity {
                 if (cursor.getInt(2) == 0) nextOption = "공격";
                 else if (cursor.getInt(2) == 1) nextOption = "방어";
                 else if (cursor.getInt(2) == 2) nextOption = "다용도";
-                else nextOption = "기타";
+                else if (cursor.getInt(2) == 3) nextOption = "기타";
+                else nextOption = "아이템";
             }
             cnt++;
             cursor.moveToNext();
@@ -487,6 +572,9 @@ public class SHDActivity extends AppCompatActivity {
         }
         txtNextAttribute.setText(nextOption);
         progressEXP.setProgress(exp);
+        cursor = shdAdapter.fetchSHD("아이템");
+        int item_point = cursor.getInt(2);
+        txtPoint[4].setText(Integer.toString(item_point));
         shdAdapter.close();
     }
 
