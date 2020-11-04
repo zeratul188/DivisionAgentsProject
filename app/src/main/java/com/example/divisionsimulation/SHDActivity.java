@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class SHDActivity extends AppCompatActivity {
     private SHDDBAdapter shdAdapter;
     private MaterialDbAdapter materialDbAdapter;
@@ -51,7 +53,7 @@ public class SHDActivity extends AppCompatActivity {
     private TextView[] txtMaterial = new TextView[6];
     private String[] material_names = {"강철", "세라믹", "폴리카보네이트", "탄소섬유", "전자부품", "티타늄"};
 
-    private Button btnLevelUp;
+    private FloatingActionButton btnLevelUp;
 
     private int[] attack = new int[4];
     private int[] sheld = new int[4];
